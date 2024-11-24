@@ -70,7 +70,7 @@
     "react-dropzone": "^14.3.5",
     "react-helmet": "^6.1.0",
     "react-modal": "^3.16.1",
-    "react-router-dom": "^6.28.0",
+    "react-router-dom": "^7.0.1",
     "styled-components": "^6.1.13",
     "use-debounce": "^10.0.4",
     "uuid": "^11.0.3",
