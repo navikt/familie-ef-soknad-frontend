@@ -24,6 +24,8 @@ import * as Sentry from '@sentry/browser';
 import Environment from './Environment';
 import SkolepengerApp from './skolepenger/SkolepengerApp';
 import { createRoot } from 'react-dom/client';
+import { PdfKvittering } from './overgangsstønad/Pdfkvittering';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 if (Environment().sentryUrl) {
   Sentry.init({
@@ -36,20 +38,24 @@ if (container == null) {
   throw new Error('Mangler container for appen');
 } else {
   const root = createRoot(container);
+  const queryClient = new QueryClient();
   root.render(
-    <SpråkProvider>
-      <ContextProviders>
-        <Router basename={process.env.PUBLIC_URL}>
-          <ScrollToTop />
-          <Routes>
-            <Route path={'/arbeidssoker/*'} element={<ArbeidssøkerApp />} />
-            <Route path={'/barnetilsyn/*'} element={<BarnetilsynApp />} />
-            <Route path={'/skolepenger/*'} element={<SkolepengerApp />} />
-            <Route path={'*'} element={<App />} />
-          </Routes>
-        </Router>
-      </ContextProviders>
-    </SpråkProvider>
+    <QueryClientProvider client={queryClient}>
+      <SpråkProvider>
+        <ContextProviders>
+          <Router basename={process.env.PUBLIC_URL}>
+            <ScrollToTop />
+            <Routes>
+              <Route path={'/arbeidssoker/*'} element={<ArbeidssøkerApp />} />
+              <Route path={'/barnetilsyn/*'} element={<BarnetilsynApp />} />
+              <Route path={'/skolepenger/*'} element={<SkolepengerApp />} />
+              <Route path={'/pdf-kvittering/*'} element={<PdfKvittering />} />
+              <Route path={'*'} element={<App />} />
+            </Routes>
+          </Router>
+        </ContextProviders>
+      </SpråkProvider>
+    </QueryClientProvider>
   );
 }
 
