@@ -4,10 +4,14 @@ import { IBarn } from '../models/steg/barn';
 
 export const sendInnSøknad = (søknad: object) => {
   return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
+    .post(
+      `${Environment().apiProxyUrl}/api/soknadskvittering/overgangsstonad`,
+      søknad,
+      {
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        withCredentials: true,
+      }
+    )
     .then((response: { data: any }) => {
       return response.data;
     });
