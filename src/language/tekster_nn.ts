@@ -474,7 +474,7 @@ export default {
     'Remember to register the correct address for [0] the National Registry.',
   'barnasbosted.skalBliFolkeregistrert.knapp':
     'Register address at the National Registry',
-  'barnasbosted.medforelder.navn': 'Navn',
+  'barnasbosted.medforelder.navn': 'Namn på den andre forelderen',
   'barnasbosted.medforelder.alder': 'Alder',
   'barnasbosted.medforelder.gjenbrukt':
     'Questions regarding your relationship with the other parent is already answered. Go to the child where the questions were answered in order to change your answers',

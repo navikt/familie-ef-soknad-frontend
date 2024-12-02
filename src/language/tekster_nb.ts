@@ -357,7 +357,7 @@ export default {
   'barnasbosted.feilmelding.adressebeskyttelse':
     'Et eller flere av barna dine, eller annen forelder, er registrert med adressebeskyttelse og digital søknad er ikke tilgjengelig. Du må bruke dette <a href="https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/brev">skjemaet</a> for å søke.',
   'barnasbosted.oppsummering.navn.label': 'Navn på annen forelder',
-  'barnasbosted.medforelder.navn': 'Navn',
+  'barnasbosted.medforelder.navn': 'Navn på den andre forelderen',
   'barnasbosted.medforelder.alder': 'Alder',
   'barnasbosted.medforelder.gjenbrukt':
     'Du har besvart spørsmålene om relasjonen din til den andre forelderen på et annet barn. Siden du har flere barn med samme forelder, trenger du bare å svare på spørsmålene én gang. Hvis du vil endre svarene dine, må du gå tilbake til barnet hvor du svarte på spørsmålene.',

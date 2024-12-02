@@ -370,7 +370,7 @@ export default {
   'barnasbosted.feilmelding.adressebeskyttelse':
     'One or several of your children, or other parent, are registered with address protection and applying electronically is therefore not available. You have to use this <a href="https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/brev">application</a> to apply.',
   'barnasbosted.oppsummering.navn.label': 'Name of the other parent',
-  'barnasbosted.medforelder.navn': 'Name',
+  'barnasbosted.medforelder.navn': 'Name of the other parent',
   'barnasbosted.medforelder.alder': 'Age',
   'barnasbosted.medforelder.gjenbrukt':
     'You have answered the questions regarding your relationship with the other parent for another child. Because you have multiple children with the same parent, you only need to answer the questions once. Go to the child where the questions were answered in order to change your answers.',
