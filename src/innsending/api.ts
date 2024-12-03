@@ -13,6 +13,21 @@ export const sendInnSøknad = (søknad: object) => {
     });
 };
 
+export const sendInnSøknadFamiliePdf = (søknad: object) => {
+  return axios
+    .post(
+      `${Environment().apiProxyUrl}/api/soknadskvittering/overgangsstonad`,
+      søknad,
+      {
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        withCredentials: true,
+      }
+    )
+    .then((response: { data: any }) => {
+      return response.data;
+    });
+};
+
 export const sendInnBarnetilsynSøknad = (søknad: object) => {
   return axios
     .post(`${Environment().apiProxyUrl}/api/soknadbarnetilsyn`, søknad, {
