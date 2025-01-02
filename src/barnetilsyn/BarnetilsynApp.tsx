@@ -10,7 +10,6 @@ import {
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { useToggles } from '../context/TogglesContext';
 import { Barn, PersonData } from '../models/søknad/person';
-import { Helmet } from 'react-helmet';
 import SøknadsdialogBarnetilsyn from './Søknadsdialog';
 import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
@@ -83,11 +82,9 @@ const BarnetilsynApp = () => {
     if (!error) {
       return (
         <>
-          <Helmet>
-            <title>
-              {intl.formatMessage({ id: 'banner.tittel.barnetilsyn' })}
-            </title>
-          </Helmet>
+          <title>
+            {intl.formatMessage({ id: 'banner.tittel.barnetilsyn' })}
+          </title>
 
           <SøknadsdialogBarnetilsyn />
         </>

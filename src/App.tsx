@@ -12,7 +12,6 @@ import {
 import { useSøknad } from './context/SøknadContext';
 import { useToggles } from './context/TogglesContext';
 import { Barn, PersonData } from './models/søknad/person';
-import { Helmet } from 'react-helmet';
 import LocaleTekst from './language/LocaleTekst';
 import { useLokalIntlContext } from './context/LokalIntlContext';
 import { Alert, Loader } from '@navikt/ds-react';
@@ -67,11 +66,9 @@ const App = () => {
     if (!error) {
       return (
         <>
-          <Helmet>
-            <title>
-              {intl.formatMessage({ id: 'banner.tittel.overgangsstønad' })}
-            </title>
-          </Helmet>
+          <title>
+            {intl.formatMessage({ id: 'banner.tittel.overgangsstønad' })}
+          </title>
 
           {toggles[ToggleName.feilsituasjon] && (
             <Alert size="small" variant="error">

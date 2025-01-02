@@ -20,7 +20,7 @@ import {
 import { ISøknad as SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { ISøknad as SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 
-const scrollTilRef = (ref: RefObject<HTMLDivElement>) => {
+const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   if (!ref || !ref.current) return;
   window.scrollTo({ top: ref.current!.offsetTop, left: 0, behavior: 'smooth' });
 };
