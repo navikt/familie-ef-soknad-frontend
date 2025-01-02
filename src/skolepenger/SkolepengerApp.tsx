@@ -10,7 +10,6 @@ import {
 import { useSkolepengerSøknad } from './SkolepengerContext';
 import { useToggles } from '../context/TogglesContext';
 import { Barn, PersonData } from '../models/søknad/person';
-import { Helmet } from 'react-helmet';
 import SøknadsdialogSkolepenger from './Søknadsdialog';
 import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
@@ -64,9 +63,7 @@ const SkolepengerApp = () => {
     if (!error) {
       return (
         <>
-          <Helmet>
-            <title>{hentTekst('skolepenger.sidetittel', intl)}</title>
-          </Helmet>
+          <title>{hentTekst('skolepenger.sidetittel', intl)}</title>
 
           <SøknadsdialogSkolepenger />
         </>
