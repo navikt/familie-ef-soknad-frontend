@@ -56,17 +56,13 @@ const SendSøknadKnapper: FC = () => {
     venter: false,
   });
 
-  const skalViseNyKnapp = toggles[ToggleName.visNyInnsendingsknapp];
-
-  const sendSøknadBrukFamiliePdf = async (
-    brukFamiliePdf: boolean = false,
-    søknadMedFiltrerteBarn: ISøknad
-  ) => {
+  const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
     try {
-      if (brukFamiliePdf) {
-        await sendInnSkolepengerSøknadFamiliePdf(søknadMedFiltrerteBarn);
-      }
-      const kvittering = await sendInnSkolepengerSøknad(søknadMedFiltrerteBarn);
+      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
+
+      const kvittering = brukModernisertFlyt
+        ? await sendInnSkolepengerSøknadFamiliePdf(søknadMedFiltrerteBarn)
+        : await sendInnSkolepengerSøknad(søknadMedFiltrerteBarn);
 
       settinnsendingState({
         ...innsendingState,
@@ -91,7 +87,7 @@ const SendSøknadKnapper: FC = () => {
     }
   };
 
-  const sendSøknad = (søknad: ISøknad, brukFamiliePdf?: boolean) => {
+  const sendSøknad = (søknad: ISøknad) => {
     const barnMedEntenIdentEllerFødselsdato = mapBarnUtenBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
@@ -112,7 +108,7 @@ const SendSøknadKnapper: FC = () => {
     };
 
     settinnsendingState({ ...innsendingState, venter: true });
-    sendSøknadBrukFamiliePdf(brukFamiliePdf, søknadMedFiltrerteBarn);
+    sendInnSøknad(søknadMedFiltrerteBarn);
   };
 
   return (
@@ -168,20 +164,6 @@ const SendSøknadKnapper: FC = () => {
             <LocaleTekst tekst={'knapp.avbryt'} />
           </Button>
         </StyledKnapper>
-        {skalViseNyKnapp && (
-          <div style={{ marginLeft: '20px' }}>
-            <Button
-              className={'neste'}
-              variant="secondary"
-              loading={innsendingState.venter}
-              onClick={() =>
-                !innsendingState.venter && sendSøknad(søknad, skalViseNyKnapp)
-              }
-            >
-              <LocaleTekst tekst={'Familie pdf - Send søknad '} />
-            </Button>
-          </div>
-        )}
       </SeksjonGruppe>
     </>
   );

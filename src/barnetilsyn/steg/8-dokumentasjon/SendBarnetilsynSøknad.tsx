@@ -68,16 +68,13 @@ const SendSøknadKnapper: FC = () => {
     return barneliste.filter((barn) => barn.skalHaBarnepass?.verdi === true);
   };
 
-  const skalViseNyKnapp = toggles[ToggleName.visNyInnsendingsknapp];
-  const sendSøknadBrukFamiliePdf = async (
-    brukFamiliePdf: boolean = false,
-    søknadMedFiltrerteBarn: ISøknad
-  ) => {
+  const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
     try {
-      if (brukFamiliePdf) {
-        await sendInnBarnetilsynSøknadFamiliePdf(søknadMedFiltrerteBarn);
-      }
-      const kvittering = await sendInnBarnetilsynSøknad(søknadMedFiltrerteBarn);
+      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
+
+      const kvittering = brukModernisertFlyt
+        ? await sendInnBarnetilsynSøknadFamiliePdf(søknadMedFiltrerteBarn)
+        : await sendInnBarnetilsynSøknad(søknadMedFiltrerteBarn);
 
       settinnsendingState({
         ...innsendingState,
@@ -102,7 +99,7 @@ const SendSøknadKnapper: FC = () => {
     }
   };
 
-  const sendSøknad = (søknad: ISøknad, brukFamiliePdf?: boolean) => {
+  const sendSøknad = (søknad: ISøknad) => {
     const barnMedEntenIdentEllerFødselsdato = filtrerBarnSomSkalHaBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
@@ -122,7 +119,7 @@ const SendSøknadKnapper: FC = () => {
       dokumentasjonsbehov: dokumentasjonsbehov,
     };
     settinnsendingState({ ...innsendingState, venter: true });
-    sendSøknadBrukFamiliePdf(brukFamiliePdf, søknadMedFiltrerteBarn);
+    sendInnSøknad(søknadMedFiltrerteBarn);
   };
 
   return (
@@ -178,20 +175,6 @@ const SendSøknadKnapper: FC = () => {
             <LocaleTekst tekst={'knapp.avbryt'} />
           </Button>
         </StyledKnapper>
-        {skalViseNyKnapp && (
-          <div style={{ marginLeft: '20px' }}>
-            <Button
-              className={'neste'}
-              variant="secondary"
-              loading={innsendingState.venter}
-              onClick={() =>
-                !innsendingState.venter && sendSøknad(søknad, skalViseNyKnapp)
-              }
-            >
-              <LocaleTekst tekst={'Familie pdf - Send søknad '} />
-            </Button>
-          </div>
-        )}
       </SeksjonGruppe>
     </>
   );

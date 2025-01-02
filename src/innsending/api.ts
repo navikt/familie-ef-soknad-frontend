@@ -2,7 +2,7 @@ import axios from 'axios';
 import Environment from '../Environment';
 import { IBarn } from '../models/steg/barn';
 
-export const sendInnSøknad = (søknad: object) => {
+export const sendInnOvergangstønadSøknad = (søknad: object) => {
   return axios
     .post(`${Environment().apiProxyUrl}/api/soknad`, søknad, {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
