@@ -129,5 +129,8 @@
     "webpack-cli": "^6.0.1",
     "webpack-dev-middleware": "^7.4.2",
     "webpack-hot-middleware": "^2.26.1"
+  },
+  "resolutions": {
+    "react": "^19.x"
   }
 }

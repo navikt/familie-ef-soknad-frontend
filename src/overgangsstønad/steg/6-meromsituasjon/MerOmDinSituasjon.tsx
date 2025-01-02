@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import CheckboxSpørsmål from '../../../components/spørsmål/CheckboxSpørsmål';
 import HarSøkerSagtOppEllerRedusertStilling from './HarSøkerSagtOppEllerRedusertStilling';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
@@ -91,7 +91,7 @@ const MerOmDinSituasjon: React.FC = () => {
     'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del3',
     intl
   );
-  const hjelpetekst: JSX.Element = (
+  const hjelpetekst: ReactNode = (
     <StyledHjelpetekst>
       <BodyShort>{hjelpetekstFørsteAvsnitt}</BodyShort>
       <BodyShort>{hjelpetekstAndreAvsnitt}</BodyShort>

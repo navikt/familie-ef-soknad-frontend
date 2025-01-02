@@ -11,7 +11,7 @@ import {
 import { setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 
 export const usePrevious = (value: any) => {
-  const ref = useRef();
+  const ref = useRef(null);
   useEffect(() => {
     ref.current = value;
   });
