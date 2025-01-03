@@ -48,7 +48,6 @@
     "@types/react-dom": "^19.0.2",
     "@amplitude/analytics-browser": "2.11.9",
     "axios": "^1.7.9",
-    "classnames": "^2.5.1",
     "constate": "^3.3.2",
     "date-fns": "^4.1.0",
     "form-data": "^4.0.1",
