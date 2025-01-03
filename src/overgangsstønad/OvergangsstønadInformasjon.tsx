@@ -1,5 +1,4 @@
 import LocaleTekst from '../language/LocaleTekst';
-import { isIE } from 'react-device-detect';
 import { DisclaimerBoks } from '../components/forside/DisclaimerBoks';
 import { Tekst } from '../components/forside/Tekst';
 import { Seksjon } from '../components/forside/Seksjon';
@@ -58,14 +57,12 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <Tekst tekst="forside.overgangsstønad.manglerDuDokumentasjon" />
       </Seksjon>
 
-      {!isIE && (
-        <DisclaimerBoks
-          navn={person.søker.forkortetNavn}
-          tekst={'forside.overgangsstønad.disclaimerTekst'}
-          harBekreftet={harBekreftet}
-          settBekreftelse={settBekreftelse}
-        />
-      )}
+      <DisclaimerBoks
+        navn={person.søker.forkortetNavn}
+        tekst={'forside.overgangsstønad.disclaimerTekst'}
+        harBekreftet={harBekreftet}
+        settBekreftelse={settBekreftelse}
+      />
 
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
     </>

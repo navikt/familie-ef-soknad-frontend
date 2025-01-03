@@ -56,7 +56,6 @@
     "iso-datestring-validator": "^2.2.2",
     "nav-faker": "^3.2.4",
     "react": "^19.0.0",
-    "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.5",
     "react-router-dom": "^7.0.2",

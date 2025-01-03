@@ -14,7 +14,6 @@ import { DisclaimerBoks } from '../components/forside/DisclaimerBoks';
 import { Seksjon } from '../components/forside/Seksjon';
 import { Overskrift } from '../components/forside/Overskrift';
 import { Tekst } from '../components/forside/Tekst';
-import { isIE } from 'react-device-detect';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
 
 const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
@@ -61,14 +60,12 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
             />
           </Seksjon>
 
-          {!isIE && (
-            <DisclaimerBoks
-              navn={visningsnavn}
-              tekst={'forside.overgangsstønad.disclaimerTekst'}
-              harBekreftet={skjema.harBekreftet}
-              settBekreftelse={settBekreftelse}
-            />
-          )}
+          <DisclaimerBoks
+            navn={visningsnavn}
+            tekst={'forside.overgangsstønad.disclaimerTekst'}
+            harBekreftet={skjema.harBekreftet}
+            settBekreftelse={settBekreftelse}
+          />
 
           {skjema.harBekreftet && (
             <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />
