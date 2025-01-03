@@ -1,9 +1,7 @@
 import { Alert, Box, Heading } from '@navikt/ds-react';
 import React from 'react';
-import { isIE } from 'react-device-detect';
 import styled from 'styled-components';
 import Environment from '../Environment';
-import { AlertIE } from '../components/forside/AlertIE';
 import { AlertUnderAtten } from '../components/forside/AlertUnderAtten';
 import FortsettSøknad from '../components/forside/FortsettSøknad';
 import { VeilederBoks } from '../components/forside/VeilederBoks';
@@ -70,8 +68,6 @@ const Forside: React.FC = () => {
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}
-
-          {isIE && <AlertIE />}
 
           <Heading level="1" size="xlarge">
             <LocaleTekst tekst={'barnetilsyn.sidetittel'} />

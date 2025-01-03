@@ -3,7 +3,6 @@ import { usePersonContext } from '../context/PersonContext';
 import { useSøknad } from '../context/SøknadContext';
 import FortsettSøknad from '../components/forside/FortsettSøknad';
 import Environment from '../Environment';
-import { isIE } from 'react-device-detect';
 import { logSidevisningOvergangsstonad } from '../utils/amplitude';
 import LocaleTekst from '../language/LocaleTekst';
 import { useMount, useSpråkValg } from '../utils/hooks';
@@ -11,7 +10,6 @@ import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { Heading, Box } from '@navikt/ds-react';
 import { OvergangsstønadInformasjon } from './OvergangsstønadInformasjon';
-import { AlertIE } from '../components/forside/AlertIE';
 import { AlertUnderAtten } from '../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../components/forside/VeilederBoks';
 
@@ -62,8 +60,6 @@ const Forside: React.FC = () => {
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}
-
-          {isIE && <AlertIE />}
 
           <Heading level="1" size="xlarge">
             <LocaleTekst tekst="banner.tittel.overgangsstønad" />

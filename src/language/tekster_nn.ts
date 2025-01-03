@@ -117,8 +117,6 @@ export default {
     'You have an ongoing application form. Would you like to continue applying on this one or begin a new one?',
   'side.fortsettSøknad.knapp.startPåNytt': 'Start over',
   'side.fortsettSøknad.knapp.fortsett': 'Continue ongoing application',
-  'side.alert.plsnoIE':
-    'The application form is not compatible with Internet Explorer. Please use a different browser scuh as Google Chrome, Microsoft Edge, Safari or Mozilla Firefox.',
 
   'person.navn': 'Name',
   'person.feilmelding.navn': 'Du må fylle ut navnet før du går videre',

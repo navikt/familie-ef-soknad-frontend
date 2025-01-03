@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react';
 import { Radio } from '@navikt/ds-react';
-import classnames from 'classnames';
 import styled from 'styled-components';
 import {
   ABlue100,
@@ -65,10 +64,7 @@ const RadioPanelCustom: React.FC<Properties> = ({
       name={name}
       checked={checked}
       onChange={onChange}
-      className={classnames('radio-panel', {
-        active: checked,
-        'non-active': !checked,
-      })}
+      className={checked ? 'radio-panel active' : 'radio-panel non-active'}
     >
       {children}
     </StyledRadio>

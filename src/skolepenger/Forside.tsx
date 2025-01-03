@@ -9,10 +9,8 @@ import { useMount, useSpråkValg } from '../utils/hooks';
 import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { Alert, Heading, Box } from '@navikt/ds-react';
-import { isIE } from 'react-device-detect';
 import styled from 'styled-components';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../utils/dato';
-import { AlertIE } from '../components/forside/AlertIE';
 import { AlertUnderAtten } from '../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
@@ -69,8 +67,6 @@ const Forside: React.FC = () => {
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}
-
-          {isIE && <AlertIE />}
 
           <Heading level="1" size="xlarge">
             <LocaleTekst tekst={'skolepenger.overskrift'} />

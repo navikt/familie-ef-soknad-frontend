@@ -9,7 +9,6 @@ import {
   hentBarnetsNavnEllerBeskrivelse,
 } from '../../../utils/barn';
 import { hentUid } from '../../../utils/autentiseringogvalidering/uuid';
-import { cloneDeep } from 'lodash';
 import RadioPanelCustom from '../../../components/panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
@@ -57,7 +56,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
     detAndreBarnet: IBarn
   ) => {
     settBarnHarSammeForelder(true);
-    const oppdatertForelder = cloneDeep(detAndreBarnet.forelder);
+    const oppdatertForelder = structuredClone(detAndreBarnet.forelder);
 
     oppdaterAnnenForelder(detAndreBarnet.id);
 

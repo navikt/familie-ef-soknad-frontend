@@ -32,13 +32,6 @@ TOKENX_DOKUMENT=...
 2. Kjør `mvn clean install` i begge prosjektene
 2. Kjør opp appene lokalt ved å kjøre familie-dokument din `DevLauncher` og familie-ef-soknad-api sin `ApplicationLocalLauncher` 
 
-## Kjør testcafe lokalt
-1. Kjør `familie-ef-soknad-api` lokalt
-2. Kjør søknaden lokalt med `npm run start`
-3. Åpne en ny terminal og kjør `testcafe chrome test/test.js --skip-js-errors --live`
-
-Hvis testcafe ikke er installert, kjør en `npm install` ev. installer testcafe globalt hos deg `npm install -g testcafe`
-
 ## Testing
 Appen benytter [vitest](https://vitest.dev/) til enhetstesting. Legg gjerne til nye tester etter oppdateringer av appen.
 For å kjøre opp tester lokalt kan man kjøre `npm run test`. For å kjøre opp testene i interaktiv modus kan man kjøre `npm run vitest`.
