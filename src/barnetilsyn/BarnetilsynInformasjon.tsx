@@ -1,5 +1,4 @@
 import LocaleTekst from '../language/LocaleTekst';
-import { isIE } from 'react-device-detect';
 import { DisclaimerBoks } from '../components/forside/DisclaimerBoks';
 import { Tekst } from '../components/forside/Tekst';
 import { Seksjon } from '../components/forside/Seksjon';
@@ -110,14 +109,12 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <Tekst tekst="forside.barnetilsyn.slikSøkerDu4" />
       </Seksjon>
 
-      {!isIE && (
-        <DisclaimerBoks
-          navn={person.søker.forkortetNavn}
-          tekst={'forside.barnetilsyn.disclaimerTekst'}
-          harBekreftet={harBekreftet}
-          settBekreftelse={settBekreftelse}
-        />
-      )}
+      <DisclaimerBoks
+        navn={person.søker.forkortetNavn}
+        tekst={'forside.barnetilsyn.disclaimerTekst'}
+        harBekreftet={harBekreftet}
+        settBekreftelse={settBekreftelse}
+      />
       {harBekreftet && (
         <KnappLocaleTekstOgNavigate
           nesteSide={kanGjenbrukeForrigeSøknad ? gjenbrukSide : nesteSide}

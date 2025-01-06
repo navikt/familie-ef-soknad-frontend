@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react';
 import { Checkbox } from '@navikt/ds-react';
-import classnames from 'classnames';
 import styled from 'styled-components';
 import {
   ABlue100,
@@ -64,10 +63,9 @@ const CheckboxPanelCustom: React.FC<Properties> = ({
       value={value}
       name={name}
       onChange={onChange}
-      className={classnames('checkbox-panel', {
-        active: checked,
-        'non-active': !checked,
-      })}
+      className={
+        checked ? 'checkbox-panel active' : 'checkbox-panel non-active'
+      }
     >
       {children}
     </StyledCheckbox>

@@ -2,7 +2,6 @@ import React from 'react';
 import { InformasjonProps } from '../components/forside/typer';
 import { hentPath } from '../utils/routing';
 import { RoutesSkolepenger, ERouteSkolepenger } from './routing/routes';
-import { isIE } from 'react-device-detect';
 import { DisclaimerBoks } from '../components/forside/DisclaimerBoks';
 import { Overskrift } from '../components/forside/Overskrift';
 import { Seksjon } from '../components/forside/Seksjon';
@@ -53,14 +52,12 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <Tekst tekst="forside.skolepenger.manglerDuDokumentasjon" />
       </Seksjon>
 
-      {!isIE && (
-        <DisclaimerBoks
-          navn={person.søker.forkortetNavn}
-          tekst={'forside.skolepenger.disclaimerTekst'}
-          harBekreftet={harBekreftet}
-          settBekreftelse={settBekreftelse}
-        />
-      )}
+      <DisclaimerBoks
+        navn={person.søker.forkortetNavn}
+        tekst={'forside.skolepenger.disclaimerTekst'}
+        harBekreftet={harBekreftet}
+        settBekreftelse={settBekreftelse}
+      />
 
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
     </>
