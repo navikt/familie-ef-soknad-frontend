@@ -114,7 +114,7 @@ export const sivilstatusSchema = object({
   }).default(undefined),
 });
 
-const identErGyldig = (ident: string): boolean =>
+export const identErGyldig = (ident: string): boolean =>
   fnrValidator(ident).status === 'valid' ||
   dnrValidator(ident).status === 'valid';
 

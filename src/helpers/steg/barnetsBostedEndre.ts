@@ -1,4 +1,3 @@
-import { erGyldigFødselsnummer } from 'nav-faker/dist/personidentifikator/helpers/fodselsnummer-utils';
 import { erGyldigDato } from '../../utils/dato';
 import { IBarn } from '../../models/steg/barn';
 import {
@@ -12,9 +11,10 @@ import {
   stringErNullEllerTom,
   stringHarVerdiOgErIkkeTom,
 } from '../../utils/typer';
+import { identErGyldig } from '../../utils/validering/validering';
 
 export const erIdentUtfyltOgGyldig = (ident?: string): boolean =>
-  !!ident && erGyldigFødselsnummer(ident);
+  !!ident && identErGyldig(ident);
 
 export const erFødselsdatoUtfyltOgGyldigEllerTomtFelt = (
   fødselsdato?: string
