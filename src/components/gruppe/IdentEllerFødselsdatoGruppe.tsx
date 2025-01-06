@@ -4,9 +4,9 @@ import { hentTekst } from '../../utils/søknad';
 import KomponentGruppe from './KomponentGruppe';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
-import { dnr as dnrValidator, fnr as fnrValidator } from '@navikt/fnrvalidator';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
+import { identErGyldig } from '../../utils/validering/validering';
 
 interface Props {
   identLabel: string;
@@ -38,10 +38,6 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   const intl = useLokalIntlContext();
 
   const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
-
-  const identErGyldig = (ident: string): boolean =>
-    fnrValidator(ident).status === 'valid' ||
-    dnrValidator(ident).status === 'valid';
 
   return (
     <>
