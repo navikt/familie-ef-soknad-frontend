@@ -15,7 +15,6 @@ import { IDokumentasjon } from '../../models/steg/dokumentasjon';
 import { dagensDatoMedTidspunktStreng } from '../../utils/dato';
 import { logFeilFilopplasting } from '../../utils/amplitude';
 import { getFeilmelding } from '../../utils/feil';
-import FormData from 'form-data';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
