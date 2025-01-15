@@ -15,7 +15,7 @@ export const sendInnSkjema = async (skjema: object) => {
 
 export const sendInnArbeidsøkerSkjemaFamiliePdf = async (skjema: object) => {
   const response = await axios.post(
-    `${Environment().apiProxyUrl}/api/søknadskvittering/arbeidssoker`,
+    `${Environment().apiProxyUrl}/api/soknadskvittering/arbeidssoker`,
     skjema,
     {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
