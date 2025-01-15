@@ -12,7 +12,10 @@ import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../utils/visning';
 import { IArbeidssøker } from '../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../components/knapper/LenkeMedIkon';
-import { sendInnSkjema } from '../innsending/api';
+import {
+  sendInnArbeidsøkerSkjemaFamiliePdf,
+  sendInnSkjema,
+} from '../innsending/api';
 import { IStatus } from '../innsending/typer';
 import LocaleTekst from '../../language/LocaleTekst';
 import SeksjonGruppe from '../../components/gruppe/SeksjonGruppe';
@@ -28,6 +31,8 @@ import { logSidevisningArbeidssokerskjema } from '../../utils/amplitude';
 import { useMount } from '../../utils/hooks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 interface Innsending {
   status: IStatus;
@@ -37,6 +42,7 @@ interface Innsending {
 
 const Oppsummering: React.FC = () => {
   const location = useLocation();
+  const { toggles } = useToggles();
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
   const { skjema, settSkjema } = useSkjema();
@@ -57,32 +63,40 @@ const Oppsummering: React.FC = () => {
 
   useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
+  const sendInnArbeidsøkerSkjema = async (
+    mappetSkjema: Record<string, object>
+  ) => {
+    try {
+      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
+      const kvittering = brukModernisertFlyt
+        ? await sendInnArbeidsøkerSkjemaFamiliePdf(mappetSkjema)
+        : await sendInnSkjema(mappetSkjema);
+
+      settinnsendingState({
+        ...innsendingState,
+        status: IStatus.SUKSESS,
+        melding: `Vi har kontakt: ${kvittering.text}`,
+        venter: false,
+      });
+      settSkjema({
+        ...skjema,
+        innsendingsdato: parseISO(kvittering.mottattDato),
+      });
+      navigate(nesteRoute.path);
+    } catch (e) {
+      settinnsendingState({
+        ...innsendingState,
+        status: IStatus.FEILET,
+        melding: `Noe gikk galt: ${e}`,
+        venter: false,
+      });
+    }
+  };
+
   const sendSkjema = (arbeidssøker: IArbeidssøker) => {
     const mappetSkjema = mapDataTilLabelOgVerdiTyper(arbeidssøker);
-
     settinnsendingState({ ...innsendingState, venter: true });
-    sendInnSkjema(mappetSkjema)
-      .then((kvittering) => {
-        settinnsendingState({
-          ...innsendingState,
-          status: IStatus.SUKSESS,
-          melding: `Vi har kontakt: ${kvittering.text}`,
-          venter: false,
-        });
-        settSkjema({
-          ...skjema,
-          innsendingsdato: parseISO(kvittering.mottattDato),
-        });
-        navigate(nesteRoute.path);
-      })
-      .catch((e) =>
-        settinnsendingState({
-          ...innsendingState,
-          status: IStatus.FEILET,
-          melding: `Noe gikk galt: ${e}`,
-          venter: false,
-        })
-      );
+    sendInnArbeidsøkerSkjema(mappetSkjema);
   };
 
   return (
