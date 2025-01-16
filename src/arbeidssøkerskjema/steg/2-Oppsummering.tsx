@@ -67,7 +67,10 @@ const Oppsummering: React.FC = () => {
     mappetSkjema: Record<string, object>
   ) => {
     try {
-      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
+      console.log('mappetSkjema', mappetSkjema);
+
+      const brukModernisertFlyt =
+        toggles[ToggleName.visNyInnsendingsknapp] || true;
       const kvittering = brukModernisertFlyt
         ? await sendInnArbeidsøkerSkjemaFamiliePdf(mappetSkjema)
         : await sendInnSkjema(mappetSkjema);
@@ -94,6 +97,8 @@ const Oppsummering: React.FC = () => {
   };
 
   const sendSkjema = (arbeidssøker: IArbeidssøker) => {
+    console.log('send skjema');
+
     const mappetSkjema = mapDataTilLabelOgVerdiTyper(arbeidssøker);
     settinnsendingState({ ...innsendingState, venter: true });
     sendInnArbeidsøkerSkjema(mappetSkjema);
