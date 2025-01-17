@@ -12,10 +12,7 @@ import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../utils/visning';
 import { IArbeidssøker } from '../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../components/knapper/LenkeMedIkon';
-import {
-  sendInnArbeidsøkerSkjemaFamiliePdf,
-  sendInnSkjema,
-} from '../innsending/api';
+import { sendInnSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
 import LocaleTekst from '../../language/LocaleTekst';
 import SeksjonGruppe from '../../components/gruppe/SeksjonGruppe';
@@ -66,11 +63,10 @@ const Oppsummering: React.FC = () => {
   const sendInnArbeidsøkerSkjema = async (
     mappetSkjema: Record<string, object>
   ) => {
+    const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
     try {
-      const brukModernisertFlyt =
-        toggles[ToggleName.visNyInnsendingsknapp] || true;
       const kvittering = brukModernisertFlyt
-        ? await sendInnArbeidsøkerSkjemaFamiliePdf(mappetSkjema)
+        ? await sendInnArbeidsøkerSkjema(mappetSkjema)
         : await sendInnSkjema(mappetSkjema);
 
       settinnsendingState({
