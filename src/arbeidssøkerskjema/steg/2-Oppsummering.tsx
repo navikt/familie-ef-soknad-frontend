@@ -12,7 +12,7 @@ import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../utils/visning';
 import { IArbeidssøker } from '../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../components/knapper/LenkeMedIkon';
-import { sendInnSkjema } from '../innsending/api';
+import { sendInnArbeidssøkerSkjema, sendInnSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
 import LocaleTekst from '../../language/LocaleTekst';
 import SeksjonGruppe from '../../components/gruppe/SeksjonGruppe';
@@ -60,13 +60,13 @@ const Oppsummering: React.FC = () => {
 
   useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
-  const sendInnArbeidsøkerSkjema = async (
+  const sendInnArbeidsøkerSkjemaOgNavigerVidere = async (
     mappetSkjema: Record<string, object>
   ) => {
     const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
     try {
       const kvittering = brukModernisertFlyt
-        ? await sendInnArbeidsøkerSkjema(mappetSkjema)
+        ? await sendInnArbeidssøkerSkjema(mappetSkjema)
         : await sendInnSkjema(mappetSkjema);
 
       settinnsendingState({
@@ -93,7 +93,7 @@ const Oppsummering: React.FC = () => {
   const sendSkjema = (arbeidssøker: IArbeidssøker) => {
     const mappetSkjema = mapDataTilLabelOgVerdiTyper(arbeidssøker);
     settinnsendingState({ ...innsendingState, venter: true });
-    sendInnArbeidsøkerSkjema(mappetSkjema);
+    sendInnArbeidsøkerSkjemaOgNavigerVidere(mappetSkjema);
   };
 
   return (
