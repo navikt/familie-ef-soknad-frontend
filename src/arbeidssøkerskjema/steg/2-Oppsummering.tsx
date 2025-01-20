@@ -63,8 +63,8 @@ const Oppsummering: React.FC = () => {
   const sendInnArbeidsøkerSkjemaOgNavigerVidere = async (
     mappetSkjema: Record<string, object>
   ) => {
-    const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
     try {
+      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
       const kvittering = brukModernisertFlyt
         ? await sendInnArbeidssøkerSkjema(mappetSkjema)
         : await sendInnSkjema(mappetSkjema);
