@@ -60,11 +60,11 @@ const Oppsummering: React.FC = () => {
 
   useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
-  const sendInnArbeidsøkerSkjemaOgNavigerVidere = async (
+  const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (
     mappetSkjema: Record<string, object>
   ) => {
+    const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
     try {
-      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
       const kvittering = brukModernisertFlyt
         ? await sendInnArbeidssøkerSkjema(mappetSkjema)
         : await sendInnSkjema(mappetSkjema);
@@ -93,7 +93,7 @@ const Oppsummering: React.FC = () => {
   const sendSkjema = (arbeidssøker: IArbeidssøker) => {
     const mappetSkjema = mapDataTilLabelOgVerdiTyper(arbeidssøker);
     settinnsendingState({ ...innsendingState, venter: true });
-    sendInnArbeidsøkerSkjemaOgNavigerVidere(mappetSkjema);
+    sendInnArbeidssøkerSkjemaOgNavigerVidere(mappetSkjema);
   };
 
   return (
