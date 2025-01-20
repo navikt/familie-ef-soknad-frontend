@@ -13,6 +13,8 @@ import Kvittering from './steg/3-Kvittering';
 import { SkjemaProvider } from './SkjemaContext';
 import RedirectArbeidssoker from './routes/RedirectArbeidssoker';
 import { Loader } from '@navikt/ds-react';
+import { useToggles } from '../context/TogglesContext';
+import hentToggles from '../toggles/api';
 
 const App = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -25,8 +27,15 @@ const App = () => {
     ident,
     visningsnavn,
   };
+  const { settToggles } = useToggles();
 
   autentiseringsInterceptor();
+
+  const fetchToggles = () => {
+    return hentToggles(settToggles).catch(() => {
+      settError(true);
+    });
+  };
 
   useEffect(() => {
     verifiserAtBrukerErAutentisert(settAutentisering);
@@ -39,6 +48,9 @@ const App = () => {
           .then((response) => {
             settIdent(response.ident);
             settVisningsnavn(response.visningsnavn);
+          })
+          .then(() => {
+            fetchToggles();
 
             settError(false);
             settFeilmelding('');

@@ -65,8 +65,6 @@ const Oppsummering: React.FC = () => {
   ) => {
     try {
       const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
-      console.log('brukModernisertFlyt:', brukModernisertFlyt);
-      console.log('toggles:', toggles);
       const kvittering = brukModernisertFlyt
         ? await sendInnArbeidssøkerSkjema(mappetSkjema)
         : await sendInnSkjema(mappetSkjema);
