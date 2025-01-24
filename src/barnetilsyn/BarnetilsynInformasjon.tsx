@@ -6,11 +6,12 @@ import { Overskrift } from '../components/forside/Overskrift';
 import { InformasjonProps } from '../components/forside/typer';
 import { hentPath } from '../utils/routing';
 import {
-  RoutesBarnetilsyn,
   ERouteBarnetilsyn,
+  RoutesBarnetilsyn,
 } from './routing/routesBarnetilsyn';
 import {
   hentDataFraForrigeBarnetilsynSøknad,
+  hentDataFraForrigeBarnetilsynSøknadKvittering,
   hentTekst,
 } from '../utils/søknad';
 import React, { useContext, useEffect, useState } from 'react';
@@ -19,6 +20,8 @@ import { useSpråkContext } from '../context/SpråkContext';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
 import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
+import { useToggles } from '../context/TogglesContext';
+import { ToggleName } from '../models/søknad/toggles';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -30,6 +33,8 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   const { settSkalGjenbrukeSøknad } = useContext(GjenbrukContext);
   const [locale] = useSpråkContext();
   const intl = useLokalIntlContext();
+  const { toggles } = useToggles();
+  const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
 
   const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (
     forrigeSøknad?: ForrigeSøknad
@@ -44,7 +49,9 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   };
 
   const hentOgSjekkForrigeSøknad = async () => {
-    const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad();
+    const forrigeSøknad = brukModernisertFlyt
+      ? await hentDataFraForrigeBarnetilsynSøknadKvittering()
+      : await hentDataFraForrigeBarnetilsynSøknad();
 
     if (finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt(forrigeSøknad)) {
       settKanGjenbrukeForrigeSøknad(true);

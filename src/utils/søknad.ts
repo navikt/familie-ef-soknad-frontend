@@ -73,6 +73,15 @@ export const hentDataFraForrigeBarnetilsynSøknad =
     return response.data;
   };
 
+export const hentDataFraForrigeBarnetilsynSøknadKvittering =
+  async (): Promise<ForrigeSøknad> => {
+    const response = await axios.get(
+      `${Environment().apiProxyUrl + '/api/soknadbarnetilsyn/forrige'}`,
+      axiosConfig
+    );
+    return response.data;
+  };
+
 export const nullstillMellomlagretSøknadTilDokument = (
   stønadstype: MellomlagredeStønadstyper
 ): Promise<string> => {

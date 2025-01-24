@@ -14,6 +14,7 @@ import Environment from '../Environment';
 import { EArbeidssituasjon } from '../models/steg/aktivitet/aktivitet';
 import {
   hentDataFraForrigeBarnetilsynSøknad,
+  hentDataFraForrigeBarnetilsynSøknadKvittering,
   hentFeltObjekt,
   hentMellomlagretSøknadFraDokument,
   hentPersonData,
@@ -26,10 +27,9 @@ import { Barn, IPerson, PersonData } from '../models/søknad/person';
 import { IBarn } from '../models/steg/barn';
 import { hvaErDinArbeidssituasjonSpm } from './steg/5-aktivitet/AktivitetConfig';
 import { useSpråkContext } from '../context/SpråkContext';
-import { LokalIntlShape } from '../language/typer';
+import { LocaleType, LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../utils/barn';
-import { LocaleType } from '../language/typer';
 import { dagensDato, formatIsoDate } from '../utils/dato';
 import { IMedforelderFelt } from '../models/steg/medforelder';
 import { IForelder } from '../models/steg/forelder';
@@ -39,6 +39,8 @@ import {
   utfyltNødvendigSpørsmålUtenOppgiAnnenForelder,
 } from '../helpers/steg/forelder';
 import { stringHarVerdiOgErIkkeTom } from '../utils/typer';
+import { ToggleName } from '../models/søknad/toggles';
+import { useToggles } from '../context/TogglesContext';
 
 const initialState = (intl: LokalIntlShape): ISøknad => {
   return {
@@ -78,6 +80,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
     const [søknad, settSøknad] = useState<ISøknad>(initialState(intl));
     const [mellomlagretBarnetilsyn, settMellomlagretBarnetilsyn] =
       useState<IMellomlagretBarnetilsynSøknad>();
+    const { toggles } = useToggles();
 
     useEffect(() => {
       if (
@@ -104,8 +107,12 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
       }
     };
 
+    const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
+
     const hentForrigeSøknadBarnetilsyn = async (): Promise<void> => {
-      const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad();
+      const forrigeSøknad = brukModernisertFlyt
+        ? await hentDataFraForrigeBarnetilsynSøknadKvittering()
+        : await hentDataFraForrigeBarnetilsynSøknad();
       const personData = await hentPersonData();
 
       if (forrigeSøknad) {
