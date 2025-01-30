@@ -6,11 +6,15 @@ import { parseISO } from 'date-fns';
 import { useSøknad } from '../../../context/SøknadContext';
 import { useLocation } from 'react-router';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
-import { hentPath } from '../../../utils/routing';
+import {
+  hentForrigeRoute,
+  hentNesteRoute,
+  hentPath,
+} from '../../../utils/routing';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  RoutesOvergangsstonad,
   ERouteOvergangsstønad,
+  RoutesOvergangsstonad,
 } from '../../routing/routesOvergangsstonad';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
@@ -20,7 +24,6 @@ import {
   sendInnOvergangstønadSøknad,
   sendInnSøknadFamiliePdf,
 } from '../../../innsending/api';
-import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
 import { unikeDokumentasjonsbehov } from '../../../utils/søknad';
 import { useSpråkContext } from '../../../context/SpråkContext';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
@@ -63,7 +66,8 @@ const SendSøknadKnapper: FC = () => {
 
   const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
     try {
-      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
+      const brukModernisertFlyt =
+        toggles[ToggleName.visNyInnsendingsknapp] || true;
 
       const kvittering = brukModernisertFlyt
         ? await sendInnSøknadFamiliePdf(søknadMedFiltrerteBarn)
