@@ -16,9 +16,9 @@ interface TidligereInnsendtSøknadAlertProps {
 export const TidligereInnsendtSøknadAlert: React.FC<
   TidligereInnsendtSøknadAlertProps
 > = ({ stønadType }) => {
-  const [aktiveSøknader, settAktiveSøknader] = useState<SistInnsendtSøknad[]>(
-    []
-  );
+  const [innsendtSøknader, settInnsendtSøknader] = useState<
+    SistInnsendtSøknad[]
+  >([]);
 
   const hentAktiveSøknader = useCallback(() => {
     axios
@@ -27,7 +27,7 @@ export const TidligereInnsendtSøknadAlert: React.FC<
           '/api/soknadskvittering/sist-innsendt-per-stonad'
       )
       .then((response) => {
-        settAktiveSøknader(response.data);
+        settInnsendtSøknader(response.data);
       })
       .catch((error) => {
         console.error(
@@ -41,7 +41,7 @@ export const TidligereInnsendtSøknadAlert: React.FC<
     hentAktiveSøknader();
   }, [hentAktiveSøknader]);
 
-  const visNylingInnsendtSøknadAlert = aktiveSøknader.some(
+  const visNylingInnsendtSøknadAlert = innsendtSøknader.some(
     (søknad) => søknad.stønadType === stønadType
   );
 
