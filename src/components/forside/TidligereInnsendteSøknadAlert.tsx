@@ -9,12 +9,12 @@ export interface SistInnsendteSøknad {
   stønadType: Stønadstype;
 }
 
-interface TidligereInnsendtSøknadAlertProps {
+interface TidligereInnsendteSøknadAlertProps {
   stønadType: Stønadstype;
 }
 
-export const TidligereInnsendtSøknadAlert: React.FC<
-  TidligereInnsendtSøknadAlertProps
+export const TidligereInnsendteSøknadAlert: React.FC<
+  TidligereInnsendteSøknadAlertProps
 > = ({ stønadType }) => {
   const [innsendteSøknader, settInnsendteSøknader] = useState<
     SistInnsendteSøknad[]
