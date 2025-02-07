@@ -4,7 +4,7 @@ import { Alert, Heading } from '@navikt/ds-react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
 
-export interface SistInnsendtSøknad {
+export interface SistInnsendteSøknad {
   søknadsdato: string;
   stønadType: Stønadstype;
 }
@@ -16,18 +16,18 @@ interface TidligereInnsendtSøknadAlertProps {
 export const TidligereInnsendtSøknadAlert: React.FC<
   TidligereInnsendtSøknadAlertProps
 > = ({ stønadType }) => {
-  const [innsendtSøknader, settInnsendtSøknader] = useState<
-    SistInnsendtSøknad[]
+  const [innsendteSøknader, settInnsendteSøknader] = useState<
+    SistInnsendteSøknad[]
   >([]);
 
   const hentInnsendteSøknader = useCallback(() => {
     axios
-      .get<SistInnsendtSøknad[]>(
+      .get<SistInnsendteSøknad[]>(
         Environment().apiProxyUrl +
           '/api/soknadskvittering/sist-innsendt-per-stonad'
       )
       .then((response) => {
-        settInnsendtSøknader(response.data);
+        settInnsendteSøknader(response.data);
       })
       .catch((error) => {
         console.error(
@@ -41,7 +41,7 @@ export const TidligereInnsendtSøknadAlert: React.FC<
     hentInnsendteSøknader();
   }, [hentInnsendteSøknader]);
 
-  const visNylingInnsendtSøknadAlert = innsendtSøknader.some(
+  const visNylingInnsendtSøknadAlert = innsendteSøknader.some(
     (søknad) => søknad.stønadType === stønadType
   );
 
