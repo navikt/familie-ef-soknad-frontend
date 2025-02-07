@@ -30,7 +30,10 @@ export const TidligereInnsendtSøknadAlert: React.FC<
         settAktiveSøknader(response.data);
       })
       .catch((error) => {
-        console.error('There was an error fetching the data!', error);
+        console.error(
+          'Klarte ikke å hente tidligere innsendte søknader.',
+          error
+        );
       });
   }, []);
 
