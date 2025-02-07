@@ -58,10 +58,10 @@ export const TidligereInnsendtSøknadAlert: React.FC<
             opplyse om endringer eller noe nytt kan du gjøre følgende:
           </p>
           <ul>
-            <li>endre kontonummeret</li>
-            <li>melde fra om frivillig skattetrekk på barnepensjonen</li>
-            <li>ettersende dokumentasjon</li>
-            <li>Er det noe annet du ønsker å melde inn kan du kontakte oss</li>
+            <li>Endre kontonummeret.</li>
+            <li>Melde fra om frivillig skattetrekk på barnepensjonen.</li>
+            <li>Ettersende dokumentasjon.</li>
+            <li>Er det noe annet du ønsker å melde inn kan du kontakte oss.</li>
           </ul>
         </Alert>
       )}
