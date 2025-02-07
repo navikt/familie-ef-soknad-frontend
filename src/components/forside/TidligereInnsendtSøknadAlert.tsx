@@ -20,7 +20,7 @@ export const TidligereInnsendtSøknadAlert: React.FC<
     SistInnsendtSøknad[]
   >([]);
 
-  const hentAktiveSøknader = useCallback(() => {
+  const hentInnsendteSøknader = useCallback(() => {
     axios
       .get<SistInnsendtSøknad[]>(
         Environment().apiProxyUrl +
@@ -38,8 +38,8 @@ export const TidligereInnsendtSøknadAlert: React.FC<
   }, []);
 
   useEffect(() => {
-    hentAktiveSøknader();
-  }, [hentAktiveSøknader]);
+    hentInnsendteSøknader();
+  }, [hentInnsendteSøknader]);
 
   const visNylingInnsendtSøknadAlert = innsendtSøknader.some(
     (søknad) => søknad.stønadType === stønadType
