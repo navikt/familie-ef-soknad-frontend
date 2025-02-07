@@ -12,7 +12,7 @@ import {
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
 import React from 'react';
 import { Stønadstype } from '../models/søknad/stønadstyper';
-import { TidligereInnsendteSøknadAlert } from '../components/forside/TidligereInnsendteSøknadAlert';
+import { TidligereInnsendteSøknaderAlert } from '../components/forside/TidligereInnsendteSøknaderAlert';
 
 export interface SistInnsendtSøknad {
   søknadsdato: string;
@@ -29,7 +29,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
-      <TidligereInnsendteSøknadAlert stønadType={Stønadstype.overgangsstønad} />
+      <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
 
       <Seksjon>
         <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />

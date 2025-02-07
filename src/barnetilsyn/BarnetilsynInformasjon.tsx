@@ -19,7 +19,7 @@ import { useSpråkContext } from '../context/SpråkContext';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
 import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
-import { TidligereInnsendteSøknadAlert } from '../components/forside/TidligereInnsendteSøknadAlert';
+import { TidligereInnsendteSøknaderAlert } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
@@ -71,7 +71,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
-      <TidligereInnsendteSøknadAlert stønadType={Stønadstype.barnetilsyn} />
+      <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
 
       <Seksjon>
         <Tekst tekst="forside.barnetilsyn.info" />

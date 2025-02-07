@@ -8,7 +8,7 @@ import { Seksjon } from '../components/forside/Seksjon';
 import { Tekst } from '../components/forside/Tekst';
 import LocaleTekst from '../language/LocaleTekst';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
-import { TidligereInnsendteSøknadAlert } from '../components/forside/TidligereInnsendteSøknadAlert';
+import { TidligereInnsendteSøknaderAlert } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
 
 export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
@@ -20,7 +20,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
-      <TidligereInnsendteSøknadAlert stønadType={Stønadstype.skolepenger} />
+      <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.skolepenger} />
 
       <Seksjon>
         <Tekst tekst="forside.skolepenger.innledning" />
