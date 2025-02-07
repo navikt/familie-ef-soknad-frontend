@@ -6,11 +6,18 @@ import { Overskrift } from '../components/forside/Overskrift';
 import { InformasjonProps } from '../components/forside/typer';
 import { hentPath } from '../utils/routing';
 import {
-  RoutesOvergangsstonad,
   ERouteOvergangsstønad,
+  RoutesOvergangsstonad,
 } from './routing/routesOvergangsstonad';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
 import React from 'react';
+import { Stønadstype } from '../models/søknad/stønadstyper';
+import { TidligereInnsendteSøknaderAlert } from '../components/forside/TidligereInnsendteSøknaderAlert';
+
+export interface SistInnsendtSøknad {
+  søknadsdato: string;
+  stønadType: Stønadstype;
+}
 
 export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -22,6 +29,10 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
+      <TidligereInnsendteSøknaderAlert
+        stønadType={Stønadstype.overgangsstønad}
+      />
+
       <Seksjon>
         <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />
         <Tekst tekst="forside.overgangsstønad.sammeSøknad" />
