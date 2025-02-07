@@ -29,7 +29,9 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
-      <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
+      <TidligereInnsendteSøknaderAlert
+        stønadType={Stønadstype.overgangsstønad}
+      />
 
       <Seksjon>
         <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />
