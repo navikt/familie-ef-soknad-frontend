@@ -39,7 +39,7 @@ export const TidligereInnsendtSøknadAlert: React.FC<
   }, [hentAktiveSøknader]);
 
   const visNylingInnsendtSøknadAlert = aktiveSøknader.some(
-    (søknad) => søknad.stønadType.valueOf().toLowerCase() === stønadType
+    (søknad) => søknad.stønadType === stønadType
   );
 
   return (

@@ -1,13 +1,15 @@
 import React from 'react';
 import { InformasjonProps } from '../components/forside/typer';
 import { hentPath } from '../utils/routing';
-import { RoutesSkolepenger, ERouteSkolepenger } from './routing/routes';
+import { ERouteSkolepenger, RoutesSkolepenger } from './routing/routes';
 import { DisclaimerBoks } from '../components/forside/DisclaimerBoks';
 import { Overskrift } from '../components/forside/Overskrift';
 import { Seksjon } from '../components/forside/Seksjon';
 import { Tekst } from '../components/forside/Tekst';
 import LocaleTekst from '../language/LocaleTekst';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
+import { TidligereInnsendtSøknadAlert } from '../components/forside/TidligereInnsendtSøknadAlert';
+import { Stønadstype } from '../models/søknad/stønadstyper';
 
 export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -18,6 +20,8 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
+      <TidligereInnsendtSøknadAlert stønadType={Stønadstype.skolepenger} />
+
       <Seksjon>
         <Tekst tekst="forside.skolepenger.innledning" />
         <LocaleTekst tekst="forside.skolepenger.merInfoLenke" />

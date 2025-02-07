@@ -6,8 +6,8 @@ import { Overskrift } from '../components/forside/Overskrift';
 import { InformasjonProps } from '../components/forside/typer';
 import { hentPath } from '../utils/routing';
 import {
-  RoutesBarnetilsyn,
   ERouteBarnetilsyn,
+  RoutesBarnetilsyn,
 } from './routing/routesBarnetilsyn';
 import {
   hentDataFraForrigeBarnetilsynSøknad,
@@ -19,6 +19,8 @@ import { useSpråkContext } from '../context/SpråkContext';
 import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTekstOgNavigate';
 import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
+import { TidligereInnsendtSøknadAlert } from '../components/forside/TidligereInnsendtSøknadAlert';
+import { Stønadstype } from '../models/søknad/stønadstyper';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -69,6 +71,8 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <>
+      <TidligereInnsendtSøknadAlert stønadType={Stønadstype.barnetilsyn} />
+
       <Seksjon>
         <Tekst tekst="forside.barnetilsyn.info" />
         <Tekst tekst="forside.barnetilsyn.fåStønadSkoleår" />
