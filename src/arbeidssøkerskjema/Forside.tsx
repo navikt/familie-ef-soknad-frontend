@@ -5,9 +5,8 @@ import {
   RoutesArbeidssokerskjema,
 } from './routes/routesArbeidssokerskjema';
 import { useSkjema } from './SkjemaContext';
-import { useMount, useSpråkValg } from '../utils/hooks';
+import { useSpråkValg } from '../utils/hooks';
 import { hentPath } from '../utils/routing';
-import { logSidevisningArbeidssokerskjema } from '../utils/amplitude';
 import { Heading, Box } from '@navikt/ds-react';
 import { VeilederBoks } from '../components/forside/VeilederBoks';
 import { DisclaimerBoks } from '../components/forside/DisclaimerBoks';
@@ -18,8 +17,6 @@ import { KnappLocaleTekstOgNavigate } from '../components/knapper/KnappLocaleTek
 
 const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
   const { skjema, settSkjema } = useSkjema();
-
-  useMount(() => logSidevisningArbeidssokerskjema('Forside'));
 
   const settBekreftelse = (bekreftelse: boolean) => {
     settSkjema({

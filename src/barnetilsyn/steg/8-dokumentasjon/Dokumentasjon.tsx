@@ -10,9 +10,6 @@ import Side, { ESide } from '../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { IVedlegg } from '../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../utils/dato';
@@ -28,8 +25,6 @@ const Dokumentasjon: React.FC = () => {
   const { dokumentasjonsbehov } = søknad;
   const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
   const forrigeDokumentasjonsbehov = usePrevious(søknad.dokumentasjonsbehov);
-
-  useMount(() => logSidevisningBarnetilsyn('Dokumentasjon'));
 
   const oppdaterDokumentasjon = (
     dokumentasjonsid: string,

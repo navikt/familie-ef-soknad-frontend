@@ -24,9 +24,6 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
 import { useLocation } from 'react-router';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { IBarn } from '../../../models/steg/barn';
 import { ISøknad } from '../../models/søknad';
 import {
@@ -73,8 +70,6 @@ const Barnepass: FC = () => {
     'søkerFraBestemtMåned.hjelpetekst-innhold.barnepass-del2',
     intl
   );
-
-  useMount(() => logSidevisningBarnetilsyn('Barnepass'));
 
   const settBarnepass = (barnepass: IBarnepass, barnid: string) => {
     const endretBarn = søknad.person.barn.map((barn: IBarn) => {

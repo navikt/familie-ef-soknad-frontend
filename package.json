@@ -46,7 +46,6 @@
     "@types/lodash": "^4.17.14",
     "@types/react": "^19.0.4",
     "@types/react-dom": "^19.0.2",
-    "@amplitude/analytics-browser": "2.11.11",
     "axios": "^1.7.9",
     "constate": "^3.3.2",
     "date-fns": "^4.1.0",

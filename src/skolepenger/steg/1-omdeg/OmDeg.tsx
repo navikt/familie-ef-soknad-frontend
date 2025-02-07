@@ -16,10 +16,7 @@ import Side, { ESide } from '../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { hentPathSkolepengerOppsummering } from '../../utils';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-
 import Show from '../../../utils/showIf';
-import { logSidevisningSkolepenger } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
@@ -42,8 +39,6 @@ const OmDeg: FC = () => {
     søknad.sivilstatus;
 
   const { søker } = søknad.person;
-
-  useMount(() => logSidevisningSkolepenger('OmDeg'));
 
   const settMedlemskap = (medlemskap: IMedlemskap) => {
     settSøknad((prevSoknad: ISøknad) => {

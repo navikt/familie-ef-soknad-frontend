@@ -22,12 +22,7 @@ import { oppdaterBarnLabels } from '../../../utils/barn';
 import { unikeDokumentasjonsbehov } from '../../../utils/søknad';
 import { ISøknad } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import {
-  logDokumetasjonsbehov,
-  logInnsendingFeilet,
-} from '../../../utils/amplitude';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { ESkjemanavn, skjemanavnIdMapping } from '../../../utils/skjemanavn';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../helpers/steg/omdeg';
@@ -47,7 +42,6 @@ const SendSøknadKnapper: FC = () => {
   const navigate = useNavigate();
   const nesteRoute = hentNesteRoute(RoutesSkolepenger, location.pathname);
   const forrigeRoute = hentForrigeRoute(RoutesSkolepenger, location.pathname);
-  const skjemaId = skjemanavnIdMapping[ESkjemanavn.Skolepenger];
   const intl = useLokalIntlContext();
 
   const [innsendingState, settinnsendingState] = React.useState<Innsending>({
@@ -82,8 +76,6 @@ const SendSøknadKnapper: FC = () => {
         melding: `Noe gikk galt: ${e}`,
         venter: false,
       });
-
-      logInnsendingFeilet(ESkjemanavn.Skolepenger, skjemaId, e);
     }
   };
 
@@ -98,8 +90,6 @@ const SendSøknadKnapper: FC = () => {
     const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(
       unikeDokumentasjonsbehov
     );
-
-    logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Skolepenger);
 
     const søknadMedFiltrerteBarn: ISøknad = {
       ...søknad,

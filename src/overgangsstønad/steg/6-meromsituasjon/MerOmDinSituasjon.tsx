@@ -35,11 +35,9 @@ import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPathOvergangsstønadOppsummering } from '../../utils';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import { ISøknad } from '../../../models/søknad/søknad';
-import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../utils/hooks';
 import { hentBeskjedMedNavn } from '../../../utils/språk';
 import styled from 'styled-components';
-import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
 
@@ -68,8 +66,6 @@ const MerOmDinSituasjon: React.FC = () => {
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
   const søkerJobberMindreEnnFemtiProsent =
     harSøkerMindreEnnHalvStilling(søknad);
-
-  useMount(() => logSidevisningOvergangsstonad('MerOmDinSituasjon'));
 
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
 

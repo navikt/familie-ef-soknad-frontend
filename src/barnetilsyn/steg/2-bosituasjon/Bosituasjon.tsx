@@ -9,15 +9,10 @@ import Side, { ESide } from '../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 
 const Bosituasjon: FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('Bosituasjon'));
-
   const intl = useLokalIntlContext();
   const {
     søknad,

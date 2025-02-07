@@ -4,7 +4,6 @@ import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger
 import Sivilstatus from '../../../søknad/steg/1-omdeg/sivilstatus/Sivilstatus';
 import { useSøknad } from '../../../context/SøknadContext';
 import { useLocation } from 'react-router-dom';
-import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
 import {
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
@@ -20,7 +19,6 @@ import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import { ISøknad } from '../../../models/søknad/søknad';
 import Show from '../../../utils/showIf';
-import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 
 const OmDeg: FC = () => {
@@ -41,8 +39,6 @@ const OmDeg: FC = () => {
     søknad.sivilstatus;
 
   const { søker } = søknad.person;
-
-  useMount(() => logSidevisningOvergangsstonad('OmDeg'));
 
   const settMedlemskap = (medlemskap: IMedlemskap) => {
     settSøknad((prevSoknad: ISøknad) => {

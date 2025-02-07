@@ -3,8 +3,6 @@ import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import Show from '../../utils/showIf';
-import { logSpørsmålBesvart } from '../../utils/amplitude';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
@@ -49,13 +47,6 @@ const MultiSvarSpørsmål: FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const skalLogges = true;
-
-  const url = window.location.href;
-
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
-
   const legend = intl.formatMessage({ id: spørsmål.tekstid });
 
   return (
@@ -84,13 +75,6 @@ const MultiSvarSpørsmål: FC<Props> = ({
               value={svar.svar_tekst}
               checked={svarISøknad ? svarISøknad : false}
               onChange={() => {
-                logSpørsmålBesvart(
-                  skjemanavn,
-                  skjemaId,
-                  legend,
-                  svar.svar_tekst,
-                  skalLogges
-                );
                 settSpørsmålOgSvar(spørsmål, svar);
               }}
             >

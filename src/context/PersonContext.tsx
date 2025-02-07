@@ -2,7 +2,6 @@ import React, { createContext, useContext, useReducer, useState } from 'react';
 import { Barn, IPerson, PersonData } from '../models/søknad/person';
 import tomPerson from '../mock/initialState.json';
 import { hentPersonData } from '../utils/søknad';
-import { logAdressesperre } from '../utils/amplitude';
 import { EAlvorlighetsgrad } from '../models/felles/feilmelding';
 import { IBarn } from '../models/steg/barn';
 import { ESkjemanavn } from '../utils/skjemanavn';
@@ -72,11 +71,10 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({
   >(undefined);
   const intl = useLokalIntlContext();
 
-  const håndterError = (e: any, skjemanavn: ESkjemanavn) => {
+  const håndterError = (e: any) => {
     const feil = e.response?.data?.feil;
 
     if (feil === 'adressesperre') {
-      logAdressesperre(skjemanavn);
       settAlvorlighetsgrad(EAlvorlighetsgrad.INFO);
       settFeilmelding(
         intl.formatMessage({
@@ -91,8 +89,7 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({
   };
 
   const fetchPersonData = (
-    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void,
-    skjemanavn: ESkjemanavn
+    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void
   ) => {
     return hentPersonData()
       .then((response) => {
@@ -103,7 +100,7 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({
 
         oppdaterSøknadMedBarn(response, response.barn);
       })
-      .catch((e) => håndterError(e, skjemanavn));
+      .catch((e) => håndterError(e));
   };
 
   const value = {

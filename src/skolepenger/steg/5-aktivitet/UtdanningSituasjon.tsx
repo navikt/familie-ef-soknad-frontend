@@ -9,9 +9,6 @@ import { IDetaljertUtdanning } from '../../models/detaljertUtdanning';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import UnderUtdanning from '../../../søknad/steg/5-aktivitet/underUtdanning/UnderUtdanning';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-
-import { logSidevisningSkolepenger } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 
@@ -23,8 +20,6 @@ const UtdanningSituasjon: React.FC = () => {
   const skalViseKnapper = !kommerFraOppsummering
     ? ESide.visTilbakeNesteAvbrytKnapp
     : ESide.visTilbakeTilOppsummeringKnapp;
-
-  useMount(() => logSidevisningSkolepenger('Aktivitet'));
 
   const oppdaterUnderUtdanning = (underUtdanning: IDetaljertUtdanning) => {
     settSøknad((prevSøknad: ISøknad) => {

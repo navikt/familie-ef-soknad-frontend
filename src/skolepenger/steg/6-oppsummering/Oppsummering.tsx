@@ -12,15 +12,11 @@ import { hentTekst } from '../../../utils/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import OppsummeringDetaljertUtdanning from '../../../søknad/steg/7-oppsummering/OppsummeringDetaljertUtdanning';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { logSidevisningSkolepenger } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { mellomlagreSkolepenger, søknad } = useSkolepengerSøknad();
-
-  useMount(() => logSidevisningSkolepenger('Oppsummering'));
 
   return (
     <>

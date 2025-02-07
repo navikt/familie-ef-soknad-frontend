@@ -8,8 +8,6 @@ import Side, { ESide } from '../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPathOvergangsstønadOppsummering } from '../../utils';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import BarnasBostedInnhold from '../../../søknad/steg/4-barnasbosted/BarnasBostedInnhold';
@@ -38,8 +36,6 @@ const BarnasBosted: React.FC = () => {
     antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) ===
       barnMedLevendeForeldre.length
   );
-
-  useMount(() => logSidevisningOvergangsstonad('BarnasBosted'));
 
   return (
     <Side

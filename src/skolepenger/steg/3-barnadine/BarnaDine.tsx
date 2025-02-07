@@ -6,8 +6,6 @@ import { RoutesSkolepenger } from '../../routing/routes';
 import { hentPathSkolepengerOppsummering } from '../../utils';
 import Side, { ESide } from '../../../components/side/Side';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { logSidevisningSkolepenger } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { BarnaDineInnhold } from '../../../søknad/steg/3-barnadine/BarnaDineInnhold';
 
 const BarnaDine: React.FC = () => {
@@ -20,8 +18,6 @@ const BarnaDine: React.FC = () => {
     fjernBarnFraSøknad,
   } = useSkolepengerSøknad();
   const skalViseKnapper = ESide.visTilbakeNesteAvbrytKnapp;
-
-  useMount(() => logSidevisningSkolepenger('BarnaDine'));
 
   const harMinstEttBarn = søknad.person.barn.length > 0;
 

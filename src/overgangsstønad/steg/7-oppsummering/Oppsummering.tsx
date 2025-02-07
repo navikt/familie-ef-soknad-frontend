@@ -16,14 +16,7 @@ import { hentPath } from '../../../utils/routing';
 import Side, { ESide } from '../../../components/side/Side';
 import { hentTekst } from '../../../utils/søknad';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import {
-  logBrowserBackOppsummering,
-  logManglendeFelter,
-  logSidevisningOvergangsstonad,
-} from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { IBarn } from '../../../models/steg/barn';
-import { useNavigationType } from 'react-router-dom';
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../utils/skjemanavn';
 import {
   aktivitetSchema,
@@ -43,22 +36,12 @@ const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { mellomlagreOvergangsstønad, søknad } = useSøknad();
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
-  const action = useNavigationType();
 
   const [manglendeFelter, settManglendeFelter] = useState<string[]>([]);
-
-  useMount(() => logSidevisningOvergangsstonad('Oppsummering'));
 
   const barnMedsærligeTilsynsbehov = søknad.person.barn
     .filter((barn: IBarn) => barn.særligeTilsynsbehov)
     .map((barn: IBarn) => barn.særligeTilsynsbehov);
-
-  useEffect(() => {
-    if (action === 'POP') {
-      logBrowserBackOppsummering(ESkjemanavn.Overgangsstønad, skjemaId);
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const feilIkkeRegistrertFor = (felt: ManglendeFelter) => {
     return !manglendeFelter.includes(manglendeFelterTilTekst[felt]);
@@ -93,11 +76,6 @@ const Oppsummering: React.FC = () => {
         if (feilIkkeRegistrertFor(ManglendeFelter.BOSITUASJONEN_DIN)) {
           oppdaterManglendeFelter(ManglendeFelter.BOSITUASJONEN_DIN);
         }
-        logManglendeFelter(
-          ESkjemanavn.Overgangsstønad,
-          skjemaId,
-          'ValidationError: vordendeSamboerEktefelle mangler gyldig ident eller fødselsdato'
-        );
       }
     }
   };
@@ -110,7 +88,7 @@ const Oppsummering: React.FC = () => {
     aktivitetSchema
       .validate(søknad.aktivitet)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (
           !manglendeFelter.includes(
             manglendeFelterTilTekst[ManglendeFelter.AKTIVITET]
@@ -118,37 +96,33 @@ const Oppsummering: React.FC = () => {
         ) {
           oppdaterManglendeFelter(ManglendeFelter.AKTIVITET);
         }
-        logManglendeFelter(ESkjemanavn.Overgangsstønad, skjemaId, e);
       });
 
     sivilstatusSchema
       .validate(søknad.sivilstatus)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (feilIkkeRegistrertFor(ManglendeFelter.OM_DEG)) {
           oppdaterManglendeFelter(ManglendeFelter.OM_DEG);
         }
-        logManglendeFelter(ESkjemanavn.Overgangsstønad, skjemaId, e);
       });
 
     merOmDinSituasjonSchema
       .validate(søknad.merOmDinSituasjon)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (feilIkkeRegistrertFor(ManglendeFelter.MER_OM_DIN_SITUASJON)) {
           oppdaterManglendeFelter(ManglendeFelter.MER_OM_DIN_SITUASJON);
         }
-        logManglendeFelter(ESkjemanavn.Overgangsstønad, skjemaId, e);
       });
 
     medlemskapSchema
       .validate(søknad.medlemskap)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (feilIkkeRegistrertFor(ManglendeFelter.OM_DEG)) {
           oppdaterManglendeFelter(ManglendeFelter.OM_DEG);
         }
-        logManglendeFelter(ESkjemanavn.Overgangsstønad, skjemaId, e);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [søknad, manglendeFelter, skjemaId]);

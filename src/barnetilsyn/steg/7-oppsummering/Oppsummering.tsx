@@ -17,8 +17,6 @@ import { hentPath } from '../../../utils/routing';
 import Side, { ESide } from '../../../components/side/Side';
 import { hentTekst } from '../../../utils/søknad';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
 
 const Oppsummering: React.FC = () => {
@@ -27,8 +25,6 @@ const Oppsummering: React.FC = () => {
   const barnSomSkalHaBarnepass: IBarn[] = søknad.person.barn.filter(
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
   );
-
-  useMount(() => logSidevisningBarnetilsyn('Oppsummering'));
 
   return (
     <>

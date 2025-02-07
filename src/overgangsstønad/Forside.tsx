@@ -3,9 +3,8 @@ import { usePersonContext } from '../context/PersonContext';
 import { useSøknad } from '../context/SøknadContext';
 import FortsettSøknad from '../components/forside/FortsettSøknad';
 import Environment from '../Environment';
-import { logSidevisningOvergangsstonad } from '../utils/amplitude';
 import LocaleTekst from '../language/LocaleTekst';
-import { useMount, useSpråkValg } from '../utils/hooks';
+import { useSpråkValg } from '../utils/hooks';
 import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { Heading, Box } from '@navikt/ds-react';
@@ -14,14 +13,6 @@ import { AlertUnderAtten } from '../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../components/forside/VeilederBoks';
 
 const Forside: React.FC = () => {
-  useMount(() => {
-    if (!(kanBrukeMellomlagretSøknad && mellomlagretOvergangsstønad))
-      logSidevisningOvergangsstonad('Forside');
-    else {
-      logSidevisningOvergangsstonad('FortsettMedMellomlagret');
-    }
-  });
-
   const intl = useLokalIntlContext();
   const { person } = usePersonContext();
   const {

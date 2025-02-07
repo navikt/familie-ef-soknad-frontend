@@ -24,8 +24,7 @@ import {
   hentNesteRoute,
   hentPath,
 } from '../../utils/routing';
-import { logSidevisningArbeidssokerskjema } from '../../utils/amplitude';
-import { useMount } from '../../utils/hooks';
+
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react';
 import { useToggles } from '../../context/TogglesContext';
@@ -57,8 +56,6 @@ const Oppsummering: React.FC = () => {
     location.pathname
   );
   const spørsmålOgSvar = VisLabelOgSvar(skjema.arbeidssøker);
-
-  useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
   const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (
     mappetSkjema: Record<string, object>

@@ -12,8 +12,6 @@ import { hentPathBarnetilsynOppsummering } from '../../utils';
 import Side, { ESide } from '../../../components/side/Side';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import LocaleTekst from '../../../language/LocaleTekst';
-import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { Alert, Label } from '@navikt/ds-react';
 import {
   BarnaDineContainer,
@@ -28,8 +26,6 @@ const AlertContainer = styled.div`
 `;
 
 const BarnaDine: React.FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('BarnaDine'));
-
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } =
     useBarnetilsynSøknad();

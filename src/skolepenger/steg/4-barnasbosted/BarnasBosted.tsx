@@ -8,8 +8,6 @@ import { RoutesSkolepenger } from '../../routing/routes';
 import { hentPathSkolepengerOppsummering } from '../../utils';
 import Side, { ESide } from '../../../components/side/Side';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { logSidevisningSkolepenger } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import BarnasBostedInnhold from '../../../søknad/steg/4-barnasbosted/BarnasBostedInnhold';
@@ -28,8 +26,6 @@ const BarnasBosted: React.FC = () => {
     oppdaterFlereBarnISøknaden,
     settDokumentasjonsbehovForBarn,
   } = useSkolepengerSøknad();
-
-  useMount(() => logSidevisningSkolepenger('BarnasBosted'));
 
   const barnMedLevendeForeldre = søknad.person.barn.filter((barn: IBarn) => {
     return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
