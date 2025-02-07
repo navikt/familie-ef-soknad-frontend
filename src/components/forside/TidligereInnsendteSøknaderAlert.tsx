@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Alert, Heading } from '@navikt/ds-react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 export interface SistInnsendteSøknad {
   søknadsdato: string;
@@ -16,6 +18,10 @@ interface TidligereInnsendteSøknadAlertProps {
 export const TidligereInnsendteSøknaderAlert: React.FC<
   TidligereInnsendteSøknadAlertProps
 > = ({ stønadType }) => {
+  const { toggles } = useToggles();
+  const hentSistInnsendteSøknadPerStønad =
+    toggles[ToggleName.hentSistInnsendteSøknadPerStønad];
+
   const [innsendteSøknader, settInnsendteSøknader] = useState<
     SistInnsendteSøknad[]
   >([]);
@@ -38,8 +44,10 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
   }, []);
 
   useEffect(() => {
-    hentInnsendteSøknader();
-  }, [hentInnsendteSøknader]);
+    if (hentSistInnsendteSøknadPerStønad) {
+      hentInnsendteSøknader();
+    }
+  }, [hentInnsendteSøknader, hentSistInnsendteSøknadPerStønad]);
 
   const visNylingInnsendtSøknadAlert = innsendteSøknader.some(
     (søknad) => søknad.stønadType === stønadType
