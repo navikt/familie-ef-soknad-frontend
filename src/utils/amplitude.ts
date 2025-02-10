@@ -11,14 +11,6 @@ export enum EEventsnavn {
   TomSøknad = 'Klikker på start tom søknad',
 }
 
-// amplitude.init('default', undefined, {
-//   serverUrl: 'https://amplitude.nav.no/collect-auto',
-//   defaultTracking: false,
-//   ingestionMetadata: {
-//     sourceName: window.location.toString(),
-//   },
-// });
-
 export function logEvent(eventName: string, eventProperties: any) {
   logger(eventName, eventProperties).catch(() =>
     console.warn('Uninitialized amplitude')
