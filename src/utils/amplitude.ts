@@ -1,6 +1,9 @@
 import { ESkjemanavn, skjemanavnIdMapping } from './skjemanavn';
-import * as amplitude from '@amplitude/analytics-browser';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
+
+import { getAmplitudeInstance } from '@navikt/nav-dekoratoren-moduler';
+
+const logger = getAmplitudeInstance('dekoratoren');
 
 export enum EEventsnavn {
   Mellomlagret = 'klikk_mellomlagret',
@@ -8,16 +11,10 @@ export enum EEventsnavn {
   TomSøknad = 'Klikker på start tom søknad',
 }
 
-amplitude.init('default', undefined, {
-  serverUrl: 'https://amplitude.nav.no/collect-auto',
-  defaultTracking: false,
-  ingestionMetadata: {
-    sourceName: window.location.toString(),
-  },
-});
-
 export function logEvent(eventName: string, eventProperties: any) {
-  amplitude.track(eventName, eventProperties);
+  logger(eventName, eventProperties).catch(() =>
+    console.warn('Uninitialized amplitude')
+  );
 }
 
 export const logSpørsmålBesvart = (
@@ -44,36 +41,6 @@ export const logSpørsmålBesvartOvergangsstønad = (
 ) => {
   const skjemanavn = ESkjemanavn.Overgangsstønad;
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
-  logSpørsmålBesvart(skjemanavn, skjemaId, spørsmål, svar, skalLogges);
-};
-
-export const logSpørsmålBesvartArbeidssokerskjema = (
-  spørsmål: string,
-  svar: string,
-  skalLogges: boolean
-) => {
-  const skjemanavn = ESkjemanavn.Arbeidssøker;
-  const skjemaId = skjemanavnIdMapping[ESkjemanavn.Arbeidssøker];
-  logSpørsmålBesvart(skjemanavn, skjemaId, spørsmål, svar, skalLogges);
-};
-
-export const logSpørsmålBesvartBarnetilsyn = (
-  spørsmål: string,
-  svar: string,
-  skalLogges: boolean
-) => {
-  const skjemanavn = ESkjemanavn.Barnetilsyn;
-  const skjemaId = skjemanavnIdMapping[ESkjemanavn.Barnetilsyn];
-  logSpørsmålBesvart(skjemanavn, skjemaId, spørsmål, svar, skalLogges);
-};
-
-export const logSpørsmålBesvartSkolepenger = (
-  spørsmål: string,
-  svar: string,
-  skalLogges: boolean
-) => {
-  const skjemanavn = ESkjemanavn.Skolepenger;
-  const skjemaId = skjemanavnIdMapping[ESkjemanavn.Skolepenger];
   logSpørsmålBesvart(skjemanavn, skjemaId, spørsmål, svar, skalLogges);
 };
 
