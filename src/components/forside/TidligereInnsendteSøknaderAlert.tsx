@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert, Heading } from '@navikt/ds-react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
-import { formatDate } from '../../utils/dato';
+import { formatDate, strengTilDato } from '../../utils/dato';
 
 export interface SistInnsendteSøknad {
-  søknadsdato: Date;
+  søknadsdato: string;
   stønadType: Stønadstype;
 }
 
@@ -27,17 +27,14 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
     SistInnsendteSøknad[]
   >([]);
 
-  const ettersendUrls = useMemo(
-    () => ({
-      [Stønadstype.overgangsstønad]:
-        'https://www.nav.no/start/ettersend-soknad-overgangsstonad-enslig',
-      [Stønadstype.barnetilsyn]:
-        'https://www.nav.no/start/ettersend-soknad-barnetilsyn-enslig',
-      [Stønadstype.skolepenger]:
-        'https://www.nav.no/start/ettersend-soknad-skolepenger-enslig',
-    }),
-    []
-  );
+  const ettersendingUrler = {
+    [Stønadstype.overgangsstønad]:
+      'https://www.nav.no/start/ettersend-soknad-overgangsstonad-enslig',
+    [Stønadstype.barnetilsyn]:
+      'https://www.nav.no/start/ettersend-soknad-barnetilsyn-enslig',
+    [Stønadstype.skolepenger]:
+      'https://www.nav.no/start/ettersend-soknad-skolepenger-enslig',
+  };
 
   const kontaktOssUrl = 'https://www.nav.no/kontakt-oss';
 
@@ -77,13 +74,13 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
         Du har nylig sendt inn en søknad til oss
       </Heading>
       <p>
-        {`Du søkte om ${stønadType} den ${formatDate(gjeldeneSøknad.søknadsdato)}.`}
+        {`Du søkte om ${stønadType} den ${formatDate(strengTilDato(gjeldeneSøknad.søknadsdato))}.`}
       </p>
       <ul>
         <li>
           Hvis du ikke fikk lastet opp all dokumentasjon da du søkte, kan du{' '}
           <a
-            href={ettersendUrls[stønadType]}
+            href={ettersendingUrler[stønadType]}
             target="_blank"
             rel="noopener noreferrer"
           >
