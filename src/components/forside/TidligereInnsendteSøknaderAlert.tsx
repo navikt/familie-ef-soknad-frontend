@@ -100,30 +100,30 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
     },
   };
 
-  const currentTexts = tekster[locale];
+  const relevanteTekster = tekster[locale];
 
   return (
     <Alert variant="info">
       <Heading spacing size="small" level="3">
-        {currentTexts.heading}
+        {relevanteTekster.heading}
       </Heading>
-      <p>{currentTexts.søkteOm}</p>
+      <p>{relevanteTekster.søkteOm}</p>
       <ul>
         <li>
-          {currentTexts.ettersende}{' '}
+          {relevanteTekster.ettersende}{' '}
           <a
             href={ettersendUrls[stønadType]}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {currentTexts.ettersendeLink}
+            {relevanteTekster.ettersendeLink}
           </a>
           .
         </li>
         <li>
-          {currentTexts.endringer}{' '}
+          {relevanteTekster.endringer}{' '}
           <a href={kontaktOssUrl} target="_blank" rel="noopener noreferrer">
-            {currentTexts.endringerLink}
+            {relevanteTekster.endringerLink}
           </a>
           .
         </li>
