@@ -79,24 +79,26 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
       <p>
         {`Du søkte om ${stønadType} den ${formatDate(gjeldeneSøknad.søknadsdato)}.`}
       </p>
-      <p>
-        Hvis du ikke fikk lastet opp all dokumentasjon da du søkte, kan du{' '}
-        <a
-          href={ettersendUrls[stønadType]}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ettersende det som mangler
-        </a>
-        .
-      </p>
-      <p>
-        Du kan også si ifra om endringer ved å{' '}
-        <a href={kontaktOssUrl} target="_blank" rel="noopener noreferrer">
-          skrive en beskjed til oss
-        </a>
-        .
-      </p>
+      <ul>
+        <li>
+          Hvis du ikke fikk lastet opp all dokumentasjon da du søkte, kan du{' '}
+          <a
+            href={ettersendUrls[stønadType]}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ettersende det som mangler
+          </a>
+          .
+        </li>
+        <li>
+          Du kan også si ifra om endringer ved å{' '}
+          <a href={kontaktOssUrl} target="_blank" rel="noopener noreferrer">
+            skrive en beskjed til oss
+          </a>
+          .
+        </li>
+      </ul>
     </Alert>
   );
 };
