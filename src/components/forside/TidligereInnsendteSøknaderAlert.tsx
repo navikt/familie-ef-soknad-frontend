@@ -17,7 +17,7 @@ interface TidligereInnsendteSøknadAlertProps {
   stønadType: Stønadstype;
 }
 
-const ettersendUrls = {
+const ettersendingUrler = {
   [Stønadstype.overgangsstønad]:
     'https://www.nav.no/start/ettersend-soknad-overgangsstonad-enslig',
   [Stønadstype.barnetilsyn]:
@@ -112,7 +112,7 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
         <li>
           {varselTekster.ettersende}{' '}
           <a
-            href={ettersendUrls[stønadType]}
+            href={ettersendingUrler[stønadType]}
             target="_blank"
             rel="noopener noreferrer"
           >
