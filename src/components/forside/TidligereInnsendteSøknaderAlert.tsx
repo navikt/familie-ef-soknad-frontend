@@ -5,15 +5,27 @@ import { Stønadstype } from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
+import { formatDate } from '../../utils/dato';
 
 export interface SistInnsendteSøknad {
-  søknadsdato: string;
+  søknadsdato: Date;
   stønadType: Stønadstype;
 }
 
 interface TidligereInnsendteSøknadAlertProps {
   stønadType: Stønadstype;
 }
+
+const ettersendUrls = {
+  [Stønadstype.overgangsstønad]:
+    'https://www.nav.no/start/ettersend-soknad-overgangsstonad-enslig',
+  [Stønadstype.barnetilsyn]:
+    'https://www.nav.no/start/ettersend-soknad-barnetilsyn-enslig',
+  [Stønadstype.skolepenger]:
+    'https://www.nav.no/start/ettersend-soknad-skolepenger-enslig',
+};
+
+const kontaktOssUrl = 'https://www.nav.no/kontakt-oss';
 
 export const TidligereInnsendteSøknaderAlert: React.FC<
   TidligereInnsendteSøknadAlertProps
@@ -53,26 +65,42 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
     (søknad) => søknad.stønadType.valueOf().toLowerCase() === stønadType
   );
 
-  return (
-    <>
-      {visNylingInnsendtSøknadAlert && (
-        <Alert variant="info">
-          <Heading spacing size="small" level="3">
-            Du har allerede en aktiv søknad hos oss
-          </Heading>
-          <p>
-            Vi ser at du nylig har sendt inn denne søknaden. Dersom du sender
-            søknaden på nytt, vil behandlingen ta lenger tid. Ønsker du å
-            opplyse om endringer eller noe nytt kan du gjøre følgende:
-          </p>
-          <ul>
-            <li>Endre kontonummeret.</li>
-            <li>Melde fra om frivillig skattetrekk på barnepensjonen.</li>
-            <li>Ettersende dokumentasjon.</li>
-            <li>Er det noe annet du ønsker å melde inn kan du kontakte oss.</li>
-          </ul>
-        </Alert>
-      )}
-    </>
+  const gjeldeneSøknad = innsendteSøknader.find(
+    (søknad) => søknad.stønadType.valueOf().toLowerCase() === stønadType
   );
+
+  if (gjeldeneSøknad != null) {
+    return (
+      <>
+        {visNylingInnsendtSøknadAlert && (
+          <Alert variant="info">
+            <Heading spacing size="small" level="3">
+              Du har nylig sendt inn en søknad til oss
+            </Heading>
+            <p>
+              {`Du søkte om ${stønadType} den ${formatDate(gjeldeneSøknad.søknadsdato)}.`}
+            </p>
+            <p>
+              Hvis du ikke fikk lastet opp all dokumentasjon da du søkte, kan du{' '}
+              <a
+                href={ettersendUrls[stønadType]}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ettersende det som mangler
+              </a>
+              .
+            </p>
+            <p>
+              Du kan også si ifra om endringer ved å{' '}
+              <a href={kontaktOssUrl} target="_blank" rel="noopener noreferrer">
+                skrive en beskjed til oss
+              </a>
+              .
+            </p>
+          </Alert>
+        )}
+      </>
+    );
+  }
 };
