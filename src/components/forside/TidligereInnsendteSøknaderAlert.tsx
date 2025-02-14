@@ -49,12 +49,12 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
         `${Environment().apiProxyUrl}/api/soknadskvittering/sist-innsendt-per-stonad`
       )
       .then((response) => {
-        const normalisertData = response.data.map((søknad) => ({
+        const normalisertSøknad = response.data.map((søknad) => ({
           ...søknad,
           stønadType: søknad.stønadType.toLowerCase() as Stønadstype,
         }));
 
-        settInnsendteSøknader(normalisertData);
+        settInnsendteSøknader(normalisertSøknad);
       })
       .catch((error) => {
         console.error(
