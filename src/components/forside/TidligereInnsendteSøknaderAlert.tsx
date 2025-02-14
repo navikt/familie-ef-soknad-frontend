@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert, Heading } from '@navikt/ds-react';
-import { Stønadstype } from '../../models/søknad/stønadstyper';
+import {
+  Stønadstype,
+  stønadsTypeTilEngelsk,
+} from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
@@ -46,7 +49,12 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
         `${Environment().apiProxyUrl}/api/soknadskvittering/sist-innsendt-per-stonad`
       )
       .then((response) => {
-        settInnsendteSøknader(response.data);
+        const normalisertData = response.data.map((søknad) => ({
+          ...søknad,
+          stønadType: søknad.stønadType.toLowerCase() as Stønadstype,
+        }));
+
+        settInnsendteSøknader(normalisertData);
       })
       .catch((error) => {
         console.error(
@@ -63,7 +71,7 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
   }, [hentInnsendteSøknader, hentSistInnsendteSøknadPerStønad]);
 
   const gjeldeneSøknad = innsendteSøknader.find(
-    (søknad) => søknad.stønadType.valueOf().toLowerCase() === stønadType
+    (søknad) => søknad.stønadType === stønadType
   );
 
   if (!gjeldeneSøknad) {
@@ -90,12 +98,12 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
       endringerLink: 'skrive ei melding til oss',
     },
     en: {
-      heading: 'You have recently submitted an application to us',
-      søkteOm: `You applied for ${stønadType} on ${formatDate(strengTilDato(gjeldeneSøknad.søknadsdato))}.`,
+      heading: 'You recently submitted an application to us.',
+      søkteOm: `You applied for ${stønadsTypeTilEngelsk(stønadType)} on ${formatDate(strengTilDato(gjeldeneSøknad.søknadsdato))}.`,
       ettersende:
-        'If you did not upload all the documentation when you applied, you can',
-      ettersendeLink: 'submit the missing documents',
-      endringer: 'You can also notify us of changes by',
+        'If you were unable to upload all the documentation when you applied, you can',
+      ettersendeLink: 'submit the missing documents later',
+      endringer: 'You can also inform us of any changes by',
       endringerLink: 'writing a message to us',
     },
   };
