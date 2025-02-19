@@ -10,6 +10,7 @@ import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
 import { formatDate, strengTilDato } from '../../utils/dato';
 import { useSpråkContext } from '../../context/SpråkContext';
+import { LocaleType } from '../../language/typer';
 
 export interface SistInnsendteSøknad {
   søknadsdato: string;
@@ -30,6 +31,10 @@ const ettersendingUrler = {
 };
 
 const kontaktOssUrl = 'https://www.nav.no/kontakt-oss';
+
+const hentLokalisertUrl = (url: string, locale: LocaleType) => {
+  return locale === 'en' ? `${url}/en` : url;
+};
 
 export const TidligereInnsendteSøknaderAlert: React.FC<
   TidligereInnsendteSøknadAlertProps
@@ -120,7 +125,7 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
         <li>
           {varselTekster.ettersende}{' '}
           <a
-            href={ettersendingUrler[stønadType]}
+            href={hentLokalisertUrl(ettersendingUrler[stønadType], locale)}
             target="_blank"
             rel="noopener noreferrer"
           >
