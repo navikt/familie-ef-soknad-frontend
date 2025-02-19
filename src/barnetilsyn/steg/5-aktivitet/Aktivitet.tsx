@@ -115,8 +115,6 @@ const Aktivitet: React.FC = () => {
         svarid: svarider,
         label: hentTekst(spørsmål.tekstid, intl),
         verdi: avhukedeSvar,
-        alternativer:
-          endretArbeidssituasjon.hvaErDinArbeidssituasjon.alternativer,
       },
     });
     settDokumentasjonsbehov(spørsmål, svar, svarHuketAv);
