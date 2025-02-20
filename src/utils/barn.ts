@@ -138,8 +138,12 @@ export const antallBarnMedForeldreUtfylt = (barna: IBarn[]): number => {
 export const oppdaterBarnLabels = (barn: IBarn[], intl: LokalIntlShape) => {
   const oppdaterteBarn = barn.map((barnet: any) => {
     const navnEllerBarn = barnetsNavnEllerBarnet(barnet, intl);
-
-    const oppdatertBarn = { ...barnet };
+    const { ident, navn, ...rest } = barnet;
+    const oppdatertBarn = {
+      ...rest,
+      ...(ident?.verdi ? { ident } : {}),
+      ...(navn?.verdi ? { navn } : {}),
+    };
 
     if (oppdatertBarn?.forelder) {
       Object.keys(oppdatertBarn.forelder).forEach((key) => {
