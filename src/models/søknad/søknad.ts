@@ -21,7 +21,7 @@ export interface ISøknad {
   merOmDinSituasjon: IDinSituasjon;
   dokumentasjonsbehov: IDokumentasjon[];
   harBekreftet: boolean;
-  locale?: any;
+  locale: any;
   skalBehandlesINySaksbehandling?: boolean;
   datoPåbegyntSøknad?: string;
 }

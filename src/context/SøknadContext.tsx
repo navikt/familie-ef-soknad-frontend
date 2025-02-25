@@ -69,6 +69,7 @@ const initialState = (intl: LokalIntlShape): ISøknad => {
     dokumentasjonsbehov: [],
     harBekreftet: false,
     datoPåbegyntSøknad: formatIsoDate(dagensDato),
+    locale: '',
   };
 };
 

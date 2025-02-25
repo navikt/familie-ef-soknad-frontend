@@ -24,6 +24,7 @@ export interface ISøknad {
   dokumentasjonsbehov: IDokumentasjon[];
   harBekreftet: boolean;
   datoPåbegyntSøknad?: string;
+  locale: string;
 }
 
 export interface ForrigeSøknad {

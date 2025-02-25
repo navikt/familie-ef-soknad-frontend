@@ -18,4 +18,5 @@ export interface ISøknad {
   utdanning: IDetaljertUtdanning;
   dokumentasjonsbehov: IDokumentasjon[];
   harBekreftet: boolean;
+  locale: string;
 }

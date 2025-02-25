@@ -62,6 +62,7 @@ const initialState = (intl: LokalIntlShape): ISøknad => {
       },
     ],
     harBekreftet: false,
+    locale: '',
   };
 };
 
