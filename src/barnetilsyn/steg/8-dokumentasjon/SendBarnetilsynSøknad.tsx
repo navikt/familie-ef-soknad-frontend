@@ -37,6 +37,7 @@ import { oppdaterBarnLabels } from '../../../utils/barn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { useToggles } from '../../../context/TogglesContext';
 import { ToggleName } from '../../../models/søknad/toggles';
+import { useSpråkContext } from '../../../context/SpråkContext';
 
 interface Innsending {
   status: string;
@@ -57,6 +58,7 @@ const SendSøknadKnapper: FC = () => {
   const forrigeRoute = hentForrigeRoute(RoutesBarnetilsyn, location.pathname);
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Barnetilsyn];
   const intl = useLokalIntlContext();
+  const [locale] = useSpråkContext();
 
   const [innsendingState, settinnsendingState] = React.useState<Innsending>({
     status: IStatus.KLAR_TIL_INNSENDING,
@@ -112,11 +114,11 @@ const SendSøknadKnapper: FC = () => {
       unikeDokumentasjonsbehov
     );
     logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Barnetilsyn);
-
     const søknadMedFiltrerteBarn: ISøknad = {
       ...søknad,
       person: { ...søknad.person, barn: barnMedOppdaterteLabels },
       dokumentasjonsbehov: dokumentasjonsbehov,
+      locale: locale,
     };
     settinnsendingState({ ...innsendingState, venter: true });
     sendInnSøknad(søknadMedFiltrerteBarn);

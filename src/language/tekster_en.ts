@@ -860,7 +860,7 @@ export default {
   'barnepass.dokumentasjon.arbeidstid':
     'You must provide documentation of your working hours.',
   'barnepass.spm.hvaSlagsOrdning':
-    'What kind of child minding arrangements does [0] have??',
+    'What kind of child minding arrangements does [0] have?',
   'hvaSlagsOrdning.svar.barnehageOgLiknende':
     'Kindergarten, child care at school outside school hours (SFO) or similar',
   'hvaSlagsOrdning.svar.privat':

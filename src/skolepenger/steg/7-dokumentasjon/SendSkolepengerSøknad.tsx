@@ -33,6 +33,7 @@ import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../helpers/steg/omdeg';
 import { useToggles } from '../../../context/TogglesContext';
 import { ToggleName } from '../../../models/søknad/toggles';
+import { useSpråkContext } from '../../../context/SpråkContext';
 
 interface Innsending {
   status: string;
@@ -49,6 +50,7 @@ const SendSøknadKnapper: FC = () => {
   const forrigeRoute = hentForrigeRoute(RoutesSkolepenger, location.pathname);
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Skolepenger];
   const intl = useLokalIntlContext();
+  const [locale] = useSpråkContext();
 
   const [innsendingState, settinnsendingState] = React.useState<Innsending>({
     status: IStatus.KLAR_TIL_INNSENDING,
@@ -105,6 +107,7 @@ const SendSøknadKnapper: FC = () => {
       ...søknad,
       person: { ...søknad.person, barn: barnMedOppdaterteLabels },
       dokumentasjonsbehov: dokumentasjonsbehov,
+      locale: locale,
     };
 
     settinnsendingState({ ...innsendingState, venter: true });
