@@ -46,7 +46,7 @@
     "@types/lodash": "^4.17.15",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "constate": "^3.3.2",
     "date-fns": "^4.1.0",
     "html-react-parser": "^5.2.2",
