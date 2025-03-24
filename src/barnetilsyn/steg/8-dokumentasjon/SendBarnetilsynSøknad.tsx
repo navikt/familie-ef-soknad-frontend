@@ -10,7 +10,6 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
   sendInnBarnetilsynSøknad,
-  sendInnBarnetilsynSøknadFamiliePdf,
 } from '../../../innsending/api';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { ISøknad } from '../../models/søknad';
@@ -35,8 +34,6 @@ import {
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../utils/barn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
-import { useToggles } from '../../../context/TogglesContext';
-import { ToggleName } from '../../../models/søknad/toggles';
 import { useSpråkContext } from '../../../context/SpråkContext';
 
 interface Innsending {
@@ -50,7 +47,6 @@ const validerSøkerBosattINorgeSisteFemÅr = (søknad: ISøknad) => {
 };
 
 const SendSøknadKnapper: FC = () => {
-  const { toggles } = useToggles();
   const { søknad, settSøknad } = useBarnetilsynSøknad();
   const location = useLocation();
   const navigate = useNavigate();
@@ -72,11 +68,7 @@ const SendSøknadKnapper: FC = () => {
 
   const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
     try {
-      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
-
-      const kvittering = brukModernisertFlyt
-        ? await sendInnBarnetilsynSøknadFamiliePdf(søknadMedFiltrerteBarn)
-        : await sendInnBarnetilsynSøknad(søknadMedFiltrerteBarn);
+      const kvittering = await sendInnBarnetilsynSøknad(søknadMedFiltrerteBarn);
 
       settinnsendingState({
         ...innsendingState,

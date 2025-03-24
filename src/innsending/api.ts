@@ -4,17 +4,6 @@ import { IBarn } from '../models/steg/barn';
 
 export const sendInnOvergangstønadSøknad = (søknad: object) => {
   return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
-};
-
-export const sendInnSøknadFamiliePdf = (søknad: object) => {
-  return axios
     .post(
       `${Environment().apiProxyUrl}/api/soknadskvittering/overgangsstonad`,
       søknad,
@@ -30,16 +19,6 @@ export const sendInnSøknadFamiliePdf = (søknad: object) => {
 
 export const sendInnBarnetilsynSøknad = (søknad: object) => {
   return axios
-    .post(`${Environment().apiProxyUrl}/api/soknadbarnetilsyn`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
-};
-export const sendInnBarnetilsynSøknadFamiliePdf = (søknad: object) => {
-  return axios
     .post(
       `${Environment().apiProxyUrl}/api/soknadskvittering/barnetilsyn`,
       søknad,
@@ -54,17 +33,6 @@ export const sendInnBarnetilsynSøknadFamiliePdf = (søknad: object) => {
 };
 
 export const sendInnSkolepengerSøknad = (søknad: object) => {
-  return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad/skolepenger`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
-};
-
-export const sendInnSkolepengerSøknadFamiliePdf = (søknad: object) => {
   return axios
     .post(
       `${Environment().apiProxyUrl}/api/soknadskvittering/skolepenger`,

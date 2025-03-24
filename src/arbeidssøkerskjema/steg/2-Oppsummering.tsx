@@ -12,7 +12,7 @@ import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../utils/visning';
 import { IArbeidssøker } from '../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../components/knapper/LenkeMedIkon';
-import { sendInnArbeidssøkerSkjema, sendInnSkjema } from '../innsending/api';
+import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
 import LocaleTekst from '../../language/LocaleTekst';
 import SeksjonGruppe from '../../components/gruppe/SeksjonGruppe';
@@ -28,8 +28,6 @@ import { logSidevisningArbeidssokerskjema } from '../../utils/amplitude';
 import { useMount } from '../../utils/hooks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react';
-import { useToggles } from '../../context/TogglesContext';
-import { ToggleName } from '../../models/søknad/toggles';
 
 interface Innsending {
   status: IStatus;
@@ -39,7 +37,6 @@ interface Innsending {
 
 const Oppsummering: React.FC = () => {
   const location = useLocation();
-  const { toggles } = useToggles();
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
   const { skjema, settSkjema } = useSkjema();
@@ -63,11 +60,8 @@ const Oppsummering: React.FC = () => {
   const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (
     mappetSkjema: Record<string, object>
   ) => {
-    const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
     try {
-      const kvittering = brukModernisertFlyt
-        ? await sendInnArbeidssøkerSkjema(mappetSkjema)
-        : await sendInnSkjema(mappetSkjema);
+      const kvittering = await sendInnArbeidssøkerSkjema(mappetSkjema);
 
       settinnsendingState({
         ...innsendingState,

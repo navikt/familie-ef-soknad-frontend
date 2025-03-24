@@ -11,7 +11,6 @@ import {
   mapBarnTilEntenIdentEllerFødselsdato,
   mapBarnUtenBarnepass,
   sendInnSkolepengerSøknad,
-  sendInnSkolepengerSøknadFamiliePdf,
 } from '../../../innsending/api';
 import {
   hentForrigeRoute,
@@ -31,8 +30,6 @@ import { ESkjemanavn, skjemanavnIdMapping } from '../../../utils/skjemanavn';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../helpers/steg/omdeg';
-import { useToggles } from '../../../context/TogglesContext';
-import { ToggleName } from '../../../models/søknad/toggles';
 import { useSpråkContext } from '../../../context/SpråkContext';
 
 interface Innsending {
@@ -42,7 +39,6 @@ interface Innsending {
 }
 
 const SendSøknadKnapper: FC = () => {
-  const { toggles } = useToggles();
   const { søknad, settSøknad } = useSkolepengerSøknad();
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,11 +56,7 @@ const SendSøknadKnapper: FC = () => {
 
   const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
     try {
-      const brukModernisertFlyt = toggles[ToggleName.visNyInnsendingsknapp];
-
-      const kvittering = brukModernisertFlyt
-        ? await sendInnSkolepengerSøknadFamiliePdf(søknadMedFiltrerteBarn)
-        : await sendInnSkolepengerSøknad(søknadMedFiltrerteBarn);
+      const kvittering = await sendInnSkolepengerSøknad(søknadMedFiltrerteBarn);
 
       settinnsendingState({
         ...innsendingState,
