@@ -6,7 +6,6 @@ import {
   stønadsTypeTilEngelsk,
 } from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
-import { useToggles } from '../../context/TogglesContext';
 import { formatDate, strengTilDato } from '../../utils/dato';
 import { useSpråkContext } from '../../context/SpråkContext';
 

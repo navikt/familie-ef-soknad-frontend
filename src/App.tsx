@@ -4,7 +4,6 @@ import hentToggles from './toggles/api';
 import Søknadsdialog from './overgangsstønad/Søknadsdialog';
 import { oppdaterBarnMedLabel } from './utils/søknad';
 import { usePersonContext } from './context/PersonContext';
-import { ToggleName } from './models/søknad/toggles';
 import {
   autentiseringsInterceptor,
   verifiserAtBrukerErAutentisert,
@@ -12,9 +11,8 @@ import {
 import { useSøknad } from './context/SøknadContext';
 import { useToggles } from './context/TogglesContext';
 import { Barn, PersonData } from './models/søknad/person';
-import LocaleTekst from './language/LocaleTekst';
 import { useLokalIntlContext } from './context/LokalIntlContext';
-import { Alert, Loader } from '@navikt/ds-react';
+import { Loader } from '@navikt/ds-react';
 import { IBarn } from './models/steg/barn';
 import { ESkjemanavn } from './utils/skjemanavn';
 
