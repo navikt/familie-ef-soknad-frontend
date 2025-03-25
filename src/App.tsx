@@ -24,7 +24,7 @@ const App = () => {
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } =
     usePersonContext();
   const { settSøknad, hentMellomlagretOvergangsstønad } = useSøknad();
-  const { settToggles, toggles } = useToggles();
+  const { settToggles } = useToggles();
 
   const intl = useLokalIntlContext();
   autentiseringsInterceptor();
@@ -69,12 +69,6 @@ const App = () => {
           <title>
             {intl.formatMessage({ id: 'banner.tittel.overgangsstønad' })}
           </title>
-
-          {toggles[ToggleName.feilsituasjon] && (
-            <Alert size="small" variant="error">
-              <LocaleTekst tekst={'overgangsstønad.feilsituasjon'} />
-            </Alert>
-          )}
           <Søknadsdialog />
         </>
       );
