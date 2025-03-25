@@ -7,7 +7,6 @@ import {
 } from '../../models/søknad/stønadstyper';
 import Environment from '../../Environment';
 import { useToggles } from '../../context/TogglesContext';
-import { ToggleName } from '../../models/søknad/toggles';
 import { formatDate, strengTilDato } from '../../utils/dato';
 import { useSpråkContext } from '../../context/SpråkContext';
 
@@ -34,9 +33,6 @@ const kontaktOssUrl = 'https://www.nav.no/kontakt-oss';
 export const TidligereInnsendteSøknaderAlert: React.FC<
   TidligereInnsendteSøknadAlertProps
 > = ({ stønadType }) => {
-  const { toggles } = useToggles();
-  const hentSistInnsendteSøknadPerStønad =
-    toggles[ToggleName.hentSistInnsendteSøknadPerStønad];
   const [locale] = useSpråkContext();
 
   const [innsendteSøknader, settInnsendteSøknader] = useState<
@@ -65,10 +61,8 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
   }, []);
 
   useEffect(() => {
-    if (hentSistInnsendteSøknadPerStønad) {
-      hentInnsendteSøknader();
-    }
-  }, [hentInnsendteSøknader, hentSistInnsendteSøknadPerStønad]);
+    hentInnsendteSøknader();
+  }, [hentInnsendteSøknader]);
 
   const gjeldeneSøknad = innsendteSøknader.find(
     (søknad) => søknad.stønadType === stønadType
