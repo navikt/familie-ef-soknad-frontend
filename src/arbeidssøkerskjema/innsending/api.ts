@@ -3,7 +3,7 @@ import Environment from '../../Environment';
 
 export const sendInnArbeidssøkerSkjema = async (skjema: object) => {
   const response = await axios.post(
-    `${Environment().apiProxyUrl}/api/soknadskvittering/arbeidssoker`,
+    `${Environment().apiProxyUrl}/api/soknad/arbeidssoker`,
     skjema,
     {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
