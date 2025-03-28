@@ -67,7 +67,7 @@ export const mellomlagreSøknadTilDokument = <T>(
 export const hentDataFraForrigeBarnetilsynSøknad =
   async (): Promise<ForrigeSøknad> => {
     const response = await axios.get(
-      `${Environment().apiProxyUrl + '/api/soknadbarnetilsyn/forrige'}`,
+      `${Environment().apiProxyUrl + '/api/soknad/barnetilsyn/forrige'}`,
       axiosConfig
     );
     return response.data;
