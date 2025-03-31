@@ -1,10 +1,9 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
-import TokenXClient from './tokenx';
 import { logWarn, logInfo } from './logger';
 import { miljø } from './miljø';
-import axios from 'axios';
+import { TexasClient } from './texas';
 
-const { exchangeToken } = new TokenXClient();
+const { exchangeToken } = new TexasClient();
 
 export type ApplicationName = 'familie-ef-soknad-api' | 'familie-dokument';
 
@@ -33,6 +32,10 @@ const attachToken = (applicationName: ApplicationName): RequestHandler => {
   };
 };
 
+const erProd = () => {
+  return process.env.ENV === 'prod';
+};
+
 const harBearerToken = (authorization: string) => {
   return authorization.includes('Bearer ');
 };
@@ -50,6 +53,7 @@ const getAccessToken = async (
   applicationName: ApplicationName
 ): Promise<string> => {
   logInfo('PrepareSecuredRequest', req);
+
   if (miljø.erLokalt) {
     const lokalToken =
       applicationName === 'familie-ef-soknad-api'
@@ -57,11 +61,15 @@ const getAccessToken = async (
         : miljø.lokaltTokenxDokument;
     return `Bearer ${lokalToken}`;
   }
+
+  const cluster = erProd() ? 'prod-gcp' : 'dev-gcp';
+  const audience = `${cluster}:teamfamilie:${applicationName}`;
+
   const { authorization } = req.headers;
   const token = utledToken(req, authorization);
   logInfo('IdPorten-token found: ' + (token.length > 1), req);
-  const accessToken = await exchangeToken(token, applicationName).then(
-    (accessToken) => accessToken
+  const accessToken = await exchangeToken(token, audience, 'tokenx').then(
+    (accessToken) => accessToken.access_token
   );
   return `Bearer ${accessToken}`;
 };
