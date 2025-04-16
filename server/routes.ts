@@ -17,21 +17,36 @@ const routes = () => {
   const expressRouter = express.Router();
   console.log('Setter opp routes');
 
-  expressRouter.get(`${BASE_PATH}/internal/isAlive|isReady`, (req, res) =>
+  expressRouter.get(`${BASE_PATH}/internal/isReady`, (req, res) =>
     res.sendStatus(200)
   );
 
-  expressRouter.get(`${BASE_PATH}/innsendtsoknad*`, (req, res, next) => {
-    res.redirect(ETTERSENDING_PATH);
-  });
+  expressRouter.get(`${BASE_PATH}/internal/isAlive`, (req, res) =>
+    res.sendStatus(200)
+  );
+
+  expressRouter.get(
+    `${BASE_PATH}/innsendtsoknad/:anything`,
+    (req, res, next) => {
+      res.redirect(ETTERSENDING_PATH);
+    }
+  );
 
   expressRouter.use(BASE_PATH, express.static(buildPath, { index: false }));
 
-  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, (req, res) => {
+  expressRouter.use((req, res, next) => {
+    const url = req.originalUrl;
+    const isInternal = url.startsWith(`${BASE_PATH}/internal`);
+    const isStatic = url.startsWith(`${BASE_PATH}/static`);
+    const isApi = url.startsWith(`${BASE_PATH}/api`);
+    const isDokument = url.startsWith(`${BASE_PATH}/dokument`);
+
+    if (isInternal || isStatic || isApi || isDokument) {
+      return next();
+    }
+
     getHtmlWithDecorator(path.join(buildPath, 'index.html'))
-      .then((html) => {
-        res.send(html);
-      })
+      .then((html) => res.send(html))
       .catch((e) => {
         logger.error(e);
         res.status(500).send(e);
