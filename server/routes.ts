@@ -39,9 +39,8 @@ const routes = () => {
     const isInternal = url.startsWith(`${BASE_PATH}/internal`);
     const isStatic = url.startsWith(`${BASE_PATH}/static`);
     const isApi = url.startsWith(`${BASE_PATH}/api`);
-    const isDokument = url.startsWith(`${BASE_PATH}/dokument`);
 
-    if (isInternal || isStatic || isApi || isDokument) {
+    if (isInternal || isStatic || isApi) {
       return next();
     }
 
