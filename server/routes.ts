@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
 import path from 'path';
 import getHtmlWithDecorator from './decorator';
 import logger from './logger';
@@ -12,17 +12,20 @@ const buildPath =
     : path.join(process.cwd(), 'dev-build');
 const EF_BASE_PATH = '/familie/alene-med-barn';
 const BASE_PATH = `${EF_BASE_PATH}/soknad`;
-const routes = () => {
+const routes = (app: Express) => {
   const expressRouter = express.Router();
   console.log('Setter opp routes');
 
-  expressRouter.get(`${BASE_PATH}/internal/isAlive|isReady`, (req, res) =>
-    res.sendStatus(200)
+  app.get(
+    [`${BASE_PATH}/internal/isAlive`, `${BASE_PATH}/internal/isReady`],
+    (_req: Request, res: Response) => {
+      res.status(200).end();
+    }
   );
 
   expressRouter.use(BASE_PATH, express.static(buildPath, { index: false }));
 
-  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, (req, res) => {
+  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, (_req, res) => {
     getHtmlWithDecorator(path.join(buildPath, 'index.html'))
       .then((html) => {
         res.send(html);

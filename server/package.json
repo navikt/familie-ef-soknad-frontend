@@ -8,10 +8,11 @@
   },
   "dependencies": {
     "@navikt/nav-dekoratoren-moduler": "^3.2.2",
+    "@types/express": "^5.0.1",
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
     "cookie-parser": "^1.4.7",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "express-http-proxy": "^2.1.1",
     "html-react-parser": "^5.2.3",
     "http-proxy-middleware": "^3.0.5",

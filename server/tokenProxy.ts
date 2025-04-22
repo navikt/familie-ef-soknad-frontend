@@ -12,23 +12,12 @@ const WONDERWALL_ID_TOKEN_HEADER = 'x-wonderwall-id-token';
 
 const attachToken = (applicationName: ApplicationName): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      req.headers[AUTHORIZATION_HEADER] =
-        miljø.erLokalt && !miljø.brukDevApi
-          ? await getFakedingsToken(applicationName)
-          : await getAccessToken(req, applicationName);
-      req.headers[WONDERWALL_ID_TOKEN_HEADER] = '';
-      next();
-    } catch (error) {
-      logWarn(
-        `Noe gikk galt ved setting av token (${req.method} - ${req.path}): `,
-        req,
-        error
-      );
-      return res
-        .status(401)
-        .send('En uventet feil oppstod. Ingen gyldig token');
-    }
+    req.headers[AUTHORIZATION_HEADER] =
+      miljø.erLokalt && !miljø.brukDevApi
+        ? await getFakedingsToken(applicationName)
+        : await getAccessToken(req, res, applicationName);
+    req.headers[WONDERWALL_ID_TOKEN_HEADER] = '';
+    next();
   };
 };
 
@@ -50,28 +39,38 @@ const utledToken = (req: Request, authorization: string | undefined) => {
 
 const getAccessToken = async (
   req: Request,
+  res: Response,
   applicationName: ApplicationName
-): Promise<string> => {
-  logInfo('PrepareSecuredRequest', req);
+): Promise<string | undefined> => {
+  try {
+    logInfo('PrepareSecuredRequest', req);
 
-  if (miljø.erLokalt) {
-    const lokalToken =
-      applicationName === 'familie-ef-soknad-api'
-        ? miljø.lokaltTokenxApi
-        : miljø.lokaltTokenxDokument;
-    return `Bearer ${lokalToken}`;
+    if (miljø.erLokalt) {
+      const lokalToken =
+        applicationName === 'familie-ef-soknad-api'
+          ? miljø.lokaltTokenxApi
+          : miljø.lokaltTokenxDokument;
+      return `Bearer ${lokalToken}`;
+    }
+
+    const cluster = erProd() ? 'prod-gcp' : 'dev-gcp';
+    const audience = `${cluster}:teamfamilie:${applicationName}`;
+
+    const { authorization } = req.headers;
+    const token = utledToken(req, authorization);
+    logInfo('IdPorten-token found: ' + (token.length > 1), req);
+    const accessToken = await exchangeToken(token, audience, 'tokenx').then(
+      (accessToken) => accessToken.access_token
+    );
+    return `Bearer ${accessToken}`;
+  } catch (error) {
+    logWarn(
+      `Noe gikk galt ved setting av token (${req.method} - ${req.path}): `,
+      req,
+      error
+    );
+    res.status(401).send('En uventet feil oppstod. Ingen gyldig token');
   }
-
-  const cluster = erProd() ? 'prod-gcp' : 'dev-gcp';
-  const audience = `${cluster}:teamfamilie:${applicationName}`;
-
-  const { authorization } = req.headers;
-  const token = utledToken(req, authorization);
-  logInfo('IdPorten-token found: ' + (token.length > 1), req);
-  const accessToken = await exchangeToken(token, audience, 'tokenx').then(
-    (accessToken) => accessToken.access_token
-  );
-  return `Bearer ${accessToken}`;
 };
 
 const getFakedingsToken = async (applicationName: string): Promise<string> => {

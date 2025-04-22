@@ -29,7 +29,7 @@ app.use(middleware);
 app.use(cookieParser());
 app.use(webpackHotMiddleware(compiler));
 
-app.use(routes());
+app.use(routes(app));
 
 console.log('Startet - lytter på port 3000');
 app.listen(3000);
