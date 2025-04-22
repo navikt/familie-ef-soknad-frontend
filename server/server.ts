@@ -10,6 +10,6 @@ app.use((_req, res, next) => {
   res.header('X-Frame-Options', 'DENY');
   next();
 });
-app.use(routes());
+app.use(routes(app));
 
 app.listen(8080);
