@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import path from 'path';
 import getHtmlWithDecorator from './decorator';
 import logger from './logger';
@@ -16,13 +16,16 @@ const routes = () => {
   const expressRouter = express.Router();
   console.log('Setter opp routes');
 
-  expressRouter.get(`${BASE_PATH}/internal/isAlive|isReady`, (req, res) =>
-    res.sendStatus(200)
+  expressRouter.get(
+    `${BASE_PATH}/internal/isAlive|isReady`,
+    (_req: Request, res: Response) => {
+      res.status(200).end();
+    }
   );
 
   expressRouter.use(BASE_PATH, express.static(buildPath, { index: false }));
 
-  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, (req, res) => {
+  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, (_req, res) => {
     getHtmlWithDecorator(path.join(buildPath, 'index.html'))
       .then((html) => {
         res.send(html);
