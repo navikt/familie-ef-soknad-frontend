@@ -5,8 +5,8 @@ import { IForelder } from '../../../models/steg/forelder';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { harValgtSvar } from '../../../utils/spørsmålogsvar';
 import {
-  lagtTilAnnenForelderId,
   hentBarnetsNavnEllerBeskrivelse,
+  lagtTilAnnenForelderId,
 } from '../../../utils/barn';
 import { hentUid } from '../../../utils/autentiseringogvalidering/uuid';
 import RadioPanelCustom from '../../../components/panel/RadioPanel';
@@ -76,6 +76,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
       beskrivSamværUtenBarn: oppdatertForelder?.beskrivSamværUtenBarn,
       land: oppdatertForelder?.land,
       fraFolkeregister: oppdatertForelder?.fraFolkeregister,
+      skalBarnetBoHosSøker: forelder.skalBarnetBoHosSøker,
     });
   };
 
@@ -112,24 +113,24 @@ const AnnenForelderKnapper: React.FC<Props> = ({
     <KomponentGruppe>
       <StyledAnnenForelderSpørsmål>
         <RadioGroup legend={null} value={barn.annenForelderId}>
-          {førsteBarnTilHverForelder.map((b) => {
+          {førsteBarnTilHverForelder.map((barn) => {
             if (
-              !b.forelder?.borINorge &&
-              !b.forelder?.kanIkkeOppgiAnnenForelderFar
+              !barn.forelder?.borINorge &&
+              !barn.forelder?.kanIkkeOppgiAnnenForelderFar
             )
               return null;
 
             return (
               <RadioPanelCustom
-                key={`${andreForelder}${b.id}`}
-                name={`${andreForelder}${b.id}`}
-                value={b.id}
-                checked={barn.annenForelderId === b.id}
-                onChange={(e) => leggTilSammeForelder(e, b)}
+                key={`${andreForelder}${barn.id}`}
+                name={`${andreForelder}${barn.id}`}
+                value={barn.id}
+                checked={barn.annenForelderId === barn.id}
+                onChange={(e) => leggTilSammeForelder(e, barn)}
               >{`${intl.formatMessage({
                 id: 'barnasbosted.forelder.sammesom',
               })} ${hentBarnetsNavnEllerBeskrivelse(
-                b,
+                barn,
                 intl
               )}`}</RadioPanelCustom>
             );
