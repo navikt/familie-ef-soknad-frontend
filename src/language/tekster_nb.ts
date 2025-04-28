@@ -733,11 +733,11 @@ export default {
     'Dokumentasjon på at du jobber turnus eller skift, og jobber på tider utenom vanlig arbeidstid',
   'dokumentasjon.ettersend.tittel':
     'Fikk du ikke lastet opp all dokumentasjonen?',
-  'dokumentasjon.ettersend.tekst.barnetilsyn':
+  'dokumentasjon.ettersend.tekst.BARNETILSYN':
     'Du får raskere svar på søknaden din hvis vi har all dokumentasjonen når vi starter behandlingen. Hvis du ikke fikk lastet opp alt nå, kan du <a href="https://www.nav.no/familie/alene-med-barn/ettersending">ettersende det som mangler</a>.',
-  'dokumentasjon.ettersend.tekst.overgangsstønad':
+  'dokumentasjon.ettersend.tekst.OVERGANGSSTØNAD':
     'Du får raskere svar på søknaden din hvis vi har all dokumentasjonen når vi starter behandlingen. Hvis du ikke fikk lastet opp alt nå, kan du <a href="https://www.nav.no/familie/alene-med-barn/ettersending">ettersende det som mangler</a>.',
-  'dokumentasjon.ettersend.tekst.skolepenger':
+  'dokumentasjon.ettersend.tekst.SKOLEPENGER':
     'Du får raskere svar på søknaden din hvis vi har all dokumentasjonen når vi starter behandlingen. Hvis du ikke fikk lastet opp alt nå, kan du <a href="https://www.nav.no/familie/alene-med-barn/ettersending">ettersende det som mangler</a>.',
   'kvittering.takk': 'Takk for søknaden',
   'kvittering.alert.mottatt': 'Søknaden din om overgangsstønad er mottatt',
