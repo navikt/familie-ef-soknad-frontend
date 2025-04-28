@@ -1156,13 +1156,13 @@ export default {
 
   'dokumentasjon.ettersend.tittel':
     'Unable to upload all the required documentation?',
-  'dokumentasjon.ettersend.tekst.barnetilsyn':
+  'dokumentasjon.ettersend.tekst.BARNETILSYN':
     'You will get a quicker response to your application if we have all the documentation we need when we start processing it. ' +
     'If you were not able to upload everything now, you can <a href="https://www.nav.no/familie/alene-med-barn/ettersending">submit missing documentation later on</a>. ',
-  'dokumentasjon.ettersend.tekst.overgangsstønad':
+  'dokumentasjon.ettersend.tekst.OVERGANGSSTØNAD':
     'You will get a quicker response to your application if we have all the documentation we need when we start processing it. ' +
     'If you were not able to upload everything now, you can <a href="https://www.nav.no/familie/alene-med-barn/ettersending">submit missing documentation later on</a>. ',
-  'dokumentasjon.ettersend.tekst.skolepenger':
+  'dokumentasjon.ettersend.tekst.SKOLEPENGER':
     'You will get a quicker response to your application if we have all the documentation we need when we start processing it. ' +
     'If you were not able to upload everything now, you can <a href="https://www.nav.no/familie/alene-med-barn/ettersending">submit missing documentation later on</a>. ',
 
