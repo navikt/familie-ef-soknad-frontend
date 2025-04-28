@@ -46,7 +46,7 @@ export const TidligereInnsendteSøknaderAlert: React.FC<
       .then((response) => {
         const normalisertSøknad = response.data.map((søknad) => ({
           ...søknad,
-          stønadType: søknad.stønadType.toLowerCase() as Stønadstype,
+          stønadType: søknad.stønadType,
         }));
 
         settInnsendteSøknader(normalisertSøknad);
