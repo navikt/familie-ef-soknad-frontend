@@ -9,14 +9,14 @@
   "dependencies": {
     "@navikt/nav-dekoratoren-moduler": "^3.2.2",
     "@types/express": "^5.0.1",
-    "axios": "^1.8.4",
+    "axios": "^1.9.0",
     "dotenv": "^16.5.0",
     "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
     "express-http-proxy": "^2.1.1",
     "html-react-parser": "^5.2.3",
     "http-proxy-middleware": "^3.0.5",
-    "jsdom": "^26.0.0",
+    "jsdom": "^26.1.0",
     "uuid": "^11.1.0",
     "winston": "^3.17.0",
     "typescript": "^5.8.3"
