@@ -123,7 +123,6 @@ const OmDeg: FC = () => {
           sivilstatus={søknad.sivilstatus}
           settSivilstatus={settSivilstatus}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          settMedlemskap={settMedlemskap}
         />
 
         <Show
