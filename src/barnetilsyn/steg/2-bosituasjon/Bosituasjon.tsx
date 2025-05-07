@@ -4,7 +4,6 @@ import { IBosituasjon } from '../../../models/steg/bosituasjon';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../helpers/steg/bosituasjon';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import BosituasjonSpørsmål from '../../../søknad/steg/2-bosituasjon/BosituasjonSpørsmål';
 import Side, { ESide } from '../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
@@ -14,6 +13,7 @@ import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
+import BosituasjonSpørsmål from './BosituasjonSpørsmål';
 
 const Bosituasjon: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('Bosituasjon'));
