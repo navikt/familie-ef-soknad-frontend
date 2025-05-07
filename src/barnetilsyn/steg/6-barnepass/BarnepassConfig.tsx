@@ -6,8 +6,8 @@ import {
   EÅrsakBarnepass,
 } from '../../models/barnepass';
 import { ESøkerFraBestemtMåned } from '../../../models/steg/dinsituasjon/meromsituasjon';
-import { DokumentasjonsConfig } from '../../../søknad/DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../language/typer';
+import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 
 // ----- DOKUMENTASJON
 

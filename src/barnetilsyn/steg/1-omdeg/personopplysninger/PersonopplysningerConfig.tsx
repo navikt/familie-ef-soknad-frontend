@@ -3,7 +3,7 @@ import { JaNeiSvar, JaSvar, NeiSvar } from '../../../../helpers/svar';
 import { ESøknad } from '../../../../models/søknad/søknad';
 import { LokalIntlShape } from '../../../../language/typer';
 import { EAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
-import { DokumentasjonsConfig } from '../../../../søknad/DokumentasjonsConfig';
+import { DokumentasjonsConfig } from '../../../DokumentasjonsConfig';
 
 export const borDuPåDenneAdressen = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: ESøknad.søkerBorPåRegistrertAdresse,
