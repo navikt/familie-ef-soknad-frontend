@@ -12,7 +12,7 @@ import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
-import BarnasBostedInnhold from '../../../søknad/steg/4-barnasbosted/BarnasBostedInnhold';
+import BarnasBostedInnhold from './BarnasBostedInnhold';
 
 const BarnasBosted: React.FC = () => {
   const intl = useLokalIntlContext();
