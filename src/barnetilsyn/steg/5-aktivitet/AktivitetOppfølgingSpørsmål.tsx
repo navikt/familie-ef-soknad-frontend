@@ -4,10 +4,10 @@ import {
   IAktivitet,
 } from '../../../models/steg/aktivitet/aktivitet';
 import { ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
-import OmArbeidsforholdetDitt from '../../../søknad/steg/5-aktivitet/arbeidsforhold/OmArbeidsforholdetDitt';
-import EgetAS from '../../../søknad/steg/5-aktivitet/aksjeselskap/EgetAS';
-import EtablererEgenVirksomhet from '../../../søknad/steg/5-aktivitet/EtablererEgenVirksomhet';
-import OmFirmaeneDine from '../../../søknad/steg/5-aktivitet/Firma/OmFirmaeneDine';
+import EtablererEgenVirksomhet from './EtablererEgenVirksomhet';
+import EgetAS from './aksjeselskap/EgetAS';
+import OmArbeidsforholdetDitt from './arbeidsforhold/OmArbeidsforholdetDitt';
+import OmFirmaeneDine from './firma/OmFirmaeneDine';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

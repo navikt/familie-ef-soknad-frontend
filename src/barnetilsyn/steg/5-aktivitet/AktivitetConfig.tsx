@@ -5,8 +5,8 @@ import {
   ErIArbeid,
 } from '../../../models/steg/aktivitet/aktivitet';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
-import { DokumentasjonsConfig } from '../../../søknad/DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../language/typer';
+import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 
 // --- DOKUMENTASJON
 
