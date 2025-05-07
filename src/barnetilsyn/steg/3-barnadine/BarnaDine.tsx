@@ -5,7 +5,6 @@ import LesMerTekst from '../../../components/LesMerTekst';
 import FeltGruppe from '../../../components/gruppe/FeltGruppe';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import BarnMedISøknad from './BarnMedISøknad';
-import Barnekort from '../../../søknad/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
@@ -15,11 +14,9 @@ import LocaleTekst from '../../../language/LocaleTekst';
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { Alert, Label } from '@navikt/ds-react';
-import {
-  BarnaDineContainer,
-  BarneKortWrapper,
-} from '../../../søknad/steg/3-barnadine/BarnaDineInnhold';
 import styled from 'styled-components';
+import Barnekort from './Barnekort';
+import { BarnaDineContainer, BarneKortWrapper } from './BarnaDineInnhold';
 
 const AlertContainer = styled.div`
   & > *:not(:first-child) {
