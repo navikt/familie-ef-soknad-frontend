@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import { hentTekst, unikeDokumentasjonsbehov } from '../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
-import { usePrevious } from '../../../utils/hooks';
-import LastOppVedlegg from '../../../søknad/steg/8-dokumentasjon/LastOppVedlegg';
+import { useMount, usePrevious } from '../../../utils/hooks';
 import SendSøknadKnapper from './SendBarnetilsynSøknad';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import Side, { ESide } from '../../../components/side/Side';
@@ -12,14 +11,14 @@ import { IVedlegg } from '../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../utils/dato';
 import * as Sentry from '@sentry/browser';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { DokumentasjonBeskrivelse } from '../../../søknad/steg/8-dokumentasjon/DokumentasjonBeskrivelse';
+import { DokumentasjonBeskrivelse } from './DokumentasjonBeskrivelse';
+import LastOppVedlegg from './LastOppVedlegg';
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();
