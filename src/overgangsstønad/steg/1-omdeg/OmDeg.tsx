@@ -1,7 +1,4 @@
 import React, { FC } from 'react';
-import Medlemskap from '../../../søknad/steg/1-omdeg/medlemskap/Medlemskap';
-import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
-import Sivilstatus from '../../../søknad/steg/1-omdeg/sivilstatus/Sivilstatus';
 import { useSøknad } from '../../../context/SøknadContext';
 import { useLocation } from 'react-router-dom';
 import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
@@ -22,6 +19,9 @@ import { ISøknad } from '../../../models/søknad/søknad';
 import Show from '../../../utils/showIf';
 import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
+import Personopplysninger from './personopplysninger/Personopplysninger';
+import Sivilstatus from './sivilstatus/Sivilstatus';
+import Medlemskap from './medlemskap/Medlemskap';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
