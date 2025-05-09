@@ -18,9 +18,9 @@ import {
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../components/spørsmål/SelectSpørsmål';
 import { useSpråkContext } from '../../../../context/SpråkContext';
-import { hentLand } from '../../1-omdeg/medlemskap/MedlemskapConfig';
 import { ILandMedKode } from '../../../../models/steg/omDeg/medlemskap';
 import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { hentLand } from '../../../../barnetilsyn/steg/1-omdeg/medlemskap/MedlemskapConfig';
 
 const utledOppholdslandConfig = (land: ILandMedKode[]): ISpørsmål => ({
   søknadid: 'denAndreForelderensOppholdsland',

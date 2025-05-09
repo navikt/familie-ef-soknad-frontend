@@ -5,8 +5,8 @@ import {
 } from '../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
 import { JaSvar, NeiSvar } from '../../../../helpers/svar';
-import { DokumentasjonsConfig } from '../../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
+import { DokumentasjonsConfig } from '../../../../søknad/DokumentasjonsConfig';
 
 const ErklæringSamlivsbrudd: IDokumentasjon =
   DokumentasjonsConfig.ErklæringSamlivsbrudd;
