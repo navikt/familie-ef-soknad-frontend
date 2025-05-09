@@ -8,6 +8,7 @@ import {
   ISpørsmålBooleanFelt,
   ISpørsmålFelt,
   ISpørsmålListeFelt,
+  SpørsmålJaNeiUbesvartFelt,
 } from '../models/søknad/søknadsfelter';
 
 import { harValgtSvar } from './spørsmålogsvar';
@@ -139,7 +140,11 @@ export const VisLabelOgSvar = (objekt: object | undefined, navn?: string) => {
 };
 
 export const visLabelOgVerdiForSpørsmålFelt = (
-  feltObjekt: ISpørsmålFelt | ISpørsmålBooleanFelt | undefined,
+  feltObjekt:
+    | ISpørsmålFelt
+    | ISpørsmålBooleanFelt
+    | SpørsmålJaNeiUbesvartFelt
+    | undefined,
   intl: LokalIntlShape,
   overskrift?: string
 ) => {

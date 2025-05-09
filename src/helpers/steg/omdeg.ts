@@ -8,7 +8,10 @@ import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/utils';
-import { IDatoFelt } from '../../models/søknad/søknadsfelter';
+import {
+  BooleanOgUbesvart,
+  IDatoFelt,
+} from '../../models/søknad/søknadsfelter';
 import {
   erSøkerGift,
   erSøkerUGiftSkiltSeparertEllerEnke,
@@ -200,6 +203,7 @@ export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
   return (
     søknad.person.søker?.erStrengtFortrolig ||
     søknad.søkerBorPåRegistrertAdresse?.verdi === true ||
+    søknad.søkerBorPåRegistrertAdresse?.verdi === BooleanOgUbesvart.Ja ||
     søknad.adresseopplysninger?.harMeldtAdresseendring?.verdi === true
   );
 };

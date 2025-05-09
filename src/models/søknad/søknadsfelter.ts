@@ -8,6 +8,11 @@ export interface IBooleanFelt {
   verdi: boolean;
 }
 
+export interface JaNeiUbesvartFelt {
+  label: string;
+  verdi: BooleanOgUbesvart;
+}
+
 export interface IDatoFelt {
   label: string;
   verdi: string;
@@ -28,8 +33,19 @@ export interface ISpørsmålBooleanFelt extends IBooleanFelt {
   svarid: string;
 }
 
+export interface SpørsmålJaNeiUbesvartFelt extends JaNeiUbesvartFelt {
+  spørsmålid: string;
+  svarid: string;
+}
+
 export interface ISpørsmålListeFelt extends ITekstListeFelt {
   spørsmålid: string;
   svarid: string[];
   alternativer: string[];
+}
+
+export enum BooleanOgUbesvart {
+  Ja = 'Ja',
+  Nei = 'Nei',
+  Ubesvart = 'Ubesvart',
 }

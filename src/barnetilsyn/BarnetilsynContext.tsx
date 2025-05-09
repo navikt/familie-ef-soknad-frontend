@@ -26,10 +26,9 @@ import { Barn, IPerson, PersonData } from '../models/søknad/person';
 import { IBarn } from '../models/steg/barn';
 import { hvaErDinArbeidssituasjonSpm } from './steg/5-aktivitet/AktivitetConfig';
 import { useSpråkContext } from '../context/SpråkContext';
-import { LokalIntlShape } from '../language/typer';
+import { LocaleType, LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../utils/barn';
-import { LocaleType } from '../language/typer';
 import { dagensDato, formatIsoDate } from '../utils/dato';
 import { IMedforelderFelt } from '../models/steg/medforelder';
 import { IForelder } from '../models/steg/forelder';
@@ -39,12 +38,19 @@ import {
   utfyltNødvendigSpørsmålUtenOppgiAnnenForelder,
 } from '../helpers/steg/forelder';
 import { stringHarVerdiOgErIkkeTom } from '../utils/typer';
+import { BooleanOgUbesvart } from '../models/søknad/søknadsfelter';
 
 const initialState = (intl: LokalIntlShape): ISøknad => {
   return {
     person: tomPerson,
     sivilstatus: {},
     medlemskap: {},
+    søkerBorPåRegistrertAdresse: {
+      verdi: BooleanOgUbesvart.Ubesvart,
+      spørsmålid: '',
+      svarid: '',
+      label: '',
+    },
     bosituasjon: {
       delerBoligMedAndreVoksne: {
         spørsmålid: EBosituasjon.delerBoligMedAndreVoksne,

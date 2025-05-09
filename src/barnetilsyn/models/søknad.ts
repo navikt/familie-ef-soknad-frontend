@@ -1,6 +1,7 @@
 import {
   IDatoFelt,
   ISpørsmålBooleanFelt,
+  SpørsmålJaNeiUbesvartFelt,
 } from '../../models/søknad/søknadsfelter';
 import { IBosituasjon } from '../../models/steg/bosituasjon';
 import { ISivilstatus } from '../../models/steg/omDeg/sivilstatus';
@@ -13,7 +14,7 @@ import { IAdresseopplysninger } from '../../models/steg/adresseopplysninger';
 export interface ISøknad {
   innsendingsdato?: Date;
   person: IPerson;
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
+  søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt;
   sivilstatus: ISivilstatus;
   medlemskap: IMedlemskap;
   bosituasjon: IBosituasjon;
