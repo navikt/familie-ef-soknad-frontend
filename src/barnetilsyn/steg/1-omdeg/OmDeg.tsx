@@ -25,7 +25,7 @@ import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import Personopplysninger from './personopplysninger/Personopplysninger';
+import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
 
 const OmDeg: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('OmDeg'));

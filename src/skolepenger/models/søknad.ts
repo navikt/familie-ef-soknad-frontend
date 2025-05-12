@@ -1,4 +1,4 @@
-import { ISpørsmålBooleanFelt } from '../../models/søknad/søknadsfelter';
+import { SpørsmålJaNeiUbesvartFelt } from '../../models/søknad/søknadsfelter';
 import { IBosituasjon } from '../../models/steg/bosituasjon';
 import { ISivilstatus } from '../../models/steg/omDeg/sivilstatus';
 import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
@@ -10,7 +10,7 @@ import { IAdresseopplysninger } from '../../models/steg/adresseopplysninger';
 export interface ISøknad {
   innsendingsdato?: Date;
   person: IPerson;
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
+  søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt;
   adresseopplysninger?: IAdresseopplysninger;
   sivilstatus: ISivilstatus;
   medlemskap: IMedlemskap;

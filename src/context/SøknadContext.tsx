@@ -20,20 +20,26 @@ import { IMellomlagretOvergangsstønad } from '../models/søknad/mellomlagretSø
 import Environment from '../Environment';
 import { MellomlagredeStønadstyper } from '../models/søknad/stønadstyper';
 import { IBarn } from '../models/steg/barn';
-import { oppdaterBarnIBarneliste, oppdaterBarneliste } from '../utils/barn';
+import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../utils/barn';
 import { IPerson } from '../models/søknad/person';
 import { gjelderNoeAvDetteDeg } from '../søknad/steg/6-meromsituasjon/SituasjonConfig';
 import { hvaErDinArbeidssituasjonSpm } from '../søknad/steg/5-aktivitet/AktivitetConfig';
 import { useSpråkContext } from './SpråkContext';
-import { LokalIntlShape } from '../language/typer';
+import { LocaleType, LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from './LokalIntlContext';
-import { LocaleType } from '../language/typer';
 import { dagensDato, formatIsoDate } from '../utils/dato';
+import { BooleanOgUbesvart } from '../models/søknad/søknadsfelter';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): ISøknad => {
   return {
     person: tomPerson,
+    søkerBorPåRegistrertAdresse: {
+      spørsmålid: '',
+      svarid: '',
+      label: '',
+      verdi: BooleanOgUbesvart.UBESVART,
+    },
     sivilstatus: {},
     medlemskap: {},
     bosituasjon: {

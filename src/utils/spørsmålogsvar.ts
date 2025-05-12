@@ -1,8 +1,15 @@
 import { ESvar, ISvar } from '../models/felles/spørsmålogsvar';
-import { ISpørsmålListeFelt } from '../models/søknad/søknadsfelter';
+import {
+  BooleanOgUbesvart,
+  ISpørsmålListeFelt,
+} from '../models/søknad/søknadsfelter';
 
 export const hentBooleanFraValgtSvar = (valgtSvar: ISvar) =>
   valgtSvar.id === ESvar.JA;
+
+export const svarTilJaNeiUbesvart = (valgtsvar: ISvar) => {
+  return valgtsvar.id === 'JA' ? BooleanOgUbesvart.JA : BooleanOgUbesvart.NEI;
+};
 
 export const erJaNeiSvar = (svar: ISvar) => {
   return svar.id === ESvar.JA || svar.id === ESvar.NEI;

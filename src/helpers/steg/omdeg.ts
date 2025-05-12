@@ -202,7 +202,6 @@ export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
 ) => {
   return (
     søknad.person.søker?.erStrengtFortrolig ||
-    søknad.søkerBorPåRegistrertAdresse?.verdi === true ||
     søknad.søkerBorPåRegistrertAdresse?.verdi === BooleanOgUbesvart.JA ||
     søknad.adresseopplysninger?.harMeldtAdresseendring?.verdi === true
   );

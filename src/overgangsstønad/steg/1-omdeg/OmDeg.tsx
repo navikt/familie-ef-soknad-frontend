@@ -11,7 +11,10 @@ import {
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../helpers/steg/omdeg';
 import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
-import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
+import {
+  ISpørsmålBooleanFelt,
+  SpørsmålJaNeiUbesvartFelt,
+} from '../../../models/søknad/søknadsfelter';
 import { ISivilstatus } from '../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
@@ -54,7 +57,7 @@ const OmDeg: FC = () => {
   };
 
   const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
+    søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt
   ) => {
     settSøknad((prevSoknad: ISøknad) => {
       return {

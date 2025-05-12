@@ -19,7 +19,7 @@ import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
-import OppsummeringOmDeg from './OppsummeringOmDeg';
+import OppsummeringOmDeg from '../../../søknad/steg/7-oppsummering/OppsummeringOmDeg';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();

@@ -23,11 +23,14 @@ import {
 import LocaleTekst from '../../../language/LocaleTekst';
 import { useNavigate } from 'react-router-dom';
 import { BodyShort, Ingress, Label } from '@navikt/ds-react';
-import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
+import {
+  ISpørsmålBooleanFelt,
+  SpørsmålJaNeiUbesvartFelt,
+} from '../../../models/søknad/søknadsfelter';
 
 interface Props {
   søker: ISøker;
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
+  søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt;
   harMeldtAdresseendring?: ISpørsmålBooleanFelt;
   sivilstatus: ISivilstatus;
   medlemskap: IMedlemskap;

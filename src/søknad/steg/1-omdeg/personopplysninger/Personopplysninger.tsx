@@ -9,16 +9,24 @@ import {
   borDuPåDenneAdressen,
   harMeldtAdresseendringSpørsmål,
 } from './PersonopplysningerConfig';
-import { hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
+import {
+  hentBooleanFraValgtSvar,
+  svarTilJaNeiUbesvart,
+} from '../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
 import { ISøker } from '../../../../models/søknad/person';
-import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
+import {
+  BooleanOgUbesvart,
+  ISpørsmålBooleanFelt,
+  SpørsmålJaNeiUbesvartFelt,
+} from '../../../../models/søknad/søknadsfelter';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, BodyShort, Label } from '@navikt/ds-react';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
+import JaNeiUbesvartSpRsmL from '../../../../components/spørsmål/JaNeiUbesvartSpørsmål';
 
 interface Props {
   søker: ISøker;
@@ -27,9 +35,9 @@ interface Props {
     valgtSvar: ISvar,
     erHuketAv?: boolean
   ) => void;
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
+  søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt;
   settSøkerBorPåRegistrertAdresse: (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
+    søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt
   ) => void;
   harMeldtAdresseendring?: ISpørsmålBooleanFelt;
   settHarMeldtAdresseendring: (
@@ -53,7 +61,7 @@ const Personopplysninger: React.FC<Props> = ({
     spørsmål: ISpørsmål,
     valgtSvar: ISvar
   ) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+    const svar: BooleanOgUbesvart = svarTilJaNeiUbesvart(valgtSvar);
     settSøkerBorPåRegistrertAdresse({
       spørsmålid: spørsmål.søknadid,
       svarid: valgtSvar.id,
@@ -118,14 +126,14 @@ const Personopplysninger: React.FC<Props> = ({
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
-            <JaNeiSpørsmål
+            <JaNeiUbesvartSpRsmL
               spørsmål={borDuPåDenneAdressen(intl)}
               valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
               onChange={settPersonopplysningerFelt}
             />
           </KomponentGruppe>
 
-          {søkerBorPåRegistrertAdresse?.verdi === false && (
+          {søkerBorPåRegistrertAdresse?.verdi === BooleanOgUbesvart.NEI && (
             <KomponentGruppe>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}

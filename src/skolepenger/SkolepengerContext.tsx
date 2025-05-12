@@ -27,15 +27,21 @@ import {
 import { IPerson } from '../models/søknad/person';
 import { IBarn } from '../models/steg/barn';
 import { useSpråkContext } from '../context/SpråkContext';
-import { LokalIntlShape } from '../language/typer';
+import { LocaleType, LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../utils/barn';
-import { LocaleType } from '../language/typer';
+import { BooleanOgUbesvart } from '../models/søknad/søknadsfelter';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): ISøknad => {
   return {
     person: tomPerson,
+    søkerBorPåRegistrertAdresse: {
+      spørsmålid: '',
+      svarid: '',
+      label: '',
+      verdi: BooleanOgUbesvart.UBESVART,
+    },
     sivilstatus: {},
     medlemskap: {},
     bosituasjon: {

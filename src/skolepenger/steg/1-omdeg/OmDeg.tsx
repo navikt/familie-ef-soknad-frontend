@@ -9,7 +9,10 @@ import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
 import Medlemskap from '../../../søknad/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
-import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
+import {
+  ISpørsmålBooleanFelt,
+  SpørsmålJaNeiUbesvartFelt,
+} from '../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../søknad/steg/1-omdeg/sivilstatus/Sivilstatus';
 import { ISivilstatus } from '../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../components/side/Side';
@@ -55,7 +58,7 @@ const OmDeg: FC = () => {
   };
 
   const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
+    søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt
   ) => {
     settSøknad((prevSoknad: ISøknad) => {
       return {

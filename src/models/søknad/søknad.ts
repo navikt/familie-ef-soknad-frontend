@@ -1,6 +1,6 @@
 import { IAktivitet } from '../steg/aktivitet/aktivitet';
 import { IPerson } from './person';
-import { ISpørsmålBooleanFelt } from './søknadsfelter';
+import { SpørsmålJaNeiUbesvartFelt } from './søknadsfelter';
 import { IBosituasjon } from '../steg/bosituasjon';
 import { IDinSituasjon } from '../steg/dinsituasjon/meromsituasjon';
 import { ISivilstatus } from '../steg/omDeg/sivilstatus';
@@ -12,7 +12,7 @@ import { ISpørsmål, ISvar } from '../felles/spørsmålogsvar';
 export interface ISøknad {
   innsendingsdato?: Date;
   person: IPerson;
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
+  søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt;
   adresseopplysninger?: IAdresseopplysninger;
   sivilstatus: ISivilstatus;
   medlemskap: IMedlemskap;
