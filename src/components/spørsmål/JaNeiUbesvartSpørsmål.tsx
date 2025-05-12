@@ -61,16 +61,16 @@ const JaNeiUbesvartSpørsmål: React.FC<Props> = ({
     valgtSvar: BooleanOgUbesvart
   ): boolean => {
     return (
-      (svar.id === ESvar.JA && valgtSvar === BooleanOgUbesvart.Ja) ||
-      (svar.id === ESvar.NEI && valgtSvar === BooleanOgUbesvart.Nei)
+      (svar.id === ESvar.JA && valgtSvar === BooleanOgUbesvart.JA) ||
+      (svar.id === ESvar.NEI && valgtSvar === BooleanOgUbesvart.NEI)
     );
   };
 
   const svar = (): ESvar | null => {
     switch (valgtSvar) {
-      case BooleanOgUbesvart.Ja:
+      case BooleanOgUbesvart.JA:
         return ESvar.JA;
-      case BooleanOgUbesvart.Nei:
+      case BooleanOgUbesvart.NEI:
         return ESvar.NEI;
       default:
         return null;

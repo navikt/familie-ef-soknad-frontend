@@ -57,7 +57,7 @@ const Personopplysninger: React.FC<Props> = ({
   const tempIsvarTilJaNeiUbesvart = (valgtSvar: ISvar) => {
     console.log(valgtSvar);
     const test =
-      valgtSvar.id === 'JA' ? BooleanOgUbesvart.Ja : BooleanOgUbesvart.Nei;
+      valgtSvar.id === 'JA' ? BooleanOgUbesvart.JA : BooleanOgUbesvart.NEI;
     console.log(søkerBorPåRegistrertAdresse.verdi);
     return test;
   };
@@ -138,7 +138,7 @@ const Personopplysninger: React.FC<Props> = ({
               onChange={settPersonopplysningerFelt}
             />
           </KomponentGruppe>
-          {søkerBorPåRegistrertAdresse?.verdi === BooleanOgUbesvart.Nei && (
+          {søkerBorPåRegistrertAdresse?.verdi === BooleanOgUbesvart.NEI && (
             <KomponentGruppe>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}

@@ -46,7 +46,7 @@ const initialState = (intl: LokalIntlShape): ISøknad => {
     sivilstatus: {},
     medlemskap: {},
     søkerBorPåRegistrertAdresse: {
-      verdi: BooleanOgUbesvart.Ubesvart,
+      verdi: BooleanOgUbesvart.UBESVART,
       spørsmålid: '',
       svarid: '',
       label: '',

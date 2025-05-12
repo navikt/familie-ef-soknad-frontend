@@ -45,7 +45,7 @@ export interface ISpørsmålListeFelt extends ITekstListeFelt {
 }
 
 export enum BooleanOgUbesvart {
-  Ja = 'Ja',
-  Nei = 'Nei',
-  Ubesvart = 'Ubesvart',
+  JA = 'JA',
+  NEI = 'NEI',
+  UBESVART = 'UBESVART',
 }
