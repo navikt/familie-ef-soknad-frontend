@@ -9,8 +9,10 @@ import {
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
 import Medlemskap from '../../../søknad/steg/1-omdeg/medlemskap/Medlemskap';
-import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
-import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
+import {
+  ISpørsmålBooleanFelt,
+  SpørsmålJaNeiUbesvartFelt,
+} from '../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../søknad/steg/1-omdeg/sivilstatus/Sivilstatus';
 import { ISivilstatus } from '../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../components/side/Side';
@@ -23,6 +25,7 @@ import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import Personopplysninger from './personopplysninger/Personopplysninger';
 
 const OmDeg: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('OmDeg'));
@@ -54,7 +57,7 @@ const OmDeg: FC = () => {
   };
 
   const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
+    søkerBorPåRegistrertAdresse: SpørsmålJaNeiUbesvartFelt
   ) => {
     settSøknad((prevSoknad: ISøknad) => {
       return {
