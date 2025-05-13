@@ -19,6 +19,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, BodyShort, Label } from '@navikt/ds-react';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
+import { OmDegFelles } from './OmDegFelles';
 
 interface Props {
   søker: ISøker;
@@ -74,6 +75,12 @@ const Personopplysninger: React.FC<Props> = ({
   };
   return (
     <SeksjonGruppe aria-live={'polite'}>
+      <OmDegFelles
+        personIdent={'010125 12345'}
+        statsborgerskap={'NORGE'}
+        sivilstatus={'UGIFT'}
+        adresse={'Lars Husmannsgate 13, 0598 - Oslo'}
+      />
       <KomponentGruppe>
         <FeltGruppe>
           <Alert size="small" variant="info" inline>
