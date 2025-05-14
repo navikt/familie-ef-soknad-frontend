@@ -15,6 +15,61 @@ export interface IBosituasjon {
   vordendeSamboerEktefelle?: IPersonDetaljer;
 }
 
+export enum DelerBoligMedAndreVoksne {
+  IKKEBESVART = 'ikkeBesvart',
+  BORSAMMENOGHARELLERVENTERBARN = 'borSammenOgHarEllerVenterBarn',
+  BORMIDLERTIDIGFRAHVERANDRE = 'borMidlertidigFraHverandre',
+  BORMEDKJÆRESTE = 'borMedKjæreste',
+  DELERBOLIGMEDANDREVOKSNE = 'delerBoligMedAndreVoksne',
+  TIDLIGERESAMBOERFORTSATTREGISTRERTPÅADRESSE = 'tidligereSamboerFortsattRegistrertPåAdresse',
+  BORALENEMEDBARNELLERGRAVIDOGBORALENE = 'borAleneMedBarnEllerGravidOgBorAlene',
+}
+
+export type Bo3 =
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.IKKEBESVART;
+    }
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.BORSAMMENOGHARELLERVENTERBARN;
+    }
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.BORMIDLERTIDIGFRAHVERANDRE;
+    }
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.BORMEDKJÆRESTE;
+      samboerNavn: string;
+      samboerIdent?: string;
+      kjennerIkkeIdent: boolean;
+      samboerFødselsdato?: string;
+      datoFlyttetSammenMedSamboer: string;
+    }
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.DELERBOLIGMEDANDREVOKSNE;
+      skalGifteSegEllerBliSamboer: boolean;
+      datoSkalGifteSegEllerBliSamboer?: string;
+      samboerNavn: string;
+      samboerIdent?: string;
+      kjennerIkkeIdent: boolean;
+      samboerFødselsdato?: string;
+    }
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.TIDLIGERESAMBOERFORTSATTREGISTRERTPÅADRESSE;
+      samboerNavn: string;
+      samboerIdent?: string;
+      kjennerIkkeIdent: boolean;
+      samboerFødselsdato?: string;
+      datoFlyttetFraHverandre: string;
+    }
+  | {
+      hovedSpørsmål: DelerBoligMedAndreVoksne.BORALENEMEDBARNELLERGRAVIDOGBORALENE;
+      skalGifteSegEllerBliSamboer: boolean;
+      datoSkalGifteSegEllerBliSamboer?: string;
+      samboerNavn: string;
+      samboerIdent?: string;
+      kjennerIkkeIdent: boolean;
+      samboerFødselsdato?: string;
+    };
+
 export enum EBosituasjon {
   delerBoligMedAndreVoksne = 'delerBoligMedAndreVoksne',
   skalGifteSegEllerBliSamboer = 'skalGifteSegEllerBliSamboer',

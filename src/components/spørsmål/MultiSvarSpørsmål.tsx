@@ -91,6 +91,7 @@ const MultiSvarSpørsmål: FC<Props> = ({
                   svar.svar_tekst,
                   skalLogges
                 );
+                console.log('jeo');
                 settSpørsmålOgSvar(spørsmål, svar);
               }}
             >

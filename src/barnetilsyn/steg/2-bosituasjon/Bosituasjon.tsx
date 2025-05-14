@@ -1,10 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { IBosituasjon } from '../../../models/steg/bosituasjon';
+import {
+  Bo3,
+  DelerBoligMedAndreVoksne,
+  IBosituasjon,
+} from '../../../models/steg/bosituasjon';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../helpers/steg/bosituasjon';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import BosituasjonSpørsmål from '../../../søknad/steg/2-bosituasjon/BosituasjonSpørsmål';
 import Side, { ESide } from '../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
@@ -14,6 +17,7 @@ import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
+import BosituasjonSpørsmål2 from '../../../søknad/steg/2-bosituasjon/BosituasjonSpørsmål2';
 
 const Bosituasjon: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('Bosituasjon'));
@@ -31,6 +35,12 @@ const Bosituasjon: FC = () => {
   const skalViseKnapper = !kommerFraOppsummering
     ? ESide.visTilbakeNesteAvbrytKnapp
     : ESide.visTilbakeTilOppsummeringKnapp;
+
+  const bositsj2Init: Bo3 = {
+    hovedSpørsmål: DelerBoligMedAndreVoksne.IKKEBESVART,
+  };
+
+  const [bosituasjon2, settBosituasjon2] = useState<Bo3>(bositsj2Init);
 
   const settBosituasjon = (bosituasjon: IBosituasjon) => {
     settSøknad((prevSoknad: ISøknad) => {
@@ -51,10 +61,12 @@ const Bosituasjon: FC = () => {
       mellomlagreStønad={mellomlagreBarnetilsyn}
       tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
     >
-      <BosituasjonSpørsmål
+      <BosituasjonSpørsmål2
         bosituasjon={bosituasjon}
         settBosituasjon={settBosituasjon}
         settDokumentasjonsbehov={settDokumentasjonsbehov}
+        bosituasjon2={bosituasjon2}
+        settBosituasjon2={settBosituasjon2}
       />
     </Side>
   );
