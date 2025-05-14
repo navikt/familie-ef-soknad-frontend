@@ -2,7 +2,6 @@ import React from 'react';
 import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../language/LocaleTekst';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import {
   borDuPåDenneAdressen,
@@ -17,6 +16,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import { GenereltOmDeg } from './GenereltOmDeg';
+import { VStack } from '@navikt/ds-react';
 
 interface Props {
   søker: ISøker;
@@ -71,7 +71,7 @@ const Personopplysninger: React.FC<Props> = ({
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
   return (
-    <SeksjonGruppe aria-live={'polite'}>
+    <VStack gap={'8'}>
       <GenereltOmDeg
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
@@ -110,7 +110,7 @@ const Personopplysninger: React.FC<Props> = ({
           )}
         </>
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 

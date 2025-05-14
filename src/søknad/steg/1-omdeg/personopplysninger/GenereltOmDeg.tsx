@@ -32,7 +32,7 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
   const formatertSivilstand = utledFormatertSivilstand(sivilstand, intl);
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'4'}>
       <Alert variant="info">
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
