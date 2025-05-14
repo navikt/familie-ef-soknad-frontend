@@ -72,7 +72,7 @@ const Personopplysninger: React.FC<Props> = ({
   };
   return (
     <VStack gap={'8'}>
-      <Alert variant="info">
+      <Alert variant="info" inline={true}>
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
       <OmDeg
