@@ -15,7 +15,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
-import { GenereltOmDeg } from './GenereltOmDeg';
+import { OmDeg } from './OmDeg';
 import { VStack } from '@navikt/ds-react';
 
 interface Props {
@@ -72,7 +72,7 @@ const Personopplysninger: React.FC<Props> = ({
   };
   return (
     <VStack gap={'8'}>
-      <GenereltOmDeg
+      <OmDeg
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
         sivilstand={søker.sivilstand}

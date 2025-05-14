@@ -6,7 +6,7 @@ import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
 import { LokalIntlShape } from '../../../../language/typer';
 import { Adresse } from '../../../../models/søknad/person';
 
-interface OmDegFelles {
+interface OmDegProps {
   personIdent: string;
   statsborgerskap: string;
   sivilstand: string;
@@ -21,7 +21,7 @@ const utledFormatertSivilstand = (
   return hentTekst(sivilstatusKode, intl);
 };
 
-export const GenereltOmDeg: React.FC<OmDegFelles> = ({
+export const OmDeg: React.FC<OmDegProps> = ({
   personIdent,
   statsborgerskap,
   sivilstand,
@@ -36,7 +36,6 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
       <Alert variant="info">
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
-
       <VStack align={'start'}>
         <Heading size="xsmall">
           {hentTekst('person.ident.visning', intl)}
@@ -45,14 +44,12 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
           {personIdent}
         </BodyShort>
       </VStack>
-
       <VStack align={'start'}>
         <Heading size="xsmall">{hentTekst('sivilstatus.tittel', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {formatertSivilstand}
         </BodyShort>
       </VStack>
-
       <VStack align={'start'}>
         <Heading size="xsmall">
           {hentTekst('person.statsborgerskap', intl)}
@@ -61,7 +58,6 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
           {statsborgerskap}
         </BodyShort>
       </VStack>
-
       <VStack align={'start'}>
         <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
