@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
@@ -33,9 +33,6 @@ export const OmDeg: React.FC<OmDegProps> = ({
 
   return (
     <VStack gap={'4'}>
-      <Alert variant="info">
-        {hentTekst('personopplysninger.alert.infohentet', intl)}
-      </Alert>
       <VStack align={'start'}>
         <Heading size="xsmall">
           {hentTekst('person.ident.visning', intl)}

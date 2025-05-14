@@ -16,7 +16,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import { OmDeg } from './OmDeg';
-import { VStack } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 
 interface Props {
   søker: ISøker;
@@ -72,6 +72,9 @@ const Personopplysninger: React.FC<Props> = ({
   };
   return (
     <VStack gap={'8'}>
+      <Alert variant="info">
+        {hentTekst('personopplysninger.alert.infohentet', intl)}
+      </Alert>
       <OmDeg
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
