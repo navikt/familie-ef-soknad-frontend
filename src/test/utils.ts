@@ -1,5 +1,5 @@
 import {
-  IAdresse,
+  Adresse,
   IPerson,
   IPersonDetaljer,
   ISøker,
@@ -240,7 +240,7 @@ export const lagSøker = (
   fnr?: string,
   alder?: number,
   forkortetNavn?: string,
-  adresse?: IAdresse,
+  adresse?: Adresse,
   sivilstand?: string,
   statsborgerskap?: string,
   erStrengtFortrolig?: boolean
@@ -260,7 +260,7 @@ export const lagAdresse = (
   adresse?: string,
   postnummer?: string,
   poststed?: string
-): IAdresse => {
+): Adresse => {
   return {
     adresse: adresse ?? '',
     postnummer: postnummer ?? '',

@@ -15,13 +15,13 @@ export interface ISøker {
   fnr: string;
   alder: number;
   forkortetNavn: string;
-  adresse: IAdresse;
+  adresse: Adresse;
   sivilstand: string;
   statsborgerskap: string;
   erStrengtFortrolig: boolean;
 }
 
-export interface IAdresse {
+export interface Adresse {
   adresse: string;
   postnummer: string;
   poststed?: string;

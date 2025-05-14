@@ -10,7 +10,6 @@ import {
 } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
 import { ISøker } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -76,11 +75,10 @@ const Personopplysninger: React.FC<Props> = ({
       <GenereltOmDeg
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
-        sivilstand={hentSivilstatus(søker.sivilstand)}
-        adresse={søker.adresse.adresse}
-        poststed={søker.adresse.poststed}
-        postnummer={søker.adresse.postnummer}
+        sivilstand={søker.sivilstand}
+        adresse={søker.adresse}
       />
+
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">

@@ -4,14 +4,13 @@ import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
 import { LokalIntlShape } from '../../../../language/typer';
+import { Adresse } from '../../../../models/søknad/person';
 
 interface OmDegFelles {
   personIdent: string;
   statsborgerskap: string;
   sivilstand: string;
-  adresse: string;
-  postnummer: string;
-  poststed?: string;
+  adresse: Adresse;
 }
 
 const utledFormatertSivilstand = (
@@ -27,15 +26,13 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
   statsborgerskap,
   sivilstand,
   adresse,
-  poststed,
-  postnummer,
 }) => {
   const intl = useLokalIntlContext();
 
   const formatertSivilstand = utledFormatertSivilstand(sivilstand, intl);
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'8'}>
       <Alert variant="info">
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
@@ -68,10 +65,10 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
       <VStack align={'start'}>
         <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
-          {adresse}
+          {adresse.adresse}
         </BodyShort>
         <BodyShort size="medium" weight="regular">
-          {`${postnummer} - ${poststed}`}
+          {`${adresse.postnummer} - ${adresse.poststed}`}
         </BodyShort>
       </VStack>
     </VStack>
