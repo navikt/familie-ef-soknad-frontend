@@ -68,7 +68,9 @@ export const GenereltOmDeg: React.FC<OmDegFelles> = ({
           {adresse.adresse}
         </BodyShort>
         <BodyShort size="medium" weight="regular">
-          {`${adresse.postnummer} - ${adresse.poststed}`}
+          {adresse.poststed
+            ? `${adresse.postnummer} - ${adresse.poststed}`
+            : adresse.postnummer}
         </BodyShort>
       </VStack>
     </VStack>
