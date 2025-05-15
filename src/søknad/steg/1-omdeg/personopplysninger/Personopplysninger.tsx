@@ -17,6 +17,7 @@ import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokument
 import { hentTekst } from '../../../../utils/søknad';
 import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
+import { AkselSpørsmål } from '../../../../components/spørsmål/AkselSpørsmål';
 
 interface Props {
   søker: Søker;
@@ -86,6 +87,7 @@ const Personopplysninger: React.FC<Props> = ({
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
+            <AkselSpørsmål />
             <JaNeiSpørsmål
               spørsmål={borDuPåDenneAdressen(intl)}
               valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
