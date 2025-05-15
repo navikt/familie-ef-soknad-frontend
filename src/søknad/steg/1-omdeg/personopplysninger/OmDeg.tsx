@@ -33,12 +33,6 @@ export const OmDeg: React.FC<Props> = ({
         </BodyShort>
       </VStack>
       <VStack align={'start'}>
-        <Heading size="xsmall">{hentTekst('sivilstatus.tittel', intl)}</Heading>
-        <BodyShort size="medium" weight="regular">
-          {formatertSivilstand}
-        </BodyShort>
-      </VStack>
-      <VStack align={'start'}>
         <Heading size="xsmall">
           {hentTekst('person.statsborgerskap', intl)}
         </Heading>
@@ -46,6 +40,13 @@ export const OmDeg: React.FC<Props> = ({
           {statsborgerskap}
         </BodyShort>
       </VStack>
+      <VStack align={'start'}>
+        <Heading size="xsmall">{hentTekst('sivilstatus.tittel', intl)}</Heading>
+        <BodyShort size="medium" weight="regular">
+          {formatertSivilstand}
+        </BodyShort>
+      </VStack>
+
       <VStack align={'start'}>
         <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
