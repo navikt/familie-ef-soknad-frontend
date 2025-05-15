@@ -12,7 +12,7 @@ import {
   IUtenlandsopphold,
 } from '../../../models/steg/omDeg/medlemskap';
 import { ISivilstatus } from '../../../models/steg/omDeg/sivilstatus';
-import { ISøker } from '../../../models/søknad/person';
+import { Søker } from '../../../models/søknad/person';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import {
@@ -26,7 +26,7 @@ import { BodyShort, Ingress, Label } from '@navikt/ds-react';
 import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
 
 interface Props {
-  søker: ISøker;
+  søker: Søker;
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
   harMeldtAdresseendring?: ISpørsmålBooleanFelt;
   sivilstatus: ISivilstatus;

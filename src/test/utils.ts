@@ -1,8 +1,8 @@
 import {
-  IAdresse,
+  Adresse,
   IPerson,
   IPersonDetaljer,
-  ISøker,
+  Søker,
 } from '../models/søknad/person';
 import {
   IBooleanFelt,
@@ -230,7 +230,7 @@ export const lagSivilstatus = (
 
 export const lagPerson = (
   hash?: string,
-  søker?: ISøker,
+  søker?: Søker,
   barn?: IBarn[]
 ): IPerson => {
   return { hash: hash ?? '', søker: søker ?? lagSøker(), barn: barn ?? [] };
@@ -240,11 +240,11 @@ export const lagSøker = (
   fnr?: string,
   alder?: number,
   forkortetNavn?: string,
-  adresse?: IAdresse,
+  adresse?: Adresse,
   sivilstand?: string,
   statsborgerskap?: string,
   erStrengtFortrolig?: boolean
-): ISøker => {
+): Søker => {
   return {
     fnr: fnr ?? '',
     alder: alder ?? 0,
@@ -260,7 +260,7 @@ export const lagAdresse = (
   adresse?: string,
   postnummer?: string,
   poststed?: string
-): IAdresse => {
+): Adresse => {
   return {
     adresse: adresse ?? '',
     postnummer: postnummer ?? '',

@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
     "target": "es6",
     "lib": [
       "dom",

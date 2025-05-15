@@ -1,5 +1,8 @@
 import { ESivilstand, ISivilstatus } from '../models/steg/omDeg/sivilstatus';
 import { ISpørsmål } from '../models/felles/spørsmålogsvar';
+import { LokalIntlShape } from '../language/typer';
+import { hentSivilstatus } from '../helpers/steg/omdeg';
+import { hentTekst } from './søknad';
 
 export const sivilstandGift = [
   ESivilstand.GIFT,
@@ -69,4 +72,12 @@ export const hentValgtSvar = (
       return value.verdi;
     }
   }
+};
+
+export const utledFormatertSivilstand = (
+  sivilstand: string,
+  intl: LokalIntlShape
+): string => {
+  const sivilstatusKode = hentSivilstatus(sivilstand);
+  return hentTekst(sivilstatusKode, intl);
 };

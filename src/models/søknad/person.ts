@@ -3,7 +3,7 @@ import { IDatoFelt, ITekstFelt } from './søknadsfelter';
 
 export interface IPerson {
   hash: string;
-  søker: ISøker;
+  søker: Søker;
   barn: IBarn[];
 }
 
@@ -11,17 +11,17 @@ export interface IPersonTilGjenbruk {
   barn: IBarn[];
 }
 
-export interface ISøker {
+export interface Søker {
   fnr: string;
   alder: number;
   forkortetNavn: string;
-  adresse: IAdresse;
+  adresse: Adresse;
   sivilstand: string;
   statsborgerskap: string;
   erStrengtFortrolig: boolean;
 }
 
-export interface IAdresse {
+export interface Adresse {
   adresse: string;
   postnummer: string;
   poststed?: string;
@@ -60,7 +60,7 @@ export type Barn = {
 };
 
 export type PersonData = {
-  søker: ISøker;
+  søker: Søker;
   barn: Barn[];
   hash: string;
 };

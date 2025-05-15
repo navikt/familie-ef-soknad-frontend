@@ -1,9 +1,7 @@
 import React from 'react';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../language/LocaleTekst';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import {
   borDuPåDenneAdressen,
@@ -11,17 +9,17 @@ import {
 } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
-import { ISøker } from '../../../../models/søknad/person';
+import { Søker } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Alert, BodyShort, Label } from '@navikt/ds-react';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
+import { OmDeg } from './OmDeg';
+import { Alert, VStack } from '@navikt/ds-react';
 
 interface Props {
-  søker: ISøker;
+  søker: Søker;
   settDokumentasjonsbehov: (
     spørsmål: ISpørsmål,
     valgtSvar: ISvar,
@@ -72,48 +70,18 @@ const Personopplysninger: React.FC<Props> = ({
     });
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
+
   return (
-    <SeksjonGruppe aria-live={'polite'}>
-      <KomponentGruppe>
-        <FeltGruppe>
-          <Alert size="small" variant="info" inline>
-            <LocaleTekst tekst={'personopplysninger.alert.infohentet'} />
-          </Alert>
-        </FeltGruppe>
-
-        <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst={'person.ident.visning'} />
-          </Label>
-          <BodyShort>{søker.fnr}</BodyShort>
-        </FeltGruppe>
-
-        <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst={'person.statsborgerskap'} />
-          </Label>
-          <BodyShort>{søker.statsborgerskap}</BodyShort>
-        </FeltGruppe>
-
-        <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst={'sivilstatus.tittel'} />
-          </Label>
-          <BodyShort>
-            <LocaleTekst tekst={hentSivilstatus(søker.sivilstand)} />
-          </BodyShort>
-        </FeltGruppe>
-
-        <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst={'person.adresse'} />
-          </Label>
-          <BodyShort>{søker.adresse.adresse}</BodyShort>
-          <BodyShort>
-            {søker.adresse.postnummer} {søker.adresse.poststed}
-          </BodyShort>
-        </FeltGruppe>
-      </KomponentGruppe>
+    <VStack gap={'8'}>
+      <Alert variant="info" inline={true}>
+        {hentTekst('personopplysninger.alert.infohentet', intl)}
+      </Alert>
+      <OmDeg
+        personIdent={søker.fnr}
+        statsborgerskap={søker.statsborgerskap}
+        sivilstand={søker.sivilstand}
+        adresse={søker.adresse}
+      />
 
       {!søker?.erStrengtFortrolig && (
         <>
@@ -146,7 +114,7 @@ const Personopplysninger: React.FC<Props> = ({
           )}
         </>
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 
