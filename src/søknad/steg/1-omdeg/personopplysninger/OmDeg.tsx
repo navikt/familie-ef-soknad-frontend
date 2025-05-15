@@ -46,7 +46,6 @@ export const OmDeg: React.FC<Props> = ({
           {formatertSivilstand}
         </BodyShort>
       </VStack>
-
       <VStack align={'start'}>
         <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
