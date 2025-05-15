@@ -9,7 +9,7 @@ import {
 } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { ISøker } from '../../../../models/søknad/person';
+import { Søker } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -19,7 +19,7 @@ import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
 
 interface Props {
-  søker: ISøker;
+  søker: Søker;
   settDokumentasjonsbehov: (
     spørsmål: ISpørsmål,
     valgtSvar: ISvar,

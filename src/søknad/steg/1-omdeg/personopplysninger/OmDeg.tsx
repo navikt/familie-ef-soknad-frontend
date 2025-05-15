@@ -2,26 +2,17 @@ import React from 'react';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentSivilstatus } from '../../../../helpers/steg/omdeg';
-import { LokalIntlShape } from '../../../../language/typer';
 import { Adresse } from '../../../../models/søknad/person';
+import { utledFormatertSivilstand } from '../../../../utils/sivilstatus';
 
-interface OmDegProps {
+interface Props {
   personIdent: string;
   statsborgerskap: string;
   sivilstand: string;
   adresse: Adresse;
 }
 
-const utledFormatertSivilstand = (
-  sivilstand: string,
-  intl: LokalIntlShape
-): string => {
-  const sivilstatusKode = hentSivilstatus(sivilstand);
-  return hentTekst(sivilstatusKode, intl);
-};
-
-export const OmDeg: React.FC<OmDegProps> = ({
+export const OmDeg: React.FC<Props> = ({
   personIdent,
   statsborgerskap,
   sivilstand,

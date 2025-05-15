@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { Adresse, ISøker } from '../../../../models/søknad/person';
+import { Adresse, Søker } from '../../../../models/søknad/person';
 import { lagAdresse, lagSøker } from '../../../../test/utils';
 import { render } from '../../../../test/testRender';
 import { OmDeg } from './OmDeg';
@@ -9,7 +9,7 @@ const testAdresseMedPoststed: Adresse = lagAdresse(
   '1234',
   'Testby'
 );
-const testSøkerMedPoststed: ISøker = lagSøker(
+const testSøkerMedPoststed: Søker = lagSøker(
   '01012512345',
   25,
   undefined,
