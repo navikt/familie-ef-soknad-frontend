@@ -4,34 +4,38 @@ import { lagAdresse, lagSøker } from '../../../../test/utils';
 import { render } from '../../../../test/testRender';
 import { OmDeg } from './OmDeg';
 
-const testAdresse: Adresse = lagAdresse('Testveien 1', '1234', 'Testby');
-const testSøker: ISøker = lagSøker(
+const testAdresseMedPoststed: Adresse = lagAdresse(
+  'Testveien 1',
+  '1234',
+  'Testby'
+);
+const testSøkerMedPoststed: ISøker = lagSøker(
   '01012512345',
   25,
   undefined,
-  testAdresse,
+  testAdresseMedPoststed,
   'UGIFT',
   'NORGE',
   false
 );
-testSøker;
 
 describe('OmDeg', () => {
   test('skal vise OmDeg komponent med gitt søker', async () => {
     const { screen } = render(
       <OmDeg
-        personIdent={testSøker.fnr}
-        statsborgerskap={testSøker.statsborgerskap}
-        sivilstand={testSøker.sivilstand}
-        adresse={testSøker.adresse}
+        personIdent={testSøkerMedPoststed.fnr}
+        statsborgerskap={testSøkerMedPoststed.statsborgerskap}
+        sivilstand={testSøkerMedPoststed.sivilstand}
+        adresse={testSøkerMedPoststed.adresse}
       />
     );
 
-    expect(screen.getByText(testSøker.fnr)).toBeInTheDocument();
-    expect(screen.getByText(testSøker.statsborgerskap)).toBeInTheDocument();
-    expect(screen.getByText(testAdresse.adresse)).toBeInTheDocument();
-    expect(
-      screen.getByText(`${testAdresse.postnummer} - ${testAdresse.poststed}`)
-    ).toBeInTheDocument();
+    const { fnr, statsborgerskap, adresse } = testSøkerMedPoststed;
+    const { adresse: street, postnummer, poststed } = adresse;
+
+    expect(screen.getByText(fnr)).toBeInTheDocument();
+    expect(screen.getByText(statsborgerskap)).toBeInTheDocument();
+    expect(screen.getByText(street)).toBeInTheDocument();
+    expect(screen.getByText(`${postnummer} - ${poststed}`)).toBeInTheDocument();
   });
 });
