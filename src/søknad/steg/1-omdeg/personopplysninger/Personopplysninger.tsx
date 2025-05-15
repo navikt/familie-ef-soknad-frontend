@@ -70,6 +70,7 @@ const Personopplysninger: React.FC<Props> = ({
     });
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
+
   return (
     <VStack gap={'8'}>
       <Alert variant="info" inline={true}>
