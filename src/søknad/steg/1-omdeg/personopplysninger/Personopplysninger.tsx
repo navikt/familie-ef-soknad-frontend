@@ -82,7 +82,6 @@ const Personopplysninger: React.FC<Props> = ({
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
