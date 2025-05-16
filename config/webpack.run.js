@@ -50,7 +50,6 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
                 namedExport: false,
               },
               importLoaders: 1,
@@ -61,7 +60,18 @@ const config = {
       {
         test: /\.css$/,
         exclude: /\.module\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'icss',
+              },
+              importLoaders: 1,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|ico)$/,
