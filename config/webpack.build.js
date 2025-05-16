@@ -37,27 +37,25 @@ const config = {
         include: path.join(process.cwd(), 'src'),
       },
       {
-        test: /\.(css)$/,
+        test: /\.module\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: {
-                mode: 'icss',
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+                namedExport: false,
               },
-              importLoaders: 2,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [['autoprefixer']],
-              },
+              importLoaders: 1,
             },
           },
         ],
+      },
+      {
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif|ico)$/,
@@ -129,7 +127,6 @@ const config = {
             },
           },
           errorHandler: (err) => {
-            // eslint-disable-next-line no-console
             console.warn('Sentry CLI Plugin: ' + err.message);
           },
         })

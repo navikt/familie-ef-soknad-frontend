@@ -43,21 +43,25 @@ const config = {
         ],
       },
       {
-        test: /\.(css)$/,
+        test: /\.module\.css$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: {
-                mode: 'icss',
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+                namedExport: false,
               },
-              importLoaders: 2,
+              importLoaders: 1,
             },
           },
         ],
+      },
+      {
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif|ico)$/,

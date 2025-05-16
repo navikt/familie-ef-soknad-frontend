@@ -17,6 +17,7 @@ import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokument
 import { hentTekst } from '../../../../utils/søknad';
 import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
+import TestComponent from '../../../../test/TestComponent';
 
 interface Props {
   søker: Søker;
@@ -82,6 +83,8 @@ const Personopplysninger: React.FC<Props> = ({
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
+
+      <TestComponent />
 
       {!søker?.erStrengtFortrolig && (
         <>
