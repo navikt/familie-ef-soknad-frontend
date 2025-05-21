@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Radio, RadioGroup, Stack } from '@navikt/ds-react';
+import { Radio, RadioGroup, Stack } from '@navikt/ds-react';
+import styles from './AkselSpørsmål.module.css';
 
 type SvarVerdi = string;
 
@@ -26,18 +27,9 @@ export const AkselSpørsmål: React.FC<Props> = ({
     >
       <Stack gap="0 6" direction={{ xs: 'column', sm: 'row' }} wrap={false}>
         {svaralternativer.map((svar) => (
-          <Box
-            key={svar}
-            background="bg-default"
-            borderColor="border-alt-1"
-            paddingInline="space-16"
-            paddingBlock="space-4"
-            borderWidth="1"
-            borderRadius="medium"
-            flexGrow="1"
-          >
+          <label key={svar} className={styles.radioBox}>
             <Radio value={svar}>{svar}</Radio>
-          </Box>
+          </label>
         ))}
       </Stack>
     </RadioGroup>
