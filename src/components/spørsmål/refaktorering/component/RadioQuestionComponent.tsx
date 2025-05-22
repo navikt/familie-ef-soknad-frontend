@@ -1,5 +1,12 @@
 import React from 'react';
-import { VStack, Heading, Box, Radio, RadioGroup } from '@navikt/ds-react';
+import {
+  VStack,
+  Heading,
+  Box,
+  Radio,
+  RadioGroup,
+  ReadMore,
+} from '@navikt/ds-react';
 import styles from './RadioQuestion.module.css';
 import clsx from 'clsx';
 import { Question, RadioQuestion } from '../config/question';
@@ -32,6 +39,15 @@ export const RadioQuestionComponent: React.FC<Props> = ({
       <Heading size="xsmall" className={styles.heading}>
         {hentTekst(question.textKey, intl)}
       </Heading>
+
+      {question.readMoreTitleKey && question.readMoreContentKey && (
+        <ReadMore
+          header={hentTekst(question.readMoreTitleKey, intl)}
+          className={styles.readMore}
+        >
+          {hentTekst(question.readMoreContentKey, intl)}
+        </ReadMore>
+      )}
 
       <RadioGroup legend="" value={value} onChange={onChange}>
         <div

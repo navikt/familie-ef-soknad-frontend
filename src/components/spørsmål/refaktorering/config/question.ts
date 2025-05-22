@@ -25,6 +25,8 @@ export interface RadioQuestion extends BaseQuestion {
   type: 'radio';
   options: Option[];
   followUps?: ConditionalFollowUp[];
+  readMoreTitleKey?: string;
+  readMoreContentKey?: string;
 }
 
 export interface TextQuestion extends BaseQuestion {

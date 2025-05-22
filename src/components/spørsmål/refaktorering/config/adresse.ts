@@ -12,6 +12,23 @@ export const adresseQuestions: Question[] = [
     ],
     followUps: [
       {
+        when: 'svar.ja',
+        questions: [
+          {
+            id: 'personopplysninger.spm.riktigAdresseBegrunnelse',
+            textKey: 'personopplysninger.spm.riktigAdresseBegrunnelse',
+            readMoreTitleKey: 'sivilstatus.lesmer-åpne.erUformeltGift',
+            readMoreContentKey: 'sivilstatus.lesmer-innhold.erUformeltGift',
+            type: 'radio',
+            required: true,
+            options: [
+              { value: 'svar.ja', labelKey: 'svar.ja' },
+              { value: 'svar.nei', labelKey: 'svar.nei' },
+            ],
+          },
+        ],
+      },
+      {
         when: 'svar.nei',
         questions: [
           {
@@ -23,24 +40,6 @@ export const adresseQuestions: Question[] = [
             options: [
               { value: 'svar.ja', labelKey: 'svar.ja' },
               { value: 'svar.nei', labelKey: 'svar.nei' },
-            ],
-            followUps: [
-              {
-                when: 'svar.nei',
-                questions: [
-                  {
-                    id: 'personopplysninger.info.endreAdresse',
-                    textKey: 'personopplysninger.info.endreAdresse',
-                    alertKey: 'personopplysninger.lenke.pdfskjema',
-                    type: 'radio',
-                    required: true,
-                    options: [
-                      { value: 'svar.ja', labelKey: 'svar.ja' },
-                      { value: 'svar.nei', labelKey: 'svar.nei' },
-                    ],
-                  },
-                ],
-              },
             ],
           },
         ],
