@@ -48,13 +48,6 @@ export const RadioQuestion: React.FC<Props> = ({
                 value === opt.value && styles.selected
               )}
               onClick={() => onChange(opt.value)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  onChange(opt.value);
-                }
-              }}
             >
               <Radio value={opt.value}>{opt.label}</Radio>
             </Box>
