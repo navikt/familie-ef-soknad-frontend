@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Question } from './question';
-import { RadioQuestionComponent } from './RadioQuestionComponent';
-import { adresseQuestions } from './adresse';
+import { Question } from './config/question';
+import { RadioQuestionComponent } from './component/RadioQuestionComponent';
+import { adresseQuestions } from './config/adresse';
 
 export const OmDegQuestionSection: React.FC = () => {
   useLokalIntlContext();
