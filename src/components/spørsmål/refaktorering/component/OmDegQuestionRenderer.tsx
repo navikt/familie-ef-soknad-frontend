@@ -1,6 +1,6 @@
 import React from 'react';
 import { Question } from '../config/question';
-import { RadioQuestionComp } from './RadioQuestionComp';
+import { RadioQuestionComponent } from './RadioQuestionComponent';
 
 interface Props {
   question: Question;
@@ -16,7 +16,7 @@ export const OmDegQuestionRenderer: React.FC<Props> = ({
   switch (question.type) {
     case 'radio':
       return (
-        <RadioQuestionComp
+        <RadioQuestionComponent
           question={question}
           value={value}
           onChange={onChange}

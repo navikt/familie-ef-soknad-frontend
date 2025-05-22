@@ -14,7 +14,7 @@ interface Props {
   renderFollowUps?: (questions: Question[]) => React.ReactNode;
 }
 
-export const RadioQuestionComp: React.FC<Props> = ({
+export const RadioQuestionComponent: React.FC<Props> = ({
   question,
   value,
   onChange,
@@ -49,7 +49,7 @@ export const RadioQuestionComp: React.FC<Props> = ({
               )}
               onClick={() => onChange(opt.value)}
             >
-              <Radio value={opt.value}>{opt.labelKey}</Radio>
+              <Radio value={opt.value}>{hentTekst(opt.labelKey, intl)}</Radio>
             </Box>
           ))}
         </div>
