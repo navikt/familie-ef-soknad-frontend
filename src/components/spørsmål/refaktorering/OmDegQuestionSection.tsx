@@ -1,50 +1,34 @@
 import React, { useState } from 'react';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Question } from './config/question';
-import { RadioQuestionComponent } from './component/RadioQuestionComponent';
+import { VStack } from '@navikt/ds-react';
 import { adresseQuestions } from './config/adresse';
+import { Question } from './config/question';
+import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { getVisibleQuestions } from './utils/getVisibleQuestions';
+import { OmDegQuestionRenderer } from './component/OmDegQuestionRenderer';
 
 export const OmDegQuestionSection: React.FC = () => {
   useLokalIntlContext();
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
-  const handleAnswer = (questionId: string, value: string) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  const handleAnswer = (id: string, value: string) => {
+    setAnswers((prev) => ({ ...prev, [id]: value }));
   };
 
-  const renderFollowUps = (questions: Question[]) => {
-    return questions.map((followUp) => {
-      if (followUp.type === 'radio') {
-        return (
-          <RadioQuestionComponent
-            key={followUp.id}
-            question={followUp}
-            value={answers[followUp.id]}
-            onChange={(value) => handleAnswer(followUp.id, value)}
-            renderFollowUps={renderFollowUps}
-          />
-        );
-      }
-
-      return <p key={followUp.id}>🔧 Unsupported type: {followUp.type}</p>;
-    });
-  };
+  const visibleQuestions: Question[] = getVisibleQuestions(
+    adresseQuestions,
+    answers
+  );
 
   return (
-    <div style={{ marginTop: '2rem' }}>
-      {adresseQuestions.map((q) =>
-        q.type === 'radio' ? (
-          <RadioQuestionComponent
-            key={q.id}
-            question={q}
-            value={answers[q.id]}
-            onChange={(value) => handleAnswer(q.id, value)}
-            renderFollowUps={renderFollowUps}
-          />
-        ) : (
-          <p key={q.id}>🔧 Unsupported type: {q.type}</p>
-        )
-      )}
-    </div>
+    <VStack gap="8">
+      {visibleQuestions.map((q) => (
+        <OmDegQuestionRenderer
+          key={q.id}
+          question={q}
+          value={answers[q.id]}
+          onChange={(val) => handleAnswer(q.id, val)}
+        />
+      ))}
+    </VStack>
   );
 };
