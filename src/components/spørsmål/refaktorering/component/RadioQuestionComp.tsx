@@ -2,45 +2,45 @@ import React from 'react';
 import { VStack, Heading, Box, Radio, RadioGroup } from '@navikt/ds-react';
 import styles from './RadioQuestion.module.css';
 import clsx from 'clsx';
-
-type Option = {
-  label: string;
-  value: string;
-};
+import { Question, RadioQuestion } from '../config/question';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../utils/søknad';
 
 interface Props {
-  question: string;
-  options: Option[];
+  question: RadioQuestion;
   value?: string;
   onChange: (value: string) => void;
   direction: 'vertical' | 'horizontal';
+  renderFollowUps?: (questions: Question[]) => React.ReactNode;
 }
 
-export const RadioQuestion: React.FC<Props> = ({
+export const RadioQuestionComp: React.FC<Props> = ({
   question,
-  options,
   value,
   onChange,
-  direction,
+  renderFollowUps,
+  direction = 'horizontal', // TODO: Change in data structure
 }) => {
+  const intl = useLokalIntlContext();
+
+  const followUp = question.followUps?.find((f) =>
+    Array.isArray(f.when) ? f.when.includes(value || '') : f.when === value
+  );
+
   return (
     <VStack gap="4">
       <Heading size="xsmall" className={styles.heading}>
-        {question}
+        {hentTekst(question.textKey, intl)}
       </Heading>
 
-      <RadioGroup
-        legend=""
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
+      <RadioGroup legend="" value={value} onChange={onChange}>
         <div
           className={clsx({
             [styles.stackHorizontal]: direction === 'horizontal',
             [styles.stackVertical]: direction === 'vertical',
           })}
         >
-          {options.map((opt) => (
+          {question.options.map((opt) => (
             <Box
               key={opt.value}
               className={clsx(
@@ -49,10 +49,12 @@ export const RadioQuestion: React.FC<Props> = ({
               )}
               onClick={() => onChange(opt.value)}
             >
-              <Radio value={opt.value}>{opt.label}</Radio>
+              <Radio value={opt.value}>{opt.labelKey}</Radio>
             </Box>
           ))}
         </div>
+
+        {followUp && renderFollowUps?.(followUp.questions)}
       </RadioGroup>
     </VStack>
   );

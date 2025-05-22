@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { VStack } from '@navikt/ds-react';
-import { adresseQuestions } from './config/adresse';
-import { Question } from './config/question';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { getVisibleQuestions } from './utils/getVisibleQuestions';
-import { OmDegQuestionRenderer } from './component/OmDegQuestionRenderer';
+import { adresseQuestions } from '../config/adresse';
+import { Question } from '../config/question';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { getVisibleQuestions } from '../utils/getVisibleQuestions';
+import { OmDegQuestionRenderer } from './OmDegQuestionRenderer';
 
 export const OmDegQuestionSection: React.FC = () => {
   useLokalIntlContext();

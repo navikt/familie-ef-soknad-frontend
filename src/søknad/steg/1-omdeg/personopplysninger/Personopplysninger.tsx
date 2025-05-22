@@ -7,7 +7,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/søknad';
 import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
-import { RadioTestSection } from '../../../../components/spørsmål/refaktorering/component/test/RadioTestSection';
+import { OmDegQuestionSection } from '../../../../components/spørsmål/refaktorering/component/OmDegQuestionSection';
 interface Props {
   søker: Søker;
   settDokumentasjonsbehov: (
@@ -57,7 +57,7 @@ const Personopplysninger: React.FC<Props> = ({
         adresse={søker.adresse}
       />
 
-      <RadioTestSection />
+      <OmDegQuestionSection />
     </VStack>
   );
 };
