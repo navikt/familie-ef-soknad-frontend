@@ -1,22 +1,13 @@
 import React from 'react';
-import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
-import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
-import {
-  borDuPåDenneAdressen,
-  harMeldtAdresseendringSpørsmål,
-} from './PersonopplysningerConfig';
-import { hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { Søker } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
+import { OmDegQuestionSection } from '../../../../components/spørsmål/refaktorering/OmDegQuestionSection';
 interface Props {
   søker: Søker;
   settDokumentasjonsbehov: (
@@ -46,29 +37,13 @@ const Personopplysninger: React.FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const settPersonopplysningerFelt = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-    settSøkerBorPåRegistrertAdresse({
-      spørsmålid: spørsmål.søknadid,
-      svarid: valgtSvar.id,
-      label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar,
-    });
-  };
-
-  const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-    settHarMeldtAdresseendring({
-      spørsmålid: spørsmål.søknadid,
-      svarid: valgtSvar.id,
-      label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar,
-    });
-    settDokumentasjonsbehov(spørsmål, valgtSvar);
-  };
+  settDokumentasjonsbehov;
+  søkerBorPåRegistrertAdresse;
+  settSøkerBorPåRegistrertAdresse;
+  harMeldtAdresseendring;
+  settHarMeldtAdresseendring;
+  stønadstype;
+  // TODO: Fjern disse
 
   return (
     <VStack gap={'8'}>
@@ -82,37 +57,7 @@ const Personopplysninger: React.FC<Props> = ({
         adresse={søker.adresse}
       />
 
-      {!søker?.erStrengtFortrolig && (
-        <>
-          <KomponentGruppe aria-live="polite">
-            <JaNeiSpørsmål
-              spørsmål={borDuPåDenneAdressen(intl)}
-              valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settPersonopplysningerFelt}
-            />
-          </KomponentGruppe>
-
-          {søkerBorPåRegistrertAdresse?.verdi === false && (
-            <KomponentGruppe>
-              <JaNeiSpørsmål
-                spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-                valgtSvar={harMeldtAdresseendring?.verdi}
-                onChange={settMeldtAdresseendring}
-              />
-              {harMeldtAdresseendring?.verdi === true && (
-                <AlertStripeDokumentasjon>
-                  <LocaleTekst
-                    tekst={'personopplysninger.alert.meldtAdresseendring'}
-                  />
-                </AlertStripeDokumentasjon>
-              )}
-              {harMeldtAdresseendring?.verdi === false && (
-                <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-              )}
-            </KomponentGruppe>
-          )}
-        </>
-      )}
+      <OmDegQuestionSection />
     </VStack>
   );
 };
