@@ -28,7 +28,10 @@ export interface RadioQuestion extends BaseQuestion {
   readMoreTitleKey?: string;
   readMoreContentKey?: string;
   conditionalAlerts?: {
-    [answerValue: string]: string;
+    [answerValue: string]: {
+      alertKey: string;
+      variant?: 'info' | 'success' | 'warning' | 'error';
+    };
   };
 }
 

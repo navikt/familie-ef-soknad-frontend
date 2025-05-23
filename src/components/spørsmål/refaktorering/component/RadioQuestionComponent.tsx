@@ -31,8 +31,9 @@ export const RadioQuestionComponent: React.FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const conditionalAlertKey = question.conditionalAlerts?.[value || ''];
-  const shouldShowAlert = question.alertKey || conditionalAlertKey;
+  const conditionalAlert = question.conditionalAlerts?.[value || ''];
+  const alertKeyToShow = question.alertKey || conditionalAlert?.alertKey;
+  const alertVariant = conditionalAlert?.variant || 'info';
 
   const followUp = question.followUps?.find((f) =>
     Array.isArray(f.when) ? f.when.includes(value || '') : f.when === value
@@ -51,12 +52,6 @@ export const RadioQuestionComponent: React.FC<Props> = ({
         >
           {hentTekst(question.readMoreContentKey, intl)}
         </ReadMore>
-      )}
-
-      {shouldShowAlert && (
-        <Alert size="small" variant="info" inline>
-          {hentTekst(shouldShowAlert, intl)}
-        </Alert>
       )}
 
       <RadioGroup legend="" value={value} onChange={onChange}>
@@ -82,6 +77,12 @@ export const RadioQuestionComponent: React.FC<Props> = ({
 
         {followUp && renderFollowUps?.(followUp.questions)}
       </RadioGroup>
+
+      {alertKeyToShow && (
+        <Alert size="small" variant={alertVariant}>
+          {hentTekst(alertKeyToShow, intl)}
+        </Alert>
+      )}
     </VStack>
   );
 };
