@@ -15,8 +15,8 @@ export const adresseQuestions: Question[] = [
         when: 'svar.ja',
         questions: [
           {
-            id: 'personopplysninger.spm.riktigAdresseBegrunnelse',
-            textKey: 'personopplysninger.spm.riktigAdresseBegrunnelse',
+            id: 'sivilstatus.spm.erUformeltGift',
+            textKey: 'sivilstatus.spm.erUformeltGift',
             readMoreTitleKey: 'sivilstatus.lesmer-åpne.erUformeltGift',
             readMoreContentKey: 'sivilstatus.lesmer-innhold.erUformeltGift',
             type: 'radio',
