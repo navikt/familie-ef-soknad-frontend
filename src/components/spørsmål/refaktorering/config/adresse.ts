@@ -19,6 +19,9 @@ export const adresseQuestions: Question[] = [
             textKey: 'sivilstatus.spm.erUformeltGift',
             readMoreTitleKey: 'sivilstatus.lesmer-åpne.erUformeltGift',
             readMoreContentKey: 'sivilstatus.lesmer-innhold.erUformeltGift',
+            conditionalAlerts: {
+              'svar.ja': 'sivilstatus.alert.erUformeltGift',
+            },
             type: 'radio',
             required: true,
             options: [
@@ -34,7 +37,10 @@ export const adresseQuestions: Question[] = [
           {
             id: 'personopplysninger.spm.meldtAdresseendring',
             textKey: 'personopplysninger.spm.meldtAdresseendring',
-            alertKey: 'personopplysninger.alert.meldtAdresseendring',
+            conditionalAlerts: {
+              'svar.ja': 'personopplysninger.alert.meldtAdresseendring',
+              'svar.nei': 'personopplysninger.alert.riktigAdresse',
+            },
             type: 'radio',
             required: true,
             options: [
