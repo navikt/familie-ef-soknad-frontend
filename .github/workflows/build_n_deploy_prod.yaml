@@ -61,13 +61,13 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: nais-dev.yaml
+          RESOURCE: app-dev.yaml
           IMAGE: ${{ needs.build.outputs.image }}
       - name: Deploy til prod-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: nais-prod.yaml
+          RESOURCE: app-prod.yaml
           IMAGE: ${{ needs.build.outputs.image }}
       - name: Post deploy failures to Slack
         if: failure()
