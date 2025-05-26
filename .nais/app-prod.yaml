@@ -21,6 +21,9 @@ spec:
       destinations:
         - id: elastic
         - id: loki
+      autoInstrumentation:
+        enabled: true
+        runtime: nodejs
   liveness:
     path: /familie/alene-med-barn/soknad/internal/isAlive
     initialDelay: 5
