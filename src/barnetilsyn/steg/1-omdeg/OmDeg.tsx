@@ -7,7 +7,6 @@ import {
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../helpers/steg/omdeg';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
 import Medlemskap from '../../../søknad/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
 import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
@@ -41,18 +40,6 @@ const OmDeg: FC = () => {
   } = useBarnetilsynSøknad();
   const { sivilstatus, medlemskap } = søknad;
   const { søker } = søknad.person;
-
-  const settMedlemskap = (medlemskap: IMedlemskap) => {
-    settSøknad((prevSoknad: ISøknad) => {
-      return {
-        ...prevSoknad,
-        medlemskap:
-          Object.keys(medlemskap).length !== 0
-            ? medlemskap
-            : prevSoknad.medlemskap,
-      };
-    });
-  };
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
@@ -125,7 +112,6 @@ const OmDeg: FC = () => {
             sivilstatus={søknad.sivilstatus}
             settSivilstatus={settSivilstatus}
             settDokumentasjonsbehov={settDokumentasjonsbehov}
-            settMedlemskap={settMedlemskap}
           />
 
           <Show

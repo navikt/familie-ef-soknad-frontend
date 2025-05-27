@@ -10,7 +10,6 @@ import {
   erÅrsakEnsligBesvart,
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../helpers/steg/omdeg';
-import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
 import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
 import { ISivilstatus } from '../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../components/side/Side';
@@ -43,15 +42,6 @@ const OmDeg: FC = () => {
   const { søker } = søknad.person;
 
   useMount(() => logSidevisningOvergangsstonad('OmDeg'));
-
-  const settMedlemskap = (medlemskap: IMedlemskap) => {
-    settSøknad((prevSoknad: ISøknad) => {
-      return {
-        ...prevSoknad,
-        medlemskap: medlemskap,
-      };
-    });
-  };
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
@@ -134,7 +124,6 @@ const OmDeg: FC = () => {
           sivilstatus={søknad.sivilstatus}
           settSivilstatus={settSivilstatus}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          settMedlemskap={settMedlemskap}
         />
         <Show if={skalViseMedlemskapDialog}>
           <Medlemskap />

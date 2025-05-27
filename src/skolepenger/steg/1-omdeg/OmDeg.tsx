@@ -6,7 +6,6 @@ import {
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../helpers/steg/omdeg';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
 import Medlemskap from '../../../søknad/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
 import { ISpørsmålBooleanFelt } from '../../../models/søknad/søknadsfelter';
@@ -44,15 +43,6 @@ const OmDeg: FC = () => {
   const { søker } = søknad.person;
 
   useMount(() => logSidevisningSkolepenger('OmDeg'));
-
-  const settMedlemskap = (medlemskap: IMedlemskap) => {
-    settSøknad((prevSoknad: ISøknad) => {
-      return {
-        ...prevSoknad,
-        medlemskap: medlemskap,
-      };
-    });
-  };
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
@@ -132,7 +122,6 @@ const OmDeg: FC = () => {
           sivilstatus={søknad.sivilstatus}
           settSivilstatus={settSivilstatus}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          settMedlemskap={settMedlemskap}
         />
 
         <Show

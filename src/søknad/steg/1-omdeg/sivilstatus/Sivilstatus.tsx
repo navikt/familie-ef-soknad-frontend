@@ -14,7 +14,6 @@ import {
   erSøkerGift,
   erSøkerUGiftSkiltSeparertEllerEnke,
 } from '../../../../utils/sivilstatus';
-import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../helpers/steg/omdeg';
@@ -23,7 +22,6 @@ import { GjenbrukContext } from '../../../../context/GjenbrukContext';
 interface Props {
   sivilstatus: ISivilstatus;
   settSivilstatus: (sivilstatus: ISivilstatus) => void;
-  settMedlemskap: (medlemskap: IMedlemskap) => void;
   settDokumentasjonsbehov: (
     spørsmål: ISpørsmål,
     valgtSvar: ISvar,
@@ -35,7 +33,6 @@ const Sivilstatus: React.FC<Props> = ({
   sivilstatus,
   settSivilstatus,
   settDokumentasjonsbehov,
-  settMedlemskap,
 }) => {
   const intl = useLokalIntlContext();
   const { person } = usePersonContext();
@@ -109,7 +106,6 @@ const Sivilstatus: React.FC<Props> = ({
           settSivilstatus={settSivilstatus}
           settDato={settDato}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          settMedlemskap={settMedlemskap}
         />
       )}
     </SeksjonGruppe>

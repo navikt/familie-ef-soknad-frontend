@@ -23,7 +23,6 @@ import {
 } from '../../../../../models/søknad/person';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import { harFyltUtSamboerDetaljer } from '../../../../../utils/person';
-import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import FormattedHtmlMessage from '../../../../../language/FormattedHtmlMessage';
 import { Alert, Heading } from '@navikt/ds-react';
@@ -31,7 +30,6 @@ import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde
 
 interface Props {
   sivilstatus: ISivilstatus;
-  settMedlemskap: (medlemskap: IMedlemskap) => void;
   settSivilstatus: (sivilstatus: ISivilstatus) => void;
   settDato: (date: string, objektnøkkel: string, tekstid: string) => void;
   settDokumentasjonsbehov: (
@@ -46,7 +44,6 @@ const ÅrsakEnslig: FC<Props> = ({
   settSivilstatus,
   settDato,
   settDokumentasjonsbehov,
-  settMedlemskap,
 }) => {
   const intl = useLokalIntlContext();
   const spørsmål: ISpørsmål = begrunnelseSpørsmål(intl);
@@ -101,8 +98,6 @@ const ÅrsakEnslig: FC<Props> = ({
       const nySivilstatus = { ...sivilstatus };
       delete nySamboerInfo.ident;
       delete nySivilstatus.datoFlyttetFraHverandre;
-
-      settMedlemskap({});
 
       settSamboerInfo(nySamboerInfo);
       settSivilstatus(nySivilstatus);
