@@ -23,6 +23,7 @@ import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { OmDegProvider } from './OmDegContext';
 
 const OmDeg: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('OmDeg'));
@@ -97,45 +98,47 @@ const OmDeg: FC = () => {
   );
 
   return (
-    <Side
-      stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.omDeg' })}
-      erSpørsmålBesvart={erAlleSpørsmålBesvart}
-      skalViseKnapper={skalViseKnapper}
-      routesStønad={RoutesBarnetilsyn}
-      mellomlagreStønad={mellomlagreBarnetilsyn}
-      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
-    >
-      <Personopplysninger
-        søker={søker}
-        settDokumentasjonsbehov={settDokumentasjonsbehov}
-        søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
-        settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
-        harMeldtAdresseendring={
-          søknad.adresseopplysninger?.harMeldtAdresseendring
-        }
-        settHarMeldtAdresseendring={settHarMeldtAdresseendring}
+    <OmDegProvider>
+      <Side
         stønadstype={Stønadstype.barnetilsyn}
-      />
-
-      <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
-        <Sivilstatus
-          sivilstatus={søknad.sivilstatus}
-          settSivilstatus={settSivilstatus}
+        stegtittel={intl.formatMessage({ id: 'stegtittel.omDeg' })}
+        erSpørsmålBesvart={erAlleSpørsmålBesvart}
+        skalViseKnapper={skalViseKnapper}
+        routesStønad={RoutesBarnetilsyn}
+        mellomlagreStønad={mellomlagreBarnetilsyn}
+        tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      >
+        <Personopplysninger
+          søker={søker}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          settMedlemskap={settMedlemskap}
+          søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
+          settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
+          harMeldtAdresseendring={
+            søknad.adresseopplysninger?.harMeldtAdresseendring
+          }
+          settHarMeldtAdresseendring={settHarMeldtAdresseendring}
+          stønadstype={Stønadstype.barnetilsyn}
         />
 
-        <Show
-          if={
-            erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-            erÅrsakEnsligBesvart(sivilstatus)
-          }
-        >
-          <Medlemskap medlemskap={medlemskap} settMedlemskap={settMedlemskap} />
+        <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
+          <Sivilstatus
+            sivilstatus={søknad.sivilstatus}
+            settSivilstatus={settSivilstatus}
+            settDokumentasjonsbehov={settDokumentasjonsbehov}
+            settMedlemskap={settMedlemskap}
+          />
+
+          <Show
+            if={
+              erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+              erÅrsakEnsligBesvart(sivilstatus)
+            }
+          >
+            <Medlemskap />
+          </Show>
         </Show>
-      </Show>
-    </Side>
+      </Side>
+    </OmDegProvider>
   );
 };
 

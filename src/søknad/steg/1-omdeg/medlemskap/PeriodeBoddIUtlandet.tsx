@@ -8,20 +8,19 @@ import { hentTekst } from '../../../../utils/søknad';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import {
   ILandMedKode,
-  IMedlemskap,
   IUtenlandsopphold,
 } from '../../../../models/steg/omDeg/medlemskap';
 import { tomPeriode } from '../../../../helpers/tommeSøknadsfelter';
 import LeggTilKnapp from '../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
+import { useOmDeg } from '../../../../barnetilsyn/steg/1-omdeg/OmDegContext';
 
 const PeriodeBoddIUtlandet: FC<{
-  medlemskap: IMedlemskap;
-  settMedlemskap: (medlemskap: IMedlemskap) => void;
   land: ILandMedKode[];
-}> = ({ medlemskap, settMedlemskap, land }) => {
+}> = ({ land }) => {
   const intl = useLokalIntlContext();
+  const { medlemskap2, settMedlemskap2 } = useOmDeg();
   const tomtUtenlandsopphold: IUtenlandsopphold = {
     id: hentUid(),
     periode: tomPeriode,
@@ -34,9 +33,9 @@ const PeriodeBoddIUtlandet: FC<{
   const [perioderBoddIUtlandet, settPerioderBoddIUtlandet] = useState<
     IUtenlandsopphold[]
   >(
-    medlemskap?.perioderBoddIUtlandet &&
-      medlemskap.perioderBoddIUtlandet.length > 0
-      ? medlemskap.perioderBoddIUtlandet
+    medlemskap2?.perioderBoddIUtlandet &&
+      medlemskap2.perioderBoddIUtlandet.length > 0
+      ? medlemskap2.perioderBoddIUtlandet
       : [tomtUtenlandsopphold]
   );
 
@@ -45,8 +44,8 @@ const PeriodeBoddIUtlandet: FC<{
   );
 
   useEffect(() => {
-    settMedlemskap({
-      ...medlemskap,
+    settMedlemskap2({
+      ...medlemskap2,
       perioderBoddIUtlandet: perioderBoddIUtlandet,
     });
     // eslint-disable-next-line
@@ -56,8 +55,8 @@ const PeriodeBoddIUtlandet: FC<{
     const alleUtenlandsopphold = perioderBoddIUtlandet;
     alleUtenlandsopphold && alleUtenlandsopphold.push(tomtUtenlandsopphold);
     alleUtenlandsopphold &&
-      settMedlemskap({
-        ...medlemskap,
+      settMedlemskap2({
+        ...medlemskap2,
         perioderBoddIUtlandet: alleUtenlandsopphold,
       });
   };

@@ -141,10 +141,7 @@ const OmDeg: FC = () => {
             erÅrsakEnsligBesvart(søknad.sivilstatus)
           }
         >
-          <Medlemskap
-            medlemskap={søknad.medlemskap}
-            settMedlemskap={settMedlemskap}
-          />
+          <Medlemskap />
         </Show>
       </Show>
     </Side>

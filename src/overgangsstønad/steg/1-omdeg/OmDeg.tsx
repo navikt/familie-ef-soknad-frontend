@@ -137,10 +137,7 @@ const OmDeg: FC = () => {
           settMedlemskap={settMedlemskap}
         />
         <Show if={skalViseMedlemskapDialog}>
-          <Medlemskap
-            medlemskap={søknad.medlemskap}
-            settMedlemskap={settMedlemskap}
-          />
+          <Medlemskap />
         </Show>
       </Show>
     </Side>
