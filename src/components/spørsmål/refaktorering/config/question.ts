@@ -17,6 +17,8 @@ export interface BaseQuestion {
   descriptionKey?: string;
   alertKey?: string;
   required?: boolean;
+
+  // Enkelte spørsmål kan være gjentagene der en kan utfylle flere ganger. Dette er typisk ting som f.eks utenlandsperioder.
   repeatable?: boolean;
   type: QuestionType;
 }
@@ -24,6 +26,7 @@ export interface BaseQuestion {
 export interface RadioQuestion extends BaseQuestion {
   type: 'radio';
   options: Option[];
+  optionDirection: 'vertical' | 'horizontal';
   followUps?: ConditionalFollowUp[];
   readMoreTitleKey?: string;
   readMoreContentKey?: string;

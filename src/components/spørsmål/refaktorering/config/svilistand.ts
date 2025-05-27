@@ -1,3 +1,4 @@
+/*
 import { Question } from './question';
 
 export const sivilstandQuestions: Question[] = [
@@ -94,3 +95,4 @@ export const sivilstandQuestions: Question[] = [
     ],
   },
 ];
+*/

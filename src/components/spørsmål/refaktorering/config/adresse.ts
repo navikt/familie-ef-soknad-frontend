@@ -10,6 +10,7 @@ export const adresseQuestions: Question[] = [
       { value: 'svar.ja', labelKey: 'svar.ja' },
       { value: 'svar.nei', labelKey: 'svar.nei' },
     ],
+    optionDirection: 'horizontal',
     followUps: [
       {
         when: 'svar.ja',
@@ -31,6 +32,7 @@ export const adresseQuestions: Question[] = [
               { value: 'svar.ja', labelKey: 'svar.ja' },
               { value: 'svar.nei', labelKey: 'svar.nei' },
             ],
+            optionDirection: 'horizontal',
           },
         ],
       },
@@ -56,6 +58,7 @@ export const adresseQuestions: Question[] = [
               { value: 'svar.ja', labelKey: 'svar.ja' },
               { value: 'svar.nei', labelKey: 'svar.nei' },
             ],
+            optionDirection: 'horizontal',
           },
         ],
       },

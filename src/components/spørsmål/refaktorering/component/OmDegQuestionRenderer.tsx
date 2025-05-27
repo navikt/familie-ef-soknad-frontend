@@ -20,7 +20,7 @@ export const OmDegQuestionRenderer: React.FC<Props> = ({
           question={question}
           value={value}
           onChange={onChange}
-          direction={'horizontal'}
+          direction={question.optionDirection}
         />
       );
     default:
