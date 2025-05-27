@@ -27,7 +27,7 @@ export const RadioQuestionComponent: React.FC<Props> = ({
   value,
   onChange,
   renderFollowUps,
-  direction = 'horizontal', // TODO: Change in data structure
+  direction,
 }) => {
   const intl = useLokalIntlContext();
 
