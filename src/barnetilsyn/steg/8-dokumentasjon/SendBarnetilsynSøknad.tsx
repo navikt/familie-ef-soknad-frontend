@@ -12,7 +12,7 @@ import {
   sendInnBarnetilsynSøknad,
 } from '../../../innsending/api';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import { ISøknad } from '../../models/søknad';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IBarn } from '../../../models/steg/barn';
 import {
   hentForrigeRoute,
@@ -42,7 +42,7 @@ interface Innsending {
   venter: boolean;
 }
 
-const validerSøkerBosattINorgeSisteFemÅr = (søknad: ISøknad) => {
+const validerSøkerBosattINorgeSisteFemÅr = (søknad: SøknadBarnetilsyn) => {
   return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
 };
 
@@ -66,7 +66,7 @@ const SendSøknadKnapper: FC = () => {
     return barneliste.filter((barn) => barn.skalHaBarnepass?.verdi === true);
   };
 
-  const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
+  const sendInnSøknad = async (søknadMedFiltrerteBarn: SøknadBarnetilsyn) => {
     try {
       const kvittering = await sendInnBarnetilsynSøknad(søknadMedFiltrerteBarn);
 
@@ -93,7 +93,7 @@ const SendSøknadKnapper: FC = () => {
     }
   };
 
-  const sendSøknad = (søknad: ISøknad) => {
+  const sendSøknad = (søknad: SøknadBarnetilsyn) => {
     const barnMedEntenIdentEllerFødselsdato = filtrerBarnSomSkalHaBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
@@ -106,7 +106,7 @@ const SendSøknadKnapper: FC = () => {
       unikeDokumentasjonsbehov
     );
     logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Barnetilsyn);
-    const søknadMedFiltrerteBarn: ISøknad = {
+    const søknadMedFiltrerteBarn: SøknadBarnetilsyn = {
       ...søknad,
       person: { ...søknad.person, barn: barnMedOppdaterteLabels },
       dokumentasjonsbehov: dokumentasjonsbehov,

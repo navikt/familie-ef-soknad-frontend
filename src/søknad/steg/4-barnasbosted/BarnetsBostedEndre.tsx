@@ -38,7 +38,7 @@ import {
   skalAnnenForelderRedigeres,
 } from '../../../helpers/steg/barnetsBostedEndre';
 import { stringHarVerdiOgErIkkeTom } from '../../../utils/typer';
-import { ISøknad as SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
+import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { ISøknad as SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 
 const AlertMedTopMargin = styled(Alert)`
