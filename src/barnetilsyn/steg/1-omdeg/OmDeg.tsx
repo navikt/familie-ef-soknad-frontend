@@ -20,7 +20,7 @@ import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import Show from '../../../utils/showIf';
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
-import { ISøknad } from '../../models/søknad';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 
@@ -42,7 +42,7 @@ const OmDeg: FC = () => {
   const { søker } = søknad.person;
 
   const settMedlemskap = (medlemskap: IMedlemskap) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
       return {
         ...prevSoknad,
         medlemskap:
@@ -56,7 +56,7 @@ const OmDeg: FC = () => {
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
   ) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
       return {
         ...prevSoknad,
         adresseopplysninger: undefined,
@@ -68,7 +68,7 @@ const OmDeg: FC = () => {
   const settHarMeldtAdresseendring = (
     harMeldtAdresseendring: ISpørsmålBooleanFelt
   ) => {
-    settSøknad((prevSøknad: ISøknad) => ({
+    settSøknad((prevSøknad: SøknadBarnetilsyn) => ({
       ...prevSøknad,
       adresseopplysninger: {
         ...prevSøknad.adresseopplysninger,
@@ -78,7 +78,7 @@ const OmDeg: FC = () => {
   };
 
   const settSivilstatus = (sivilstatus: ISivilstatus) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
       return {
         ...prevSoknad,
         sivilstatus: sivilstatus,

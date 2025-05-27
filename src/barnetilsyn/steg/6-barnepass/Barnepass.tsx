@@ -28,7 +28,7 @@ import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { IBarn } from '../../../models/steg/barn';
-import { ISøknad } from '../../models/søknad';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import {
   dagensDato,
   datoTilStreng,
@@ -86,7 +86,7 @@ const Barnepass: FC = () => {
       }
       return barn;
     });
-    settSøknad((prevSøknad: ISøknad) => {
+    settSøknad((prevSøknad: SøknadBarnetilsyn) => {
       return {
         ...prevSøknad,
         person: { ...prevSøknad.person, barn: endretBarn },
@@ -96,7 +96,7 @@ const Barnepass: FC = () => {
 
   const settSøknadsdato = (dato: Date | null) => {
     dato !== null &&
-      settSøknad((prevSøknad: ISøknad) => {
+      settSøknad((prevSøknad: SøknadBarnetilsyn) => {
         return {
           ...prevSøknad,
           søknadsdato: {
@@ -108,7 +108,7 @@ const Barnepass: FC = () => {
   };
 
   const settSøkerFraBestemtMåned = (spørsmål: ISpørsmål, svar: ISvar) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
       if (
         svar.id === ESøkerFraBestemtMåned.neiNavKanVurdere &&
         søknadsdato?.verdi

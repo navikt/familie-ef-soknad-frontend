@@ -17,7 +17,7 @@ import {
   ISøknad as SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
 } from '../../../models/søknad/søknad';
-import { ISøknad as SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
+import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { ISøknad as SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 
 const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {

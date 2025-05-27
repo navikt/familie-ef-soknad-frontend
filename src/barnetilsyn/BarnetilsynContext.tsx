@@ -3,13 +3,13 @@ import createUseContext from 'constate';
 import tomPerson from '../mock/initialState.json';
 import { EBosituasjon } from '../models/steg/bosituasjon';
 import { ISpørsmål, ISvar } from '../models/felles/spørsmålogsvar';
-import { ForrigeSøknad, ISøknad } from './models/søknad';
+import { ForrigeSøknad, SøknadBarnetilsyn } from './models/søknad';
 import {
   hentDokumentasjonTilFlersvarSpørsmål,
   oppdaterDokumentasjonTilEtSvarSpørsmål,
   oppdaterDokumentasjonTilEtSvarSpørsmålForBarn,
 } from '../helpers/steg/dokumentasjon';
-import { IMellomlagretBarnetilsynSøknad } from './models/mellomlagretSøknad';
+import { MellomlagretSøknadBarnetilsyn } from './models/mellomlagretSøknad';
 import Environment from '../Environment';
 import { EArbeidssituasjon } from '../models/steg/aktivitet/aktivitet';
 import {
@@ -40,7 +40,7 @@ import {
 } from '../helpers/steg/forelder';
 import { stringHarVerdiOgErIkkeTom } from '../utils/typer';
 
-const initialState = (intl: LokalIntlShape): ISøknad => {
+const initialState = (intl: LokalIntlShape): SøknadBarnetilsyn => {
   return {
     person: tomPerson,
     sivilstatus: {},
@@ -76,9 +76,11 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
     const intl = useLokalIntlContext();
     BarnetilsynSøknadProvider.displayName = 'BARNETILSYN_PROVIDER';
     const [locale, setLocale] = useSpråkContext();
-    const [søknad, settSøknad] = useState<ISøknad>(initialState(intl));
+    const [søknad, settSøknad] = useState<SøknadBarnetilsyn>(
+      initialState(intl)
+    );
     const [mellomlagretBarnetilsyn, settMellomlagretBarnetilsyn] =
-      useState<IMellomlagretBarnetilsynSøknad>();
+      useState<MellomlagretSøknadBarnetilsyn>();
 
     useEffect(() => {
       if (
@@ -90,9 +92,9 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
     }, [mellomlagretBarnetilsyn, locale, setLocale]);
 
     const hentMellomlagretBarnetilsyn = (): Promise<void> => {
-      return hentMellomlagretSøknadFraDokument<IMellomlagretBarnetilsynSøknad>(
+      return hentMellomlagretSøknadFraDokument<MellomlagretSøknadBarnetilsyn>(
         MellomlagredeStønadstyper.barnetilsyn
-      ).then((mellomlagretVersjon?: IMellomlagretBarnetilsynSøknad) => {
+      ).then((mellomlagretVersjon?: MellomlagretSøknadBarnetilsyn) => {
         if (mellomlagretVersjon) {
           settMellomlagretBarnetilsyn(mellomlagretVersjon);
         }
@@ -170,7 +172,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
     };
 
     const erForelderEllerKopiertForelderFraFolkeRegister = (
-      forrigeSøknad: ISøknad,
+      forrigeSøknad: SøknadBarnetilsyn,
       forelder: IForelder | undefined
     ) => {
       return (
@@ -188,7 +190,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
     const oppdaterBarnForelderIdentOgNavn = (
       forelder: IForelder | undefined,
       medforelder: IMedforelderFelt | undefined,
-      prevSøknad: ISøknad
+      prevSøknad: SøknadBarnetilsyn
     ): IForelder => {
       const erFraFolkeRegister = erForelderEllerKopiertForelderFraFolkeRegister(
         prevSøknad,
@@ -336,7 +338,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
       };
 
     const finnNyeBarnSidenForrigeSøknad = (
-      prevSøknad: ISøknad,
+      prevSøknad: SøknadBarnetilsyn,
       forrigeSøknad: ForrigeSøknad
     ): IBarn[] => {
       return prevSøknad.person.barn.filter(

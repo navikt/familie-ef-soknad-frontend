@@ -9,7 +9,7 @@ import {
   ETypeBarnepassOrdning,
   IBarnepassOrdning,
 } from '../../models/barnepass';
-import { ISøknad } from '../../models/søknad';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import { ESøkerFraBestemtMåned } from '../../../models/steg/dinsituasjon/meromsituasjon';
 import { harValgtSvar } from '../../../utils/spørsmålogsvar';
 import { erStrengGyldigTall } from '../../../utils/autentiseringogvalidering/feltvalidering';
@@ -58,7 +58,7 @@ export const erBarnepassOrdningerUtfylt = (
 
 export const erBarnepassStegFerdigUtfylt = (
   barnSomSkalHaBarnepass: IBarn[],
-  søknad: ISøknad
+  søknad: SøknadBarnetilsyn
 ): boolean => {
   const { søkerFraBestemtMåned, søknadsdato } = søknad;
   const erSpørsmålSøkerFraBestemtMånedBesvart =

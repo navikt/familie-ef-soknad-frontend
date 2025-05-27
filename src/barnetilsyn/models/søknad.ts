@@ -10,7 +10,7 @@ import { IAktivitet } from '../../models/steg/aktivitet/aktivitet';
 import { IPerson, IPersonTilGjenbruk } from '../../models/søknad/person';
 import { IAdresseopplysninger } from '../../models/steg/adresseopplysninger';
 
-export interface ISøknad {
+export interface SøknadBarnetilsyn {
   innsendingsdato?: Date;
   person: IPerson;
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
