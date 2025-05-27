@@ -14,7 +14,6 @@ export interface Option {
 export interface BaseQuestion {
   id: string;
   textKey: string;
-  descriptionKey?: string;
   alertKey?: string;
   required?: boolean;
 

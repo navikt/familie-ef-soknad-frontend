@@ -1,58 +1,32 @@
-/*
 import { Question } from './question';
 
-export const aleneMedBarnQuestions: Question[] = [
-  {
-    id: 'årsakAleneMedBarn',
-    textKey: 'omdeg.alene.årsak',
-    descriptionKey: 'omdeg.alene.årsak.beskrivelse',
-    type: 'radio',
-    required: true,
-    options: [
-      { value: 'fødsel', labelKey: 'omdeg.alene.årsak.fødsel' },
-      {
-        value: 'samlivsbruddForelder',
-        labelKey: 'omdeg.alene.årsak.samlivsbruddForelder',
-      },
-      {
-        value: 'samlivsbruddAnnen',
-        labelKey: 'omdeg.alene.årsak.samlivsbruddAnnen',
-      },
-      { value: 'dødsfall', labelKey: 'omdeg.alene.årsak.dødsfall' },
-      { value: 'omsorgsendring', labelKey: 'omdeg.alene.årsak.omsorgsendring' },
-    ],
-    followUps: [
-      {
-        when: ['samlivsbruddForelder', 'samlivsbruddAnnen'],
-        questions: [
-          {
-            id: 'samlivsbruddDato',
-            textKey: 'omdeg.alene.samlivsbruddDato',
-            descriptionKey: 'omdeg.alene.samlivsbruddDato.beskrivelse',
-            type: 'date',
-            required: true,
-          },
-          {
-            id: 'samlivsbruddFlyttedato',
-            textKey: 'omdeg.alene.flyttedato',
-            type: 'date',
-            required: true,
-          },
-          {
-            id: 'tidligereSamboerNavn',
-            textKey: 'omdeg.alene.samboerNavn',
-            type: 'text',
-            required: true,
-          },
-          {
-            id: 'tidligereSamboerFnr',
-            textKey: 'omdeg.alene.samboerFnr',
-            type: 'text',
-            required: false,
-          },
-        ],
-      },
-    ],
-  },
-];
-*/
+export const aleneMedBarnQuestion: Question = {
+  id: 'sivilstatus.spm.begrunnelse',
+  textKey: 'sivilstatus.spm.begrunnelse',
+  type: 'radio',
+  required: true,
+  options: [
+    {
+      value: 'sivilstatus.svar.samlivsbruddForeldre',
+      labelKey: 'sivilstatus.svar.samlivsbruddForeldre',
+    },
+    {
+      value: 'sivilstatus.svar.samlivsbruddAndre',
+      labelKey: 'sivilstatus.svar.samlivsbruddAndre',
+    },
+    {
+      value: 'sivilstatus.svar.aleneFraFødsel',
+      labelKey: 'sivilstatus.svar.aleneFraFødsel',
+    },
+    {
+      value: 'sivilstatus.svar.endringISamværsordning',
+      labelKey: 'sivilstatus.svar.endringISamværsordning',
+    },
+    {
+      value: 'sivilstatus.svar.dødsfall',
+      labelKey: 'sivilstatus.svar.dødsfall',
+    },
+  ],
+  optionDirection: 'vertical',
+  followUps: [],
+};
