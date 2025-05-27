@@ -7,12 +7,14 @@ import {
   RadioGroup,
   ReadMore,
   Alert,
+  Link,
 } from '@navikt/ds-react';
 import styles from './RadioQuestion.module.css';
 import clsx from 'clsx';
 import { Question, RadioQuestion } from '../config/question';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/søknad';
+import { hentTekstMedReact } from '../hentTekstAsNode';
 
 interface Props {
   question: RadioQuestion;
@@ -79,8 +81,17 @@ export const RadioQuestionComponent: React.FC<Props> = ({
       </RadioGroup>
 
       {alertKeyToShow && (
-        <Alert size="small" variant={alertVariant}>
-          {hentTekst(alertKeyToShow, intl)}
+        <Alert size="small" variant={alertVariant} inline={true}>
+          {hentTekstMedReact(alertKeyToShow, intl, {
+            link: (
+              <Link
+                href="https://www.skatteetaten.no/person/folkeregister/flytte/"
+                target="_blank"
+              >
+                Skatteetaten
+              </Link>
+            ),
+          })}
         </Alert>
       )}
     </VStack>
