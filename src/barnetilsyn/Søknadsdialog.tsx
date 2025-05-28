@@ -12,6 +12,7 @@ import Kvittering from './steg/9-kvittering/Kvittering';
 import Barnepass from './steg/6-barnepass/Barnepass';
 import RedirectTilStart from './RedirectTilStart';
 import Gjenbruk from './steg/0.5-gjenbruk/Gjenbruk';
+import { OmDegProvider } from './steg/1-omdeg/OmDegContext';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   return (
@@ -84,7 +85,9 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDeg />
+            <OmDegProvider>
+              <OmDeg />
+            </OmDegProvider>
           </RedirectTilStart>
         }
       />

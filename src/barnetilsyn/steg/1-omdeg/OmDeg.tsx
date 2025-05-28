@@ -22,7 +22,7 @@ import { useMount } from '../../../utils/hooks';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { OmDegProvider } from './OmDegContext';
+import { useOmDeg } from './OmDegContext';
 
 const OmDeg: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('OmDeg'));
@@ -40,6 +40,7 @@ const OmDeg: FC = () => {
   } = useBarnetilsynSøknad();
   const { sivilstatus, medlemskap } = søknad;
   const { søker } = søknad.person;
+  const { mellomlagreOmDeg } = useOmDeg();
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
@@ -85,46 +86,45 @@ const OmDeg: FC = () => {
   );
 
   return (
-    <OmDegProvider>
-      <Side
+    <Side
+      stønadstype={Stønadstype.barnetilsyn}
+      stegtittel={intl.formatMessage({ id: 'stegtittel.omDeg' })}
+      erSpørsmålBesvart={erAlleSpørsmålBesvart}
+      skalViseKnapper={skalViseKnapper}
+      routesStønad={RoutesBarnetilsyn}
+      mellomlagreStønad={mellomlagreBarnetilsyn}
+      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      mellomlagreSøknad={mellomlagreOmDeg}
+    >
+      <Personopplysninger
+        søker={søker}
+        settDokumentasjonsbehov={settDokumentasjonsbehov}
+        søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
+        settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
+        harMeldtAdresseendring={
+          søknad.adresseopplysninger?.harMeldtAdresseendring
+        }
+        settHarMeldtAdresseendring={settHarMeldtAdresseendring}
         stønadstype={Stønadstype.barnetilsyn}
-        stegtittel={intl.formatMessage({ id: 'stegtittel.omDeg' })}
-        erSpørsmålBesvart={erAlleSpørsmålBesvart}
-        skalViseKnapper={skalViseKnapper}
-        routesStønad={RoutesBarnetilsyn}
-        mellomlagreStønad={mellomlagreBarnetilsyn}
-        tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
-      >
-        <Personopplysninger
-          søker={søker}
+      />
+
+      <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
+        <Sivilstatus
+          sivilstatus={søknad.sivilstatus}
+          settSivilstatus={settSivilstatus}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
-          settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
-          harMeldtAdresseendring={
-            søknad.adresseopplysninger?.harMeldtAdresseendring
-          }
-          settHarMeldtAdresseendring={settHarMeldtAdresseendring}
-          stønadstype={Stønadstype.barnetilsyn}
         />
 
-        <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
-          <Sivilstatus
-            sivilstatus={søknad.sivilstatus}
-            settSivilstatus={settSivilstatus}
-            settDokumentasjonsbehov={settDokumentasjonsbehov}
-          />
-
-          <Show
-            if={
-              erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-              erÅrsakEnsligBesvart(sivilstatus)
-            }
-          >
-            <Medlemskap />
-          </Show>
+        <Show
+          if={
+            erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+            erÅrsakEnsligBesvart(sivilstatus)
+          }
+        >
+          <Medlemskap />
         </Show>
-      </Side>
-    </OmDegProvider>
+      </Show>
+    </Side>
   );
 };
 

@@ -26,10 +26,9 @@ import { Barn, IPerson, PersonData } from '../models/søknad/person';
 import { IBarn } from '../models/steg/barn';
 import { hvaErDinArbeidssituasjonSpm } from './steg/5-aktivitet/AktivitetConfig';
 import { useSpråkContext } from '../context/SpråkContext';
-import { LokalIntlShape } from '../language/typer';
+import { LocaleType, LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../utils/barn';
-import { LocaleType } from '../language/typer';
 import { dagensDato, formatIsoDate } from '../utils/dato';
 import { IMedforelderFelt } from '../models/steg/medforelder';
 import { IForelder } from '../models/steg/forelder';
@@ -349,6 +348,23 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
       );
     };
 
+    const mellomlagreBarnetilsyn2 = (
+      steg: string,
+      oppdatertSøknad: SøknadBarnetilsyn
+    ) => {
+      const utfyltSøknad = {
+        søknad: oppdatertSøknad,
+        modellVersjon: Environment().modellVersjon.barnetilsyn,
+        gjeldendeSteg: steg,
+        locale: locale,
+      };
+      mellomlagreSøknadTilDokument(
+        utfyltSøknad,
+        MellomlagredeStønadstyper.barnetilsyn
+      );
+      settMellomlagretBarnetilsyn(utfyltSøknad);
+    };
+
     const mellomlagreBarnetilsyn = (steg: string) => {
       const utfyltSøknad = {
         søknad: søknad,
@@ -468,6 +484,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
       mellomlagretBarnetilsyn,
       hentMellomlagretBarnetilsyn,
       mellomlagreBarnetilsyn,
+      mellomlagreBarnetilsyn2,
       brukMellomlagretBarnetilsyn,
       hentForrigeSøknadBarnetilsyn,
       nullstillMellomlagretBarnetilsyn,
