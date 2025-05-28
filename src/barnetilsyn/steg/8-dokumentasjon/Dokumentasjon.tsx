@@ -13,7 +13,7 @@ import { Stønadstype } from '../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
-import { ISøknad } from '../../models/søknad';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../utils/dato';
 import * as Sentry from '@sentry/browser';
@@ -36,7 +36,7 @@ const Dokumentasjon: React.FC = () => {
     opplastedeVedlegg: IVedlegg[] | undefined,
     harSendtInnTidligere: boolean
   ) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
       const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map(
         (dok) => {
           return dok.id === dokumentasjonsid
