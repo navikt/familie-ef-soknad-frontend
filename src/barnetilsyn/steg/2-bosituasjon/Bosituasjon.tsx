@@ -12,7 +12,7 @@ import { Stønadstype } from '../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
-import { ISøknad } from '../../models/søknad';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 
 const Bosituasjon: FC = () => {
@@ -33,7 +33,7 @@ const Bosituasjon: FC = () => {
     : ESide.visTilbakeTilOppsummeringKnapp;
 
   const settBosituasjon = (bosituasjon: IBosituasjon) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
       return {
         ...prevSoknad,
         bosituasjon: bosituasjon,
