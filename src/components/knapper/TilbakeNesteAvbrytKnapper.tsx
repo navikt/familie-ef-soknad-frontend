@@ -63,13 +63,16 @@ interface Props {
   routesStønad: IRoute[];
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
+  mellomlagreSøknad?: () => void;
   disableNesteKnapp?: boolean;
 }
 
+//TODO: Fjern mellomlagreStønad etter omskriving
 const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   routesStønad,
   erSpørsmålBesvart,
   mellomlagreStønad,
+  mellomlagreSøknad,
   disableNesteKnapp,
 }) => {
   const location = useLocation();
@@ -98,6 +101,8 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           onClick={() => {
             if (mellomlagreStønad) {
               mellomlagreStønad(location.pathname);
+            } else if (mellomlagreSøknad) {
+              mellomlagreSøknad();
             }
             navigate(nesteRoute.path);
           }}

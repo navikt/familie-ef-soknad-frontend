@@ -19,6 +19,7 @@ export enum ESide {
   skjulKnapper = 'skjulKnapper',
 }
 
+//TODO: Fjern mellomlagreStønad etter omskriving
 interface ISide {
   stønadstype: Stønadstype;
   stegtittel: string;
@@ -26,6 +27,7 @@ interface ISide {
   skalViseKnapper: ESide;
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
+  mellomlagreSøknad?: () => void;
   tilbakeTilOppsummeringPath?: string;
   informasjonstekstId?: string;
   disableNesteKnapp?: boolean;
@@ -41,6 +43,7 @@ const Side: React.FC<ISide> = ({
   erSpørsmålBesvart,
   skalViseKnapper,
   mellomlagreStønad,
+  mellomlagreSøknad,
   tilbakeTilOppsummeringPath,
   informasjonstekstId,
   disableNesteKnapp,
@@ -103,6 +106,7 @@ const Side: React.FC<ISide> = ({
               routesStønad={routesStønad}
               erSpørsmålBesvart={erSpørsmålBesvart}
               mellomlagreStønad={mellomlagreStønad}
+              mellomlagreSøknad={mellomlagreSøknad}
               disableNesteKnapp={disableNesteKnapp}
             />
           </>
@@ -118,6 +122,8 @@ const Side: React.FC<ISide> = ({
                 onClick={() => {
                   if (mellomlagreStønad) {
                     mellomlagreStønad(location.pathname);
+                  } else if (mellomlagreSøknad) {
+                    mellomlagreSøknad();
                   }
                   navigate({
                     pathname: tilbakeTilOppsummeringPath,

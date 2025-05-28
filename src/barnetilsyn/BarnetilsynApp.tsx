@@ -10,7 +10,7 @@ import {
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { useToggles } from '../context/TogglesContext';
 import { Barn, PersonData } from '../models/søknad/person';
-import SøknadsdialogBarnetilsyn from './Søknadsdialog';
+import { SøknadsdialogBarnetilsyn } from './Søknadsdialog';
 import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';

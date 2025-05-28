@@ -349,6 +349,24 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
       );
     };
 
+    const mellomlagreBarnetilsynV2 = (
+      oppdatertSøknad: SøknadBarnetilsyn,
+      steg: string
+    ) => {
+      const utfyltSøknad = {
+        søknad: oppdatertSøknad,
+        modellVersjon: Environment().modellVersjon.barnetilsyn,
+        gjeldendeSteg: steg,
+        locale: locale,
+      };
+      mellomlagreSøknadTilDokument(
+        utfyltSøknad,
+        MellomlagredeStønadstyper.barnetilsyn
+      );
+      // TODO: Må man oppdatere søknad med oppdatert søknad her?
+      settMellomlagretBarnetilsyn(utfyltSøknad);
+    };
+
     const mellomlagreBarnetilsyn = (steg: string) => {
       const utfyltSøknad = {
         søknad: søknad,
@@ -360,6 +378,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
         utfyltSøknad,
         MellomlagredeStønadstyper.barnetilsyn
       );
+      // TODO: Må man oppdatere søknad med oppdatert søknad her?
       settMellomlagretBarnetilsyn(utfyltSøknad);
     };
 
@@ -468,6 +487,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(
       mellomlagretBarnetilsyn,
       hentMellomlagretBarnetilsyn,
       mellomlagreBarnetilsyn,
+      mellomlagreBarnetilsynV2,
       brukMellomlagretBarnetilsyn,
       hentForrigeSøknadBarnetilsyn,
       nullstillMellomlagretBarnetilsyn,

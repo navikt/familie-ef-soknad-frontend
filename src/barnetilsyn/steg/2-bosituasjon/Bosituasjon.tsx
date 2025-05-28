@@ -1,62 +1,39 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { IBosituasjon } from '../../../models/steg/bosituasjon';
-import { useLocation } from 'react-router-dom';
-import { erFerdigUtfylt } from '../../../helpers/steg/bosituasjon';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import BosituasjonSpørsmål from '../../../søknad/steg/2-bosituasjon/BosituasjonSpørsmål';
-import Side, { ESide } from '../../../components/side/Side';
+import Side from '../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
+import { useBosituasjon } from './BosituasjonContext';
 
-import { logSidevisningBarnetilsyn } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
-import { SøknadBarnetilsyn } from '../../models/søknad';
-import { kommerFraOppsummeringen } from '../../../utils/locationState';
-
-const Bosituasjon: FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('Bosituasjon'));
-
+export const Bosituasjon: FC = () => {
   const intl = useLokalIntlContext();
+  const { settDokumentasjonsbehov } = useBarnetilsynSøknad();
   const {
-    søknad,
-    settSøknad,
-    settDokumentasjonsbehov,
-    mellomlagreBarnetilsyn,
-  } = useBarnetilsynSøknad();
-  const bosituasjon = søknad.bosituasjon;
-  const location = useLocation();
-  const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
-
-  const settBosituasjon = (bosituasjon: IBosituasjon) => {
-    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
-      return {
-        ...prevSoknad,
-        bosituasjon: bosituasjon,
-      };
-    });
-  };
+    bosituasjon,
+    oppdaterBosituasjon,
+    mellomlagreBosituasjon,
+    visNavigeringKnapper,
+    bosituasjonErFerdigUtfylt,
+  } = useBosituasjon();
 
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={intl.formatMessage({ id: 'stegtittel.bosituasjon' })}
-      skalViseKnapper={skalViseKnapper}
-      erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
+      skalViseKnapper={visNavigeringKnapper}
+      erSpørsmålBesvart={bosituasjonErFerdigUtfylt}
       routesStønad={RoutesBarnetilsyn}
-      mellomlagreStønad={mellomlagreBarnetilsyn}
+      mellomlagreSøknad={mellomlagreBosituasjon}
       tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
     >
       <BosituasjonSpørsmål
         bosituasjon={bosituasjon}
-        settBosituasjon={settBosituasjon}
+        settBosituasjon={oppdaterBosituasjon}
         settDokumentasjonsbehov={settDokumentasjonsbehov}
       />
     </Side>
   );
 };
-export default Bosituasjon;
