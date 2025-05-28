@@ -3,7 +3,7 @@ import {
   ESagtOppEllerRedusertStilling,
   IDinSituasjon,
 } from '../../../models/steg/dinsituasjon/meromsituasjon';
-import { ISøknad } from '../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../../models/søknad/søknad';
 import { IArbeidsgiver } from '../../../models/steg/aktivitet/arbeidsgiver';
 import { fraStringTilTall } from '../../../utils/søknad';
 import { harValgtSvar } from '../../../utils/spørsmålogsvar';
@@ -25,7 +25,9 @@ export const erSituasjonIAvhukedeSvar = (
     return svarHuketAvISøknad === svarTekst;
   });
 };
-export const harSøkerMindreEnnHalvStilling = (søknad: ISøknad): boolean => {
+export const harSøkerMindreEnnHalvStilling = (
+  søknad: SøknadOvergangsstønad
+): boolean => {
   const { firmaer, arbeidsforhold, firma, egetAS } = søknad.aktivitet;
 
   let totalArbeidsmengde: number = 0;
@@ -90,7 +92,7 @@ export const harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål = (
 };
 
 export const hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst = (
-  søknad: ISøknad
+  søknad: SøknadOvergangsstønad
 ): boolean => {
   const { merOmDinSituasjon, person } = søknad;
 

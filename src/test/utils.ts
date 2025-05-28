@@ -23,7 +23,7 @@ import { IBosituasjon } from '../models/steg/bosituasjon';
 import { IAksjeselskap, IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
-import { ISøknad } from '../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../models/søknad/søknad';
 import { IArbeidsgiver } from '../models/steg/aktivitet/arbeidsgiver';
 import { IArbeidssøker } from '../models/steg/aktivitet/arbeidssøker';
 import { IFirma } from '../models/steg/aktivitet/firma';
@@ -45,7 +45,7 @@ export const lagSøknad = (
   locale?: any,
   skalBehandlesINySaksbehandling?: boolean,
   datoPåbegyntSøknad?: string
-): ISøknad => {
+): SøknadOvergangsstønad => {
   return {
     innsendingsdato: innsendingsdato,
     person: person ?? lagPerson(),

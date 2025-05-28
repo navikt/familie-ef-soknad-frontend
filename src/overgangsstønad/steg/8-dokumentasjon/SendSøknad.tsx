@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import LocaleTekst from '../../../language/LocaleTekst';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
-import { ISøknad } from '../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../../models/søknad/søknad';
 import { parseISO } from 'date-fns';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { useLocation } from 'react-router';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { hentPath } from '../../../utils/routing';
@@ -39,7 +39,7 @@ interface Innsending {
 }
 
 const SendSøknadKnapper: FC = () => {
-  const { søknad, settSøknad } = useSøknad();
+  const { søknad, settSøknad } = useOvergangsstønadSøknad();
   const location = useLocation();
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
@@ -57,7 +57,9 @@ const SendSøknadKnapper: FC = () => {
     venter: false,
   });
 
-  const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
+  const sendInnSøknad = async (
+    søknadMedFiltrerteBarn: SøknadOvergangsstønad
+  ) => {
     try {
       const kvittering = await sendInnOvergangstønadSøknad(
         søknadMedFiltrerteBarn
@@ -86,7 +88,7 @@ const SendSøknadKnapper: FC = () => {
     }
   };
 
-  const sendSøknad = (søknad: ISøknad) => {
+  const sendSøknad = (søknad: SøknadOvergangsstønad) => {
     const barnMedEntenIdentEllerFødselsdato = mapBarnUtenBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
@@ -99,7 +101,7 @@ const SendSøknadKnapper: FC = () => {
       unikeDokumentasjonsbehov
     );
     logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Overgangsstønad);
-    const søknadKlarForSending: ISøknad = {
+    const søknadKlarForSending: SøknadOvergangsstønad = {
       ...søknad,
       person: { ...søknad.person, barn: barnMedOppdaterteLabels },
       dokumentasjonsbehov: dokumentasjonsbehov,

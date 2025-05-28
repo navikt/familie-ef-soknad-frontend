@@ -7,13 +7,13 @@ import {
 } from '../../../utils/barn';
 import { DinSituasjonType } from '../../../models/steg/dinsituasjon/meromsituasjon';
 import CheckboxSpørsmål from '../../../components/spørsmål/CheckboxSpørsmål';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { leggTilSærligeBehov } from './SituasjonUtil';
 import { IBarn } from '../../../models/steg/barn';
 
 const HvilkeBarnHarSærligeBehov: React.FC = () => {
-  const { søknad, oppdaterBarnISøknaden } = useSøknad();
+  const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
   const intl = useLokalIntlContext();
 
   if (søknad.person.barn.length === 1) {

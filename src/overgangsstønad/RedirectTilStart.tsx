@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSøknad } from '../context/SøknadContext';
+import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
 
 interface Props {
   children: React.ReactElement;
 }
 const RedirectTilStart: React.FC<Props> = ({ children }) => {
-  const { søknad } = useSøknad();
+  const { søknad } = useOvergangsstønadSøknad();
   return !søknad.harBekreftet ? <Navigate to={'/'} /> : children;
 };
 

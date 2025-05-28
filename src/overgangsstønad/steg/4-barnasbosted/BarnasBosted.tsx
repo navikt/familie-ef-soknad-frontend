@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { hentTekst } from '../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { IBarn } from '../../../models/steg/barn';
 import Side, { ESide } from '../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
@@ -23,7 +23,7 @@ const BarnasBosted: React.FC = () => {
     settDokumentasjonsbehovForBarn,
     oppdaterBarnISøknaden,
     oppdaterFlereBarnISøknaden,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
 
   const barnMedLevendeForeldre = søknad.person.barn.filter((barn: IBarn) => {
     return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import LastOppVedlegg from '../../../søknad/steg/8-dokumentasjon/LastOppVedlegg';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import { hentTekst, unikeDokumentasjonsbehov } from '../../../utils/søknad';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import SendSøknadKnapper from './SendSøknad';
 import { useLocation } from 'react-router-dom';
 import { usePrevious } from '../../../utils/hooks';
@@ -12,7 +12,7 @@ import Side, { ESide } from '../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { IVedlegg } from '../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { ISøknad } from '../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../../models/søknad/søknad';
 import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
@@ -22,7 +22,8 @@ import { DokumentasjonBeskrivelse } from '../../../søknad/steg/8-dokumentasjon/
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { søknad, settSøknad, mellomlagreOvergangsstønad } = useSøknad();
+  const { søknad, settSøknad, mellomlagreOvergangsstønad } =
+    useOvergangsstønadSøknad();
   const location = useLocation();
   const { dokumentasjonsbehov } = søknad;
   const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
@@ -35,7 +36,7 @@ const Dokumentasjon: React.FC = () => {
     opplastedeVedlegg: IVedlegg[] | undefined,
     harSendtInnTidligere: boolean
   ) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadOvergangsstønad) => {
       const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map(
         (dok) => {
           return dok.id === dokumentasjonsid

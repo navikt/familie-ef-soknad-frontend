@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Medlemskap from '../../../søknad/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../søknad/steg/1-omdeg/personopplysninger/Personopplysninger';
 import Sivilstatus from '../../../søknad/steg/1-omdeg/sivilstatus/Sivilstatus';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { useLocation } from 'react-router-dom';
 import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
 import {
@@ -18,7 +18,7 @@ import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPathOvergangsstønadOppsummering } from '../../utils';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { ISøknad } from '../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../../models/søknad/søknad';
 import Show from '../../../utils/showIf';
 import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
@@ -35,7 +35,7 @@ const OmDeg: FC = () => {
     mellomlagreOvergangsstønad,
     settSøknad,
     settDokumentasjonsbehov,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
 
   const { harSøktSeparasjon, datoSøktSeparasjon, datoFlyttetFraHverandre } =
     søknad.sivilstatus;
@@ -45,7 +45,7 @@ const OmDeg: FC = () => {
   useMount(() => logSidevisningOvergangsstonad('OmDeg'));
 
   const settMedlemskap = (medlemskap: IMedlemskap) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadOvergangsstønad) => {
       return {
         ...prevSoknad,
         medlemskap: medlemskap,
@@ -56,7 +56,7 @@ const OmDeg: FC = () => {
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
   ) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadOvergangsstønad) => {
       return {
         ...prevSoknad,
         adresseopplysninger: undefined,
@@ -70,7 +70,7 @@ const OmDeg: FC = () => {
   const settHarMeldtAdresseendring = (
     harMeldtAdresseendring: ISpørsmålBooleanFelt
   ) => {
-    settSøknad((prevSøknad: ISøknad) => ({
+    settSøknad((prevSøknad: SøknadOvergangsstønad) => ({
       ...prevSøknad,
       adresseopplysninger: {
         ...prevSøknad.adresseopplysninger,
@@ -80,7 +80,7 @@ const OmDeg: FC = () => {
   };
 
   const settSivilstatus = (sivilstatus: ISivilstatus) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadOvergangsstønad) => {
       return {
         ...prevSoknad,
         sivilstatus,

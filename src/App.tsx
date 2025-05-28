@@ -8,7 +8,7 @@ import {
   autentiseringsInterceptor,
   verifiserAtBrukerErAutentisert,
 } from './utils/autentiseringogvalidering/autentisering';
-import { useSøknad } from './context/SøknadContext';
+import { useOvergangsstønadSøknad } from './overgangsstønad/OvergangsstønadContext';
 import { useToggles } from './context/TogglesContext';
 import { Barn, PersonData } from './models/søknad/person';
 import { useLokalIntlContext } from './context/LokalIntlContext';
@@ -21,7 +21,8 @@ const App = () => {
   const [fetching, settFetching] = useState<boolean>(true);
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } =
     usePersonContext();
-  const { settSøknad, hentMellomlagretOvergangsstønad } = useSøknad();
+  const { settSøknad, hentMellomlagretOvergangsstønad } =
+    useOvergangsstønadSøknad();
   const { settToggles } = useToggles();
 
   const intl = useLokalIntlContext();
