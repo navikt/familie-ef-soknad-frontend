@@ -90,7 +90,7 @@ const Medlemskap: React.FC = () => {
       <KomponentGruppe key={oppholderSegINorgeConfig.søknadid}>
         <JaNeiSpørsmål
           spørsmål={oppholderSegINorgeConfig}
-          valgtSvar={medlemskap2.søkerOppholderSegINorge?.verdi}
+          valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap2)}
           onChange={settMedlemskapBooleanFelt2}
         />
       </KomponentGruppe>
