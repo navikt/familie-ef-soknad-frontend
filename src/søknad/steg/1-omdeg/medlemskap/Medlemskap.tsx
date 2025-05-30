@@ -85,17 +85,12 @@ const Medlemskap: React.FC = () => {
     }
   };
 
-  const valgtSvarOppholderSegINorge = hentValgtSvar(
-    oppholderSegINorgeConfig,
-    medlemskap2
-  );
-
   return (
     <SeksjonGruppe aria-live="polite">
       <KomponentGruppe key={oppholderSegINorgeConfig.søknadid}>
         <JaNeiSpørsmål
           spørsmål={oppholderSegINorgeConfig}
-          valgtSvar={valgtSvarOppholderSegINorge}
+          valgtSvar={medlemskap2.søkerOppholderSegINorge?.verdi}
           onChange={settMedlemskapBooleanFelt2}
         />
       </KomponentGruppe>

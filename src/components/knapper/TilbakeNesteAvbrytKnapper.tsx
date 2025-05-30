@@ -98,10 +98,10 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           variant="primary"
           disabled={disableNesteKnapp}
           onClick={() => {
-            if (mellomlagreStønad) {
-              mellomlagreStønad(location.pathname);
-            } else if (mellomlagreStønad2) {
+            if (mellomlagreStønad2) {
               mellomlagreStønad2();
+            } else if (mellomlagreStønad) {
+              mellomlagreStønad(location.pathname);
             }
             navigate(nesteRoute.path);
           }}
