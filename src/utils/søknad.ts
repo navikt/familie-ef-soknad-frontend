@@ -11,7 +11,10 @@ import {
 } from '../helpers/labels';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
-import { ForrigeSøknad, SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
+import {
+  ForrigeSøknad,
+  SøknadBarnetilsyn,
+} from '../søknader/barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
 import { SøknadOvergangsstønad } from '../models/søknad/søknad';
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';

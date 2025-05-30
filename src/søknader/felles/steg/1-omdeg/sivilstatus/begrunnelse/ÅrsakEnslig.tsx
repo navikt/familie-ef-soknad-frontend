@@ -16,7 +16,10 @@ import {
   EBegrunnelse,
   ISivilstatus,
 } from '../../../../../../models/steg/omDeg/sivilstatus';
-import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
+import {
+  ISpørsmål,
+  ISvar,
+} from '../../../../../../models/felles/spørsmålogsvar';
 import {
   EPersonDetaljer,
   IPersonDetaljer,

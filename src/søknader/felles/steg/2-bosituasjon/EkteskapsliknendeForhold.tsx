@@ -1,5 +1,8 @@
 import React, { FC } from 'react';
-import { EBosituasjon, IBosituasjon } from '../../../../models/steg/bosituasjon';
+import {
+  EBosituasjon,
+  IBosituasjon,
+} from '../../../../models/steg/bosituasjon';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import OmSamboerenDin from './OmSamboerenDin';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';

@@ -1,4 +1,7 @@
-import { ISpørsmålFelt, ITekstFelt } from '../../../models/søknad/søknadsfelter';
+import {
+  ISpørsmålFelt,
+  ITekstFelt,
+} from '../../../models/søknad/søknadsfelter';
 import { IPeriode } from '../../../models/felles/periode';
 
 export interface IBarnepass {

@@ -1,4 +1,7 @@
-import { ESvarTekstid, ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
+import {
+  ESvarTekstid,
+  ISpørsmål,
+} from '../../../../models/felles/spørsmålogsvar';
 import {
   DinSituasjonType,
   ESagtOppEllerRedusertStilling,

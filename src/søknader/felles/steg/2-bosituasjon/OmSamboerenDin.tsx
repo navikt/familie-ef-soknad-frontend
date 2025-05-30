@@ -3,7 +3,10 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { EBosituasjon, IBosituasjon } from '../../../../models/steg/bosituasjon';
+import {
+  EBosituasjon,
+  IBosituasjon,
+} from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import {
