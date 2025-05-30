@@ -24,7 +24,7 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål, svarInput }) 
 
   const synligeAlerts = alerts?.filter((alert) => {
     if (alert.skalAlltidVises) return true;
-    if (alert.visNår) return alert.visNår(svarInput);
+    if (alert.visAlertNår) return alert.visAlertNår(svarInput);
     return false;
   });
 
@@ -42,14 +42,14 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål, svarInput }) 
 
       {synligeAlerts &&
         synligeAlerts.map((alert) => (
-          <Alert key={alert.id} variant={alert.variant}>
+          <Alert key={alert.id} variant={alert.alertVariant}>
             <BodyLong>
               {hentTekst(alert.alertTekstKey, intl)}
-              {alert.link && (
+              {alert.alertLink && (
                 <>
                   {' '}
-                  <Link href={hentTekst(alert.link.urlKey, intl)}>
-                    {hentTekst(alert.link.linkLabelTekstKey, intl)}
+                  <Link href={hentTekst(alert.alertLink.urlKey, intl)}>
+                    {hentTekst(alert.alertLink.linkLabelTekstKey, intl)}
                   </Link>
                 </>
               )}
