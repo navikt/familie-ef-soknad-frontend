@@ -44,7 +44,7 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål, svarInput }) 
         synligeAlerts.map((alert) => (
           <Alert key={alert.id} variant={alert.variant}>
             <BodyLong>
-              {alert.alertTekstKey}
+              {hentTekst(alert.alertTekstKey, intl)}
               {alert.link && (
                 <>
                   {' '}
