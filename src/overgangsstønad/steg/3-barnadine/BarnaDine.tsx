@@ -1,7 +1,7 @@
 import React from 'react';
 import { hentTekst } from '../../../utils/søknad';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import Side, { ESide } from '../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPathOvergangsstønadOppsummering } from '../../utils';
@@ -18,7 +18,7 @@ const BarnaDine: React.FC = () => {
     settDokumentasjonsbehovForBarn,
     oppdaterBarnISøknaden,
     fjernBarnFraSøknad,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
 
   const skalViseKnapper = ESide.visTilbakeNesteAvbrytKnapp;
 

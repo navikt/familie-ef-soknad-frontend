@@ -13,7 +13,7 @@ import {
   erSøkerGift,
   erSøkerUGiftSkiltSeparertEllerEnke,
 } from '../../utils/sivilstatus';
-import { ISøknad } from '../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../models/søknad/søknad';
 import { SøknadBarnetilsyn } from '../../barnetilsyn/models/søknad';
 import { ISøknad as ISøknadSK } from '../../skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
@@ -195,7 +195,7 @@ export const erSivilstandSpørsmålBesvart = (
 };
 
 export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
-  søknad: ISøknad | SøknadBarnetilsyn | ISøknadSK
+  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | ISøknadSK
 ) => {
   return (
     søknad.person.søker?.erStrengtFortrolig ||
@@ -205,7 +205,7 @@ export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
 };
 
 export const validerSøkerBosattINorgeSisteFemÅr = (
-  søknad: ISøknad | SøknadBarnetilsyn | ISøknadSK
+  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | ISøknadSK
 ) => {
   return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
 };

@@ -11,7 +11,7 @@ import { ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../utils/spørsmålogsvar';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import {
   filtrerAktivitetSvaralternativer,
   fjernAktivitet,
@@ -35,7 +35,7 @@ const Aktivitet: React.FC = () => {
     settSøknad,
     settDokumentasjonsbehov,
     mellomlagreOvergangsstønad,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering

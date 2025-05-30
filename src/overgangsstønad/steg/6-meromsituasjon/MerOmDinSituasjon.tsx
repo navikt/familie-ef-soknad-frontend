@@ -11,7 +11,7 @@ import {
 import { hentTekst } from '../../../utils/søknad';
 import { ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import {
   ESøkerFraBestemtMåned,
   IDinSituasjon,
@@ -34,7 +34,7 @@ import Side, { ESide } from '../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPathOvergangsstønadOppsummering } from '../../utils';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
-import { ISøknad } from '../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../../models/søknad/søknad';
 import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../utils/hooks';
 import { hentBeskjedMedNavn } from '../../../utils/språk';
@@ -56,7 +56,7 @@ const MerOmDinSituasjon: React.FC = () => {
     settDokumentasjonsbehov,
     mellomlagreOvergangsstønad,
     oppdaterBarnISøknaden,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
@@ -100,7 +100,7 @@ const MerOmDinSituasjon: React.FC = () => {
   );
 
   useEffect(() => {
-    settSøknad((prevSøknad: ISøknad) => ({
+    settSøknad((prevSøknad: SøknadOvergangsstønad) => ({
       ...prevSøknad,
       merOmDinSituasjon: dinSituasjon,
     }));

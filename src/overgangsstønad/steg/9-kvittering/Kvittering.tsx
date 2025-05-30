@@ -11,7 +11,7 @@ import { formatDateHour } from '../../../utils/dato';
 import { hentTekst, oppdaterBarnMedLabel } from '../../../utils/søknad';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import SyktBarn from '../../../søknad/steg/9-kvittering/SyktBarn';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { DinSituasjonType } from '../../../models/steg/dinsituasjon/meromsituasjon';
 import SykSøker from '../../../søknad/steg/9-kvittering/SykSøker';
 import ErklæringSamlivsbrudd from '../../../søknad/steg/9-kvittering/ErklæringSamlivsbrudd';
@@ -34,7 +34,7 @@ const Kvittering: React.FC = () => {
     søknad,
     nullstillMellomlagretOvergangsstønad,
     nullstillSøknadOvergangsstønad,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
 
   useMount(() => logSidevisningOvergangsstonad('Kvittering'));
 

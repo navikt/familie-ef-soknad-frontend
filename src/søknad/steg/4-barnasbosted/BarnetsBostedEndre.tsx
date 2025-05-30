@@ -26,7 +26,7 @@ import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
 import LocaleTekst from '../../../language/LocaleTekst';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
 import {
-  ISøknad as SøknadOvergangsstønad,
+  SøknadOvergangsstønad as SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
 } from '../../../models/søknad/søknad';
 import styled from 'styled-components';

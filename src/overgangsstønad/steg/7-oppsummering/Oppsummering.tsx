@@ -7,7 +7,7 @@ import OppsummeringBarnaDine from '../../../søknad/steg/7-oppsummering/Oppsumme
 import OppsummeringAktiviteter from '../../../søknad/steg/7-oppsummering/OppsummeringAktiviteter';
 import OppsummeringDinSituasjon from '../../../søknad/steg/7-oppsummering/OppsummeringDinSituasjon';
 import OppsummeringBosituasjonenDin from '../../../søknad/steg/7-oppsummering/OppsummeringBosituasjon';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import {
   ERouteOvergangsstønad,
   RoutesOvergangsstonad,
@@ -41,7 +41,7 @@ import { Accordion, Alert, BodyShort } from '@navikt/ds-react';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { mellomlagreOvergangsstønad, søknad } = useSøknad();
+  const { mellomlagreOvergangsstønad, søknad } = useOvergangsstønadSøknad();
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
   const action = useNavigationType();
 

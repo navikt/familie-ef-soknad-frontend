@@ -14,7 +14,7 @@ import {
 } from '../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
 import {
-  ISøknad as SøknadOvergangsstønad,
+  SøknadOvergangsstønad as SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
 } from '../../../models/søknad/søknad';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';

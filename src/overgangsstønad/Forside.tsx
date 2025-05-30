@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePersonContext } from '../context/PersonContext';
-import { useSøknad } from '../context/SøknadContext';
+import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
 import FortsettSøknad from '../components/forside/FortsettSøknad';
 import Environment from '../Environment';
 import { logSidevisningOvergangsstonad } from '../utils/amplitude';
@@ -30,7 +30,7 @@ const Forside: React.FC = () => {
     nullstillMellomlagretOvergangsstønad,
     søknad,
     settSøknad,
-  } = useSøknad();
+  } = useOvergangsstønadSøknad();
 
   const settBekreftelse = (bekreftelse: boolean) => {
     settSøknad({

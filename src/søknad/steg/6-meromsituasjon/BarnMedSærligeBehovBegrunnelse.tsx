@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { IBarn } from '../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../utils/barn';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import { storeForbokstaver } from '../../../utils/tekst';
 import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
@@ -15,7 +15,7 @@ const MAX_LENGDE_BEGRUNDELSE = 1500;
 
 const BarnMedSærligeBehovBegrunnelse = () => {
   const intl = useLokalIntlContext();
-  const { søknad, oppdaterBarnISøknaden } = useSøknad();
+  const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
   const barnMedSærligeBehov = søknad.person.barn.filter(
     (barn: IBarn) => barn.særligeTilsynsbehov
   );

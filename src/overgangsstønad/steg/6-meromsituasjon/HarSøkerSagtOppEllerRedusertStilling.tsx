@@ -12,7 +12,7 @@ import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { subMonths, isAfter, isBefore } from 'date-fns';
 import { dagensDato, strengTilDato } from '../../../utils/dato';
-import { useSøknad } from '../../../context/SøknadContext';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import AlertStripeDokumentasjon from '../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
 import {
@@ -30,7 +30,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
   settDinSituasjon,
 }) => {
   const intl = useLokalIntlContext();
-  const { settDokumentasjonsbehov } = useSøknad();
+  const { settDokumentasjonsbehov } = useOvergangsstønadSøknad();
   const {
     datoSagtOppEllerRedusertStilling,
     begrunnelseSagtOppEllerRedusertStilling,
