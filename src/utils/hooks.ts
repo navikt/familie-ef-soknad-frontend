@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { DinSituasjonType } from '../models/steg/dinsituasjon/meromsituasjon';
-import { leggTilSærligeBehov } from '../søknad/steg/6-meromsituasjon/SituasjonUtil';
+import { leggTilSærligeBehov } from '../søknader/felles/steg/6-meromsituasjon/SituasjonUtil';
 import { SøknadOvergangsstønad } from '../models/søknad/søknad';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';

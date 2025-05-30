@@ -1,9 +1,9 @@
 import React from 'react';
 import { PersonProvider } from './PersonContext';
-import { OvergangsstønadSøknadProvider } from '../overgangsstønad/OvergangsstønadContext';
+import { OvergangsstønadSøknadProvider } from '../søknader/overgangsstønad/OvergangsstønadContext';
 import { TogglesProvider } from './TogglesContext';
-import { BarnetilsynSøknadProvider } from '../barnetilsyn/BarnetilsynContext';
-import { SkolepengerSøknadProvider } from '../skolepenger/SkolepengerContext';
+import { BarnetilsynSøknadProvider } from '../søknader/barnetilsyn/BarnetilsynContext';
+import { SkolepengerSøknadProvider } from '../søknader/skolepenger/SkolepengerContext';
 import { GjenbrukProvider } from './GjenbrukContext';
 
 const ContextProviders: React.FC<{ children?: React.ReactNode }> = ({
