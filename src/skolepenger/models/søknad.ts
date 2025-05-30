@@ -7,7 +7,7 @@ import { IPerson } from '../../models/søknad/person';
 import { IDetaljertUtdanning } from './detaljertUtdanning';
 import { IAdresseopplysninger } from '../../models/steg/adresseopplysninger';
 
-export interface ISøknad {
+export interface SøknadSkolepenger {
   innsendingsdato?: Date;
   person: IPerson;
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;

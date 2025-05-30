@@ -19,7 +19,7 @@ import {
 } from '../../../utils/routing';
 import { oppdaterBarnLabels } from '../../../utils/barn';
 import { unikeDokumentasjonsbehov } from '../../../utils/søknad';
-import { ISøknad } from '../../models/søknad';
+import { SøknadSkolepenger } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import {
   logDokumetasjonsbehov,
@@ -54,7 +54,7 @@ const SendSøknadKnapper: FC = () => {
     venter: false,
   });
 
-  const sendInnSøknad = async (søknadMedFiltrerteBarn: ISøknad) => {
+  const sendInnSøknad = async (søknadMedFiltrerteBarn: SøknadSkolepenger) => {
     try {
       const kvittering = await sendInnSkolepengerSøknad(søknadMedFiltrerteBarn);
 
@@ -81,7 +81,7 @@ const SendSøknadKnapper: FC = () => {
     }
   };
 
-  const sendSøknad = (søknad: ISøknad) => {
+  const sendSøknad = (søknad: SøknadSkolepenger) => {
     const barnMedEntenIdentEllerFødselsdato = mapBarnUtenBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
@@ -95,7 +95,7 @@ const SendSøknadKnapper: FC = () => {
 
     logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Skolepenger);
 
-    const søknadMedFiltrerteBarn: ISøknad = {
+    const søknadMedFiltrerteBarn: SøknadSkolepenger = {
       ...søknad,
       person: { ...søknad.person, barn: barnMedOppdaterteLabels },
       dokumentasjonsbehov: dokumentasjonsbehov,

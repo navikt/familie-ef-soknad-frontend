@@ -15,7 +15,7 @@ import {
 } from '../../utils/sivilstatus';
 import { SøknadOvergangsstønad } from '../../models/søknad/søknad';
 import { SøknadBarnetilsyn } from '../../barnetilsyn/models/søknad';
-import { ISøknad as ISøknadSK } from '../../skolepenger/models/søknad';
+import { SøknadSkolepenger } from '../../skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 
 export const hentSivilstatus = (statuskode?: string) => {
@@ -195,7 +195,7 @@ export const erSivilstandSpørsmålBesvart = (
 };
 
 export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | ISøknadSK
+  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {
   return (
     søknad.person.søker?.erStrengtFortrolig ||
@@ -205,7 +205,7 @@ export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
 };
 
 export const validerSøkerBosattINorgeSisteFemÅr = (
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | ISøknadSK
+  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {
   return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
 };

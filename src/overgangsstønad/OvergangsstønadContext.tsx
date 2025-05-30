@@ -16,7 +16,7 @@ import {
   mellomlagreSøknadTilDokument,
   nullstillMellomlagretSøknadTilDokument,
 } from '../utils/søknad';
-import { IMellomlagretOvergangsstønad } from '../models/søknad/mellomlagretSøknad';
+import { MellomlagretSøknadOvergangsstønad } from '../models/søknad/mellomlagretSøknad';
 import Environment from '../Environment';
 import { MellomlagredeStønadstyper } from '../models/søknad/stønadstyper';
 import { IBarn } from '../models/steg/barn';
@@ -83,7 +83,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] =
     );
 
     const [mellomlagretOvergangsstønad, settMellomlagretOvergangsstønad] =
-      useState<IMellomlagretOvergangsstønad>();
+      useState<MellomlagretSøknadOvergangsstønad>();
 
     useEffect(() => {
       if (
@@ -95,9 +95,9 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] =
     }, [mellomlagretOvergangsstønad, locale, setLocale]);
 
     const hentMellomlagretOvergangsstønad = (): Promise<void> => {
-      return hentMellomlagretSøknadFraDokument<IMellomlagretOvergangsstønad>(
+      return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(
         MellomlagredeStønadstyper.overgangsstønad
-      ).then((mellomlagretVersjon?: IMellomlagretOvergangsstønad) => {
+      ).then((mellomlagretVersjon?: MellomlagretSøknadOvergangsstønad) => {
         if (mellomlagretVersjon) {
           settMellomlagretOvergangsstønad(mellomlagretVersjon);
         }

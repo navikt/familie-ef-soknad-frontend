@@ -26,7 +26,7 @@ import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
 import LocaleTekst from '../../../language/LocaleTekst';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
 import {
-  SøknadOvergangsstønad as SøknadOvergangsstønad,
+  SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
 } from '../../../models/søknad/søknad';
 import styled from 'styled-components';
@@ -39,7 +39,7 @@ import {
 } from '../../../helpers/steg/barnetsBostedEndre';
 import { stringHarVerdiOgErIkkeTom } from '../../../utils/typer';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { ISøknad as SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;
