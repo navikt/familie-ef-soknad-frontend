@@ -1,21 +1,32 @@
 export type AlertVariant = 'info' | 'success' | 'warning' | 'error';
 
+export enum SpørsmålSvarInputType {
+  RADIO,
+  FLERVALG,
+  DATO,
+  TEKST,
+}
+
 export interface SpørsmålAlert {
   id: string;
   alertTekstKey: string;
-  variant: AlertVariant;
-  link?: {
+  alertVariant: AlertVariant;
+  alertLink?: {
     urlKey: string;
     linkLabelTekstKey: string;
   };
   skalAlltidVises?: boolean;
-  visNår?: (input: Record<string, any>) => boolean;
+  visAlertNår?: (input: Record<string, any>) => boolean;
 }
 
 export interface Spørsmål {
   id: string;
+
   spørsmålTekstKey: string;
+  spørsmålSvarInputType?: SpørsmålSvarInputType;
+
   lesMerTittelKey?: string;
   lesMerTekstKey?: string;
+
   alerts?: SpørsmålAlert[];
 }
