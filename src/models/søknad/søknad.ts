@@ -9,7 +9,7 @@ import { IDokumentasjon } from '../steg/dokumentasjon';
 import { IAdresseopplysninger } from '../steg/adresseopplysninger';
 import { ISpørsmål, ISvar } from '../felles/spørsmålogsvar';
 
-export interface ISøknad {
+export interface SøknadOvergangsstønad {
   innsendingsdato?: Date;
   person: IPerson;
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
