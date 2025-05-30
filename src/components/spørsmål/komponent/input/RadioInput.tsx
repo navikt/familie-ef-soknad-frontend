@@ -5,12 +5,10 @@ import clsx from 'clsx';
 import styles from './RadioInput.module.css';
 import React from 'react';
 
-export type SvarAlternativRetning = 'horizontal' | 'vertical';
-
 interface Props {
   spørsmålId: string;
   svarAlternativer: string[];
-  svarAlternativRetning: SvarAlternativRetning;
+  svarAlternativRetning: string;
   verdi: string;
   onChange: (value: string) => void;
 }

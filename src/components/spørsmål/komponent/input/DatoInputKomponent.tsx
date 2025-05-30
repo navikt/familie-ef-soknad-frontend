@@ -28,7 +28,7 @@ interface DatoInputProps {
   tillaterDatoTilbakeITid?: boolean;
 }
 
-export const DatoInput: React.FC<DatoInputProps> = ({
+export const DatoInputKomponent: React.FC<DatoInputProps> = ({
   label,
   verdi,
   onChange,
