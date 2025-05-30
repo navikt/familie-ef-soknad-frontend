@@ -14,8 +14,8 @@ import {
   erSøkerUGiftSkiltSeparertEllerEnke,
 } from '../../utils/sivilstatus';
 import { SøknadOvergangsstønad } from '../../models/søknad/søknad';
-import { SøknadBarnetilsyn } from '../../barnetilsyn/models/søknad';
-import { SøknadSkolepenger } from '../../skolepenger/models/søknad';
+import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
+import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 
 export const hentSivilstatus = (statuskode?: string) => {
