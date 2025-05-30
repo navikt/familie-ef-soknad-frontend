@@ -8,11 +8,11 @@ import {
   oppdaterDokumentasjonTilEtSvarSpørsmål,
   oppdaterDokumentasjonTilEtSvarSpørsmålForBarn,
 } from '../helpers/steg/dokumentasjon';
-import { IMellomlagretSkolepengerSøknad } from './models/mellomlagretSøknad';
+import { MellomlagretSøknadSkolepenger } from './models/mellomlagretSøknad';
 import Environment from '../Environment';
 import { hentUid } from '../utils/autentiseringogvalidering/uuid';
 import { nyttTekstFelt } from '../helpers/tommeSøknadsfelter';
-import { ISøknad } from './models/søknad';
+import { SøknadSkolepenger } from './models/søknad';
 import {
   hentMellomlagretSøknadFraDokument,
   hentTekst,
@@ -33,7 +33,7 @@ import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../utils/barn';
 import { LocaleType } from '../language/typer';
 
 // -----------  CONTEXT  -----------
-const initialState = (intl: LokalIntlShape): ISøknad => {
+const initialState = (intl: LokalIntlShape): SøknadSkolepenger => {
   return {
     person: tomPerson,
     sivilstatus: {},
@@ -71,10 +71,12 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(
     const intl = useLokalIntlContext();
     SkolepengerSøknadProvider.displayName = 'SKOLEPENGER_PROVIDER';
     const [locale, setLocale] = useSpråkContext();
-    const [søknad, settSøknad] = useState<ISøknad>(initialState(intl));
+    const [søknad, settSøknad] = useState<SøknadSkolepenger>(
+      initialState(intl)
+    );
 
     const [mellomlagretSkolepenger, settMellomlagretSkolepenger] =
-      useState<IMellomlagretSkolepengerSøknad>();
+      useState<MellomlagretSøknadSkolepenger>();
 
     useEffect(() => {
       if (
@@ -86,9 +88,9 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(
     }, [mellomlagretSkolepenger, locale, setLocale]);
 
     const hentMellomlagretSkolepenger = (): Promise<void> => {
-      return hentMellomlagretSøknadFraDokument<IMellomlagretSkolepengerSøknad>(
+      return hentMellomlagretSøknadFraDokument<MellomlagretSøknadSkolepenger>(
         MellomlagredeStønadstyper.skolepenger
-      ).then((mellomlagretVersjon?: IMellomlagretSkolepengerSøknad) => {
+      ).then((mellomlagretVersjon?: MellomlagretSøknadSkolepenger) => {
         if (mellomlagretVersjon) {
           settMellomlagretSkolepenger(mellomlagretVersjon);
         }
@@ -217,7 +219,7 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(
         (barn: IBarn) => barn.id !== id
       );
 
-      settSøknad((prevSoknad: ISøknad) => {
+      settSøknad((prevSoknad: SøknadSkolepenger) => {
         return {
           ...prevSoknad,
           person: { ...søknad.person, barn: nyBarneListe },

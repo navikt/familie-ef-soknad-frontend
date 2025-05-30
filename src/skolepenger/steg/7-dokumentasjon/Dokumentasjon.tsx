@@ -15,7 +15,7 @@ import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { Stønadstype } from '../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
-import { ISøknad } from '../../models/søknad';
+import { SøknadSkolepenger } from '../../models/søknad';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
@@ -36,7 +36,7 @@ const Dokumentasjon: React.FC = () => {
     opplastedeVedlegg: IVedlegg[] | undefined,
     harSendtInnTidligere: boolean
   ) => {
-    settSøknad((prevSoknad: ISøknad) => {
+    settSøknad((prevSoknad: SøknadSkolepenger) => {
       const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map(
         (dok) => {
           return dok.id === dokumentasjonsid

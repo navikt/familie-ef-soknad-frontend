@@ -1,7 +1,7 @@
-import { ISøknad } from './søknad';
+import { SøknadSkolepenger } from './søknad';
 
-export interface IMellomlagretSkolepengerSøknad {
-  søknad: ISøknad;
+export interface MellomlagretSøknadSkolepenger {
+  søknad: SøknadSkolepenger;
   modellVersjon: number;
   gjeldendeSteg: string;
   locale: string;

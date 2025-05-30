@@ -14,11 +14,11 @@ import {
 } from '../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
 import {
-  SøknadOvergangsstønad as SøknadOvergangsstønad,
+  SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
 } from '../../../models/søknad/søknad';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { ISøknad as SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 
 const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   if (!ref || !ref.current) return;

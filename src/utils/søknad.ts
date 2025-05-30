@@ -13,8 +13,8 @@ import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
 import { ForrigeSøknad, SøknadBarnetilsyn } from '../barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
-import { SøknadOvergangsstønad as SøknadOvergangsstønad } from '../models/søknad/søknad';
-import { ISøknad as SøknadSkolepenger } from '../skolepenger/models/søknad';
+import { SøknadOvergangsstønad } from '../models/søknad/søknad';
+import { SøknadSkolepenger } from '../skolepenger/models/søknad';
 
 const axiosConfig = {
   withCredentials: true,
