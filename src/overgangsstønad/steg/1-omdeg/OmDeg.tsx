@@ -6,6 +6,7 @@ import { useSøknad } from '../../../context/SøknadContext';
 import { useLocation } from 'react-router-dom';
 import { logSidevisningOvergangsstonad } from '../../../utils/amplitude';
 import {
+  erSivilstandSpørsmålBesvart,
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
@@ -21,6 +22,7 @@ import { ISøknad } from '../../../models/søknad/søknad';
 import Show from '../../../utils/showIf';
 import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
+import { useOmDeg } from '../../../barnetilsyn/steg/1-omdeg/OmDegContext';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -35,9 +37,8 @@ const OmDeg: FC = () => {
     settSøknad,
     settDokumentasjonsbehov,
   } = useSøknad();
-
-  const { harSøktSeparasjon, datoSøktSeparasjon, datoFlyttetFraHverandre } =
-    søknad.sivilstatus;
+  const { sivilstatus } = søknad;
+  const { medlemskap2, mellomlagreOmDeg } = useOmDeg();
 
   const { søker } = søknad.person;
 
@@ -84,19 +85,9 @@ const OmDeg: FC = () => {
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     søknad.sivilstatus,
     søker.sivilstand,
-    søknad.medlemskap,
+    medlemskap2,
     erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
   );
-
-  const harFyltUtSeparasjonSpørsmålet =
-    harSøktSeparasjon !== undefined
-      ? harSøktSeparasjon.verdi
-        ? datoSøktSeparasjon && datoFlyttetFraHverandre
-        : true
-      : false;
-
-  const skalViseMedlemskapDialog =
-    harFyltUtSeparasjonSpørsmålet || erÅrsakEnsligBesvart(søknad.sivilstatus);
 
   return (
     <Side
@@ -107,6 +98,7 @@ const OmDeg: FC = () => {
       routesStønad={RoutesOvergangsstonad}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       tilbakeTilOppsummeringPath={hentPathOvergangsstønadOppsummering}
+      mellomlagreSøknad={mellomlagreOmDeg}
     >
       <Personopplysninger
         søker={søknad.person.søker}
@@ -125,7 +117,12 @@ const OmDeg: FC = () => {
           settSivilstatus={settSivilstatus}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
         />
-        <Show if={skalViseMedlemskapDialog}>
+        <Show
+          if={
+            erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+            erÅrsakEnsligBesvart(sivilstatus)
+          }
+        >
           <Medlemskap />
         </Show>
       </Show>

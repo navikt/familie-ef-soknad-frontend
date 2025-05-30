@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
+  erSivilstandSpørsmålBesvart,
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
@@ -22,6 +23,7 @@ import { useMount } from '../../../utils/hooks';
 import { ISøknad } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { useOmDeg } from '../../../barnetilsyn/steg/1-omdeg/OmDegContext';
 
 const OmDeg: FC = () => {
   const location = useLocation();
@@ -36,9 +38,8 @@ const OmDeg: FC = () => {
     settSøknad,
     settDokumentasjonsbehov,
   } = useSkolepengerSøknad();
-
-  const { harSøktSeparasjon, datoSøktSeparasjon, datoFlyttetFraHverandre } =
-    søknad.sivilstatus;
+  const { medlemskap2, mellomlagreOmDeg } = useOmDeg();
+  const { sivilstatus } = søknad;
 
   const { søker } = søknad.person;
 
@@ -84,16 +85,9 @@ const OmDeg: FC = () => {
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     søknad.sivilstatus,
     søker.sivilstand,
-    søknad.medlemskap,
+    medlemskap2,
     erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
   );
-
-  const harFyltUtSeparasjonSpørsmålet =
-    harSøktSeparasjon !== undefined
-      ? harSøktSeparasjon.verdi
-        ? datoSøktSeparasjon && datoFlyttetFraHverandre
-        : true
-      : false;
 
   return (
     <Side
@@ -104,6 +98,7 @@ const OmDeg: FC = () => {
       routesStønad={RoutesSkolepenger}
       mellomlagreStønad={mellomlagreSkolepenger}
       tilbakeTilOppsummeringPath={hentPathSkolepengerOppsummering}
+      mellomlagreSøknad={mellomlagreOmDeg}
     >
       <Personopplysninger
         søker={søker}
@@ -126,8 +121,8 @@ const OmDeg: FC = () => {
 
         <Show
           if={
-            harFyltUtSeparasjonSpørsmålet ||
-            erÅrsakEnsligBesvart(søknad.sivilstatus)
+            erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+            erÅrsakEnsligBesvart(sivilstatus)
           }
         >
           <Medlemskap />

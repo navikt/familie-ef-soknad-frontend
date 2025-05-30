@@ -26,7 +26,6 @@ import { useOmDeg } from './OmDegContext';
 
 const OmDeg: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('OmDeg'));
-  const { medlemskap2 } = useOmDeg();
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
@@ -41,7 +40,7 @@ const OmDeg: FC = () => {
   } = useBarnetilsynSøknad();
   const { sivilstatus } = søknad;
   const { søker } = søknad.person;
-  const { mellomlagreOmDeg } = useOmDeg();
+  const { medlemskap2, mellomlagreOmDeg } = useOmDeg();
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt

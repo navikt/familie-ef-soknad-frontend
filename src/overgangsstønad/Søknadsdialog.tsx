@@ -11,6 +11,7 @@ import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Kvittering from './steg/9-kvittering/Kvittering';
 import RedirectTilStart from './RedirectTilStart';
+import { OmDegProvider } from '../barnetilsyn/steg/1-omdeg/OmDegContext';
 
 const Søknadsdialog: FC = () => {
   return (
@@ -84,7 +85,9 @@ const Søknadsdialog: FC = () => {
           path={'/om-deg'}
           element={
             <RedirectTilStart>
-              <OmDeg />
+              <OmDegProvider>
+                <OmDeg />
+              </OmDegProvider>
             </RedirectTilStart>
           }
         />
