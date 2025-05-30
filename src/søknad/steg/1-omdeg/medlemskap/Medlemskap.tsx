@@ -8,27 +8,31 @@ import {
 } from './MedlemskapConfig';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
-import PeriodeBoddIUtlandet from './PeriodeBoddIUtlandet';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
 import { hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import SelectSpørsmål from '../../../../components/spørsmål/SelectSpørsmål';
-import { useSpråkContext } from '../../../../context/SpråkContext';
 import { useOmDeg } from '../../../../barnetilsyn/steg/1-omdeg/OmDegContext';
+import { useSpråkContext } from '../../../../context/SpråkContext';
+import SelectSpørsmål from '../../../../components/spørsmål/SelectSpørsmål';
+import PeriodeBoddIUtlandet from './PeriodeBoddIUtlandet';
 
 const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
   const { medlemskap2, settMedlemskap2 } = useOmDeg();
+
+  const oppholderSegINorgeConfig = oppholderSegINorge(intl);
+
+  const [locale] = useSpråkContext();
+
+  if (!medlemskap2) return null;
+
   const {
     søkerOppholderSegINorge,
     oppholdsland: oppholdsland,
     søkerBosattINorgeSisteTreÅr,
   } = medlemskap2;
 
-  const oppholderSegINorgeConfig = oppholderSegINorge(intl);
-
-  const [locale] = useSpråkContext();
   const land = hentLand(locale);
   const oppholdslandConfig = søkersOppholdsland(land);
 
