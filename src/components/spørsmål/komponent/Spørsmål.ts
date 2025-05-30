@@ -1,10 +1,12 @@
 export type AlertVariant = 'info' | 'success' | 'warning' | 'error';
 
 export enum SpørsmålSvarInputType {
-  RADIO,
-  FLERVALG,
-  DATO,
-  TEKST,
+  RADIO = 'RADIO',
+  FLERVALG = 'FLERVALG',
+  DATO = 'DATO',
+  DATO_PERIODE = 'DATO_PERIODE',
+  TEKST = 'TEKST',
+  INGEN_INPUT = 'INGEN_INPUT',
 }
 
 export interface SpørsmålAlert {
