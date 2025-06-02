@@ -4,10 +4,13 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLocation } from 'react-router';
 
 const [OmDegProvider, useOmDeg] = constate(() => {
-  const { søknad } = useBarnetilsynSøknad();
+  const {
+    søknad,
+    settSøknad,
+    mellomlagretBarnetilsyn,
+    mellomlagreBarnetilsyn2,
+  } = useBarnetilsynSøknad();
   const [medlemskap2, settMedlemskap2] = useState(søknad.medlemskap);
-  const { mellomlagretBarnetilsyn, mellomlagreBarnetilsyn2 } =
-    useBarnetilsynSøknad();
   const location = useLocation();
 
   useEffect(() => {
@@ -18,6 +21,8 @@ const [OmDegProvider, useOmDeg] = constate(() => {
 
   const mellomlagreOmDeg = () => {
     const oppdatertSøknad = { ...søknad, medlemskap: medlemskap2 };
+
+    settSøknad({ ...søknad, medlemskap: medlemskap2 });
 
     return mellomlagreBarnetilsyn2(location.pathname, oppdatertSøknad);
   };
