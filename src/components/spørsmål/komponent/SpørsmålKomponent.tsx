@@ -1,5 +1,4 @@
 import React from 'react';
-import { Spørsmål } from './Spørsmål';
 import {
   Alert,
   BodyLong,
@@ -10,9 +9,10 @@ import {
 } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { hentTekst } from '../../../utils/søknad';
+import { BaseSpørsmål } from './Spørsmål';
 
 interface Props {
-  spørsmål: Spørsmål;
+  spørsmål: BaseSpørsmål;
   svarInput: Record<string, any>;
 }
 
