@@ -1,6 +1,6 @@
 import { hentUid } from '../../utils/autentiseringogvalidering/uuid';
 import { hentTekst } from '../../utils/søknad';
-import { linjeKursGrad } from '../../søknad/steg/5-aktivitet/underUtdanning/UtdanningConfig';
+import { linjeKursGrad } from '../../søknader/felles/steg/5-aktivitet/underUtdanning/UtdanningConfig';
 import { nyttTekstFelt, tomPeriode } from '../tommeSøknadsfelter';
 import { LokalIntlShape } from '../../language/typer';
 

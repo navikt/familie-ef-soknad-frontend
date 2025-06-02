@@ -11,10 +11,13 @@ import {
 } from '../helpers/labels';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
-import { ForrigeSøknad, SøknadBarnetilsyn } from '../barnetilsyn/models/søknad';
+import {
+  ForrigeSøknad,
+  SøknadBarnetilsyn,
+} from '../søknader/barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
-import { ISøknad as SøknadOvergangsstønad } from '../models/søknad/søknad';
-import { ISøknad as SøknadSkolepenger } from '../skolepenger/models/søknad';
+import { SøknadOvergangsstønad } from '../models/søknad/søknad';
+import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 
 const axiosConfig = {
   withCredentials: true,

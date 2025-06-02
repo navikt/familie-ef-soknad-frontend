@@ -13,7 +13,7 @@ import {
   IUtdanning,
 } from '../../models/steg/aktivitet/utdanning';
 import { IFirma } from '../../models/steg/aktivitet/firma';
-import { IDetaljertUtdanning } from '../../skolepenger/models/detaljertUtdanning';
+import { IDetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
 import {
   erDatoGyldigOgInnaforBegrensninger,
   erPeriodeGyldigOgInnaforBegrensninger,

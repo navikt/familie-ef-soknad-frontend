@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { DinSituasjonType } from '../models/steg/dinsituasjon/meromsituasjon';
-import { leggTilSærligeBehov } from '../søknad/steg/6-meromsituasjon/SituasjonUtil';
-import { ISøknad } from '../models/søknad/søknad';
+import { leggTilSærligeBehov } from '../søknader/felles/steg/6-meromsituasjon/SituasjonUtil';
+import { SøknadOvergangsstønad } from '../models/søknad/søknad';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
 import {
@@ -19,7 +19,7 @@ export const usePrevious = (value: any) => {
 };
 
 export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
-  søknad: ISøknad,
+  søknad: SøknadOvergangsstønad,
   intl: LokalIntlShape,
   oppdaterBarnISoknaden: (barn: IBarn) => void
 ): void => {

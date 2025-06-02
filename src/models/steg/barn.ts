@@ -5,7 +5,7 @@ import {
 } from '../søknad/søknadsfelter';
 import { IForelder } from './forelder';
 import { IMedforelderFelt } from './medforelder';
-import { IBarnepass } from '../../barnetilsyn/models/barnepass';
+import { IBarnepass } from '../../søknader/barnetilsyn/models/barnepass';
 
 export interface IBarn {
   id: string;
