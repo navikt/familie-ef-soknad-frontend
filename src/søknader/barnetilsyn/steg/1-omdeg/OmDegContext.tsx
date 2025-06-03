@@ -10,24 +10,24 @@ const [OmDegProvider, useOmDeg] = constate(() => {
     mellomlagretBarnetilsyn,
     mellomlagreBarnetilsyn2,
   } = useBarnetilsynSøknad();
-  const [medlemskap2, settMedlemskap2] = useState(søknad.medlemskap);
+  const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
   const location = useLocation();
 
   useEffect(() => {
     if (mellomlagretBarnetilsyn?.søknad.medlemskap) {
-      settMedlemskap2(mellomlagretBarnetilsyn.søknad.medlemskap);
+      settMedlemskap(mellomlagretBarnetilsyn.søknad.medlemskap);
     }
   }, [mellomlagretBarnetilsyn]);
 
   const mellomlagreOmDeg = () => {
-    const oppdatertSøknad = { ...søknad, medlemskap: medlemskap2 };
+    const oppdatertSøknad = { ...søknad, medlemskap: medlemskap };
 
-    settSøknad({ ...søknad, medlemskap: medlemskap2 });
+    settSøknad({ ...søknad, medlemskap: medlemskap });
 
     return mellomlagreBarnetilsyn2(location.pathname, oppdatertSøknad);
   };
 
-  return { medlemskap2, settMedlemskap2, mellomlagreOmDeg };
+  return { medlemskap, settMedlemskap, mellomlagreOmDeg };
 });
 
 export { OmDegProvider, useOmDeg };

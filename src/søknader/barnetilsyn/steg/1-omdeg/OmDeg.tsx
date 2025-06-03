@@ -40,7 +40,7 @@ const OmDeg: FC = () => {
   } = useBarnetilsynSøknad();
   const { sivilstatus } = søknad;
   const { søker } = søknad.person;
-  const { medlemskap2, mellomlagreOmDeg } = useOmDeg();
+  const { medlemskap, mellomlagreOmDeg } = useOmDeg();
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
@@ -81,7 +81,7 @@ const OmDeg: FC = () => {
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     sivilstatus,
     søker.sivilstand,
-    medlemskap2,
+    medlemskap,
     erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
   );
 

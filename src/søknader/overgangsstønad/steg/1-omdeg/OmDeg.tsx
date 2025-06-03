@@ -38,7 +38,7 @@ const OmDeg: FC = () => {
     settDokumentasjonsbehov,
   } = useOvergangsstønadSøknad();
   const { sivilstatus } = søknad;
-  const { medlemskap2, mellomlagreOmDeg } = useOmDeg();
+  const { medlemskap, mellomlagreOmDeg } = useOmDeg();
 
   const { søker } = søknad.person;
 
@@ -85,7 +85,7 @@ const OmDeg: FC = () => {
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     søknad.sivilstatus,
     søker.sivilstand,
-    medlemskap2,
+    medlemskap,
     erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
   );
 

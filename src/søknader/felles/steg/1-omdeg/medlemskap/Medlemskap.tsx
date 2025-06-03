@@ -19,30 +19,30 @@ import { useOmDeg } from '../../../../barnetilsyn/steg/1-omdeg/OmDegContext';
 
 const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { medlemskap2, settMedlemskap2 } = useOmDeg();
+  const { medlemskap, settMedlemskap } = useOmDeg();
 
   const oppholderSegINorgeConfig = oppholderSegINorge(intl);
 
   const [locale] = useSpråkContext();
 
-  if (!medlemskap2) return null;
+  if (!medlemskap) return null;
 
   const {
     søkerOppholderSegINorge,
     oppholdsland: oppholdsland,
     søkerBosattINorgeSisteTreÅr,
-  } = medlemskap2;
+  } = medlemskap;
 
   const land = hentLand(locale);
   const oppholdslandConfig = søkersOppholdsland(land);
 
   const bosattINorgeDeSisteFemÅrConfig = bosattINorgeDeSisteFemÅr(intl);
 
-  const settBosattSisteFemÅr2 = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+  const settBosattSisteFemÅr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
 
-    settMedlemskap2({
-      ...medlemskap2,
+    settMedlemskap({
+      ...medlemskap,
       søkerBosattINorgeSisteTreÅr: {
         label: intl.formatMessage({ id: spørsmål.tekstid }),
         verdi: svar,
@@ -50,14 +50,11 @@ const Medlemskap: React.FC = () => {
     });
   };
 
-  const settMedlemskapBooleanFelt2 = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
+  const settMedlemskapBooleanFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
 
-    settMedlemskap2({
-      ...medlemskap2,
+    settMedlemskap({
+      ...medlemskap,
       søkerOppholderSegINorge: {
         label: intl.formatMessage({ id: spørsmål.tekstid }),
         verdi: svar,
@@ -65,9 +62,9 @@ const Medlemskap: React.FC = () => {
     });
   };
 
-  const settOppholdsland2 = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    settMedlemskap2({
-      ...medlemskap2,
+  const settOppholdsland = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+    settMedlemskap({
+      ...medlemskap,
       oppholdsland: {
         spørsmålid: spørsmål.søknadid,
         svarid: valgtSvar.id,
@@ -90,8 +87,8 @@ const Medlemskap: React.FC = () => {
       <KomponentGruppe key={oppholderSegINorgeConfig.søknadid}>
         <JaNeiSpørsmål
           spørsmål={oppholderSegINorgeConfig}
-          valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap2)}
-          onChange={settMedlemskapBooleanFelt2}
+          valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap)}
+          onChange={settMedlemskapBooleanFelt}
         />
       </KomponentGruppe>
 
@@ -99,8 +96,8 @@ const Medlemskap: React.FC = () => {
         <KomponentGruppe>
           <SelectSpørsmål
             spørsmål={oppholdslandConfig}
-            valgtSvarId={medlemskap2.oppholdsland?.svarid}
-            settSpørsmålOgSvar={settOppholdsland2}
+            valgtSvarId={medlemskap.oppholdsland?.svarid}
+            settSpørsmålOgSvar={settOppholdsland}
           />
         </KomponentGruppe>
       )}
@@ -115,9 +112,9 @@ const Medlemskap: React.FC = () => {
               spørsmål={bosattINorgeDeSisteFemÅrConfig}
               valgtSvar={hentValgtSvar(
                 bosattINorgeDeSisteFemÅrConfig,
-                medlemskap2
+                medlemskap
               )}
-              onChange={settBosattSisteFemÅr2}
+              onChange={settBosattSisteFemÅr}
             />
           </KomponentGruppe>
 

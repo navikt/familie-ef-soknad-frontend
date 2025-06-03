@@ -20,7 +20,7 @@ const PeriodeBoddIUtlandet: FC<{
   land: ILandMedKode[];
 }> = ({ land }) => {
   const intl = useLokalIntlContext();
-  const { medlemskap2, settMedlemskap2 } = useOmDeg();
+  const { medlemskap, settMedlemskap } = useOmDeg();
   const tomtUtenlandsopphold: IUtenlandsopphold = {
     id: hentUid(),
     periode: tomPeriode,
@@ -33,9 +33,9 @@ const PeriodeBoddIUtlandet: FC<{
   const [perioderBoddIUtlandet, settPerioderBoddIUtlandet] = useState<
     IUtenlandsopphold[]
   >(
-    medlemskap2?.perioderBoddIUtlandet &&
-      medlemskap2.perioderBoddIUtlandet.length > 0
-      ? medlemskap2.perioderBoddIUtlandet
+    medlemskap?.perioderBoddIUtlandet &&
+      medlemskap.perioderBoddIUtlandet.length > 0
+      ? medlemskap.perioderBoddIUtlandet
       : [tomtUtenlandsopphold]
   );
 
@@ -44,8 +44,8 @@ const PeriodeBoddIUtlandet: FC<{
   );
 
   useEffect(() => {
-    settMedlemskap2({
-      ...medlemskap2,
+    settMedlemskap({
+      ...medlemskap,
       perioderBoddIUtlandet: perioderBoddIUtlandet,
     });
     // eslint-disable-next-line
@@ -55,8 +55,8 @@ const PeriodeBoddIUtlandet: FC<{
     const alleUtenlandsopphold = perioderBoddIUtlandet;
     alleUtenlandsopphold && alleUtenlandsopphold.push(tomtUtenlandsopphold);
     alleUtenlandsopphold &&
-      settMedlemskap2({
-        ...medlemskap2,
+      settMedlemskap({
+        ...medlemskap,
         perioderBoddIUtlandet: alleUtenlandsopphold,
       });
   };
