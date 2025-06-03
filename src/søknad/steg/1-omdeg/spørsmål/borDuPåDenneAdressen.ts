@@ -1,3 +1,4 @@
+/*
 import {
   SpørsmålNode,
   SpørsmålSvarInputType,
@@ -9,8 +10,8 @@ export const borDuPåDenneAdressen: SpørsmålNode = {
   spørsmålSvarInputType: SpørsmålSvarInputType.RADIO,
 
   alternativer: [
-    { value: 'ja', labelKey: 'svar.ja' },
-    { value: 'nei', labelKey: 'svar.nei' },
+    { value: 'ja', alternativKey: 'svar.ja' },
+    { value: 'nei', alternativKey: 'svar.nei' },
   ],
 
   next: {
@@ -18,3 +19,4 @@ export const borDuPåDenneAdressen: SpørsmålNode = {
     nei: 'personopplysninger.spm.meldtAdresseendring',
   },
 };
+*/

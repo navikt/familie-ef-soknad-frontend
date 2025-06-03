@@ -1,3 +1,4 @@
+/*
 import {
   SpørsmålNode,
   SpørsmålSvarInputType,
@@ -9,8 +10,8 @@ export const harDuMeldtAdresseendringTilFolkeregisteret: SpørsmålNode = {
   spørsmålSvarInputType: SpørsmålSvarInputType.RADIO,
 
   alternativer: [
-    { value: 'ja', labelKey: 'svar.ja' },
-    { value: 'nei', labelKey: 'svar.nei' },
+    { value: 'ja', alternativKey: 'svar.ja' },
+    { value: 'nei', alternativKey: 'svar.nei' },
   ],
 
   alerts: [
@@ -35,3 +36,4 @@ export const harDuMeldtAdresseendringTilFolkeregisteret: SpørsmålNode = {
     nei: 'personopplysninger.info.endreAdresse',
   },
 };
+*/

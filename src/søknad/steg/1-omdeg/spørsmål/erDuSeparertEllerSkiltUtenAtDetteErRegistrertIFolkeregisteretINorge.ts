@@ -1,3 +1,4 @@
+/*
 import {
   SpørsmålNode,
   SpørsmålSvarInputType,
@@ -10,8 +11,8 @@ export const erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorge
     spørsmålSvarInputType: SpørsmålSvarInputType.RADIO,
 
     alternativer: [
-      { value: 'ja', labelKey: 'svar.ja' },
-      { value: 'nei', labelKey: 'svar.nei' },
+      { value: 'ja', alternativKey: 'svar.ja' },
+      { value: 'nei', alternativKey: 'svar.nei' },
     ],
 
     alerts: [
@@ -29,3 +30,4 @@ export const erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorge
       nei: 'personopplysninger.spm.meldtAdresseendring',
     },
   };
+*/

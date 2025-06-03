@@ -1,9 +1,10 @@
+/*
 import {
   SpørsmålNode,
   SpørsmålSvarInputType,
 } from '../../../../components/spørsmål/komponent/Spørsmål';
 
-/* TODO: Legg til type for "info". Denne skal ikke ha noen form for svar alternativ og kun vise en beskrivelse med en lenke til papirsøknad.*/
+/!* TODO: Legg til type for "info". Denne skal ikke ha noen form for svar alternativ og kun vise en beskrivelse med en lenke til papirsøknad.*!/
 export const skalDuIkkeEndreAdresseIFolkeregisteret: SpørsmålNode = {
   id: 'personopplysninger.info.endreAdresse',
   spørsmålTekstKey: 'personopplysninger.info.endreAdresse',
@@ -19,3 +20,4 @@ export const skalDuIkkeEndreAdresseIFolkeregisteret: SpørsmålNode = {
     },
   ],
 };
+*/

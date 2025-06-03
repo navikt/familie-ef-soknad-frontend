@@ -1,3 +1,4 @@
+/*
 import {
   SpørsmålNode,
   SpørsmålSvarInputType,
@@ -9,8 +10,8 @@ export const erDuGiftUtenAtDetErFolkeregistrertINorge: SpørsmålNode = {
   spørsmålSvarInputType: SpørsmålSvarInputType.RADIO,
 
   alternativer: [
-    { value: 'ja', labelKey: 'svar.ja' },
-    { value: 'nei', labelKey: 'svar.nei' },
+    { value: 'ja', alternativKey: 'svar.ja' },
+    { value: 'nei', alternativKey: 'svar.nei' },
   ],
 
   lesMerTittelKey: 'sivilstatus.lesmer-åpne.erUformeltGift',
@@ -30,3 +31,4 @@ export const erDuGiftUtenAtDetErFolkeregistrertINorge: SpørsmålNode = {
     nei: 'personopplysninger.spm.meldtAdresseendring',
   },
 };
+*/

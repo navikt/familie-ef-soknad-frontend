@@ -31,6 +31,7 @@ export const RadioInputKomponent: React.FC<Props> = ({
       value={verdi}
       onChange={onChange}
       name={spørsmålId}
+      hideLegend={true}
     >
       <div
         className={clsx({
