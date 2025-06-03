@@ -7,10 +7,12 @@ export const harDuMeldtAdresseendringTilFolkeregisteret: SpørsmålNode = {
   id: 'personopplysninger.spm.meldtAdresseendring',
   spørsmålTekstKey: 'personopplysninger.spm.meldtAdresseendring',
   spørsmålSvarInputType: SpørsmålSvarInputType.RADIO,
+
   alternativer: [
     { value: 'ja', labelKey: 'svar.ja' },
     { value: 'nei', labelKey: 'svar.nei' },
   ],
+
   alerts: [
     {
       id: 'personopplysninger.alert.meldtAdresseendring',
@@ -27,8 +29,9 @@ export const harDuMeldtAdresseendringTilFolkeregisteret: SpørsmålNode = {
         input['personopplysninger.spm.meldtAdresseendring'] === 'nei',
     },
   ],
+
   next: {
     ja: 'sivilstatus.spm.erUformeltGift',
-    nei: 'personopplysninger.infoendreAdresse',
+    nei: 'personopplysninger.info.endreAdresse',
   },
 };

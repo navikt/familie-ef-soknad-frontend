@@ -7,10 +7,12 @@ export const borDuPåDenneAdressen: SpørsmålNode = {
   id: 'personopplysninger.spm.riktigAdresse',
   spørsmålTekstKey: 'personopplysninger.spm.riktigAdresse',
   spørsmålSvarInputType: SpørsmålSvarInputType.RADIO,
+
   alternativer: [
     { value: 'ja', labelKey: 'svar.ja' },
     { value: 'nei', labelKey: 'svar.nei' },
   ],
+
   next: {
     ja: 'sivilstatus.spm.erUformeltGift',
     nei: 'personopplysninger.spm.meldtAdresseendring',
