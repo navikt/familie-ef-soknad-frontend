@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   BodyLong,
@@ -14,6 +14,7 @@ import {
 import { BaseSpørsmål } from './Spørsmål';
 import { hentTekst } from '../../../utils/søknad';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import styles from './SpørsmålKomponent.module.css';
 
 interface Props {
   spørsmål: BaseSpørsmål;
@@ -21,16 +22,17 @@ interface Props {
 
 export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
   const intl = useLokalIntlContext();
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   const synligeAlerts = spørsmål.alerts?.filter((alert) => {
     if (alert.skalAlltidVises) return true;
-    if (alert.visAlertNår) return false; // TODO: Denne må fikses.
+    if (alert.visAlertNår)
+      return alert.visAlertNår({ valgtSvar: selectedValue });
     return false;
   });
-
   return (
     <VStack gap="4">
-      <Heading size="xsmall">
+      <Heading size="xsmall" className={styles.heading}>
         {hentTekst(spørsmål.spørsmålTekstKey, intl)}
       </Heading>
 
@@ -40,12 +42,12 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
         </ReadMore>
       )}
 
-      {/*Spørsmål input her*/}
+      {/*Spørsmål input her, dette vil jeg skal endre seg.*/}
       <RadioGroup
         legend={hentTekst(spørsmål.spørsmålTekstKey, intl)}
-        hideLegend={true}
-        // Denne trengs selv om RadioGroup legend er gjemt, slik at tekstlesere fortsatt skjønner kontekst til valgene.
-        // Se Aksel -> https://aksel.nav.no/komponenter/core/radio
+        hideLegend
+        value={selectedValue ?? ''}
+        onChange={(val) => setSelectedValue(val)}
       >
         <Stack gap="6" direction={{ xs: 'column', sm: 'row' }} wrap={false}>
           <Box
