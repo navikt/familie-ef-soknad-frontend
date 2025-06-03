@@ -85,6 +85,10 @@ const OmDeg: FC = () => {
     erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
   );
 
+  const skalViseMedlemskapsdialog =
+    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) ||
+    erÅrsakEnsligBesvart(sivilstatus);
+
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
@@ -115,14 +119,7 @@ const OmDeg: FC = () => {
           settDokumentasjonsbehov={settDokumentasjonsbehov}
         />
 
-        <Show
-          if={
-            erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-            erÅrsakEnsligBesvart(sivilstatus)
-          }
-        >
-          <Medlemskap />
-        </Show>
+        {skalViseMedlemskapsdialog && <Medlemskap />}
       </Show>
     </Side>
   );
