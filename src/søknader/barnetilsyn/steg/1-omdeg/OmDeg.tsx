@@ -22,7 +22,7 @@ import { useMount } from '../../../../utils/hooks';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useOmDeg } from './OmDegContext';
+import { useOmDeg } from '../../../felles/steg/1-omdeg/OmDegContext';
 
 const OmDeg: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('OmDeg'));

@@ -1,7 +1,7 @@
 import constate from 'constate';
 import { useEffect, useState } from 'react';
-import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLocation } from 'react-router';
+import { useBarnetilsynSøknad } from '../../../barnetilsyn/BarnetilsynContext';
 
 const [OmDegProvider, useOmDeg] = constate(() => {
   const {

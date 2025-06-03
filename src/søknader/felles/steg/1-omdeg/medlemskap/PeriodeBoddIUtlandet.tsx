@@ -14,7 +14,7 @@ import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
-import { useOmDeg } from '../../../../barnetilsyn/steg/1-omdeg/OmDegContext';
+import { useOmDeg } from '../OmDegContext';
 
 const PeriodeBoddIUtlandet: FC<{
   land: ILandMedKode[];

@@ -15,7 +15,7 @@ import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { useSpråkContext } from '../../../../../context/SpråkContext';
-import { useOmDeg } from '../../../../barnetilsyn/steg/1-omdeg/OmDegContext';
+import { useOmDeg } from '../OmDegContext';
 
 const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();

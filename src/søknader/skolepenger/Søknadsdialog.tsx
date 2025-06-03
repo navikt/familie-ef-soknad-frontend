@@ -10,7 +10,7 @@ import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';
 import Oppsummering from './steg/6-oppsummering/Oppsummering';
 import Kvittering from './steg/8-kvittering/Kvittering';
 import Dokumentasjon from './steg/7-dokumentasjon/Dokumentasjon';
-import { OmDegProvider } from '../barnetilsyn/steg/1-omdeg/OmDegContext';
+import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 
 const SøknadsdialogSkolepenger: FC = () => {
   return (

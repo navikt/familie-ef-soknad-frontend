@@ -22,7 +22,7 @@ import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
 import Show from '../../../../utils/showIf';
 import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { useOmDeg } from '../../../barnetilsyn/steg/1-omdeg/OmDegContext';
+import { useOmDeg } from '../../../felles/steg/1-omdeg/OmDegContext';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
