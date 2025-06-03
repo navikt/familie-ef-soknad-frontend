@@ -119,6 +119,9 @@ const Side: React.FC<ISide> = ({
                 variant="primary"
                 className="tilbake-til-oppsummering"
                 onClick={() => {
+                  if (mellomlagreSøknad) {
+                    mellomlagreSøknad();
+                  }
                   if (mellomlagreStønad) {
                     mellomlagreStønad(location.pathname);
                   }

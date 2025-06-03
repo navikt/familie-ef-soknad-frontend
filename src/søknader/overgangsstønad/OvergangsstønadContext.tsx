@@ -20,14 +20,13 @@ import { MellomlagretSøknadOvergangsstønad } from '../../models/søknad/mellom
 import Environment from '../../Environment';
 import { MellomlagredeStønadstyper } from '../../models/søknad/stønadstyper';
 import { IBarn } from '../../models/steg/barn';
-import { oppdaterBarnIBarneliste, oppdaterBarneliste } from '../../utils/barn';
+import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../../utils/barn';
 import { IPerson } from '../../models/søknad/person';
 import { gjelderNoeAvDetteDeg } from '../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { hvaErDinArbeidssituasjonSpm } from '../felles/steg/5-aktivitet/AktivitetConfig';
 import { useSpråkContext } from '../../context/SpråkContext';
-import { LokalIntlShape } from '../../language/typer';
+import { LocaleType, LokalIntlShape } from '../../language/typer';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { LocaleType } from '../../language/typer';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
 
 // -----------  CONTEXT  -----------
@@ -108,6 +107,23 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] =
       if (mellomlagretOvergangsstønad) {
         settSøknad(mellomlagretOvergangsstønad.søknad);
       }
+    };
+
+    const mellomlagreOvergangsstønad2 = (
+      steg: string,
+      oppdatertSøknad: SøknadOvergangsstønad
+    ) => {
+      const utfyltSøknad = {
+        søknad: oppdatertSøknad,
+        modellVersjon: Environment().modellVersjon.overgangsstønad,
+        gjeldendeSteg: steg,
+        locale: locale,
+      };
+      mellomlagreSøknadTilDokument(
+        utfyltSøknad,
+        MellomlagredeStønadstyper.overgangsstønad
+      );
+      settMellomlagretOvergangsstønad(utfyltSøknad);
     };
 
     const mellomlagreOvergangsstønad = (steg: string) => {
@@ -241,6 +257,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] =
       mellomlagretOvergangsstønad,
       hentMellomlagretOvergangsstønad,
       mellomlagreOvergangsstønad,
+      mellomlagreOvergangsstønad2,
       brukMellomlagretOvergangsstønad,
       nullstillMellomlagretOvergangsstønad,
       oppdaterBarnISøknaden,

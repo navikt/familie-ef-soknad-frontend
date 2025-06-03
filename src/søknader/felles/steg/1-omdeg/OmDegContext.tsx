@@ -2,32 +2,105 @@ import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { useBarnetilsynSøknad } from '../../../barnetilsyn/BarnetilsynContext';
+import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
+import { useSkolepengerSøknad } from '../../../skolepenger/SkolepengerContext';
+import { Stønadstype } from '../../../../models/søknad/stønadstyper';
+import { RoutesBarnetilsyn } from '../../../barnetilsyn/routing/routesBarnetilsyn';
+import { RoutesOvergangsstonad } from '../../../overgangsstønad/routing/routesOvergangsstonad';
+import { RoutesSkolepenger } from '../../../skolepenger/routing/routes';
+import { hentPathBarnetilsynOppsummering } from '../../../barnetilsyn/utils';
+import { hentPathOvergangsstønadOppsummering } from '../../../overgangsstønad/utils';
+import { hentPathSkolepengerOppsummering } from '../../../skolepenger/utils';
 
-const [OmDegProvider, useOmDeg] = constate(() => {
-  const {
-    søknad,
-    settSøknad,
-    mellomlagretBarnetilsyn,
-    mellomlagreBarnetilsyn2,
-  } = useBarnetilsynSøknad();
-  const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
-  const location = useLocation();
+const [OmDegProvider, useOmDeg] = constate(
+  ({ stønadstype }: { stønadstype: Stønadstype }) => {
+    const barnetilsynKontekst = useBarnetilsynSøknad();
+    const overgangsstønadKontekst = useOvergangsstønadSøknad();
+    const skolepengerKontekst = useSkolepengerSøknad();
+    const location = useLocation();
 
-  useEffect(() => {
-    if (mellomlagretBarnetilsyn?.søknad.medlemskap) {
-      settMedlemskap(mellomlagretBarnetilsyn.søknad.medlemskap);
-    }
-  }, [mellomlagretBarnetilsyn]);
+    const {
+      søknad,
+      settSøknad,
+      mellomlagretSøknad,
+      mellomlagreSøknad2,
+      routes,
+      pathOppsumering,
+      settDokumentasjonsbehov,
+    } = (() => {
+      switch (stønadstype) {
+        case Stønadstype.barnetilsyn:
+          return {
+            søknad: barnetilsynKontekst.søknad,
+            settSøknad: barnetilsynKontekst.settSøknad,
+            mellomlagretSøknad: barnetilsynKontekst.mellomlagretBarnetilsyn,
+            mellomlagreSøknad2: barnetilsynKontekst.mellomlagreBarnetilsyn2,
+            routes: RoutesBarnetilsyn,
+            pathOppsumering: hentPathBarnetilsynOppsummering,
+            settDokumentasjonsbehov:
+              barnetilsynKontekst.settDokumentasjonsbehov,
+          };
+        case Stønadstype.overgangsstønad:
+          return {
+            søknad: overgangsstønadKontekst.søknad,
+            settSøknad: overgangsstønadKontekst.settSøknad,
+            mellomlagretSøknad:
+              overgangsstønadKontekst.mellomlagretOvergangsstønad,
+            mellomlagreSøknad2:
+              overgangsstønadKontekst.mellomlagreOvergangsstønad2,
+            routes: RoutesOvergangsstonad,
+            pathOppsumering: hentPathOvergangsstønadOppsummering,
+            settDokumentasjonsbehov:
+              overgangsstønadKontekst.settDokumentasjonsbehov,
+          };
+        case Stønadstype.skolepenger:
+          return {
+            søknad: skolepengerKontekst.søknad,
+            settSøknad: skolepengerKontekst.settSøknad,
+            mellomlagretSøknad: skolepengerKontekst.mellomlagretSkolepenger,
+            mellomlagreSøknad2: skolepengerKontekst.mellomlagreSkolepenger2,
+            routes: RoutesSkolepenger,
+            pathOppsumering: hentPathSkolepengerOppsummering,
+            settDokumentasjonsbehov:
+              skolepengerKontekst.settDokumentasjonsbehov,
+          };
+        default:
+          throw new Error('Ukjent stønadstype i omDegContext');
+      }
+    })();
 
-  const mellomlagreOmDeg = () => {
-    const oppdatertSøknad = { ...søknad, medlemskap: medlemskap };
+    const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
 
-    settSøknad({ ...søknad, medlemskap: medlemskap });
+    useEffect(() => {
+      if (mellomlagretSøknad?.søknad.medlemskap) {
+        settMedlemskap(mellomlagretSøknad.søknad.medlemskap);
+      }
+    }, [mellomlagretSøknad]);
 
-    return mellomlagreBarnetilsyn2(location.pathname, oppdatertSøknad);
-  };
+    const mellomlagreOmDeg = () => {
+      const oppdatertSøknad = { ...søknad, medlemskap: medlemskap };
 
-  return { medlemskap, settMedlemskap, mellomlagreOmDeg };
-});
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      settSøknad({ ...søknad, medlemskap: medlemskap });
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return mellomlagreSøknad2(location.pathname, oppdatertSøknad);
+    };
+
+    return {
+      medlemskap,
+      settMedlemskap,
+      mellomlagreOmDeg,
+      stønadstype,
+      routes,
+      pathOppsumering,
+      settDokumentasjonsbehov,
+      søknad,
+      settSøknad,
+    };
+  }
+);
 
 export { OmDegProvider, useOmDeg };
