@@ -28,7 +28,9 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
   };
 
   const handleChange = (value: string) => {
-    const valgtSvar = spørsmål.svaralternativer.find((s) => s.id === value);
+    const valgtSvar = spørsmål.svaralternativer.find(
+      (svar) => svar.id === value
+    );
 
     if (valgtSvar) {
       logSpørsmålBesvart(
