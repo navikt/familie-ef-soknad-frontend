@@ -1,64 +1,59 @@
 import React from 'react';
-import { VStack } from '@navikt/ds-react';
 import { SingleSelectSpørsmål } from './Spørsmål';
-import { SingleSelectSpørsmålKomponent } from './spørsmåltyper/SingleSelectSpørsmålKomponent';
+import { SpørsmålRenderer } from './SpørsmålRenderer';
 
-const singleSelectSpørsmålJaNei: SingleSelectSpørsmål = {
-  id: 'singleSelectSpørsmålJaNei',
-  spørsmålTekstKey: 'Jeg er et SingleSelectSpørsmål',
+export const likerDuAlertsSpørsmål: SingleSelectSpørsmål = {
+  id: 'likerDuAlerts',
 
-  svarAlternativ: [
-    {
-      svarVerdi: 'Ja',
-      label: 'svar.ja',
-    },
-    {
-      svarVerdi: 'Nei',
-      label: 'svar.nei',
-    },
-  ],
+  type: 'single-select',
+
+  spørsmålTekstKey: 'Liker du alerts?',
+
   svarAlternativLayout: 'horizontal',
-};
-
-const singleSelectSpørsmålFlereVerdier: SingleSelectSpørsmål = {
-  id: 'singleSelectSpørsmålFlereVerdier',
-  spørsmålTekstKey: 'Jeg er et SingleSelectSpørsmål med flere verdier',
-
   svarAlternativ: [
+    { svarVerdi: 'ja', label: 'svar.ja' },
+    { svarVerdi: 'nei', label: 'svar.nei' },
+  ],
+
+  alerts: [
     {
-      svarVerdi: 'Verdi 1',
-      label: 'Verdi 1',
-    },
-    {
-      svarVerdi: 'Verdi 2',
-      label: 'Verdi 2',
-    },
-    {
-      svarVerdi: 'Verdi 3',
-      label: 'Verdi 3',
-    },
-    {
-      svarVerdi: 'Verdi 4',
-      label: 'Verdi 4',
-    },
-    {
-      svarVerdi: 'Verdi 5',
-      label: 'Verdi 5',
+      id: 'always',
+      alertTekstKey: 'Dette er alltid synlig',
+      alertVariant: 'info',
+      skalAlltidVises: true,
     },
   ],
-  svarAlternativLayout: 'vertical',
+
+  oppfølgningsSpørsmål: [
+    {
+      visNår: (svar) => svar === 'ja',
+      spørsmål: {
+        id: 'hvorforJa',
+        type: 'single-select',
+        spørsmålTekstKey: 'Hva liker du med alerts?',
+        svarAlternativLayout: 'vertical',
+        svarAlternativ: [
+          { svarVerdi: 'utseende', label: 'Utseendet' },
+          { svarVerdi: 'funksjon', label: 'Funksjonaliteten' },
+        ],
+      },
+    },
+    {
+      visNår: (svar) => svar === 'nei',
+      spørsmål: {
+        id: 'hvorforNei',
+        type: 'single-select',
+        spørsmålTekstKey: 'Hvorfor ikke?',
+        svarAlternativLayout: 'vertical',
+        svarAlternativ: [
+          { svarVerdi: 'irriterende', label: 'De er irriterende' },
+          { svarVerdi: 'unødvendig', label: 'Unødvendige' },
+        ],
+      },
+    },
+  ],
 };
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
-  return (
-    <VStack gap={'6'}>
-      <SingleSelectSpørsmålKomponent
-        singleSelectSpørsmål={singleSelectSpørsmålJaNei}
-      />
-
-      <SingleSelectSpørsmålKomponent
-        singleSelectSpørsmål={singleSelectSpørsmålFlereVerdier}
-      />
-    </VStack>
-  );
+  return <SpørsmålRenderer spørsmål={likerDuAlertsSpørsmål} />;
 };

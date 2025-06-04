@@ -1,103 +1,50 @@
-import React, { useState } from 'react';
-import {
-  Alert,
-  BodyLong,
-  Box,
-  Heading,
-  Link,
-  Radio,
-  RadioGroup,
-  ReadMore,
-  VStack,
-} from '@navikt/ds-react';
+import React from 'react';
+import { Box, Radio, RadioGroup } from '@navikt/ds-react';
 import styles from './SingleSelectSpørsmålKomponent.module.css';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
-import { SingleSelectSpørsmål, SvarAlternativ } from '../Spørsmål';
+import { hentTekst } from '../../../../../utils/søknad';
+import { SingleSelectSpørsmål } from '../Spørsmål';
 import clsx from 'clsx';
+import { SpørsmålWrapper } from '../SpørsmålWrapper';
 
-interface Props {
-  singleSelectSpørsmål: SingleSelectSpørsmål;
-}
-
-export const SingleSelectSpørsmålKomponent: React.FC<Props> = ({
-  singleSelectSpørsmål,
-}) => {
+export const SingleSelectSpørsmålKomponent: React.FC<{
+  spørsmål: SingleSelectSpørsmål;
+  valgtSvar: string | null;
+  onChangeSvar: (val: string) => void;
+}> = ({ spørsmål, valgtSvar, onChangeSvar }) => {
   const intl = useLokalIntlContext();
-  const [valgtVerdi, settValgVerdi] = useState<string | null>(null);
-
-  const synligeAlerts = singleSelectSpørsmål.alerts?.filter((alert) => {
-    if (alert.skalAlltidVises) return true;
-    if (alert.visAlertNår) return alert.visAlertNår({ valgtSvar: valgtVerdi });
-    return false;
-  });
 
   return (
-    <VStack gap="4">
-      <Heading size="xsmall" className={styles.heading}>
-        {hentTekst(singleSelectSpørsmål.spørsmålTekstKey, intl)}
-      </Heading>
-
-      {singleSelectSpørsmål.lesMerTittelKey &&
-        singleSelectSpørsmål.lesMerTekstKey && (
-          <ReadMore
-            header={hentTekst(singleSelectSpørsmål.lesMerTittelKey, intl)}
-          >
-            {hentTekst(singleSelectSpørsmål.lesMerTekstKey, intl)}
-          </ReadMore>
-        )}
-
+    <SpørsmålWrapper spørsmål={spørsmål} valgtSvar={valgtSvar}>
       <RadioGroup
-        legend={hentTekst(singleSelectSpørsmål.spørsmålTekstKey, intl)}
-        hideLegend={true}
-        value={valgtVerdi}
-        onChange={(val) => settValgVerdi(val)}
+        legend={hentTekst(spørsmål.spørsmålTekstKey, intl)}
+        hideLegend
+        value={valgtSvar}
+        onChange={(val) => onChangeSvar(val)}
       >
         <div
           className={clsx({
             [styles.stackHorizontal]:
-              singleSelectSpørsmål.svarAlternativLayout === 'horizontal',
+              spørsmål.svarAlternativLayout === 'horizontal',
             [styles.stackVertical]:
-              singleSelectSpørsmål.svarAlternativLayout === 'vertical',
+              spørsmål.svarAlternativLayout === 'vertical',
           })}
         >
-          {singleSelectSpørsmål.svarAlternativ.map(
-            (svarAlternativ: SvarAlternativ) => (
-              <Box
-                key={svarAlternativ.svarVerdi}
-                className={clsx(
-                  styles.radioBox,
-                  valgtVerdi === svarAlternativ.svarVerdi && styles.selected
-                )}
-                onClick={() => {}} // TODO: Fiks meg.
-              >
-                <Radio value={svarAlternativ.svarVerdi}>
-                  {hentTekst(svarAlternativ.label, intl)}
-                </Radio>
-              </Box>
-            )
-          )}
+          {spørsmål.svarAlternativ.map((alternativ) => (
+            <Box
+              key={alternativ.svarVerdi}
+              className={clsx(
+                styles.radioBox,
+                valgtSvar === alternativ.svarVerdi && styles.selected
+              )}
+            >
+              <Radio value={alternativ.svarVerdi}>
+                {hentTekst(alternativ.label, intl)}
+              </Radio>
+            </Box>
+          ))}
         </div>
       </RadioGroup>
-
-      {synligeAlerts &&
-        synligeAlerts.map((alert) => (
-          <Alert key={alert.id} variant={alert.alertVariant}>
-            <BodyLong>
-              {hentTekst(alert.alertTekstKey, intl)}
-              {alert.alertLink && (
-                <>
-                  {' '}
-                  <Link
-                    href={hentTekstMedVariabel(alert.alertLink.urlKey, intl)}
-                  >
-                    {hentTekst(alert.alertLink.linkLabelTekstKey, intl)}
-                  </Link>
-                </>
-              )}
-            </BodyLong>
-          </Alert>
-        ))}
-    </VStack>
+    </SpørsmålWrapper>
   );
 };
