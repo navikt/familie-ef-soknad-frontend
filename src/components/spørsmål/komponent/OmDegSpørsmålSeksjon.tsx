@@ -49,6 +49,26 @@ const likerDuAlertsSpørsmål: BaseSpørsmål = {
   ],
 };
 
+const likerDuAlertsMedLenkerSpørsmål: BaseSpørsmål = {
+  id: 'likerDuAlertsMedLenker',
+  spørsmålTekstKey: 'Liker du alerts med lenker?',
+
+  alerts: [
+    {
+      id: 'alertMedLenkeSomVisesVedVerdi',
+      alertTekstKey: 'generell.beskrivelse.alert-med-lenke',
+      alertVariant: 'info',
+
+      // TODO: Fiks denne, denne formaterer ikke riktig.
+      alertLink: {
+        urlKey: 'generell.link-flytting.skatteetten',
+        linkLabelTekstKey: 'generell.label.skatteetaten',
+      },
+      visAlertNår: ({ valgtSvar }) => valgtSvar !== null,
+    },
+  ],
+};
+
 export const OmDegSpørsmålSeksjon: React.FC = () => {
   return (
     <VStack gap={'6'}>
@@ -57,6 +77,8 @@ export const OmDegSpørsmålSeksjon: React.FC = () => {
       <SpørsmålKomponent spørsmål={likerDuLesMerTeksterSpørsmål} />
 
       <SpørsmålKomponent spørsmål={likerDuAlertsSpørsmål} />
+
+      <SpørsmålKomponent spørsmål={likerDuAlertsMedLenkerSpørsmål} />
     </VStack>
   );
 };

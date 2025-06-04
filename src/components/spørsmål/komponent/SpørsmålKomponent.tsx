@@ -12,7 +12,7 @@ import {
   VStack,
 } from '@navikt/ds-react';
 import { BaseSpørsmål } from './Spørsmål';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst, hentTekstMedVariabel } from '../../../utils/søknad';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import styles from './SpørsmålKomponent.module.css';
 
@@ -22,12 +22,11 @@ interface Props {
 
 export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
   const intl = useLokalIntlContext();
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [valgtVerdi, settValgVerdi] = useState<string | null>(null);
 
   const synligeAlerts = spørsmål.alerts?.filter((alert) => {
     if (alert.skalAlltidVises) return true;
-    if (alert.visAlertNår)
-      return alert.visAlertNår({ valgtSvar: selectedValue });
+    if (alert.visAlertNår) return alert.visAlertNår({ valgtSvar: valgtVerdi });
     return false;
   });
   return (
@@ -46,12 +45,12 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
       <RadioGroup
         legend={hentTekst(spørsmål.spørsmålTekstKey, intl)}
         hideLegend
-        value={selectedValue ?? ''}
-        onChange={(val) => setSelectedValue(val)}
+        value={valgtVerdi ?? ''}
+        onChange={(val) => settValgVerdi(val)}
       >
         <Stack gap="6" direction={{ xs: 'column', sm: 'row' }} wrap={false}>
           <Box
-            background="bg-default"
+            background={'bg-default'}
             borderColor="border-alt-3"
             paddingInline="4"
             paddingBlock="1"
@@ -62,7 +61,7 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
             <Radio value={'Ja'}>{hentTekst('svar.ja', intl)}</Radio>
           </Box>
           <Box
-            background="bg-default"
+            background={'bg-default'}
             borderColor="border-alt-3"
             paddingInline="4"
             paddingBlock="1"
@@ -83,7 +82,9 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
               {alert.alertLink && (
                 <>
                   {' '}
-                  <Link href={hentTekst(alert.alertLink.urlKey, intl)}>
+                  <Link
+                    href={hentTekstMedVariabel(alert.alertLink.urlKey, intl)}
+                  >
                     {hentTekst(alert.alertLink.linkLabelTekstKey, intl)}
                   </Link>
                 </>

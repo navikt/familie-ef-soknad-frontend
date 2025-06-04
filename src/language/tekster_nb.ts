@@ -1,5 +1,11 @@
 // sist redigert 20.12.2021 12:29
 export default {
+  'generell.beskrivelse.alert-med-lenke':
+    'Hei! Jeg er en alert med en lenke til: {link}.',
+  'generell.label.skatteetaten': 'Skatteetaten',
+  'generell.link-flytting.skatteetten':
+    'https://www.skatteetaten.no/person/folkeregister/flytte/',
+
   'språk.bokmål': 'Bokmål',
   'språk.engelsk': 'English',
   'språk.nynorsk': 'Nynorsk',
