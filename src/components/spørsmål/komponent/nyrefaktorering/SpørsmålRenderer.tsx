@@ -1,7 +1,7 @@
-// SpørsmålRenderer.tsx
 import React, { useState } from 'react';
 import { OppfølgningsSpørsmål, Spørsmål } from './Spørsmål';
 import { SingleSelectSpørsmålKomponent } from './spørsmåltyper/SingleSelectSpørsmålKomponent';
+import { oppfølgingsSpørsmålMap } from '../../../../søknad/steg/1-omdeg/spørsmål/oppfølgningsSpørsmålMap';
 
 interface Props {
   spørsmål: Spørsmål;
@@ -9,6 +9,8 @@ interface Props {
 
 export const SpørsmålRenderer: React.FC<Props> = ({ spørsmål }) => {
   const [valgtSvar, settValgtSvar] = useState<string | null>(null);
+  const oppfølgere: OppfølgningsSpørsmål[] =
+    oppfølgingsSpørsmålMap[spørsmål.id] || [];
 
   const renderKomponent = () => {
     switch (spørsmål.type) {
@@ -30,14 +32,14 @@ export const SpørsmålRenderer: React.FC<Props> = ({ spørsmål }) => {
       {renderKomponent()}
 
       {valgtSvar &&
-        spørsmål.oppfølgningsSpørsmål
-          ?.filter((oppfølgningsSpørsmål: OppfølgningsSpørsmål) =>
+        oppfølgere
+          .filter((oppfølgningsSpørsmål) =>
             oppfølgningsSpørsmål.visNår(valgtSvar)
           )
-          .map((oppfølgningsSpørsmål: OppfølgningsSpørsmål) => (
+          .map((oppfølgningsSpørmål) => (
             <SpørsmålRenderer
-              key={oppfølgningsSpørsmål.spørsmål.id}
-              spørsmål={oppfølgningsSpørsmål.spørsmål}
+              key={oppfølgningsSpørmål.spørsmål.id}
+              spørsmål={oppfølgningsSpørmål.spørsmål}
             />
           ))}
     </>
