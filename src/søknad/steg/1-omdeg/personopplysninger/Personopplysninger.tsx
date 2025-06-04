@@ -17,7 +17,7 @@ import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokument
 import { hentTekst } from '../../../../utils/søknad';
 import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
-import { OmDegSpørsmålSeksjon } from '../../../../components/spørsmål/komponent/OmDegSpørsmålSeksjon';
+import { OmDegSpørsmålSeksjon } from '../../../../components/spørsmål/komponent/nyrefaktorering/OmDegSpørsmålSeksjon';
 
 interface Props {
   søker: Søker;

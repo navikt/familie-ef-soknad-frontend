@@ -12,8 +12,8 @@ import {
   VStack,
 } from '@navikt/ds-react';
 import { BaseSpørsmål } from './Spørsmål';
-import { hentTekst, hentTekstMedVariabel } from '../../../utils/søknad';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { hentTekst, hentTekstMedVariabel } from '../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import styles from './SpørsmålKomponent.module.css';
 
 interface Props {

@@ -1,5 +1,5 @@
-import { hentTekst } from '../../../../utils/søknad';
-import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { RadioGroup, Radio } from '@navikt/ds-react';
 import clsx from 'clsx';
 import styles from './RadioInput.module.css';

@@ -11,8 +11,8 @@ import {
   VStack,
 } from '@navikt/ds-react';
 import styles from './SingleSelectSpørsmålKomponent.module.css';
-import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst, hentTekstMedVariabel } from '../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
 import { SingleSelectSpørsmål, SvarAlternativ } from '../Spørsmål';
 import clsx from 'clsx';
 
