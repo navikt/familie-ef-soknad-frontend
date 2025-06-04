@@ -1,84 +1,64 @@
 import React from 'react';
 import { VStack } from '@navikt/ds-react';
-import { SpørsmålKomponent } from './SpørsmålKomponent';
-import { BaseSpørsmål } from './Spørsmål';
+import { SingleSelectSpørsmål } from './Spørsmål';
+import { SingleSelectSpørsmålKomponent } from './spørsmåltyper/SingleSelectSpørsmålKomponent';
 
-const likerDuBananerSpørsmål: BaseSpørsmål = {
-  id: 'likerDuBananer',
-  spørsmålTekstKey: 'Liker du bananer?',
-};
+const singleSelectSpørsmålJaNei: SingleSelectSpørsmål = {
+  id: 'singleSelectSpørsmålJaNei',
+  spørsmålTekstKey: 'Jeg er et SingleSelectSpørsmål',
 
-const likerDuLesMerTeksterSpørsmål: BaseSpørsmål = {
-  id: 'likerDuLesMerTekster',
-  spørsmålTekstKey: 'Liker du les mer tekster?',
-
-  lesMerTittelKey: 'Hvorfor spør vi?',
-  lesMerTekstKey:
-    'Vi spør fordi vi må. Dette er litt fordi vi digger folk som liker frukt!',
-};
-
-const likerDuAlertsSpørsmål: BaseSpørsmål = {
-  id: 'likerDuAlerts',
-  spørsmålTekstKey: 'Liker du alerts?',
-
-  alerts: [
+  svarAlternativ: [
     {
-      id: 'alertSomAlltidVises',
-      alertTekstKey: 'Hey! Jeg er en alert som alltid vises!',
-      alertVariant: 'info',
-      skalAlltidVises: true,
+      svarVerdi: 'Ja',
+      label: 'svar.ja',
     },
     {
-      id: 'alertSomVisesVedJa',
-      alertTekstKey: 'Jeg er en alert som vises når man svarer "Ja".',
-      alertVariant: 'info',
-      visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',
-    },
-    {
-      id: 'alertSomVisesVedNei',
-      alertTekstKey: 'Jeg er en alert som vises når man svarer "Nei".',
-      alertVariant: 'warning',
-      visAlertNår: ({ valgtSvar }) => valgtSvar === 'Nei',
-    },
-    {
-      id: 'alertSomVisesUansett',
-      alertTekstKey: 'Jeg vises så lenge du har valgt noe!',
-      alertVariant: 'success',
-      visAlertNår: ({ valgtSvar }) => valgtSvar !== null,
+      svarVerdi: 'Nei',
+      label: 'svar.nei',
     },
   ],
+  svarAlternativLayout: 'horizontal',
 };
 
-const likerDuAlertsMedLenkerSpørsmål: BaseSpørsmål = {
-  id: 'likerDuAlertsMedLenker',
-  spørsmålTekstKey: 'Liker du alerts med lenker?',
+const singleSelectSpørsmålFlereVerdier: SingleSelectSpørsmål = {
+  id: 'singleSelectSpørsmålFlereVerdier',
+  spørsmålTekstKey: 'Jeg er et SingleSelectSpørsmål med flere verdier',
 
-  alerts: [
+  svarAlternativ: [
     {
-      id: 'alertMedLenkeSomVisesVedVerdi',
-      alertTekstKey: 'generell.beskrivelse.alert-med-lenke',
-      alertVariant: 'info',
-
-      // TODO: Fiks denne, denne formaterer ikke riktig.
-      alertLink: {
-        urlKey: 'generell.link-flytting.skatteetten',
-        linkLabelTekstKey: 'generell.label.skatteetaten',
-      },
-      visAlertNår: ({ valgtSvar }) => valgtSvar !== null,
+      svarVerdi: 'Verdi 1',
+      label: 'Verdi 1',
+    },
+    {
+      svarVerdi: 'Verdi 2',
+      label: 'Verdi 2',
+    },
+    {
+      svarVerdi: 'Verdi 3',
+      label: 'Verdi 3',
+    },
+    {
+      svarVerdi: 'Verdi 4',
+      label: 'Verdi 4',
+    },
+    {
+      svarVerdi: 'Verdi 5',
+      label: 'Verdi 5',
     },
   ],
+  svarAlternativLayout: 'vertical',
 };
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
   return (
     <VStack gap={'6'}>
-      <SpørsmålKomponent spørsmål={likerDuBananerSpørsmål} />
+      <SingleSelectSpørsmålKomponent
+        singleSelectSpørsmål={singleSelectSpørsmålJaNei}
+      />
 
-      <SpørsmålKomponent spørsmål={likerDuLesMerTeksterSpørsmål} />
-
-      <SpørsmålKomponent spørsmål={likerDuAlertsSpørsmål} />
-
-      <SpørsmålKomponent spørsmål={likerDuAlertsMedLenkerSpørsmål} />
+      <SingleSelectSpørsmålKomponent
+        singleSelectSpørsmål={singleSelectSpørsmålFlereVerdier}
+      />
     </VStack>
   );
 };

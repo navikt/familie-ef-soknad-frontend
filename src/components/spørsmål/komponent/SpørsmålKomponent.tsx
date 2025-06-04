@@ -29,6 +29,7 @@ export const SpørsmålKomponent: React.FC<Props> = ({ spørsmål }) => {
     if (alert.visAlertNår) return alert.visAlertNår({ valgtSvar: valgtVerdi });
     return false;
   });
+
   return (
     <VStack gap="4">
       <Heading size="xsmall" className={styles.heading}>

@@ -8,6 +8,18 @@ export interface BaseSpørsmål {
   alerts?: SpørsmålAlert[];
 }
 
+export type SvarAlternativLayout = 'vertical' | 'horizontal';
+
+export interface SingleSelectSpørsmål extends BaseSpørsmål {
+  svarAlternativ: SvarAlternativ[];
+  svarAlternativLayout: SvarAlternativLayout;
+}
+
+export interface SvarAlternativ {
+  svarVerdi: string;
+  label: string;
+}
+
 export interface SpørsmålAlert {
   id: string;
   alertTekstKey: string;
