@@ -11,6 +11,7 @@ import { RoutesSkolepenger } from '../../../skolepenger/routing/routes';
 import { hentPathBarnetilsynOppsummering } from '../../../barnetilsyn/utils';
 import { hentPathOvergangsstønadOppsummering } from '../../../overgangsstønad/utils';
 import { hentPathSkolepengerOppsummering } from '../../../skolepenger/utils';
+import { validerMedlemskap } from './OmDegValidering';
 
 const [OmDegProvider, useOmDeg] = constate(
   ({ stønadstype }: { stønadstype: Stønadstype }) => {
@@ -78,11 +79,14 @@ const [OmDegProvider, useOmDeg] = constate(
     }, [mellomlagretSøknad]);
 
     const mellomlagreOmDeg = () => {
-      const oppdatertSøknad = { ...søknad, medlemskap: medlemskap };
+      const oppdatertSøknad = validerMedlemskap({
+        ...søknad,
+        medlemskap: medlemskap,
+      });
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      settSøknad({ ...søknad, medlemskap: medlemskap });
+      settSøknad(oppdatertSøknad);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
