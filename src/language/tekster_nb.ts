@@ -511,9 +511,9 @@ export default {
   'utdanning.spm.mål': 'Hva er målet med utdanningen?',
   'utdanning.alert-tittel.mål':
     'Du må legge ved dokumentasjon på utdanningen du tar eller skal ta',
-  'utdanning.alert-beskrivelse.mål.skolepenger':
+  'utdanning.alert-beskrivelse.mål.SKOLEPENGER':
     'Dokumentasjonen må vise: <ul><li>navn på studiested</li><li>navn på studie</li><li>hvor mye du skal studere</li><li>perioden du skal studere</li></ul><br/>Dokumentasjonen må vise tydelig hvem det gjelder.',
-  'utdanning.alert-beskrivelse.mål.overgangsstønad':
+  'utdanning.alert-beskrivelse.mål.OVERGANGSSTØNAD':
     'Dokumentasjonen må vise: <ul><li>navn på studiested</li><li>navn på studie</li><li>hvor mye du skal studere</li><li>perioden du skal studere</li></ul><br/>Dokumentasjonen må vise tydelig hvem det gjelder. <br/>Får du allerede overgangsstønad og søker om å forlenge stønadsperioden fordi du har fått tilbud om studieplass? Da må dokumentasjonen også vise datoen du takket ja til tilbudet.',
   'utdanning.label.utgifter': 'Utgifter til skolepenger',
   'utdanning.label.utgifter.dokumentasjon':

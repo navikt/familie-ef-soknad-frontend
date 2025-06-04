@@ -525,9 +525,9 @@ export default {
   'utdanning.spm.mål': 'What is your goal for taking this education?',
   'utdanning.alert-tittel.mål':
     'You must provide documentation of the education you are taking or are going to take',
-  'utdanning.alert-beskrivelse.mål.skolepenger':
+  'utdanning.alert-beskrivelse.mål.SKOLEPENGER':
     'The documentation must indicate:<ul><li>the name of the place of study</li><li>the name of the course or education</li><li>how much you are going to study</li><li>the period in which you are going to study</li></ul><br/>The documentation must clearly show who it concerns.',
-  'utdanning.alert-beskrivelse.mål.overgangsstønad':
+  'utdanning.alert-beskrivelse.mål.OVERGANGSSTØNAD':
     'The documentation must indicate:<ul><li>the name of the place of study</li><li>the name of the course or education</li><li>how much you are going to study</li><li>the period in which you are going to study</li></ul><br/>The documentation must clearly show who it concerns. If you are already receiving transitional benefit and are applying for an extension of the benefit period because you have been offered a place on a course of education, the documentation must also show the date on which you accepted the offer.',
   'utdanning.label.utgifter': 'Expenses for school fees',
   'utdanning.label.utgifter.dokumentasjon':

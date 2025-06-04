@@ -12,8 +12,8 @@ Lokal kjøring krever internett da tokenet hentes fra fakedings: `https://github
 
 ### Mot preprod:
 1. Hent token fra 
-   - `https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-ef-soknad-api`
-   - `https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-dokument`
+   - [`https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-ef-soknad-api`](https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-ef-soknad-api)
+   - [`https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-dokument`](https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-dokument)
 2. `.env` må inneholde følgende
  ``` 
 TOKENX_API=...
