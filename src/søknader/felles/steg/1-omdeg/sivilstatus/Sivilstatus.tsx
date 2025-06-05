@@ -69,12 +69,7 @@ const Sivilstatus: React.FC = () => {
 
   return (
     <SeksjonGruppe aria-live="polite">
-      {erSøkerGift(sivilstand) && (
-        <SøkerErGift
-          settJaNeiFelt={settSivilstatusFelt}
-          sivilstatus={sivilstatus}
-        />
-      )}
+      {erSøkerGift(sivilstand) && <SøkerErGift />}
 
       {erSøkerUGiftSkiltSeparertEllerEnke(sivilstand) && (
         <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert
