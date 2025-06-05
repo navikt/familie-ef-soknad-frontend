@@ -5,12 +5,14 @@ import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import Bosituasjon from './steg/2-bosituasjon/Bosituasjon';
 import Forside from './Forside';
-import OmDeg from './steg/1-omdeg/OmDeg';
 import MerOmDinSituasjon from './steg/6-meromsituasjon/MerOmDinSituasjon';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Kvittering from './steg/9-kvittering/Kvittering';
 import RedirectTilStart from './RedirectTilStart';
+import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
+import { Stønadstype } from '../../models/søknad/stønadstyper';
+import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 
 const Søknadsdialog: FC = () => {
   return (
@@ -84,7 +86,9 @@ const Søknadsdialog: FC = () => {
           path={'/om-deg'}
           element={
             <RedirectTilStart>
-              <OmDeg />
+              <OmDegProvider stønadstype={Stønadstype.overgangsstønad}>
+                <OmDeg />
+              </OmDegProvider>
             </RedirectTilStart>
           }
         />

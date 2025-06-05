@@ -1,86 +1,73 @@
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
+  erSivilstandSpørsmålBesvart,
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
   søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../../helpers/steg/omdeg';
-import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
 import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
 import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
-import { RoutesSkolepenger } from '../../routing/routes';
-import { hentPathSkolepengerOppsummering } from '../../utils';
-import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
 import Show from '../../../../utils/showIf';
-import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
-import { SøknadSkolepenger } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { useOmDeg } from '../../../felles/steg/1-omdeg/OmDegContext';
 
 const OmDeg: FC = () => {
-  const location = useLocation();
   const intl = useLokalIntlContext();
+  const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
     ? ESide.visTilbakeNesteAvbrytKnapp
     : ESide.visTilbakeTilOppsummeringKnapp;
+
   const {
-    søknad,
-    mellomlagreSkolepenger,
-    settSøknad,
+    medlemskap,
+    mellomlagreOmDeg,
+    stønadstype,
+    routes,
+    pathOppsumering,
     settDokumentasjonsbehov,
-  } = useSkolepengerSøknad();
+    søknad,
+    settSøknad,
+  } = useOmDeg();
 
-  const { harSøktSeparasjon, datoSøktSeparasjon, datoFlyttetFraHverandre } =
-    søknad.sivilstatus;
-
+  const { sivilstatus } = søknad;
   const { søker } = søknad.person;
-
-  useMount(() => logSidevisningSkolepenger('OmDeg'));
-
-  const settMedlemskap = (medlemskap: IMedlemskap) => {
-    settSøknad((prevSoknad: SøknadSkolepenger) => {
-      return {
-        ...prevSoknad,
-        medlemskap: medlemskap,
-      };
-    });
-  };
 
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
   ) => {
-    settSøknad((prevSoknad: SøknadSkolepenger) => {
+    //TODO fix any
+    settSøknad((prevSoknad: any) => {
       return {
         ...prevSoknad,
         adresseopplysninger: undefined,
         søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-        sivilstatus: {},
-        medlemskap: {},
       };
     });
   };
+
   const settHarMeldtAdresseendring = (
     harMeldtAdresseendring: ISpørsmålBooleanFelt
   ) => {
-    settSøknad((prevSøknad: SøknadSkolepenger) => ({
+    //TODO fix any
+    settSøknad((prevSøknad: any) => ({
       ...prevSøknad,
       adresseopplysninger: {
         ...prevSøknad.adresseopplysninger,
-        harMeldtAdresseendring: harMeldtAdresseendring,
+        harMeldtAdresseendring,
       },
     }));
   };
 
   const settSivilstatus = (sivilstatus: ISivilstatus) => {
-    settSøknad((prevSoknad: SøknadSkolepenger) => {
+    //TODO fix any
+    settSøknad((prevSoknad: any) => {
       return {
         ...prevSoknad,
         sivilstatus: sivilstatus,
@@ -92,28 +79,26 @@ const OmDeg: FC = () => {
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
-    søknad.sivilstatus,
+    sivilstatus,
     søker.sivilstand,
-    søknad.medlemskap,
+    medlemskap,
     erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
   );
 
-  const harFyltUtSeparasjonSpørsmålet =
-    harSøktSeparasjon !== undefined
-      ? harSøktSeparasjon.verdi
-        ? datoSøktSeparasjon && datoFlyttetFraHverandre
-        : true
-      : false;
+  const skalViseMedlemskapsdialog =
+    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+    erÅrsakEnsligBesvart(sivilstatus);
 
   return (
     <Side
-      stønadstype={Stønadstype.skolepenger}
+      stønadstype={stønadstype}
       stegtittel={intl.formatMessage({ id: 'stegtittel.omDeg' })}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       skalViseKnapper={skalViseKnapper}
-      routesStønad={RoutesSkolepenger}
-      mellomlagreStønad={mellomlagreSkolepenger}
-      tilbakeTilOppsummeringPath={hentPathSkolepengerOppsummering}
+      routesStønad={routes}
+      // mellomlagreStønad={mellomlagreBarnetilsyn}
+      tilbakeTilOppsummeringPath={pathOppsumering}
+      mellomlagreSøknad={mellomlagreOmDeg}
     >
       <Personopplysninger
         søker={søker}
@@ -124,7 +109,7 @@ const OmDeg: FC = () => {
           søknad.adresseopplysninger?.harMeldtAdresseendring
         }
         settHarMeldtAdresseendring={settHarMeldtAdresseendring}
-        stønadstype={Stønadstype.skolepenger}
+        stønadstype={stønadstype}
       />
 
       <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
@@ -132,20 +117,9 @@ const OmDeg: FC = () => {
           sivilstatus={søknad.sivilstatus}
           settSivilstatus={settSivilstatus}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
-          settMedlemskap={settMedlemskap}
         />
 
-        <Show
-          if={
-            harFyltUtSeparasjonSpørsmålet ||
-            erÅrsakEnsligBesvart(søknad.sivilstatus)
-          }
-        >
-          <Medlemskap
-            medlemskap={søknad.medlemskap}
-            settMedlemskap={settMedlemskap}
-          />
-        </Show>
+        {skalViseMedlemskapsdialog && <Medlemskap />}
       </Show>
     </Side>
   );

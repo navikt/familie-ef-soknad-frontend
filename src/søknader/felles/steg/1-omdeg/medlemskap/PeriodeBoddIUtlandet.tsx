@@ -8,20 +8,19 @@ import { hentTekst } from '../../../../../utils/søknad';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import {
   ILandMedKode,
-  IMedlemskap,
   IUtenlandsopphold,
 } from '../../../../../models/steg/omDeg/medlemskap';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
+import { useOmDeg } from '../OmDegContext';
 
 const PeriodeBoddIUtlandet: FC<{
-  medlemskap: IMedlemskap;
-  settMedlemskap: (medlemskap: IMedlemskap) => void;
   land: ILandMedKode[];
-}> = ({ medlemskap, settMedlemskap, land }) => {
+}> = ({ land }) => {
   const intl = useLokalIntlContext();
+  const { medlemskap, settMedlemskap } = useOmDeg();
   const tomtUtenlandsopphold: IUtenlandsopphold = {
     id: hentUid(),
     periode: tomPeriode,

@@ -27,10 +27,9 @@ import {
 import { IPerson } from '../../models/søknad/person';
 import { IBarn } from '../../models/steg/barn';
 import { useSpråkContext } from '../../context/SpråkContext';
-import { LokalIntlShape } from '../../language/typer';
+import { LocaleType, LokalIntlShape } from '../../language/typer';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../../utils/barn';
-import { LocaleType } from '../../language/typer';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadSkolepenger => {
@@ -101,6 +100,23 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(
       if (mellomlagretSkolepenger) {
         settSøknad(mellomlagretSkolepenger.søknad);
       }
+    };
+
+    const mellomlagreSkolepenger2 = (
+      steg: string,
+      oppdatertSøknad: SøknadSkolepenger
+    ) => {
+      const utfyltSøknad = {
+        søknad: oppdatertSøknad,
+        modellVersjon: Environment().modellVersjon.skolepenger,
+        gjeldendeSteg: steg,
+        locale: locale,
+      };
+      mellomlagreSøknadTilDokument(
+        utfyltSøknad,
+        MellomlagredeStønadstyper.skolepenger
+      );
+      settMellomlagretSkolepenger(utfyltSøknad);
     };
 
     const mellomlagreSkolepenger = (steg: string) => {
@@ -235,6 +251,7 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(
       mellomlagretSkolepenger,
       hentMellomlagretSkolepenger,
       mellomlagreSkolepenger,
+      mellomlagreSkolepenger2,
       brukMellomlagretSkolepenger,
       nullstillMellomlagretSkolepenger,
       nullstillSøknadSkolepenger,

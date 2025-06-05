@@ -9,7 +9,7 @@ import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { hentBannertittel } from '../../utils/stønadstype';
 import LocaleTekst from '../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Alert, Button, BodyShort, Heading, Box } from '@navikt/ds-react';
+import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Stegindikator from '../stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
 
@@ -31,6 +31,7 @@ interface ISide {
   disableNesteKnapp?: boolean;
   children?: React.ReactNode;
   skalViseStegindikator?: boolean;
+  mellomlagreSøknad?: () => void;
 }
 
 const Side: React.FC<ISide> = ({
@@ -45,6 +46,7 @@ const Side: React.FC<ISide> = ({
   informasjonstekstId,
   disableNesteKnapp,
   skalViseStegindikator = true,
+  mellomlagreSøknad,
 }) => {
   const intl = useLokalIntlContext();
   const location = useLocation();
@@ -104,6 +106,7 @@ const Side: React.FC<ISide> = ({
               erSpørsmålBesvart={erSpørsmålBesvart}
               mellomlagreStønad={mellomlagreStønad}
               disableNesteKnapp={disableNesteKnapp}
+              mellomlagreStønad2={mellomlagreSøknad}
             />
           </>
         ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
@@ -116,6 +119,9 @@ const Side: React.FC<ISide> = ({
                 variant="primary"
                 className="tilbake-til-oppsummering"
                 onClick={() => {
+                  if (mellomlagreSøknad) {
+                    mellomlagreSøknad();
+                  }
                   if (mellomlagreStønad) {
                     mellomlagreStønad(location.pathname);
                   }

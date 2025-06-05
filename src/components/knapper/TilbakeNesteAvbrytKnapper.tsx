@@ -64,6 +64,7 @@ interface Props {
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   disableNesteKnapp?: boolean;
+  mellomlagreStønad2?: () => void;
 }
 
 const TilbakeNesteAvbrytKnapper: FC<Props> = ({
@@ -71,6 +72,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   erSpørsmålBesvart,
   mellomlagreStønad,
   disableNesteKnapp,
+  mellomlagreStønad2,
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -96,7 +98,9 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           variant="primary"
           disabled={disableNesteKnapp}
           onClick={() => {
-            if (mellomlagreStønad) {
+            if (mellomlagreStønad2) {
+              mellomlagreStønad2();
+            } else if (mellomlagreStønad) {
               mellomlagreStønad(location.pathname);
             }
             navigate(nesteRoute.path);

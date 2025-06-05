@@ -1,70 +1,61 @@
 import React from 'react';
+import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import {
-  ESvar,
-  ISpørsmål,
-  ISvar,
-} from '../../../../../models/felles/spørsmålogsvar';
-import {
-  oppholderSegINorge,
   bosattINorgeDeSisteFemÅr,
-  søkersOppholdsland,
   hentLand,
+  oppholderSegINorge,
+  søkersOppholdsland,
 } from './MedlemskapConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import PeriodeBoddIUtlandet from './PeriodeBoddIUtlandet';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
-import {
-  EMedlemskap,
-  IMedlemskap,
-} from '../../../../../models/steg/omDeg/medlemskap';
+import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { useSpråkContext } from '../../../../../context/SpråkContext';
+import { useOmDeg } from '../OmDegContext';
 
-interface Props {
-  medlemskap: IMedlemskap;
-  settMedlemskap: (medlemskap: IMedlemskap) => void;
-}
-const Medlemskap: React.FC<Props> = ({ medlemskap, settMedlemskap }) => {
+const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
+  const { medlemskap, settMedlemskap } = useOmDeg();
+
+  const oppholderSegINorgeConfig = oppholderSegINorge(intl);
+
+  const [locale] = useSpråkContext();
+
+  if (!medlemskap) return null;
+
   const {
     søkerOppholderSegINorge,
     oppholdsland: oppholdsland,
     søkerBosattINorgeSisteTreÅr,
   } = medlemskap;
 
-  const oppholderSegINorgeConfig = oppholderSegINorge(intl);
-
-  const [locale] = useSpråkContext();
   const land = hentLand(locale);
   const oppholdslandConfig = søkersOppholdsland(land);
 
-  const bosattINorgeDeSisteTreÅrConfig = bosattINorgeDeSisteFemÅr(intl);
+  const bosattINorgeDeSisteFemÅrConfig = bosattINorgeDeSisteFemÅr(intl);
+
+  const settBosattSisteFemÅr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+
+    settMedlemskap({
+      ...medlemskap,
+      søkerBosattINorgeSisteTreÅr: {
+        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        verdi: svar,
+      },
+    });
+  };
 
   const settMedlemskapBooleanFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
 
-    if (
-      spørsmål.søknadid === EMedlemskap.søkerOppholderSegINorge &&
-      valgtSvar.id === ESvar.JA &&
-      medlemskap.oppholdsland
-    ) {
-      delete medlemskap.oppholdsland;
-    }
-
-    if (
-      spørsmål.søknadid === EMedlemskap.søkerBosattINorgeSisteTreÅr &&
-      valgtSvar.id === ESvar.JA &&
-      medlemskap.perioderBoddIUtlandet
-    ) {
-      delete medlemskap.perioderBoddIUtlandet;
-    }
-
     settMedlemskap({
       ...medlemskap,
-      [spørsmål.søknadid]: {
+      søkerOppholderSegINorge: {
         label: intl.formatMessage({ id: spørsmål.tekstid }),
         verdi: svar,
       },
@@ -91,17 +82,12 @@ const Medlemskap: React.FC<Props> = ({ medlemskap, settMedlemskap }) => {
     }
   };
 
-  const valgtSvarOppholderSegINorge = hentValgtSvar(
-    oppholderSegINorgeConfig,
-    medlemskap
-  );
-
   return (
     <SeksjonGruppe aria-live="polite">
       <KomponentGruppe key={oppholderSegINorgeConfig.søknadid}>
         <JaNeiSpørsmål
           spørsmål={oppholderSegINorgeConfig}
-          valgtSvar={valgtSvarOppholderSegINorge}
+          valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap)}
           onChange={settMedlemskapBooleanFelt}
         />
       </KomponentGruppe>
@@ -121,23 +107,19 @@ const Medlemskap: React.FC<Props> = ({ medlemskap, settMedlemskap }) => {
           // eslint-disable-next-line no-prototype-builtins
           oppholdsland?.hasOwnProperty('verdi'))) && (
         <>
-          <KomponentGruppe key={bosattINorgeDeSisteTreÅrConfig.søknadid}>
+          <KomponentGruppe key={bosattINorgeDeSisteFemÅrConfig.søknadid}>
             <JaNeiSpørsmål
-              spørsmål={bosattINorgeDeSisteTreÅrConfig}
+              spørsmål={bosattINorgeDeSisteFemÅrConfig}
               valgtSvar={hentValgtSvar(
-                bosattINorgeDeSisteTreÅrConfig,
+                bosattINorgeDeSisteFemÅrConfig,
                 medlemskap
               )}
-              onChange={settMedlemskapBooleanFelt}
+              onChange={settBosattSisteFemÅr}
             />
           </KomponentGruppe>
 
           {søkerBosattINorgeSisteTreÅr?.verdi === false && (
-            <PeriodeBoddIUtlandet
-              medlemskap={medlemskap}
-              settMedlemskap={settMedlemskap}
-              land={land}
-            />
+            <PeriodeBoddIUtlandet land={land} />
           )}
         </>
       )}

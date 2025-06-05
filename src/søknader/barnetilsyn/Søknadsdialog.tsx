@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Routes } from 'react-router';
 import Forside from './Forside';
-import OmDeg from './steg/1-omdeg/OmDeg';
 import Bosituasjon from './steg/2-bosituasjon/Bosituasjon';
 import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
@@ -12,6 +11,9 @@ import Kvittering from './steg/9-kvittering/Kvittering';
 import Barnepass from './steg/6-barnepass/Barnepass';
 import RedirectTilStart from './RedirectTilStart';
 import Gjenbruk from './steg/0.5-gjenbruk/Gjenbruk';
+import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
+import { Stønadstype } from '../../models/søknad/stønadstyper';
+import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   return (
@@ -84,7 +86,9 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDeg />
+            <OmDegProvider stønadstype={Stønadstype.barnetilsyn}>
+              <OmDeg />
+            </OmDegProvider>
           </RedirectTilStart>
         }
       />
