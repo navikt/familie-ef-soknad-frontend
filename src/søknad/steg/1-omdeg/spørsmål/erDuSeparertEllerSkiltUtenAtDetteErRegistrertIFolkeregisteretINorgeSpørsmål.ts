@@ -2,14 +2,14 @@ import { SingleSelectSpørsmål } from '../../../../components/spørsmål/kompon
 
 export const erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorgeSpørsmål: SingleSelectSpørsmål =
   {
-    id: 'sivilstatus.spm.erUformeltSeparertEllerSkilt',
+    id: 'erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorge',
     spørsmålTekstKey: 'sivilstatus.spm.erUformeltSeparertEllerSkilt',
 
     type: 'single-select',
 
     svarAlternativ: [
-      { svarVerdi: 'ja', label: 'svar.ja' },
-      { svarVerdi: 'nei', label: 'svar.nei' },
+      { svarVerdi: 'Ja', label: 'svar.ja' },
+      { svarVerdi: 'Nei', label: 'svar.nei' },
     ],
     svarAlternativLayout: 'horizontal',
 

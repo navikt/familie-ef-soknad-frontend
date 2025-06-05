@@ -2,7 +2,7 @@ import { SingleSelectSpørsmål } from '../../../../components/spørsmål/kompon
 
 export const erDuGiftUtenAtDetErFolkeregistrertINorgeSpørsmål: SingleSelectSpørsmål =
   {
-    id: 'sivilstatus.spm.erUformeltGift',
+    id: 'erDuGiftUtenAtDetErFolkeregistrertINorge',
     spørsmålTekstKey: 'sivilstatus.spm.erUformeltGift',
 
     type: 'single-select',
@@ -18,7 +18,7 @@ export const erDuGiftUtenAtDetErFolkeregistrertINorgeSpørsmål: SingleSelectSp�
 
     alerts: [
       {
-        id: 'sivilstatus.alert.erUformeltGift',
+        id: 'alerterUformeltGift',
         alertTekstKey: 'sivilstatus.alert.erUformeltGift',
         alertVariant: 'info',
         visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',

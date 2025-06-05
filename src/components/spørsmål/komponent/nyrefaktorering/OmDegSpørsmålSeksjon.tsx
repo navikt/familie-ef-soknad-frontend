@@ -5,7 +5,7 @@ import { SpørsmålRenderer } from './SpørsmålRenderer';
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
   return (
-    <VStack gap="8">
+    <VStack gap={'8'}>
       <SpørsmålRenderer spørsmål={borDuPåDenneAdressenSpørsmål} />
     </VStack>
   );

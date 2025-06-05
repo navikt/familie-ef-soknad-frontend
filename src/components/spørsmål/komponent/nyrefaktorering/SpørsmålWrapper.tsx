@@ -26,7 +26,7 @@ export const SpørsmålWrapper: React.FC<{
   });
 
   return (
-    <VStack gap="4">
+    <VStack gap="6">
       <Heading size="xsmall" className={styles.heading}>
         {hentTekst(spørsmål.spørsmålTekstKey, intl)}
       </Heading>

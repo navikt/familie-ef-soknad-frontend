@@ -86,6 +86,9 @@ const Personopplysninger: React.FC<Props> = ({
 
       <OmDegSpørsmålSeksjon />
 
+      {/*TODO: Fjern denne, bare en linje som skiller nytt og gammelt.*/}
+      <div style={{ borderBottom: '1px solid #C6C2BF', width: '100%' }} />
+
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
