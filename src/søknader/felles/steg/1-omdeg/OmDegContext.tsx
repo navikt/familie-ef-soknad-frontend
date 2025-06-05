@@ -71,14 +71,21 @@ const [OmDegProvider, useOmDeg] = constate(
     })();
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
+    const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
 
     useEffect(() => {
       if (mellomlagretSøknad?.søknad.medlemskap) {
         settMedlemskap(mellomlagretSøknad.søknad.medlemskap);
       }
+      if (mellomlagretSøknad?.søknad.sivilstatus) {
+        settSivilstatus(mellomlagretSøknad.søknad.sivilstatus);
+      }
     }, [mellomlagretSøknad]);
 
     const mellomlagreOmDeg = () => {
+      //Const validermedlemskap(medlemskap: Imedlemskap)
+      // const oppdatertSøknad = {..søknad, medlemskap: validertmedlemskap, sivilstand: validertsivilstand etc}
+
       const oppdatertSøknad = validerMedlemskap({
         ...søknad,
         medlemskap: medlemskap,
@@ -94,6 +101,8 @@ const [OmDegProvider, useOmDeg] = constate(
     };
 
     return {
+      sivilstatus,
+      settSivilstatus,
       medlemskap,
       settMedlemskap,
       mellomlagreOmDeg,

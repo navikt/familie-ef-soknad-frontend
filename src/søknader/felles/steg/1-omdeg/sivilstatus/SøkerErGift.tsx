@@ -12,7 +12,6 @@ import { Alert } from '@navikt/ds-react';
 
 interface Props {
   settJaNeiFelt: (spørsmål: ISpørsmål, valgtSvar: ISvar) => void;
-  settDato: (date: string, objektnøkkel: string, tekst: string) => void;
   sivilstatus: ISivilstatus;
 }
 
@@ -20,11 +19,7 @@ const SøktSeparasjonAlert = styled(Alert)`
   margin-bottom: 3rem;
 `;
 
-const SøkerErGift: React.FC<Props> = ({
-  settJaNeiFelt,
-  settDato,
-  sivilstatus,
-}) => {
+const SøkerErGift: React.FC<Props> = ({ settJaNeiFelt, sivilstatus }) => {
   const separasjonsSpørsmål: ISpørsmål = harSøktSeparasjonSpørsmål(
     useLokalIntlContext()
   );
@@ -40,7 +35,7 @@ const SøkerErGift: React.FC<Props> = ({
         />
       </KomponentGruppe>
       {harSøktSeparasjon?.verdi ? (
-        <SøkerHarSøktSeparasjon sivilstatus={sivilstatus} settDato={settDato} />
+        <SøkerHarSøktSeparasjon />
       ) : (
         harSøktSeparasjon?.verdi === false && (
           <SøktSeparasjonAlert variant="warning" inline>

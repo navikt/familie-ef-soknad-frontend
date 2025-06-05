@@ -10,9 +10,7 @@ import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
-import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
-import Show from '../../../../utils/showIf';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from '../../../felles/steg/1-omdeg/OmDegContext';
@@ -65,15 +63,15 @@ const OmDeg: FC = () => {
     }));
   };
 
-  const settSivilstatus = (sivilstatus: ISivilstatus) => {
-    //TODO fix any
-    settSøknad((prevSoknad: any) => {
-      return {
-        ...prevSoknad,
-        sivilstatus: sivilstatus,
-      };
-    });
-  };
+  // const settSivilstatus = (sivilstatus: ISivilstatus) => {
+  //   //TODO fix any
+  //   settSøknad((prevSoknad: any) => {
+  //     return {
+  //       ...prevSoknad,
+  //       sivilstatus: sivilstatus,
+  //     };
+  //   });
+  // };
 
   const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
@@ -112,15 +110,11 @@ const OmDeg: FC = () => {
         stønadstype={stønadstype}
       />
 
-      <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
-        <Sivilstatus
-          sivilstatus={søknad.sivilstatus}
-          settSivilstatus={settSivilstatus}
-          settDokumentasjonsbehov={settDokumentasjonsbehov}
-        />
+      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && (
+        <Sivilstatus />
+      )}
 
-        {skalViseMedlemskapsdialog && <Medlemskap />}
-      </Show>
+      {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
 };

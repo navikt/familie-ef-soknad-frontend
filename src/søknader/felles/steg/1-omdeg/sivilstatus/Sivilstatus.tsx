@@ -5,10 +5,7 @@ import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { usePersonContext } from '../../../../../context/PersonContext';
-import {
-  ESivilstatusSøknadid,
-  ISivilstatus,
-} from '../../../../../models/steg/omDeg/sivilstatus';
+import { ESivilstatusSøknadid } from '../../../../../models/steg/omDeg/sivilstatus';
 import SpørsmålGiftSeparertEllerSkiltIkkeRegistrert from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
 import {
   erSøkerGift,
@@ -18,23 +15,11 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
 import { GjenbrukContext } from '../../../../../context/GjenbrukContext';
+import { useOmDeg } from '../OmDegContext';
 
-interface Props {
-  sivilstatus: ISivilstatus;
-  settSivilstatus: (sivilstatus: ISivilstatus) => void;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
-}
-
-const Sivilstatus: React.FC<Props> = ({
-  sivilstatus,
-  settSivilstatus,
-  settDokumentasjonsbehov,
-}) => {
+const Sivilstatus: React.FC = () => {
   const intl = useLokalIntlContext();
+  const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
   const { person } = usePersonContext();
   const sivilstand = person.søker.sivilstand;
   const { erUformeltGift, datoFlyttetFraHverandre, datoSøktSeparasjon } =
@@ -87,7 +72,6 @@ const Sivilstatus: React.FC<Props> = ({
       {erSøkerGift(sivilstand) && (
         <SøkerErGift
           settJaNeiFelt={settSivilstatusFelt}
-          settDato={settDato}
           sivilstatus={sivilstatus}
         />
       )}
