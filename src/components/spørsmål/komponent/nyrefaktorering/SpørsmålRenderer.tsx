@@ -1,3 +1,4 @@
+/*
 import React, { useState } from 'react';
 import { OppfølgningsSpørsmål, Spørsmål } from './Spørsmål';
 import { SingleSelectSpørsmålKomponent } from './spørsmåltyper/SingleSelectSpørsmålKomponent';
@@ -45,3 +46,4 @@ export const SpørsmålRenderer: React.FC<Props> = ({ spørsmål }) => {
     </>
   );
 };
+*/

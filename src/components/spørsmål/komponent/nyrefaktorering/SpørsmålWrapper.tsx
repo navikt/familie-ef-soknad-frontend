@@ -1,64 +1,24 @@
-import { BaseSpørsmål } from './Spørsmål';
 import React from 'react';
-import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import {
-  Alert,
-  BodyLong,
-  Heading,
-  Link,
-  ReadMore,
-  VStack,
-} from '@navikt/ds-react';
+import { Heading, ReadMore, VStack } from '@navikt/ds-react';
 import styles from './SpørsmålWrapper.module.css';
-import { hentTekst, hentTekstMedVariabel } from '../../../../utils/søknad';
 
 export const SpørsmålWrapper: React.FC<{
-  spørsmål: BaseSpørsmål;
-  valgtSvar?: string | null;
+  tittel: string;
+  lesMerTittel?: string;
+  lesMerTekst?: string;
   children: React.ReactNode;
-}> = ({ spørsmål, valgtSvar = null, children }) => {
-  const intl = useLokalIntlContext();
-
-  const synligeAlerts = spørsmål.alerts?.filter((alert) => {
-    if (alert.skalAlltidVises) return true;
-    if (alert.visAlertNår) return alert.visAlertNår({ valgtSvar });
-    return false;
-  });
-
+}> = ({ tittel, lesMerTittel, lesMerTekst, children }) => {
   return (
     <VStack gap="6">
       <Heading size="xsmall" className={styles.heading}>
-        {hentTekst(spørsmål.spørsmålTekstKey, intl)}
+        {tittel}
       </Heading>
 
-      {spørsmål.lesMerTittelKey && spørsmål.lesMerTekstKey && (
-        <ReadMore header={hentTekst(spørsmål.lesMerTittelKey, intl)}>
-          {hentTekst(spørsmål.lesMerTekstKey, intl)}
-        </ReadMore>
+      {lesMerTittel && lesMerTekst && (
+        <ReadMore header={lesMerTittel}>{lesMerTekst}</ReadMore>
       )}
 
       {children}
-
-      {synligeAlerts?.map((alert) => (
-        <Alert
-          key={alert.id}
-          variant={alert.alertVariant}
-          inline={alert.inline}
-          size={'small'}
-        >
-          <BodyLong>
-            {hentTekst(alert.alertTekstKey, intl)}
-            {alert.alertLink && (
-              <>
-                {' '}
-                <Link href={hentTekstMedVariabel(alert.alertLink.urlKey, intl)}>
-                  {hentTekst(alert.alertLink.linkLabelTekstKey, intl)}
-                </Link>
-              </>
-            )}
-          </BodyLong>
-        </Alert>
-      ))}
     </VStack>
   );
 };

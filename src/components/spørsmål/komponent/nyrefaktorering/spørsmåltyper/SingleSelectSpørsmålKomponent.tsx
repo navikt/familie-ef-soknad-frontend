@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { Box, Radio, RadioGroup } from '@navikt/ds-react';
 import styles from './SingleSelectSpørsmålKomponent.module.css';
@@ -48,3 +49,4 @@ export const SingleSelectSpørsmålKomponent: React.FC<{
     </SpørsmålWrapper>
   );
 };
+*/

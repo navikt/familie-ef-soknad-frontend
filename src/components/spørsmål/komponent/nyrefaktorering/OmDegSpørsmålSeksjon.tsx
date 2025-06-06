@@ -1,7 +1,6 @@
 import React from 'react';
-import { SpørsmålRenderer } from './SpørsmålRenderer';
-import { borDuPåDenneAdressenSpørsmål } from '../../../../søknad/steg/1-omdeg/spørsmål/borDuPåDenneAdressenSpørsmål';
+import { Personopplysningerv2 } from './kompleksespørsmål/Personopplysningerv2';
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
-  return <SpørsmålRenderer spørsmål={borDuPåDenneAdressenSpørsmål} />;
+  return <Personopplysningerv2 />;
 };
