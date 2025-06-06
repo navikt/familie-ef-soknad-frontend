@@ -2,7 +2,10 @@ import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
 import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
-import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
+import {
+  EBegrunnelse,
+  ISivilstatus,
+} from '../../../../models/steg/omDeg/sivilstatus';
 
 const validerOmDeg = (
   søknad: SøknadBarnetilsyn | SøknadOvergangsstønad | SøknadSkolepenger,
@@ -20,11 +23,15 @@ const validerSivilstatus = (sivilstatus: ISivilstatus) => {
   const skalFjerneDatoSøktSeparasjon =
     sivilstatus.harSøktSeparasjon?.verdi === false;
 
+  const skalFjerneDatoForSamlivsbrudd =
+    sivilstatus.årsakEnslig?.verdi !== EBegrunnelse.samlivsbruddForeldre;
+
   return {
     ...sivilstatus,
     ...(skalFjerneDatoSøktSeparasjon && {
       datoSøktSeparasjon: undefined,
     }),
+    ...(skalFjerneDatoForSamlivsbrudd && { datoForSamlivsbrudd: undefined }),
   };
 };
 

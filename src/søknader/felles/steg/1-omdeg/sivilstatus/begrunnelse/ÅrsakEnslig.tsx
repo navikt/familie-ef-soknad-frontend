@@ -30,26 +30,12 @@ import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext'
 import FormattedHtmlMessage from '../../../../../../language/FormattedHtmlMessage';
 import { Alert, Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
+import { useOmDeg } from '../../OmDegContext';
 
-interface Props {
-  sivilstatus: ISivilstatus;
-  settSivilstatus: (sivilstatus: ISivilstatus) => void;
-  settDato: (date: string, objektnøkkel: string, tekstid: string) => void;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
-}
-
-const ÅrsakEnslig: FC<Props> = ({
-  sivilstatus,
-  settSivilstatus,
-  settDato,
-  settDokumentasjonsbehov,
-}) => {
+const ÅrsakEnslig: FC = () => {
   const intl = useLokalIntlContext();
   const spørsmål: ISpørsmål = begrunnelseSpørsmål(intl);
+  const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
 
   const {
     årsakEnslig,
@@ -108,6 +94,20 @@ const ÅrsakEnslig: FC<Props> = ({
 
     // eslint-disable-next-line
   }, [erGyldigIdent, ident]);
+
+  const settDato = (
+    date: string,
+    objektnøkkel: string,
+    tekstid: string
+  ): void => {
+    settSivilstatus({
+      ...sivilstatus,
+      [objektnøkkel]: {
+        label: intl.formatMessage({ id: tekstid }),
+        verdi: date,
+      },
+    });
+  };
 
   const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
     settSamboerInfo({
@@ -209,10 +209,7 @@ const ÅrsakEnslig: FC<Props> = ({
       </KomponentGruppe>
 
       {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre && (
-        <DatoForSamlivsbrudd
-          settDato={settDato}
-          datoForSamlivsbrudd={datoForSamlivsbrudd}
-        />
+        <DatoForSamlivsbrudd />
       )}
 
       {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddAndre && (

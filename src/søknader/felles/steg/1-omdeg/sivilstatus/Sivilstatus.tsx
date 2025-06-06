@@ -7,30 +7,14 @@ import {
   erSøkerGift,
   erSøkerUGiftSkiltSeparertEllerEnke,
 } from '../../../../../utils/sivilstatus';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
 import { useOmDeg } from '../OmDegContext';
 
 const Sivilstatus: React.FC = () => {
-  const intl = useLokalIntlContext();
-  const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
+  const { sivilstatus } = useOmDeg();
   const { person } = usePersonContext();
   const sivilstand = person.søker.sivilstand;
-
-  const settDato = (
-    date: string,
-    objektnøkkel: string,
-    tekstid: string
-  ): void => {
-    settSivilstatus({
-      ...sivilstatus,
-      [objektnøkkel]: {
-        label: intl.formatMessage({ id: tekstid }),
-        verdi: date,
-      },
-    });
-  };
 
   return (
     <SeksjonGruppe aria-live="polite">
@@ -40,14 +24,7 @@ const Sivilstatus: React.FC = () => {
         <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert />
       )}
 
-      {erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) && (
-        <ÅrsakEnslig
-          sivilstatus={sivilstatus}
-          settSivilstatus={settSivilstatus}
-          settDato={settDato}
-          settDokumentasjonsbehov={settDokumentasjonsbehov}
-        />
-      )}
+      {erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) && <ÅrsakEnslig />}
     </SeksjonGruppe>
   );
 };
