@@ -140,7 +140,7 @@ export const Personopplysningerv2: React.FC = () => {
         tittel={hentTekst('personopplysninger.info.endreAdresse', intl)}
       >
         <BodyShort>
-          <LocaleTekst tekst={'personopplysninger.alert.riktigAdresse'} />
+          <LocaleTekst tekst={'personopplysninger.lenke.pdfskjema'} />
         </BodyShort>
       </SpørsmålWrapper>
     </VStack>
