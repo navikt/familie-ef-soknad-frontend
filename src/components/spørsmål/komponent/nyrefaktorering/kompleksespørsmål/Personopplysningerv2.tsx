@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import React, { useState } from 'react';
 import {
   Alert,
   BodyShort,
@@ -8,141 +7,166 @@ import {
   RadioGroup,
   VStack,
 } from '@navikt/ds-react';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
-import styles from '../spørsmåltyper/SingleSelectSpørsmålKomponent.module.css';
-import { SpørsmålWrapper } from '../SpørsmålWrapper';
 import LocaleTekst from '../../../../../language/LocaleTekst';
+import { SpørsmålWrapper } from '../SpørsmålWrapper';
+import styles from '../spørsmåltyper/SingleSelectSpørsmålKomponent.module.css';
 
 export const Personopplysningerv2: React.FC = () => {
   const intl = useLokalIntlContext();
 
+  const [borPåAdresse, settBorPåAdresse] = useState<string>();
+  const [meldtAdresseendring, settMeldtAdresseendring] = useState<string>();
+  const [erUformeltGift, settErUformeltGift] = useState<string>();
+  const [erUformeltSeparert, settErUformeltSeparert] = useState<string>();
+
   return (
     <VStack gap="6">
-      {/* Bor du på denne adressen? */}
+      {/* 1. Bor du på denne adressen? */}
       <SpørsmålWrapper
         tittel={hentTekst('personopplysninger.spm.riktigAdresse', intl)}
       >
         <RadioGroup
           legend={hentTekst('personopplysninger.spm.riktigAdresse', intl)}
-          hideLegend={true}
-          onChange={() => {}}
+          hideLegend
+          onChange={settBorPåAdresse}
+          value={borPåAdresse}
         >
           <div className={styles.stackHorizontal}>
             <Box className={styles.radioBox}>
-              <Radio value={'Ja'}>{hentTekst('svar.ja', intl)}</Radio>
+              <Radio value="ja">{hentTekst('svar.ja', intl)}</Radio>
             </Box>
             <Box className={styles.radioBox}>
-              <Radio value={'Nei'}>{hentTekst('svar.nei', intl)}</Radio>
+              <Radio value="nei">{hentTekst('svar.nei', intl)}</Radio>
             </Box>
           </div>
         </RadioGroup>
       </SpørsmålWrapper>
 
-      {/* Er du gift uten at er registrert i folkeregisteret i Norge? */}
-      <SpørsmålWrapper
-        tittel={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
-        lesMerTittel={hentTekst('sivilstatus.lesmer-åpne.erUformeltGift', intl)}
-        lesMerTekst={hentTekst(
-          'sivilstatus.lesmer-innhold.erUformeltGift',
-          intl
-        )}
-      >
-        <VStack gap={'6'}>
-          <RadioGroup
-            legend={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
-            hideLegend={true}
-            onChange={() => {}}
-          >
-            <div className={styles.stackHorizontal}>
-              <Box className={styles.radioBox}>
-                <Radio value={'Ja'}>{hentTekst('svar.ja', intl)}</Radio>
-              </Box>
-              <Box className={styles.radioBox}>
-                <Radio value={'Nei'}>{hentTekst('svar.nei', intl)}</Radio>
-              </Box>
-            </div>
-          </RadioGroup>
-
-          {/* Skal kun vises når bruker svarer "ja" på dette spørsmålet. */}
-          <Alert variant="info" inline={true}>
-            {hentTekst('sivilstatus.alert.erUformeltGift', intl)}
-          </Alert>
-        </VStack>
-      </SpørsmålWrapper>
-
-      {/* Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge? */}
-      <SpørsmålWrapper
-        tittel={hentTekst('sivilstatus.spm.erUformeltSeparertEllerSkilt', intl)}
-      >
-        <VStack gap={'6'}>
-          <RadioGroup
-            legend={hentTekst(
-              'sivilstatus.spm.erUformeltSeparertEllerSkilt',
-              intl
-            )}
-            hideLegend={true}
-            onChange={() => {}}
-          >
-            <div className={styles.stackHorizontal}>
-              <Box className={styles.radioBox}>
-                <Radio value={'Ja'}>{hentTekst('svar.ja', intl)}</Radio>
-              </Box>
-              <Box className={styles.radioBox}>
-                <Radio value={'Nei'}>{hentTekst('svar.nei', intl)}</Radio>
-              </Box>
-            </div>
-          </RadioGroup>
-
-          {/* Skal kun vises når bruker svarer "ja" på dette spørsmålet. */}
-          <Alert variant="info" inline={true}>
-            {hentTekst('sivilstatus.alert.erUformeltSeparertEllerSkilt', intl)}
-          </Alert>
-        </VStack>
-      </SpørsmålWrapper>
-
-      {/* Har du meldt adresseendring til Folkeregisteret? */}
-      <SpørsmålWrapper
-        tittel={hentTekst('personopplysninger.spm.meldtAdresseendring', intl)}
-      >
-        <VStack gap={'6'}>
+      {/* 2. Har du meldt adresseendring til Folkeregisteret? */}
+      {borPåAdresse === 'nei' && (
+        <SpørsmålWrapper
+          tittel={hentTekst('personopplysninger.spm.meldtAdresseendring', intl)}
+        >
           <RadioGroup
             legend={hentTekst(
               'personopplysninger.spm.meldtAdresseendring',
               intl
             )}
-            hideLegend={true}
-            onChange={() => {}}
+            hideLegend
+            onChange={settMeldtAdresseendring}
+            value={meldtAdresseendring}
           >
             <div className={styles.stackHorizontal}>
               <Box className={styles.radioBox}>
-                <Radio value={'Ja'}>{hentTekst('svar.ja', intl)}</Radio>
+                <Radio value="ja">{hentTekst('svar.ja', intl)}</Radio>
               </Box>
               <Box className={styles.radioBox}>
-                <Radio value={'Nei'}>{hentTekst('svar.nei', intl)}</Radio>
+                <Radio value="nei">{hentTekst('svar.nei', intl)}</Radio>
               </Box>
             </div>
           </RadioGroup>
 
-          {/* Skal kun vises når bruker svarer "ja" på dette spørsmålet. */}
-          <Alert variant="info" inline={true}>
-            {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
-          </Alert>
+          {meldtAdresseendring === 'ja' && (
+            <Alert variant="info" inline>
+              {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
+            </Alert>
+          )}
 
-          {/* Skal kun vises når bruker svarer "nei" på dette spørsmålet. */}
-          <Alert variant="warning">
-            <LocaleTekst tekst={'personopplysninger.alert.riktigAdresse'} />
-          </Alert>
-        </VStack>
-      </SpørsmålWrapper>
+          {meldtAdresseendring === 'nei' && (
+            <Alert variant="warning">
+              <LocaleTekst tekst="personopplysninger.alert.riktigAdresse" />
+            </Alert>
+          )}
+        </SpørsmålWrapper>
+      )}
 
-      {/* Skal du ikke endre adresse i Folkeregisteret? */}
-      <SpørsmålWrapper
-        tittel={hentTekst('personopplysninger.info.endreAdresse', intl)}
-      >
-        <BodyShort>
-          <LocaleTekst tekst={'personopplysninger.lenke.pdfskjema'} />
-        </BodyShort>
-      </SpørsmålWrapper>
+      {/* 3. Skal du ikke endre adresse i Folkeregisteret? */}
+      {meldtAdresseendring === 'nei' && (
+        <SpørsmålWrapper
+          tittel={hentTekst('personopplysninger.info.endreAdresse', intl)}
+        >
+          <BodyShort>
+            <LocaleTekst tekst="personopplysninger.lenke.pdfskjema" />
+          </BodyShort>
+        </SpørsmålWrapper>
+      )}
+
+      {/* 4. Er du gift uten at det er registrert i folkeregisteret i Norge? */}
+      {(borPåAdresse === 'ja' || meldtAdresseendring === 'ja') && (
+        <SpørsmålWrapper
+          tittel={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
+          lesMerTittel={hentTekst(
+            'sivilstatus.lesmer-åpne.erUformeltGift',
+            intl
+          )}
+          lesMerTekst={hentTekst(
+            'sivilstatus.lesmer-innhold.erUformeltGift',
+            intl
+          )}
+        >
+          <RadioGroup
+            legend={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
+            hideLegend
+            onChange={settErUformeltGift}
+            value={erUformeltGift}
+          >
+            <div className={styles.stackHorizontal}>
+              <Box className={styles.radioBox}>
+                <Radio value="ja">{hentTekst('svar.ja', intl)}</Radio>
+              </Box>
+              <Box className={styles.radioBox}>
+                <Radio value="nei">{hentTekst('svar.nei', intl)}</Radio>
+              </Box>
+            </div>
+          </RadioGroup>
+
+          {erUformeltGift === 'ja' && (
+            <Alert variant="info" inline>
+              {hentTekst('sivilstatus.alert.erUformeltGift', intl)}
+            </Alert>
+          )}
+        </SpørsmålWrapper>
+      )}
+
+      {/* 5. Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge? */}
+      {erUformeltGift && (
+        <SpørsmålWrapper
+          tittel={hentTekst(
+            'sivilstatus.spm.erUformeltSeparertEllerSkilt',
+            intl
+          )}
+        >
+          <RadioGroup
+            legend={hentTekst(
+              'sivilstatus.spm.erUformeltSeparertEllerSkilt',
+              intl
+            )}
+            hideLegend
+            onChange={settErUformeltSeparert}
+            value={erUformeltSeparert}
+          >
+            <div className={styles.stackHorizontal}>
+              <Box className={styles.radioBox}>
+                <Radio value="ja">{hentTekst('svar.ja', intl)}</Radio>
+              </Box>
+              <Box className={styles.radioBox}>
+                <Radio value="nei">{hentTekst('svar.nei', intl)}</Radio>
+              </Box>
+            </div>
+          </RadioGroup>
+
+          {erUformeltSeparert === 'ja' && (
+            <Alert variant="info" inline>
+              {hentTekst(
+                'sivilstatus.alert.erUformeltSeparertEllerSkilt',
+                intl
+              )}
+            </Alert>
+          )}
+        </SpørsmålWrapper>
+      )}
     </VStack>
   );
 };
