@@ -8,8 +8,8 @@ export const erDuGiftUtenAtDetErFolkeregistrertINorgeSpørsmål: SingleSelectSp�
     type: 'single-select',
 
     svarAlternativ: [
-      { svarVerdi: 'ja', label: 'svar.ja' },
-      { svarVerdi: 'nei', label: 'svar.nei' },
+      { svarVerdi: 'Ja', label: 'svar.ja' },
+      { svarVerdi: 'Nei', label: 'svar.nei' },
     ],
     svarAlternativLayout: 'horizontal',
 
