@@ -21,6 +21,14 @@ export const Personopplysningerv2: React.FC = () => {
   const [erUformeltGift, settErUformeltGift] = useState<string>();
   const [erUformeltSeparert, settErUformeltSeparert] = useState<string>();
 
+  const skalViseMeldtAdresseendring = borPåAdresse === 'nei';
+  const skalViseErUformeltGift =
+    borPåAdresse === 'ja' ||
+    (borPåAdresse === 'nei' && meldtAdresseendring === 'ja');
+  const skalViseEndreAdresse =
+    borPåAdresse === 'nei' && meldtAdresseendring === 'nei';
+  const skalViseSeparertSpørsmål = erUformeltGift !== undefined;
+
   return (
     <VStack gap="6">
       {/* 1. Bor du på denne adressen? */}
@@ -45,7 +53,7 @@ export const Personopplysningerv2: React.FC = () => {
       </SpørsmålWrapper>
 
       {/* 2. Har du meldt adresseendring til Folkeregisteret? */}
-      {borPåAdresse === 'nei' && (
+      {skalViseMeldtAdresseendring && (
         <SpørsmålWrapper
           tittel={hentTekst('personopplysninger.spm.meldtAdresseendring', intl)}
         >
@@ -83,7 +91,7 @@ export const Personopplysningerv2: React.FC = () => {
       )}
 
       {/* 3. Skal du ikke endre adresse i Folkeregisteret? */}
-      {meldtAdresseendring === 'nei' && (
+      {skalViseEndreAdresse && (
         <SpørsmålWrapper
           tittel={hentTekst('personopplysninger.info.endreAdresse', intl)}
         >
@@ -94,7 +102,7 @@ export const Personopplysningerv2: React.FC = () => {
       )}
 
       {/* 4. Er du gift uten at det er registrert i folkeregisteret i Norge? */}
-      {(borPåAdresse === 'ja' || meldtAdresseendring === 'ja') && (
+      {skalViseErUformeltGift && (
         <SpørsmålWrapper
           tittel={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
           lesMerTittel={hentTekst(
@@ -130,8 +138,8 @@ export const Personopplysningerv2: React.FC = () => {
         </SpørsmålWrapper>
       )}
 
-      {/* 5. Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge? */}
-      {erUformeltGift && (
+      {/* 5. Er du separert/skilt uten at det er registrert i Norge? */}
+      {skalViseSeparertSpørsmål && (
         <SpørsmålWrapper
           tittel={hentTekst(
             'sivilstatus.spm.erUformeltSeparertEllerSkilt',
