@@ -38,7 +38,7 @@ export const hvorforErDuAleneMedBarnSpørsmål: SingleSelectSpørsmål = {
       id: 'alertDødsfall',
       alertTekstKey: 'sivilstatus.alert.dødsfall',
       alertVariant: 'info',
-
+      inline: true,
       visAlertNår: ({ valgtSvar }) =>
         valgtSvar === 'jegErAleneMedBarnPåGrunnAvDødsfall',
     },

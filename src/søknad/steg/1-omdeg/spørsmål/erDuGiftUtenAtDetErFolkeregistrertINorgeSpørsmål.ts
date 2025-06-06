@@ -21,6 +21,7 @@ export const erDuGiftUtenAtDetErFolkeregistrertINorgeSpørsmål: SingleSelectSp�
         id: 'alerterUformeltGift',
         alertTekstKey: 'sivilstatus.alert.erUformeltGift',
         alertVariant: 'info',
+        inline: true,
         visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',
       },
     ],

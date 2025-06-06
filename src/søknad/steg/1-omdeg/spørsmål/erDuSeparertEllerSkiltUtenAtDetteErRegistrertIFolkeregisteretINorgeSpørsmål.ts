@@ -18,6 +18,7 @@ export const erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorge
         id: 'sivilstatus.alert.erUformeltSeparertEllerSkilt',
         alertTekstKey: 'sivilstatus.alert.erUformeltSeparertEllerSkilt',
         alertVariant: 'info',
+        inline: true,
         visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',
       },
     ],

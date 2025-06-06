@@ -35,6 +35,7 @@ export interface SpørsmålAlert {
     linkLabelTekstKey: string;
   };
 
+  inline: boolean;
   skalAlltidVises?: boolean;
   visAlertNår?: (input: Record<string, any>) => boolean;
 }

@@ -12,14 +12,14 @@ export const harDuMeldtAdresseendringTilFolkeregisteretSpørsmål: SingleSelectS
         id: 'alertMeldtAdresseEndring',
         alertTekstKey: 'personopplysninger.alert.meldtAdresseendring',
         alertVariant: 'info',
-
+        inline: true,
         visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',
       },
       {
         id: 'alertRiktigAdresse',
         alertTekstKey: 'personopplysninger.alert.riktigAdresse',
         alertVariant: 'warning',
-
+        inline: false,
         visAlertNår: ({ valgtSvar }) => valgtSvar === 'Nei',
       },
     ],

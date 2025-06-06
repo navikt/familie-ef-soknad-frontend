@@ -40,7 +40,12 @@ export const SpørsmålWrapper: React.FC<{
       {children}
 
       {synligeAlerts?.map((alert) => (
-        <Alert key={alert.id} variant={alert.alertVariant}>
+        <Alert
+          key={alert.id}
+          variant={alert.alertVariant}
+          inline={alert.inline}
+          size={'small'}
+        >
           <BodyLong>
             {hentTekst(alert.alertTekstKey, intl)}
             {alert.alertLink && (
