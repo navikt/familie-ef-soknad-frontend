@@ -26,12 +26,16 @@ const validerSivilstatus = (sivilstatus: ISivilstatus) => {
   const skalFjerneDatoForSamlivsbrudd =
     sivilstatus.årsakEnslig?.verdi !== EBegrunnelse.samlivsbruddForeldre;
 
+  const skalFjerneDatoEndretSamvær =
+    sivilstatus.årsakEnslig?.verdi !== EBegrunnelse.endringISamværsordning;
+
   return {
     ...sivilstatus,
     ...(skalFjerneDatoSøktSeparasjon && {
       datoSøktSeparasjon: undefined,
     }),
     ...(skalFjerneDatoForSamlivsbrudd && { datoForSamlivsbrudd: undefined }),
+    ...(skalFjerneDatoEndretSamvær && { datoEndretSamvær: undefined }),
   };
 };
 

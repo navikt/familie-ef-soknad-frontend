@@ -255,10 +255,7 @@ const ÅrsakEnslig: FC = () => {
       )}
 
       {årsakEnslig?.svarid === EBegrunnelse.endringISamværsordning && (
-        <EndringISamvær
-          settDato={settDato}
-          datoEndretSamvær={datoEndretSamvær}
-        />
+        <EndringISamvær />
       )}
 
       {årsakEnslig?.svarid === EBegrunnelse.dødsfall && (
