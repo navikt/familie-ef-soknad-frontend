@@ -24,6 +24,7 @@ const OmDeg: FC = () => {
     : ESide.visTilbakeTilOppsummeringKnapp;
 
   const {
+    sivilstatus,
     medlemskap,
     mellomlagreOmDeg,
     stønadstype,
@@ -34,7 +35,6 @@ const OmDeg: FC = () => {
     settSøknad,
   } = useOmDeg();
 
-  const { sivilstatus } = søknad;
   const { søker } = søknad.person;
 
   const settSøkerBorPåRegistrertAdresse = (

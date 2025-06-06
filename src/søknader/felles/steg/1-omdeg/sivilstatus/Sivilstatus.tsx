@@ -1,11 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import SøkerErGift from './SøkerErGift';
-import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
-import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { usePersonContext } from '../../../../../context/PersonContext';
-import { ESivilstatusSøknadid } from '../../../../../models/steg/omDeg/sivilstatus';
 import SpørsmålGiftSeparertEllerSkiltIkkeRegistrert from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
 import {
   erSøkerGift,
@@ -14,7 +10,6 @@ import {
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
-import { GjenbrukContext } from '../../../../../context/GjenbrukContext';
 import { useOmDeg } from '../OmDegContext';
 
 const Sivilstatus: React.FC = () => {
@@ -22,36 +17,35 @@ const Sivilstatus: React.FC = () => {
   const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
   const { person } = usePersonContext();
   const sivilstand = person.søker.sivilstand;
-  const { erUformeltGift, datoFlyttetFraHverandre, datoSøktSeparasjon } =
-    sivilstatus;
-  const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
+  // const { datoFlyttetFraHverandre, datoSøktSeparasjon } = sivilstatus;
+  // const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
 
-  const gjenbrukerSøknadOgHarUbesvartSeparsjonsspørsmål = () =>
-    skalGjenbrukeSøknad && sivilstatus.harSøktSeparasjon === undefined;
-  const settSivilstatusFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const spørsmålLabel = hentTekst(spørsmål.tekstid, intl);
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-
-    const nySivilstatus = {
-      ...sivilstatus,
-      [spørsmål.søknadid]: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: spørsmålLabel,
-        verdi: svar,
-      },
-    };
-    if (
-      spørsmål.søknadid === ESivilstatusSøknadid.harSøktSeparasjon &&
-      !gjenbrukerSøknadOgHarUbesvartSeparsjonsspørsmål()
-    ) {
-      datoSøktSeparasjon && delete nySivilstatus.datoSøktSeparasjon;
-      datoFlyttetFraHverandre && delete nySivilstatus.datoFlyttetFraHverandre;
-    }
-
-    settSivilstatus(nySivilstatus);
-    settDokumentasjonsbehov(spørsmål, valgtSvar);
-  };
+  // const gjenbrukerSøknadOgHarUbesvartSeparsjonsspørsmål = () =>
+  //   skalGjenbrukeSøknad && sivilstatus.harSøktSeparasjon === undefined;
+  // const settSivilstatusFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+  //   const spørsmålLabel = hentTekst(spørsmål.tekstid, intl);
+  //   const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+  //
+  //   const nySivilstatus = {
+  //     ...sivilstatus,
+  //     [spørsmål.søknadid]: {
+  //       spørsmålid: spørsmål.søknadid,
+  //       svarid: valgtSvar.id,
+  //       label: spørsmålLabel,
+  //       verdi: svar,
+  //     },
+  //   };
+  //   if (
+  //     spørsmål.søknadid === ESivilstatusSøknadid.harSøktSeparasjon &&
+  //     !gjenbrukerSøknadOgHarUbesvartSeparsjonsspørsmål()
+  //   ) {
+  //     datoSøktSeparasjon && delete nySivilstatus.datoSøktSeparasjon;
+  //     datoFlyttetFraHverandre && delete nySivilstatus.datoFlyttetFraHverandre;
+  //   }
+  //
+  //   settSivilstatus(nySivilstatus);
+  //   settDokumentasjonsbehov(spørsmål, valgtSvar);
+  // };
 
   const settDato = (
     date: string,
@@ -72,11 +66,7 @@ const Sivilstatus: React.FC = () => {
       {erSøkerGift(sivilstand) && <SøkerErGift />}
 
       {erSøkerUGiftSkiltSeparertEllerEnke(sivilstand) && (
-        <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert
-          erUformeltGift={erUformeltGift}
-          settSivilstatusFelt={settSivilstatusFelt}
-          sivilstatus={sivilstatus}
-        />
+        <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert />
       )}
 
       {erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) && (
