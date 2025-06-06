@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import {
   Checkbox,
@@ -10,14 +10,13 @@ import {
   useDatepicker,
 } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/søknad';
+import { identErGyldig } from '../../../../../utils/validering/validering';
 
 export const OmDenTidligereSamboerenDin: React.FC = () => {
   const intl = useLokalIntlContext();
 
-  const personIdentErrorText: string | undefined = hentTekst(
-    'person.feilmelding.ident',
-    intl
-  );
+  const [ident, settIdent] = useState('');
+  const [visFeil, settVisFeil] = useState(false);
 
   const handleCheckboxChange = (val: string[]) => {
     console.info('Checkbox selected:', val);
@@ -33,6 +32,19 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
       console.info('Flyttet fra hverandre dato valgt:', date),
   });
 
+  // Liten debounce som stopper feilmelding fra å dukke opp sekundet bruker skriver.
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (ident.trim() !== '') {
+        settVisFeil(!identErGyldig(ident));
+      } else {
+        settVisFeil(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [ident]);
+
   return (
     <VStack gap="6" align="start">
       <Heading size="small">
@@ -43,7 +55,11 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
 
       <TextField
         label={hentTekst('person.ident', intl)}
-        error={personIdentErrorText}
+        value={ident}
+        onChange={(e) => settIdent(e.target.value)}
+        error={
+          visFeil ? hentTekst('person.feilmelding.ident', intl) : undefined
+        }
       />
 
       <CheckboxGroup
