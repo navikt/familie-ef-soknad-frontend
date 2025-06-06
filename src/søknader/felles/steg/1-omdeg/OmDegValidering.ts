@@ -1,32 +1,47 @@
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
 import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
+import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 
-const validerMedlemskap = (
-  søknad: SøknadBarnetilsyn | SøknadOvergangsstønad | SøknadSkolepenger
+const validerOmDeg = (
+  søknad: SøknadBarnetilsyn | SøknadOvergangsstønad | SøknadSkolepenger,
+  sivilstatus: ISivilstatus,
+  medlemskap: IMedlemskap
 ): typeof søknad => {
-  const medlemskap = søknad.medlemskap;
+  return {
+    ...søknad,
+    sivilstatus: validerSivilstatus(sivilstatus),
+    medlemskap: validerMedlemskap(medlemskap),
+  };
+};
 
-  //TODO Sjekke om alle spørsmål er besvart
+const validerSivilstatus = (sivilstatus: ISivilstatus) => {
+  const skalFjerneDatoSøktSeparasjon =
+    sivilstatus.harSøktSeparasjon?.verdi === false;
 
+  return {
+    ...sivilstatus,
+    ...(skalFjerneDatoSøktSeparasjon && {
+      datoSøktSeparasjon: undefined,
+    }),
+  };
+};
+
+const validerMedlemskap = (medlemskap: IMedlemskap) => {
   const skalFjernePerioderBoddIUtlandet =
     medlemskap.søkerBosattINorgeSisteTreÅr?.verdi === true;
 
   const skalFjerneOppholdsland =
     medlemskap.søkerOppholderSegINorge?.verdi === true;
 
-  const oppdatertMedlemskap = {
+  return {
     ...medlemskap,
     ...(skalFjernePerioderBoddIUtlandet && {
       perioderBoddIUtlandet: undefined,
     }),
     ...(skalFjerneOppholdsland && { oppholdsland: undefined }),
   };
-
-  return {
-    ...søknad,
-    medlemskap: oppdatertMedlemskap,
-  };
 };
 
-export { validerMedlemskap };
+export { validerOmDeg };
