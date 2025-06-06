@@ -17,35 +17,6 @@ const Sivilstatus: React.FC = () => {
   const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
   const { person } = usePersonContext();
   const sivilstand = person.søker.sivilstand;
-  // const { datoFlyttetFraHverandre, datoSøktSeparasjon } = sivilstatus;
-  // const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
-
-  // const gjenbrukerSøknadOgHarUbesvartSeparsjonsspørsmål = () =>
-  //   skalGjenbrukeSøknad && sivilstatus.harSøktSeparasjon === undefined;
-  // const settSivilstatusFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-  //   const spørsmålLabel = hentTekst(spørsmål.tekstid, intl);
-  //   const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-  //
-  //   const nySivilstatus = {
-  //     ...sivilstatus,
-  //     [spørsmål.søknadid]: {
-  //       spørsmålid: spørsmål.søknadid,
-  //       svarid: valgtSvar.id,
-  //       label: spørsmålLabel,
-  //       verdi: svar,
-  //     },
-  //   };
-  //   if (
-  //     spørsmål.søknadid === ESivilstatusSøknadid.harSøktSeparasjon &&
-  //     !gjenbrukerSøknadOgHarUbesvartSeparsjonsspørsmål()
-  //   ) {
-  //     datoSøktSeparasjon && delete nySivilstatus.datoSøktSeparasjon;
-  //     datoFlyttetFraHverandre && delete nySivilstatus.datoFlyttetFraHverandre;
-  //   }
-  //
-  //   settSivilstatus(nySivilstatus);
-  //   settDokumentasjonsbehov(spørsmål, valgtSvar);
-  // };
 
   const settDato = (
     date: string,

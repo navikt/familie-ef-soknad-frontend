@@ -13,7 +13,7 @@ import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useOmDeg } from '../../../felles/steg/1-omdeg/OmDegContext';
+import { useOmDeg } from './OmDegContext';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -63,16 +63,6 @@ const OmDeg: FC = () => {
     }));
   };
 
-  // const settSivilstatus = (sivilstatus: ISivilstatus) => {
-  //   //TODO fix any
-  //   settSøknad((prevSoknad: any) => {
-  //     return {
-  //       ...prevSoknad,
-  //       sivilstatus: sivilstatus,
-  //     };
-  //   });
-  // };
-
   const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
@@ -94,7 +84,6 @@ const OmDeg: FC = () => {
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       skalViseKnapper={skalViseKnapper}
       routesStønad={routes}
-      // mellomlagreStønad={mellomlagreBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsumering}
       mellomlagreSøknad={mellomlagreOmDeg}
     >
