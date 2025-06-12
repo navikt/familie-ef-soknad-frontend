@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import DatoForSamlivsbrudd from './DatoForSamlivsbrudd';
 import EndringISamvær from './EndringISamvær';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
@@ -7,7 +7,6 @@ import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSv
 import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
-import IdentEllerFødselsdatoGruppe from '../../../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import {
   hentSvarAlertFraSpørsmål,
   hentTekst,
@@ -20,10 +19,6 @@ import {
   ISpørsmål,
   ISvar,
 } from '../../../../../../models/felles/spørsmålogsvar';
-import {
-  EPersonDetaljer,
-  IPersonDetaljer,
-} from '../../../../../../models/søknad/person';
 import LocaleTekst from '../../../../../../language/LocaleTekst';
 import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
@@ -31,6 +26,7 @@ import FormattedHtmlMessage from '../../../../../../language/FormattedHtmlMessag
 import { Alert, Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { useOmDeg } from '../../OmDegContext';
+import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
 
 const ÅrsakEnslig: FC = () => {
   const intl = useLokalIntlContext();
@@ -44,56 +40,6 @@ const ÅrsakEnslig: FC = () => {
     datoEndretSamvær,
     tidligereSamboerDetaljer,
   } = sivilstatus;
-
-  const [samboerInfo, settSamboerInfo] = useState<IPersonDetaljer>(
-    tidligereSamboerDetaljer
-      ? tidligereSamboerDetaljer
-      : { kjennerIkkeIdent: false }
-  );
-
-  const [erGyldigIdent, settGyldigIdent] = useState<boolean>(
-    !!tidligereSamboerDetaljer?.ident?.verdi
-  );
-
-  const [ident, settIdent] = useState<string>(
-    samboerInfo?.ident ? samboerInfo?.ident.verdi : ''
-  );
-
-  useEffect(() => {
-    samlivsbruddAndre &&
-      settSivilstatus({
-        ...sivilstatus,
-        tidligereSamboerDetaljer: samboerInfo,
-      });
-    // eslint-disable-next-line
-  }, [samboerInfo, datoFlyttetFraHverandre]);
-
-  useEffect(() => {
-    erGyldigIdent &&
-      settSamboerInfo({
-        ...samboerInfo,
-        [EPersonDetaljer.ident]: {
-          label: hentTekst('person.ident', intl),
-          verdi: ident,
-        },
-      });
-
-    const harGyldigSamboerInfo =
-      erGyldigIdent ||
-      (samboerInfo.kjennerIkkeIdent && samboerInfo.fødselsdato);
-
-    if (!harGyldigSamboerInfo && samlivsbruddAndre) {
-      const nySamboerInfo = { ...samboerInfo };
-      const nySivilstatus = { ...sivilstatus };
-      delete nySamboerInfo.ident;
-      delete nySivilstatus.datoFlyttetFraHverandre;
-
-      settSamboerInfo(nySamboerInfo);
-      settSivilstatus(nySivilstatus);
-    }
-
-    // eslint-disable-next-line
-  }, [erGyldigIdent, ident]);
 
   const settDato = (
     date: string,
@@ -110,41 +56,15 @@ const ÅrsakEnslig: FC = () => {
   };
 
   const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
-    settSamboerInfo({
-      ...samboerInfo,
-      [EPersonDetaljer.navn]: {
-        label: hentTekst('person.navn', intl),
-        verdi: e.currentTarget.value,
-      },
-    });
-  };
-
-  const oppdaterIdent = (e: React.FormEvent<HTMLInputElement>) => {
-    settIdent(e.currentTarget.value);
-  };
-
-  const hvisGyldigIdentSettIdentISamboerDetaljer = (erGyldig: boolean) => {
-    settGyldigIdent(erGyldig);
-  };
-
-  const settChecked = (checked: boolean) => {
-    const endretSamboerInfo = samboerInfo;
-    if (checked && endretSamboerInfo.ident?.verdi) {
-      delete endretSamboerInfo.ident;
-      settIdent('');
-    }
-    if (!checked && endretSamboerInfo.fødselsdato?.verdi)
-      delete endretSamboerInfo.fødselsdato;
-
-    settSamboerInfo({ ...endretSamboerInfo, kjennerIkkeIdent: checked });
-  };
-
-  const settFødselsdato = (date: string) => {
-    settSamboerInfo({
-      ...samboerInfo,
-      fødselsdato: {
-        label: hentTekst('datovelger.fødselsdato', intl),
-        verdi: date,
+    settSivilstatus({
+      ...sivilstatus,
+      tidligereSamboerDetaljer: {
+        ...tidligereSamboerDetaljer,
+        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
+        navn: {
+          label: hentTekst('person.navn', intl),
+          verdi: e.currentTarget.value,
+        },
       },
     });
   };
@@ -226,26 +146,17 @@ const ÅrsakEnslig: FC = () => {
               type="text"
               bredde={'L'}
               onChange={(e) => settNavn(e)}
-              value={samboerInfo?.navn?.verdi}
+              value={tidligereSamboerDetaljer?.navn?.verdi}
             />
           </FeltGruppe>
           <FeltGruppe>
-            <IdentEllerFødselsdatoGruppe
-              identLabel={hentTekst('person.ident', intl)}
-              datoLabel={hentTekst('datovelger.fødselsdato', intl)}
-              checkboxLabel={hentTekst('person.checkbox.ident', intl)}
-              ident={ident && !samboerInfo.kjennerIkkeIdent ? ident : ''}
-              fødselsdato={samboerInfo.fødselsdato?.verdi || ''}
-              checked={samboerInfo?.kjennerIkkeIdent}
-              erGyldigIdent={erGyldigIdent}
-              settGyldigIdent={hvisGyldigIdentSettIdentISamboerDetaljer}
-              settFødselsdato={settFødselsdato}
-              settChecked={settChecked}
-              settIdent={oppdaterIdent}
-            />
+            <OmDenTidligereSamboerenDin />
           </FeltGruppe>
 
-          {harFyltUtSamboerDetaljer(samboerInfo, false) && (
+          {harFyltUtSamboerDetaljer(
+            tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
+            false
+          ) && (
             <NårFlyttetDereFraHverandre
               settDato={settDato}
               datoFlyttetFraHverandre={datoFlyttetFraHverandre}
