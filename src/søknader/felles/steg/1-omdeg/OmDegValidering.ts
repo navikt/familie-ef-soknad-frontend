@@ -1,10 +1,6 @@
-import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
-import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { Søknad } from '../../../../models/søknad/søknad';
 
-const validerMedlemskap = (
-  søknad: SøknadBarnetilsyn | SøknadOvergangsstønad | SøknadSkolepenger
-): typeof søknad => {
+const validerMedlemskap = <T extends Søknad>(søknad: T): T => {
   const medlemskap = søknad.medlemskap;
 
   //TODO Sjekke om alle spørsmål er besvart

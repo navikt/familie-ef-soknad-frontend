@@ -12,7 +12,7 @@ import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../models/søknad';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';

@@ -17,7 +17,7 @@ import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { årsakBarnepass } from './BarnepassConfig';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 
 interface Props {
   barn: IBarn;

@@ -23,7 +23,7 @@ import { IBosituasjon } from '../models/steg/bosituasjon';
 import { IAksjeselskap, IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
-import { SøknadOvergangsstønad } from '../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
 import { IArbeidsgiver } from '../models/steg/aktivitet/arbeidsgiver';
 import { IArbeidssøker } from '../models/steg/aktivitet/arbeidssøker';
 import { IFirma } from '../models/steg/aktivitet/firma';

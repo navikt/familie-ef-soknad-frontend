@@ -1,4 +1,4 @@
-import { LocationStateSøknad } from '../models/søknad/søknad';
+import { LocationStateSøknad } from '../søknader/overgangsstønad/models/søknad';
 
 function erAvTypen<T>(
   given: unknown

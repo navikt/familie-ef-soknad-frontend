@@ -24,7 +24,7 @@ import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpø
 import LocaleTekst from '../../../../language/LocaleTekst';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { hentPathBarnetilsynOppsummering } from '../../utils';
+import { pathOppsummeringBarnetilsyn } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
@@ -154,7 +154,7 @@ const Aktivitet: React.FC = () => {
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}
-      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <SeksjonGruppe aria-live="polite">
         <KomponentGruppe>

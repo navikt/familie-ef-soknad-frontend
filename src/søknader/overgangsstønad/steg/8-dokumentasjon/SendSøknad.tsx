@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../models/søknad';
 import { parseISO } from 'date-fns';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { useLocation } from 'react-router';

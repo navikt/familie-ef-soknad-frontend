@@ -11,7 +11,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { IBarnepass, IBarnepassOrdning } from '../../models/barnepass';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 
 interface Props {
   barn: IBarn;

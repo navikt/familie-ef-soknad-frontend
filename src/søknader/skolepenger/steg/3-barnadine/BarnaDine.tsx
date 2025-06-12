@@ -3,7 +3,7 @@ import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { RoutesSkolepenger } from '../../routing/routes';
-import { hentPathSkolepengerOppsummering } from '../../utils';
+import { pathOppsummeringSkolepenger } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
@@ -34,7 +34,7 @@ const BarnaDine: React.FC = () => {
         erSpørsmålBesvart={harMinstEttBarn}
         routesStønad={RoutesSkolepenger}
         mellomlagreStønad={mellomlagreSkolepenger}
-        tilbakeTilOppsummeringPath={hentPathSkolepengerOppsummering}
+        tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
         informasjonstekstId="barnadine.skolepenger.info.brukpdf"
       >
         <BarnaDineInnhold

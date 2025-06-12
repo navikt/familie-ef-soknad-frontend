@@ -1,74 +1,39 @@
 import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { useBarnetilsynSøknad } from '../../../barnetilsyn/BarnetilsynContext';
-import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
-import { useSkolepengerSøknad } from '../../../skolepenger/SkolepengerContext';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { RoutesBarnetilsyn } from '../../../barnetilsyn/routing/routesBarnetilsyn';
-import { RoutesOvergangsstonad } from '../../../overgangsstønad/routing/routesOvergangsstonad';
-import { RoutesSkolepenger } from '../../../skolepenger/routing/routes';
-import { hentPathBarnetilsynOppsummering } from '../../../barnetilsyn/utils';
-import { hentPathOvergangsstønadOppsummering } from '../../../overgangsstønad/utils';
-import { hentPathSkolepengerOppsummering } from '../../../skolepenger/utils';
 import { validerMedlemskap } from './OmDegValidering';
+import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
+import { IRoute } from '../../../../models/routes';
+import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 
-const [OmDegProvider, useOmDeg] = constate(
-  ({ stønadstype }: { stønadstype: Stønadstype }) => {
-    const barnetilsynKontekst = useBarnetilsynSøknad();
-    const overgangsstønadKontekst = useOvergangsstønadSøknad();
-    const skolepengerKontekst = useSkolepengerSøknad();
+export interface Props<T extends Søknad> {
+  stønadstype: Stønadstype;
+  søknad: T;
+  oppdaterSøknad: (søknad: T) => void;
+  mellomlagretSøknad: MellomlagretSøknad | undefined;
+  mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
+  routes: IRoute[];
+  pathOppsummering: string | undefined;
+  settDokumentasjonsbehov: (
+    spørsmål: ISpørsmål,
+    valgtSvar: ISvar,
+    erHuketAv?: boolean
+  ) => void;
+}
+
+export const [OmDegProvider, useOmDeg] = constate(
+  ({
+    stønadstype,
+    søknad,
+    oppdaterSøknad,
+    mellomlagretSøknad,
+    mellomlagreSøknad,
+    routes,
+    pathOppsummering,
+    settDokumentasjonsbehov,
+  }: Props<Søknad>) => {
     const location = useLocation();
-
-    const {
-      søknad,
-      settSøknad,
-      mellomlagretSøknad,
-      mellomlagreSøknad2,
-      routes,
-      pathOppsumering,
-      settDokumentasjonsbehov,
-    } = (() => {
-      switch (stønadstype) {
-        case Stønadstype.barnetilsyn:
-          return {
-            søknad: barnetilsynKontekst.søknad,
-            settSøknad: barnetilsynKontekst.settSøknad,
-            mellomlagretSøknad: barnetilsynKontekst.mellomlagretBarnetilsyn,
-            mellomlagreSøknad2: barnetilsynKontekst.mellomlagreBarnetilsyn2,
-            routes: RoutesBarnetilsyn,
-            pathOppsumering: hentPathBarnetilsynOppsummering,
-            settDokumentasjonsbehov:
-              barnetilsynKontekst.settDokumentasjonsbehov,
-          };
-        case Stønadstype.overgangsstønad:
-          return {
-            søknad: overgangsstønadKontekst.søknad,
-            settSøknad: overgangsstønadKontekst.settSøknad,
-            mellomlagretSøknad:
-              overgangsstønadKontekst.mellomlagretOvergangsstønad,
-            mellomlagreSøknad2:
-              overgangsstønadKontekst.mellomlagreOvergangsstønad2,
-            routes: RoutesOvergangsstonad,
-            pathOppsumering: hentPathOvergangsstønadOppsummering,
-            settDokumentasjonsbehov:
-              overgangsstønadKontekst.settDokumentasjonsbehov,
-          };
-        case Stønadstype.skolepenger:
-          return {
-            søknad: skolepengerKontekst.søknad,
-            settSøknad: skolepengerKontekst.settSøknad,
-            mellomlagretSøknad: skolepengerKontekst.mellomlagretSkolepenger,
-            mellomlagreSøknad2: skolepengerKontekst.mellomlagreSkolepenger2,
-            routes: RoutesSkolepenger,
-            pathOppsumering: hentPathSkolepengerOppsummering,
-            settDokumentasjonsbehov:
-              skolepengerKontekst.settDokumentasjonsbehov,
-          };
-        default:
-          throw new Error('Ukjent stønadstype i omDegContext');
-      }
-    })();
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
 
@@ -78,33 +43,27 @@ const [OmDegProvider, useOmDeg] = constate(
       }
     }, [mellomlagretSøknad]);
 
-    const mellomlagreOmDeg = () => {
+    const mellomlagreSteg = () => {
       const oppdatertSøknad = validerMedlemskap({
         ...søknad,
         medlemskap: medlemskap,
       });
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      settSøknad(oppdatertSøknad);
+      oppdaterSøknad(oppdatertSøknad);
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return mellomlagreSøknad2(location.pathname, oppdatertSøknad);
+      return mellomlagreSøknad(location.pathname, oppdatertSøknad);
     };
 
     return {
       medlemskap,
       settMedlemskap,
-      mellomlagreOmDeg,
+      mellomlagreSteg,
       stønadstype,
       routes,
-      pathOppsumering,
+      pathOppsummering,
       settDokumentasjonsbehov,
       søknad,
-      settSøknad,
+      oppdaterSøknad,
     };
   }
 );
-
-export { OmDegProvider, useOmDeg };

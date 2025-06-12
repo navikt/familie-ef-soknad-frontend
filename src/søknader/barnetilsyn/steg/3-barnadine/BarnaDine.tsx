@@ -8,7 +8,7 @@ import BarnMedISøknad from './BarnMedISøknad';
 import Barnekort from '../../../felles/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { hentPathBarnetilsynOppsummering } from '../../utils';
+import { pathOppsummeringBarnetilsyn } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import LocaleTekst from '../../../../language/LocaleTekst';
@@ -71,7 +71,7 @@ const BarnaDine: React.FC = () => {
       erSpørsmålBesvart={harValgtMinstEttBarn}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}
-      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <BarnaDineContainer>
         <FeltGruppe>

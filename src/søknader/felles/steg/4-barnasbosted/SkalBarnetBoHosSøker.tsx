@@ -16,7 +16,7 @@ import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
 import { Alert } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 
 interface Props {
   barn: IBarn;

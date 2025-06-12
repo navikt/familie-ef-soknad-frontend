@@ -20,7 +20,7 @@ import AktivitetOppfølgingSpørsmål from '../../../felles/steg/5-aktivitet/Akt
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import { hentPathOvergangsstønadOppsummering } from '../../utils';
+import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
@@ -115,7 +115,7 @@ const Aktivitet: React.FC = () => {
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}
-      tilbakeTilOppsummeringPath={hentPathOvergangsstønadOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <SeksjonGruppe>
         <CheckboxSpørsmål

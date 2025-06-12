@@ -21,7 +21,7 @@ import {
 } from './hjelper';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { hentPathBarnetilsynOppsummering } from '../../utils';
+import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
@@ -145,7 +145,7 @@ const Barnepass: FC = () => {
         søknad
       )}
       routesStønad={RoutesBarnetilsyn}
-      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <SeksjonGruppe>
         {barnSomSkalHaBarnepass.map((barn: IBarn, index: number) => {

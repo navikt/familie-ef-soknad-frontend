@@ -7,7 +7,7 @@ import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import BosituasjonSpørsmål from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
-import { hentPathSkolepengerOppsummering } from '../../utils';
+import { pathOppsummeringSkolepenger } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
@@ -49,7 +49,7 @@ const Bosituasjon: FC = () => {
       erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
       routesStønad={RoutesSkolepenger}
       mellomlagreStønad={mellomlagreSkolepenger}
-      tilbakeTilOppsummeringPath={hentPathSkolepengerOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
     >
       <BosituasjonSpørsmål
         bosituasjon={bosituasjon}

@@ -7,7 +7,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import BosituasjonSpørsmål from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { hentPathBarnetilsynOppsummering } from '../../utils';
+import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
@@ -49,7 +49,7 @@ const Bosituasjon: FC = () => {
       erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}
-      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <BosituasjonSpørsmål
         bosituasjon={bosituasjon}
