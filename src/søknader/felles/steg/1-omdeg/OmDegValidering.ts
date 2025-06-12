@@ -24,15 +24,27 @@ const validerSivilstatus = (sivilstatus: ISivilstatus) => {
     sivilstatus.harSøktSeparasjon?.verdi === false;
 
   const skalFjerneDatoForSamlivsbrudd =
-    sivilstatus.årsakEnslig?.verdi !== EBegrunnelse.samlivsbruddForeldre;
+    sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.samlivsbruddForeldre;
 
   const skalFjerneDatoEndretSamvær =
-    sivilstatus.årsakEnslig?.verdi !== EBegrunnelse.endringISamværsordning;
+    sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.endringISamværsordning;
+
+  const skalFjerneTidligereSamboerDetaljer =
+    sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.samlivsbruddAndre;
+
+  const skalFjerneDatoFlyttetFraHverandre =
+    sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.samlivsbruddAndre;
 
   return {
     ...sivilstatus,
     ...(skalFjerneDatoSøktSeparasjon && {
       datoSøktSeparasjon: undefined,
+    }),
+    ...(skalFjerneTidligereSamboerDetaljer && {
+      tidligereSamboerDetaljer: undefined,
+    }),
+    ...(skalFjerneDatoFlyttetFraHverandre && {
+      datoFlyttetFraHverandre: undefined,
     }),
     ...(skalFjerneDatoForSamlivsbrudd && { datoForSamlivsbrudd: undefined }),
     ...(skalFjerneDatoEndretSamvær && { datoEndretSamvær: undefined }),
