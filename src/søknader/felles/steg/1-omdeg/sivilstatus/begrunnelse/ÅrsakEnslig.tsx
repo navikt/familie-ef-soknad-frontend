@@ -41,20 +41,6 @@ const ÅrsakEnslig: FC = () => {
     tidligereSamboerDetaljer,
   } = sivilstatus;
 
-  const settDato = (
-    date: string,
-    objektnøkkel: string,
-    tekstid: string
-  ): void => {
-    settSivilstatus({
-      ...sivilstatus,
-      [objektnøkkel]: {
-        label: intl.formatMessage({ id: tekstid }),
-        verdi: date,
-      },
-    });
-  };
-
   const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
     settSivilstatus({
       ...sivilstatus,
@@ -117,6 +103,11 @@ const ÅrsakEnslig: FC = () => {
     spørsmål
   );
 
+  const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
+    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
+    false
+  );
+
   return (
     <div aria-live="polite">
       <KomponentGruppe>
@@ -152,16 +143,7 @@ const ÅrsakEnslig: FC = () => {
           <FeltGruppe>
             <OmDenTidligereSamboerenDin />
           </FeltGruppe>
-
-          {harFyltUtSamboerDetaljer(
-            tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-            false
-          ) && (
-            <NårFlyttetDereFraHverandre
-              settDato={settDato}
-              datoFlyttetFraHverandre={datoFlyttetFraHverandre}
-            />
-          )}
+          {harBrukerFyltUtSamboerDetaljer && <NårFlyttetDereFraHverandre />}
         </KomponentGruppe>
       )}
 
