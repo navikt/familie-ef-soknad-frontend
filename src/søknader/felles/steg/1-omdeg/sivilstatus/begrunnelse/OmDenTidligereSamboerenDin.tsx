@@ -16,7 +16,7 @@ const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { tidligereSamboerDetaljer } = sivilstatus;
-  const ident = tidligereSamboerDetaljer?.ident?.verdi;
+  const ident = sivilstatus.tidligereSamboerDetaljer?.ident?.verdi;
   const checked = tidligereSamboerDetaljer?.kjennerIkkeIdent;
 
   const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
@@ -46,31 +46,24 @@ const OmDenTidligereSamboerenDin: FC = () => {
   };
 
   const settIdent = (ident: string) => {
-    if (identErGyldig(ident)) {
-      settSivilstatus({
-        ...sivilstatus,
-        tidligereSamboerDetaljer: {
-          ...tidligereSamboerDetaljer,
-          kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-          ident: {
-            label: hentTekst('person.ident', intl),
-            verdi: ident,
-          },
+    settSivilstatus({
+      ...sivilstatus,
+      tidligereSamboerDetaljer: {
+        ...tidligereSamboerDetaljer,
+        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
+        ident: {
+          label: hentTekst('person.ident', intl),
+          verdi: ident,
         },
-      });
-    }
+      },
+    });
   };
 
   const erGyldigIdent = (): boolean => {
-    const identSomStreng =
-      sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '';
-
-    return !!(
-      identErGyldig(identSomStreng) ||
-      sivilstatus.tidligereSamboerDetaljer?.ident?.verdi
+    return identErGyldig(
+      sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? ''
     );
   };
-
   return (
     <>
       <KomponentGruppe>
@@ -82,7 +75,7 @@ const OmDenTidligereSamboerenDin: FC = () => {
             bredde={'L'}
             pattern="[0-9]*"
             value={ident}
-            error={erGyldigIdent() || !ident ? undefined : feilmelding}
+            error={ident && !erGyldigIdent() ? feilmelding : undefined}
             onChange={(e) => {
               settIdent(e.target.value);
             }}
