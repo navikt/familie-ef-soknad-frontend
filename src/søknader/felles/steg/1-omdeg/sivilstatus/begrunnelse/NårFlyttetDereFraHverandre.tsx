@@ -1,32 +1,28 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
+import { IDatoFelt } from '../../../../../../models/søknad/søknadsfelter';
 import {
   DatoBegrensning,
   Datovelger,
 } from '../../../../../../components/dato/Datovelger';
-import { useOmDeg } from '../../OmDegContext';
-import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 
-const NårFlyttetDereFraHverandre: React.FC = () => {
+interface Props {
+  settDato: (date: string, objektnøkkel: string, tekstid: string) => void;
+  datoFlyttetFraHverandre: IDatoFelt | undefined;
+}
+
+const NårFlyttetDereFraHverandre: React.FC<Props> = ({
+  settDato,
+  datoFlyttetFraHverandre,
+}) => {
   const datovelgerTekstid = 'sivilstatus.datovelger.flyttetFraHverandre';
-  const { sivilstatus, settSivilstatus } = useOmDeg();
-  const { datoFlyttetFraHverandre } = sivilstatus;
-  const intl = useLokalIntlContext();
-
-  const settDatoFlyttetFraHverandre = (date: string, tekstid: string): void => {
-    settSivilstatus({
-      ...sivilstatus,
-      datoFlyttetFraHverandre: {
-        label: intl.formatMessage({ id: tekstid }),
-        verdi: date,
-      },
-    });
-  };
 
   return (
     <KomponentGruppe>
       <Datovelger
-        settDato={(e) => settDatoFlyttetFraHverandre(e, datovelgerTekstid)}
+        settDato={(e) =>
+          settDato(e, 'datoFlyttetFraHverandre', datovelgerTekstid)
+        }
         valgtDato={
           datoFlyttetFraHverandre ? datoFlyttetFraHverandre.verdi : undefined
         }

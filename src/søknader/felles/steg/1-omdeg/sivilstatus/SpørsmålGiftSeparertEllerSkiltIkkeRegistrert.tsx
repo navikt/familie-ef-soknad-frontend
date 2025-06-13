@@ -11,21 +11,26 @@ import {
 } from '../../../../../models/felles/spørsmålogsvar';
 import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import LocaleTekst from '../../../../../language/LocaleTekst';
-import {
-  hentSvarAlertFraSpørsmål,
-  hentTekst,
-} from '../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import React from 'react';
+import { ISivilstatus } from '../../../../../models/steg/omDeg/sivilstatus';
 import Show from '../../../../../utils/showIf';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { ISpørsmålBooleanFelt } from '../../../../../models/søknad/søknadsfelter';
 import { hentValgtSvar } from '../../../../../utils/sivilstatus';
-import { useOmDeg } from '../OmDegContext';
-import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 
-const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
+interface Props {
+  sivilstatus: ISivilstatus;
+  settSivilstatusFelt: (spørsmål: ISpørsmål, valgtSvar: ISvar) => void;
+  erUformeltGift: ISpørsmålBooleanFelt | undefined;
+}
+
+const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC<Props> = ({
+  sivilstatus,
+  settSivilstatusFelt,
+  erUformeltGift,
+}: Props) => {
   const intl = useLokalIntlContext();
-  const { sivilstatus, settSivilstatus } = useOmDeg();
-  const { erUformeltGift } = sivilstatus;
 
   const harSvartJaPåUformeltGift =
     sivilstatus.erUformeltGift?.svarid === ESvar.JA;
@@ -35,39 +40,12 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
 
   const harSvartPåUformeltGiftSpørsmålet = erUformeltGift?.verdi !== undefined;
 
-  const settErUformeltGift = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    settSivilstatus({
-      ...sivilstatus,
-      erUformeltGift: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: hentBooleanFraValgtSvar(valgtSvar),
-      },
-    });
-  };
-
-  const settErUformeltSeparertEllerSkilt = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
-    settSivilstatus({
-      ...sivilstatus,
-      erUformeltSeparertEllerSkilt: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: hentBooleanFraValgtSvar(valgtSvar),
-      },
-    });
-  };
-
   return (
     <>
       <KomponentGruppe>
         <JaNeiSpørsmål
           spørsmål={erUformeltGiftSpørsmål(intl)}
-          onChange={settErUformeltGift}
+          onChange={settSivilstatusFelt}
           valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
         />
         <Show if={harSvartJaPåUformeltGift}>
@@ -85,7 +63,7 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
         <KomponentGruppe>
           <JaNeiSpørsmål
             spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
-            onChange={settErUformeltSeparertEllerSkilt}
+            onChange={settSivilstatusFelt}
             valgtSvar={hentValgtSvar(
               erUformeltSeparertEllerSkiltSpørsmål(intl),
               sivilstatus
