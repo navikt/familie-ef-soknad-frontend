@@ -14,7 +14,6 @@ import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
-import { identErGyldig } from '../../../../utils/validering/validering';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -76,10 +75,7 @@ const OmDeg: FC = () => {
 
   const skalViseMedlemskapsdialog =
     erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus) &&
-    (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
-      sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent);
-
+    erÅrsakEnsligBesvart(sivilstatus);
   return (
     <Side
       stønadstype={stønadstype}
