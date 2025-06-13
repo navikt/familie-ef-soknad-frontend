@@ -1,35 +1,29 @@
 import React from 'react';
 import {
-  DatoBegrensning,
   Datovelger,
+  DatoBegrensning,
 } from '../../../../../../components/dato/Datovelger';
 import LocaleTekst from '../../../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
+import { IDatoFelt } from '../../../../../../models/søknad/søknadsfelter';
 import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';
-import { useOmDeg } from '../../OmDegContext';
-import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 
-const DatoForSamlivsbrudd: React.FC = () => {
-  const { sivilstatus, settSivilstatus } = useOmDeg();
-  const { datoForSamlivsbrudd } = sivilstatus;
+interface Props {
+  settDato: (date: string, objektnøkkel: string, tekstid: string) => void;
+  datoForSamlivsbrudd: IDatoFelt | undefined;
+}
+
+const DatoForSamlivsbrudd: React.FC<Props> = ({
+  settDato,
+  datoForSamlivsbrudd,
+}) => {
   const datovelgerLabel = 'sivilstatus.datovelger.samlivsbrudd';
-  const intl = useLokalIntlContext();
-
-  const settDatoForSamlivsbrudd = (date: string, tekstid: string): void => {
-    settSivilstatus({
-      ...sivilstatus,
-      datoForSamlivsbrudd: {
-        label: intl.formatMessage({ id: tekstid }),
-        verdi: date,
-      },
-    });
-  };
 
   return (
     <>
       <KomponentGruppe>
         <Datovelger
-          settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
+          settDato={(e) => settDato(e, 'datoForSamlivsbrudd', datovelgerLabel)}
           valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}
           tekstid={datovelgerLabel}
           datobegrensning={DatoBegrensning.TidligereDatoer}
