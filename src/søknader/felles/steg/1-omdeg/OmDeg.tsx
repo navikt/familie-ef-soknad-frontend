@@ -10,12 +10,11 @@ import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
-import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
-import Show from '../../../../utils/showIf';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useOmDeg } from '../../../felles/steg/1-omdeg/OmDegContext';
+import { useOmDeg } from './OmDegContext';
+import { identErGyldig } from '../../../../utils/validering/validering';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -26,6 +25,7 @@ const OmDeg: FC = () => {
     : ESide.visTilbakeTilOppsummeringKnapp;
 
   const {
+    sivilstatus,
     medlemskap,
     mellomlagreOmDeg,
     stønadstype,
@@ -36,7 +36,6 @@ const OmDeg: FC = () => {
     settSøknad,
   } = useOmDeg();
 
-  const { sivilstatus } = søknad;
   const { søker } = søknad.person;
 
   const settSøkerBorPåRegistrertAdresse = (
@@ -65,16 +64,6 @@ const OmDeg: FC = () => {
     }));
   };
 
-  const settSivilstatus = (sivilstatus: ISivilstatus) => {
-    //TODO fix any
-    settSøknad((prevSoknad: any) => {
-      return {
-        ...prevSoknad,
-        sivilstatus: sivilstatus,
-      };
-    });
-  };
-
   const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
@@ -87,7 +76,9 @@ const OmDeg: FC = () => {
 
   const skalViseMedlemskapsdialog =
     erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus);
+    erÅrsakEnsligBesvart(sivilstatus) &&
+    (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
+      sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent);
 
   return (
     <Side
@@ -96,7 +87,6 @@ const OmDeg: FC = () => {
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       skalViseKnapper={skalViseKnapper}
       routesStønad={routes}
-      // mellomlagreStønad={mellomlagreBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsumering}
       mellomlagreSøknad={mellomlagreOmDeg}
     >
@@ -112,15 +102,11 @@ const OmDeg: FC = () => {
         stønadstype={stønadstype}
       />
 
-      <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
-        <Sivilstatus
-          sivilstatus={søknad.sivilstatus}
-          settSivilstatus={settSivilstatus}
-          settDokumentasjonsbehov={settDokumentasjonsbehov}
-        />
+      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && (
+        <Sivilstatus />
+      )}
 
-        {skalViseMedlemskapsdialog && <Medlemskap />}
-      </Show>
+      {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
 };
