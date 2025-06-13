@@ -15,7 +15,7 @@ import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
-import { OmDeg } from './OmDeg';
+import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 
 interface Props {
@@ -76,7 +76,7 @@ const Personopplysninger: React.FC<Props> = ({
       <Alert variant="info" inline={true}>
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
-      <OmDeg
+      <PersonopplysningerVisning
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
         sivilstand={søker.sivilstand}
