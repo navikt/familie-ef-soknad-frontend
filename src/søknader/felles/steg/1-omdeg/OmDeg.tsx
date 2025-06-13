@@ -31,25 +31,12 @@ const OmDeg: FC = () => {
     stønadstype,
     routes,
     pathOppsumering,
-    settDokumentasjonsbehov,
+    // settDokumentasjonsbehov,
     søknad,
     settSøknad,
   } = useOmDeg();
 
   const { søker } = søknad.person;
-
-  const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
-  ) => {
-    //TODO fix any
-    settSøknad((prevSoknad: any) => {
-      return {
-        ...prevSoknad,
-        adresseopplysninger: undefined,
-        søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-      };
-    });
-  };
 
   const settHarMeldtAdresseendring = (
     harMeldtAdresseendring: ISpørsmålBooleanFelt
@@ -91,10 +78,6 @@ const OmDeg: FC = () => {
       mellomlagreSøknad={mellomlagreOmDeg}
     >
       <Personopplysninger
-        søker={søker}
-        settDokumentasjonsbehov={settDokumentasjonsbehov}
-        søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
-        settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
         harMeldtAdresseendring={
           søknad.adresseopplysninger?.harMeldtAdresseendring
         }
