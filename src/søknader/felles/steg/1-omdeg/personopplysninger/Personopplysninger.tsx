@@ -9,8 +9,6 @@ import {
 } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { ISpørsmålBooleanFelt } from '../../../../../models/søknad/søknadsfelter';
-import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
@@ -18,50 +16,28 @@ import { OmDeg } from './OmDeg';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 
-interface Props {
-  harMeldtAdresseendring?: ISpørsmålBooleanFelt;
-  settHarMeldtAdresseendring: (
-    harMeldtAdresseendring: ISpørsmålBooleanFelt
-  ) => void;
-  stønadstype: Stønadstype;
-}
-
-const Personopplysninger: React.FC<Props> = ({
-  harMeldtAdresseendring,
-  settHarMeldtAdresseendring,
-  stønadstype,
-}) => {
+const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
   const {
     søknad,
-    settSøknad,
     settDokumentasjonsbehov,
     søkerBorPåRegistrertAdresse,
+    settSøkerBorPåRegistrertAdresse,
+    harMeldtAdresseendring,
+    settHarMeldtAdresseendring,
+    stønadstype,
   } = useOmDeg();
   const { søker } = søknad.person;
 
-  const settPersonopplysningerFelt = (
+  const settSøkerBorPåRegistrertAdr = (
     spørsmål: ISpørsmål,
     valgtSvar: ISvar
   ) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
     settSøkerBorPåRegistrertAdresse({
       spørsmålid: spørsmål.søknadid,
       svarid: valgtSvar.id,
       label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar,
-    });
-  };
-
-  const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
-  ) => {
-    settSøknad((prevSoknad: any) => {
-      return {
-        ...prevSoknad,
-        adresseopplysninger: undefined,
-        søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-      };
+      verdi: hentBooleanFraValgtSvar(valgtSvar),
     });
   };
 
@@ -93,7 +69,7 @@ const Personopplysninger: React.FC<Props> = ({
             <JaNeiSpørsmål
               spørsmål={borDuPåDenneAdressen(intl)}
               valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settPersonopplysningerFelt}
+              onChange={settSøkerBorPåRegistrertAdr}
             />
           </KomponentGruppe>
 

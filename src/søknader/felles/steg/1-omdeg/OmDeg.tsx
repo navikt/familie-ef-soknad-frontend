@@ -8,7 +8,6 @@ import {
 } from '../../../../helpers/steg/omdeg';
 import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
-import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
@@ -31,41 +30,26 @@ const OmDeg: FC = () => {
     stønadstype,
     routes,
     pathOppsumering,
-    // settDokumentasjonsbehov,
     søknad,
-    settSøknad,
   } = useOmDeg();
 
   const { søker } = søknad.person;
 
-  const settHarMeldtAdresseendring = (
-    harMeldtAdresseendring: ISpørsmålBooleanFelt
-  ) => {
-    //TODO fix any
-    settSøknad((prevSøknad: any) => ({
-      ...prevSøknad,
-      adresseopplysninger: {
-        ...prevSøknad.adresseopplysninger,
-        harMeldtAdresseendring,
-      },
-    }));
-  };
-
-  const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
+  const SkalViseSivilstatusdialog =
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
-
-  const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
-    sivilstatus,
-    søker.sivilstand,
-    medlemskap,
-    erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
-  );
 
   const skalViseMedlemskapsdialog =
     erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
     erÅrsakEnsligBesvart(sivilstatus) &&
     (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
       sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent);
+
+  const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
+    sivilstatus,
+    søker.sivilstand,
+    medlemskap,
+    SkalViseSivilstatusdialog
+  );
 
   return (
     <Side
@@ -77,18 +61,8 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsumering}
       mellomlagreSøknad={mellomlagreOmDeg}
     >
-      <Personopplysninger
-        harMeldtAdresseendring={
-          søknad.adresseopplysninger?.harMeldtAdresseendring
-        }
-        settHarMeldtAdresseendring={settHarMeldtAdresseendring}
-        stønadstype={stønadstype}
-      />
-
-      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && (
-        <Sivilstatus />
-      )}
-
+      <Personopplysninger />
+      {SkalViseSivilstatusdialog && <Sivilstatus />}
       {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
