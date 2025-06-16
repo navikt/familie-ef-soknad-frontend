@@ -11,7 +11,7 @@ import {
 describe('skal validere rendering av spørsmål om sivilstand på side: Om deg', () => {
   test('skal vise sivilstandsspørsmål dersom søker er strengt fortrolig', () => {
     const søker = { ...lagSøker(), erStrengtFortrolig: true };
-    const person = { ...lagPerson(), søker };
+    const person = { ...lagPerson(), søker: søker };
     const søknad = { ...lagSøknad(), person };
     const validering =
       søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);

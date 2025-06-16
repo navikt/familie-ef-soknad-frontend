@@ -36,7 +36,6 @@ const OmDeg: FC = () => {
   } = useOmDeg();
 
   const { søker } = søknad.person;
-
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
   ) => {
