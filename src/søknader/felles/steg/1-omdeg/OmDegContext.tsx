@@ -11,7 +11,7 @@ import { RoutesSkolepenger } from '../../../skolepenger/routing/routes';
 import { hentPathBarnetilsynOppsummering } from '../../../barnetilsyn/utils';
 import { hentPathOvergangsstønadOppsummering } from '../../../overgangsstønad/utils';
 import { hentPathSkolepengerOppsummering } from '../../../skolepenger/utils';
-import { validerMedlemskap } from './OmDegValidering';
+import { validerOmDeg } from './OmDegValidering';
 
 const [OmDegProvider, useOmDeg] = constate(
   ({ stønadstype }: { stønadstype: Stønadstype }) => {
@@ -71,18 +71,19 @@ const [OmDegProvider, useOmDeg] = constate(
     })();
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
+    const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
 
     useEffect(() => {
       if (mellomlagretSøknad?.søknad.medlemskap) {
         settMedlemskap(mellomlagretSøknad.søknad.medlemskap);
       }
+      if (mellomlagretSøknad?.søknad.sivilstatus) {
+        settSivilstatus(mellomlagretSøknad.søknad.sivilstatus);
+      }
     }, [mellomlagretSøknad]);
 
     const mellomlagreOmDeg = () => {
-      const oppdatertSøknad = validerMedlemskap({
-        ...søknad,
-        medlemskap: medlemskap,
-      });
+      const oppdatertSøknad = validerOmDeg(søknad, sivilstatus, medlemskap);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -94,6 +95,8 @@ const [OmDegProvider, useOmDeg] = constate(
     };
 
     return {
+      sivilstatus,
+      settSivilstatus,
       medlemskap,
       settMedlemskap,
       mellomlagreOmDeg,
