@@ -23,6 +23,8 @@ import { SøknadOvergangsstønad } from '../models/søknad/søknad';
 import { IBarn } from '../models/steg/barn';
 import { formatIsoDate } from '../utils/dato';
 import { MellomlagretSøknadOvergangsstønad } from '../models/søknad/mellomlagretSøknad';
+import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
+import { Stønadstype } from '../models/søknad/stønadstyper';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -278,6 +280,19 @@ export const lagMellomlagretSøknadOvergangsstønad = (
     modellVersjon: 1,
     gjeldendeSteg: '/',
     locale: '',
+    ...søknad,
+  };
+};
+
+export const lagSistInnsendteSøknad = (
+  søknad?: Partial<SistInnsendteSøknad>
+): SistInnsendteSøknad => {
+  const dagensDato = new Date();
+  dagensDato.setMonth(dagensDato.getMonth() - 1);
+
+  return {
+    søknadsdato: formatIsoDate(dagensDato),
+    stønadType: Stønadstype.overgangsstønad,
     ...søknad,
   };
 };
