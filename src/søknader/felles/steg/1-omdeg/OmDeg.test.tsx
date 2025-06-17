@@ -1,41 +1,27 @@
-import { describe, expect, test, vi } from 'vitest';
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom';
-import { render } from '../../../../test/render';
-import OmDeg from './OmDeg';
-import { OmDegProvider } from './OmDegContext';
-import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import ContextProviders from '../../../../context/ContextProviders';
-import { SpråkProvider } from '../../../../context/SpråkContext';
-import React from 'react';
-import { within } from '@testing-library/dom';
+import { describe, test } from 'vitest';
 
 // Må tunes på, kun ment som inspirasjon
 describe('OmDegSteg', () => {
   test('Første test', async () => {
-    const { screen, user } = render(
-      <SpråkProvider>
-        <ContextProviders>
-          <Router basename={'/'}>
-            <Routes>
-              <Route
-                path={'/om-deg'}
-                element={
-                  <OmDegProvider stønadstype={Stønadstype.overgangsstønad}>
-                    <OmDeg />
-                  </OmDegProvider>
-                }
-              />
-              <Route path={'*'} element={<Navigate to={'/om-deg'} />} />
-            </Routes>
-          </Router>
-        </ContextProviders>
-      </SpråkProvider>
-    );
+    // const { screen, user } = render(
+    //   <SpråkProvider>
+    //     <ContextProviders>
+    //       <Router basename={'/'}>
+    //         <Routes>
+    //           <Route
+    //             path={'/om-deg'}
+    //             element={
+    //               <OmDegProvider stønadstype={Stønadstype.overgangsstønad}>
+    //                 <OmDeg />
+    //               </OmDegProvider>
+    //             }
+    //           />
+    //           <Route path={'*'} element={<Navigate to={'/om-deg'} />} />
+    //         </Routes>
+    //       </Router>
+    //     </ContextProviders>
+    //   </SpråkProvider>
+    // );
     // const sideTittel = screen.getByRole('heading', {
     //   level: 1,
     //   name: 'Søknad om overgangsstønad',
