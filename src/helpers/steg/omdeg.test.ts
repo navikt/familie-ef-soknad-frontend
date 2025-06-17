@@ -5,14 +5,14 @@ import {
   lagPerson,
   lagSpørsmålBooleanFelt,
   lagSøker,
-  lagSøknad,
+  lagSøknadOvergangsstønad,
 } from '../../test/utils';
 
 describe('skal validere rendering av spørsmål om sivilstand på side: Om deg', () => {
   test('skal vise sivilstandsspørsmål dersom søker er strengt fortrolig', () => {
-    const søker = { ...lagSøker(), erStrengtFortrolig: true };
-    const person = { ...lagPerson(), søker: søker };
-    const søknad = { ...lagSøknad(), person };
+    const søker = lagSøker({ erStrengtFortrolig: true });
+    const person = lagPerson({ søker: søker });
+    const søknad = lagSøknadOvergangsstønad({ person: person });
     const validering =
       søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
@@ -24,7 +24,9 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
       ...lagSpørsmålBooleanFelt(),
       verdi: true,
     };
-    const søknad = { ...lagSøknad(), søkerBorPåRegistrertAdresse };
+    const søknad = lagSøknadOvergangsstønad({
+      søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
+    });
     const validering =
       søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
@@ -33,11 +35,12 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
 
   test('skal vise sivilstandsspørsmål dersom søker har meldt adresseendring', () => {
     const harMeldtAdresseendring = { ...lagSpørsmålBooleanFelt(), verdi: true };
-    const adresseopplysninger = {
-      ...lagAdresseopplysninger(),
-      harMeldtAdresseendring,
-    };
-    const søknad = { ...lagSøknad(), adresseopplysninger };
+    const adresseopplysninger = lagAdresseopplysninger({
+      harMeldtAdresseendring: harMeldtAdresseendring,
+    });
+    const søknad = lagSøknadOvergangsstønad({
+      adresseopplysninger: adresseopplysninger,
+    });
     const validering =
       søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
@@ -45,7 +48,7 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
   });
 
   test('skal ikke vise sivilstandsspørsmål dersom relevante spørsmål ikke er utfylt', () => {
-    const søknad = lagSøknad();
+    const søknad = lagSøknadOvergangsstønad();
     const validering =
       søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 

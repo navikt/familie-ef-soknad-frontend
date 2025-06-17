@@ -1,23 +1,13 @@
 import { describe, expect, test } from 'vitest';
 import { Adresse, Søker } from '../../../../../models/søknad/person';
 import { lagAdresse, lagSøker } from '../../../../../test/utils';
-import { render } from '../../../../../test/testRender';
+import { render } from '../../../../../test/render';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 
-const testAdresseMedPoststed: Adresse = lagAdresse(
-  'Testveien 1',
-  '1234',
-  'Testby'
-);
-const testSøkerMedPoststed: Søker = lagSøker(
-  '01012512345',
-  25,
-  undefined,
-  testAdresseMedPoststed,
-  'UGIFT',
-  'NORGE',
-  false
-);
+const testAdresseMedPoststed: Adresse = lagAdresse();
+const testSøkerMedPoststed: Søker = lagSøker({
+  adresse: testAdresseMedPoststed,
+});
 
 describe('PersonopplysningerVisning', () => {
   test('skal vise PersonopplysningerVisning komponent gitt søker', async () => {

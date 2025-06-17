@@ -1,21 +1,23 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import {
   BrowserRouter as Router,
   Navigate,
   Route,
   Routes,
 } from 'react-router-dom';
-import { render } from '../../../../test/testRender';
+import { render } from '../../../../test/render';
 import OmDeg from './OmDeg';
 import { OmDegProvider } from './OmDegContext';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import ContextProviders from '../../../../context/ContextProviders';
 import { SpråkProvider } from '../../../../context/SpråkContext';
 import React from 'react';
+import { within } from '@testing-library/dom';
 
+// Må tunes på, kun ment som inspirasjon
 describe('OmDegSteg', () => {
-  test('Første test', () => {
-    const { screen } = render(
+  test('Første test', async () => {
+    const { screen, user } = render(
       <SpråkProvider>
         <ContextProviders>
           <Router basename={'/'}>
@@ -34,7 +36,6 @@ describe('OmDegSteg', () => {
         </ContextProviders>
       </SpråkProvider>
     );
-
     const sideTittel = screen.getByRole('heading', {
       level: 1,
       name: 'Søknad om overgangsstønad',
@@ -73,5 +74,13 @@ describe('OmDegSteg', () => {
     expect(statsborgerskap).toBeInTheDocument();
     expect(sivilstatus).toBeInTheDocument();
     expect(adresse).toBeInTheDocument();
+
+    const borDuPåDenneAdrssenGruppe = screen.getByRole('group', {
+      name: 'Bor du på denne adressen?',
+    });
+    const radioJa = within(borDuPåDenneAdrssenGruppe).getByRole('radio', {
+      name: 'Ja',
+    });
+    await user.click(radioJa);
   });
 });
