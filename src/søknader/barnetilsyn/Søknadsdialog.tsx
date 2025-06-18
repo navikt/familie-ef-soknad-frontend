@@ -11,11 +11,35 @@ import Kvittering from './steg/9-kvittering/Kvittering';
 import Barnepass from './steg/6-barnepass/Barnepass';
 import RedirectTilStart from './RedirectTilStart';
 import Gjenbruk from './steg/0.5-gjenbruk/Gjenbruk';
-import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import OmDeg from '../felles/steg/1-omdeg/OmDeg';
+import { useBarnetilsynSøknad } from './BarnetilsynContext';
+import { RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
+import { pathOppsummeringBarnetilsyn } from './utils';
+import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
+import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
+  const {
+    søknad,
+    settSøknad,
+    mellomlagretBarnetilsyn,
+    mellomlagreBarnetilsyn2,
+    settDokumentasjonsbehov,
+  } = useBarnetilsynSøknad();
+
+  const oppdaterBarnetilsynSøknad = (søknad: Søknad) => {
+    if (erBarnetilsynSøknad(søknad)) {
+      settSøknad(søknad);
+    }
+  };
+
+  const mellomlagreBarnetilsynSøknad = (steg: string, søknad: Søknad) => {
+    if (erBarnetilsynSøknad(søknad)) {
+      mellomlagreBarnetilsyn2(steg, søknad);
+    }
+  };
+
   return (
     <Routes>
       <Route
@@ -86,7 +110,16 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDegProvider stønadstype={Stønadstype.barnetilsyn}>
+            <OmDegProvider
+              stønadstype={Stønadstype.barnetilsyn}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagretSøknad={mellomlagretBarnetilsyn}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
               <OmDeg />
             </OmDegProvider>
           </RedirectTilStart>

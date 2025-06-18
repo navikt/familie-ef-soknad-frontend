@@ -8,7 +8,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { erBarnetilsynSøknad, hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/søknad';
 import {
   erForelderUtfylt,
   utfyltBorINorge,
@@ -28,7 +28,7 @@ import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
 import {
   SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
-} from '../../../../models/søknad/søknad';
+} from '../../../overgangsstønad/models/søknad';
 import styled from 'styled-components';
 import {
   finnFørsteBarnTilHverForelder,
@@ -40,6 +40,7 @@ import {
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;

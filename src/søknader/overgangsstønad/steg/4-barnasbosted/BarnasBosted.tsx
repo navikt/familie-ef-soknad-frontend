@@ -6,7 +6,7 @@ import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { IBarn } from '../../../../models/steg/barn';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import { hentPathOvergangsstønadOppsummering } from '../../utils';
+import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -49,7 +49,7 @@ const BarnasBosted: React.FC = () => {
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesOvergangsstonad}
       mellomlagreStønad={mellomlagreOvergangsstønad}
-      tilbakeTilOppsummeringPath={hentPathOvergangsstønadOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <BarnasBostedInnhold
         aktuelleBarn={søknad.person.barn}

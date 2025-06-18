@@ -4,7 +4,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import { hentPathOvergangsstønadOppsummering } from '../../utils';
+import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -34,7 +34,7 @@ const BarnaDine: React.FC = () => {
       erSpørsmålBesvart={harMinstEttBarn}
       routesStønad={RoutesOvergangsstonad}
       mellomlagreStønad={mellomlagreOvergangsstønad}
-      tilbakeTilOppsummeringPath={hentPathOvergangsstønadOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
       informasjonstekstId="barnadine.info.brukpdf"
     >
       <BarnaDineInnhold

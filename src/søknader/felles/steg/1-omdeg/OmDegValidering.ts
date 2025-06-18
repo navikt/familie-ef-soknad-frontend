@@ -1,17 +1,15 @@
-import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
-import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { Søknad } from '../../../../models/søknad/søknad';
 import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
 import {
   EBegrunnelse,
   ISivilstatus,
 } from '../../../../models/steg/omDeg/sivilstatus';
 
-const validerOmDeg = (
-  søknad: SøknadBarnetilsyn | SøknadOvergangsstønad | SøknadSkolepenger,
+const validerOmDeg = <T extends Søknad>(
+  søknad: T,
   sivilstatus: ISivilstatus,
   medlemskap: IMedlemskap
-): typeof søknad => {
+): T => {
   return {
     ...søknad,
     sivilstatus: validerSivilstatus(sivilstatus),

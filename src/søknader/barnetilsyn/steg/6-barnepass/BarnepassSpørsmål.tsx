@@ -24,7 +24,7 @@ import { EPeriode } from '../../../../models/felles/periode';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { Heading, TextField } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
 
 interface Props {

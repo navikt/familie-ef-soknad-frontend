@@ -20,7 +20,7 @@ import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsm
 import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { hentLand } from '../../1-omdeg/medlemskap/MedlemskapConfig';
 import { ILandMedKode } from '../../../../../models/steg/omDeg/medlemskap';
-import { SettDokumentasjonsbehovBarn } from '../../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../../overgangsstønad/models/søknad';
 
 const utledOppholdslandConfig = (land: ILandMedKode[]): ISpørsmål => ({
   søknadid: 'denAndreForelderensOppholdsland',

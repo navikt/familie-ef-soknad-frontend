@@ -9,7 +9,7 @@ import { hentNyttBarn } from '../../../../helpers/steg/barn';
 import { ESvar } from '../../../../models/felles/spørsmålogsvar';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import { Button } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { styled } from 'styled-components';
 import { ModalWrapper } from '../../../../components/Modal/ModalWrapper';
 

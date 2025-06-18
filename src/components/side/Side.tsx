@@ -19,6 +19,7 @@ export enum ESide {
   skjulKnapper = 'skjulKnapper',
 }
 
+// TODO: Fjern nullable fra mellomlagreSteg
 interface ISide {
   stønadstype: Stønadstype;
   stegtittel: string;
@@ -31,7 +32,7 @@ interface ISide {
   disableNesteKnapp?: boolean;
   children?: React.ReactNode;
   skalViseStegindikator?: boolean;
-  mellomlagreSøknad?: (pathname: string) => void;
+  mellomlagreSteg?: () => void;
 }
 
 const Side: React.FC<ISide> = ({
@@ -46,7 +47,7 @@ const Side: React.FC<ISide> = ({
   informasjonstekstId,
   disableNesteKnapp,
   skalViseStegindikator = true,
-  mellomlagreSøknad,
+  mellomlagreSteg,
 }) => {
   const intl = useLokalIntlContext();
   const location = useLocation();
@@ -106,7 +107,7 @@ const Side: React.FC<ISide> = ({
               erSpørsmålBesvart={erSpørsmålBesvart}
               mellomlagreStønad={mellomlagreStønad}
               disableNesteKnapp={disableNesteKnapp}
-              mellomlagreStønad2={mellomlagreSøknad}
+              mellomlagreSteg={mellomlagreSteg}
             />
           </>
         ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
@@ -119,8 +120,8 @@ const Side: React.FC<ISide> = ({
                 variant="primary"
                 className="tilbake-til-oppsummering"
                 onClick={() => {
-                  if (mellomlagreSøknad) {
-                    mellomlagreSøknad(location.pathname);
+                  if (mellomlagreSteg) {
+                    mellomlagreSteg();
                   }
                   if (mellomlagreStønad) {
                     mellomlagreStønad(location.pathname);

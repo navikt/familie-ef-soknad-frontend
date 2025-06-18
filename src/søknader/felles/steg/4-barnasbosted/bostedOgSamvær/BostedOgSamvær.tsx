@@ -23,7 +23,7 @@ import { IBarn } from '../../../../../models/steg/barn';
 import MultiSvarSpørsmålMedNavn from '../../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { SettDokumentasjonsbehovBarn } from '../../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../../overgangsstønad/models/søknad';
 
 interface Props {
   settForelder: (verdi: IForelder) => void;

@@ -3,7 +3,7 @@ import {
   ESagtOppEllerRedusertStilling,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../../overgangsstønad/models/søknad';
 import { IArbeidsgiver } from '../../../../models/steg/aktivitet/arbeidsgiver';
 import { fraStringTilTall } from '../../../../utils/søknad';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';

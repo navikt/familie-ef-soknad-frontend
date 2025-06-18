@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { erAllUtdanningFerdigUtfyltForSkolepenger } from '../../../../helpers/steg/aktivitetvalidering';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
-import { hentPathSkolepengerOppsummering } from '../../utils';
+import { pathOppsummeringSkolepenger } from '../../utils';
 import { IDetaljertUtdanning } from '../../models/detaljertUtdanning';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import UnderUtdanning from '../../../felles/steg/5-aktivitet/underUtdanning/UnderUtdanning';
@@ -43,7 +43,7 @@ const UtdanningSituasjon: React.FC = () => {
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}
-      tilbakeTilOppsummeringPath={hentPathSkolepengerOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
     >
       <UnderUtdanning
         underUtdanning={søknad.utdanning}

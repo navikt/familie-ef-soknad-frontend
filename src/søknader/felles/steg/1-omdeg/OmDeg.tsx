@@ -26,41 +26,35 @@ const OmDeg: FC = () => {
   const {
     sivilstatus,
     medlemskap,
-    mellomlagreOmDeg,
+    mellomlagreSteg,
     stønadstype,
     routes,
-    pathOppsumering,
+    pathOppsummering,
     settDokumentasjonsbehov,
     søknad,
-    settSøknad,
+    oppdaterSøknad,
   } = useOmDeg();
 
   const { søker } = søknad.person;
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
-  ) => {
-    //TODO fix any
-    settSøknad((prevSoknad: any) => {
-      return {
-        ...prevSoknad,
-        adresseopplysninger: undefined,
-        søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-      };
+  ) =>
+    oppdaterSøknad({
+      ...søknad,
+      adresseopplysninger: undefined,
+      søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
     });
-  };
 
   const settHarMeldtAdresseendring = (
     harMeldtAdresseendring: ISpørsmålBooleanFelt
-  ) => {
-    //TODO fix any
-    settSøknad((prevSøknad: any) => ({
-      ...prevSøknad,
+  ) =>
+    oppdaterSøknad({
+      ...søknad,
       adresseopplysninger: {
-        ...prevSøknad.adresseopplysninger,
+        ...søknad.adresseopplysninger,
         harMeldtAdresseendring,
       },
-    }));
-  };
+    });
 
   const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
@@ -82,8 +76,8 @@ const OmDeg: FC = () => {
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       skalViseKnapper={skalViseKnapper}
       routesStønad={routes}
-      tilbakeTilOppsummeringPath={pathOppsumering}
-      mellomlagreSøknad={mellomlagreOmDeg}
+      tilbakeTilOppsummeringPath={pathOppsummering}
+      mellomlagreSteg={mellomlagreSteg}
     >
       <Personopplysninger
         søker={søker}

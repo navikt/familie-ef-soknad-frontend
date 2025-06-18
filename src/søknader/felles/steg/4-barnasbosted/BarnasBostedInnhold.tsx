@@ -16,7 +16,7 @@ import { BodyShort } from '@navikt/ds-react';
 import {
   SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
-} from '../../../../models/søknad/søknad';
+} from '../../../overgangsstønad/models/søknad';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 

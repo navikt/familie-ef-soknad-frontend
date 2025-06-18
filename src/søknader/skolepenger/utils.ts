@@ -1,7 +1,7 @@
 import { hentPath } from '../../utils/routing';
 import { ERouteSkolepenger, RoutesSkolepenger } from './routing/routes';
 
-export const hentPathSkolepengerOppsummering = hentPath(
+export const pathOppsummeringSkolepenger = hentPath(
   RoutesSkolepenger,
   ERouteSkolepenger.Oppsummering
 );

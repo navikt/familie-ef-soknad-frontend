@@ -19,10 +19,10 @@ import { IMedlemskap } from '../models/steg/omDeg/medlemskap';
 import { IBosituasjon } from '../models/steg/bosituasjon';
 import { IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
-import { SøknadOvergangsstønad } from '../models/søknad/søknad';
-import { IBarn } from '../models/steg/barn';
+import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
 import { formatIsoDate } from '../utils/dato';
-import { MellomlagretSøknadOvergangsstønad } from '../models/søknad/mellomlagretSøknad';
+import { IBarn } from '../models/steg/barn';
+import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
 

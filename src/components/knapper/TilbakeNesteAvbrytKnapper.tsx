@@ -58,12 +58,13 @@ const StyledNavigeringsKnapper = styled.div`
   }
 `;
 
+// TODO: Fjern nullable fra mellomlagreSteg
 interface Props {
   routesStønad: IRoute[];
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   disableNesteKnapp?: boolean;
-  mellomlagreStønad2?: (pathname: string) => void;
+  mellomlagreSteg?: () => void;
 }
 
 const TilbakeNesteAvbrytKnapper: FC<Props> = ({
@@ -71,7 +72,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   erSpørsmålBesvart,
   mellomlagreStønad,
   disableNesteKnapp,
-  mellomlagreStønad2,
+  mellomlagreSteg,
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -97,8 +98,8 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           variant="primary"
           disabled={disableNesteKnapp}
           onClick={() => {
-            if (mellomlagreStønad2) {
-              mellomlagreStønad2(location.pathname);
+            if (mellomlagreSteg) {
+              mellomlagreSteg();
             } else if (mellomlagreStønad) {
               mellomlagreStønad(location.pathname);
             }
