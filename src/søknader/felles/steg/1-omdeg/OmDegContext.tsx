@@ -1,6 +1,5 @@
 import constate from 'constate';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
 import { useBarnetilsynSøknad } from '../../../barnetilsyn/BarnetilsynContext';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import { useSkolepengerSøknad } from '../../../skolepenger/SkolepengerContext';
@@ -18,7 +17,6 @@ const [OmDegProvider, useOmDeg] = constate(
     const barnetilsynKontekst = useBarnetilsynSøknad();
     const overgangsstønadKontekst = useOvergangsstønadSøknad();
     const skolepengerKontekst = useSkolepengerSøknad();
-    const location = useLocation();
 
     const {
       søknad,
@@ -82,7 +80,7 @@ const [OmDegProvider, useOmDeg] = constate(
       }
     }, [mellomlagretSøknad]);
 
-    const mellomlagreOmDeg = () => {
+    const mellomlagreOmDeg = (pathname: string) => {
       const oppdatertSøknad = validerOmDeg(søknad, sivilstatus, medlemskap);
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -91,7 +89,7 @@ const [OmDegProvider, useOmDeg] = constate(
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      return mellomlagreSøknad2(location.pathname, oppdatertSøknad);
+      return mellomlagreSøknad2(pathname, oppdatertSøknad);
     };
 
     return {

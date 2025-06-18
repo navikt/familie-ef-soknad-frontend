@@ -9,6 +9,7 @@ import { IDokumentasjon } from '../steg/dokumentasjon';
 import { IAdresseopplysninger } from '../steg/adresseopplysninger';
 import { ISpørsmål, ISvar } from '../felles/spørsmålogsvar';
 
+// TODO: Fjern skalBehandlesINySaksbehandling
 export interface SøknadOvergangsstønad {
   innsendingsdato?: Date;
   person: IPerson;

@@ -2,9 +2,8 @@ import { FC } from 'react';
 import LocaleTekst from '../../language/LocaleTekst';
 import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { IRoute } from '../../models/routes';
-import { useLocation } from 'react-router';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
 
 const StyledNavigeringsKnapper = styled.div`
@@ -64,7 +63,7 @@ interface Props {
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   disableNesteKnapp?: boolean;
-  mellomlagreStønad2?: () => void;
+  mellomlagreStønad2?: (pathname: string) => void;
 }
 
 const TilbakeNesteAvbrytKnapper: FC<Props> = ({
@@ -99,7 +98,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           disabled={disableNesteKnapp}
           onClick={() => {
             if (mellomlagreStønad2) {
-              mellomlagreStønad2();
+              mellomlagreStønad2(location.pathname);
             } else if (mellomlagreStønad) {
               mellomlagreStønad(location.pathname);
             }
