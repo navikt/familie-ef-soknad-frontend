@@ -22,7 +22,7 @@ import {
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { hentPathBarnetilsynOppsummering } from '../../utils';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';

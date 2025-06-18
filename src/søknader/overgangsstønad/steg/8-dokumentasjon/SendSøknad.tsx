@@ -4,7 +4,7 @@ import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
 import { parseISO } from 'date-fns';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { hentPath } from '../../../../utils/routing';
 import { Link, useNavigate } from 'react-router-dom';
