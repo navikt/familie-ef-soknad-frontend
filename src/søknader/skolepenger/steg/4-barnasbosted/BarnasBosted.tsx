@@ -5,7 +5,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesSkolepenger } from '../../routing/routes';
-import { hentPathSkolepengerOppsummering } from '../../utils';
+import { pathOppsummeringSkolepenger } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
@@ -50,7 +50,7 @@ const BarnasBosted: React.FC = () => {
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesSkolepenger}
       mellomlagreStønad={mellomlagreSkolepenger}
-      tilbakeTilOppsummeringPath={hentPathSkolepengerOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
     >
       <BarnasBostedInnhold
         aktuelleBarn={søknad.person.barn}

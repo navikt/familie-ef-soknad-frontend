@@ -13,7 +13,7 @@ import {
   erSøkerGift,
   erSøkerUGiftSkiltSeparertEllerEnke,
 } from '../../utils/sivilstatus';
-import { SøknadOvergangsstønad } from '../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';
 import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';

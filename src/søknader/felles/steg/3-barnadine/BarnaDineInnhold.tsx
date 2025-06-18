@@ -6,7 +6,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { Alert } from '@navikt/ds-react';
 import { LeggTilBarnKort } from './LeggTilBarnKort';
 import LeggTilBarnModal from './LeggTilBarnModal';
-import { SettDokumentasjonsbehovBarn } from '../../../../models/søknad/søknad';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { EndreEllerSlettBarn } from './EndreEllerSlettBarn';
 import styled from 'styled-components';
 

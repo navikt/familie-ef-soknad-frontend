@@ -4,7 +4,7 @@ import {
   RoutesBarnetilsyn,
 } from './routing/routesBarnetilsyn';
 
-export const hentPathBarnetilsynOppsummering = hentPath(
+export const pathOppsummeringBarnetilsyn = hentPath(
   RoutesBarnetilsyn,
   ERouteBarnetilsyn.Oppsummering
 );

@@ -24,10 +24,10 @@ const OmDeg: FC = () => {
   const {
     sivilstatus,
     medlemskap,
-    mellomlagreOmDeg,
+    mellomlagreSteg,
     stønadstype,
     routes,
-    pathOppsumering,
+    pathOppsummering,
     søknad,
     søkerBorPåRegistrertAdresse,
     harMeldtAdresseendring,
@@ -58,8 +58,8 @@ const OmDeg: FC = () => {
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       skalViseKnapper={skalViseKnapper}
       routesStønad={routes}
-      tilbakeTilOppsummeringPath={pathOppsumering}
-      mellomlagreSøknad={mellomlagreOmDeg}
+      tilbakeTilOppsummeringPath={pathOppsummering}
+      mellomlagreSteg={mellomlagreSteg}
     >
       <Personopplysninger />
       {SkalViseSivilstatusdialog && <Sivilstatus />}

@@ -6,10 +6,10 @@ import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
 import BosituasjonSpørsmål from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import { hentPathOvergangsstønadOppsummering } from '../../utils';
+import { pathOppsummeringOvergangsstønad } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../models/søknad';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
@@ -48,7 +48,7 @@ const Bosituasjon: FC = () => {
       erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
       routesStønad={RoutesOvergangsstonad}
       mellomlagreStønad={mellomlagreOvergangsstønad}
-      tilbakeTilOppsummeringPath={hentPathOvergangsstønadOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <BosituasjonSpørsmål
         bosituasjon={bosituasjon}

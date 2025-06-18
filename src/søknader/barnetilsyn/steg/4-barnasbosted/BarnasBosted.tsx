@@ -5,7 +5,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { hentPathBarnetilsynOppsummering } from '../../utils';
+import { pathOppsummeringBarnetilsyn } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
@@ -53,7 +53,7 @@ const BarnasBosted: React.FC = () => {
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}
-      tilbakeTilOppsummeringPath={hentPathBarnetilsynOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <BarnasBostedInnhold
         aktuelleBarn={aktuelleBarn}

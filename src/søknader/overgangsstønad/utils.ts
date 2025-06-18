@@ -4,7 +4,7 @@ import {
   RoutesOvergangsstonad,
 } from './routing/routesOvergangsstonad';
 
-export const hentPathOvergangsstønadOppsummering = hentPath(
+export const pathOppsummeringOvergangsstønad = hentPath(
   RoutesOvergangsstonad,
   ERouteOvergangsstønad.Oppsummering
 );

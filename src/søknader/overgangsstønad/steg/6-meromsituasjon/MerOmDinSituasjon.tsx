@@ -32,9 +32,9 @@ import {
 } from '../../../../utils/dato';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import { hentPathOvergangsstønadOppsummering } from '../../utils';
+import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { SøknadOvergangsstønad } from '../../../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from '../../models/søknad';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import { hentBeskjedMedNavn } from '../../../../utils/språk';
@@ -185,7 +185,7 @@ const MerOmDinSituasjon: React.FC = () => {
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}
-      tilbakeTilOppsummeringPath={hentPathOvergangsstønadOppsummering}
+      tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <SeksjonGruppe>
         <KomponentGruppe>

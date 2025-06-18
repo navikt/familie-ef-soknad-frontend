@@ -12,8 +12,32 @@ import Dokumentasjon from './steg/7-dokumentasjon/Dokumentasjon';
 import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import OmDeg from '../felles/steg/1-omdeg/OmDeg';
+import { useSkolepengerSøknad } from './SkolepengerContext';
+import { RoutesSkolepenger } from './routing/routes';
+import { pathOppsummeringSkolepenger } from './utils';
+import { erSkolepengerSøknad, Søknad } from '../../models/søknad/søknad';
 
 const SøknadsdialogSkolepenger: FC = () => {
+  const {
+    søknad,
+    settSøknad,
+    mellomlagretSkolepenger,
+    mellomlagreSkolepenger2,
+    settDokumentasjonsbehov,
+  } = useSkolepengerSøknad();
+
+  const oppdaterSkolepengerSøknad = (søknad: Søknad) => {
+    if (erSkolepengerSøknad(søknad)) {
+      settSøknad(søknad);
+    }
+  };
+
+  const mellomlagreSkolepengerSøknad = (steg: string, søknad: Søknad) => {
+    if (erSkolepengerSøknad(søknad)) {
+      mellomlagreSkolepenger2(steg, søknad);
+    }
+  };
+
   return (
     <Routes>
       <Route
@@ -76,7 +100,16 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDegProvider stønadstype={Stønadstype.skolepenger}>
+            <OmDegProvider
+              stønadstype={Stønadstype.skolepenger}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              mellomlagretSøknad={mellomlagretSkolepenger}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              routes={RoutesSkolepenger}
+              pathOppsummering={pathOppsummeringSkolepenger}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
               <OmDeg />
             </OmDegProvider>
           </RedirectTilStart>

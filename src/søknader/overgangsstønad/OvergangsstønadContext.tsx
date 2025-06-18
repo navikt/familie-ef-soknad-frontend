@@ -5,7 +5,7 @@ import { EArbeidssituasjon } from '../../models/steg/aktivitet/aktivitet';
 import { EBosituasjon } from '../../models/steg/bosituasjon';
 import { ESituasjon } from '../../models/steg/dinsituasjon/meromsituasjon';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import { SøknadOvergangsstønad } from '../../models/søknad/søknad';
+import { SøknadOvergangsstønad } from './models/søknad';
 import {
   hentDokumentasjonTilFlersvarSpørsmål,
   oppdaterDokumentasjonTilEtSvarSpørsmål,
@@ -16,7 +16,7 @@ import {
   mellomlagreSøknadTilDokument,
   nullstillMellomlagretSøknadTilDokument,
 } from '../../utils/søknad';
-import { MellomlagretSøknadOvergangsstønad } from '../../models/søknad/mellomlagretSøknad';
+import { MellomlagretSøknadOvergangsstønad } from './models/mellomlagretSøknad';
 import Environment from '../../Environment';
 import { MellomlagredeStønadstyper } from '../../models/søknad/stønadstyper';
 import { IBarn } from '../../models/steg/barn';
