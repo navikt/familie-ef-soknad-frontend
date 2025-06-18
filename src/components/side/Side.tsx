@@ -31,7 +31,7 @@ interface ISide {
   disableNesteKnapp?: boolean;
   children?: React.ReactNode;
   skalViseStegindikator?: boolean;
-  mellomlagreSøknad?: () => void;
+  mellomlagreSøknad?: (pathname: string) => void;
 }
 
 const Side: React.FC<ISide> = ({
@@ -120,7 +120,7 @@ const Side: React.FC<ISide> = ({
                 className="tilbake-til-oppsummering"
                 onClick={() => {
                   if (mellomlagreSøknad) {
-                    mellomlagreSøknad();
+                    mellomlagreSøknad(location.pathname);
                   }
                   if (mellomlagreStønad) {
                     mellomlagreStønad(location.pathname);

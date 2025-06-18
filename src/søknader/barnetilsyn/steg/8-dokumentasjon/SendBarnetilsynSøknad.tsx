@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
