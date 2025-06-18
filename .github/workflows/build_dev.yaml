@@ -16,7 +16,7 @@ jobs:
       - name: Npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: npm install
+        run: npm ci
       - name: Npm run test
         run: npm run test
       - name: Npm run build

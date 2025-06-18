@@ -23,6 +23,8 @@ const OmDeg: FC = () => {
     ? ESide.visTilbakeNesteAvbrytKnapp
     : ESide.visTilbakeTilOppsummeringKnapp;
 
+  console.log('omdeg location', location.pathname);
+
   const {
     sivilstatus,
     medlemskap,

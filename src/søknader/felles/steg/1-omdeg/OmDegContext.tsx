@@ -19,6 +19,7 @@ const [OmDegProvider, useOmDeg] = constate(
     const overgangsstønadKontekst = useOvergangsstønadSøknad();
     const skolepengerKontekst = useSkolepengerSøknad();
     const location = useLocation();
+    console.log('provider location', location.pathname);
 
     const {
       søknad,

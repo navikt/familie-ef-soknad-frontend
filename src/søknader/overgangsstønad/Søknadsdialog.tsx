@@ -85,11 +85,13 @@ const Søknadsdialog: FC = () => {
         <Route
           path={'/om-deg'}
           element={
-            <RedirectTilStart>
-              <OmDegProvider stønadstype={Stønadstype.overgangsstønad}>
-                <OmDeg />
-              </OmDegProvider>
-            </RedirectTilStart>
+            <>
+              <RedirectTilStart>
+                <OmDegProvider stønadstype={Stønadstype.overgangsstønad}>
+                  <OmDeg />
+                </OmDegProvider>
+              </RedirectTilStart>
+            </>
           }
         />
         <Route path={'*'} element={<Forside />} />
