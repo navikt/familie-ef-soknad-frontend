@@ -12,7 +12,6 @@ import { Heading, Box } from '@navikt/ds-react';
 import { OvergangsstønadInformasjon } from './OvergangsstønadInformasjon';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
-import { useLocation } from 'react-router-dom';
 
 const Forside: React.FC = () => {
   useMount(() => {
@@ -22,8 +21,6 @@ const Forside: React.FC = () => {
       logSidevisningOvergangsstonad('FortsettMedMellomlagret');
     }
   });
-  const location = useLocation();
-  console.log('location', location.pathname);
 
   const intl = useLokalIntlContext();
   const { person } = usePersonContext();
