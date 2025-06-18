@@ -12,7 +12,7 @@ interface Props {
   adresse: Adresse;
 }
 
-export const OmDeg: React.FC<Props> = ({
+export const PersonopplysningerVisning: React.FC<Props> = ({
   personIdent,
   statsborgerskap,
   sivilstand,

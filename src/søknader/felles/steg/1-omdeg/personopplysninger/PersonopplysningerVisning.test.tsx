@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { Adresse, Søker } from '../../../../../models/søknad/person';
 import { lagAdresse, lagSøker } from '../../../../../test/utils';
 import { render } from '../../../../../test/testRender';
-import { OmDeg } from './OmDeg';
+import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 
 const testAdresseMedPoststed: Adresse = lagAdresse(
   'Testveien 1',
@@ -19,10 +19,10 @@ const testSøkerMedPoststed: Søker = lagSøker(
   false
 );
 
-describe('OmDeg', () => {
-  test('skal vise OmDeg komponent med gitt søker', async () => {
+describe('PersonopplysningerVisning', () => {
+  test('skal vise PersonopplysningerVisning komponent gitt søker', async () => {
     const { screen } = render(
-      <OmDeg
+      <PersonopplysningerVisning
         personIdent={testSøkerMedPoststed.fnr}
         statsborgerskap={testSøkerMedPoststed.statsborgerskap}
         sivilstand={testSøkerMedPoststed.sivilstand}
