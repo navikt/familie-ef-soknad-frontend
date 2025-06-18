@@ -17,6 +17,7 @@ import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models
 import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
+import { identErGyldig } from '../../utils/validering/validering';
 
 export const hentSivilstatus = (statuskode?: string) => {
   switch (statuskode) {
@@ -76,7 +77,11 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
         erDatoGyldigOgInnaforBegrensninger(
           datoFlyttetFraHverandre.verdi,
           DatoBegrensning.AlleDatoer
-        )
+        ) &&
+        (identErGyldig(
+          sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? ''
+        ) ||
+          sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
       );
     case EBegrunnelse.endringISamværsordning:
       return (

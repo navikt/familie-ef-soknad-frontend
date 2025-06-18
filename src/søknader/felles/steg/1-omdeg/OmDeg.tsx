@@ -10,9 +10,7 @@ import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
-import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
-import Show from '../../../../utils/showIf';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
@@ -26,6 +24,7 @@ const OmDeg: FC = () => {
     : ESide.visTilbakeTilOppsummeringKnapp;
 
   const {
+    sivilstatus,
     medlemskap,
     mellomlagreSteg,
     stønadstype,
@@ -36,9 +35,7 @@ const OmDeg: FC = () => {
     oppdaterSøknad,
   } = useOmDeg();
 
-  const { sivilstatus } = søknad;
   const { søker } = søknad.person;
-
   const settSøkerBorPåRegistrertAdresse = (
     søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
   ) =>
@@ -59,12 +56,6 @@ const OmDeg: FC = () => {
       },
     });
 
-  const settSivilstatus = (sivilstatus: ISivilstatus) =>
-    oppdaterSøknad({
-      ...søknad,
-      sivilstatus: sivilstatus,
-    });
-
   const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
     søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
@@ -78,7 +69,6 @@ const OmDeg: FC = () => {
   const skalViseMedlemskapsdialog =
     erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
     erÅrsakEnsligBesvart(sivilstatus);
-
   return (
     <Side
       stønadstype={stønadstype}
@@ -101,15 +91,11 @@ const OmDeg: FC = () => {
         stønadstype={stønadstype}
       />
 
-      <Show if={erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring}>
-        <Sivilstatus
-          sivilstatus={søknad.sivilstatus}
-          settSivilstatus={settSivilstatus}
-          settDokumentasjonsbehov={settDokumentasjonsbehov}
-        />
+      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && (
+        <Sivilstatus />
+      )}
 
-        {skalViseMedlemskapsdialog && <Medlemskap />}
-      </Show>
+      {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
 };

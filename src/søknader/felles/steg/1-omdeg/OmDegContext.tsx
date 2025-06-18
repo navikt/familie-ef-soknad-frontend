@@ -1,8 +1,8 @@
 import constate from 'constate';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { validerMedlemskap } from './OmDegValidering';
+import { validerOmDeg } from './OmDegValidering';
 import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
 import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -36,18 +36,19 @@ export const [OmDegProvider, useOmDeg] = constate(
     const location = useLocation();
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
+    const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
 
     useEffect(() => {
       if (mellomlagretSøknad?.søknad.medlemskap) {
         settMedlemskap(mellomlagretSøknad.søknad.medlemskap);
       }
+      if (mellomlagretSøknad?.søknad.sivilstatus) {
+        settSivilstatus(mellomlagretSøknad.søknad.sivilstatus);
+      }
     }, [mellomlagretSøknad]);
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = validerMedlemskap({
-        ...søknad,
-        medlemskap: medlemskap,
-      });
+      const oppdatertSøknad = validerOmDeg(søknad, sivilstatus, medlemskap);
 
       oppdaterSøknad(oppdatertSøknad);
 
@@ -55,6 +56,8 @@ export const [OmDegProvider, useOmDeg] = constate(
     };
 
     return {
+      sivilstatus,
+      settSivilstatus,
       medlemskap,
       settMedlemskap,
       mellomlagreSteg,

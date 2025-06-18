@@ -1,12 +1,12 @@
 import {
   Adresse,
+  Barn,
   IPerson,
-  IPersonDetaljer,
+  PersonData,
   Søker,
 } from '../models/søknad/person';
 import {
   IBooleanFelt,
-  IDatoFelt,
   ISpørsmålBooleanFelt,
   ISpørsmålFelt,
   ISpørsmålListeFelt,
@@ -15,98 +15,66 @@ import {
 } from '../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../models/steg/adresseopplysninger';
 import { ISivilstatus } from '../models/steg/omDeg/sivilstatus';
-import {
-  IMedlemskap,
-  IUtenlandsopphold,
-} from '../models/steg/omDeg/medlemskap';
+import { IMedlemskap } from '../models/steg/omDeg/medlemskap';
 import { IBosituasjon } from '../models/steg/bosituasjon';
-import { IAksjeselskap, IAktivitet } from '../models/steg/aktivitet/aktivitet';
+import { IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
-import { IDokumentasjon } from '../models/steg/dokumentasjon';
 import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
-import { IArbeidsgiver } from '../models/steg/aktivitet/arbeidsgiver';
-import { IArbeidssøker } from '../models/steg/aktivitet/arbeidssøker';
-import { IFirma } from '../models/steg/aktivitet/firma';
-import { IUnderUtdanning } from '../models/steg/aktivitet/utdanning';
+import { formatIsoDate } from '../utils/dato';
 import { IBarn } from '../models/steg/barn';
+import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
+import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
+import { Stønadstype } from '../models/søknad/stønadstyper';
 
-export const lagSøknad = (
-  innsendingsdato?: Date,
-  person?: IPerson,
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt,
-  adresseopplysninger?: IAdresseopplysninger,
-  sivilstatus?: ISivilstatus,
-  medlemskap?: IMedlemskap,
-  bosituasjon?: IBosituasjon,
-  aktivitet?: IAktivitet,
-  merOmDinSituasjon?: IDinSituasjon,
-  dokumentasjonsbehov?: IDokumentasjon[],
-  harBekreftet?: boolean,
-  locale?: any,
-  skalBehandlesINySaksbehandling?: boolean,
-  datoPåbegyntSøknad?: string
+export const lagSøknadOvergangsstønad = (
+  søknad?: Partial<SøknadOvergangsstønad>
 ): SøknadOvergangsstønad => {
   return {
-    innsendingsdato: innsendingsdato,
-    person: person ?? lagPerson(),
-    søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-    adresseopplysninger: adresseopplysninger ?? lagAdresseopplysninger(),
-    sivilstatus: sivilstatus ?? lagSivilstatus(),
-    medlemskap: medlemskap ?? lagMedlemskap(),
-    bosituasjon: bosituasjon ?? lagBosituasjon(),
-    aktivitet: aktivitet ?? lagAktivitet(),
-    merOmDinSituasjon: merOmDinSituasjon ?? lagDinSituasjon(),
-    dokumentasjonsbehov: dokumentasjonsbehov ?? [],
-    harBekreftet: harBekreftet ?? false,
-    locale: locale,
-    skalBehandlesINySaksbehandling: skalBehandlesINySaksbehandling,
-    datoPåbegyntSøknad: datoPåbegyntSøknad,
+    innsendingsdato: undefined,
+    person: lagPerson(),
+    søkerBorPåRegistrertAdresse: undefined,
+    adresseopplysninger: undefined,
+    sivilstatus: lagSivilstatus(),
+    medlemskap: lagMedlemskap(),
+    bosituasjon: lagBosituasjon(),
+    aktivitet: lagAktivitet(),
+    merOmDinSituasjon: lagDinSituasjon(),
+    dokumentasjonsbehov: [],
+    harBekreftet: false,
+    locale: '',
+    skalBehandlesINySaksbehandling: true,
+    datoPåbegyntSøknad: undefined,
+    ...søknad,
   };
 };
 
 export const lagDinSituasjon = (
-  gjelderDetteDeg?: ISpørsmålListeFelt,
-  søknadsdato?: IDatoFelt,
-  sagtOppEllerRedusertStilling?: ISpørsmålFelt,
-  begrunnelseSagtOppEllerRedusertStilling?: ITekstFelt,
-  datoSagtOppEllerRedusertStilling?: IDatoFelt,
-  søkerFraBestemtMåned?: ISpørsmålBooleanFelt
+  dinSituasjon?: Partial<IDinSituasjon>
 ): IDinSituasjon => {
   return {
-    gjelderDetteDeg: gjelderDetteDeg ?? lagSpørsmålListeFelt(),
-    søknadsdato: søknadsdato,
-    sagtOppEllerRedusertStilling: sagtOppEllerRedusertStilling,
-    begrunnelseSagtOppEllerRedusertStilling:
-      begrunnelseSagtOppEllerRedusertStilling,
-    datoSagtOppEllerRedusertStilling: datoSagtOppEllerRedusertStilling,
-    søkerFraBestemtMåned: søkerFraBestemtMåned,
+    gjelderDetteDeg: lagSpørsmålListeFelt(),
+    søknadsdato: undefined,
+    sagtOppEllerRedusertStilling: undefined,
+    begrunnelseSagtOppEllerRedusertStilling: undefined,
+    datoSagtOppEllerRedusertStilling: undefined,
+    søkerFraBestemtMåned: undefined,
+    ...dinSituasjon,
   };
 };
 
-export const lagAktivitet = (
-  erIArbeid?: ISpørsmålFelt,
-  hvaErDinArbeidssituasjon?: ISpørsmålListeFelt,
-  etablererEgenVirksomhet?: ISpørsmålFelt,
-  arbeidsforhold?: IArbeidsgiver[],
-  datoOppstartJobb?: IDatoFelt,
-  arbeidssøker?: IArbeidssøker,
-  egetAS?: IAksjeselskap[],
-  firma?: IFirma,
-  firmaer?: IFirma[],
-  underUtdanning?: IUnderUtdanning
-): IAktivitet => {
+export const lagAktivitet = (aktivitet?: Partial<IAktivitet>): IAktivitet => {
   return {
-    erIArbeid: erIArbeid,
-    hvaErDinArbeidssituasjon:
-      hvaErDinArbeidssituasjon ?? lagSpørsmålListeFelt(),
-    etablererEgenVirksomhet: etablererEgenVirksomhet ?? lagSpørsmålFelt(),
-    arbeidsforhold: arbeidsforhold,
-    datoOppstartJobb: datoOppstartJobb,
-    arbeidssøker: arbeidssøker,
-    egetAS: egetAS,
-    firma: firma,
-    firmaer: firmaer,
-    underUtdanning: underUtdanning,
+    erIArbeid: undefined,
+    hvaErDinArbeidssituasjon: lagSpørsmålListeFelt(),
+    etablererEgenVirksomhet: lagSpørsmålFelt(),
+    arbeidsforhold: undefined,
+    datoOppstartJobb: undefined,
+    arbeidssøker: undefined,
+    egetAS: undefined,
+    firma: undefined,
+    firmaer: undefined,
+    underUtdanning: undefined,
+    ...aktivitet,
   };
 };
 
@@ -134,23 +102,17 @@ export const lagTekstListeFelt = (
 };
 
 export const lagBosituasjon = (
-  delerBoligMedAndreVoksne?: ISpørsmålFelt,
-  skalGifteSegEllerBliSamboer?: ISpørsmålBooleanFelt,
-  datoFlyttetSammenMedSamboer?: IDatoFelt,
-  datoSkalGifteSegEllerBliSamboer?: IDatoFelt,
-  datoFlyttetFraHverandre?: IDatoFelt,
-  samboerDetaljer?: IPersonDetaljer,
-  vordendeSamboerEktefelle?: IPersonDetaljer
+  bosituasjon?: Partial<IBosituasjon>
 ): IBosituasjon => {
   return {
-    delerBoligMedAndreVoksne: delerBoligMedAndreVoksne ?? lagSpørsmålFelt(),
-    skalGifteSegEllerBliSamboer:
-      skalGifteSegEllerBliSamboer ?? lagSpørsmålBooleanFelt(),
-    datoFlyttetSammenMedSamboer: datoFlyttetSammenMedSamboer,
-    datoSkalGifteSegEllerBliSamboer: datoSkalGifteSegEllerBliSamboer,
-    datoFlyttetFraHverandre: datoFlyttetFraHverandre,
-    samboerDetaljer: samboerDetaljer,
-    vordendeSamboerEktefelle: vordendeSamboerEktefelle,
+    delerBoligMedAndreVoksne: lagSpørsmålFelt(),
+    skalGifteSegEllerBliSamboer: lagSpørsmålBooleanFelt(),
+    datoFlyttetSammenMedSamboer: undefined,
+    datoSkalGifteSegEllerBliSamboer: undefined,
+    datoFlyttetFraHverandre: undefined,
+    samboerDetaljer: undefined,
+    vordendeSamboerEktefelle: undefined,
+    ...bosituasjon,
   };
 };
 
@@ -172,12 +134,12 @@ export const lagSpørsmålFelt = (
   return {
     spørsmålid: spørsmålid ?? '',
     svarid: svarid ?? '',
-    ...lagTekstfelt(),
+    ...lagTekstfelt('', ''),
   };
 };
 
-export const lagTekstfelt = (label?: string, verdi?: string): ITekstFelt => {
-  return { label: label ?? '', verdi: verdi ?? '' };
+export const lagTekstfelt = (label: string, verdi: string): ITekstFelt => {
+  return { label: label, verdi: verdi };
 };
 
 export const lagBooleanFelt = (
@@ -191,87 +153,146 @@ export const lagBooleanFelt = (
 };
 
 export const lagMedlemskap = (
-  søkerOppholderSegINorge?: IBooleanFelt,
-  oppholdsland?: ISpørsmålFelt,
-  søkerBosattINorgeSisteTreÅr?: IBooleanFelt,
-  perioderBoddIUtlandet?: IUtenlandsopphold[]
+  medlemskap?: Partial<IMedlemskap>
 ): IMedlemskap => {
   return {
-    søkerOppholderSegINorge: søkerOppholderSegINorge,
-    oppholdsland: oppholdsland,
-    søkerBosattINorgeSisteTreÅr: søkerBosattINorgeSisteTreÅr,
-    perioderBoddIUtlandet: perioderBoddIUtlandet,
+    søkerOppholderSegINorge: undefined,
+    oppholdsland: undefined,
+    søkerBosattINorgeSisteTreÅr: undefined,
+    perioderBoddIUtlandet: undefined,
+    ...medlemskap,
   };
 };
 
 export const lagSivilstatus = (
-  harSøktSeparasjon?: IBooleanFelt,
-  datoSøktSeparasjon?: IDatoFelt,
-  erUformeltGift?: ISpørsmålBooleanFelt,
-  erUformeltSeparertEllerSkilt?: ISpørsmålBooleanFelt,
-  årsakEnslig?: ISpørsmålFelt,
-  datoForSamlivsbrudd?: IDatoFelt,
-  datoFlyttetFraHverandre?: IDatoFelt,
-  datoEndretSamvær?: IDatoFelt,
-  tidligereSamboerDetaljer?: IPersonDetaljer
+  sivilstatus?: Partial<ISivilstatus>
 ): ISivilstatus => {
   return {
-    harSøktSeparasjon: harSøktSeparasjon,
-    datoSøktSeparasjon: datoSøktSeparasjon,
-    erUformeltGift: erUformeltGift,
-    erUformeltSeparertEllerSkilt: erUformeltSeparertEllerSkilt,
-    årsakEnslig: årsakEnslig,
-    datoForSamlivsbrudd: datoForSamlivsbrudd,
-    datoFlyttetFraHverandre: datoFlyttetFraHverandre,
-    datoEndretSamvær: datoEndretSamvær,
-    tidligereSamboerDetaljer: tidligereSamboerDetaljer,
+    harSøktSeparasjon: undefined,
+    datoSøktSeparasjon: undefined,
+    erUformeltGift: undefined,
+    erUformeltSeparertEllerSkilt: undefined,
+    årsakEnslig: undefined,
+    datoForSamlivsbrudd: undefined,
+    datoFlyttetFraHverandre: undefined,
+    datoEndretSamvær: undefined,
+    tidligereSamboerDetaljer: undefined,
+    ...sivilstatus,
   };
 };
 
-export const lagPerson = (
-  hash?: string,
-  søker?: Søker,
-  barn?: IBarn[]
-): IPerson => {
-  return { hash: hash ?? '', søker: søker ?? lagSøker(), barn: barn ?? [] };
-};
-
-export const lagSøker = (
-  fnr?: string,
-  alder?: number,
-  forkortetNavn?: string,
-  adresse?: Adresse,
-  sivilstand?: string,
-  statsborgerskap?: string,
-  erStrengtFortrolig?: boolean
-): Søker => {
+export const lagPerson = (person?: Partial<IPerson>): IPerson => {
   return {
-    fnr: fnr ?? '',
-    alder: alder ?? 0,
-    forkortetNavn: forkortetNavn ?? '',
-    adresse: adresse ?? lagAdresse(),
-    sivilstand: sivilstand ?? '',
-    statsborgerskap: statsborgerskap ?? '',
-    erStrengtFortrolig: erStrengtFortrolig ?? false,
+    hash: 'hash',
+    søker: lagSøker(),
+    barn: [lagIBarn()],
+    ...person,
   };
 };
 
-export const lagAdresse = (
-  adresse?: string,
-  postnummer?: string,
-  poststed?: string
-): Adresse => {
+export const lagSøker = (søker?: Partial<Søker>): Søker => {
   return {
-    adresse: adresse ?? '',
-    postnummer: postnummer ?? '',
-    poststed: poststed ?? '',
+    fnr: '01012512345',
+    alder: 25,
+    forkortetNavn: '',
+    adresse: lagAdresse(),
+    sivilstand: 'UGIFT',
+    statsborgerskap: 'NORGE',
+    erStrengtFortrolig: false,
+    ...søker,
+  };
+};
+
+export const lagAdresse = (adresse?: Partial<Adresse>): Adresse => {
+  return {
+    adresse: 'Testveien 10',
+    postnummer: '2407',
+    poststed: 'Andeby',
+    ...adresse,
   };
 };
 
 export const lagAdresseopplysninger = (
-  harMeldtAdresseendring?: ISpørsmålBooleanFelt
+  opplysninger?: Partial<IAdresseopplysninger>
 ): IAdresseopplysninger => {
   return {
-    harMeldtAdresseendring: harMeldtAdresseendring ?? lagSpørsmålBooleanFelt(),
+    harMeldtAdresseendring: undefined,
+    ...opplysninger,
+  };
+};
+
+export const lagBarn = (barn?: Partial<Barn>): Barn => {
+  const dagensDato = new Date();
+  dagensDato.setMonth(dagensDato.getMonth() - 1);
+
+  return {
+    alder: 10,
+    fnr: '12345678910',
+    fødselsdato: formatIsoDate(dagensDato),
+    harAdressesperre: false,
+    harSammeAdresse: false,
+    medforelder: undefined,
+    navn: 'Kjell Gunnar',
+    ...barn,
+  };
+};
+
+export const lagIBarn = (barn?: Partial<IBarn>): IBarn => {
+  const dagensDato = new Date();
+  dagensDato.setMonth(dagensDato.getMonth() - 1);
+
+  return {
+    id: '1234',
+    fnr: undefined,
+    alder: lagTekstfelt('', ''),
+    fødselsdato: lagTekstfelt('', ''),
+    ident: lagTekstfelt('', ''),
+    harSammeAdresse: lagBooleanFelt('', true),
+    navn: lagTekstfelt('', ''),
+    født: undefined,
+    lagtTil: undefined,
+    forelder: undefined,
+    særligeTilsynsbehov: undefined,
+    skalHaBarnepass: undefined,
+    barnepass: undefined,
+    harAdressesperre: undefined,
+    medforelder: undefined,
+    annenForelderId: undefined,
+    erFraForrigeSøknad: undefined,
+    ...barn,
+  };
+};
+
+export const lagPersonData = (personData?: Partial<PersonData>): PersonData => {
+  return {
+    søker: lagSøker(),
+    barn: [lagBarn()],
+    hash: 'hash',
+    ...personData,
+  };
+};
+
+export const lagMellomlagretSøknadOvergangsstønad = (
+  søknad?: Partial<MellomlagretSøknadOvergangsstønad>
+): MellomlagretSøknadOvergangsstønad => {
+  return {
+    søknad: lagSøknadOvergangsstønad(),
+    modellVersjon: 1,
+    gjeldendeSteg: '/',
+    locale: '',
+    ...søknad,
+  };
+};
+
+export const lagSistInnsendteSøknad = (
+  søknad?: Partial<SistInnsendteSøknad>
+): SistInnsendteSøknad => {
+  const dagensDato = new Date();
+  dagensDato.setMonth(dagensDato.getMonth() - 1);
+
+  return {
+    søknadsdato: formatIsoDate(dagensDato),
+    stønadType: Stønadstype.overgangsstønad,
+    ...søknad,
   };
 };
