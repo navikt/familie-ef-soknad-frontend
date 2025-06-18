@@ -199,16 +199,6 @@ export const erSivilstandSpørsmålBesvart = (
   return true;
 };
 
-export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
-) => {
-  return (
-    søknad.person.søker?.erStrengtFortrolig ||
-    søknad.søkerBorPåRegistrertAdresse?.verdi === true ||
-    søknad.adresseopplysninger?.harMeldtAdresseendring?.verdi === true
-  );
-};
-
 export const validerSøkerBosattINorgeSisteFemÅr = (
   søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {

@@ -4,7 +4,6 @@ import {
   erSivilstandSpørsmålBesvart,
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
-  søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../../helpers/steg/omdeg';
 import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
@@ -13,7 +12,6 @@ import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
-import { identErGyldig } from '../../../../utils/validering/validering';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -31,18 +29,20 @@ const OmDeg: FC = () => {
     routes,
     pathOppsumering,
     søknad,
+    søkerBorPåRegistrertAdresse,
+    harMeldtAdresseendring,
   } = useOmDeg();
 
   const { søker } = søknad.person;
 
   const SkalViseSivilstatusdialog =
-    søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
+    søkerBorPåRegistrertAdresse?.verdi === true ||
+    harMeldtAdresseendring?.verdi === true ||
+    søker?.erStrengtFortrolig;
 
   const skalViseMedlemskapsdialog =
     erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus) &&
-    (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
-      sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent);
+    erÅrsakEnsligBesvart(sivilstatus);
 
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     sivilstatus,
