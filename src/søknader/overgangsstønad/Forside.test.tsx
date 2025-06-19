@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from 'vitest';
 import React from 'react';
 import { waitFor } from '@testing-library/dom';
 import { render } from '../../test/render';
-import App from '../../App';
+import { OvergangsstønadApp } from './OvergangsstønadApp';
 import { TestContainer } from '../../test/TestContainer';
 import { mockGet } from '../../test/axios';
 import axios from 'axios';
@@ -29,7 +29,7 @@ describe('Forside for overgangsstønad', () => {
   test('skal vise statiske tekster', async () => {
     const { screen } = render(
       <TestContainer>
-        <App />
+        <OvergangsstønadApp />
       </TestContainer>
     );
 
@@ -64,7 +64,7 @@ describe('Forside for overgangsstønad', () => {
 
     const { screen } = render(
       <TestContainer>
-        <App />
+        <OvergangsstønadApp />
       </TestContainer>
     );
 
@@ -104,7 +104,7 @@ describe('Forside for overgangsstønad', () => {
 
     const { screen } = render(
       <TestContainer>
-        <App />
+        <OvergangsstønadApp />
       </TestContainer>
     );
 
@@ -136,7 +136,7 @@ describe('Forside for overgangsstønad', () => {
 
     const { screen, user } = render(
       <TestContainer>
-        <App />
+        <OvergangsstønadApp />
       </TestContainer>
     );
 
