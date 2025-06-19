@@ -1,16 +1,9 @@
 import { describe, expect, test, vi } from 'vitest';
 import { mockGet } from '../../../../test/axios';
-import axios from 'axios';
-import { TestContainer } from '../../../../test/TestContainer';
-import App from '../../../../App';
-import { waitFor, within } from '@testing-library/dom';
-import { render } from '../../../../test/render';
-import Environment from '../../../../Environment';
 import {
-  lagMellomlagretSøknadOvergangsstønad,
-  lagPerson,
-  lagSøker,
-  lagSøknadOvergangsstønad,
+  klikkSvarRadioknapp,
+  navigerTilOmDeg,
+  settOppMellomlagretSøknad,
 } from '../../../../test/utils';
 
 vi.mock('axios', () => {
@@ -25,48 +18,10 @@ vi.mock('axios', () => {
   };
 });
 
-vi.mock('../assets/FilIkon.tsx', async () => {
-  const React = await import('react');
-  return {
-    ReactComponent: () =>
-      React.createElement('div', { 'data-testid': 'mock-fil-ikon' }),
-  };
-});
-
 describe('OmDegSteg', () => {
   test('Skal navigere til om-deg fra mellomlagret søknad', async () => {
-    (axios.get as any).mockImplementation((url: string) => {
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
-        return Promise.resolve({
-          data: lagMellomlagretSøknadOvergangsstønad({
-            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
-            gjeldendeSteg: '/om-deg',
-          }),
-        });
-      }
-      return mockGet(url, 'overgangsstonad');
-    });
-
-    const { screen, user } = render(
-      <TestContainer>
-        <App />
-      </TestContainer>
-    );
-
-    await waitFor(async () => {
-      expect(
-        screen.getByRole('heading', {
-          level: 1,
-          name: 'Søknad om overgangsstønad',
-        })
-      ).toBeInTheDocument();
-    });
-
-    await user.click(
-      screen.getByRole('button', {
-        name: 'Fortsett på søknaden',
-      })
-    );
+    settOppMellomlagretSøknad();
+    const { screen } = await navigerTilOmDeg();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Om deg' })
@@ -74,45 +29,10 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendre spørsmål om uformelt gift dersom bruker er ugift og borPåAdresse er ja', async () => {
-    (axios.get as any).mockImplementation((url: string) => {
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
-        return Promise.resolve({
-          data: lagMellomlagretSøknadOvergangsstønad({
-            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
-            gjeldendeSteg: '/om-deg',
-          }),
-        });
-      }
-      return mockGet(url, 'overgangsstonad');
-    });
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
 
-    const { screen, user } = render(
-      <TestContainer>
-        <App />
-      </TestContainer>
-    );
-
-    await waitFor(async () => {
-      expect(
-        screen.getByRole('heading', {
-          level: 1,
-          name: 'Søknad om overgangsstønad',
-        })
-      ).toBeInTheDocument();
-    });
-
-    await user.click(
-      screen.getByRole('button', {
-        name: 'Fortsett på søknaden',
-      })
-    );
-    const borDuPåDenneAdressenGruppe = screen.getByRole('group', {
-      name: 'Bor du på denne adressen?',
-    });
-
-    await user.click(
-      within(borDuPåDenneAdressenGruppe).getByRole('radio', { name: 'Ja' })
-    );
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -122,51 +42,10 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendrer spørsmål om separasjon dersom bruker er gift og borPåAdresse er ja', async () => {
-    (axios.get as any).mockImplementation((url: string) => {
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
-        return Promise.resolve({
-          data: lagMellomlagretSøknadOvergangsstønad({
-            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
-            gjeldendeSteg: '/om-deg',
-          }),
-        });
-      }
-      if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
-        return Promise.resolve({
-          data: lagPerson({ søker: lagSøker({ sivilstand: 'GIFT' }) }),
-        });
-      }
+    settOppMellomlagretSøknad({ sivilstand: 'GIFT' });
+    const { screen, user } = await navigerTilOmDeg();
 
-      return mockGet(url, 'overgangsstonad');
-    });
-
-    const { screen, user } = render(
-      <TestContainer>
-        <App />
-      </TestContainer>
-    );
-
-    await waitFor(async () => {
-      expect(
-        screen.getByRole('heading', {
-          level: 1,
-          name: 'Søknad om overgangsstønad',
-        })
-      ).toBeInTheDocument();
-    });
-
-    await user.click(
-      screen.getByRole('button', {
-        name: 'Fortsett på søknaden',
-      })
-    );
-    const borDuPåDenneAdressenGruppe = screen.getByRole('group', {
-      name: 'Bor du på denne adressen?',
-    });
-
-    await user.click(
-      within(borDuPåDenneAdressenGruppe).getByRole('radio', { name: 'Ja' })
-    );
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -176,45 +55,10 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendre spørsmål og info om adresseendring dersom borPåAdresse er nei', async () => {
-    (axios.get as any).mockImplementation((url: string) => {
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
-        return Promise.resolve({
-          data: lagMellomlagretSøknadOvergangsstønad({
-            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
-            gjeldendeSteg: '/om-deg',
-          }),
-        });
-      }
-      return mockGet(url, 'overgangsstonad');
-    });
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
 
-    const { screen, user } = render(
-      <TestContainer>
-        <App />
-      </TestContainer>
-    );
-
-    await waitFor(async () => {
-      expect(
-        screen.getByRole('heading', {
-          level: 1,
-          name: 'Søknad om overgangsstønad',
-        })
-      ).toBeInTheDocument();
-    });
-
-    await user.click(
-      screen.getByRole('button', {
-        name: 'Fortsett på søknaden',
-      })
-    );
-    const borDuPåDenneAdressenGruppe = screen.getByRole('group', {
-      name: 'Bor du på denne adressen?',
-    });
-
-    await user.click(
-      within(borDuPåDenneAdressenGruppe).getByRole('radio', { name: 'Nei' })
-    );
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -222,12 +66,11 @@ describe('OmDegSteg', () => {
       })
     ).toBeInTheDocument();
 
-    await user.click(
-      within(
-        screen.getByRole('group', {
-          name: 'Har du meldt adresseendring til Folkeregisteret?',
-        })
-      ).getByRole('radio', { name: 'Ja' })
+    await klikkSvarRadioknapp(
+      'Har du meldt adresseendring til Folkeregisteret?',
+      'Ja',
+      screen,
+      user
     );
 
     expect(
@@ -236,12 +79,11 @@ describe('OmDegSteg', () => {
       )
     ).toBeInTheDocument();
 
-    await user.click(
-      within(
-        screen.getByRole('group', {
-          name: 'Har du meldt adresseendring til Folkeregisteret?',
-        })
-      ).getByRole('radio', { name: 'Nei' })
+    await klikkSvarRadioknapp(
+      'Har du meldt adresseendring til Folkeregisteret?',
+      'Nei',
+      screen,
+      user
     );
 
     expect(

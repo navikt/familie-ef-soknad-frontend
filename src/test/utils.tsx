@@ -25,6 +25,15 @@ import { IBarn } from '../models/steg/barn';
 import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
+import axios from 'axios';
+import Environment from '../Environment';
+import { mockGet } from './axios';
+import { render } from './render';
+import { TestContainer } from './TestContainer';
+import App from '../App';
+import { Screen, waitFor, within } from '@testing-library/dom';
+import { expect } from 'vitest';
+import { UserEvent } from '@testing-library/user-event';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -295,4 +304,63 @@ export const lagSistInnsendteSøknad = (
     stønadType: Stønadstype.overgangsstønad,
     ...søknad,
   };
+};
+
+export const settOppMellomlagretSøknad = (søker?: Partial<Søker>) => {
+  (axios.get as any).mockImplementation((url: string) => {
+    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      return Promise.resolve({
+        data: lagMellomlagretSøknadOvergangsstønad({
+          søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+          gjeldendeSteg: '/om-deg',
+        }),
+      });
+    }
+
+    if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+      return Promise.resolve({
+        data: lagPerson({
+          søker: lagSøker({ ...søker }),
+        }),
+      });
+    }
+
+    return mockGet(url, 'overgangsstonad');
+  });
+};
+
+export const navigerTilOmDeg = async () => {
+  const { screen, user } = render(
+    <TestContainer>
+      <App />
+    </TestContainer>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Søknad om overgangsstønad',
+      })
+    ).toBeInTheDocument();
+  });
+
+  await user.click(
+    screen.getByRole('button', {
+      name: 'Fortsett på søknaden',
+    })
+  );
+
+  return { screen, user };
+};
+
+export const klikkSvarRadioknapp = async (
+  groupName: string,
+  radioLabel: string,
+  screen: Screen,
+  user: UserEvent
+) => {
+  const radioGroup = screen.getByRole('group', { name: groupName });
+  const radio = within(radioGroup).getByRole('radio', { name: radioLabel });
+  await user.click(radio);
 };
