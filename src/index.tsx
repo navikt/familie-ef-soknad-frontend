@@ -1,7 +1,7 @@
 import './utils/polyfills';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '@navikt/ds-css';
-import './App.css';
+import './index.css';
 import './søknader/overgangsstønad/Forside.css';
 import './søknader/overgangsstønad/Søknadsdialog.css';
 import './components/feil/Feilside.css';
@@ -12,8 +12,7 @@ import './søknader/felles/steg/7-oppsummering/Oppsummering.css';
 import './søknader/arbeidssøkerskjema/side/Side.css';
 import './søknader/arbeidssøkerskjema/Oppsummering.css';
 import './søknader/arbeidssøkerskjema/Forside.css';
-import * as serviceWorker from './serviceWorker';
-import App from './App';
+import { OvergangsstønadApp } from './søknader/overgangsstønad/OvergangsstønadApp';
 import ArbeidssøkerApp from './søknader/arbeidssøkerskjema/SkjemaApp';
 import BarnetilsynApp from './søknader/barnetilsyn/BarnetilsynApp';
 import React from 'react';
@@ -45,15 +44,10 @@ if (container == null) {
             <Route path={'/arbeidssoker/*'} element={<ArbeidssøkerApp />} />
             <Route path={'/barnetilsyn/*'} element={<BarnetilsynApp />} />
             <Route path={'/skolepenger/*'} element={<SkolepengerApp />} />
-            <Route path={'*'} element={<App />} />
+            <Route path={'*'} element={<OvergangsstønadApp />} />
           </Routes>
         </Router>
       </ContextProviders>
     </SpråkProvider>
   );
 }
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
