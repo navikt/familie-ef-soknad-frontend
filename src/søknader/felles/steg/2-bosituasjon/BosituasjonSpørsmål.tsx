@@ -26,7 +26,7 @@ import { Alert } from '@navikt/ds-react';
 
 interface Props {
   bosituasjon: IBosituasjon;
-  settBosituasjon: (bosituasjon: IBosituasjon) => void;
+  settBosituasjon: React.Dispatch<React.SetStateAction<IBosituasjon>>;
   settDokumentasjonsbehov: (
     spørsmål: ISpørsmål,
     valgtSvar: ISvar,

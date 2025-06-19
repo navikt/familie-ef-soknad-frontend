@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Aktivitet from './steg/5-aktivitet/Aktivitet';
 import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
-import Bosituasjon from './steg/2-bosituasjon/Bosituasjon';
 import Forside from './Forside';
 import MerOmDinSituasjon from './steg/6-meromsituasjon/MerOmDinSituasjon';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
@@ -17,6 +16,8 @@ import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
 import { RoutesOvergangsstonad } from './routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from './utils';
 import { erOvergangsstønadSøknad, Søknad } from '../../models/søknad/søknad';
+import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
+import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -102,7 +103,18 @@ const Søknadsdialog: FC = () => {
           path={'/bosituasjon'}
           element={
             <RedirectTilStart>
-              <Bosituasjon />
+              <BosituasjonProvider
+                stønadstype={Stønadstype.overgangsstønad}
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagretSøknad={mellomlagretOvergangsstønad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                routes={RoutesOvergangsstonad}
+                pathOppsummering={pathOppsummeringOvergangsstønad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+              >
+                <Bosituasjon />
+              </BosituasjonProvider>
             </RedirectTilStart>
           }
         />
