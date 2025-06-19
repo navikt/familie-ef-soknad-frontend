@@ -230,26 +230,24 @@ describe('OmDegSteg', () => {
       ).getByRole('radio', { name: 'Ja' })
     );
 
-    // expect(
-    //   screen.getByText((tekst) =>
-    //     tekst.includes(
-    //       'Du må legge ved dokumentasjon på at du har meldt flytting til Folkeregisteret. Dokumentasjonen må vise at det er du som har endret adresse, hvilken adresse du har meldt flytting til og hvilken dato du flyttet.'
-    //     )
-    //   )
-    // ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Du må legge ved dokumentasjon på at du har meldt flytting til Folkeregisteret. Dokumentasjonen må vise at det er du som har endret adresse, hvilken adresse du har meldt flytting til og hvilken dato du flyttet.'
+      )
+    ).toBeInTheDocument();
 
-    // await user.click(
-    //   within(
-    //     screen.getByRole('group', {
-    //       name: 'Har du meldt adresseendring til Folkeregisteret?',
-    //     })
-    //   ).getByRole('radio', { name: 'Nei' })
-    // );
+    await user.click(
+      within(
+        screen.getByRole('group', {
+          name: 'Har du meldt adresseendring til Folkeregisteret?',
+        })
+      ).getByRole('radio', { name: 'Nei' })
+    );
 
-    // expect(
-    //   screen.getByText((tekst) =>
-    //     tekst.includes('Du må ha meldt adresseendring til Folkeregisteret')
-    //   )
-    // ).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) =>
+        tekst.includes('Du må ha meldt adresseendring til Folkeregisteret')
+      )
+    ).toBeInTheDocument();
   });
 });
