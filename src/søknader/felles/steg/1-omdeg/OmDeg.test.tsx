@@ -25,7 +25,7 @@ vi.mock('axios', () => {
   };
 });
 
-vi.mock('../assets/fil.svg', async () => {
+vi.mock('../assets/FilIkon.tsx', async () => {
   const React = await import('react');
   return {
     ReactComponent: () =>
