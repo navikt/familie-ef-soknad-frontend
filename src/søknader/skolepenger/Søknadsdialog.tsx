@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import RedirectTilStart from './RedirectTilStart';
-import Bosituasjon from './steg/2-bosituasjon/Bosituasjon';
 import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';
@@ -16,6 +15,8 @@ import { useSkolepengerSøknad } from './SkolepengerContext';
 import { RoutesSkolepenger } from './routing/routes';
 import { pathOppsummeringSkolepenger } from './utils';
 import { erSkolepengerSøknad, Søknad } from '../../models/søknad/søknad';
+import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
+import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 
 const SøknadsdialogSkolepenger: FC = () => {
   const {
@@ -92,7 +93,18 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/bosituasjon'}
         element={
           <RedirectTilStart>
-            <Bosituasjon />
+            <BosituasjonProvider
+              stønadstype={Stønadstype.skolepenger}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              mellomlagretSøknad={mellomlagretSkolepenger}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              routes={RoutesSkolepenger}
+              pathOppsummering={pathOppsummeringSkolepenger}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
+              <Bosituasjon />
+            </BosituasjonProvider>
           </RedirectTilStart>
         }
       />
