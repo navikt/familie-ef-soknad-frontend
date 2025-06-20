@@ -25,6 +25,9 @@ import { IBarn } from '../models/steg/barn';
 import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
+import axios from 'axios';
+import Environment from '../Environment';
+import { mockGet } from './axios';
 import { render } from './render';
 import { TestContainer } from './TestContainer';
 import { Screen, waitFor, within } from '@testing-library/dom';
@@ -301,6 +304,29 @@ export const lagSistInnsendteSøknad = (
     stønadType: Stønadstype.overgangsstønad,
     ...søknad,
   };
+};
+
+export const settOppMellomlagretSøknad = (søker?: Partial<Søker>) => {
+  (axios.get as any).mockImplementation((url: string) => {
+    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      return Promise.resolve({
+        data: lagMellomlagretSøknadOvergangsstønad({
+          søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+          gjeldendeSteg: '/om-deg',
+        }),
+      });
+    }
+
+    if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+      return Promise.resolve({
+        data: lagPerson({
+          søker: lagSøker({ ...søker }),
+        }),
+      });
+    }
+
+    return mockGet(url, 'overgangsstonad');
+  });
 };
 
 export const navigerTilOmDeg = async () => {
