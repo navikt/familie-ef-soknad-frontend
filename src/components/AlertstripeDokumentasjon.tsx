@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as FilIkon } from '../assets/fil.svg';
+import { FilIkon } from '../assets/FilIkon';
 import { BodyShort } from '@navikt/ds-react';
 
 const StyledAlertstripe = styled.div`

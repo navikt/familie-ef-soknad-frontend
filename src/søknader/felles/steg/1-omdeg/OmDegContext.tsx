@@ -37,6 +37,11 @@ export const [OmDegProvider, useOmDeg] = constate(
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
     const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
+    const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] =
+      useState(søknad.søkerBorPåRegistrertAdresse);
+    const [harMeldtAdresseendring, settHarMeldtAdresseendring] = useState(
+      søknad.adresseopplysninger?.harMeldtAdresseendring
+    );
 
     useEffect(() => {
       if (mellomlagretSøknad?.søknad.medlemskap) {
@@ -44,6 +49,18 @@ export const [OmDegProvider, useOmDeg] = constate(
       }
       if (mellomlagretSøknad?.søknad.sivilstatus) {
         settSivilstatus(mellomlagretSøknad.søknad.sivilstatus);
+      }
+      if (mellomlagretSøknad?.søknad.søkerBorPåRegistrertAdresse) {
+        settSøkerBorPåRegistrertAdresse(
+          mellomlagretSøknad.søknad.søkerBorPåRegistrertAdresse
+        );
+      }
+      if (
+        mellomlagretSøknad?.søknad.adresseopplysninger?.harMeldtAdresseendring
+      ) {
+        settHarMeldtAdresseendring(
+          mellomlagretSøknad.søknad.adresseopplysninger.harMeldtAdresseendring
+        );
       }
     }, [mellomlagretSøknad]);
 
@@ -56,6 +73,10 @@ export const [OmDegProvider, useOmDeg] = constate(
     };
 
     return {
+      søkerBorPåRegistrertAdresse,
+      settSøkerBorPåRegistrertAdresse,
+      harMeldtAdresseendring,
+      settHarMeldtAdresseendring,
       sivilstatus,
       settSivilstatus,
       medlemskap,
