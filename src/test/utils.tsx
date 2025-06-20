@@ -306,29 +306,6 @@ export const lagSistInnsendteSøknad = (
   };
 };
 
-export const settOppMellomlagretSøknad = (søker?: Partial<Søker>) => {
-  (axios.get as any).mockImplementation((url: string) => {
-    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
-      return Promise.resolve({
-        data: lagMellomlagretSøknadOvergangsstønad({
-          søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
-          gjeldendeSteg: '/om-deg',
-        }),
-      });
-    }
-
-    if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
-      return Promise.resolve({
-        data: lagPerson({
-          søker: lagSøker({ ...søker }),
-        }),
-      });
-    }
-
-    return mockGet(url, 'overgangsstonad');
-  });
-};
-
 export const navigerTilOmDeg = async () => {
   const { screen, user } = render(
     <TestContainer>

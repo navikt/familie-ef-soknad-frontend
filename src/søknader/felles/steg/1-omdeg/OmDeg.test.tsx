@@ -2,9 +2,14 @@ import { describe, expect, test, vi } from 'vitest';
 import { mockGet } from '../../../../test/axios';
 import {
   klikkSvarRadioknapp,
+  lagMellomlagretSøknadOvergangsstønad,
+  lagPerson,
+  lagSøker,
+  lagSøknadOvergangsstønad,
   navigerTilOmDeg,
-  settOppMellomlagretSøknad,
 } from '../../../../test/utils';
+import axios from 'axios';
+import Environment from '../../../../Environment';
 
 vi.mock('axios', () => {
   return {
@@ -20,7 +25,26 @@ vi.mock('axios', () => {
 
 describe('OmDegSteg', () => {
   test('Skal navigere til om-deg fra mellomlagret søknad', async () => {
-    settOppMellomlagretSøknad();
+    (axios.get as any).mockImplementation((url: string) => {
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: lagMellomlagretSøknadOvergangsstønad({
+            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+            gjeldendeSteg: '/om-deg',
+          }),
+        });
+      }
+
+      if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+        return Promise.resolve({
+          data: lagPerson({
+            søker: lagSøker(),
+          }),
+        });
+      }
+
+      return mockGet(url, 'overgangsstonad');
+    });
     const { screen } = await navigerTilOmDeg();
 
     expect(
@@ -29,7 +53,26 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendre spørsmål om uformelt gift dersom bruker er ugift og borPåAdresse er ja', async () => {
-    settOppMellomlagretSøknad();
+    (axios.get as any).mockImplementation((url: string) => {
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: lagMellomlagretSøknadOvergangsstønad({
+            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+            gjeldendeSteg: '/om-deg',
+          }),
+        });
+      }
+
+      if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+        return Promise.resolve({
+          data: lagPerson({
+            søker: lagSøker(),
+          }),
+        });
+      }
+
+      return mockGet(url, 'overgangsstonad');
+    });
     const { screen, user } = await navigerTilOmDeg();
 
     await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
@@ -42,7 +85,26 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendrer spørsmål om separasjon dersom bruker er gift og borPåAdresse er ja', async () => {
-    settOppMellomlagretSøknad({ sivilstand: 'GIFT' });
+    (axios.get as any).mockImplementation((url: string) => {
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: lagMellomlagretSøknadOvergangsstønad({
+            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+            gjeldendeSteg: '/om-deg',
+          }),
+        });
+      }
+
+      if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+        return Promise.resolve({
+          data: lagPerson({
+            søker: lagSøker({ sivilstand: 'GIFT' }),
+          }),
+        });
+      }
+
+      return mockGet(url, 'overgangsstonad');
+    });
     const { screen, user } = await navigerTilOmDeg();
 
     await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
@@ -55,7 +117,26 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendre spørsmål og info om adresseendring dersom borPåAdresse er nei', async () => {
-    settOppMellomlagretSøknad();
+    (axios.get as any).mockImplementation((url: string) => {
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: lagMellomlagretSøknadOvergangsstønad({
+            søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+            gjeldendeSteg: '/om-deg',
+          }),
+        });
+      }
+
+      if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+        return Promise.resolve({
+          data: lagPerson({
+            søker: lagSøker({ sivilstand: 'GIFT' }),
+          }),
+        });
+      }
+
+      return mockGet(url, 'overgangsstonad');
+    });
     const { screen, user } = await navigerTilOmDeg();
 
     await klikkSvarRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
