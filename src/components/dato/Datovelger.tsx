@@ -23,12 +23,7 @@ interface Props {
   settDato: (dato: string) => void;
 }
 
-const Datovelger: React.FC<Props> = ({
-  tekstid,
-  datobegrensning,
-  valgtDato,
-  settDato,
-}) => {
+const Datovelger: React.FC<Props> = ({ tekstid, datobegrensning, valgtDato, settDato }) => {
   const [locale] = useSpråkContext();
   const [_dato, _settDato] = useState<string>(valgtDato ? valgtDato : '');
   const intl = useLokalIntlContext();
@@ -47,15 +42,9 @@ const Datovelger: React.FC<Props> = ({
     validate: { isBefore: boolean; isAfter: boolean; isValidDate: boolean },
     settFeilmelding: React.Dispatch<React.SetStateAction<string>>
   ) => {
-    if (
-      datobegrensning === DatoBegrensning.FremtidigeDatoer &&
-      validate.isBefore
-    ) {
+    if (datobegrensning === DatoBegrensning.FremtidigeDatoer && validate.isBefore) {
       settFeilmelding('datovelger.ugyldigDato.kunFremtidigeDatoer');
-    } else if (
-      datobegrensning === DatoBegrensning.TidligereDatoer &&
-      validate.isAfter
-    ) {
+    } else if (datobegrensning === DatoBegrensning.TidligereDatoer && validate.isAfter) {
       settFeilmelding('datovelger.ugyldigDato.kunTidligereDatoer');
     } else if (!validate.isValidDate) {
       settFeilmelding('datovelger.ugyldigDato');
@@ -99,19 +88,14 @@ const Datovelger: React.FC<Props> = ({
     }
   };
 
-  const tilLocaleDateString = (dato: Date) =>
-    formatISO(dato, { representation: 'date' });
+  const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
 
   const { datepickerProps, inputProps } = useDatepicker({
     fromDate: new Date(hentDatobegrensninger(datobegrensning).minDato),
     toDate: new Date(hentDatobegrensninger(datobegrensning).maksDato),
     onDateChange: (dato) => _settDato(dato ? tilLocaleDateString(dato) : ''),
     onValidate: (validate) =>
-      settFeilmeldingBasertPåValidering(
-        datobegrensning,
-        validate,
-        settFeilmelding
-      ),
+      settFeilmeldingBasertPåValidering(datobegrensning, validate, settFeilmelding),
     locale: locale,
     defaultSelected: datoVisningsverdi,
   });

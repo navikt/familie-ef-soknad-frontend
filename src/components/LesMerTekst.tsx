@@ -44,9 +44,7 @@ const LesMerTekst: React.FC<Props> = ({
       <StyledÅpenHjelpetekst>
         <BodyShort>
           {innholdTekst && innholdTekst}
-          {!innholdTekst && innholdTekstid && (
-            <LocaleTekst tekst={innholdTekstid} />
-          )}
+          {!innholdTekst && innholdTekstid && <LocaleTekst tekst={innholdTekstid} />}
         </BodyShort>
       </StyledÅpenHjelpetekst>
     );
@@ -66,9 +64,7 @@ const LesMerTekst: React.FC<Props> = ({
             {!innholdTekst && innholdTekstid && html && (
               <FormattedHtmlMessage id={innholdTekstid} />
             )}
-            {!innholdTekst && innholdTekstid && !html && (
-              <LocaleTekst tekst={innholdTekstid} />
-            )}
+            {!innholdTekst && innholdTekstid && !html && <LocaleTekst tekst={innholdTekstid} />}
           </BodyShort>
         </ReadMore>
       </>

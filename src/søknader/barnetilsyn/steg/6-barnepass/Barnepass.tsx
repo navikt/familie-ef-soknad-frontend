@@ -29,11 +29,7 @@ import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { IBarn } from '../../../../models/steg/barn';
 import { SøknadBarnetilsyn } from '../../models/søknad';
-import {
-  dagensDato,
-  datoTilStreng,
-  formatMånederTilbake,
-} from '../../../../utils/dato';
+import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { BodyShort } from '@navikt/ds-react';
@@ -51,12 +47,8 @@ const Barnepass: FC = () => {
   const skalViseKnapper = !kommerFraOppsummering
     ? ESide.visTilbakeNesteAvbrytKnapp
     : ESide.visTilbakeTilOppsummeringKnapp;
-  const {
-    søknad,
-    settSøknad,
-    mellomlagreBarnetilsyn,
-    settDokumentasjonsbehovForBarn,
-  } = useBarnetilsynSøknad();
+  const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
+    useBarnetilsynSøknad();
   const { søknadsdato, søkerFraBestemtMåned } = søknad;
   const barnSomSkalHaBarnepass = søknad.person.barn.filter(
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
@@ -109,10 +101,7 @@ const Barnepass: FC = () => {
 
   const settSøkerFraBestemtMåned = (spørsmål: ISpørsmål, svar: ISvar) => {
     settSøknad((prevSoknad: SøknadBarnetilsyn) => {
-      if (
-        svar.id === ESøkerFraBestemtMåned.neiNavKanVurdere &&
-        søknadsdato?.verdi
-      )
+      if (svar.id === ESøkerFraBestemtMåned.neiNavKanVurdere && søknadsdato?.verdi)
         delete prevSoknad.søknadsdato;
       return {
         ...prevSoknad,
@@ -140,18 +129,14 @@ const Barnepass: FC = () => {
       stegtittel={intl.formatMessage({ id: 'barnepass.sidetittel' })}
       skalViseKnapper={skalViseKnapper}
       mellomlagreStønad={mellomlagreBarnetilsyn}
-      erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(
-        barnSomSkalHaBarnepass,
-        søknad
-      )}
+      erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}
       routesStønad={RoutesBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <SeksjonGruppe>
         {barnSomSkalHaBarnepass.map((barn: IBarn, index: number) => {
           const visSeksjon =
-            index === 0 ||
-            erBarnepassForBarnFørNåværendeUtfylt(barn, barnSomSkalHaBarnepass);
+            index === 0 || erBarnepassForBarnFørNåværendeUtfylt(barn, barnSomSkalHaBarnepass);
           return (
             visSeksjon && (
               <React.Fragment key={barn.id}>
@@ -162,18 +147,14 @@ const Barnepass: FC = () => {
                   <ÅrsakBarnepass
                     barn={barn}
                     settBarnepass={settBarnepass}
-                    settDokumentasjonsbehovForBarn={
-                      settDokumentasjonsbehovForBarn
-                    }
+                    settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
                   />
                 )}
                 {erÅrsakBarnepassSpmBesvart(barn) && (
                   <BarnepassOrdninger
                     barn={barn}
                     settBarnepass={settBarnepass}
-                    settDokumentasjonsbehovForBarn={
-                      settDokumentasjonsbehovForBarn
-                    }
+                    settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
                   />
                 )}
               </React.Fragment>

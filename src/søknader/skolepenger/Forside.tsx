@@ -8,7 +8,7 @@ import { logSidevisningSkolepenger } from '../../utils/amplitude';
 import { useMount, useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Alert, Heading, Box } from '@navikt/ds-react';
+import { Alert, Box, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
@@ -51,12 +51,9 @@ const Forside: React.FC = () => {
   const kanBrukeMellomlagretSøknad =
     mellomlagretSkolepenger !== undefined &&
     mellomlagretSkolepenger.søknad.person.hash === person.hash &&
-    mellomlagretSkolepenger.modellVersjon ===
-      Environment().modellVersjon.skolepenger;
+    mellomlagretSkolepenger.modellVersjon === Environment().modellVersjon.skolepenger;
 
-  const skalViseSpråkValg = !(
-    kanBrukeMellomlagretSøknad && mellomlagretSkolepenger
-  );
+  const skalViseSpråkValg = !(kanBrukeMellomlagretSøknad && mellomlagretSkolepenger);
 
   useSpråkValg(skalViseSpråkValg);
 

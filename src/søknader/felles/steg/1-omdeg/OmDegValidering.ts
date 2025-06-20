@@ -1,9 +1,6 @@
 import { Søknad } from '../../../../models/søknad/søknad';
 import { IMedlemskap } from '../../../../models/steg/omDeg/medlemskap';
-import {
-  EBegrunnelse,
-  ISivilstatus,
-} from '../../../../models/steg/omDeg/sivilstatus';
+import { EBegrunnelse, ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 
 const validerOmDeg = <T extends Søknad>(
   søknad: T,
@@ -18,8 +15,7 @@ const validerOmDeg = <T extends Søknad>(
 };
 
 const validerSivilstatus = (sivilstatus: ISivilstatus) => {
-  const skalFjerneDatoSøktSeparasjon =
-    sivilstatus.harSøktSeparasjon?.verdi === false;
+  const skalFjerneDatoSøktSeparasjon = sivilstatus.harSøktSeparasjon?.verdi === false;
 
   const skalFjerneDatoForSamlivsbrudd =
     sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.samlivsbruddForeldre;
@@ -50,11 +46,9 @@ const validerSivilstatus = (sivilstatus: ISivilstatus) => {
 };
 
 const validerMedlemskap = (medlemskap: IMedlemskap) => {
-  const skalFjernePerioderBoddIUtlandet =
-    medlemskap.søkerBosattINorgeSisteTreÅr?.verdi === true;
+  const skalFjernePerioderBoddIUtlandet = medlemskap.søkerBosattINorgeSisteTreÅr?.verdi === true;
 
-  const skalFjerneOppholdsland =
-    medlemskap.søkerOppholderSegINorge?.verdi === true;
+  const skalFjerneOppholdsland = medlemskap.søkerOppholderSegINorge?.verdi === true;
 
   return {
     ...medlemskap,

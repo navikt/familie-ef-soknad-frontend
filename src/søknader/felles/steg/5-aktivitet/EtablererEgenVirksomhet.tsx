@@ -17,10 +17,7 @@ interface Props {
   settArbeidssituasjon: (nyArbeidssituasjon: IAktivitet) => void;
 }
 
-const EtablererEgenVirksomhet: React.FC<Props> = ({
-  arbeidssituasjon,
-  settArbeidssituasjon,
-}) => {
+const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasjon }) => {
   const { etablererEgenVirksomhet } = arbeidssituasjon;
   const intl = useLokalIntlContext();
 
@@ -30,10 +27,7 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({
       etablererEgenVirksomhet: {
         spørsmålid: EArbeidssituasjon.etablererEgenVirksomhet,
         svarid: EAktivitet.etablererEgenVirksomhet,
-        label: hentTekst(
-          'arbeidssituasjon.label.etablererEgenVirksomhet',
-          intl
-        ),
+        label: hentTekst('arbeidssituasjon.label.etablererEgenVirksomhet', intl),
         verdi: e.target.value,
       },
     });
@@ -43,9 +37,7 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({
     <>
       <FeltGruppe>
         <Heading size="small" level="3">
-          <LocaleTekst
-            tekst={'arbeidssituasjon.tittel.etablererEgenVirksomhet'}
-          />
+          <LocaleTekst tekst={'arbeidssituasjon.tittel.etablererEgenVirksomhet'} />
         </Heading>
       </FeltGruppe>
       <KomponentGruppe>
@@ -54,17 +46,13 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({
           label={intl.formatMessage({
             id: 'arbeidssituasjon.label.etablererEgenVirksomhet',
           })}
-          value={
-            etablererEgenVirksomhet?.verdi ? etablererEgenVirksomhet.verdi : ''
-          }
+          value={etablererEgenVirksomhet?.verdi ? etablererEgenVirksomhet.verdi : ''}
           maxLength={2000}
           onChange={(e) => settTekstfelt(e)}
         />
         <FeltGruppe>
           <AlertStripeDokumentasjon>
-            <LocaleTekst
-              tekst={'arbeidssituasjon.alert.etablererEgenVirksomhet'}
-            />
+            <LocaleTekst tekst={'arbeidssituasjon.alert.etablererEgenVirksomhet'} />
           </AlertStripeDokumentasjon>
         </FeltGruppe>
       </KomponentGruppe>

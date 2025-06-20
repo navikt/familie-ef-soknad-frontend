@@ -4,7 +4,7 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import SendSøknadKnapper from './SendSkolepengerSøknad';
 import { useLocation } from 'react-router-dom';
-import { usePrevious } from '../../../../utils/hooks';
+import { useMount, usePrevious } from '../../../../utils/hooks';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
 import Side, { ESide } from '../../../../components/side/Side';
@@ -14,7 +14,6 @@ import { useSkolepengerSøknad } from '../../SkolepengerContext';
 
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { useDebouncedCallback } from 'use-debounce';
@@ -37,17 +36,15 @@ const Dokumentasjon: React.FC = () => {
     harSendtInnTidligere: boolean
   ) => {
     settSøknad((prevSoknad: SøknadSkolepenger) => {
-      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map(
-        (dok) => {
-          return dok.id === dokumentasjonsid
-            ? {
-                ...dok,
-                opplastedeVedlegg: opplastedeVedlegg,
-                harSendtInn: harSendtInnTidligere,
-              }
-            : dok;
-        }
-      );
+      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map((dok) => {
+        return dok.id === dokumentasjonsid
+          ? {
+              ...dok,
+              opplastedeVedlegg: opplastedeVedlegg,
+              harSendtInn: harSendtInnTidligere,
+            }
+          : dok;
+      });
       return { ...prevSoknad, dokumentasjonsbehov: dokumentasjonMedVedlegg };
     });
   };
@@ -75,11 +72,7 @@ const Dokumentasjon: React.FC = () => {
             message: `Fjernet ugyldig vedlegg fra søknaden.`,
             level: 'warning',
           });
-          oppdaterDokumentasjon(
-            dokBehov.id,
-            gyldigeVedlegg,
-            dokBehov.harSendtInn
-          );
+          oppdaterDokumentasjon(dokBehov.id, gyldigeVedlegg, dokBehov.harSendtInn);
         }
       }
     });
@@ -96,9 +89,7 @@ const Dokumentasjon: React.FC = () => {
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}
     >
-      <DokumentasjonBeskrivelse
-        harDokumentasjonsbehov={harDokumentasjonsbehov}
-      />
+      <DokumentasjonBeskrivelse harDokumentasjonsbehov={harDokumentasjonsbehov} />
       <SeksjonGruppe>
         {dokumentasjonsbehov
           .filter(unikeDokumentasjonsbehov)

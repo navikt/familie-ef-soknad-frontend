@@ -2,11 +2,7 @@ import React, { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../components/gruppe/InputLabelGruppe';
 import { hentTekst } from '../../../../utils/søknad';
-import {
-  EBarnepass,
-  ETypeBarnepassOrdning,
-  IBarnepassOrdning,
-} from '../../models/barnepass';
+import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
@@ -16,19 +12,14 @@ import { Detail } from '@navikt/ds-react';
 
 interface Props {
   barnepassOrdning: IBarnepassOrdning;
-  settInputFelt: (
-    e: React.FormEvent<HTMLInputElement>,
-    nøkkel: string,
-    label: string
-  ) => void;
+  settInputFelt: (e: React.FormEvent<HTMLInputElement>, nøkkel: string, label: string) => void;
 }
 const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt }) => {
   const intl = useLokalIntlContext();
   const beløp = barnepassOrdning.belop ? barnepassOrdning.belop.verdi : '';
   const beløpLabel = hentTekst('barnepass.label.beløp', intl);
   const alertstripeTekst =
-    barnepassOrdning.hvaSlagsBarnepassOrdning?.svarid ===
-    ETypeBarnepassOrdning.barnehageOgLiknende
+    barnepassOrdning.hvaSlagsBarnepassOrdning?.svarid === ETypeBarnepassOrdning.barnehageOgLiknende
       ? 'barnepass.alert-dokumentasjon.beløp.barnehageOgLiknende'
       : 'barnepass.alert-dokumentasjon.beløp.privat';
 

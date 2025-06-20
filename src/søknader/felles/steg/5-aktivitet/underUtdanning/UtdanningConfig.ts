@@ -71,9 +71,7 @@ export const heltidEllerDeltidSpm = (intl: LokalIntlShape): ISpørsmål => ({
   ],
 });
 
-export const utdanningEtterGrunnskolenSpm = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const utdanningEtterGrunnskolenSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EUtdanning.harTattUtdanningEtterGrunnskolen,
   tekstid: 'utdanning.spm.grunnskole',
   flersvar: false,

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  DatoBegrensning,
-  Datovelger,
-} from '../../../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
 import LocaleTekst from '../../../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';

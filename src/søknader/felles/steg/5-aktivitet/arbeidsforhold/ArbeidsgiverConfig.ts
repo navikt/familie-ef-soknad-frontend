@@ -1,16 +1,12 @@
 import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
-import {
-  EArbeidsgiver,
-  EStilling,
-} from '../../../../../models/steg/aktivitet/arbeidsgiver';
+import { EArbeidsgiver, EStilling } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { JaNeiSvar } from '../../../../../helpers/svar';
 import { IDokumentasjon } from '../../../../../models/steg/dokumentasjon';
 import { DokumentasjonsConfig } from '../../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../../language/typer';
 
 // DOKUMENTASJON
-const DokumentasjonLærling: IDokumentasjon =
-  DokumentasjonsConfig.DokumentasjonLærling;
+const DokumentasjonLærling: IDokumentasjon = DokumentasjonsConfig.DokumentasjonLærling;
 
 // SPØRSMÅL
 export const hvaSlagsStilling = (intl: LokalIntlShape): ISpørsmål => ({

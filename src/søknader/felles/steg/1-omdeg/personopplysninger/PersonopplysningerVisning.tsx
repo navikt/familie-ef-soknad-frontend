@@ -25,17 +25,13 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
   return (
     <VStack gap={'4'}>
       <VStack align={'start'}>
-        <Heading size="xsmall">
-          {hentTekst('person.ident.visning', intl)}
-        </Heading>
+        <Heading size="xsmall">{hentTekst('person.ident.visning', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {personIdent}
         </BodyShort>
       </VStack>
       <VStack align={'start'}>
-        <Heading size="xsmall">
-          {hentTekst('person.statsborgerskap', intl)}
-        </Heading>
+        <Heading size="xsmall">{hentTekst('person.statsborgerskap', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {statsborgerskap}
         </BodyShort>
@@ -52,9 +48,7 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
           {adresse.adresse}
         </BodyShort>
         <BodyShort size="medium" weight="regular">
-          {adresse.poststed
-            ? `${adresse.postnummer} - ${adresse.poststed}`
-            : adresse.postnummer}
+          {adresse.poststed ? `${adresse.postnummer} - ${adresse.poststed}` : adresse.postnummer}
         </BodyShort>
       </VStack>
     </VStack>

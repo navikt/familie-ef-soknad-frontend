@@ -6,8 +6,7 @@ import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
 
 // --- Dokumentasjon
-const Terminbekreftelse: IDokumentasjon =
-  DokumentasjonsConfig.Terminbekreftelse;
+const Terminbekreftelse: IDokumentasjon = DokumentasjonsConfig.Terminbekreftelse;
 
 // --- Spørsmål
 
@@ -15,10 +14,7 @@ export const barnetFødt = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EBarn.født,
   tekstid: 'barnekort.spm.født',
   flersvar: false,
-  svaralternativer: [
-    JaSvar(intl),
-    { ...NeiSvar(intl), dokumentasjonsbehov: Terminbekreftelse },
-  ],
+  svaralternativer: [JaSvar(intl), { ...NeiSvar(intl), dokumentasjonsbehov: Terminbekreftelse }],
 });
 
 export const skalBarnetBoHosSøker = (intl: LokalIntlShape): ISpørsmål => ({

@@ -16,11 +16,7 @@ import { Heading, Label } from '@navikt/ds-react';
 interface Props {
   arbeidssituasjon: IAktivitet;
   settArbeidssituasjon: (nyArbeidssituasjon: IAktivitet) => void;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   inkludertArbeidsmengde?: boolean;
 }
 
@@ -58,9 +54,7 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
   }, [arbeidsforhold]);
 
   const leggTilArbeidsgiver = () => {
-    const nyArbeidsgiver: IArbeidsgiver = tomArbeidsgiver(
-      inkludertArbeidsmengde
-    );
+    const nyArbeidsgiver: IArbeidsgiver = tomArbeidsgiver(inkludertArbeidsmengde);
     const alleArbeidsgivere = arbeidsforhold;
     alleArbeidsgivere.push(nyArbeidsgiver);
     settArbeidssituasjon({

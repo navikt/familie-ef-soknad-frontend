@@ -57,9 +57,7 @@ const Side: React.FC<ISide> = ({
   routes.shift();
 
   const stegobjekter = stegSomSkalVisesPåStegindikator(routes);
-  const aktivtSteg = stegobjekter.findIndex(
-    (steg) => steg.path === location.pathname
-  );
+  const aktivtSteg = stegobjekter.findIndex((steg) => steg.path === location.pathname);
 
   return (
     <div className={'søknadsdialog'}>
@@ -85,12 +83,7 @@ const Side: React.FC<ISide> = ({
         </Box>
 
         {informasjonstekstId && (
-          <Alert
-            size="small"
-            variant="info"
-            className="side__informasjon"
-            inline
-          >
+          <Alert size="small" variant="info" className="side__informasjon" inline>
             <LocaleTekst tekst={informasjonstekstId} />
           </Alert>
         )}
@@ -113,9 +106,7 @@ const Side: React.FC<ISide> = ({
         ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
           erSpørsmålBesvart && (
             <>
-              <BodyShort size="small">
-                {intl.formatMessage({ id: 'knapp.uu-tekst' })}
-              </BodyShort>
+              <BodyShort size="small">{intl.formatMessage({ id: 'knapp.uu-tekst' })}</BodyShort>
               <Button
                 variant="primary"
                 className="tilbake-til-oppsummering"

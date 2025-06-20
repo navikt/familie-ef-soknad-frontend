@@ -35,9 +35,7 @@ const SyktBarn: FC = () => {
     });
   };
 
-  const { filInformasjon } = useHentFilInformasjon(
-    hentSøknadBasertPåBrukerSpråk()
-  );
+  const { filInformasjon } = useHentFilInformasjon(hentSøknadBasertPåBrukerSpråk());
 
   return (
     <SeksjonGruppe>

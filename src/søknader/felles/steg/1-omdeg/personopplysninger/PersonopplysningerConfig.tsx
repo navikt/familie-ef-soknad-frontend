@@ -12,9 +12,7 @@ export const borDuPåDenneAdressen = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: JaNeiSvar(intl),
 });
 
-export const harMeldtAdresseendringSpørsmål = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const harMeldtAdresseendringSpørsmål = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EAdresseopplysninger.harMeldtAdresseendring,
   tekstid: 'personopplysninger.spm.meldtAdresseendring',
   lesmer: undefined,

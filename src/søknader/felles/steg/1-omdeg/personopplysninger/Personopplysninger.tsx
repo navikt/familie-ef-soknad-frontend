@@ -3,10 +3,7 @@ import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmå
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
-import {
-  borDuPåDenneAdressen,
-  harMeldtAdresseendringSpørsmål,
-} from './PersonopplysningerConfig';
+import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { Søker } from '../../../../../models/søknad/person';
@@ -20,19 +17,11 @@ import { Alert, VStack } from '@navikt/ds-react';
 
 interface Props {
   søker: Søker;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
-  settSøkerBorPåRegistrertAdresse: (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
-  ) => void;
+  settSøkerBorPåRegistrertAdresse: (søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt) => void;
   harMeldtAdresseendring?: ISpørsmålBooleanFelt;
-  settHarMeldtAdresseendring: (
-    harMeldtAdresseendring: ISpørsmålBooleanFelt
-  ) => void;
+  settHarMeldtAdresseendring: (harMeldtAdresseendring: ISpørsmålBooleanFelt) => void;
   stønadstype: Stønadstype;
 }
 
@@ -47,10 +36,7 @@ const Personopplysninger: React.FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const settPersonopplysningerFelt = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
+  const settPersonopplysningerFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
     settSøkerBorPåRegistrertAdresse({
       spørsmålid: spørsmål.søknadid,
@@ -101,9 +87,7 @@ const Personopplysninger: React.FC<Props> = ({
               />
               {harMeldtAdresseendring?.verdi === true && (
                 <AlertStripeDokumentasjon>
-                  <LocaleTekst
-                    tekst={'personopplysninger.alert.meldtAdresseendring'}
-                  />
+                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
                 </AlertStripeDokumentasjon>
               )}
               {harMeldtAdresseendring?.verdi === false && (

@@ -1,9 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import {
-  hentBeskjedMedNavn,
-  hentBeskjedMedToParametre,
-} from '../../utils/språk';
+import { hentBeskjedMedNavn, hentBeskjedMedToParametre } from '../../utils/språk';
 import opplasting from '../../assets/opplasting.svg';
 import OpplastedeFiler from './OpplastedeFiler';
 import { formaterFilstørrelse } from './utils';
@@ -197,11 +194,7 @@ const Filopplaster: React.FC<Props> = ({
     const nyVedleggsliste = opplastedeVedlegg.filter((obj: IVedlegg) => {
       return obj.dokumentId !== fil.dokumentId;
     });
-    oppdaterDokumentasjon(
-      dokumentasjon.id,
-      nyVedleggsliste,
-      dokumentasjon.harSendtInn
-    );
+    oppdaterDokumentasjon(dokumentasjon.id, nyVedleggsliste, dokumentasjon.harSendtInn);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -215,11 +208,7 @@ const Filopplaster: React.FC<Props> = ({
 
       <FilopplastingFelt>
         {åpenModal && (
-          <ModalWrapper
-            tittel="Noe har gått galt"
-            visModal={åpenModal}
-            onClose={() => lukkModal()}
-          >
+          <ModalWrapper tittel="Noe har gått galt" visModal={åpenModal} onClose={() => lukkModal()}>
             <FeilmeldingModalInnhold>
               {feilmeldinger.map((feilmelding) => (
                 <Alert size="small" key={feilmelding} variant="error" inline>

@@ -74,9 +74,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
   return (
     <Side
       tittel={intl.formatMessage({ id: 'skjema.tittel.omarbeidssøker' })}
-      erSpørsmålBesvart={
-        arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined
-      }
+      erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
       skalViseKnapper={!kommerFraOppsummering}
     >
       <SeksjonGruppe>
@@ -106,8 +104,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
               onChange={settJaNeiSpørsmål}
               valgtSvar={arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.verdi}
             />
-            {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid ===
-              ESvar.NEI && (
+            {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid === ESvar.NEI && (
               <Alert size="small" variant={'warning'} inline>
                 <LocaleTekst tekst={'arbeidssøker.alert.villig'} />
               </Alert>
@@ -148,10 +145,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
           className="tilbake-til-oppsummering"
           onClick={() =>
             navigate({
-              pathname: hentPath(
-                RoutesArbeidssokerskjema,
-                ERouteArbeidssøkerskjema.Oppsummering
-              ),
+              pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Oppsummering),
             })
           }
         >

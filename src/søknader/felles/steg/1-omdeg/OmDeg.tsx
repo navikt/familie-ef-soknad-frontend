@@ -36,18 +36,14 @@ const OmDeg: FC = () => {
   } = useOmDeg();
 
   const { søker } = søknad.person;
-  const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
-  ) =>
+  const settSøkerBorPåRegistrertAdresse = (søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt) =>
     oppdaterSøknad({
       ...søknad,
       adresseopplysninger: undefined,
       søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
     });
 
-  const settHarMeldtAdresseendring = (
-    harMeldtAdresseendring: ISpørsmålBooleanFelt
-  ) =>
+  const settHarMeldtAdresseendring = (harMeldtAdresseendring: ISpørsmålBooleanFelt) =>
     oppdaterSøknad({
       ...søknad,
       adresseopplysninger: {
@@ -67,8 +63,7 @@ const OmDeg: FC = () => {
   );
 
   const skalViseMedlemskapsdialog =
-    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus);
+    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) && erÅrsakEnsligBesvart(sivilstatus);
   return (
     <Side
       stønadstype={stønadstype}
@@ -84,16 +79,12 @@ const OmDeg: FC = () => {
         settDokumentasjonsbehov={settDokumentasjonsbehov}
         søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
         settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
-        harMeldtAdresseendring={
-          søknad.adresseopplysninger?.harMeldtAdresseendring
-        }
+        harMeldtAdresseendring={søknad.adresseopplysninger?.harMeldtAdresseendring}
         settHarMeldtAdresseendring={settHarMeldtAdresseendring}
         stønadstype={stønadstype}
       />
 
-      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && (
-        <Sivilstatus />
-      )}
+      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && <Sivilstatus />}
 
       {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>

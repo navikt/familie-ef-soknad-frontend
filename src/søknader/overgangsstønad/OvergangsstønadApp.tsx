@@ -19,10 +19,8 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
   const [fetching, settFetching] = useState<boolean>(true);
-  const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } =
-    usePersonContext();
-  const { settSøknad, hentMellomlagretOvergangsstønad } =
-    useOvergangsstønadSøknad();
+  const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
+  const { settSøknad, hentMellomlagretOvergangsstønad } = useOvergangsstønadSøknad();
   const { settToggles } = useToggles();
 
   const intl = useLokalIntlContext();
@@ -32,10 +30,7 @@ export const OvergangsstønadApp = () => {
     verifiserAtBrukerErAutentisert(settAutentisering);
   }, [autentisert]);
 
-  const oppdaterSøknadMedBarn = (
-    person: PersonData,
-    barneliste: Barn[] | IBarn[]
-  ) => {
+  const oppdaterSøknadMedBarn = (person: PersonData, barneliste: Barn[] | IBarn[]) => {
     const barnMedLabels = oppdaterBarnMedLabel(barneliste as IBarn[], intl);
 
     settSøknad((prevSøknad) => ({
@@ -65,16 +60,12 @@ export const OvergangsstønadApp = () => {
     if (!error) {
       return (
         <>
-          <title>
-            {intl.formatMessage({ id: 'banner.tittel.overgangsstønad' })}
-          </title>
+          <title>{intl.formatMessage({ id: 'banner.tittel.overgangsstønad' })}</title>
           <Søknadsdialog />
         </>
       );
     } else if (error) {
-      return (
-        <Feilside tekstId={feilmelding} alvorlighetsgrad={alvorlighetsgrad} />
-      );
+      return <Feilside tekstId={feilmelding} alvorlighetsgrad={alvorlighetsgrad} />;
     } else {
       return <Loader variant="neutral" size="xlarge" title="venter..." />;
     }

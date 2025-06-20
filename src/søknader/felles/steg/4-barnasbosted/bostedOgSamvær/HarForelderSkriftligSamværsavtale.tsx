@@ -44,9 +44,7 @@ const HarForelderSkriftligSamværsavtale: FC<Props> = ({
             EHarSkriftligSamværsavtale.jaKonkreteTidspunkter) && (
           <FeltGruppe>
             <AlertStripeDokumentasjon>
-              <LocaleTekst
-                tekst={'barnasbosted.alert.leggeVedSamværsavtalen'}
-              />
+              <LocaleTekst tekst={'barnasbosted.alert.leggeVedSamværsavtalen'} />
             </AlertStripeDokumentasjon>
           </FeltGruppe>
         )}

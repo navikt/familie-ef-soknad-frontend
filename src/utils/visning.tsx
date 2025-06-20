@@ -15,10 +15,7 @@ import { LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { BodyShort, Ingress, Label } from '@navikt/ds-react';
 
-export const visListeAvLabelOgSvar = (
-  liste: object[] | undefined,
-  overskrift: string
-) => {
+export const visListeAvLabelOgSvar = (liste: object[] | undefined, overskrift: string) => {
   if (!liste) return null;
 
   return liste.map((el, index) => {
@@ -123,9 +120,7 @@ export const VisLabelOgSvar = (objekt: object | undefined, navn?: string) => {
     }
 
     const label =
-      navn && spørsmål.label
-        ? hentBeskjedMedNavn(navn, spørsmål.label)
-        : spørsmål.label;
+      navn && spørsmål.label ? hentBeskjedMedNavn(navn, spørsmål.label) : spørsmål.label;
     return (
       harValgtSvar(spørsmål.verdi) &&
       label && (
@@ -157,9 +152,7 @@ export const visLabelOgVerdiForSpørsmålFelt = (
   );
 };
 
-export const visLabelOgVerdiForSpørsmålListeFelt = (
-  feltListeObjekt: ISpørsmålListeFelt
-) => {
+export const visLabelOgVerdiForSpørsmålListeFelt = (feltListeObjekt: ISpørsmålListeFelt) => {
   return (
     <div className="spørsmål-og-svar">
       <Label as="p">{feltListeObjekt.label}</Label>

@@ -27,9 +27,7 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
   return (
     <>
       <div className="seksjon">
-        <BodyShort>
-          {intl.formatMessage({ id: 'side.fortsettSøknad.påbegyntSøknad' })}
-        </BodyShort>
+        <BodyShort>{intl.formatMessage({ id: 'side.fortsettSøknad.påbegyntSøknad' })}</BodyShort>
       </div>
       <SeksjonGruppe className={'sentrert'}>
         <FortsettSøknadKnappWrapper>

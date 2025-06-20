@@ -32,18 +32,9 @@ const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
     oppdaterUtdanning(nøkkel, label, e.currentTarget.value);
   };
 
-  const semesteravgiftLabel = hentTekst(
-    'utdanning.label.utgifter.semesteravgift',
-    intl
-  );
-  const studieavgiftLabel = hentTekst(
-    'utdanning.label.utgifter.studieavgift',
-    intl
-  );
-  const eksamensgebyrLabel = hentTekst(
-    'utdanning.label.utgifter.eksamensgebyr',
-    intl
-  );
+  const semesteravgiftLabel = hentTekst('utdanning.label.utgifter.semesteravgift', intl);
+  const studieavgiftLabel = hentTekst('utdanning.label.utgifter.studieavgift', intl);
+  const eksamensgebyrLabel = hentTekst('utdanning.label.utgifter.eksamensgebyr', intl);
 
   return (
     <KomponentGruppe>
@@ -56,15 +47,9 @@ const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
           nøkkel={EUtdanning.semesteravgift}
           type={'number'}
           bredde={'XXS'}
-          settInputFelt={(e) =>
-            settInputFelt(EUtdanning.semesteravgift, semesteravgiftLabel, e)
-          }
+          settInputFelt={(e) => settInputFelt(EUtdanning.semesteravgift, semesteravgiftLabel, e)}
           beskrivendeTekst={'kroner'}
-          value={
-            utdanning?.semesteravgift?.verdi
-              ? utdanning?.semesteravgift?.verdi
-              : ''
-          }
+          value={utdanning?.semesteravgift?.verdi ? utdanning?.semesteravgift?.verdi : ''}
         />
       </FeltGruppe>
       <FeltGruppe>
@@ -73,13 +58,9 @@ const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
           nøkkel={EUtdanning.studieavgift}
           type={'number'}
           bredde={'XXS'}
-          settInputFelt={(e) =>
-            settInputFelt(EUtdanning.studieavgift, studieavgiftLabel, e)
-          }
+          settInputFelt={(e) => settInputFelt(EUtdanning.studieavgift, studieavgiftLabel, e)}
           beskrivendeTekst={'kroner'}
-          value={
-            utdanning?.studieavgift?.verdi ? utdanning?.studieavgift?.verdi : ''
-          }
+          value={utdanning?.studieavgift?.verdi ? utdanning?.studieavgift?.verdi : ''}
         />
       </FeltGruppe>
       <FeltGruppe>
@@ -88,15 +69,9 @@ const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
           nøkkel={EUtdanning.eksamensgebyr}
           type={'number'}
           bredde={'XXS'}
-          settInputFelt={(e) =>
-            settInputFelt(EUtdanning.eksamensgebyr, eksamensgebyrLabel, e)
-          }
+          settInputFelt={(e) => settInputFelt(EUtdanning.eksamensgebyr, eksamensgebyrLabel, e)}
           beskrivendeTekst={'kroner'}
-          value={
-            utdanning?.eksamensgebyr?.verdi
-              ? utdanning?.eksamensgebyr?.verdi
-              : ''
-          }
+          value={utdanning?.eksamensgebyr?.verdi ? utdanning?.eksamensgebyr?.verdi : ''}
         />
       </FeltGruppe>
       <FeltGruppe>

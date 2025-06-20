@@ -5,8 +5,7 @@ export default {
   'språk.nynorsk': 'Nynorsk',
   'svar.ja': 'Ja',
   'svar.nei': 'Nei',
-  'knapp.uu-tekst':
-    'Du må svare på alle spørsmålene før du kan gå videre til neste steg',
+  'knapp.uu-tekst': 'Du må svare på alle spørsmålene før du kan gå videre til neste steg',
   'knapp.tilbake': 'Tilbake',
   'knapp.neste': 'Neste',
   'knapp.avbryt': 'Avbryt',
@@ -23,24 +22,18 @@ export default {
     'For å kunne sende inn søknaden, er du nødt til å rette opp i følgende: ',
   'feil.ugyldigTall.beløp': 'Beløpet må være et gyldig tall',
   'datovelger.månedÅrPlaceholder': 'mm.åååå',
-  'datovelger.ugyldigDato':
-    'Ugyldig dato. Vennligst skriv dato med format DD.MM.yyyy',
+  'datovelger.ugyldigDato': 'Ugyldig dato. Vennligst skriv dato med format DD.MM.yyyy',
   'datovelger.ugyldigDato.optional':
     'Startsdato og/eller sluttdato er i feil format. Vennligst skriv dato på DD.MM.yyy format eller la feltet stå tomt',
-  'datovelger.ugyldigDato.kunTidligereDatoer':
-    'Ugyldig dato. Velg en dato som er bakover i tid.',
-  'datovelger.ugyldigDato.kunFremtidigeDatoer':
-    'Ugyldig dato. Velg en dato som er fremover i tid.',
+  'datovelger.ugyldigDato.kunTidligereDatoer': 'Ugyldig dato. Velg en dato som er bakover i tid.',
+  'datovelger.ugyldigDato.kunFremtidigeDatoer': 'Ugyldig dato. Velg en dato som er fremover i tid.',
   'datovelger.periode.ugyldigDato':
     'Startsdato og/eller sluttdato er i feil format. Vennligst skriv dato på DD.MM.yyy format',
   'datovelger.periode.likeDatoer': 'Startsdato og sluttdato kan ikke være like',
   'datovelger.periode.startFørSlutt': 'Startsdato må være før sluttdato',
-  'datovelger.periode.feilFormatMndÅr':
-    'Startsdato må være tidligere enn sluttdato.',
-  'datovelger.periode.likMndÅr':
-    'Valgt måned og år for perioden kan ikke være like',
-  'datovelger.periode.startMndÅrFørSluttMndÅr':
-    'Start måned og år må være før dagens måned og år',
+  'datovelger.periode.feilFormatMndÅr': 'Startsdato må være tidligere enn sluttdato.',
+  'datovelger.periode.likMndÅr': 'Valgt måned og år for perioden kan ikke være like',
+  'datovelger.periode.startMndÅrFørSluttMndÅr': 'Start måned og år må være før dagens måned og år',
   'datovelger.fødselsdato': 'Fødselsdato',
   'datovelger.nårSkalDetteSkje': 'Når skal dette skje?',
   'input.kroner': 'kroner',
@@ -71,8 +64,7 @@ export default {
   'barnet.storForBokstav': 'Barnet',
   'barnet.litenForBokstav': 'barnet',
   'banner.tittel.overgangsstønad': 'Søknad om overgangsstønad',
-  'side.bekreftelse':
-    'Jeg, [0], bekrefter at jeg vil gi riktige og fullstendige opplysninger',
+  'side.bekreftelse': 'Jeg, [0], bekrefter at jeg vil gi riktige og fullstendige opplysninger',
   'side.fortsettSøknad.påbegyntSøknad':
     'Du har en påbegynt søknad. Vil du fortsette på denne eller starte en ny?',
   'side.fortsettSøknad.knapp.startPåNytt': 'Start på nytt',
@@ -80,22 +72,18 @@ export default {
   'stegtittel.omDeg': 'Om deg',
   'personopplysninger.fnr': 'Fødselsnr',
   'personopplysninger.telefonnr': 'Telefonnummer',
-  'personopplysninger.feilmelding.telefonnr':
-    'Telefonnummeret må ha minst 8 siffer',
+  'personopplysninger.feilmelding.telefonnr': 'Telefonnummeret må ha minst 8 siffer',
   'personopplysninger.statsborgerskap': 'Statsborgerskap',
   'personopplysninger.alert.infohentet':
     'Hvis opplysningene vi har om deg ikke stemmer, må du endre disse hos Folkeregisteret.',
   'personopplysninger.spm.riktigAdresse': 'Bor du på denne adressen?',
-  'personopplysninger.lesmer-åpne.riktigAdresse':
-    'Hvis du har strengt fortrolig adresse',
+  'personopplysninger.lesmer-åpne.riktigAdresse': 'Hvis du har strengt fortrolig adresse',
   'personopplysninger.alert.riktigAdresse':
     'Du må ha meldt adresseendring til Folkeregisteret for å bruke denne søknaden. Det gjør du hos <a href="https://www.skatteetaten.no/person/folkeregister/flytte/" target="_blank">Skatteetaten</a>.',
-  'personopplysninger.info.endreAdresse':
-    'Skal du ikke endre adresse i Folkeregisteret?',
+  'personopplysninger.info.endreAdresse': 'Skal du ikke endre adresse i Folkeregisteret?',
   'personopplysninger.lenke.pdfskjema':
     'Du må bruke <a href="[0]" target="_blank" >papirsøknad</a> som du sender til oss i posten.',
-  'personopplysninger.spm.meldtAdresseendring':
-    'Har du meldt adresseendring til Folkeregisteret?',
+  'personopplysninger.spm.meldtAdresseendring': 'Har du meldt adresseendring til Folkeregisteret?',
   'personopplysninger.alert.meldtAdresseendring':
     'Du må legge ved dokumentasjon på at du har meldt flytting til Folkeregisteret. Dokumentasjonen må vise at det er du som har endret adresse, hvilken adresse du har meldt flytting til og hvilken dato du flyttet.',
 
@@ -119,8 +107,7 @@ export default {
   'sivilstatus.kode.SEPARERT_PARTNER': 'Separert',
   'sivilstatus.kode.SKILT_PARTNER': 'Skilt',
   'sivilstatus.kode.GJENLEVENDE_PARTNER': 'Gjenlevende partner',
-  'sivilstatus.kode.ANNET':
-    'Annen sivilstatus enn GIFT, UGIF, SAMB, SEPA, SKIL, SEPR',
+  'sivilstatus.kode.ANNET': 'Annen sivilstatus enn GIFT, UGIF, SAMB, SEPA, SKIL, SEPR',
   'sivilstatus.spm.søktSeparasjon':
     'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
   'sivilstatus.alert-info.søktSeparasjon':
@@ -129,14 +116,11 @@ export default {
     'Når du er gift, har du ikke rett til stønad til enslig mor eller far',
   'sivilstatus.datovelger.søktSeparasjon': 'Når søkte dere eller reiste sak?',
   'sivilstatus.datovelger.samlivsbrudd': 'Dato for samlivsbrudd',
-  'sivilstatus.datovelger.flyttetFraHverandre':
-    'Når flyttet dere fra hverandre?',
-  'sivilstatus.datovelger.endring':
-    'Når skjedde endringen / når skal endringen skje?',
+  'sivilstatus.datovelger.flyttetFraHverandre': 'Når flyttet dere fra hverandre?',
+  'sivilstatus.datovelger.endring': 'Når skjedde endringen / når skal endringen skje?',
   'sivilstatus.spm.erUformeltGift':
     'Er du gift uten at det er registrert i folkeregisteret i Norge?',
-  'sivilstatus.alert.erUformeltGift':
-    'Du må legge ved dokumentasjon på inngått ekteskap',
+  'sivilstatus.alert.erUformeltGift': 'Du må legge ved dokumentasjon på inngått ekteskap',
   'sivilstatus.lesmer-åpne.erUformeltGift': 'Hvorfor spør vi om dette?',
   'sivilstatus.lesmer-innhold.erUformeltGift':
     'Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret. ',
@@ -145,8 +129,7 @@ export default {
   'sivilstatus.alert.erUformeltSeparertEllerSkilt':
     'Du må legge ved dokumentasjon på separasjon eller skilsmisse',
   'sivilstatus.spm.begrunnelse': 'Hvorfor er du alene med barn?',
-  'sivilstatus.svar.samlivsbruddForeldre':
-    'Samlivsbrudd med den andre forelderen',
+  'sivilstatus.svar.samlivsbruddForeldre': 'Samlivsbrudd med den andre forelderen',
   'sivilstatus.svar.samlivsbruddAndre': 'Samlivsbrudd med noen andre',
   'sivilstatus.tittel.samlivsbruddAndre': 'Om den tidligere samboeren din',
   'sivilstatus.svar.aleneFraFødsel': 'Jeg er alene med barn fra fødsel',
@@ -156,8 +139,7 @@ export default {
     'Når du er alene med barn på grunn av dødsfall, kan du ha rett til stønad til <a href="https://www.nav.no/no/person/pensjon/andre-pensjonsordninger/ytelser-til-gjenlevende-ektefelle" target="_blank" >gjenlevende</a> og <a href="https://www.nav.no/no/person/pensjon/andre-pensjonsordninger/barnepensjon" target="_blank" >barnepensjon</a>. ',
   'sivilstatus.alert.samlivsbrudd':
     'Hvis dere ikke er separert eller skilt, må du legge ved bekreftelse på samlivsbruddet. Bekreftelsen må være signert av dere begge og vise dato for bruddet. Du får lenke til et forslag til hvordan bekreftelsen kan se ut når du sender inn søknaden. Dette er ikke meklingsattesten fra familievernkontoret.',
-  'sivilstatus.begrunnelse.endring':
-    'Når skjedde endringen / når skal endringen skje?',
+  'sivilstatus.begrunnelse.endring': 'Når skjedde endringen / når skal endringen skje?',
   'sivilstatus.hjelpetekst-åpne.begrunnelse': 'Grunnen til at vi spør om dette',
   'sivilstatus.hjelpetekst-innhold.begrunnelse':
     'Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
@@ -167,33 +149,27 @@ export default {
   'medlemskap.periodeBoddIUtlandet.utenlandsopphold': 'Utenlandsperiode',
   'medlemskap.periodeBoddIUtlandet.slett': 'Fjern utenlandsperiode',
   'medlemskap.periodeBoddIUtlandet': 'Når oppholdt du deg i utlandet?',
-  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer':
-    'Hva er id-nummeret ditt i {0}?',
-  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer':
-    'Jeg har ikke id-nummer i {0}',
+  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'Hva er id-nummeret ditt i {0}?',
+  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'Jeg har ikke id-nummer i {0}',
   'medlemskap.hjelpetekst-åpne.begrunnelse': 'Grunnen til at vi spør om dette',
   'medlemskap.hjelpetekst-innhold.begrunnelse':
     'Når du har oppholdt deg i et annet EØS-land i løpet av de siste 5 årene, må vi noen ganger innhente opplysninger fra dette landet. Det er fordi vi trenger opplysninger for å vurdere om du har rett til stønad.',
-  'medlemskap.periodeBoddIUtlandet.sisteAdresse':
-    'Hva er den siste adressen du bodde på i {0}?',
+  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'Hva er den siste adressen du bodde på i {0}?',
   'medlemskap.periodeBoddIUtlandet.land': 'I hvilket land oppholdt du deg i?',
-  'medlemskap.periodeBoddIUtlandet.begrunnelse':
-    'Hvorfor oppholdt du deg i {0}?',
+  'medlemskap.periodeBoddIUtlandet.begrunnelse': 'Hvorfor oppholdt du deg i {0}?',
   'medlemskap.periodeBoddIUtlandet.flereutenlandsopphold':
     'Har du hatt flere utenlandsopphold de siste 5 årene?',
   'medlemskap.periodeBoddIUtlandet.knapp': 'Legg til et utenlandsopphold',
   'landVelger.alternativ': 'Velg et alternativ',
   'stegtittel.bosituasjon': 'Bosituasjonen din',
-  'bosituasjon.spm.delerSøkerBoligMedAndreVoksne':
-    'Deler du bolig med andre voksne?',
+  'bosituasjon.spm.delerSøkerBoligMedAndreVoksne': 'Deler du bolig med andre voksne?',
   'bosituasjon.svar.borAleneMedBarnEllerGravid':
     'Nei, jeg bor alene med barn eller jeg er gravid og bor alene',
   'bosituasjon.svar.borMidlertidigFraHverandre':
     'Ja, men jeg og den andre forelderen bor midlertidig fra hverandre',
   'bosituasjon.svar.borSammenOgVenterBarn':
     'Ja, jeg bor sammen med en jeg har eller venter barn med',
-  'bosituasjon.svar.harEkteskapsliknendeForhold':
-    'Ja, jeg bor med kjæresten min',
+  'bosituasjon.svar.harEkteskapsliknendeForhold': 'Ja, jeg bor med kjæresten min',
   'bosituasjon.svar.delerBoligMedAndreVoksne':
     'Ja, jeg deler bolig med andre voksne, for eksempel utleier, venn, søsken eller egne foreldre',
   'bosituasjon.svar.tidligereSamboerFortsattRegistrertPåAdresse':
@@ -207,8 +183,7 @@ export default {
   'bosituasjon.tittel.omSamboer': 'Om samboeren din',
   'bosituasjon.tittel.omTidligereSamboer': 'Om den tidligere samboeren din',
   'bosituasjon.datovelger.nårFlyttetDereSammen': 'Når flyttet dere sammen?',
-  'bosituasjon.datovelger.nårFlyttetDereFraHverandre':
-    'Når flyttet dere fra hverandre?',
+  'bosituasjon.datovelger.nårFlyttetDereFraHverandre': 'Når flyttet dere fra hverandre?',
   'bosituasjon.alert.tidligereSamboerFortsattRegistrertPåAdresse':
     '<strong>Vi legger vekt på folkeregistrert adresse. Hvis den tidligere samboeren din ikke samarbeider om adresseendring, kan du kontakte Folkeregisteret for å få hjelp til å endre adressen deres. </strong> <br/><br/>Du kan også dokumentere at du bor alene med barn og tidspunktet for når dere flyttet fra hverandre ved å legge ved:<br/><ul><li>Dokumentasjon som bekrefter at du har vært i kontakt med Folkeregisteret fordi den tidligere samboeren din har flyttet ut</li><li>Informasjon om hvor den tidligere samboeren din bor nå</li></ul>Hvis du kan dokumentere begge punktene over, er dette som regel tilstrekkelig. Dersom du ikke har slik dokumentasjon, kan du for eksempel legge ved:<ul><li>Husleiekontrakt for begge parter</li><li> Dokumentasjon på at tidligere felles bolig er overdratt til en av partene. Dette kan være skifte og/eller dokumentasjon på hvem som er låntaker for boligen du bor i.</li><li>Bekreftelse fra barnevernet på at du bor alene med barn</li><li>Dokumentasjon på separate bo- og husholdningsutgifter. Dette kan være kontoutskrifter som viser betalt husleie, eller andre faste boutgifter slik som strøm og kommunale avgifter.</li></ul>Dersom barnehage, skole, helsestasjon eller lignende kjenner familiesituasjonen din godt, kan en uttalelse fra dem være en del av helhetsvurderingen vi gjør av bosituasjonen din. Dette kan inkludere informasjon om hvem som henter og leverer, og kommer eventuelt i tillegg til annen dokumentasjon.',
   'bosituasjon.spm.skalSøkerGifteSegMedSamboer':
@@ -260,17 +235,14 @@ export default {
     'Hvis du skal søke stønad for barn du har overtatt foreldreansvaret for på grunn av dødsfall, eller hvis du har barn med adressebeskyttelse, kan du ikke bruke denne digitale søknaden. Bruk dette <a href="https://www.nav.no/fyllut/nav150001?sub=paper">skjemaet for å søke om overgangsstønad.</a>',
   'barnasbosted.sidetittel': 'Den andre forelderen og samvær',
   'barnasbosted.forelder.uoppgitt': 'Ikke oppgitt',
-  'barnasbosted.kanikkeoppgiforelder':
-    'Jeg kan ikke oppgi den andre forelderen',
+  'barnasbosted.kanikkeoppgiforelder': 'Jeg kan ikke oppgi den andre forelderen',
   'barnasbosted.borinorge': 'Bor [0]s andre forelder i Norge?',
   'barnasbosted.hvilketLand': 'Hvilket land bor den andre forelderen i?',
   'barnasbosted.land': 'Land',
-  'barnasbosted.spm.hvorforikkeoppgi':
-    'Hvorfor kan du ikke oppgi den andre forelderen?',
+  'barnasbosted.spm.hvorforikkeoppgi': 'Hvorfor kan du ikke oppgi den andre forelderen?',
   'barnasbosted.spm.donorbarn': 'Donor',
   'barnasbosted.spm.annet': 'Annet',
-  'barnasbosted.alert.måBoHosDeg':
-    '[0] må bo hos deg for at du skal ha rett til stønad',
+  'barnasbosted.alert.måBoHosDeg': '[0] må bo hos deg for at du skal ha rett til stønad',
   'barnasbosted.spm.skalBarnetBoHosSøker': 'Skal [0] ha adresse hos deg?',
   'barnasbosted.spm.jaFolkeregistrert':
     'Ja, og vi har eller skal registrere adressen i Folkeregisteret',
@@ -289,8 +261,7 @@ export default {
   'barnasbosted.forelder.annen': 'Annen forelder',
   'barnasbosted.forelder.sammesom': 'Samme som',
   'barnasbosted.knapp.endre': 'Endre informasjon',
-  'barnasbosted.spm.harAnnenForelderSamværMedBarn':
-    'Har den andre forelderen samvær med [0]?',
+  'barnasbosted.spm.harAnnenForelderSamværMedBarn': 'Har den andre forelderen samvær med [0]?',
   'barnasbosted.spm.harAnnenForelderSamværMedBarn.ufødt':
     'Skal den andre forelderen ha samvær med [0]?',
   'barnasbosted.spm.jaIkkeMerEnnVanlig':
@@ -304,8 +275,7 @@ export default {
   'barnasbosted.hjelpetekst.samvær.apne': 'Dette er vanlig samværsrett',
   'barnasbosted.hjelpetekst.samvær.innhold':
     'Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
-  'barnasbosted.spm.harDereSkriftligSamværsavtale':
-    'Har dere skriftlig samværsavtale for [0]?',
+  'barnasbosted.spm.harDereSkriftligSamværsavtale': 'Har dere skriftlig samværsavtale for [0]?',
   'barnasbosted.hjelpetekst-åpne.harDereSkriftligSamværsavtale':
     'Opplysninger vi trenger i samværsavtalen',
   'barnasbosted.hjelpetekst-innhold.harDereSkriftligSamværsavtale':
@@ -319,41 +289,31 @@ export default {
   'barnasbosted.normaltekst.opplysninger': 'Vi trenger opplysninger om',
   'barnasbosted.normaltekst.hvormangedager':
     'hvor mange dager og netter barnet oppholder seg hos den andre forelderen i minst en to ukers-periode',
-  'barnasbosted.normaltekst.nårreiserbarnet':
-    'når barnet reiser til og fra den andre forelderen',
+  'barnasbosted.normaltekst.nårreiserbarnet': 'når barnet reiser til og fra den andre forelderen',
   'barnasbosted.spm.borAnnenForelderISammeHus':
     'Bor du og den andre forelderen til [0] i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
-  'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse':
-    'Hvordan bor dere nærme hverandre?',
+  'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse': 'Hvordan bor dere nærme hverandre?',
   'barnasbosted.spm.vetikke': 'Jeg vet ikke hvor den andre forelderen bor',
-  'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.apne':
-    'Grunnen til at vi spør om dette',
+  'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.apne': 'Grunnen til at vi spør om dette',
   'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.innhold':
     'Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
-  'barnasbosted.spm.boddsammenfør':
-    'Har du bodd sammen med den andre forelderen til [0] før?',
+  'barnasbosted.spm.boddsammenfør': 'Har du bodd sammen med den andre forelderen til [0] før?',
   'barnasbosted.normaltekst.nårflyttetfra': 'Når flyttet dere fra hverandre?',
-  'barnasbosted.spm.hvorMyeSammen':
-    'Hvor mye er du sammen med den andre forelderen til [0]?',
+  'barnasbosted.spm.hvorMyeSammen': 'Hvor mye er du sammen med den andre forelderen til [0]?',
   'barnasbosted.lesmer-åpne.hvorMyeSammen': 'Grunnen til at vi spør om dette',
   'barnasbosted.lesmer-innhold.hvorMyeSammen':
     'Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
   'barnasbosted.spm.møtesIkke': 'Vi møtes ikke',
-  'barnasbosted.spm.kunNårLeveres':
-    'Vi møtes kun når barnet skal hentes eller leveres',
-  'barnasbosted.spm.kunNårLeveres.ufødt':
-    'Vi skal kun møtes når barnet skal hentes eller leveres',
+  'barnasbosted.spm.kunNårLeveres': 'Vi møtes kun når barnet skal hentes eller leveres',
+  'barnasbosted.spm.kunNårLeveres.ufødt': 'Vi skal kun møtes når barnet skal hentes eller leveres',
   'barnasbosted.spm.møtesUtenom': 'Vi møtes også utenom henting og levering',
-  'barnasbosted.spm.møtesUtenom.ufødt':
-    'Vi skal også møtes utenom henting og levering',
+  'barnasbosted.spm.møtesUtenom.ufødt': 'Vi skal også møtes utenom henting og levering',
   'barnasbosted.spm.beskrivSamværUtenBarn':
     'Hvor mye er du sammen med den andre forelderen til [0]?',
   'barnasbosted.skalBliFolkeregistrert.tekst':
     'Husk å registrere riktig adresse for [0] i Folkeregisteret.',
-  'barnasbosted.skalBliFolkeregistrert.knapp':
-    'Registrer adresse hos Folkeregisteret',
-  'barnasbosted.kanGåVidere':
-    'Vi har opplysningene vi trenger. Du kan gå videre til neste steg.',
+  'barnasbosted.skalBliFolkeregistrert.knapp': 'Registrer adresse hos Folkeregisteret',
+  'barnasbosted.kanGåVidere': 'Vi har opplysningene vi trenger. Du kan gå videre til neste steg.',
   'barnasbosted.feilmelding.adressebeskyttelse':
     'Et eller flere av barna dine, eller annen forelder, er registrert med adressebeskyttelse og digital søknad er ikke tilgjengelig. Du må bruke dette <a href="https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/brev">skjemaet</a> for å søke.',
   'barnasbosted.oppsummering.navn.label': 'Navn på annen forelder',
@@ -375,16 +335,14 @@ export default {
   'arbeidssituasjon.spm.hjelpetekst': 'Du kan velge flere alternativer',
   'arbeidssituasjon.spm.hjelpetekst-åpne': 'Grunnen til at vi spør om dette',
   'arbeidssituasjon.spm.hjelpetekst-innhold': `Vi trenger opplysninger om hvilken aktivitet du er i for å vurdere om du har rett til stønad. Du må som hovedregel være i minst 50 prosent yrkesrettet aktivitet etter at det yngste barnet ditt har fylt 1 år. I noen tilfeller kan vi gjøre unntak fra aktivitetsplikten.<br/><br/>Du kan lese mer om aktivitetsplikten på <a href="https://www.nav.no/overgangsstonad-enslig#aktivitet">nav.no/overgangsstonad-enslig#aktivitet</a>.`,
-  'arbeidssituasjon.svar.erHjemmeMedBarnUnderEttÅr':
-    'Jeg er hjemme med barn under 1 år',
+  'arbeidssituasjon.svar.erHjemmeMedBarnUnderEttÅr': 'Jeg er hjemme med barn under 1 år',
   'arbeidssituasjon.svar.erArbeidstakerOgEllerLønnsmottakerFrilanser':
     'Jeg er arbeidstaker (og/eller lønnsmottaker som frilanser)',
   'arbeidssituasjon.svar.erSelvstendigNæringsdriveneEllerFrilanser':
     'Jeg er selvstendig næringsdrivende eller frilanser med enkeltpersonforetak',
   'arbeidssituasjon.svar.erAnsattIEgetAS':
     'Jeg er selvstendig næringsdrivende og ansatt i mitt eget aksjeselskap (AS)',
-  'arbeidssituasjon.svar.etablererEgenVirksomhet':
-    'Jeg etablerer egen virksomhet',
+  'arbeidssituasjon.svar.etablererEgenVirksomhet': 'Jeg etablerer egen virksomhet',
   'arbeidssituasjon.svar.erArbeidssøker': 'Jeg er arbeidssøker',
   'arbeidssituasjon.svar.tarUtdanning': 'Jeg tar eller skal ta utdanning',
   'arbeidssituasjon.svar.erHverkenIArbeidUtdanningEllerArbeidssøker':
@@ -401,8 +359,7 @@ export default {
   'arbeidsforhold.label.arbeidsmengde.beskrivelse':
     'Hvis arbeidskontrakten din sier noe annet enn hvor mye du faktisk jobber, oppgir du hvor mye du faktisk jobber. <br /><br />' +
     'Hvis det varierer fra måned til måned hvor mye du jobber, anslår du omtrent hvor mye du regner med å jobbe fremover',
-  'arbeidsforhold.label.ansettelsesforhold':
-    'Hva slags ansettelsesforhold har du?',
+  'arbeidsforhold.label.ansettelsesforhold': 'Hva slags ansettelsesforhold har du?',
   'arbeidsforhold.svar.fast': 'Fast stilling',
   'arbeidsforhold.svar.midlertidig': 'Midlertidig stilling',
   'arbeidsforhold.svar.lærling': 'Lærling',
@@ -436,8 +393,7 @@ export default {
   'firma.knapp.slett': 'Fjern firma',
   'firmaer.label.flereFirmaer': 'Har du flere firmaer?',
   'firmaer.knapp.leggTilFirma': 'Legg til firma',
-  'arbeidssituasjon.tittel.etablererEgenVirksomhet':
-    'Om virksomheten du etablerer',
+  'arbeidssituasjon.tittel.etablererEgenVirksomhet': 'Om virksomheten du etablerer',
   'arbeidssituasjon.label.etablererEgenVirksomhet': 'Beskriv virksomheten',
   'arbeidssituasjon.alert.etablererEgenVirksomhet':
     'Får du ikke dagpenger mens du etablerer egen virksomhet, må du skaffe næringsfaglig vurdering fra kommunen eller fylkeskommunen. Du kan også bruke en annen faglig kompetanse.<br/><br/>Vi trenger denne vurderingen når vi skal ta stilling til om virksomheten kan godkjennes som yrkesrettet aktivitet.',
@@ -446,8 +402,7 @@ export default {
   'arbeidssøker.label.registrert': 'Er du registrert som arbeidssøker hos Nav?',
   'arbeidssøker.søknad.alert.forÅHaRett':
     'Du kan registrere deg etter at du har sendt inn denne søknaden. Da hjelper vi deg videre til registreringen.',
-  'arbeidssøker.hjelpetekst-åpne.registrert':
-    'Om å være registrert som arbeidssøker hos Nav',
+  'arbeidssøker.hjelpetekst-åpne.registrert': 'Om å være registrert som arbeidssøker hos Nav',
   'arbeidssøker.hjelpetekst-innhold.registrert':
     'For å ha rett til overgangsstønad, må du registrere deg som arbeidssøker på nav.no. Hvis du ikke er registrert, kan du gjøre dette etter at du har sendt inn denne søknaden.',
   'arbeidssøker.label.villig':
@@ -463,8 +418,7 @@ export default {
   'arbeidssøker.label.barnepass':
     'Har du eller kan du skaffe barnepass senest innen en uke etter at du har fått tilbud om jobb eller arbeidsmarkedtiltak?',
   'arbeidssøker.label.ønsketArbeidssted': 'Hvor ønsker du å søke arbeid?',
-  'arbeidssøker.svar.nærme':
-    'Kun i bodistriktet mitt, ikke mer enn 1 times reisevei hver vei',
+  'arbeidssøker.svar.nærme': 'Kun i bodistriktet mitt, ikke mer enn 1 times reisevei hver vei',
   'arbeidssøker.svar.hvorSomHelst': 'Hvor som helst i landet',
   'arbeidssøker.lesmer-åpne.ønsketArbeidssted': 'Dette betyr 1 times reisevei',
   'arbeidssøker.lesmer-innhold.ønsketArbeidssted':
@@ -480,8 +434,7 @@ export default {
   'arbeidssøker.lenke.tilleggstønad': 'Les mer om tilleggstønader',
   'arbeidssøker.knapp.tilleggstønad': 'Søk tilleggsstønader',
   'stegtittel.utdanning': 'Utdanningen din',
-  'tidligereUtdanning.lesmer-åpne.kanFåStønad':
-    'Grunnen til at vi spør om dette',
+  'tidligereUtdanning.lesmer-åpne.kanFåStønad': 'Grunnen til at vi spør om dette',
   'tidligereUtdanning.lesmer-innhold.kanFåStønad':
     'Vi spør om tidligere utdanning for å kunne vurdere om utdanningen du skal ta er nødvendig for at du skal kunne komme i jobb og forsørge deg selv.<br/><br/>Har du allerede en utdanning som gjør deg kvalifisert til et yrke eller som kan benyttes i flere yrker, vil du som hovedregel ikke få støtte til mer utdanning.<br/><br/>Vi kan gjøre unntak hvis du har en utdanning eller yrkeserfaring som ikke lenger er relevant i dagens arbeidsmarked. Høgskole eller universitetsutdanning blir ikke utdatert.<br/><br/>Vi kan også gjøre unntak fra denne regelen hvis utdanningen din/yrket ditt ikke er forenlig med omsorgen for barn. Dette gjelder ikke vanlig turnusarbeid.',
   'utdanning.tittel': 'Utdanningen du tar eller skal ta',
@@ -493,24 +446,20 @@ export default {
     'For å få rett til stønad til skolepenger, må denne utdanningen være nødvendig for at du skal kunne komme i jobb og forsørge deg selv. <br /><br />Vi vurderer:<ul><li>hvilket mål du har for å skaffe eller beholde inntektsgivende arbeid</li><li>om det er nødvendig med utdanning for å kunne nå målet ditt</li><li>om den aktuelle utdanningen er hensiktsmessig. Da vurderer vi blant annet arbeidsmarkedets behov og dine muligheter.</li></ul>Vi vurderer utdanningen du vil ta når du søker om stønad. ',
   'utdanning.label.skoleUtdanningssted': 'Skole / utdanningssted',
   'utdanning.label.linjeKursGrad': 'Linje / kurs / grad',
-  'utdanning.spm.privatEllerOffentlig':
-    'Er utdanningen offentlig eller privat?',
-  'utdanning.lesmer-åpne.privatEllerOffentlig':
-    'Om godkjenning av privat utdanning',
+  'utdanning.spm.privatEllerOffentlig': 'Er utdanningen offentlig eller privat?',
+  'utdanning.lesmer-åpne.privatEllerOffentlig': 'Om godkjenning av privat utdanning',
   'utdanning.lesmer-innhold.privatEllerOffentlig':
     'Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet.<br/><br/>Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
   'utdanning.svar.offentlig': 'Offentlig',
   'utdanning.svar.privat': 'Privat',
   'utdanning.datovelger.studieperiode': 'Når var du elev / student?',
-  'utdanning.datovelger.studieperiode.fremtidig':
-    'Når skal du være elev/student?',
+  'utdanning.datovelger.studieperiode.fremtidig': 'Når skal du være elev/student?',
   'utdanning.spm.studieandel': 'Er utdanningen på heltid eller deltid?',
   'utdanning.svar.heltid': 'Heltid',
   'utdanning.svar.deltid': 'Deltid',
   'utdanning.label.arbeidsmengde': 'Hvor mye skal du studere?',
   'utdanning.spm.mål': 'Hva er målet med utdanningen?',
-  'utdanning.alert-tittel.mål':
-    'Du må legge ved dokumentasjon på utdanningen du tar eller skal ta',
+  'utdanning.alert-tittel.mål': 'Du må legge ved dokumentasjon på utdanningen du tar eller skal ta',
   'utdanning.alert-beskrivelse.mål.SKOLEPENGER':
     'Dokumentasjonen må vise: <ul><li>navn på studiested</li><li>navn på studie</li><li>hvor mye du skal studere</li><li>perioden du skal studere</li></ul><br/>Dokumentasjonen må vise tydelig hvem det gjelder.',
   'utdanning.alert-beskrivelse.mål.OVERGANGSSTØNAD':
@@ -529,8 +478,7 @@ export default {
   'utdanning.label.leggtil': 'Har du tatt mer utdanning?',
   'utdanning.knapp.leggtil': 'Legg til en utdanning',
   'utdanning.knapp.slett': 'Fjern utdanning',
-  'utdanning.andreUtgifter.tittel':
-    'Har du andre utgifter i forbindelse med utdanningen?',
+  'utdanning.andreUtgifter.tittel': 'Har du andre utgifter i forbindelse med utdanningen?',
   'utdanning.andreUtgifter.tekst':
     '<strong>Har du andre utgifter i forbindelse med utdanningen?</strong><br /><br />Tilleggsstønader kan dekke utgifter til:<ul><li>barnepass</li><li>læremidler</li><li>daglig reise</li><li>reise til samling</li><li>reise på grunn av oppstart, avslutning eller hjemreise</li><li>bolig og overnatting</li><li>flytting</li></ul>Vi viser deg videre til søknad om tilleggsstønader når du er ferdig med denne søknaden.\nDu kan kun få tilleggsstønader hvis du kvalifiserer til overgangsstønad.',
   'utdanning.andreUtgifter.fakturatekst':
@@ -554,8 +502,7 @@ export default {
     'Du må legge ved dokumentasjon som bekrefter at barnet ditt har behov for særlig tilsyn',
   'dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse':
     'Dokumentasjonen fra lege må bekrefte:<ul><li>at barnet har medisinske, psykiske eller store sosiale problemer og trenger tilsyn</li><li>at dette påvirker muligheten din til å være i yrkesrettet aktivitet</li></ul>',
-  'dinSituasjon.alert.harBarnMedSærligeBehov.tittel':
-    'Om tilsynsbehovet til [0]',
+  'dinSituasjon.alert.harBarnMedSærligeBehov.tittel': 'Om tilsynsbehovet til [0]',
   'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse':
     'Vi trenger opplysninger om:<ul><li>hvor mye og hvordan barnet ditt trenger tilsyn</li><li>hvordan det påvirker muligheten din til å være i yrkesrettet aktivitet</li></ul>',
   'dinSituasjon.datovelger.jobb': 'Når skal du starte i ny jobb?',
@@ -575,26 +522,21 @@ export default {
     'Har du sagt opp jobben uten rimelig grunn, kan du først ha rett til stønaden 6 måneder etter at du sa opp.',
   'dinSituasjon.alert.redusertStilling':
     'Du må legge ved dokumentasjon på arbeidsforholdet og grunnen til at du reduserte arbeidstiden.<br/><br/>Dokumentasjonen må vise:<ul><li>arbeidsforholdet</li><li>grunnen til at du reduserte arbeidstiden</li><li>datoen du avtalte reduksjon i arbeidstiden</li></ul>',
-  'dinSituasjon.fritekst.redusertStilling':
-    'Hvorfor reduserte du arbeidstiden?',
+  'dinSituasjon.fritekst.redusertStilling': 'Hvorfor reduserte du arbeidstiden?',
   'dinSituasjon.datovelger.redusertStilling': 'Når reduserte du arbeidstiden?',
   'dinSituasjon.datovelger-alert.redusertStilling':
     'Har du redusert arbeidstiden uten rimelig grunn, kan du først ha rett til stønaden 6 måneder etter at du sa opp.',
-  'dinSituasjon.legend.særligTilsyn':
-    'Hvilket av barna dine har behov for særlig tilsyn?',
+  'dinSituasjon.legend.særligTilsyn': 'Hvilket av barna dine har behov for særlig tilsyn?',
   'dinSituasjon.label.særligTilsyn': 'Om tilsynsbehovet til {barnetsNavn}',
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'Når sa du opp?',
-  'sagtOppEllerRedusertStilling.datovelger.redusertStilling':
-    'Når reduserte du arbeidstiden?',
+  'sagtOppEllerRedusertStilling.datovelger.redusertStilling': 'Når reduserte du arbeidstiden?',
   'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp':
     'Har du sagt opp jobben uten rimelig grunn, kan du først ha rett til stønaden 6 måneder etter at du sa opp.',
   'sagtOppEllerRedusertStilling.datovelger-alert.redusertStilling':
     'Du må legge ved dokumentasjon på arbeidsforholdet, grunnen til at du reduserte arbeidstiden og datoen du avtalte reduksjon i arbeidstiden',
   'søkerFraBestemtMåned.datovelger': 'Når søker du stønad fra?',
-  'søkerFraBestemtMåned.spm.overgangsstønad':
-    'Søker du overgangsstønad fra en bestemt måned?',
-  'søkerFraBestemtMåned.spm.barnepass':
-    'Søker du om stønad til barnetilsyn fra en bestemt måned? ',
+  'søkerFraBestemtMåned.spm.overgangsstønad': 'Søker du overgangsstønad fra en bestemt måned?',
+  'søkerFraBestemtMåned.spm.barnepass': 'Søker du om stønad til barnetilsyn fra en bestemt måned? ',
   'søkerFraBestemtMåned.hjelpetekst-åpne': 'Om å søke fra et bestemt tidspunkt',
   'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1':
     'Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med [0]. ',
@@ -608,10 +550,8 @@ export default {
     'Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
   'søkerFraBestemtMåned.svar.neiNavKanVurdere':
     'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
-  'søkerFraBestemtMåned.datovelger.overgangsstønad':
-    'Jeg søker overgangsstønad fra og med',
-  'søkerStønadFraBestemtMnd.datovelger.barnepass':
-    'Jeg søker stønad til barnetilsyn fra og med',
+  'søkerFraBestemtMåned.datovelger.overgangsstønad': 'Jeg søker overgangsstønad fra og med',
+  'søkerStønadFraBestemtMnd.datovelger.barnepass': 'Jeg søker stønad til barnetilsyn fra og med',
   'barnepass.dokumentasjon.søkerStønadFraBestemtMnd':
     'Husk å legge ved tidligere fakturaer hvis du søker stønad tilbake i tid',
   'oppsummering.sidetittel': 'Oppsummering',
@@ -621,8 +561,7 @@ export default {
   'filopplaster.dra': 'Last opp dokumentasjon',
   'filopplaster.slipp': 'Slipp filen her...',
   'filopplaster.feilmelding.filtype': '[0] – Ugyldig filtype.',
-  'filopplaster.feilmelding.maks':
-    '[0] er for stor (maksimal filstørrelse er [1]).',
+  'filopplaster.feilmelding.maks': '[0] er for stor (maksimal filstørrelse er [1]).',
   'filopplaster.feilmelding.generisk': 'Kunne ikke laste opp filen.',
   'filopplaster.feilmelding.IMAGE_DIMENSIONS_TOO_SMALL':
     'Bilde du har forsøkt å laste opp er for lite. Bilde må være større enn 400x400 piksler',
@@ -631,8 +570,7 @@ export default {
     'Det ser ikke ut til at du må sende inn noe dokumentasjon.  Hvis vi likevel trenger dokumentasjon fra deg, tar vi kontakt.',
   'dokumentasjon.beskrivelse':
     'Du må laste opp dokumentasjon som bekrefter opplysningene i søknaden. Du får raskere svar på søknaden din hvis vi har all dokumentasjon når vi starter behandlingen. Du kan bruke filformatene PDF, jpg og png.',
-  'dokumentasjon.beskrivelseBilderHeader':
-    'Slik bruker du bilder som vedlegg til søknaden',
+  'dokumentasjon.beskrivelseBilderHeader': 'Slik bruker du bilder som vedlegg til søknaden',
   'dokumentasjon.beskrivelseBilderInnhold':
     '<ol><li> Ta bilde av dokumentet med smarttelefon eller nettbrett</li>' +
     '<li>Sjekk at dokumentet er lett å lese\n</li>' +
@@ -644,19 +582,16 @@ export default {
     'Jeg har sendt inn denne dokumentasjonen til Nav tidligere',
   'dokumentasjon.knapp.slett': 'Slett',
   'dokumentasjon.inngåttEkteskap.tittel': 'Dokumentasjon på inngått ekteskap',
-  'dokumentasjon.separasjonEllerSkilsmisse.tittel':
-    'Dokumentasjon på separasjon eller skilsmisse',
+  'dokumentasjon.separasjonEllerSkilsmisse.tittel': 'Dokumentasjon på separasjon eller skilsmisse',
   'dokumentasjon.separasjonEllerSkilsmisse.beskrivelse':
     'Beskrivelse for separasjone eller skilsmisse',
-  'dokumentasjon.søktSeparasjon.tittel':
-    'Dokumentasjon på separasjon eller skilsmisse',
+  'dokumentasjon.søktSeparasjon.tittel': 'Dokumentasjon på separasjon eller skilsmisse',
   'dokumentasjon.søktSeparasjon.beskrivelse':
     'Bekreftelse fra Fylkesmannen eller domstolen på søknad om separasjon, søknad om skilsmisse eller at det er reist sak for domstolen',
   'dokumentasjon.meldtAdresseendring.tittel': 'Dokumentasjon på adresseendring',
   'dokumentasjon.meldtAdresseendring.beskrivelse':
     'Du må legge ved dokumentasjon på at du har meldt flytting til Folkeregisteret. Dokumentasjonen må vise at det er du som har endret adresse, hvilken adresse du har meldt flytting til og hvilken dato du flyttet.',
-  'dokumentasjon.begrunnelse.tittel':
-    'Bekreftelse på samlivsbrudd med den andre forelderen',
+  'dokumentasjon.begrunnelse.tittel': 'Bekreftelse på samlivsbrudd med den andre forelderen',
   'dokumentasjon.begrunnelse.beskrivelse':
     'Hvis dere ikke er separert eller skilt, må du legge ved bekreftelse på samlivsbruddet. Bekreftelsen må være signert av dere begge og vise dato for bruddet.<br /><br /> Du får lenke til et forslag til hvordan bekreftelsen kan se ut når du sender inn søknaden slik at du kan ettersende dette hvis du ikke allerede har en bekreftelse.<br /><br /> Dette er ikke meklingsattesten fra familievernkontoret.',
   'dokumentasjon.ikke.villig.til.arbeid.tittel':
@@ -673,8 +608,7 @@ export default {
   'dokumentasjon.alert.manglende': 'manglende informasjon.',
   'dokumentasjon.samværsavtale.tittel': 'Samværsavtale ',
   'dokumentasjon.deltBosted.tittel': 'Avtale om delt bosted',
-  'dokumentasjon.barnBorHosSøker.tittel':
-    'Dokumentasjon på at barn bor hos deg',
+  'dokumentasjon.barnBorHosSøker.tittel': 'Dokumentasjon på at barn bor hos deg',
   'dokumentasjon.barnBorHosSøker.beskrivelse':
     ' Dokumentasjon på at barn bor hos deg, for eksempel:<ul><li>Redegjørelse for årsaken til manglende adresseendring for barnet</li><li>Kopi av flyttemelding/tips til Folkeregisteret</li><li>Bekreftelse fra for eksempel barnehage/skole, barnevern eller helsestasjon</li></ul>',
   'dokumentasjon.syk-dinSituasjon.tittel': 'Dokumentasjon på at du er syk',
@@ -686,16 +620,14 @@ export default {
   'dokumentasjon.barnepass.tittel': 'Dokumentasjon på at du mangler barnepass ',
   'dokumentasjon.barnepass.beskrivelse':
     'Det vil si avslag på barnehageplass/SFO-plass eller bekreftelse på at barnet står på venteliste.Dokumentasjonen må tydelig vise <ul><li>datoen du søkte</li><li>datoen du ønsket plass fra</li></ul>',
-  'dokumentasjon.barnetilsynsbehov.tittel':
-    'Dokumentasjon på barnets tilsynsbehov',
+  'dokumentasjon.barnetilsynsbehov.tittel': 'Dokumentasjon på barnets tilsynsbehov',
   'dokumentasjon.barnetilsynsbehov.beskrivelse':
     '<ul><li>Dokumentasjon fra legen din som bekrefter at barnet har medisinske, psykiske eller store sosiale problemer og trenger tilsyn.<li/><li>Dokumentasjon som beskriver behovet barnet ditt har for tilsyn og hvordan dette påvirker muligheten din til å være i arbeid eller yrkesrettet aktivitet.</li></ul>',
   'dokumentasjon.arbeidskontrakt.tittel':
     'Du må legge ved arbeidskontrakt som viser at du har fått tilbud om jobb.',
   'dokumentasjon.arbeidskontrakt.beskrivelse':
     'Dokumentasjonen må tydelig vise: <ul><li>navn på arbeidssted</li><li>stillingsprosent</li><li>datoen du begynner i jobben</li><li>datoen du fikk tilbudet</li></ul>',
-  'dokumentasjon.utdanning.tittel':
-    'Dokumentasjon på utdanningen du tar eller skal ta',
+  'dokumentasjon.utdanning.tittel': 'Dokumentasjon på utdanningen du tar eller skal ta',
   'dokumentasjon.utdanning.beskrivelse':
     'Dokumentasjonen må vise:<ul><li>navn på studiested</li><li>navn på studie</li><li>hvor mye du skal studere</li><li>perioden du skal studere</li></ul>Dokumentasjonen må vise tydelig hvem det gjelder. <br/><br/>Får du allerede overgangsstønad og søker om å forlenge stønadsperioden fordi du har fått tilbud om studieplass? Da må dokumentasjonen også vise datoen du takket ja til tilbudet.',
   'dokumentasjon.utdanning.beskrivelse.skolepenger':
@@ -731,8 +663,7 @@ export default {
     'Dokumentasjon på at du må være borte fra hjemmet i lengre perioder på grunn av jobb',
   'dokumentasjon.barnepassRoterendeArbeidstid.tittel':
     'Dokumentasjon på at du jobber turnus eller skift, og jobber på tider utenom vanlig arbeidstid',
-  'dokumentasjon.ettersend.tittel':
-    'Fikk du ikke lastet opp all dokumentasjonen?',
+  'dokumentasjon.ettersend.tittel': 'Fikk du ikke lastet opp all dokumentasjonen?',
   'dokumentasjon.ettersend.tekst.BARNETILSYN':
     'Du får raskere svar på søknaden din hvis vi har all dokumentasjonen når vi starter behandlingen. Hvis du ikke fikk lastet opp alt nå, kan du <a href="https://www.nav.no/familie/alene-med-barn/ettersending">ettersende det som mangler</a>.',
   'dokumentasjon.ettersend.tekst.OVERGANGSSTØNAD':
@@ -741,12 +672,9 @@ export default {
     'Du får raskere svar på søknaden din hvis vi har all dokumentasjonen når vi starter behandlingen. Hvis du ikke fikk lastet opp alt nå, kan du <a href="https://www.nav.no/familie/alene-med-barn/ettersending">ettersende det som mangler</a>.',
   'kvittering.takk': 'Takk for søknaden',
   'kvittering.alert.mottatt': 'Søknaden din om overgangsstønad er mottatt',
-  'kvittering.skolepenger.alert.mottatt':
-    'Søknaden din om stønad til skolepenger er mottatt',
-  'kvittering.barnetilsyn.alert.mottatt':
-    'Søknaden din om stønad til barnetilsyn er mottatt',
-  'kvittering.tekst.arbeidssøker':
-    'Husk å registrere deg som arbeidssøker hos Nav',
+  'kvittering.skolepenger.alert.mottatt': 'Søknaden din om stønad til skolepenger er mottatt',
+  'kvittering.barnetilsyn.alert.mottatt': 'Søknaden din om stønad til barnetilsyn er mottatt',
+  'kvittering.tekst.arbeidssøker': 'Husk å registrere deg som arbeidssøker hos Nav',
   'kvittering.knapp.arbeidssøker': 'Registrer deg som arbeidssøker',
   'kvittering.tekst.altViTrenger':
     'Spørsmålene i søknaden, sammen med eventuell dokumentasjon, gir oss svar på det vi trenger for å behandle søknaden din. Hvis vi trenger mer informasjon vil vi ta kontakt med deg.',
@@ -764,8 +692,7 @@ export default {
   'kvittering.tittel.samlivsbrudd': 'Bekreftelse på samlivsbrudd',
   'kvittering.beskrivelse.samlivsbrudd':
     'Siden du skal dokumentere samlivsbrudd med den andre forelderen, har vi laget et forslag til bekreftelse du kan bruke.',
-  'kvittering.knapp.samlivsbrudd':
-    'Last ned forslag til bekreftelse på samlivsbrudd',
+  'kvittering.knapp.samlivsbrudd': 'Last ned forslag til bekreftelse på samlivsbrudd',
   'kvittering.tittel.skolepenger':
     'Som enslig mor eller far under utdanning, kan du ha rett til stønad til skolepenger',
   'kvittering.tekst.skolepenger':
@@ -782,25 +709,21 @@ export default {
     'Som enslig mor eller far som søker arbeid, kan du ha rett til tilleggsstønader',
   'kvittering.beskrivelse.tilleggsstønader.arbeidssøker':
     'Stønadene kan dekke utgifter til <ul><li>barnepass</li><li>flytting</li></ul><i>NB! Du kan kun få tilleggsstønader hvis du kvalifiserer til overgangsstønad</i>',
-  'kvittering.lenke.tilleggsstønader.arbeidssøker':
-    'Les mer om tilleggsstønader',
+  'kvittering.lenke.tilleggsstønader.arbeidssøker': 'Les mer om tilleggsstønader',
   'kvittering.knapp.tilleggsstønader.arbeidssøker': 'Søk tilleggsstønader',
   'kvittering.tittel.tilleggsstønader.aktivitetskrav':
     'Som enslig mor eller far i arbeid, kan du ha rett til stønad til barnetilsyn',
   'kvittering.beskrivelse.tilleggsstønader.aktivitetskrav':
     'Stønaden dekker 64 prosent av utgiftene til barnepass, som for eksempel barnehage, skolefritidsordning (SFO) eller dagmamma. <br/><br/> Dersom du tjener mer enn 744 168 kroner i året, har du ikke rett til stønaden.<br/><br/>Du kan som hovedregel motta stønaden frem til barnet fullfører 4. skoleår.',
-  'kvittering.lenke.tilleggsstønader.aktivitetskrav':
-    'Les mer om stønad til barnetilsyn',
-  'kvittering.knapp.tilleggsstønader.aktivitetskrav':
-    'Søk stønad til barnetilsyn',
+  'kvittering.lenke.tilleggsstønader.aktivitetskrav': 'Les mer om stønad til barnetilsyn',
+  'kvittering.knapp.tilleggsstønader.aktivitetskrav': 'Søk stønad til barnetilsyn',
   'overgangsstønad.feilsituasjon':
     'Vi har dessverre tekniske problemer, så du får ikke sendt inn søknaden akkurat nå. Vennligst prøv igjen litt senere. Vi beklager ulempen.',
   'side.alert.ikkeGammelNok':
     'Du er under 18 år og digital søknad er ikke tilgjengelig. Du må bruke dette <a href="https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/brev">skjemaet</a> for å søke.',
   'banner.tittel.barnetilsyn': 'Søknad om barnetilsyn',
   'barnetilsyn.sidetittel': 'Søknad om barnetilsyn',
-  'barnetilsyn.søkerFraAugustTittel':
-    'Søker du om stønad til barnetilsyn fra august [0]?',
+  'barnetilsyn.søkerFraAugustTittel': 'Søker du om stønad til barnetilsyn fra august [0]?',
   'barnetilsyn.søkerFraAugustInnhold':
     'For å få stønad fra august må du kunne dokumentere utgiftene til barnepass med faktura for denne måneden. Vi anbefaler derfor at du venter med å søke frem til du får fakturaen.',
   'barnetilsyn.tekst.hvilke': 'Hvilke barn skal være med i søknaden?',
@@ -830,10 +753,8 @@ export default {
   'hvaSlagsOrdning.svar.barnehageOgLiknende': 'Barnehage, SFO eller liknende',
   'hvaSlagsOrdning.svar.privat': 'Dagmamma eller annen privat ordning',
   'barnehageOgLiknende.label.navnPåBarnepass': 'Navn på barnepassordningen',
-  'privat.label.navnPåBarnepass':
-    'Navn på barnepassordningen eller personen som passer [0]',
-  'barnepass.datovelger.periodePåBarnepass':
-    'I hvilken periode har [0] denne barnepassordningen?',
+  'privat.label.navnPåBarnepass': 'Navn på barnepassordningen eller personen som passer [0]',
+  'barnepass.datovelger.periodePåBarnepass': 'I hvilken periode har [0] denne barnepassordningen?',
   'barnepass.hjelpetekst.periodePåBarnepass':
     'Stønad til barnetilsyn gis normalt for 1 år av gangen, og du må søke på nytt og dokumentere utgiftene hvert år. Du trenger bare oppgi perioden du søker for nå.',
   'barnepass.label.beløp': 'Beløp pr måned (ikke inkludert kost)',
@@ -849,8 +770,7 @@ export default {
   'barnepass.tittel.ordning': 'Barnepassordning',
   'barnepass.knapp.slett': 'Fjern barnepassordning',
   'skolepenger.sidetittel': 'Søknad om skolepenger',
-  'skolepenger.søkerFraAugustTittel':
-    'Søker du om stønad til skolepenger fra august [0]?',
+  'skolepenger.søkerFraAugustTittel': 'Søker du om stønad til skolepenger fra august [0]?',
   'skolepenger.søkerFraAugustInnhold':
     'For å få stønad for nytt skoleår må du kunne dokumentere utgiftene til skolepenger med faktura. Vi anbefaler derfor at du venter med å søke frem til du får fakturaen.',
   'skolepenger.overskrift': 'Søknad om stønad til skolepenger',
@@ -863,11 +783,9 @@ export default {
   'skjema.sidetittel': 'Enslig mor eller far som arbeidssøker',
   'skjema.beskrivelse':
     'Vi kan orientere og veilede deg om utdanning og yrkesvalg. Vi kan også tilby deg for eksempel kurs eller praksisplass, som vil bidra til at du kommer i arbeid.<br/><br/>Når du er arbeidssøker og søker om eller får overgangstønad må du: <ol><li><a  href="https://arbeidssokerregistrering.nav.no/start">registrere deg som arbeidssøker</a> hos Nav, hvis du ikke allerede har gjort det</li><li><a href="https://arbeidsplassen.nav.no/slik-skriver-du-en-god-cv">registrere CV-en din på nav.no</a> og holde den oppdatert</li><li>søke etter ledige jobber. <a href="https://veiviserarbeidssoker.nav.no/?situasjon=mistet-jobben">Vi har gode tips om jobbsøking.</a></li><li>sende meldekort hver 14. dag</li></ol>',
-  'skjema.feilmelding.uthenting':
-    'En feil oppstod ved uthenting av dine personopplysninger',
+  'skjema.feilmelding.uthenting': 'En feil oppstod ved uthenting av dine personopplysninger',
   'skjema.tittel.omarbeidssøker': 'Om deg som arbeidssøker',
-  'skjema.alert.registrert':
-    'Du kan registrere deg etter at du har sendt inn dette skjemaet.',
+  'skjema.alert.registrert': 'Du kan registrere deg etter at du har sendt inn dette skjemaet.',
   'skjema.send': 'Send skjema',
   'skjema.feilet': 'Noe gikk galt. Skjema er ikke blitt sendt. Prøv igjen.',
   'skjema.forside.disclaimer':
@@ -899,8 +817,7 @@ export default {
     'Noen ganger kan vi også trenge mer informasjon. Da gir vi deg beskjed om dette.',
   'forside.overgangsstønad.oversiktDokumentasjon':
     '<a href="https://www.nav.no/overgangsstonad-enslig#soke"> Oversikt over hva som krever dokumentasjon </a>',
-  'forside.overgangsstønad.overskrift.henteInformasjon':
-    'Vi vil hente informasjon om deg',
+  'forside.overgangsstønad.overskrift.henteInformasjon': 'Vi vil hente informasjon om deg',
   'forside.overgangsstønad.henteInformasjon':
     'I tillegg til den informasjonen du oppgir i søknaden, henter vi inn informasjon om deg for å avgjøre om du har rett til stønad.',
   'forside.overgangsstønad.viHenter': 'Vi henter:',
@@ -942,8 +859,7 @@ export default {
     'Noen ganger kan vi også trenge mer informasjon. Da gir vi deg beskjed om dette.',
   'forside.barnetilsyn.oversiktDokumentasjon':
     '<a href="https://www.nav.no/barnetilsyn-enslig"> Oversikt over hva som krever dokumentasjon </a>',
-  'forside.barnetilsyn.overskrift.henteInformasjon':
-    'Vi vil hente informasjon om deg',
+  'forside.barnetilsyn.overskrift.henteInformasjon': 'Vi vil hente informasjon om deg',
   'forside.barnetilsyn.henteInformasjon':
     'I tillegg til den informasjonen du oppgir i søknaden, henter vi inn informasjon om deg for å avgjøre om du har rett til stønad.',
   'forside.barnetilsyn.viHenter': 'Vi henter:',
@@ -960,8 +876,7 @@ export default {
     'I søknaden stiller vi kun spørsmål som er relevante i din situasjon. Antall spørsmål og tiden det tar å søke vil derfor kunne variere. De fleste bruker 10 minutter.',
   'forside.barnetilsyn.slikSøkerDu3':
     'Vi lagrer søknaden din ut morgendagen. Derfor kan du ta pauser når du fyller ut. Du kan også slette i denne perioden.',
-  'forside.barnetilsyn.slikSøkerDu4':
-    'Mangler du dokumentasjon, kan du ettersende dette.',
+  'forside.barnetilsyn.slikSøkerDu4': 'Mangler du dokumentasjon, kan du ettersende dette.',
   'forside.barnetilsyn.disclaimerTekst':
     'Jeg er klar over at jeg kan miste retten til stønad til barnetilsyn dersom jeg ikke har gitt riktige opplysninger. Jeg er også klar over at jeg må betale tilbake dersom jeg får penger jeg ikke har rett til og som skyldes at jeg har latt være å informere eller gitt feil opplysninger.',
 
@@ -983,8 +898,7 @@ export default {
     'Noen ganger kan vi også trenge mer informasjon. Da gir vi deg beskjed om dette.',
   'forside.skolepenger.dokumentasjonsOversiktLenke':
     '<a href="https://www.nav.no/skolepenger-enslig#soke">Oversikt over hva som krever dokumentasjon</a>',
-  'forside.skolepenger.overskrift.henteInformasjon':
-    'Vi vil hente informasjon om deg',
+  'forside.skolepenger.overskrift.henteInformasjon': 'Vi vil hente informasjon om deg',
   'forside.skolepenger.henteInformasjon':
     'I tillegg til den informasjonen du oppgir i søknaden, henter vi inn informasjon om deg for å avgjøre om du har rett til stønad.',
   'forside.skolepenger.viHenter': 'Vi henter:',
@@ -1019,8 +933,7 @@ export default {
   'forside.arbeidssøker.personopplysningeneDineLenke':
     '<span><a href="https://www.nav.no/personvernerklaering">Slik behandler vi personopplysningene dine</a></span>',
 
-  'utdanning.alert.arbeidsmengde':
-    'Prosent må være mindre enn 100 hvis det er deltid.',
+  'utdanning.alert.arbeidsmengde': 'Prosent må være mindre enn 100 hvis det er deltid.',
   'tidligere.barnetilsyn.søknad.finnes':
     'Du har søkt om stønad til barnetilsyn tidligere. Hvis du ønsker, kan vi fylle ut den nye søknaden med opplysningene fra den forrige søknaden din. Noen av spørsmålene må du svare på hver gang.',
   'gjenbruk.tidligere.barnetilsyn.søknad':

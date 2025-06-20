@@ -20,10 +20,7 @@ export const hentNyttBarn = (
     ident: hentFeltObjekt('person.ident.visning', ident, intl),
     alder: hentFeltObjekt(
       'person.alder',
-      differenceInYears(
-        dagensDato,
-        strengTilDato(barnDato) ? strengTilDato(barnDato) : dagensDato
-      ),
+      differenceInYears(dagensDato, strengTilDato(barnDato) ? strengTilDato(barnDato) : dagensDato),
       intl
     ),
     navn: hentFeltObjekt('person.navn', navn, intl),
@@ -45,10 +42,6 @@ export const hentNyttBarn = (
     ),
     lagtTil: true,
     id: id === undefined ? hentUid() : id,
-    skalHaBarnepass: hentFeltObjekt(
-      'barnekort.skalHaBarnepass',
-      !!skalHaBarnepass,
-      intl
-    ),
+    skalHaBarnepass: hentFeltObjekt('barnekort.skalHaBarnepass', !!skalHaBarnepass, intl),
   };
 };

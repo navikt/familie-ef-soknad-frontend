@@ -4,14 +4,10 @@ import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { parseISO } from 'date-fns';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { hentPath } from '../../../../utils/routing';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  RoutesOvergangsstonad,
-  ERouteOvergangsstønad,
-} from '../../routing/routesOvergangsstonad';
+import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
+import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import {
@@ -19,15 +15,11 @@ import {
   mapBarnUtenBarnepass,
   sendInnOvergangstønadSøknad,
 } from '../../../../innsending/api';
-import { hentForrigeRoute, hentNesteRoute } from '../../../../utils/routing';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
-import {
-  logDokumetasjonsbehov,
-  logInnsendingFeilet,
-} from '../../../../utils/amplitude';
+import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/amplitude';
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
@@ -46,10 +38,7 @@ const SendSøknadKnapper: FC = () => {
   const nesteRoute = hentNesteRoute(RoutesOvergangsstonad, location.pathname);
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
   const intl = useLokalIntlContext();
-  const forrigeRoute = hentForrigeRoute(
-    RoutesOvergangsstonad,
-    location.pathname
-  );
+  const forrigeRoute = hentForrigeRoute(RoutesOvergangsstonad, location.pathname);
 
   const [innsendingState, settinnsendingState] = React.useState<Innsending>({
     status: IStatus.KLAR_TIL_INNSENDING,
@@ -57,13 +46,9 @@ const SendSøknadKnapper: FC = () => {
     venter: false,
   });
 
-  const sendInnSøknad = async (
-    søknadMedFiltrerteBarn: SøknadOvergangsstønad
-  ) => {
+  const sendInnSøknad = async (søknadMedFiltrerteBarn: SøknadOvergangsstønad) => {
     try {
-      const kvittering = await sendInnOvergangstønadSøknad(
-        søknadMedFiltrerteBarn
-      );
+      const kvittering = await sendInnOvergangstønadSøknad(søknadMedFiltrerteBarn);
 
       settinnsendingState({
         ...innsendingState,
@@ -92,14 +77,9 @@ const SendSøknadKnapper: FC = () => {
     const barnMedEntenIdentEllerFødselsdato = mapBarnUtenBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
-    const barnMedOppdaterteLabels = oppdaterBarnLabels(
-      barnMedEntenIdentEllerFødselsdato,
-      intl
-    );
+    const barnMedOppdaterteLabels = oppdaterBarnLabels(barnMedEntenIdentEllerFødselsdato, intl);
 
-    const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(
-      unikeDokumentasjonsbehov
-    );
+    const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(unikeDokumentasjonsbehov);
     logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Overgangsstønad);
     const søknadKlarForSending: SøknadOvergangsstønad = {
       ...søknad,
@@ -127,10 +107,7 @@ const SendSøknadKnapper: FC = () => {
             <LocaleTekst tekst="dokumentasjon.alert.gåTilbake" />{' '}
             <Link
               to={{
-                pathname: hentPath(
-                  RoutesOvergangsstonad,
-                  ERouteOvergangsstønad.OmDeg
-                ),
+                pathname: hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg),
               }}
               state={{ kommerFraOppsummering: true }}
             >

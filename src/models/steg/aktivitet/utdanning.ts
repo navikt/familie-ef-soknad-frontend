@@ -1,8 +1,4 @@
-import {
-  IBooleanFelt,
-  ISpørsmålFelt,
-  ITekstFelt,
-} from '../../søknad/søknadsfelter';
+import { IBooleanFelt, ISpørsmålFelt, ITekstFelt } from '../../søknad/søknadsfelter';
 import { IPeriode } from '../../felles/periode';
 
 // --- INTERFACES

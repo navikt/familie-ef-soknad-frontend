@@ -1,10 +1,7 @@
 import { ESvar, ESvarTekstid, ISvar } from '../models/felles/spørsmålogsvar';
 import { LokalIntlShape } from '../language/typer';
 
-export const JaNeiSvar = (intl: LokalIntlShape): ISvar[] => [
-  JaSvar(intl),
-  NeiSvar(intl),
-];
+export const JaNeiSvar = (intl: LokalIntlShape): ISvar[] => [JaSvar(intl), NeiSvar(intl)];
 
 export const NeiSvar = (intl: LokalIntlShape): ISvar => ({
   id: ESvar.NEI,

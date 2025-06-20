@@ -1,7 +1,4 @@
-import {
-  ESvarTekstid,
-  ISpørsmål,
-} from '../../../../models/felles/spørsmålogsvar';
+import { ESvarTekstid, ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
 import {
   EBorAnnenForelderISammeHus,
   EHarSamværMedBarn,
@@ -19,8 +16,7 @@ import { LokalIntlShape } from '../../../../language/typer';
 
 // --- Dokumentasjon
 
-const DokumentasjonBarnBorHosDeg: IDokumentasjon =
-  DokumentasjonsConfig.DokumentasjonBarnBorHosDeg;
+const DokumentasjonBarnBorHosDeg: IDokumentasjon = DokumentasjonsConfig.DokumentasjonBarnBorHosDeg;
 
 const SamværsavtaleMedKonkreteTidspunkter: IDokumentasjon =
   DokumentasjonsConfig.SamværsavtaleMedKonkreteTidspunkter;
@@ -59,10 +55,7 @@ export const hvorforIkkeOppgi = (intl: LokalIntlShape): ISpørsmål => ({
   ],
 });
 
-export const harAnnenForelderSamværMedBarn = (
-  intl: LokalIntlShape,
-  barn: IBarn
-): ISpørsmål => ({
+export const harAnnenForelderSamværMedBarn = (intl: LokalIntlShape, barn: IBarn): ISpørsmål => ({
   søknadid: EForelder.harAnnenForelderSamværMedBarn,
   tekstid: barn.født?.verdi
     ? 'barnasbosted.spm.harAnnenForelderSamværMedBarn'
@@ -94,17 +87,13 @@ export const harAnnenForelderSamværMedBarn = (
   ],
 });
 
-export const harDereSkriftligSamværsavtale = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const harDereSkriftligSamværsavtale = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EForelder.harDereSkriftligSamværsavtale,
   tekstid: 'barnasbosted.spm.harDereSkriftligSamværsavtale',
   flersvar: false,
   lesmer: {
-    innholdTekstid:
-      'barnasbosted.hjelpetekst-innhold.harDereSkriftligSamværsavtale',
-    headerTekstid:
-      'barnasbosted.hjelpetekst-åpne.harDereSkriftligSamværsavtale',
+    innholdTekstid: 'barnasbosted.hjelpetekst-innhold.harDereSkriftligSamværsavtale',
+    headerTekstid: 'barnasbosted.hjelpetekst-åpne.harDereSkriftligSamværsavtale',
   },
   svaralternativer: [
     {
@@ -133,8 +122,7 @@ export const borAnnenForelderISammeHus = (intl: LokalIntlShape): ISpørsmål => 
   tekstid: 'barnasbosted.spm.borAnnenForelderISammeHus',
   lesmer: {
     headerTekstid: 'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.apne',
-    innholdTekstid:
-      'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.innhold',
+    innholdTekstid: 'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.innhold',
   },
   flersvar: false,
   svaralternativer: [
@@ -153,10 +141,7 @@ export const borAnnenForelderISammeHus = (intl: LokalIntlShape): ISpørsmål => 
   ],
 });
 
-export const hvorMyeSammen = (
-  intl: LokalIntlShape,
-  barn: IBarn
-): ISpørsmål => ({
+export const hvorMyeSammen = (intl: LokalIntlShape, barn: IBarn): ISpørsmål => ({
   søknadid: 'hvorMyeSammen',
   tekstid: 'barnasbosted.spm.hvorMyeSammen',
   flersvar: false,

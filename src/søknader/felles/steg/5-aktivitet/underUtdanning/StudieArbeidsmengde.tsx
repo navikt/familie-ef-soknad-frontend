@@ -1,10 +1,7 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
-import {
-  EUtdanning,
-  IUnderUtdanning,
-} from '../../../../../models/steg/aktivitet/utdanning';
+import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert } from '@navikt/ds-react';
@@ -19,10 +16,7 @@ interface Props {
   oppdaterUtdanning: (nøkkel: EUtdanning, label: string, verdi: string) => void;
 }
 
-const StudieArbeidsmengde: React.FC<Props> = ({
-  utdanning,
-  oppdaterUtdanning,
-}) => {
+const StudieArbeidsmengde: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
   const intl = useLokalIntlContext();
 
   const settInputFelt = (
@@ -36,8 +30,7 @@ const StudieArbeidsmengde: React.FC<Props> = ({
   const arbeidsmengdeLabel = hentTekst('utdanning.label.arbeidsmengde', intl);
 
   const erIkkeUndefinedOgMerEnnNittiNiProsent =
-    utdanning?.arbeidsmengde?.verdi !== undefined &&
-    Number(utdanning?.arbeidsmengde?.verdi) > 99;
+    utdanning?.arbeidsmengde?.verdi !== undefined && Number(utdanning?.arbeidsmengde?.verdi) > 99;
 
   return (
     <KomponentGruppe>
@@ -46,13 +39,9 @@ const StudieArbeidsmengde: React.FC<Props> = ({
         nøkkel={EUtdanning.arbeidsmengde}
         type={'number'}
         bredde={'XXS'}
-        settInputFelt={(e) =>
-          settInputFelt(EUtdanning.arbeidsmengde, arbeidsmengdeLabel, e)
-        }
+        settInputFelt={(e) => settInputFelt(EUtdanning.arbeidsmengde, arbeidsmengdeLabel, e)}
         beskrivendeTekst={'%'}
-        value={
-          utdanning?.arbeidsmengde?.verdi ? utdanning?.arbeidsmengde?.verdi : ''
-        }
+        value={utdanning?.arbeidsmengde?.verdi ? utdanning?.arbeidsmengde?.verdi : ''}
       />
       {erIkkeUndefinedOgMerEnnNittiNiProsent && (
         <StudereProsentVarsel size="small" variant="error">

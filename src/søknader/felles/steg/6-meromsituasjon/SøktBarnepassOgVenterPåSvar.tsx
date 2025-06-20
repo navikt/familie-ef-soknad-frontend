@@ -9,9 +9,7 @@ const SøktBarnepassOgVenterPåSvar: React.FC = () => {
     <KomponentGruppe>
       <AlertStripeDokumentasjon>
         <BodyShort>
-          <LocaleTekst
-            tekst={'dinSituasjon.alert.harSøktBarnepassOgVenterEnnå'}
-          />
+          <LocaleTekst tekst={'dinSituasjon.alert.harSøktBarnepassOgVenterEnnå'} />
         </BodyShort>
       </AlertStripeDokumentasjon>
     </KomponentGruppe>

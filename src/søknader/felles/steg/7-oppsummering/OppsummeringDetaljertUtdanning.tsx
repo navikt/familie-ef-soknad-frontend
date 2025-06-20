@@ -2,10 +2,7 @@ import React from 'react';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import {
-  VisLabelOgSvar,
-  visListeAvLabelOgSvar,
-} from '../../../../utils/visning';
+import { VisLabelOgSvar, visListeAvLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
 import { IDetaljertUtdanning } from '../../../skolepenger/models/detaljertUtdanning';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
@@ -21,10 +18,7 @@ interface Props {
   endreInformasjonPath?: string;
 }
 
-const OppsummeringDetaljertUtdanning: React.FC<Props> = ({
-  utdanning,
-  endreInformasjonPath,
-}) => {
+const OppsummeringDetaljertUtdanning: React.FC<Props> = ({ utdanning, endreInformasjonPath }) => {
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
 

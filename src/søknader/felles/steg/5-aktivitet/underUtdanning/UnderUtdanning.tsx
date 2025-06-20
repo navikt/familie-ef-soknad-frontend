@@ -14,10 +14,7 @@ import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import SkoleOgLinje from './SkoleOgLinjeInputFelter';
 import StudieArbeidsmengde from './StudieArbeidsmengde';
 import TidligereUtdanning from './TidligereUtdanning';
-import {
-  utdanningDuKanFåStønadTil,
-  utdanningDuKanFåStønadTilSkolepenger,
-} from './UtdanningConfig';
+import { utdanningDuKanFåStønadTil, utdanningDuKanFåStønadTilSkolepenger } from './UtdanningConfig';
 import MålMedUtdanningen from './MålMedUtdanningen';
 import {
   erDetaljertUtdanningFerdigUtfylt,
@@ -39,9 +36,7 @@ const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
 
 interface Props {
   underUtdanning?: IUnderUtdanning | IDetaljertUtdanning;
-  oppdaterUnderUtdanning: (
-    utdanning: IUnderUtdanning | IDetaljertUtdanning
-  ) => void;
+  oppdaterUnderUtdanning: (utdanning: IUnderUtdanning | IDetaljertUtdanning) => void;
   stønadstype: Stønadstype;
 }
 
@@ -51,9 +46,9 @@ const UnderUtdanning: React.FC<Props> = ({
   stønadstype,
 }) => {
   const skalHaDetaljertUtdanning = stønadstype === Stønadstype.skolepenger;
-  const [utdanning, settUtdanning] = useState<
-    IUnderUtdanning | IDetaljertUtdanning
-  >(underUtdanning ? underUtdanning : lagTomUnderUtdanning());
+  const [utdanning, settUtdanning] = useState<IUnderUtdanning | IDetaljertUtdanning>(
+    underUtdanning ? underUtdanning : lagTomUnderUtdanning()
+  );
 
   useEffect(() => {
     oppdaterUnderUtdanning(utdanning);
@@ -63,20 +58,13 @@ const UnderUtdanning: React.FC<Props> = ({
   useEffect(() => {
     if (
       utdanning.periode &&
-      !erPeriodeGyldigOgInnaforBegrensninger(
-        utdanning?.periode,
-        DatoBegrensning.AlleDatoer
-      )
+      !erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer)
     ) {
       delete utdanning.heltidEllerDeltid;
     }
   }, [utdanning]);
 
-  const oppdaterUtdanning = (
-    nøkkel: EUtdanning,
-    label: string,
-    verdi: string
-  ) => {
+  const oppdaterUtdanning = (nøkkel: EUtdanning, label: string, verdi: string) => {
     underUtdanning &&
       settUtdanning({
         ...underUtdanning,
@@ -84,10 +72,8 @@ const UnderUtdanning: React.FC<Props> = ({
       });
   };
 
-  const søkerSkalStudereDeltid =
-    utdanning.heltidEllerDeltid?.svarid === EStudieandel.deltid;
-  const søkerSkalStudereHeltid =
-    utdanning.heltidEllerDeltid?.svarid === EStudieandel.heltid;
+  const søkerSkalStudereDeltid = utdanning.heltidEllerDeltid?.svarid === EStudieandel.deltid;
+  const søkerSkalStudereHeltid = utdanning.heltidEllerDeltid?.svarid === EStudieandel.heltid;
 
   const visTidligereUtdanning = skalHaDetaljertUtdanning
     ? erDetaljertUtdanningFerdigUtfylt(utdanning)
@@ -111,9 +97,7 @@ const UnderUtdanning: React.FC<Props> = ({
           {stønadstype === Stønadstype.skolepenger && (
             <LesMerTekstUnderSidetittel
               åpneTekstid={utdanningDuKanFåStønadTilSkolepenger.headerTekstid}
-              innholdTekstid={
-                utdanningDuKanFåStønadTilSkolepenger.innholdTekstid
-              }
+              innholdTekstid={utdanningDuKanFåStønadTilSkolepenger.innholdTekstid}
             />
           )}
         </KomponentGruppe>
@@ -125,26 +109,14 @@ const UnderUtdanning: React.FC<Props> = ({
         />
 
         {utdanning.linjeKursGrad?.verdi && (
-          <ErUtdanningenOffentligEllerPrivat
-            utdanning={utdanning}
-            settUtdanning={settUtdanning}
-          />
+          <ErUtdanningenOffentligEllerPrivat utdanning={utdanning} settUtdanning={settUtdanning} />
         )}
         {utdanning.offentligEllerPrivat?.verdi && (
-          <NårSkalDuVæreElevEllerStudent
-            utdanning={utdanning}
-            settUtdanning={settUtdanning}
-          />
+          <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
         )}
         {utdanning?.periode &&
-          erPeriodeGyldigOgInnaforBegrensninger(
-            utdanning?.periode,
-            DatoBegrensning.AlleDatoer
-          ) && (
-            <ErUtdanningenPåHeltidEllerDeltid
-              utdanning={utdanning}
-              settUtdanning={settUtdanning}
-            />
+          erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer) && (
+            <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
           )}
         {søkerSkalStudereHeltid && (
           <MålMedUtdanningen
@@ -155,10 +127,7 @@ const UnderUtdanning: React.FC<Props> = ({
         )}
         {søkerSkalStudereDeltid && (
           <>
-            <StudieArbeidsmengde
-              utdanning={utdanning}
-              oppdaterUtdanning={oppdaterUtdanning}
-            />
+            <StudieArbeidsmengde utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
             {strengErMerEnnNull(utdanning.arbeidsmengde?.verdi) && (
               <MålMedUtdanningen
                 utdanning={utdanning}
@@ -168,21 +137,14 @@ const UnderUtdanning: React.FC<Props> = ({
             )}
           </>
         )}
-        {skalHaDetaljertUtdanning &&
-          erUnderUtdanningFerdigUtfylt(utdanning) && (
-            <Studiekostnader
-              utdanning={utdanning}
-              oppdaterUtdanning={oppdaterUtdanning}
-            />
-          )}
+        {skalHaDetaljertUtdanning && erUnderUtdanningFerdigUtfylt(utdanning) && (
+          <Studiekostnader utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
+        )}
       </SeksjonGruppe>
 
       {visTidligereUtdanning && (
         <>
-          <TidligereUtdanning
-            underUtdanning={utdanning}
-            settUnderUtdanning={settUtdanning}
-          />
+          <TidligereUtdanning underUtdanning={utdanning} settUnderUtdanning={settUtdanning} />
         </>
       )}
     </>

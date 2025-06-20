@@ -35,9 +35,7 @@ const BarnasBosted: React.FC = () => {
     return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
   });
 
-  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(
-    barnMedLevendeForeldre
-  );
+  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(barnMedLevendeForeldre);
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
     antallBarnMedForeldre === barnMedLevendeForeldre.length
   );

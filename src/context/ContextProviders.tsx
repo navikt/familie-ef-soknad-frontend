@@ -6,9 +6,7 @@ import { BarnetilsynSøknadProvider } from '../søknader/barnetilsyn/Barnetilsyn
 import { SkolepengerSøknadProvider } from '../søknader/skolepenger/SkolepengerContext';
 import { GjenbrukProvider } from './GjenbrukContext';
 
-const ContextProviders: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+const ContextProviders: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   ContextProviders.displayName = 'CONTEXT_PROVIDERS';
   return (
     <TogglesProvider>

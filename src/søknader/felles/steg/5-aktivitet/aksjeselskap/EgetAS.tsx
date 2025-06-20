@@ -1,8 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import {
-  IAksjeselskap,
-  IAktivitet,
-} from '../../../../../models/steg/aktivitet/aktivitet';
+import { IAksjeselskap, IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
@@ -38,9 +35,7 @@ const EgetAS: FC<Props> = ({
   inkludertArbeidsmengde = true,
 }) => {
   const [egetAS, settEgetAS] = useState<IAksjeselskap[]>(
-    arbeidssituasjon.egetAS
-      ? arbeidssituasjon.egetAS
-      : [tomtAksjeselskap(inkludertArbeidsmengde)]
+    arbeidssituasjon.egetAS ? arbeidssituasjon.egetAS : [tomtAksjeselskap(inkludertArbeidsmengde)]
   );
 
   useEffect(() => {
@@ -49,9 +44,7 @@ const EgetAS: FC<Props> = ({
   }, [egetAS]);
 
   const leggTilAksjeselskap = () => {
-    const nyttAksjeselskap: IAksjeselskap = tomtAksjeselskap(
-      inkludertArbeidsmengde
-    );
+    const nyttAksjeselskap: IAksjeselskap = tomtAksjeselskap(inkludertArbeidsmengde);
     const arbeidsforhold: IAksjeselskap[] = egetAS;
     arbeidsforhold.push(nyttAksjeselskap);
     settArbeidssituasjon({ ...arbeidssituasjon, egetAS: arbeidsforhold });

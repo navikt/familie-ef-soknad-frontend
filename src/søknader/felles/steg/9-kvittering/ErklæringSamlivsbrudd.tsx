@@ -35,9 +35,7 @@ const ErklæringSamlivsbrudd: FC = () => {
     });
   };
 
-  const { filInformasjon } = useHentFilInformasjon(
-    hentÆrklæringBasertPåSpråk()
-  );
+  const { filInformasjon } = useHentFilInformasjon(hentÆrklæringBasertPåSpråk());
 
   return (
     <SeksjonGruppe>

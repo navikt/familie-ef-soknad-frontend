@@ -18,26 +18,20 @@ interface Props {
   harDokumentasjonsbehov: boolean;
 }
 
-export const DokumentasjonBeskrivelse: React.FC<Props> = ({
-  harDokumentasjonsbehov,
-}) => {
+export const DokumentasjonBeskrivelse: React.FC<Props> = ({ harDokumentasjonsbehov }) => {
   const intl = useLokalIntlContext();
   return (
     <SeksjonsGruppeMindrePadding>
       {harDokumentasjonsbehov ? (
         <>
           <LocaleTekst tekst={'dokumentasjon.beskrivelse'} />
-          <ReadMoreMedPadding
-            header={hentTekst('dokumentasjon.beskrivelseBilderHeader', intl)}
-          >
+          <ReadMoreMedPadding header={hentTekst('dokumentasjon.beskrivelseBilderHeader', intl)}>
             <LocaleTekst tekst={'dokumentasjon.beskrivelseBilderInnhold'} />
           </ReadMoreMedPadding>
           <LocaleTekst tekst={'dokumentasjon.beskrivelseSlutt'} />
         </>
       ) : (
-        <LocaleTekst
-          tekst={'dokumentasjon.ingenDokumentasjonsbehov.beskrivelse'}
-        />
+        <LocaleTekst tekst={'dokumentasjon.ingenDokumentasjonsbehov.beskrivelse'} />
       )}
     </SeksjonsGruppeMindrePadding>
   );

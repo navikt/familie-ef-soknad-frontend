@@ -36,16 +36,9 @@ const OmAndreForelder: React.FC<Props> = ({
   const { fødselsdato, ident } = forelder;
   const [feilmeldingNavn, settFeilmeldingNavn] = useState<boolean>(false);
   const hvorforIkkeOppgiLabel = hentTekst(hvorforIkkeOppgi(intl).tekstid, intl);
-  const jegKanIkkeOppgiLabel = hentTekst(
-    'barnasbosted.kanikkeoppgiforelder',
-    intl
-  );
-  const [erGyldigIdent, settGyldigIdent] = useState<boolean>(
-    !!forelder?.ident?.verdi
-  );
-  const [identFelt, settIdentFelt] = useState<string>(
-    ident?.verdi ? ident.verdi : ''
-  );
+  const jegKanIkkeOppgiLabel = hentTekst('barnasbosted.kanikkeoppgiforelder', intl);
+  const [erGyldigIdent, settGyldigIdent] = useState<boolean>(!!forelder?.ident?.verdi);
+  const [identFelt, settIdentFelt] = useState<string>(ident?.verdi ? ident.verdi : '');
 
   useEffect(() => {
     erGyldigIdent &&
@@ -168,9 +161,7 @@ const OmAndreForelder: React.FC<Props> = ({
               e.target.value === '' && settSisteBarnUtfylt(false);
             }}
             onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
-              e.target.value === ''
-                ? settFeilmeldingNavn(true)
-                : settFeilmeldingNavn(false)
+              e.target.value === '' ? settFeilmeldingNavn(true) : settFeilmeldingNavn(false)
             }
             value={forelder.navn ? forelder.navn?.verdi : ''}
             label={hentTekst('person.navn', intl)}
@@ -228,9 +219,7 @@ const OmAndreForelder: React.FC<Props> = ({
           <Textarea
             autoComplete={'off'}
             value={forelder.ikkeOppgittAnnenForelderBegrunnelse?.verdi}
-            onChange={(e) =>
-              settIkkeOppgittAnnenForelderBegrunnelse(e.target.value)
-            }
+            onChange={(e) => settIkkeOppgittAnnenForelderBegrunnelse(e.target.value)}
             label={hvorforIkkeOppgiLabel}
           />
         </FeltGruppe>

@@ -2,17 +2,10 @@ import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { harAnnenForelderSamværMedBarn } from '../ForeldreConfig';
 import HvordanPraktiseresSamværet from '../HvordanPraktiseresSamværet';
-import {
-  ESvar,
-  ISpørsmål,
-  ISvar,
-} from '../../../../../models/felles/spørsmålogsvar';
+import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { EForelder, IForelder } from '../../../../../models/steg/forelder';
-import {
-  erJaNeiSvar,
-  hentBooleanFraValgtSvar,
-} from '../../../../../utils/spørsmålogsvar';
+import { erJaNeiSvar, hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import HarForelderSkriftligSamværsavtale from './HarForelderSkriftligSamværsavtale';
 import {
   harForelderSamværMedBarn,
@@ -40,10 +33,7 @@ const BostedOgSamvær: React.FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const harAnnenForelderSamværMedBarnConfig = harAnnenForelderSamværMedBarn(
-    intl,
-    barn
-  );
+  const harAnnenForelderSamværMedBarnConfig = harAnnenForelderSamværMedBarn(intl, barn);
 
   const settBostedOgSamværFelt = (spørsmål: ISpørsmål, svar: ISvar) => {
     const nyForelder = {
@@ -52,9 +42,7 @@ const BostedOgSamvær: React.FC<Props> = ({
         spørsmålid: spørsmål.søknadid,
         svarid: svar.id,
         label: hentTekst(spørsmål.tekstid, intl),
-        verdi: erJaNeiSvar(svar)
-          ? hentBooleanFraValgtSvar(svar)
-          : svar.svar_tekst,
+        verdi: erJaNeiSvar(svar) ? hentBooleanFraValgtSvar(svar) : svar.svar_tekst,
       },
     };
 
@@ -64,11 +52,7 @@ const BostedOgSamvær: React.FC<Props> = ({
     )
       delete nyForelder.hvordanPraktiseresSamværet;
 
-    if (
-      spørsmål.søknadid === EForelder.borINorge &&
-      nyForelder.land &&
-      svar.id === ESvar.JA
-    ) {
+    if (spørsmål.søknadid === EForelder.borINorge && nyForelder.land && svar.id === ESvar.JA) {
       delete nyForelder.land;
     }
 
@@ -91,9 +75,7 @@ const BostedOgSamvær: React.FC<Props> = ({
           settSpørsmålOgSvar={settBostedOgSamværFelt}
         />
       </KomponentGruppe>
-      {harForelderSamværMedBarn(
-        forelder.harAnnenForelderSamværMedBarn?.svarid
-      ) && (
+      {harForelderSamværMedBarn(forelder.harAnnenForelderSamværMedBarn?.svarid) && (
         <HarForelderSkriftligSamværsavtale
           forelder={forelder}
           settBostedOgSamværFelt={settBostedOgSamværFelt}
@@ -103,12 +85,7 @@ const BostedOgSamvær: React.FC<Props> = ({
       {måBeskriveSamværet(
         forelder.harDereSkriftligSamværsavtale?.svarid,
         forelder.harAnnenForelderSamværMedBarn?.svarid
-      ) && (
-        <HvordanPraktiseresSamværet
-          forelder={forelder}
-          settForelder={settForelder}
-        />
-      )}
+      ) && <HvordanPraktiseresSamværet forelder={forelder} settForelder={settForelder} />}
     </>
   );
 };

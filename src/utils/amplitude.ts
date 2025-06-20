@@ -12,9 +12,7 @@ export enum EEventsnavn {
 }
 
 export function logEvent(eventName: string, eventProperties: any) {
-  logger(eventName, eventProperties).catch(() =>
-    console.warn('Uninitialized amplitude')
-  );
+  logger(eventName, eventProperties).catch(() => console.warn('Uninitialized amplitude'));
 }
 
 export const logSpørsmålBesvart = (
@@ -80,10 +78,7 @@ export const logSidevisningSkolepenger = (side: string) => {
   });
 };
 
-const logDokumetasjonsbehovOppsummering = (
-  dokBehov: IDokumentasjon[],
-  skjemanavn: ESkjemanavn
-) => {
+const logDokumetasjonsbehovOppsummering = (dokBehov: IDokumentasjon[], skjemanavn: ESkjemanavn) => {
   const antallOpplastede = dokBehov.filter(
     (dok) =>
       dok.harSendtInn === false &&
@@ -91,15 +86,12 @@ const logDokumetasjonsbehovOppsummering = (
       dok.opplastedeVedlegg.length > 0
   ).length;
 
-  const antallTidligereInnsendte = dokBehov.filter(
-    (dok) => dok.harSendtInn === true
-  ).length;
+  const antallTidligereInnsendte = dokBehov.filter((dok) => dok.harSendtInn === true).length;
 
   const antallIkkeOppfylte = dokBehov.filter(
     (dok) =>
       dok.harSendtInn === false &&
-      (dok.opplastedeVedlegg === undefined ||
-        dok.opplastedeVedlegg.length === 0)
+      (dok.opplastedeVedlegg === undefined || dok.opplastedeVedlegg.length === 0)
   ).length;
 
   const harOppfyltAlle = antallIkkeOppfylte === 0;
@@ -115,10 +107,7 @@ const logDokumetasjonsbehovOppsummering = (
   });
 };
 
-const logDokumetasjonsbehovDetaljer = (
-  dokBehov: IDokumentasjon[],
-  skjemanavn: ESkjemanavn
-) => {
+const logDokumetasjonsbehovDetaljer = (dokBehov: IDokumentasjon[], skjemanavn: ESkjemanavn) => {
   dokBehov.map((dok) =>
     logEvent('dokumentasjonsbehov', {
       dokumentLabel: dok.label,
@@ -131,10 +120,7 @@ const logDokumetasjonsbehovDetaljer = (
   );
 };
 
-export const logDokumetasjonsbehov = (
-  dokBehov: IDokumentasjon[],
-  skjemanavn: ESkjemanavn
-) => {
+export const logDokumetasjonsbehov = (dokBehov: IDokumentasjon[], skjemanavn: ESkjemanavn) => {
   logDokumetasjonsbehovDetaljer(dokBehov, skjemanavn);
   logDokumetasjonsbehovOppsummering(dokBehov, skjemanavn);
 };
@@ -146,11 +132,7 @@ export const logAdressesperre = (skjemanavn: string) => {
   });
 };
 
-export const logInnsendingFeilet = (
-  skjemanavn: string,
-  skjemaId: number,
-  feilmelding: string
-) => {
+export const logInnsendingFeilet = (skjemanavn: string, skjemaId: number, feilmelding: string) => {
   logEvent('skjema innsending feilet', {
     skjemanavn,
     skjemaId,
@@ -158,10 +140,7 @@ export const logInnsendingFeilet = (
   });
 };
 
-export const logBrowserBackOppsummering = (
-  skjemanavn: string,
-  skjemaId: number
-) => {
+export const logBrowserBackOppsummering = (skjemanavn: string, skjemaId: number) => {
   logEvent('browser_back_oppsummering', {
     skjemanavn,
     skjemaId,
@@ -187,11 +166,7 @@ export const logFeilFilopplasting = (
   });
 };
 
-export const logManglendeFelter = (
-  skjemanavn: string,
-  skjemaId: number,
-  feilmelding: string
-) => {
+export const logManglendeFelter = (skjemanavn: string, skjemaId: number, feilmelding: string) => {
   logEvent('manglende_felter', {
     skjemanavn,
     skjemaId,

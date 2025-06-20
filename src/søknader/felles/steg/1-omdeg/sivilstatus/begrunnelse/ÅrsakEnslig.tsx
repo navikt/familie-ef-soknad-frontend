@@ -7,15 +7,9 @@ import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSv
 import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
-import {
-  hentSvarAlertFraSpørsmål,
-  hentTekst,
-} from '../../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
-import {
-  ISpørsmål,
-  ISvar,
-} from '../../../../../../models/felles/spørsmålogsvar';
+import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
 import LocaleTekst from '../../../../../../language/LocaleTekst';
 import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
@@ -60,10 +54,7 @@ const ÅrsakEnslig: FC = () => {
     settDokumentasjonsbehov(spørsmål, svar);
   };
 
-  const alertTekstForDødsfall = hentSvarAlertFraSpørsmål(
-    EBegrunnelse.dødsfall,
-    spørsmål
-  );
+  const alertTekstForDødsfall = hentSvarAlertFraSpørsmål(EBegrunnelse.dødsfall, spørsmål);
 
   const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
     tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
@@ -81,9 +72,7 @@ const ÅrsakEnslig: FC = () => {
         />
       </KomponentGruppe>
 
-      {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre && (
-        <DatoForSamlivsbrudd />
-      )}
+      {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre && <DatoForSamlivsbrudd />}
 
       {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddAndre && (
         <KomponentGruppe>
@@ -109,9 +98,7 @@ const ÅrsakEnslig: FC = () => {
         </KomponentGruppe>
       )}
 
-      {årsakEnslig?.svarid === EBegrunnelse.endringISamværsordning && (
-        <EndringISamvær />
-      )}
+      {årsakEnslig?.svarid === EBegrunnelse.endringISamværsordning && <EndringISamvær />}
 
       {årsakEnslig?.svarid === EBegrunnelse.dødsfall && (
         <KomponentGruppe>
