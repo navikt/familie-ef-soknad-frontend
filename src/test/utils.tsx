@@ -25,15 +25,12 @@ import { IBarn } from '../models/steg/barn';
 import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
-import axios from 'axios';
-import Environment from '../Environment';
-import { mockGet } from './axios';
 import { render } from './render';
 import { TestContainer } from './TestContainer';
-import App from '../App';
 import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
 import { UserEvent } from '@testing-library/user-event';
+import { OvergangsstønadApp } from '../søknader/overgangsstønad/OvergangsstønadApp';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -309,7 +306,7 @@ export const lagSistInnsendteSøknad = (
 export const navigerTilOmDeg = async () => {
   const { screen, user } = render(
     <TestContainer>
-      <App />
+      <OvergangsstønadApp />
     </TestContainer>
   );
 
