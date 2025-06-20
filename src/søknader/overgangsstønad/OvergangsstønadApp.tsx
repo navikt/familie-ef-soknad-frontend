@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
-import Feilside from './components/feil/Feilside';
-import hentToggles from './toggles/api';
-import Søknadsdialog from './søknader/overgangsstønad/Søknadsdialog';
-import { oppdaterBarnMedLabel } from './utils/søknad';
-import { usePersonContext } from './context/PersonContext';
+import Feilside from '../../components/feil/Feilside';
+import hentToggles from '../../toggles/api';
+import Søknadsdialog from './Søknadsdialog';
+import { oppdaterBarnMedLabel } from '../../utils/søknad';
+import { usePersonContext } from '../../context/PersonContext';
 import {
   autentiseringsInterceptor,
   verifiserAtBrukerErAutentisert,
-} from './utils/autentiseringogvalidering/autentisering';
-import { useOvergangsstønadSøknad } from './søknader/overgangsstønad/OvergangsstønadContext';
-import { useToggles } from './context/TogglesContext';
-import { Barn, PersonData } from './models/søknad/person';
-import { useLokalIntlContext } from './context/LokalIntlContext';
+} from '../../utils/autentiseringogvalidering/autentisering';
+import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
+import { useToggles } from '../../context/TogglesContext';
+import { Barn, PersonData } from '../../models/søknad/person';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
-import { IBarn } from './models/steg/barn';
-import { ESkjemanavn } from './utils/skjemanavn';
+import { IBarn } from '../../models/steg/barn';
+import { ESkjemanavn } from '../../utils/skjemanavn';
 
-const App = () => {
+export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
   const [fetching, settFetching] = useState<boolean>(true);
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } =
@@ -82,5 +82,3 @@ const App = () => {
     return <Loader variant="neutral" size="xlarge" title="venter..." />;
   }
 };
-
-export default App;
