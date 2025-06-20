@@ -5,14 +5,8 @@ import { Seksjon } from '../../components/forside/Seksjon';
 import { Overskrift } from '../../components/forside/Overskrift';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
-import {
-  ERouteBarnetilsyn,
-  RoutesBarnetilsyn,
-} from './routing/routesBarnetilsyn';
-import {
-  hentDataFraForrigeBarnetilsynSøknad,
-  hentTekst,
-} from '../../utils/søknad';
+import { ERouteBarnetilsyn, RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
+import { hentDataFraForrigeBarnetilsynSøknad, hentTekst } from '../../utils/søknad';
 import React, { useContext, useEffect, useState } from 'react';
 import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { useSpråkContext } from '../../context/SpråkContext';
@@ -27,15 +21,12 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   harBekreftet,
   settBekreftelse,
 }) => {
-  const [kanGjenbrukeForrigeSøknad, settKanGjenbrukeForrigeSøknad] =
-    useState(false);
+  const [kanGjenbrukeForrigeSøknad, settKanGjenbrukeForrigeSøknad] = useState(false);
   const { settSkalGjenbrukeSøknad } = useContext(GjenbrukContext);
   const [locale] = useSpråkContext();
   const intl = useLokalIntlContext();
 
-  const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (
-    forrigeSøknad?: ForrigeSøknad
-  ) => {
+  const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (forrigeSøknad?: ForrigeSøknad) => {
     if (forrigeSøknad) {
       return (
         forrigeSøknad.sivilstatus?.årsakEnslig?.label ===
@@ -66,8 +57,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   }, [locale]);
 
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';
-  const gjenbrukSide =
-    hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
+  const gjenbrukSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
 
   return (
     <>

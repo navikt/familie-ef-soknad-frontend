@@ -4,10 +4,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import {
-  hentBarnetsNavnEllerBeskrivelse,
-  lagtTilAnnenForelderId,
-} from '../../../../utils/barn';
+import { hentBarnetsNavnEllerBeskrivelse, lagtTilAnnenForelderId } from '../../../../utils/barn';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
@@ -18,9 +15,7 @@ interface Props {
   forelder: IForelder;
   oppdaterAnnenForelder: (annenForelderId: string) => void;
   førsteBarnTilHverForelder?: IBarn[];
-  settBarnHarSammeForelder: React.Dispatch<
-    React.SetStateAction<boolean | undefined>
-  >;
+  settBarnHarSammeForelder: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   settForelder: (verdi: IForelder) => void;
   oppdaterBarn: (barn: IBarn, erFørsteAvflereBarn: boolean) => void;
 }
@@ -51,10 +46,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const leggTilSammeForelder = (
-    e: SyntheticEvent<EventTarget, Event>,
-    detAndreBarnet: IBarn
-  ) => {
+  const leggTilSammeForelder = (e: SyntheticEvent<EventTarget, Event>, detAndreBarnet: IBarn) => {
     settBarnHarSammeForelder(true);
     const oppdatertForelder = structuredClone(detAndreBarnet.forelder);
 
@@ -68,8 +60,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
       ident: oppdatertForelder?.ident,
       borINorge: oppdatertForelder?.borINorge,
       borAnnenForelderISammeHus: oppdatertForelder?.borAnnenForelderISammeHus,
-      borAnnenForelderISammeHusBeskrivelse:
-        oppdatertForelder?.borAnnenForelderISammeHusBeskrivelse,
+      borAnnenForelderISammeHusBeskrivelse: oppdatertForelder?.borAnnenForelderISammeHusBeskrivelse,
       boddSammenFør: oppdatertForelder?.boddSammenFør,
       flyttetFra: oppdatertForelder?.flyttetFra,
       hvorMyeSammen: oppdatertForelder?.hvorMyeSammen,
@@ -85,8 +76,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
     const id = hentUid();
 
     const annenForelder =
-      !barn.harSammeAdresse.verdi &&
-      harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)
+      !barn.harSammeAdresse.verdi && harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)
         ? {
             skalBarnetBoHosSøker: forelder.skalBarnetBoHosSøker,
             id,
@@ -114,10 +104,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
       <StyledAnnenForelderSpørsmål>
         <RadioGroup legend={null} value={barn.annenForelderId}>
           {førsteBarnTilHverForelder.map((barn) => {
-            if (
-              !barn.forelder?.borINorge &&
-              !barn.forelder?.kanIkkeOppgiAnnenForelderFar
-            )
+            if (!barn.forelder?.borINorge && !barn.forelder?.kanIkkeOppgiAnnenForelderFar)
               return null;
 
             return (
@@ -129,10 +116,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
                 onChange={(e) => leggTilSammeForelder(e, barn)}
               >{`${intl.formatMessage({
                 id: 'barnasbosted.forelder.sammesom',
-              })} ${hentBarnetsNavnEllerBeskrivelse(
-                barn,
-                intl
-              )}`}</RadioPanelCustom>
+              })} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioPanelCustom>
             );
           })}
           <RadioPanelCustom

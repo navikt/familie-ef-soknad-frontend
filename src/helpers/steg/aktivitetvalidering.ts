@@ -1,17 +1,7 @@
-import {
-  EStilling,
-  IArbeidsgiver,
-} from '../../models/steg/aktivitet/arbeidsgiver';
-import {
-  EAktivitet,
-  IAksjeselskap,
-  IAktivitet,
-} from '../../models/steg/aktivitet/aktivitet';
+import { EStilling, IArbeidsgiver } from '../../models/steg/aktivitet/arbeidsgiver';
+import { EAktivitet, IAksjeselskap, IAktivitet } from '../../models/steg/aktivitet/aktivitet';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import {
-  IUnderUtdanning,
-  IUtdanning,
-} from '../../models/steg/aktivitet/utdanning';
+import { IUnderUtdanning, IUtdanning } from '../../models/steg/aktivitet/utdanning';
 import { IFirma } from '../../models/steg/aktivitet/firma';
 import { IDetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
 import {
@@ -20,9 +10,7 @@ import {
 } from '../../components/dato/utils';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
 
-export const erSisteArbeidsgiverFerdigUtfylt = (
-  arbeidsforhold: IArbeidsgiver[]
-) => {
+export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
   return arbeidsforhold?.every((arbeidsgiver) =>
     arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
       ? arbeidsgiver.harSluttDato?.verdi === false ||
@@ -58,23 +46,16 @@ export const erAksjeselskapFerdigUtfylt = (
     : egetAS?.every((aksjeselskap) => aksjeselskap.navn?.verdi);
 };
 
-export const erTidligereUtdanningFerdigUtfylt = (
-  tidligereUtdanning: IUtdanning[]
-): boolean => {
+export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: IUtdanning[]): boolean => {
   return tidligereUtdanning.every(
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnaforBegrensninger(
-        utdanning?.periode,
-        DatoBegrensning.AlleDatoer
-      )
+      erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer)
   );
 };
 
-export const erUnderUtdanningFerdigUtfylt = (
-  underUtdanning: IUnderUtdanning
-): boolean => {
+export const erUnderUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning): boolean => {
   if (underUtdanning.heltidEllerDeltid?.verdi === 'Deltid') {
     return erDeltidUtdanningOgSkalStudereUnderHundreProsent(underUtdanning);
   } else {
@@ -143,19 +124,13 @@ export const erAktivitetSeksjonFerdigUtfylt = (
       return true;
 
     case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
-      return (
-        arbeidsforhold !== undefined &&
-        erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold)
-      );
+      return arbeidsforhold !== undefined && erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold);
 
     case EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser:
       return firmaer !== undefined && erSisteFirmaUtfylt(firmaer);
 
     case EAktivitet.erAnsattIEgetAS:
-      return (
-        egetAS !== undefined &&
-        erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde)
-      );
+      return egetAS !== undefined && erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde);
 
     case EAktivitet.etablererEgenVirksomhet:
       return (
@@ -166,23 +141,16 @@ export const erAktivitetSeksjonFerdigUtfylt = (
 
     case EAktivitet.erArbeidssøker:
       return (
-        arbeidssøker !== undefined &&
-        harValgtSvar(arbeidssøker.ønskerSøker50ProsentStilling?.verdi)
+        arbeidssøker !== undefined && harValgtSvar(arbeidssøker.ønskerSøker50ProsentStilling?.verdi)
       );
 
     case EAktivitet.tarUtdanning:
-      return (
-        underUtdanning !== undefined &&
-        erAllUtdanningFerdigUtfylt(underUtdanning)
-      );
+      return underUtdanning !== undefined && erAllUtdanningFerdigUtfylt(underUtdanning);
 
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(
-          datoOppstartJobb.verdi,
-          DatoBegrensning.FremtidigeDatoer
-        )
+        erDatoGyldigOgInnaforBegrensninger(datoOppstartJobb.verdi, DatoBegrensning.FremtidigeDatoer)
       );
 
     case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:

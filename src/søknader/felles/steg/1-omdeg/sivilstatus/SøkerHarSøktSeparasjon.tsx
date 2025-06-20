@@ -3,10 +3,7 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
-import {
-  DatoBegrensning,
-  Datovelger,
-} from '../../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../OmDegContext';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 

@@ -59,9 +59,7 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
           <Show if={spørsmål.lesmer}>
             <LesMerTekst
               åpneTekstid={spørsmål.lesmer ? spørsmål.lesmer.headerTekstid : ''}
-              innholdTekstid={
-                spørsmål.lesmer ? spørsmål.lesmer.innholdTekstid : ''
-              }
+              innholdTekstid={spørsmål.lesmer ? spørsmål.lesmer.innholdTekstid : ''}
             />
           </Show>
         }

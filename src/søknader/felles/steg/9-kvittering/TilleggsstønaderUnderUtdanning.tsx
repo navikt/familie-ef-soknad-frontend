@@ -9,9 +9,7 @@ import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
 
-const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({
-  stønadstype,
-}) => {
+const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stønadstype }) => {
   const intl = useLokalIntlContext();
   return (
     <SeksjonGruppe>
@@ -23,22 +21,16 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({
             </Heading>
           </FeltGruppe>
           <FeltGruppe>
-            <BodyShort>
-              {hentTekst('kvittering.tekst.skolepenger', intl)}
-            </BodyShort>
+            <BodyShort>{hentTekst('kvittering.tekst.skolepenger', intl)}</BodyShort>
           </FeltGruppe>
           <div>
             <Link href={'https://www.nav.no/skolepenger-enslig'}>
-              <BodyShort>
-                {hentTekst('kvittering.lenke.skolepenger', intl)}
-              </BodyShort>
+              <BodyShort>{hentTekst('kvittering.lenke.skolepenger', intl)}</BodyShort>
             </Link>
           </div>
           <KomponentGruppe>
             <Link
-              href={
-                'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far#NAV150004'
-              }
+              href={'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far#NAV150004'}
             >
               <LocaleTekst tekst={'kvittering.knapp.skolepenger'} />
             </Link>
@@ -65,9 +57,7 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({
         </Link>
       </BodyShort>
       <BodyShort>
-        <Link
-          href={'https://www.nav.no/soknader/nb/person/arbeid/tilleggsstonader'}
-        >
+        <Link href={'https://www.nav.no/soknader/nb/person/arbeid/tilleggsstonader'}>
           <LocaleTekst tekst={'kvittering.knapp.tilleggsstønader'} />
         </Link>
       </BodyShort>

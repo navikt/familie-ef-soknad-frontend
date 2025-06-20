@@ -6,8 +6,7 @@ export default {
 
   // ------ BARNETILSYN
   'barnetilsyn.sidetittel': 'Application for child care benefit',
-  'barnetilsyn.tekst.hvilke':
-    'Which children should be included in the application?',
+  'barnetilsyn.tekst.hvilke': 'Which children should be included in the application?',
   'barnetilsyn.hjelpetekst-åpne.hvilke':
     'What the regulations say about which children you can receive child care benefit for',
   'barnetilsyn.hjelpetekst-innhold.hvilke':
@@ -35,15 +34,13 @@ export default {
     '<li>search for vacant positions (jobs)' +
     ' <a href="https://veiviserarbeidssoker.nav.no/?situasjon=mistet-jobben">We have all sorts of tips on searching for jobs.</a></li>' +
     '<li>submit an employment status card every 14 days</li></ol>',
-  'skjema.feilmelding.uthenting':
-    'En feil oppstod ved uthenting av dine personopplysninger',
+  'skjema.feilmelding.uthenting': 'En feil oppstod ved uthenting av dine personopplysninger',
 
   'skjema.tittel.omarbeidssøker': 'Information about you as a job seeker',
   'skjema.alert.registrert':
     'You can register after you have submitted this form. We will help you with the registration process.',
   'skjema.send': 'Submit form',
-  'skjema.feilet':
-    'Something went wrong. The application has not been sent. Please try again.',
+  'skjema.feilet': 'Something went wrong. The application has not been sent. Please try again.',
 
   'skjema.forside.disclaimer':
     'I am aware that I may lose my right to transitional benefit if I have not provided the correct information. I am also aware that I will have to pay back any money I receive that I am not entitled to and that I have received because I have failed to provide information or have provided incorrect information.',
@@ -54,12 +51,10 @@ export default {
     'If you need to make changes you can go back.',
   'skjema.oppsummering.omdeg': 'About you as a job seeker',
   'skjema.takk': 'Thank you',
-  'skjema.alert.mottatt':
-    'Information about you as a job seeker has been received',
+  'skjema.alert.mottatt': 'Information about you as a job seeker has been received',
 
   'banner.tittel.overgangsstønad': 'Søknad om overgangsstønad',
-  'banner.tittel.barnetilsyn':
-    'Application for child care benefit for working single parents',
+  'banner.tittel.barnetilsyn': 'Application for child care benefit for working single parents',
   'banner.tittel.skolepenger': 'Application for support for school fees',
   'banner.tittel.arbeidssøker': 'Single parent who is a job seeker',
 
@@ -70,8 +65,7 @@ export default {
   'svar.ja': 'Yes',
   'svar.nei': 'No',
 
-  'knapp.uu-tekst':
-    'Du må svare på alle spørsmålene før du kan gå videre til neste steg',
+  'knapp.uu-tekst': 'Du må svare på alle spørsmålene før du kan gå videre til neste steg',
   'knapp.tilbake': 'Back',
   'knapp.neste': 'Next',
   'knapp.avbryt': 'Cancel',
@@ -87,16 +81,11 @@ export default {
 
   'datovelger.ugyldigDato': 'Dato er ugyldig',
   'datovelger.ugyldigDato.kunTidligereDatoer': 'Dato må være før dagens dato',
-  'datovelger.ugyldigDato.kunFremtidigeDatoer':
-    'Dato må være etter dagens dato',
-  'datovelger.periode.ugyldigDato.kunTidligereDatoer':
-    'Til og fra dato må være før dagens dato',
-  'datovelger.periode.ugyldigDato.kunFremtidigeDatoer':
-    'Til og fra dato må være etter dagens dato',
-  'datovelger.periode.feilFormat':
-    'Start date has to be earlier than end date.',
-  'datovelger.periode.likeDatoer':
-    'The selected dates for the period has to be different dates',
+  'datovelger.ugyldigDato.kunFremtidigeDatoer': 'Dato må være etter dagens dato',
+  'datovelger.periode.ugyldigDato.kunTidligereDatoer': 'Til og fra dato må være før dagens dato',
+  'datovelger.periode.ugyldigDato.kunFremtidigeDatoer': 'Til og fra dato må være etter dagens dato',
+  'datovelger.periode.feilFormat': 'Start date has to be earlier than end date.',
+  'datovelger.periode.likeDatoer': 'The selected dates for the period has to be different dates',
   'datovelger.fødselsdato': 'Date of birth',
   'datovelger.nårSkalDetteSkje': 'When will this happen?',
 
@@ -127,8 +116,7 @@ export default {
   'person.fnr': 'National identity number',
   'person.ident': 'Norwegian national identity number or D number (11 digits)',
   'person.ident.visning': 'National identity number or D number ',
-  'person.checkbox.ident':
-    'I don’t know their national identity number or D number',
+  'person.checkbox.ident': 'I don’t know their national identity number or D number',
   'person.feilmelding.ident': 'Invalid national identity number/ D number',
   'person.telefonnr': 'Telephone number ',
   'person.statsborgerskap': 'Nationality',
@@ -146,15 +134,13 @@ export default {
   // --- OM DEG
   'personopplysninger.fnr': 'National identity number',
   'personopplysninger.telefonnr': 'Telephone number you can be contacted on',
-  'personopplysninger.feilmelding.telefonnr':
-    'The telephone number must at least have 8 digits',
+  'personopplysninger.feilmelding.telefonnr': 'The telephone number must at least have 8 digits',
   'personopplysninger.statsborgerskap': 'Nationality',
   'personopplysninger.alert.infohentet':
     'If the information we have about you is incorrect, you must change it with the National Registry.',
 
   'personopplysninger.spm.riktigAdresse': 'Do you live at this address?',
-  'personopplysninger.lesmer-åpne.riktigAdresse':
-    'If you have a strictly confidential address',
+  'personopplysninger.lesmer-åpne.riktigAdresse': 'If you have a strictly confidential address',
   'personopplysninger.alert.riktigAdresse':
     'You must have reported a change of address to the National Registry in order to use this application. You may do that at <a href="https://www.skatteetaten.no/en/person/national-registry/moving/" target="_blank">Skatteetaten</a>.',
   'personopplysninger.info.endreAdresse':
@@ -189,8 +175,7 @@ export default {
   'sivilstatus.kode.SKILT_PARTNER': 'Divorced',
   'sivilstatus.kode.GJENLEVENDE_PARTNER': 'Surviving partner',
 
-  'sivilstatus.kode.ANNET':
-    'Annen sivilstatus enn GIFT, UGIF, SAMB, SEPA, SKIL, SEPR',
+  'sivilstatus.kode.ANNET': 'Annen sivilstatus enn GIFT, UGIF, SAMB, SEPA, SKIL, SEPR',
 
   'sivilstatus.spm.søktSeparasjon':
     'Have you applied for a separation, applied for a divorce or filed for a divorce case in court?',
@@ -198,16 +183,13 @@ export default {
     'Du må leggje ved stadfesting frå Statsforvaltaren eller domstolen.',
   'sivilstatus.alert-advarsel.søktSeparasjon':
     'If you are married, you are not entitled to benefit for single parents',
-  'sivilstatus.datovelger.søktSeparasjon':
-    'When did you apply or start legal proceedings?',
+  'sivilstatus.datovelger.søktSeparasjon': 'When did you apply or start legal proceedings?',
   'sivilstatus.datovelger.samlivsbrudd': 'Date of end of relationship',
   'sivilstatus.datovelger.flyttetFraHverandre': 'When did you move apart?',
-  'sivilstatus.datovelger.endring':
-    'Når skjedde endringen / når skal endringen skje?',
+  'sivilstatus.datovelger.endring': 'Når skjedde endringen / når skal endringen skje?',
   'sivilstatus.spm.erUformeltGift':
     'Are you married without this having been registered in the Norwegian National Registry?',
-  'sivilstatus.alert.erUformeltGift':
-    'You must provide documentation of your marriage',
+  'sivilstatus.alert.erUformeltGift': 'You must provide documentation of your marriage',
   'sivilstatus.lesmer-åpne.erUformeltGift': 'The reason we ask about this',
   'sivilstatus.lesmer-innhold.erUformeltGift':
     'We obtain our information from the National Registry. If you got married according to religious or cultural traditions and the marriage is not approved pursuant to Norwegian Marriage Act, this marriage will not be registered in the National Registry. ',
@@ -217,16 +199,12 @@ export default {
     'Du må legge ved dokumentasjon på separasjon eller skilsmisse',
   'sivilstatus.spm.begrunnelse': 'Why are you a sole caregiver?',
 
-  'sivilstatus.svar.samlivsbruddForeldre':
-    'My relationship with the other parent ended',
-  'sivilstatus.svar.samlivsbruddAndre':
-    'My relationship with someone else ended',
+  'sivilstatus.svar.samlivsbruddForeldre': 'My relationship with the other parent ended',
+  'sivilstatus.svar.samlivsbruddAndre': 'My relationship with someone else ended',
   'sivilstatus.tittel.samlivsbruddAndre': 'Om den tidligere samboeren din',
 
-  'sivilstatus.svar.aleneFraFødsel':
-    'I have been the sole caregiver from birth',
-  'sivilstatus.svar.endringISamværsordning':
-    'Change in the distribution of the care of the child',
+  'sivilstatus.svar.aleneFraFødsel': 'I have been the sole caregiver from birth',
+  'sivilstatus.svar.endringISamværsordning': 'Change in the distribution of the care of the child',
   'sivilstatus.svar.dødsfall': 'I am the sole caregiver due to death',
   'sivilstatus.alert.dødsfall':
     'If you are a sole caregiver due to death, you may be entitled to benefits for ' +
@@ -248,15 +226,12 @@ export default {
   'medlemskap.spm.bosatt': 'Have you lived in Norway for the past five years?',
 
   'medlemskap.periodeBoddIUtlandet.utenlandsopphold': 'Period spent abroad ',
-  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer':
-    'What is your ID number in',
-  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer':
-    'I do not have an ID number in',
+  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'What is your ID number in',
+  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'I do not have an ID number in',
   'medlemskap.hjelpetekst-åpne.begrunnelse': 'The reason we ask about this',
   'medlemskap.hjelpetekst-innhold.begrunnelse':
     'When you have stayed in another EEA country during the last 5 years, we sometimes need to obtain information from that country. This is because we need information to assess whether you are entitled to benefits.',
-  'medlemskap.periodeBoddIUtlandet.sisteAdresse':
-    'What is the last address you lived at in',
+  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'What is the last address you lived at in',
   'medlemskap.periodeBoddIUtlandet.slett': 'Remove period spent abroad',
   'medlemskap.periodeBoddIUtlandet': 'When did you live overseas?',
   'medlemskap.periodeBoddIUtlandet.land': 'I hvilket land oppholdt du deg i?',
@@ -268,8 +243,7 @@ export default {
   // --- BOSITUASJONEN DIN
   'stegtittel.bosituasjon': 'Your living situation',
 
-  'bosituasjon.spm.delerSøkerBoligMedAndreVoksne':
-    'Do you share your home with other adults?',
+  'bosituasjon.spm.delerSøkerBoligMedAndreVoksne': 'Do you share your home with other adults?',
 
   'bosituasjon.svar.borAleneMedBarnEllerGravid':
     'No, I live alone with my child(ren) or I am pregnant and live alone',
@@ -292,10 +266,8 @@ export default {
 
   'bosituasjon.tittel.omSamboer': 'About your cohabitant',
   'bosituasjon.tittel.omTidligereSamboer': 'About your former cohabitant',
-  'bosituasjon.datovelger.nårFlyttetDereSammen':
-    'When did you start living together?',
-  'bosituasjon.datovelger.nårFlyttetDereFraHverandre':
-    'When did you move apart?',
+  'bosituasjon.datovelger.nårFlyttetDereSammen': 'When did you start living together?',
+  'bosituasjon.datovelger.nårFlyttetDereFraHverandre': 'When did you move apart?',
 
   'bosituasjon.alert.tidligereSamboerFortsattRegistrertPåAdresse':
     '<strong>We use the address registered in the National Registry. If your former partner is not cooperating on the change of address, please contact the National Registry for help changing their address. </strong> <br/>' +
@@ -338,8 +310,7 @@ export default {
   'barnekort.lenke.endre': 'Change',
   'barnekort.normaltekst.barn': 'Child',
   'barnekort.fjern': 'Remove from application form',
-  'barnekort.skalHaBarnepass':
-    'Should the child be included in the application?',
+  'barnekort.skalHaBarnepass': 'Should the child be included in the application?',
   'barnekort.spm.skalBarnetBoHosSøker': 'Is the child going to live with you?',
   'barnekort.spm.født': 'Has the child been born?',
   'barnekort.erUfødt': 'Unborn',
@@ -368,8 +339,7 @@ export default {
 
   // ----- BARNAS BOSTED OG FORELDRESAMVÆR (Steg 4)
   'barnasbosted.sidetittel': 'The other parent and access',
-  'barnasbosted.kanikkeoppgiforelder':
-    'I am unable to provide the name of the other parent',
+  'barnasbosted.kanikkeoppgiforelder': 'I am unable to provide the name of the other parent',
   'barnasbosted.spm.hvorforikkeoppgi':
     'Why are you unable to provide the name of the other parent?',
   'barnasbosted.borinorge': 'Does [0]’s other parent live in Norway?',
@@ -407,12 +377,10 @@ export default {
   'barnasbosted.forelder.sammesom': 'The same as',
   'barnasbosted.knapp.endre': 'Change information',
   // -- Foreldresamvær
-  'barnasbosted.spm.harAnnenForelderSamværMedBarn':
-    'Does the other parent have contact with [0]?',
+  'barnasbosted.spm.harAnnenForelderSamværMedBarn': 'Does the other parent have contact with [0]?',
   'barnasbosted.spm.harAnnenForelderSamværMedBarn.ufødt':
     'Is the other parent going to have contact with [0]?',
-  'barnasbosted.spm.jaIkkeMerEnnVanlig':
-    'Ja, men ikkje meir enn vanleg samværsrett',
+  'barnasbosted.spm.jaIkkeMerEnnVanlig': 'Ja, men ikkje meir enn vanleg samværsrett',
   'barnasbosted.spm.jaMerEnnVanlig': 'Ja, meir enn vanleg samværsrett',
   'barnasbosted.spm.andreForelderenSamværNei':
     'No, the other parent does not have access to the child',
@@ -435,43 +403,34 @@ export default {
   'barnasbosted.normaltekst.opplysninger': 'Vi treng opplysningar om',
   'barnasbosted.normaltekst.hvormangedager':
     'kor mange dagar og netter barnet oppheld seg hos den andre forelderen i minst ein periode på to veker',
-  'barnasbosted.normaltekst.nårreiserbarnet':
-    'når barnet reiser til og frå den andre forelderen',
+  'barnasbosted.normaltekst.nårreiserbarnet': 'når barnet reiser til og frå den andre forelderen',
   'barnasbosted.spm.jaKonkreteTidspunkt':
     'Yes, and it describes when the child will spend time with each parent',
   'barnasbosted.spm.jaIkkeKonkreteTidspunkt':
     'Yes, but it does not describe when the child will spend time with each parent',
-  'barnasbosted.alert.leggeVedSamværsavtalen':
-    'You must submit your child access agreement',
+  'barnasbosted.alert.leggeVedSamværsavtalen': 'You must submit your child access agreement',
 
   'barnasbosted.spm.borAnnenForelderISammeHus':
     'Do you and [0]’s other parent live in the same building, block, neighbourhood or road?/gate?',
   'barnasbosted.spm.vetikke': 'I don’t know where the other parent lives',
-  'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.apne':
-    'The reason we ask about this',
+  'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.apne': 'The reason we ask about this',
   'barnasbosted.hjelpetekst.borAnnenForelderISammeHus.innhold':
     'If you live very close to the other parent, you are not considered as having sole care of the child(ren).',
-  'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse':
-    'How do you live close to one another?',
+  'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse': 'How do you live close to one another?',
 
-  'barnasbosted.spm.boddsammenfør':
-    'Have you lived with [0]’s other parent in the past?',
+  'barnasbosted.spm.boddsammenfør': 'Have you lived with [0]’s other parent in the past?',
   'barnasbosted.normaltekst.nårflyttetfra': 'When did you move apart?',
-  'barnasbosted.spm.hvorMyeSammen':
-    'How much time do you spend with [0]’s other parent?',
+  'barnasbosted.spm.hvorMyeSammen': 'How much time do you spend with [0]’s other parent?',
   'barnasbosted.lesmer-åpne.hvorMyeSammen': 'The reason we ask about this',
   'barnasbosted.lesmer-innhold.hvorMyeSammen':
     'We ask about this in order to be able to assess whether you spend so much time with the child’s other parent that you cannot be considered a single parent. ',
   'barnasbosted.spm.møtesIkke': 'We do not meet',
   'barnasbosted.spm.kunNårLeveres': 'We only meet when handing over the child',
-  'barnasbosted.spm.møtesUtenom':
-    'We also meet outside picking up and dropping off the child',
-  'barnasbosted.spm.beskrivSamværUtenBarn':
-    'How much time do you spend with [0]’s other parent?',
+  'barnasbosted.spm.møtesUtenom': 'We also meet outside picking up and dropping off the child',
+  'barnasbosted.spm.beskrivSamværUtenBarn': 'How much time do you spend with [0]’s other parent?',
   'barnasbosted.skalBliFolkeregistrert.tekst':
     'Remember to register the correct address for [0] the National Registry.',
-  'barnasbosted.skalBliFolkeregistrert.knapp':
-    'Register address at the National Registry',
+  'barnasbosted.skalBliFolkeregistrert.knapp': 'Register address at the National Registry',
   'barnasbosted.medforelder.navn': 'Namn på den andre forelderen',
   'barnasbosted.medforelder.alder': 'Alder',
   'barnasbosted.medforelder.gjenbrukt':
@@ -510,13 +469,11 @@ export default {
   'arbeidssituasjon.svar.erFrilanser': 'I am paid a salary as a freelancer',
   'arbeidssituasjon.svar.erSelvstendigNæringsdriveneEllerFrilanser':
     'I am self-employed or a freelancer with my own company',
-  'arbeidssituasjon.svar.erAnsattIEgetAS':
-    'I am employed in my own limited liability company (AS)',
+  'arbeidssituasjon.svar.erAnsattIEgetAS': 'I am employed in my own limited liability company (AS)',
   'arbeidssituasjon.svar.etablererEgenVirksomhet':
     'I am in the process of setting up my own business',
   'arbeidssituasjon.svar.erArbeidssøker': 'I am a job seeker',
-  'arbeidssituasjon.svar.tarUtdanning':
-    'I am taking or going to take education',
+  'arbeidssituasjon.svar.tarUtdanning': 'I am taking or going to take education',
   'arbeidssituasjon.svar.erHverkenIArbeidUtdanningEllerArbeidssøker':
     'I am not in work, education or a job seeker',
   'arbeidssituasjon.svar.harFåttJobbTilbud': 'I have been offered a job',
@@ -550,13 +507,11 @@ export default {
   'arbeidsforhold.svar.fast': 'Permanent position',
   'arbeidsforhold.svar.midlertidig': 'Temporary position',
   'arbeidsforhold.svar.lærling': 'Apprentice',
-  'arbeidsforhold.alert.lærling':
-    'You must submit a copy of your apprenticeship contract',
+  'arbeidsforhold.alert.lærling': 'You must submit a copy of your apprenticeship contract',
   'arbeidsforhold.svar.tilkallingsvakt': 'On-call temp or similar',
   'arbeidsforhold.label.sluttdato': 'Do you have an end date?',
   'arbeidsforhold.datovelger.sluttdato': 'When will your employment end?',
-  'arbeidsforhold.label.flereArbeidsgivere':
-    'Do you have more than one employer?',
+  'arbeidsforhold.label.flereArbeidsgivere': 'Do you have more than one employer?',
   'arbeidsforhold.knapp.leggTilArbeidsgiver': 'Add another employer',
 
   'egetAS.tittel': 'About your limited liability company',
@@ -571,23 +526,20 @@ export default {
   'firma.tittel': 'Company',
   'firma.label.navn': 'Name of the company',
   'firma.label.organisasjonnr': 'Organisation number',
-  'firma.feilmelding.organisasjonnr':
-    'The organisation number must have 9 digits',
+  'firma.feilmelding.organisasjonnr': 'The organisation number must have 9 digits',
   'firma.datovelger.etablering': 'When did you set up the company?',
   'firma.label.arbeidsmengde': 'How much do you work?',
   'firma.label.arbeidsuke': 'Describe the work week in your company',
   'firma.lesmer-innhold.arbeidsuke':
     'We need specific information about your tasks and how many hours you work on average per week.',
-  'firma.label.overskudd':
-    'What do you expect the pre-tax profit of your business to be in [0]?',
+  'firma.label.overskudd': 'What do you expect the pre-tax profit of your business to be in [0]?',
   'firma.lesmer-innhold.overskudd':
     'The profit is the sum of your income minus your expenses. If you do not expect a profit, enter NOK 0 in the input field.',
   'firma.knapp.slett': 'Remove company',
   'firmaer.label.flereFirmaer': 'Do you work elsewhere?',
   'firmaer.knapp.leggTilFirma': 'Add a company',
 
-  'arbeidssituasjon.tittel.etablererEgenVirksomhet':
-    'About the business you are setting up',
+  'arbeidssituasjon.tittel.etablererEgenVirksomhet': 'About the business you are setting up',
   'arbeidssituasjon.label.etablererEgenVirksomhet': 'Describe the business',
   'arbeidssituasjon.alert.etablererEgenVirksomhet':
     'If you do not receive unemployment benefit while you are setting up your own business, you must obtain a commercial assessment from the municipal or county authorities or another professional body. <br/><br/>' +
@@ -596,16 +548,13 @@ export default {
 
   // ARBEIDSSØKER
   'arbeidssøker.tittel': 'If you are a job seeker',
-  'arbeidssøker.label.registrert':
-    'Are you registered with Nav as a job seeker?',
+  'arbeidssøker.label.registrert': 'Are you registered with Nav as a job seeker?',
   'arbeidssøker.søknad.alert.forÅHaRett':
     'You can register after you have submitted this application. We will help you with the registration process.',
-  'arbeidssøker.hjelpetekst-åpne.registrert':
-    'About being registered with Nav as a job seeker',
+  'arbeidssøker.hjelpetekst-åpne.registrert': 'About being registered with Nav as a job seeker',
   'arbeidssøker.hjelpetekst-innhold.registrert':
     'In order to qualify for transitional benefit, you must register as a job seeker at nav.no. If you are not already registered, you can register after you have submitted this application.',
-  'arbeidssøker.label.villig':
-    'Are you willing to accept offers of work or labour market schemes?',
+  'arbeidssøker.label.villig': 'Are you willing to accept offers of work or labour market schemes?',
   'arbeidssøker.alert.villig':
     'If you are unable to take any work at all due to your health, you must document this with a medical certificate from a doctor',
   'arbeidssøker.label.senestEnUke':
@@ -620,8 +569,7 @@ export default {
   'arbeidssøker.svar.nærme':
     'Only in the area close to where I live – no more than one hour’s travel time each way',
   'arbeidssøker.svar.hvorSomHelst': 'Anywhere in Norway',
-  'arbeidssøker.lesmer-åpne.ønsketArbeidssted':
-    'What does “one hour’s travel time” mean?',
+  'arbeidssøker.lesmer-åpne.ønsketArbeidssted': 'What does “one hour’s travel time” mean?',
   'arbeidssøker.lesmer-innhold.ønsketArbeidssted':
     '“One hour’s travel time” means that the time it takes you to travel using a means of transport between your home and your place of work is not more than one hour. It does not include the time it takes you to walk from your home to the means of transport, and from the means of transport to your place of work.',
   'arbeidssøker.label.halvstilling':
@@ -645,8 +593,7 @@ export default {
 
   'utdanning.tittel': 'The education you are taking or are going to take',
   'utdanning.undertittel': 'Education',
-  'utdanning.lesmer-åpne.kanFåStønad':
-    'Education for which you can receive support',
+  'utdanning.lesmer-åpne.kanFåStønad': 'Education for which you can receive support',
   'utdanning.lesmer-innhold.kanFåStønad':
     'In order to qualify for transitional benefit while taking education, Nav must assess your education as necessary in order for you to be able to get a job and support yourself. <br/><br/>' +
     'In this context, we will assess:  ' +
@@ -672,8 +619,7 @@ export default {
   'utdanning.svar.offentlig': 'Public',
   'utdanning.svar.privat': 'Private',
   'utdanning.datovelger.studieperiode': 'When did you go to school / study?',
-  'utdanning.datovelger.studieperiode.fremtidig':
-    'When are you going to start school / studying?',
+  'utdanning.datovelger.studieperiode.fremtidig': 'When are you going to start school / studying?',
   'utdanning.spm.studieandel': 'Is the education full-time or part-time?',
   'utdanning.svar.heltid': 'Full-time',
   'utdanning.svar.deltid': 'Part-time',
@@ -717,8 +663,7 @@ export default {
 
   'utdanning.spm.grunnskole':
     'Have you taken education above compulsory primary and lower secondary schooling?',
-  'utdanning.lesmer-åpne.grunnskolen':
-    'What is primary and lower secondary schooling',
+  'utdanning.lesmer-åpne.grunnskolen': 'What is primary and lower secondary schooling',
   'utdanning.lesmer-innholde.grunnskolen':
     'Primary and lower secondary schooling (in Norwegian “Grunnskolen”) is primary and lower secondary school, that is, up to and including 10th grade.',
   'utdanning.label.leggtil': 'Have you taken more education?',
@@ -801,8 +746,7 @@ export default {
     '<li>at barnet har medisinske, psykiske eller store sosiale problem og treng tilsyn</li>' +
     '<li>kat dette påverkar i kva grad det er mogleg for deg å vere i yrkesretta aktivitet</li>' +
     '</ul>',
-  'dinSituasjon.alert.harBarnMedSærligeBehov.tittel':
-    'Om tilsynsbehovet til [0]',
+  'dinSituasjon.alert.harBarnMedSærligeBehov.tittel': 'Om tilsynsbehovet til [0]',
   'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse':
     'Vi treng opplysningar om:' +
     '<ul>' +
@@ -839,21 +783,16 @@ export default {
     '<ul><li>your employment</li>' +
     '<li>the reason you reduced your working hours </li>' +
     '<li>the date you arranged reduced working hours </li></ul>',
-  'dinSituasjon.fritekst.redusertStilling':
-    'Why did you reduce your working hours?',
-  'dinSituasjon.datovelger.redusertStilling':
-    'When did you reduce your working hours?',
+  'dinSituasjon.fritekst.redusertStilling': 'Why did you reduce your working hours?',
+  'dinSituasjon.datovelger.redusertStilling': 'When did you reduce your working hours?',
   'dinSituasjon.datovelger-alert.redusertStilling':
     'If you have reduced your working hours for no reasonable reason, you will not be entitled to benefit until six months after you handed in your notice.',
 
-  'dinSituasjon.legend.særligTilsyn':
-    'Which of your children needs special supervision?',
-  'dinSituasjon.label.særligTilsyn':
-    'About {barnetsNavn}’s need for special supervision',
+  'dinSituasjon.legend.særligTilsyn': 'Which of your children needs special supervision?',
+  'dinSituasjon.label.særligTilsyn': 'About {barnetsNavn}’s need for special supervision',
 
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'Når sa du opp?',
-  'sagtOppEllerRedusertStilling.datovelger.redusertStilling':
-    'Når reduserte du arbeidstiden?',
+  'sagtOppEllerRedusertStilling.datovelger.redusertStilling': 'Når reduserte du arbeidstiden?',
   'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp':
     'Har du sagt opp jobben uten rimelig grunn, kan du først ha rett til stønaden 6 måneder etter at du sa opp.',
 
@@ -861,11 +800,9 @@ export default {
   'søkerFraBestemtMåned.datovelger': 'When are you applying for benefit from?',
   'søkerFraBestemtMåned.spm.overgangsstønad':
     'Are you applying for transitional benefit from a specific month?',
-  'søkerFraBestemtMåned.spm.barnepass':
-    'Søkjer du om barnetilsyn frå ein bestemt månad?',
+  'søkerFraBestemtMåned.spm.barnepass': 'Søkjer du om barnetilsyn frå ein bestemt månad?',
 
-  'søkerFraBestemtMåned.hjelpetekst-åpne':
-    'About applying from a specific date',
+  'søkerFraBestemtMåned.hjelpetekst-åpne': 'About applying from a specific date',
   'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1':
     'Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. ' +
     'Du kan ha rett til stønad i inntil 3 måneder før du søker. ' +
@@ -908,20 +845,15 @@ export default {
     'In order for an absence to be considered longer than usual, it must exceed ten hours per day. ',
   'barnepass.svar.utenomVanligArbeidstid':
     'I work shifts and work at times outside normal working hours',
-  'barnepass.dokumentasjon.arbeidstid':
-    'You must provide documentation of your working hours.',
+  'barnepass.dokumentasjon.arbeidstid': 'You must provide documentation of your working hours.',
 
-  'barnepass.spm.hvaSlagsOrdning':
-    'What kind of child minding arrangements does [0] have?',
+  'barnepass.spm.hvaSlagsOrdning': 'What kind of child minding arrangements does [0] have?',
   'hvaSlagsOrdning.svar.barnehageOgLiknende':
     'Kindergarten, child care at school outside school hours (SFO) or similar',
-  'hvaSlagsOrdning.svar.privat':
-    'Child minder, babysitter or other private arrangements',
+  'hvaSlagsOrdning.svar.privat': 'Child minder, babysitter or other private arrangements',
   'barnehageOgLiknende.label.navnPåBarnepass': 'Name of the child minder',
-  'privat.label.navnPåBarnepass':
-    'Name of the child minder or person who looks after [0]',
-  'barnepass.datovelger.periodePåBarnepass':
-    'In what period is [0] with this child minder?',
+  'privat.label.navnPåBarnepass': 'Name of the child minder or person who looks after [0]',
+  'barnepass.datovelger.periodePåBarnepass': 'In what period is [0] with this child minder?',
   'barnepass.hjelpetekst.periodePåBarnepass':
     'Child care benefit is normally granted for one year at a time, and you must reapply and provide documentation of your expenses each year. You only need to specify the period you are applying for now. ',
 
@@ -941,8 +873,7 @@ export default {
     '<li>the days of the week and times of child minding</li>' +
     '<li>how much you pay for child minding per month, not including food</li>' +
     '<li>be signed by you and the child minder</li></ul>',
-  'barnepass.label.leggTilOrdning':
-    'Do you have other child minding arrangements for [0]?',
+  'barnepass.label.leggTilOrdning': 'Do you have other child minding arrangements for [0]?',
   'barnepass.knapp.leggTilOrdning': 'Add other child minding arrangements',
   'barnepass.tittel.ordning': 'Child minding arrangement',
   'barnepass.knapp.slett': 'Remove child minding arrangements',
@@ -984,20 +915,16 @@ export default {
     'I have already submitted this documentation to Nav in the past',
   'dokumentasjon.knapp.slett': 'Delete',
   'dokumentasjon.inngåttEkteskap.tittel': 'Documentation of your marriage',
-  'dokumentasjon.separasjonEllerSkilsmisse.tittel':
-    'Documentation of your separation or divorce',
+  'dokumentasjon.separasjonEllerSkilsmisse.tittel': 'Documentation of your separation or divorce',
   'dokumentasjon.separasjonEllerSkilsmisse.beskrivelse':
     'Confirmation from the County Governor or court of your application for a separation, application for a divorce or that a divorce case has been brought before the courts',
-  'dokumentasjon.søktSeparasjon.tittel':
-    'Documentation of your separation or divorce ',
+  'dokumentasjon.søktSeparasjon.tittel': 'Documentation of your separation or divorce ',
   'dokumentasjon.søktSeparasjon.beskrivelse':
     'Confirmation from the County Governor or court of your application for a separation, application for a divorce or that a divorce case has been brought before the courts',
-  'dokumentasjon.meldtAdresseendring.tittel':
-    'Documentation of your change of address',
+  'dokumentasjon.meldtAdresseendring.tittel': 'Documentation of your change of address',
   'dokumentasjon.meldtAdresseendring.beskrivelse':
     'Documentation of your change of address to the National Registry. The documentation must show that it is you who has changed your address, which address you have reported moving to and which date you moved.',
-  'dokumentasjon.begrunnelse.tittel':
-    'Confirmation of end of relationship with the other parent',
+  'dokumentasjon.begrunnelse.tittel': 'Confirmation of end of relationship with the other parent',
   'dokumentasjon.begrunnelse.beskrivelse':
     'If you are not separated or divorced, please include confirmation of the end of your relationship. The confirmation must be signed by both of you and state the date of the break-up. ' +
     '<br/><br/>You will receive a link to a template for a confirmation when you submit your application, which you can upload later if you do not have a confirmation.' +
@@ -1019,21 +946,18 @@ export default {
     '<li>Confirmation from the child welfare services that you live alone with the child(ren)</li>' +
     '<li>Documentation of separate living and household expenses, such as bank statements showing paid rent, or other fixed housing expenses such as electricity and municipal taxes.</li></ul>',
 
-  'dokumentasjon.terminbekreftelse.tittel':
-    'Confirmation of your expected date of delivery',
+  'dokumentasjon.terminbekreftelse.tittel': 'Confirmation of your expected date of delivery',
   'dokumentasjon.terminbekreftelse.beskrivelse': '',
 
   'dokumentasjon.samværsavtale.tittel': 'Child access agreement ',
   'dokumentasjon.deltBosted.tittel': 'Agreement on dual domicile for children',
-  'dokumentasjon.barnBorHosSøker.tittel':
-    'Documentation that children live with you \n',
+  'dokumentasjon.barnBorHosSøker.tittel': 'Documentation that children live with you \n',
   'dokumentasjon.barnBorHosSøker.beskrivelse':
     'Documentation that children live with you. For example:<ul>' +
     '<li>the reason why the child’s change of address has not been reported to the National Registry</li>' +
     '<li>copy of the notification of change of address or tip-off to the National Registry</li>' +
     '<li>confirmation from, for example, the child’s kindergarten / school, the child welfare services, or your child health centre</li></ul>',
-  'dokumentasjon.syk-dinSituasjon.tittel':
-    'Documentation confirming that you are ill',
+  'dokumentasjon.syk-dinSituasjon.tittel': 'Documentation confirming that you are ill',
   'dokumentasjon.syk-dinSituasjon.beskrivelse':
     'If you are not on sick leave and are not receiving work assessment allowance (AAP) or disability benefit, you must provide documentation confirming that you are ill.<br/>' +
     'The documentation from your doctor must state:<ul>' +
@@ -1052,8 +976,7 @@ export default {
     '<li>how much you can work</li>' +
     '<li>when the child’s illness started </li>' +
     '<li>when the doctor expects the child to have recovered </li></ul>',
-  'dokumentasjon.barnepass.tittel':
-    'Documentation confirming that you do not have child minding. ',
+  'dokumentasjon.barnepass.tittel': 'Documentation confirming that you do not have child minding. ',
   'dokumentasjon.barnepass.beskrivelse':
     'This means denial of a place in a kindergarten or child care at school outside school hours (SFO), or confirmation that the child is on a waiting list.' +
     'The documentation must state clearly:<ul>' +
@@ -1107,8 +1030,7 @@ export default {
     '<li>the reason you reduced your working hours</li>' +
     '<li>the date you arranged reduced working hours</li>',
 
-  'dokumentasjon.syk-arbeid.tittel':
-    'Documentation confirming that you are ill',
+  'dokumentasjon.syk-arbeid.tittel': 'Documentation confirming that you are ill',
   'dokumentasjon.syk-arbeid.beskrivelse':
     'If you are not on sick leave and are not receiving work assessment allowance (AAP) or disability benefit, you must provide documentation confirming that you are ill.<br/>' +
     'The documentation from your doctor must state:<ul>' +
@@ -1132,8 +1054,7 @@ export default {
     'The invoice must be made out to you and must specify the expenses related to having a child in day care separately.' +
     '<br />' +
     'Remember to submit old invoices if you are applying for retroactive benefit',
-  'dokumentasjon.privatBarnepass.tittel':
-    'The agreement you have with the child minder',
+  'dokumentasjon.privatBarnepass.tittel': 'The agreement you have with the child minder',
   'dokumentasjon.privatBarnepass.beskrivelse':
     'The agreement must include<ul>' +
     '<li>your name, national identity number and address</li>' +
@@ -1154,8 +1075,7 @@ export default {
   'dokumentasjon.barnepassRoterendeArbeidstid.tittel':
     'Documentation that you work shifts and work at times outside normal working hours',
 
-  'dokumentasjon.ettersend.tittel':
-    'Unable to upload all the required documentation?',
+  'dokumentasjon.ettersend.tittel': 'Unable to upload all the required documentation?',
   'dokumentasjon.ettersend.tekst.BARNETILSYN':
     'You will get a quicker response to your application if we have all the documentation we need when we start processing it. ' +
     'If you were not able to upload everything now, you can <a href="https://www.nav.no/familie/alene-med-barn/ettersending">submit missing documentation later on</a>. ',
@@ -1168,15 +1088,13 @@ export default {
 
   // ---- KVITTERING (STEG 9)
   'kvittering.takk': 'Thank you!',
-  'kvittering.alert.mottatt':
-    'Your application for transitional benefit has been received',
+  'kvittering.alert.mottatt': 'Your application for transitional benefit has been received',
   'kvittering.skolepenger.alert.mottatt':
     'Your application for support for school fees has been received',
   'kvittering.barnetilsyn.alert.mottatt':
     'Your application for child care benefit has been received ',
 
-  'kvittering.tekst.arbeidssøker':
-    'Remember to register with Nav as a job seeker',
+  'kvittering.tekst.arbeidssøker': 'Remember to register with Nav as a job seeker',
   'kvittering.knapp.arbeidssøker': 'Register as a job seeker',
   'kvittering.tekst.altViTrenger':
     'The questions in the application, along with any documentation, tell us what we need to know to be able to process your application. We will contact you if we need more information.',
@@ -1197,8 +1115,7 @@ export default {
   'kvittering.tittel.samlivsbrudd': 'Bekreftelse på samlivsbrudd',
   'kvittering.beskrivelse.samlivsbrudd':
     'Siden du skal dokumentere samlivsbrudd med den andre forelderen, har vi laget et forslag til bekreftelse du kan bruke.\n',
-  'kvittering.knapp.samlivsbrudd':
-    'Last ned forslag til bekreftelse på samlivsbrudd',
+  'kvittering.knapp.samlivsbrudd': 'Last ned forslag til bekreftelse på samlivsbrudd',
 
   'kvittering.tittel.skolepenger':
     'As a single parent in education, you may be entitled to support for school fees',
@@ -1229,10 +1146,8 @@ export default {
     '<li>child minding</li>' +
     '<li>relocation</li></ul>' +
     '<i>NB! You can only receive supplemental benefit if you qualify for transitional benefit</i>',
-  'kvittering.lenke.tilleggsstønader.arbeidssøker':
-    'Read more about supplemental benefit',
-  'kvittering.knapp.tilleggsstønader.arbeidssøker':
-    'Apply for supplemental benefit',
+  'kvittering.lenke.tilleggsstønader.arbeidssøker': 'Read more about supplemental benefit',
+  'kvittering.knapp.tilleggsstønader.arbeidssøker': 'Apply for supplemental benefit',
 
   'kvittering.tittel.tilleggsstønader.aktivitetskrav':
     'As a working single parent, you may be entitled to child care benefit',
@@ -1240,10 +1155,8 @@ export default {
     'This benefit covers 64 per cent of your child minding expenses, such as kindergarten, child care at school outside school hours (SFO), or a babysitter or child minder.  <br/><br/> ' +
     'If you earn more than NOK 744 168 a year, you are not entitled to this benefit.<br/><br/>' +
     'As a general rule, you can receive this benefit until the child completes their fourth year of school.',
-  'kvittering.lenke.tilleggsstønader.aktivitetskrav':
-    'Read more about child care benefit',
-  'kvittering.knapp.tilleggsstønader.aktivitetskrav':
-    'Apply for child care benefit',
+  'kvittering.lenke.tilleggsstønader.aktivitetskrav': 'Read more about child care benefit',
+  'kvittering.knapp.tilleggsstønader.aktivitetskrav': 'Apply for child care benefit',
   'overgangsstønad.feilsituasjon':
     'Sorry! We have technical issues, thus the form can not be submitted right now. Please try again later.',
 };

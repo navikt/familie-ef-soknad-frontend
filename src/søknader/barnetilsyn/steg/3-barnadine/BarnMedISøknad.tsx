@@ -15,18 +15,11 @@ interface Props {
   id: string;
 }
 
-const BarnMedISøknad: FC<Props> = ({
-  skalHaBarnepass,
-  toggleSkalHaBarnepass,
-  id,
-}) => {
+const BarnMedISøknad: FC<Props> = ({ skalHaBarnepass, toggleSkalHaBarnepass, id }) => {
   const intl = useLokalIntlContext();
 
   return (
-    <StyledCheckbox
-      checked={skalHaBarnepass}
-      onChange={() => toggleSkalHaBarnepass(id)}
-    >
+    <StyledCheckbox checked={skalHaBarnepass} onChange={() => toggleSkalHaBarnepass(id)}>
       {hentTekst('barnadine.knapp.søkBarnetilsyn', intl)}
     </StyledCheckbox>
   );

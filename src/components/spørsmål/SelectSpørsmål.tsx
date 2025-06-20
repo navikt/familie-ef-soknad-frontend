@@ -28,19 +28,11 @@ const SelectSpørsmål: FC<Props> = ({
   const legend = intl.formatMessage({ id: spørsmål.tekstid });
 
   const håndterSelectChange = (valgtVerdi: string) => {
-    const svar = spørsmål.svaralternativer.find(
-      (svar) => svar.id === valgtVerdi
-    );
+    const svar = spørsmål.svaralternativer.find((svar) => svar.id === valgtVerdi);
 
     if (svar !== undefined) {
       if (skalLogges) {
-        logSpørsmålBesvart(
-          skjemanavn,
-          skjemaId,
-          legend,
-          svar.svar_tekst,
-          skalLogges
-        );
+        logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
       }
 
       settSpørsmålOgSvar(spørsmål, svar);
@@ -54,9 +46,7 @@ const SelectSpørsmål: FC<Props> = ({
         <Show if={spørsmål.lesmer}>
           <LesMerTekst
             åpneTekstid={spørsmål.lesmer ? spørsmål.lesmer.headerTekstid : ''}
-            innholdTekstid={
-              spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''
-            }
+            innholdTekstid={spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''}
           />
         </Show>
       }

@@ -14,8 +14,8 @@ import {
 } from '../../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
 import {
-  SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
+  SøknadOvergangsstønad,
 } from '../../../overgangsstønad/models/søknad';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
@@ -48,17 +48,14 @@ const BarnasBostedInnhold: React.FC<Props> = ({
 
   const barnMedLevendeMedforelder = aktuelleBarn.filter(
     (barn: IBarn) =>
-      !barn.medforelder?.verdi ||
-      (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
+      !barn.medforelder?.verdi || (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
   );
 
   const barnMedDødMedforelder = aktuelleBarn.filter((barn: IBarn) => {
     return barn.medforelder?.verdi?.død === true;
   });
 
-  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(
-    barnMedLevendeMedforelder
-  );
+  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder);
 
   const [aktivIndex, settAktivIndex] = useState<number>(
     hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelder)
@@ -72,14 +69,11 @@ const BarnasBostedInnhold: React.FC<Props> = ({
 
   useEffect(() => {
     settSisteBarnUtfylt(
-      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder) ===
-        barnMedLevendeMedforelder.length
+      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder) === barnMedLevendeMedforelder.length
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [søknad]);
-  const forelderIdenterMedBarn = forelderidentMedBarn(
-    barnMedLevendeMedforelder
-  );
+  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelder);
 
   const oppdaterBarnMedNyForelderInformasjon = (
     oppdatertBarn: IBarn,

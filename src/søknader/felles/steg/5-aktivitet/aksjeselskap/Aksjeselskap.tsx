@@ -5,10 +5,7 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { hentTekst } from '../../../../../utils/søknad';
-import {
-  EAksjeselskap,
-  IAksjeselskap,
-} from '../../../../../models/steg/aktivitet/aktivitet';
+import { EAksjeselskap, IAksjeselskap } from '../../../../../models/steg/aktivitet/aktivitet';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
@@ -30,9 +27,7 @@ const Aksjeselskap: FC<Props> = ({
   const aksjeselskapFraSøknad = egetAS?.find(
     (aksjeselskap, index) => index === aksjeselskapnummer && aksjeselskap
   );
-  const [aksjeselskap, settAksjeselskap] = useState<IAksjeselskap>(
-    aksjeselskapFraSøknad!
-  );
+  const [aksjeselskap, settAksjeselskap] = useState<IAksjeselskap>(aksjeselskapFraSøknad!);
 
   useEffect(() => {
     const endretAksjeselskap = egetAS?.map((aksjeselskapFraSøknad, index) => {
@@ -49,10 +44,7 @@ const Aksjeselskap: FC<Props> = ({
     intl.formatMessage({ id: 'egetAS.label.aksjeselskap' })
   );
   const navnLabel: string = hentTekst('egetAS.label.navn', intl);
-  const arbeidsmengdeLabel: string = hentTekst(
-    'arbeidsforhold.label.arbeidsmengde',
-    intl
-  );
+  const arbeidsmengdeLabel: string = hentTekst('arbeidsforhold.label.arbeidsmengde', intl);
 
   const fjernAksjeselskap = () => {
     if (egetAS && egetAS.length > 1) {
@@ -107,17 +99,9 @@ const Aksjeselskap: FC<Props> = ({
             nøkkel={EAksjeselskap.arbeidsmengde}
             type={'number'}
             bredde={'XXS'}
-            value={
-              aksjeselskap?.arbeidsmengde?.verdi
-                ? aksjeselskap?.arbeidsmengde?.verdi
-                : ''
-            }
+            value={aksjeselskap?.arbeidsmengde?.verdi ? aksjeselskap?.arbeidsmengde?.verdi : ''}
             settInputFelt={(e) =>
-              settTekstInputFelt(
-                e,
-                arbeidsmengdeLabel,
-                EAksjeselskap.arbeidsmengde
-              )
+              settTekstInputFelt(e, arbeidsmengdeLabel, EAksjeselskap.arbeidsmengde)
             }
             beskrivendeTekst={'%'}
           />

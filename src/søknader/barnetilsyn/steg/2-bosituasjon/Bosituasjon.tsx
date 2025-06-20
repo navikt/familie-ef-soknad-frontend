@@ -19,12 +19,8 @@ const Bosituasjon: FC = () => {
   useMount(() => logSidevisningBarnetilsyn('Bosituasjon'));
 
   const intl = useLokalIntlContext();
-  const {
-    søknad,
-    settSøknad,
-    settDokumentasjonsbehov,
-    mellomlagreBarnetilsyn,
-  } = useBarnetilsynSøknad();
+  const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreBarnetilsyn } =
+    useBarnetilsynSøknad();
   const bosituasjon = søknad.bosituasjon;
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);

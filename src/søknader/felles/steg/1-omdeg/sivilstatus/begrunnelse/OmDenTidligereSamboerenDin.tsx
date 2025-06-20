@@ -6,10 +6,7 @@ import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
 import { Checkbox } from '@navikt/ds-react';
-import {
-  DatoBegrensning,
-  Datovelger,
-} from '../../../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
 
 const OmDenTidligereSamboerenDin: FC = () => {
@@ -60,9 +57,7 @@ const OmDenTidligereSamboerenDin: FC = () => {
   };
 
   const erGyldigIdent = (): boolean => {
-    return identErGyldig(
-      sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? ''
-    );
+    return identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '');
   };
   return (
     <>

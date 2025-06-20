@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FormProgress } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentTekst } from '../../utils/søknad';
@@ -17,10 +16,7 @@ interface IStegIndikatorProps {
   aktivtSteg: number;
 }
 
-const Stegindikator: React.FC<IStegIndikatorProps> = ({
-  stegListe,
-  aktivtSteg,
-}) => {
+const Stegindikator: React.FC<IStegIndikatorProps> = ({ stegListe, aktivtSteg }) => {
   const intl = useLokalIntlContext();
   const [activeStep, setActiveStep] = useState(aktivtSteg + 1);
   const [locale] = useSpråkContext();

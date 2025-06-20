@@ -1,8 +1,5 @@
 import { ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
-import {
-  EBosituasjon,
-  ESøkerDelerBolig,
-} from '../../../../models/steg/bosituasjon';
+import { EBosituasjon, ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import { JaNeiSvar } from '../../../../helpers/svar';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
@@ -15,9 +12,7 @@ const DokumentasjonBorPåUlikeAdresser: IDokumentasjon =
 
 // --- Spørsmål
 
-export const delerSøkerBoligMedAndreVoksne = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const delerSøkerBoligMedAndreVoksne = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EBosituasjon.delerBoligMedAndreVoksne,
   tekstid: 'bosituasjon.spm.delerSøkerBoligMedAndreVoksne',
   flersvar: false,
@@ -54,8 +49,7 @@ export const delerSøkerBoligMedAndreVoksne = (
       svar_tekst: intl.formatMessage({
         id: 'bosituasjon.svar.tidligereSamboerFortsattRegistrertPåAdresse',
       }),
-      alert_tekstid:
-        'bosituasjon.alert.tidligereSamboerFortsattRegistrertPåAdresse',
+      alert_tekstid: 'bosituasjon.alert.tidligereSamboerFortsattRegistrertPåAdresse',
       dokumentasjonsbehov: DokumentasjonBorPåUlikeAdresser,
     },
     {
@@ -67,9 +61,7 @@ export const delerSøkerBoligMedAndreVoksne = (
   ],
 });
 
-export const skalSøkerGifteSegMedSamboer = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const skalSøkerGifteSegMedSamboer = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EBosituasjon.skalGifteSegEllerBliSamboer,
   tekstid: 'bosituasjon.spm.skalSøkerGifteSegMedSamboer',
   flersvar: false,

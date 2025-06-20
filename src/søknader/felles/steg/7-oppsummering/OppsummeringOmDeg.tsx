@@ -7,10 +7,7 @@ import {
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/søknad';
-import {
-  IMedlemskap,
-  IUtenlandsopphold,
-} from '../../../../models/steg/omDeg/medlemskap';
+import { IMedlemskap, IUtenlandsopphold } from '../../../../models/steg/omDeg/medlemskap';
 import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import { Søker } from '../../../../models/søknad/person';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -46,18 +43,11 @@ const OppsummeringOmDeg: FC<Props> = ({
 
   const navigate = useNavigate();
   const omDeg = søker;
-  const utenlandsopphold: IUtenlandsopphold[] | undefined =
-    medlemskap.perioderBoddIUtlandet;
+  const utenlandsopphold: IUtenlandsopphold[] | undefined = medlemskap.perioderBoddIUtlandet;
 
-  const borDuPåDenneAdressen = visLabelOgVerdiForSpørsmålFelt(
-    søkerBorPåRegistrertAdresse,
-    intl
-  );
+  const borDuPåDenneAdressen = visLabelOgVerdiForSpørsmålFelt(søkerBorPåRegistrertAdresse, intl);
 
-  const harDuMeldtAdresseendring = visLabelOgVerdiForSpørsmålFelt(
-    harMeldtAdresseendring,
-    intl
-  );
+  const harDuMeldtAdresseendring = visLabelOgVerdiForSpørsmålFelt(harMeldtAdresseendring, intl);
   const datoFlyttetFraHverandre = VisLabelOgSvar(sivilstatus);
   const tidligereSamboer = VisLabelOgSvar(sivilstatus.tidligereSamboerDetaljer);
   const medlemskapSpørsmål = VisLabelOgSvar(medlemskap);
@@ -96,9 +86,7 @@ const OppsummeringOmDeg: FC<Props> = ({
           {harDuMeldtAdresseendring}
           {tidligereSamboer && (
             <div className="spørsmål-og-svar">
-              <Ingress>
-                {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
-              </Ingress>
+              <Ingress>{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Ingress>
               {tidligereSamboer}
             </div>
           )}
@@ -112,10 +100,7 @@ const OppsummeringOmDeg: FC<Props> = ({
       </KomponentGruppe>
       <LenkeMedIkon
         onClick={() =>
-          navigate(
-            { pathname: endreInformasjonPath },
-            { state: { kommerFraOppsummering: true } }
-          )
+          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
         }
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}

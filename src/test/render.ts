@@ -15,10 +15,7 @@ type RenderResult = RtlRenderResult & {
   screen: RtlScreen;
 };
 
-export function render(
-  ui: React.ReactNode,
-  options?: RenderOptions
-): RenderResult {
+export function render(ui: React.ReactNode, options?: RenderOptions): RenderResult {
   return {
     user: userEvent.setup(),
     screen: rtlScreen,

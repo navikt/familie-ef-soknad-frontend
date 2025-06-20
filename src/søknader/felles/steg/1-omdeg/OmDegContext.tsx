@@ -15,11 +15,7 @@ export interface Props<T extends Søknad> {
   mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
   routes: IRoute[];
   pathOppsummering: string | undefined;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 export const [OmDegProvider, useOmDeg] = constate(

@@ -1,9 +1,5 @@
 import Environment from '../Environment';
-import {
-  lagMellomlagretSøknadOvergangsstønad,
-  lagPersonData,
-  lagSøker,
-} from './utils';
+import { lagMellomlagretSøknadOvergangsstønad, lagPersonData, lagSøker } from './utils';
 
 export const mockGet = (
   url: string,
@@ -24,9 +20,7 @@ export const mockGet = (
       data: lagMellomlagretSøknadOvergangsstønad(),
     });
   }
-  if (
-    url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`
-  ) {
+  if (url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`) {
     return Promise.resolve({
       data: [],
     });

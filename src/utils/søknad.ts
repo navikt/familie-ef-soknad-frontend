@@ -5,10 +5,7 @@ import { ISpørsmål } from '../models/felles/spørsmålogsvar';
 import * as Sentry from '@sentry/browser';
 import { MellomlagredeStønadstyper } from '../models/søknad/stønadstyper';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
-import {
-  skalMappeBarnefeltUtenLabel,
-  standardLabelsBarn,
-} from '../helpers/labels';
+import { skalMappeBarnefeltUtenLabel, standardLabelsBarn } from '../helpers/labels';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
 import { ForrigeSøknad } from '../søknader/barnetilsyn/models/søknad';
@@ -52,29 +49,21 @@ export const mellomlagreSøknadTilDokument = <T>(
   søknad: T,
   stønadstype: MellomlagredeStønadstyper
 ): Promise<T> => {
-  return axios.post(
-    `${Environment().mellomlagerProxyUrl + stønadstype}`,
-    søknad,
-    axiosConfig
-  );
+  return axios.post(`${Environment().mellomlagerProxyUrl + stønadstype}`, søknad, axiosConfig);
 };
 
-export const hentDataFraForrigeBarnetilsynSøknad =
-  async (): Promise<ForrigeSøknad> => {
-    const response = await axios.get(
-      `${Environment().apiProxyUrl + '/api/soknad/barnetilsyn/forrige'}`,
-      axiosConfig
-    );
-    return response.data;
-  };
+export const hentDataFraForrigeBarnetilsynSøknad = async (): Promise<ForrigeSøknad> => {
+  const response = await axios.get(
+    `${Environment().apiProxyUrl + '/api/soknad/barnetilsyn/forrige'}`,
+    axiosConfig
+  );
+  return response.data;
+};
 
 export const nullstillMellomlagretSøknadTilDokument = (
   stønadstype: MellomlagredeStønadstyper
 ): Promise<string> => {
-  return axios.delete(
-    `${Environment().mellomlagerProxyUrl + stønadstype}`,
-    axiosConfig
-  );
+  return axios.delete(`${Environment().mellomlagerProxyUrl + stønadstype}`, axiosConfig);
 };
 
 export const hentTekst = (id: string, intl: LokalIntlShape) => {
@@ -127,26 +116,17 @@ export const settBarnMedLabelOgVerdi = (barn: IBarn) => {
   return nyttObjekt;
 };
 
-export const hentSvarAlertFraSpørsmål = (
-  svarid: string,
-  spørsmål: ISpørsmål
-): string => {
+export const hentSvarAlertFraSpørsmål = (svarid: string, spørsmål: ISpørsmål): string => {
   const hentetSvar = hentSvarFraSpørsmål(svarid, spørsmål);
   return hentetSvar?.alert_tekstid || 'Dette svaret har ikke alert';
 };
 
 export const hentSvarFraSpørsmål = (svarid: string, spørsmål: ISpørsmål) => {
-  const hentetSvar = spørsmål.svaralternativer.find(
-    (svar) => svar.id === svarid
-  );
+  const hentetSvar = spørsmål.svaralternativer.find((svar) => svar.id === svarid);
   return hentetSvar;
 };
 
-export const hentFeltObjekt = (
-  tekstid: string,
-  verdi: any,
-  intl: LokalIntlShape
-) => {
+export const hentFeltObjekt = (tekstid: string, verdi: any, intl: LokalIntlShape) => {
   return { label: hentTekst(tekstid, intl), verdi: verdi };
 };
 
@@ -178,20 +158,14 @@ const medforelderMedLabel = (medforelder: any, intl: LokalIntlShape) => {
   };
 };
 
-export const oppdaterBarnMedLabel = (
-  barneliste: IBarn[],
-  intl: LokalIntlShape
-) =>
+export const oppdaterBarnMedLabel = (barneliste: IBarn[], intl: LokalIntlShape) =>
   barneliste.map((barn: IBarn) => {
     const barnMedLabel = settBarnMedLabelOgVerdi(barn);
     barnMedLabel['ident'] = barnMedLabel['fnr'];
     delete barnMedLabel.fnr;
 
     if (barnMedLabel.medforelder?.verdi) {
-      barnMedLabel['forelder'] = medforelderMedLabel(
-        barnMedLabel.medforelder,
-        intl
-      );
+      barnMedLabel['forelder'] = medforelderMedLabel(barnMedLabel.medforelder, intl);
     }
 
     return barnMedLabel;

@@ -6,14 +6,12 @@ import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning'
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+
 interface Props {
   utdanning: IUnderUtdanning;
   settUtdanning: (utdanning: IUnderUtdanning) => void;
 }
-const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({
-  utdanning,
-  settUtdanning,
-}) => {
+const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtdanning }) => {
   const intl = useLokalIntlContext();
 
   const settMultiSpørsmål = (spørsmål: ISpørsmål, svar: ISvar) => {

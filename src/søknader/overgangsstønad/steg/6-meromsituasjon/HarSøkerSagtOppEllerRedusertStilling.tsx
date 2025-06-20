@@ -10,15 +10,12 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { subMonths, isAfter, isBefore } from 'date-fns';
+import { isAfter, isBefore, subMonths } from 'date-fns';
 import { dagensDato, strengTilDato } from '../../../../utils/dato';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
-import {
-  Datovelger,
-  DatoBegrensning,
-} from '../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 
 interface Props {
   dinSituasjon: IDinSituasjon;
@@ -37,10 +34,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     sagtOppEllerRedusertStilling,
   } = dinSituasjon;
 
-  const settSagtOppEllerRedusertStilling = (
-    spørsmål: ISpørsmål,
-    svar: ISvar
-  ) => {
+  const settSagtOppEllerRedusertStilling = (spørsmål: ISpørsmål, svar: ISvar) => {
     const valgtSvar = {
       spørsmålid: spørsmål.søknadid,
       svarid: svar.id,
@@ -49,8 +43,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     };
     if (
       valgtSvarNei &&
-      (datoSagtOppEllerRedusertStilling ||
-        begrunnelseSagtOppEllerRedusertStilling)
+      (datoSagtOppEllerRedusertStilling || begrunnelseSagtOppEllerRedusertStilling)
     ) {
       const endretSituasjon = dinSituasjon;
       delete endretSituasjon.datoSagtOppEllerRedusertStilling;
@@ -90,14 +83,10 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
 
   const valgtDatoMindreEnn6mndSiden = (valgtDato: Date) => {
     const seksMndSidenDato = subMonths(dagensDato, 6);
-    return (
-      isAfter(valgtDato, seksMndSidenDato) && isBefore(valgtDato, dagensDato)
-    );
+    return isAfter(valgtDato, seksMndSidenDato) && isBefore(valgtDato, dagensDato);
   };
 
-  const erSagtOppEllerRedusertStillingValgt = (
-    valgtSvar: ESagtOppEllerRedusertStilling
-  ) => {
+  const erSagtOppEllerRedusertStillingValgt = (valgtSvar: ESagtOppEllerRedusertStilling) => {
     const tekstid: string = 'dinSituasjon.svar.' + valgtSvar;
     const svarTekst: string = intl.formatMessage({ id: tekstid });
     return sagtOppEllerRedusertStilling?.verdi === svarTekst;
@@ -112,9 +101,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     else return '';
   };
 
-  const harSagtOpp = erSagtOppEllerRedusertStillingValgt(
-    ESagtOppEllerRedusertStilling.sagtOpp
-  );
+  const harSagtOpp = erSagtOppEllerRedusertStillingValgt(ESagtOppEllerRedusertStilling.sagtOpp);
   const harRedusertStilling = erSagtOppEllerRedusertStillingValgt(
     ESagtOppEllerRedusertStilling.redusertStilling
   );
@@ -122,9 +109,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
 
   const erValgtDatoMindreEnn6mndSiden =
     datoSagtOppEllerRedusertStilling &&
-    valgtDatoMindreEnn6mndSiden(
-      strengTilDato(datoSagtOppEllerRedusertStilling.verdi)
-    );
+    valgtDatoMindreEnn6mndSiden(strengTilDato(datoSagtOppEllerRedusertStilling.verdi));
 
   const alertLabel = hentLabelForSagtOppEllerRedusertStilling(
     'dinSituasjon.alert.sagtOpp',
@@ -139,11 +124,10 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     'sagtOppEllerRedusertStilling.datovelger.redusertStilling'
   );
 
-  const valgtDatoMindreEnn6mndSidenAlert =
-    hentLabelForSagtOppEllerRedusertStilling(
-      'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp',
-      'dinSituasjon.datovelger-alert.redusertStilling'
-    );
+  const valgtDatoMindreEnn6mndSidenAlert = hentLabelForSagtOppEllerRedusertStilling(
+    'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp',
+    'dinSituasjon.datovelger-alert.redusertStilling'
+  );
 
   return (
     <>

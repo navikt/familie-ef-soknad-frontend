@@ -2,21 +2,14 @@ import { IForelder } from '../../../../../models/steg/forelder';
 import React, { FC } from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { boddSammenFør } from '../ForeldreConfig';
-import {
-  ESvar,
-  ISpørsmål,
-  ISvar,
-} from '../../../../../models/felles/spørsmålogsvar';
+import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import {
-  DatoBegrensning,
-  Datovelger,
-} from '../../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
 
 interface Props {
   forelder: IForelder;
@@ -50,11 +43,7 @@ const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
       <KomponentGruppe>
         <JaNeiSpørsmålMedNavn
           spørsmål={boddSammenFørSpm}
-          spørsmålTekst={hentBarnNavnEllerBarnet(
-            barn,
-            boddSammenFørSpm.tekstid,
-            intl
-          )}
+          spørsmålTekst={hentBarnNavnEllerBarnet(barn, boddSammenFørSpm.tekstid, intl)}
           onChange={(spørsmål, svar) => settHarBoddsammenFør(spørsmål, svar)}
           valgtSvar={forelder.boddSammenFør?.verdi}
         />
