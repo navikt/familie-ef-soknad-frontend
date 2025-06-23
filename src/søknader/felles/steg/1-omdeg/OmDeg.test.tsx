@@ -370,18 +370,6 @@ describe('OmDegSteg, sivilstatus', () => {
       screen
     );
 
-    // expect(screen.getByRole('textbox', { name: 'Navn' })).toBeInTheDocument();
-    // expect(
-    //   screen.getByRole('textbox', {
-    //     name: 'Fødselsnummer / d-nummer (11 siffer)',
-    //   })
-    // ).toBeInTheDocument();
-    // expect(
-    //   screen.getByRole('checkbox', {
-    //     name: 'Jeg kjenner ikke fødselsnummer / d-nummer',
-    //   })
-    // ).toBeInTheDocument();
-
     await skrivFritekst('Navn', 'Ola Nordmann', screen, user);
 
     await klikkCheckbox(
@@ -389,6 +377,8 @@ describe('OmDegSteg, sivilstatus', () => {
       screen,
       user
     );
+
+    //Se om dette kan gjøres ryddigere
 
     await user.click(
       screen.getByRole('button', {
@@ -408,11 +398,5 @@ describe('OmDegSteg, sivilstatus', () => {
     await user.click(screen.getByRole('button', { name: 'mandag 2' }));
 
     forventFelt('group', 'Oppholder du og barnet/barna dere i Norge?', screen);
-
-    // expect(
-    //   screen.getByRole('group', {
-    //     name: 'Oppholder du og barnet/barna dere i Norge?',
-    //   })
-    // );
   });
 });
