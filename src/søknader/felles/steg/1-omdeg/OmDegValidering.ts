@@ -4,6 +4,7 @@ import {
   EBegrunnelse,
   ISivilstatus,
 } from '../../../../models/steg/omDeg/sivilstatus';
+import { IPersonDetaljer } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
 
@@ -39,6 +40,9 @@ const validerSivilstatus = (sivilstatus: ISivilstatus) => {
   const skalFjerneTidligereSamboerDetaljer =
     sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.samlivsbruddAndre;
 
+  const fjernFødselsnummerFraTidligereSamboer =
+    sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent === true;
+
   const skalFjerneDatoFlyttetFraHverandre =
     sivilstatus.årsakEnslig?.svarid !== EBegrunnelse.samlivsbruddAndre;
 
@@ -47,15 +51,34 @@ const validerSivilstatus = (sivilstatus: ISivilstatus) => {
     ...(skalFjerneDatoSøktSeparasjon && {
       datoSøktSeparasjon: undefined,
     }),
-    ...(skalFjerneTidligereSamboerDetaljer && {
-      tidligereSamboerDetaljer: undefined,
-    }),
+    tidligereSamboerDetaljer: utledTidligereSamboerDetaljer(
+      skalFjerneTidligereSamboerDetaljer,
+      fjernFødselsnummerFraTidligereSamboer,
+      sivilstatus.tidligereSamboerDetaljer
+    ),
     ...(skalFjerneDatoFlyttetFraHverandre && {
       datoFlyttetFraHverandre: undefined,
     }),
     ...(skalFjerneDatoForSamlivsbrudd && { datoForSamlivsbrudd: undefined }),
     ...(skalFjerneDatoEndretSamvær && { datoEndretSamvær: undefined }),
   };
+};
+
+const utledTidligereSamboerDetaljer = (
+  skalFjerneTidligereSamboerDetaljer: boolean,
+  fjernFødselsnummerFraTidligereSamboer: boolean,
+  tidligereSamboerDetaljer: IPersonDetaljer | undefined
+): IPersonDetaljer | undefined => {
+  if (skalFjerneTidligereSamboerDetaljer) {
+    return undefined;
+  }
+  if (fjernFødselsnummerFraTidligereSamboer && tidligereSamboerDetaljer) {
+    return {
+      ...tidligereSamboerDetaljer,
+      ident: undefined,
+    };
+  }
+  return tidligereSamboerDetaljer;
 };
 
 const validerMedlemskap = (medlemskap: IMedlemskap) => {
