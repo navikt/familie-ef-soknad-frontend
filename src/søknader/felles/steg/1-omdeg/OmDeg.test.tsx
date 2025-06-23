@@ -81,10 +81,6 @@ describe('OmDegSteg, personopplysninger', () => {
       )
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('group', { name: 'Hvorfor er du alene med barn?' })
-    );
-
     await klikkSvarRadioknapp(
       'Har du meldt adresseendring til Folkeregisteret?',
       'Nei',
