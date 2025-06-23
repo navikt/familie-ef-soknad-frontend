@@ -4,16 +4,25 @@ import {
   EBegrunnelse,
   ISivilstatus,
 } from '../../../../models/steg/omDeg/sivilstatus';
+import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
+import { IAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
 
 const validerOmDeg = <T extends Søknad>(
   søknad: T,
   sivilstatus: ISivilstatus,
-  medlemskap: IMedlemskap
+  medlemskap: IMedlemskap,
+  harMeldtAdresseendring?: IAdresseopplysninger,
+  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt
 ): T => {
   return {
     ...søknad,
     sivilstatus: validerSivilstatus(sivilstatus),
     medlemskap: validerMedlemskap(medlemskap),
+    søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
+    adresseopplysninger: validerAdresseopplysninger(
+      harMeldtAdresseendring,
+      søkerBorPåRegistrertAdresse
+    ),
   };
 };
 
@@ -63,6 +72,16 @@ const validerMedlemskap = (medlemskap: IMedlemskap) => {
     }),
     ...(skalFjerneOppholdsland && { oppholdsland: undefined }),
   };
+};
+
+const validerAdresseopplysninger = (
+  harMeldtAdresseendring?: IAdresseopplysninger,
+  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt
+) => {
+  if (søkerBorPåRegistrertAdresse?.verdi === true) {
+    return undefined;
+  }
+  return harMeldtAdresseendring;
 };
 
 export { validerOmDeg };

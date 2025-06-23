@@ -23,8 +23,8 @@ const Personopplysninger: React.FC = () => {
     settDokumentasjonsbehov,
     søkerBorPåRegistrertAdresse,
     settSøkerBorPåRegistrertAdresse,
-    harMeldtAdresseendring,
-    settHarMeldtAdresseendring,
+    adresseopplysninger,
+    settAdresseopplysninger,
     stønadstype,
   } = useOmDeg();
   const { søker } = søknad.person;
@@ -43,11 +43,13 @@ const Personopplysninger: React.FC = () => {
 
   const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-    settHarMeldtAdresseendring({
-      spørsmålid: spørsmål.søknadid,
-      svarid: valgtSvar.id,
-      label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar,
+    settAdresseopplysninger({
+      harMeldtAdresseendring: {
+        spørsmålid: spørsmål.søknadid,
+        svarid: valgtSvar.id,
+        label: hentTekst(spørsmål.tekstid, intl),
+        verdi: svar,
+      },
     });
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
@@ -77,17 +79,17 @@ const Personopplysninger: React.FC = () => {
             <KomponentGruppe>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-                valgtSvar={harMeldtAdresseendring?.verdi}
+                valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
                 onChange={settMeldtAdresseendring}
               />
-              {harMeldtAdresseendring?.verdi === true && (
+              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
                 <AlertStripeDokumentasjon>
                   <LocaleTekst
                     tekst={'personopplysninger.alert.meldtAdresseendring'}
                   />
                 </AlertStripeDokumentasjon>
               )}
-              {harMeldtAdresseendring?.verdi === false && (
+              {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
                 <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
               )}
             </KomponentGruppe>

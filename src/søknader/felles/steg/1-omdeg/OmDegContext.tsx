@@ -1,5 +1,5 @@
 import constate from 'constate';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { validerOmDeg } from './OmDegValidering';
@@ -27,7 +27,6 @@ export const [OmDegProvider, useOmDeg] = constate(
     stønadstype,
     søknad,
     oppdaterSøknad,
-    mellomlagretSøknad,
     mellomlagreSøknad,
     routes,
     pathOppsummering,
@@ -39,33 +38,18 @@ export const [OmDegProvider, useOmDeg] = constate(
     const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
     const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] =
       useState(søknad.søkerBorPåRegistrertAdresse);
-    const [harMeldtAdresseendring, settHarMeldtAdresseendring] = useState(
-      søknad.adresseopplysninger?.harMeldtAdresseendring
+    const [adresseopplysninger, settAdresseopplysninger] = useState(
+      søknad.adresseopplysninger
     );
 
-    useEffect(() => {
-      if (mellomlagretSøknad?.søknad.medlemskap) {
-        settMedlemskap(mellomlagretSøknad.søknad.medlemskap);
-      }
-      if (mellomlagretSøknad?.søknad.sivilstatus) {
-        settSivilstatus(mellomlagretSøknad.søknad.sivilstatus);
-      }
-      if (mellomlagretSøknad?.søknad.søkerBorPåRegistrertAdresse) {
-        settSøkerBorPåRegistrertAdresse(
-          mellomlagretSøknad.søknad.søkerBorPåRegistrertAdresse
-        );
-      }
-      if (
-        mellomlagretSøknad?.søknad.adresseopplysninger?.harMeldtAdresseendring
-      ) {
-        settHarMeldtAdresseendring(
-          mellomlagretSøknad.søknad.adresseopplysninger.harMeldtAdresseendring
-        );
-      }
-    }, [mellomlagretSøknad]);
-
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = validerOmDeg(søknad, sivilstatus, medlemskap);
+      const oppdatertSøknad = validerOmDeg(
+        søknad,
+        sivilstatus,
+        medlemskap,
+        adresseopplysninger,
+        søkerBorPåRegistrertAdresse
+      );
 
       oppdaterSøknad(oppdatertSøknad);
 
@@ -75,8 +59,8 @@ export const [OmDegProvider, useOmDeg] = constate(
     return {
       søkerBorPåRegistrertAdresse,
       settSøkerBorPåRegistrertAdresse,
-      harMeldtAdresseendring,
-      settHarMeldtAdresseendring,
+      adresseopplysninger,
+      settAdresseopplysninger,
       sivilstatus,
       settSivilstatus,
       medlemskap,

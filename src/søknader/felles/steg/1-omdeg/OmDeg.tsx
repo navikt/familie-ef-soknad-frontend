@@ -30,14 +30,14 @@ const OmDeg: FC = () => {
     pathOppsummering,
     søknad,
     søkerBorPåRegistrertAdresse,
-    harMeldtAdresseendring,
+    adresseopplysninger,
   } = useOmDeg();
 
   const { søker } = søknad.person;
 
   const SkalViseSivilstatusdialog =
     søkerBorPåRegistrertAdresse?.verdi === true ||
-    harMeldtAdresseendring?.verdi === true ||
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === true ||
     søker?.erStrengtFortrolig;
 
   const skalViseMedlemskapsdialog =
