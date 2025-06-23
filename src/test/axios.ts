@@ -1,9 +1,13 @@
 import Environment from '../Environment';
 import {
   lagMellomlagretSøknadOvergangsstønad,
+  lagPerson,
   lagPersonData,
   lagSøker,
+  lagSøknadOvergangsstønad,
 } from './utils';
+import { Søker } from '../models/søknad/person';
+import axios from 'axios';
 
 export const mockGet = (
   url: string,
@@ -32,4 +36,27 @@ export const mockGet = (
     });
   }
   return Promise.resolve({ data: {} });
+};
+
+export const settOppMellomlagretSøknad = (søker?: Partial<Søker>) => {
+  (axios.get as any).mockImplementation((url: string) => {
+    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      return Promise.resolve({
+        data: lagMellomlagretSøknadOvergangsstønad({
+          søknad: lagSøknadOvergangsstønad({ harBekreftet: true }),
+          gjeldendeSteg: '/om-deg',
+        }),
+      });
+    }
+
+    if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+      return Promise.resolve({
+        data: lagPerson({
+          søker: lagSøker({ ...søker }),
+        }),
+      });
+    }
+
+    return mockGet(url, 'overgangsstonad');
+  });
 };

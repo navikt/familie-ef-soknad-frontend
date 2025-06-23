@@ -1,10 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
-import { mockGet } from '../../../../test/axios';
-import {
-  klikkSvarRadioknapp,
-  navigerTilOmDeg,
-  settOppMellomlagretSøknad,
-} from '../../../../test/utils';
+import { mockGet, settOppMellomlagretSøknad } from '../../../../test/axios';
+import { klikkSvarRadioknapp, navigerTilOmDeg } from '../../../../test/actions';
 
 vi.mock('axios', () => {
   return {
