@@ -15,6 +15,7 @@ import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
+import { OmDegSpørsmålSeksjon } from '../../../../../components/spørsmål/komponent/nyrefaktorering/OmDegSpørsmålSeksjon';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -66,7 +67,8 @@ const Personopplysninger: React.FC = () => {
         adresse={søker.adresse}
       />
       {!søker?.erStrengtFortrolig && (
-        <>
+        <OmDegSpørsmålSeksjon />
+        /*<>
           <KomponentGruppe aria-live="polite">
             <JaNeiSpørsmål
               spørsmål={borDuPåDenneAdressen(intl)}
@@ -94,7 +96,7 @@ const Personopplysninger: React.FC = () => {
               )}
             </KomponentGruppe>
           )}
-        </>
+        </>*/
       )}
     </VStack>
   );

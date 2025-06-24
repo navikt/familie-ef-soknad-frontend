@@ -23,11 +23,9 @@ export const Personopplysningerv2: React.FC = () => {
 
   const skalViseMeldtAdresseendring = borPåAdresse === 'nei';
   const skalViseErUformeltGift =
-    borPåAdresse === 'ja' ||
-    (borPåAdresse === 'nei' && meldtAdresseendring === 'ja');
-  const skalViseEndreAdresse =
-    borPåAdresse === 'nei' && meldtAdresseendring === 'nei';
-  const skalViseSeparertSpørsmål = erUformeltGift !== undefined;
+    borPåAdresse === 'ja' || meldtAdresseendring === 'ja';
+  const skalViseEndreAdresse = meldtAdresseendring === 'nei';
+  const skalViseErSeparert = erUformeltGift !== undefined;
 
   return (
     <VStack gap="6">
@@ -138,8 +136,8 @@ export const Personopplysningerv2: React.FC = () => {
         </SpørsmålWrapper>
       )}
 
-      {/* 5. Er du separert/skilt uten at det er registrert i Norge? */}
-      {skalViseSeparertSpørsmål && (
+      {/* 5. Er du separert eller skilt uten at det er registrert i Norge? */}
+      {skalViseErSeparert && (
         <SpørsmålWrapper
           tittel={hentTekst(
             'sivilstatus.spm.erUformeltSeparertEllerSkilt',
