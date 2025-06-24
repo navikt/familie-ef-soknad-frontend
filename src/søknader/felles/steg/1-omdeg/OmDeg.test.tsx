@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
-import { mockGet, settOppMellomlagretSøknad } from '../../../../test/axios';
-import { klikkSvarRadioknapp, navigerTilOmDeg } from '../../../../test/actions';
+import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
+import { klikkSvarRadioknapp, navigerTilSteg } from '../../../../test/actions';
 
 vi.mock('axios', () => {
   return {
@@ -16,8 +16,8 @@ vi.mock('axios', () => {
 
 describe('OmDegSteg', () => {
   test('Skal navigere til om-deg fra mellomlagret søknad', async () => {
-    settOppMellomlagretSøknad();
-    const { screen } = await navigerTilOmDeg();
+    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
+    const { screen } = await navigerTilSteg();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Om deg' })
@@ -25,8 +25,8 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendre spørsmål om uformelt gift dersom bruker er ugift og borPåAdresse er ja', async () => {
-    settOppMellomlagretSøknad();
-    const { screen, user } = await navigerTilOmDeg();
+    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
+    const { screen, user } = await navigerTilSteg();
 
     await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -38,8 +38,10 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendrer spørsmål om separasjon dersom bruker er gift og borPåAdresse er ja', async () => {
-    settOppMellomlagretSøknad({ sivilstand: 'GIFT' });
-    const { screen, user } = await navigerTilOmDeg();
+    mockMellomlagretSøknad('overgangsstonad', '/om-deg', {
+      sivilstand: 'GIFT',
+    });
+    const { screen, user } = await navigerTilSteg();
 
     await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -51,8 +53,8 @@ describe('OmDegSteg', () => {
   });
 
   test('Rendre spørsmål og info om adresseendring dersom borPåAdresse er nei', async () => {
-    settOppMellomlagretSøknad();
-    const { screen, user } = await navigerTilOmDeg();
+    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
+    const { screen, user } = await navigerTilSteg();
 
     await klikkSvarRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
