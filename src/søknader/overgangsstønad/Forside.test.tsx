@@ -26,6 +26,15 @@ vi.mock('axios', () => {
 });
 
 describe('Forside for overgangsstønad', () => {
+  (axios.get as any).mockImplementation((url: string) => {
+    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      return Promise.resolve({
+        data: undefined,
+      });
+    }
+    return mockGet(url, 'overgangsstonad');
+  });
+
   test('skal vise statiske tekster', async () => {
     const { screen } = render(
       <TestContainer>
@@ -57,6 +66,11 @@ describe('Forside for overgangsstønad', () => {
           data: lagPersonData({
             søker: lagSøker({ forkortetNavn: 'Kari Nordmann', alder: 16 }),
           }),
+        });
+      }
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: undefined,
         });
       }
       return mockGet(url, 'overgangsstonad');
@@ -99,6 +113,11 @@ describe('Forside for overgangsstønad', () => {
           data: [lagSistInnsendteSøknad({ søknadsdato: '2025-05-17' })],
         });
       }
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: undefined,
+        });
+      }
       return mockGet(url, 'overgangsstonad');
     });
 
@@ -131,6 +150,11 @@ describe('Forside for overgangsstønad', () => {
 
   test('skal navigere videre til neste steg', async () => {
     (axios.get as any).mockImplementation((url: string) => {
+      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+        return Promise.resolve({
+          data: undefined,
+        });
+      }
       return mockGet(url, 'overgangsstonad');
     });
 

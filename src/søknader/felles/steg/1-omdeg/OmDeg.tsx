@@ -4,11 +4,9 @@ import {
   erSivilstandSpørsmålBesvart,
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
-  søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring,
 } from '../../../../helpers/steg/omdeg';
 import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
-import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
@@ -30,45 +28,29 @@ const OmDeg: FC = () => {
     stønadstype,
     routes,
     pathOppsummering,
-    settDokumentasjonsbehov,
     søknad,
-    oppdaterSøknad,
+    søkerBorPåRegistrertAdresse,
+    adresseopplysninger,
   } = useOmDeg();
 
   const { søker } = søknad.person;
-  const settSøkerBorPåRegistrertAdresse = (
-    søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt
-  ) =>
-    oppdaterSøknad({
-      ...søknad,
-      adresseopplysninger: undefined,
-      søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-    });
 
-  const settHarMeldtAdresseendring = (
-    harMeldtAdresseendring: ISpørsmålBooleanFelt
-  ) =>
-    oppdaterSøknad({
-      ...søknad,
-      adresseopplysninger: {
-        ...søknad.adresseopplysninger,
-        harMeldtAdresseendring,
-      },
-    });
+  const SkalViseSivilstatusdialog =
+    søkerBorPåRegistrertAdresse?.verdi === true ||
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === true ||
+    søker?.erStrengtFortrolig;
 
-  const erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring =
-    søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
+  const skalViseMedlemskapsdialog =
+    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+    erÅrsakEnsligBesvart(sivilstatus);
 
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     sivilstatus,
     søker.sivilstand,
     medlemskap,
-    erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring
+    SkalViseSivilstatusdialog
   );
 
-  const skalViseMedlemskapsdialog =
-    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus);
   return (
     <Side
       stønadstype={stønadstype}
@@ -79,22 +61,8 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
-      <Personopplysninger
-        søker={søker}
-        settDokumentasjonsbehov={settDokumentasjonsbehov}
-        søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
-        settSøkerBorPåRegistrertAdresse={settSøkerBorPåRegistrertAdresse}
-        harMeldtAdresseendring={
-          søknad.adresseopplysninger?.harMeldtAdresseendring
-        }
-        settHarMeldtAdresseendring={settHarMeldtAdresseendring}
-        stønadstype={stønadstype}
-      />
-
-      {erSøkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring && (
-        <Sivilstatus />
-      )}
-
+      <Personopplysninger />
+      {SkalViseSivilstatusdialog && <Sivilstatus />}
       {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
