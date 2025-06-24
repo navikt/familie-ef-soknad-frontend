@@ -540,3 +540,309 @@ describe('OmDegSteg, sivilstatus', () => {
     ).toBeInTheDocument();
   });
 });
+
+describe('OmDegSteg, medlemskap', () => {
+  test('Rendrer neste spm dersom bruker oppholder seg i Norge', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Oppholder du og barnet/barna dere i Norge?',
+      'Ja',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du oppholdt deg i Norge de siste 5 årene?',
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('Rendrer felt og neste spm, dersom bruker ikke oppholder seg i Norge', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Oppholder du og barnet/barna dere i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Hvor oppholder du og barnet/barna dere?',
+      })
+    ).toBeInTheDocument();
+
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: 'Hvor oppholder du og barnet/barna dere?',
+      }),
+      'Belgia'
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du oppholdt deg i Norge de siste 5 årene?',
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('Rendrer neste-steg knapp, dersom bruker har oppholdt seg i Norge siste 5 år', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Oppholder du og barnet/barna dere i Norge?',
+      'Ja',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Har du oppholdt deg i Norge de siste 5 årene?',
+      'Ja',
+      screen,
+      user
+    );
+
+    expect(screen.getByRole('button', { name: 'Neste' }));
+  });
+
+  test('Rendrer felter og neste-steg knapp, dersom bruker ikke har oppholdt seg i Norge siste 5 år (IKKE EØS)', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Oppholder du og barnet/barna dere i Norge?',
+      'Ja',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Har du oppholdt deg i Norge de siste 5 årene?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await user.type(screen.getByRole('textbox', { name: 'Fra' }), '02.06.2019');
+
+    await user.type(screen.getByRole('textbox', { name: 'Til' }), '02.06.2025');
+
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: 'I hvilket land oppholdt du deg i?',
+      }),
+      'Brasil'
+    );
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Hvorfor oppholdt du deg i Brasil?',
+      }),
+      'Var på stranda'
+    );
+
+    expect(
+      screen.getByText('Har du hatt flere utenlandsopphold de siste 5 årene?')
+    );
+
+    expect(
+      screen.getByRole('button', { name: 'Legg til et utenlandsopphold' })
+    );
+
+    expect(screen.getByRole('button', { name: 'Neste' }));
+  });
+
+  test('Rendrer felter og neste-steg knapp, dersom bruker ikke har oppholdt seg i Norge siste 5 år (EØS)', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Oppholder du og barnet/barna dere i Norge?',
+      'Ja',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Har du oppholdt deg i Norge de siste 5 årene?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await user.type(screen.getByRole('textbox', { name: 'Fra' }), '02.06.2019');
+
+    await user.type(screen.getByRole('textbox', { name: 'Til' }), '02.06.2025');
+
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: 'I hvilket land oppholdt du deg i?',
+      }),
+      'Belgia'
+    );
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Hvorfor oppholdt du deg i Belgia?',
+      }),
+      'Spiste sjokolade'
+    );
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Hva er id-nummeret ditt i Belgia?',
+      }),
+      '123'
+    );
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Hva er den siste adressen du bodde på i Belgia?',
+      })
+    ).toBeInTheDocument();
+
+    await user.clear(
+      screen.getByRole('textbox', {
+        name: 'Hva er id-nummeret ditt i Belgia?',
+      })
+    );
+
+    expect(
+      screen.queryByRole('textbox', {
+        name: 'Hva er den siste adressen du bodde på i Belgia?',
+      })
+    ).not.toBeInTheDocument();
+
+    await klikkCheckbox('Jeg har ikke id-nummer i Belgia', screen, user);
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Hva er den siste adressen du bodde på i Belgia?',
+      })
+    ).toBeInTheDocument();
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Hva er den siste adressen du bodde på i Belgia?',
+      }),
+      'Fyrstikkaleen 1'
+    );
+
+    expect(
+      screen.getByText('Har du hatt flere utenlandsopphold de siste 5 årene?')
+    );
+
+    expect(
+      screen.getByRole('button', { name: 'Legg til et utenlandsopphold' })
+    );
+
+    expect(screen.getByRole('button', { name: 'Neste' }));
+  });
+});
