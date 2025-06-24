@@ -9,7 +9,7 @@ import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { hentBannertittel } from '../../utils/stønadstype';
 import LocaleTekst from '../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Alert, Button, BodyShort, Heading, Box } from '@navikt/ds-react';
+import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Stegindikator from '../stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
 
@@ -19,6 +19,7 @@ export enum ESide {
   skjulKnapper = 'skjulKnapper',
 }
 
+// TODO: Fjern nullable fra mellomlagreSteg
 interface ISide {
   stønadstype: Stønadstype;
   stegtittel: string;
@@ -31,6 +32,7 @@ interface ISide {
   disableNesteKnapp?: boolean;
   children?: React.ReactNode;
   skalViseStegindikator?: boolean;
+  mellomlagreSteg?: () => void;
 }
 
 const Side: React.FC<ISide> = ({
@@ -45,6 +47,7 @@ const Side: React.FC<ISide> = ({
   informasjonstekstId,
   disableNesteKnapp,
   skalViseStegindikator = true,
+  mellomlagreSteg,
 }) => {
   const intl = useLokalIntlContext();
   const location = useLocation();
@@ -104,6 +107,7 @@ const Side: React.FC<ISide> = ({
               erSpørsmålBesvart={erSpørsmålBesvart}
               mellomlagreStønad={mellomlagreStønad}
               disableNesteKnapp={disableNesteKnapp}
+              mellomlagreSteg={mellomlagreSteg}
             />
           </>
         ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
@@ -116,6 +120,9 @@ const Side: React.FC<ISide> = ({
                 variant="primary"
                 className="tilbake-til-oppsummering"
                 onClick={() => {
+                  if (mellomlagreSteg) {
+                    mellomlagreSteg();
+                  }
                   if (mellomlagreStønad) {
                     mellomlagreStønad(location.pathname);
                   }

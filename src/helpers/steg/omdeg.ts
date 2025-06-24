@@ -13,10 +13,11 @@ import {
   erSøkerGift,
   erSøkerUGiftSkiltSeparertEllerEnke,
 } from '../../utils/sivilstatus';
-import { ISøknad } from '../../models/søknad/søknad';
-import { SøknadBarnetilsyn } from '../../barnetilsyn/models/søknad';
-import { ISøknad as ISøknadSK } from '../../skolepenger/models/søknad';
+import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';
+import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
+import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
+import { identErGyldig } from '../../utils/validering/validering';
 
 export const hentSivilstatus = (statuskode?: string) => {
   switch (statuskode) {
@@ -76,7 +77,11 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
         erDatoGyldigOgInnaforBegrensninger(
           datoFlyttetFraHverandre.verdi,
           DatoBegrensning.AlleDatoer
-        )
+        ) &&
+        (identErGyldig(
+          sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? ''
+        ) ||
+          sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
       );
     case EBegrunnelse.endringISamværsordning:
       return (
@@ -195,7 +200,7 @@ export const erSivilstandSpørsmålBesvart = (
 };
 
 export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
-  søknad: ISøknad | SøknadBarnetilsyn | ISøknadSK
+  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {
   return (
     søknad.person.søker?.erStrengtFortrolig ||
@@ -205,7 +210,7 @@ export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
 };
 
 export const validerSøkerBosattINorgeSisteFemÅr = (
-  søknad: ISøknad | SøknadBarnetilsyn | ISøknadSK
+  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {
   return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
 };

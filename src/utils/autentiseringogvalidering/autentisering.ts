@@ -3,17 +3,17 @@ import Environment from '../../Environment';
 import {
   arbeidssøkerSkjemaForsideUrl,
   erUrlArbeidssøkerSkjema,
-} from '../../arbeidssøkerskjema/routes/routesArbeidssokerskjema';
-import { overgangsstønadForsideUrl } from '../../overgangsstønad/routing/routesOvergangsstonad';
+} from '../../søknader/arbeidssøkerskjema/routes/routesArbeidssokerskjema';
+import { overgangsstønadForsideUrl } from '../../søknader/overgangsstønad/routing/routesOvergangsstonad';
 import { erLokaltMedMock } from '../miljø';
 import {
   barnetilsynForsideUrl,
   erUrlBarnetilsyn,
-} from '../../barnetilsyn/routing/routesBarnetilsyn';
+} from '../../søknader/barnetilsyn/routing/routesBarnetilsyn';
 import {
   erUrlSkolepenger,
   skolepengerForsideUrl,
-} from '../../skolepenger/routing/routes';
+} from '../../søknader/skolepenger/routing/routes';
 
 const er401Feil = (error: AxiosError) =>
   error && error.response && error.response.status === 401;

@@ -2,9 +2,8 @@ import { FC } from 'react';
 import LocaleTekst from '../../language/LocaleTekst';
 import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { IRoute } from '../../models/routes';
-import { useLocation } from 'react-router';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
 
 const StyledNavigeringsKnapper = styled.div`
@@ -59,11 +58,13 @@ const StyledNavigeringsKnapper = styled.div`
   }
 `;
 
+// TODO: Fjern nullable fra mellomlagreSteg
 interface Props {
   routesStønad: IRoute[];
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   disableNesteKnapp?: boolean;
+  mellomlagreSteg?: () => void;
 }
 
 const TilbakeNesteAvbrytKnapper: FC<Props> = ({
@@ -71,6 +72,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   erSpørsmålBesvart,
   mellomlagreStønad,
   disableNesteKnapp,
+  mellomlagreSteg,
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -96,7 +98,9 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           variant="primary"
           disabled={disableNesteKnapp}
           onClick={() => {
-            if (mellomlagreStønad) {
+            if (mellomlagreSteg) {
+              mellomlagreSteg();
+            } else if (mellomlagreStønad) {
               mellomlagreStønad(location.pathname);
             }
             navigate(nesteRoute.path);

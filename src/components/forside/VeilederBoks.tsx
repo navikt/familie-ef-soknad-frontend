@@ -18,7 +18,6 @@ export const VeilederBoks: React.FC<VeilederBoksProps> = ({ navn }) => {
   const { person } = usePersonContext();
 
   const søkerNavn = navn ? navn : person.søker.forkortetNavn;
-
   return (
     <VeilederContainer>
       <VeilederSnakkeboble

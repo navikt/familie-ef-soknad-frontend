@@ -11,10 +11,8 @@ import {
 } from '../helpers/labels';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
-import { ForrigeSøknad, SøknadBarnetilsyn } from '../barnetilsyn/models/søknad';
+import { ForrigeSøknad } from '../søknader/barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
-import { ISøknad as SøknadOvergangsstønad } from '../models/søknad/søknad';
-import { ISøknad as SøknadSkolepenger } from '../skolepenger/models/søknad';
 
 const axiosConfig = {
   withCredentials: true,
@@ -198,13 +196,3 @@ export const oppdaterBarnMedLabel = (
 
     return barnMedLabel;
   });
-
-export const erBarnetilsynSøknad = (
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
-): boolean => {
-  return (
-    !('merOmDinSituasjon' in søknad) &&
-    !('utdanning' in søknad) &&
-    'aktivitet' in søknad
-  );
-};
