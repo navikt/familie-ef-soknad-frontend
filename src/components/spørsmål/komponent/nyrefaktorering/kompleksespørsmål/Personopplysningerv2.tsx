@@ -3,7 +3,6 @@ import {
   Alert,
   BodyShort,
   Box,
-  Label,
   Radio,
   RadioGroup,
   VStack,
