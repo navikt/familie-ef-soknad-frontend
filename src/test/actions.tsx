@@ -1,7 +1,7 @@
 import { render } from './render';
 import { TestContainer } from './TestContainer';
 import { OvergangsstønadApp } from '../søknader/overgangsstønad/OvergangsstønadApp';
-import { ByRoleMatcher, Screen, waitFor, within } from '@testing-library/dom';
+import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
 import { UserEvent } from '@testing-library/user-event/index';
 
@@ -60,12 +60,4 @@ export const skrivFritekst = async (
   user: UserEvent
 ) => {
   await user.type(screen.getByRole('textbox', { name: name }), fritekst);
-};
-
-export const forventFelt = (
-  role: ByRoleMatcher,
-  name: string,
-  screen: Screen
-) => {
-  expect(screen.getByRole(role, { name: name })).toBeInTheDocument();
 };

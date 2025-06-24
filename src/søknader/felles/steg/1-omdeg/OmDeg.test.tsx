@@ -1,7 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
 import { mockGet, settOppMellomlagretSøknad } from '../../../../test/axios';
 import {
-  forventFelt,
   klikkCheckbox,
   klikkSvarRadioknapp,
   navigerTilOmDeg,
@@ -210,7 +209,7 @@ describe('OmDegSteg, sivilstatus', () => {
     ).toBeInTheDocument();
   });
 
-  test('Rendrer riktige felt for årsak:samlivsbrudd med den andre forelderen, samt neste spørsmål (medlemskap)', async () => {
+  test('Rendrer felt for årsak:samlivsbrudd med den andre forelderen, samt nestehovedspørsmål', async () => {
     settOppMellomlagretSøknad();
     const { screen, user } = await navigerTilOmDeg();
 
@@ -247,7 +246,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
   });
 
-  test('Rendrer riktige felt for årsak:samlivsbrudd med noen andre, samt neste spørsmål (medlemskap)', async () => {
+  test('Rendrer felt for årsak:samlivsbrudd med noen andre, samt neste nestehovedspørsmål', async () => {
     settOppMellomlagretSøknad();
     const { screen, user } = await navigerTilOmDeg();
 
@@ -331,7 +330,7 @@ describe('OmDegSteg, sivilstatus', () => {
     ).toBeInTheDocument();
   });
 
-  test('Navn, avhuket kjennerIkkeIdent og fødselsdato skal rendre neste spørsmål', async () => {
+  test('Navn, avhuket kjennerIkkeIdent og fødselsdato skal rendre neste hovedspørsmål', async () => {
     settOppMellomlagretSøknad();
     const { screen, user } = await navigerTilOmDeg();
 
@@ -358,13 +357,23 @@ describe('OmDegSteg, sivilstatus', () => {
       user
     );
 
-    forventFelt('textbox', 'Navn', screen);
-    forventFelt('textbox', 'Fødselsnummer / d-nummer (11 siffer)', screen);
-    forventFelt(
-      'checkbox',
-      'Jeg kjenner ikke fødselsnummer / d-nummer',
-      screen
-    );
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Navn',
+      })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Fødselsnummer / d-nummer (11 siffer)',
+      })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('checkbox', {
+        name: 'Jeg kjenner ikke fødselsnummer / d-nummer',
+      })
+    ).toBeInTheDocument();
 
     await skrivFritekst('Navn', 'Ola Nordmann', screen, user);
 
@@ -374,25 +383,160 @@ describe('OmDegSteg, sivilstatus', () => {
       user
     );
 
-    //Se om dette kan gjøres ryddigere
-
-    await user.click(
-      screen.getByRole('button', {
-        name: 'Åpne datovelger',
-      })
+    await user.type(
+      screen.getByRole('textbox', { name: 'Fødselsdato' }),
+      '02.06.1990'
     );
-    await user.click(screen.getByRole('button', { name: 'mandag 2' }));
+
     expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toHaveValue(
+      '02.06.1990'
+    );
+
+    await user.type(
+      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' }),
       '02.06.2025'
     );
 
-    const datoVelgere = screen.getAllByRole('button', {
-      name: 'Åpne datovelger',
-    });
+    expect(
+      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
+    ).toHaveValue('02.06.2025');
 
-    await user.click(datoVelgere[1]);
-    await user.click(screen.getByRole('button', { name: 'mandag 2' }));
+    expect(
+      screen.getByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).toBeInTheDocument();
+  });
 
-    forventFelt('group', 'Oppholder du og barnet/barna dere i Norge?', screen);
+  test('Rendrer neste hovedspørsmål etter årsak:alene med barn fra fødsel', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn fra fødsel',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('Rendrer felt for årsak:endring i omsorg for barn, samnt neste hovedspørsmål', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Endring i omsorgen for barn',
+      screen,
+      user
+    );
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Når skjedde endringen / når skal endringen skje?',
+      }),
+      '02.06.2025'
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('Rendrer infoboks årsak:alene pga. dødsfall, samnt neste hovedspørsmål', async () => {
+    settOppMellomlagretSøknad();
+    const { screen, user } = await navigerTilOmDeg();
+
+    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+
+    await klikkSvarRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkSvarRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByText(
+        'Når du er alene med barn på grunn av dødsfall, kan du ha rett til stønad til',
+        { exact: false } // De siste ordene er lenker, de sjekkes under
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('link', { name: 'gjenlevende' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'barnepensjon' })
+    ).toBeInTheDocument();
+
+    expect(screen.getByRole('link', { name: 'gjenlevende' })).toHaveAttribute(
+      'href',
+      'https://www.nav.no/no/person/pensjon/andre-pensjonsordninger/ytelser-til-gjenlevende-ektefelle'
+    );
+    expect(screen.getByRole('link', { name: 'barnepensjon' })).toHaveAttribute(
+      'href',
+      'https://www.nav.no/no/person/pensjon/andre-pensjonsordninger/barnepensjon'
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).toBeInTheDocument();
   });
 });
