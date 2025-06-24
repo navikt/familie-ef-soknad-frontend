@@ -13,7 +13,7 @@ import LocaleTekst from '../../../../../language/LocaleTekst';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
 import styles from './PersonopplysningerV2.module.css';
 
-export const Personopplysningerv2: React.FC = () => {
+export const PersonopplysningerV2: React.FC = () => {
   const intl = useLokalIntlContext();
 
   const [borPåAdresse, settBorPåAdresse] = useState<string>();
