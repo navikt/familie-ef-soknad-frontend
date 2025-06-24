@@ -3,6 +3,7 @@ import {
   Alert,
   BodyShort,
   Box,
+  Label,
   Radio,
   RadioGroup,
   VStack,
@@ -11,7 +12,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
-import styles from '../spørsmåltyper/SingleSelectSpørsmålKomponent.module.css';
+import styles from './PersonopplysningerV2.module.css';
 
 export const Personopplysningerv2: React.FC = () => {
   const intl = useLokalIntlContext();
