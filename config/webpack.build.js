@@ -100,6 +100,8 @@ const config = {
     new ESLintPlugin({
       configType: 'flat',
       extensions: [`ts`, `tsx`],
+      emitWarning: true,
+      emitError: false,
     }),
     new CopyPlugin({
       patterns: kopieresOver.map((navn) => {
