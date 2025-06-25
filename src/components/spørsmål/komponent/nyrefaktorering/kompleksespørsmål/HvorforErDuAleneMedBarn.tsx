@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Box, Radio, RadioGroup, VStack } from '@navikt/ds-react';
+import { Alert, Box, DatePicker, Radio, RadioGroup, useDatepicker, VStack } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
@@ -11,8 +11,15 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
   const intl = useLokalIntlContext();
 
   const [aleneMedBarnÅrsak, settAleneMedBarnÅrsak] = useState<string>();
+  const [samlivsbruddDatoVerdi, settSamlivsbruddDatoVerdi] = useState<Date | undefined>();
 
   const skalViseOmDenTidligereSamboerenDin = aleneMedBarnÅrsak === 'samlivsbrudd-med-noen-andre';
+  const skalViseDatoForSamlivsbrudd = aleneMedBarnÅrsak === 'samlivsbrudd-med-den-andre-forelderen';
+
+  const samlivsBruddDato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: settSamlivsbruddDatoVerdi,
+  });
 
   return (
     <VStack gap="6">
@@ -64,7 +71,22 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
         )}
       </SpørsmålWrapper>
 
-      {/* 2. Om  den tidligere samboeren din. */}
+      {/* 2. Dato for samlivsbrudd. */}
+      {skalViseDatoForSamlivsbrudd && (
+        <VStack gap={'6'}>
+          <DatePicker {...samlivsBruddDato.datepickerProps}>
+            <DatePicker.Input
+              {...samlivsBruddDato.inputProps}
+              label={hentTekst('sivilstatus.datovelger.samlivsbrudd', intl)}
+            />
+          </DatePicker>
+          <Alert variant="info" inline size={'small'}>
+            {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
+          </Alert>
+        </VStack>
+      )}
+
+      {/* 3. Om  den tidligere samboeren din. */}
       {skalViseOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
     </VStack>
   );
