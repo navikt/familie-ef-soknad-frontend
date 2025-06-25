@@ -12,9 +12,13 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
 
   const [aleneMedBarnÅrsak, settAleneMedBarnÅrsak] = useState<string>();
   const [samlivsbruddDatoVerdi, settSamlivsbruddDatoVerdi] = useState<Date | undefined>();
+  const [oppholdesINorgeMedBarn, settOppholdesINorgeMedBarn] = useState<string>();
 
   const skalViseOmDenTidligereSamboerenDin = aleneMedBarnÅrsak === 'samlivsbrudd-med-noen-andre';
   const skalViseDatoForSamlivsbrudd = aleneMedBarnÅrsak === 'samlivsbrudd-med-den-andre-forelderen';
+  const skalViseOppholdMedBarnINorge =
+    aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-fra-fødsel' ||
+    aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-på-grunn-av-dødsfall';
 
   const samlivsBruddDato = useDatepicker({
     toDate: new Date(),
@@ -88,6 +92,27 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
 
       {/* 3. Om  den tidligere samboeren din. */}
       {skalViseOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
+
+      {/* 4. Oppholder du og barnet/barna dere i Norge? */}
+      {skalViseOppholdMedBarnINorge && (
+        <SpørsmålWrapper tittel={hentTekst('medlemskap.spm.opphold', intl)}>
+          <RadioGroup
+            legend={hentTekst('medlemskap.spm.opphold', intl)}
+            hideLegend
+            onChange={settOppholdesINorgeMedBarn}
+            value={oppholdesINorgeMedBarn}
+          >
+            <div className={styles.stackHorizontal}>
+              <Box className={styles.radioBox}>
+                <Radio value="ja">{hentTekst('svar.ja', intl)}</Radio>
+              </Box>
+              <Box className={styles.radioBox}>
+                <Radio value="nei">{hentTekst('svar.nei', intl)}</Radio>
+              </Box>
+            </div>
+          </RadioGroup>
+        </SpørsmålWrapper>
+      )}
     </VStack>
   );
 };
