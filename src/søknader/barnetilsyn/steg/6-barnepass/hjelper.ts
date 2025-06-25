@@ -5,18 +5,12 @@ import {
   erPeriodeGyldig,
   strengTilDato,
 } from '../../../../utils/dato';
-import {
-  ETypeBarnepassOrdning,
-  IBarnepassOrdning,
-} from '../../models/barnepass';
+import { ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
-import {
-  IDatoFelt,
-  ISpørsmålBooleanFelt,
-} from '../../../../models/søknad/søknadsfelter';
+import { IDatoFelt, ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 
 export const harBarnAvsluttetFjerdeKlasse = (fødselsdato: string): boolean => {
   const juniEllerFør = dagensDato.getMonth() < 6;
@@ -38,9 +32,7 @@ export const erÅrsakBarnepassSpmBesvart = (barn: IBarn): boolean => {
   );
 };
 
-export const erBarnepassOrdningerUtfylt = (
-  barnepassordninger: IBarnepassOrdning[]
-): boolean => {
+export const erBarnepassOrdningerUtfylt = (barnepassordninger: IBarnepassOrdning[]): boolean => {
   const erBarnepassOrdningUtfylt = (barnepassordning: IBarnepassOrdning) => {
     const { hvaSlagsBarnepassOrdning, navn, periode, belop } = barnepassordning;
     return (
@@ -51,9 +43,7 @@ export const erBarnepassOrdningerUtfylt = (
     );
   };
 
-  return barnepassordninger.every((barnepassordning) =>
-    erBarnepassOrdningUtfylt(barnepassordning)
-  );
+  return barnepassordninger.every((barnepassordning) => erBarnepassOrdningUtfylt(barnepassordning));
 };
 
 export const erBarnepassStegFerdigUtfylt = (
@@ -67,10 +57,7 @@ export const erBarnepassStegFerdigUtfylt = (
     søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.neiNavKanVurdere;
   const erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart =
     erBarnepassForAlleBarnUtfylt(barnSomSkalHaBarnepass);
-  return (
-    erSpørsmålSøkerFraBestemtMånedBesvart &&
-    erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart
-  );
+  return erSpørsmålSøkerFraBestemtMånedBesvart && erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart;
 };
 
 export const erBarnepassForAlleBarnUtfylt = (barn: IBarn[]) => {
@@ -117,9 +104,7 @@ export const skalDokumentereTidligereFakturaer = (
   søkerFraBestemtMåned?: ISpørsmålBooleanFelt,
   søknadsdato?: IDatoFelt
 ): boolean => {
-  const harValgtBHGellerSFO = harBarnMedBarbehageOgLignende(
-    barnSomSkalHaBarnepass
-  );
+  const harValgtBHGellerSFO = harBarnMedBarbehageOgLignende(barnSomSkalHaBarnepass);
 
   const harSøktMinstEnMånedTilbakeITid: boolean =
     søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.ja &&
@@ -127,8 +112,6 @@ export const skalDokumentereTidligereFakturaer = (
     erEnMånedTilbakeITid(søknadsdato.verdi);
 
   return (
-    harSøktMinstEnMånedTilbakeITid &&
-    harValgtBHGellerSFO &&
-    søkerFraBestemtMåned?.verdi === true
+    harSøktMinstEnMånedTilbakeITid && harValgtBHGellerSFO && søkerFraBestemtMåned?.verdi === true
   );
 };

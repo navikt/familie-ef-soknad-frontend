@@ -15,8 +15,7 @@ export const hentDokumentasjonTilFlersvarSpørsmål = (
       (behov) => behov.svarid !== valgtSvar.id
     );
   } else if (erHuketAv === false) {
-    valgtSvar.dokumentasjonsbehov &&
-      endretDokumentasjonsbehov.push(valgtSvar.dokumentasjonsbehov);
+    valgtSvar.dokumentasjonsbehov && endretDokumentasjonsbehov.push(valgtSvar.dokumentasjonsbehov);
   }
   return leggTilDokumentasjonLabel(endretDokumentasjonsbehov, intl);
 };
@@ -30,10 +29,7 @@ export const oppdaterDokumentasjonTilEtSvarSpørsmål = (
   let endretDokumentasjon = dokumentasjonsbehov.filter(
     (behov) => behov.spørsmålid !== spørsmål.søknadid
   );
-  endretDokumentasjon = leggTilDokumentasjonsbehov(
-    endretDokumentasjon,
-    valgtSvar
-  );
+  endretDokumentasjon = leggTilDokumentasjonsbehov(endretDokumentasjon, valgtSvar);
   return leggTilDokumentasjonLabel(endretDokumentasjon, intl);
 };
 
@@ -70,10 +66,7 @@ export const oppdaterDokumentasjonTilEtSvarSpørsmålForBarn = (
   return leggTilDokumentasjonLabel(endretDokumentasjon, intl);
 };
 
-function leggTilDokumentasjonLabel(
-  dokumentasjon: IDokumentasjon[],
-  intl: LokalIntlShape
-) {
+function leggTilDokumentasjonLabel(dokumentasjon: IDokumentasjon[], intl: LokalIntlShape) {
   return dokumentasjon.map((dokumentasjonsbehov) => {
     return {
       ...dokumentasjonsbehov,

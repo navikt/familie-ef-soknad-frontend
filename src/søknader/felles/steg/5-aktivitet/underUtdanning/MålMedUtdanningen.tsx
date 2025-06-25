@@ -1,9 +1,6 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import {
-  EUtdanning,
-  IUnderUtdanning,
-} from '../../../../../models/steg/aktivitet/utdanning';
+import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { hentTekst } from '../../../../../utils/søknad';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
@@ -18,21 +15,11 @@ interface Props {
   stønadstype: Stønadstype;
 }
 
-const MålMedUtdanningen: React.FC<Props> = ({
-  utdanning,
-  oppdaterUtdanning,
-  stønadstype,
-}) => {
+const MålMedUtdanningen: React.FC<Props> = ({ utdanning, oppdaterUtdanning, stønadstype }) => {
   const intl = useLokalIntlContext();
 
-  const settMålMedUtdanning = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ): void => {
-    oppdaterUtdanning(
-      EUtdanning.målMedUtdanning,
-      målMedUtdanningLabel,
-      e.currentTarget.value
-    );
+  const settMålMedUtdanning = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    oppdaterUtdanning(EUtdanning.målMedUtdanning, målMedUtdanningLabel, e.currentTarget.value);
   };
 
   const målMedUtdanningLabel = hentTekst('utdanning.spm.mål', intl);
@@ -43,11 +30,7 @@ const MålMedUtdanningen: React.FC<Props> = ({
         <Textarea
           autoComplete={'off'}
           label={målMedUtdanningLabel}
-          value={
-            utdanning.målMedUtdanning?.verdi
-              ? utdanning.målMedUtdanning?.verdi
-              : ''
-          }
+          value={utdanning.målMedUtdanning?.verdi ? utdanning.målMedUtdanning?.verdi : ''}
           maxLength={1000}
           onChange={(e) => settMålMedUtdanning(e)}
         />
@@ -59,9 +42,7 @@ const MålMedUtdanningen: React.FC<Props> = ({
             <LocaleTekst tekst="utdanning.alert-tittel.mål" />
           </Label>
           <BodyShort>
-            <LocaleTekst
-              tekst={`utdanning.alert-beskrivelse.mål.${stønadstype}`}
-            />
+            <LocaleTekst tekst={`utdanning.alert-beskrivelse.mål.${stønadstype}`} />
           </BodyShort>
         </AlertStripeDokumentasjon>
       </FeltGruppe>

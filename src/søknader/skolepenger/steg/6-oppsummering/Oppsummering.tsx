@@ -40,31 +40,20 @@ const Oppsummering: React.FC = () => {
           <KomponentGruppe>
             <Accordion>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.omDeg', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.omDeg', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringOmDeg
                     søker={søknad.person.søker}
-                    søkerBorPåRegistrertAdresse={
-                      søknad.søkerBorPåRegistrertAdresse
-                    }
-                    harMeldtAdresseendring={
-                      søknad.adresseopplysninger?.harMeldtAdresseendring
-                    }
+                    søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
+                    harMeldtAdresseendring={søknad.adresseopplysninger?.harMeldtAdresseendring}
                     sivilstatus={søknad.sivilstatus}
                     medlemskap={søknad.medlemskap}
-                    endreInformasjonPath={hentPath(
-                      RoutesSkolepenger,
-                      ERouteSkolepenger.OmDeg
-                    )}
+                    endreInformasjonPath={hentPath(RoutesSkolepenger, ERouteSkolepenger.OmDeg)}
                   />
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.bosituasjon', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.bosituasjon', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringBosituasjonenDin
                     bosituasjon={søknad.bosituasjon}
@@ -76,24 +65,17 @@ const Oppsummering: React.FC = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('barnadine.sidetittel', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('barnadine.sidetittel', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringBarnaDine
                     stønadstype={Stønadstype.skolepenger}
                     barn={søknad.person.barn}
-                    endreInformasjonPath={hentPath(
-                      RoutesSkolepenger,
-                      ERouteSkolepenger.BarnaDine
-                    )}
+                    endreInformasjonPath={hentPath(RoutesSkolepenger, ERouteSkolepenger.BarnaDine)}
                   />
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('barnasbosted.sidetittel', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('barnasbosted.sidetittel', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringBarnasBosituasjon
                     barn={søknad.person.barn}
@@ -106,16 +88,11 @@ const Oppsummering: React.FC = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.utdanning', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.utdanning', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringDetaljertUtdanning
                     utdanning={søknad.utdanning}
-                    endreInformasjonPath={hentPath(
-                      RoutesSkolepenger,
-                      ERouteSkolepenger.Utdanning
-                    )}
+                    endreInformasjonPath={hentPath(RoutesSkolepenger, ERouteSkolepenger.Utdanning)}
                   />
                 </Accordion.Content>
               </Accordion.Item>

@@ -1,5 +1,5 @@
 import { DatoBegrensning } from './Datovelger';
-import { addYears, compareAsc, isEqual, subYears, addMonths } from 'date-fns';
+import { addMonths, addYears, compareAsc, isEqual, subYears } from 'date-fns';
 import { dagensDato, erGyldigDato, strengTilDato } from '../../utils/dato';
 import { IPeriode } from '../../models/felles/periode';
 
@@ -60,14 +60,8 @@ export const erPeriodeInnaforBegrensninger = (
   periode: IPeriode,
   datobegrensning: DatoBegrensning
 ): boolean => {
-  const erFraDatoInnafor = erDatoInnaforBegrensinger(
-    periode.fra.verdi,
-    datobegrensning
-  );
-  const erTilDatoInnafor = erDatoInnaforBegrensinger(
-    periode.til.verdi,
-    datobegrensning
-  );
+  const erFraDatoInnafor = erDatoInnaforBegrensinger(periode.fra.verdi, datobegrensning);
+  const erTilDatoInnafor = erDatoInnaforBegrensinger(periode.til.verdi, datobegrensning);
 
   return erFraDatoInnafor && erTilDatoInnafor;
 };
@@ -82,13 +76,10 @@ export const erPeriodeGyldigOgInnaforBegrensninger = (
     return false;
   }
 
-  const fom: Date | undefined =
-    periode.fra.verdi !== '' ? strengTilDato(fra.verdi) : undefined;
-  const tom: Date | undefined =
-    periode.til.verdi !== '' ? strengTilDato(til.verdi) : undefined;
+  const fom: Date | undefined = periode.fra.verdi !== '' ? strengTilDato(fra.verdi) : undefined;
+  const tom: Date | undefined = periode.til.verdi !== '' ? strengTilDato(til.verdi) : undefined;
 
-  const erFraDatoSenereEnnTilDato: boolean =
-    fom && tom ? compareAsc(fom, tom) === -1 : true;
+  const erFraDatoSenereEnnTilDato: boolean = fom && tom ? compareAsc(fom, tom) === -1 : true;
   const erDatoerLike = fom && tom ? isEqual(fom, tom) : false;
 
   return (
@@ -105,21 +96,17 @@ export const hentStartOgSluttDato = (
   sluttDato: Date | undefined;
 } => {
   const { til, fra } = periode;
-  const sluttDato: Date | undefined =
-    til.verdi !== '' ? strengTilDato(til.verdi) : undefined;
-  const startDato: Date | undefined =
-    fra.verdi !== '' ? strengTilDato(fra.verdi) : undefined;
+  const sluttDato: Date | undefined = til.verdi !== '' ? strengTilDato(til.verdi) : undefined;
+  const startDato: Date | undefined = fra.verdi !== '' ? strengTilDato(fra.verdi) : undefined;
   return { startDato, sluttDato };
 };
 
 export const erFraDatoSenereEnnTilDato = (
   startDato: Date | undefined,
   sluttDato: Date | undefined
-): boolean | undefined =>
-  startDato && sluttDato && compareAsc(startDato, sluttDato) === -1;
+): boolean | undefined => startDato && sluttDato && compareAsc(startDato, sluttDato) === -1;
 
 export const erDatoerLike = (
   startDato: Date | undefined,
   sluttDato: Date | undefined
-): boolean | undefined =>
-  startDato && sluttDato && isEqual(startDato, sluttDato);
+): boolean | undefined => startDato && sluttDato && isEqual(startDato, sluttDato);

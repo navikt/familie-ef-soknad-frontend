@@ -17,12 +17,8 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 
 const Bosituasjon: FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    søknad,
-    settSøknad,
-    settDokumentasjonsbehov,
-    mellomlagreSkolepenger,
-  } = useSkolepengerSøknad();
+  const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreSkolepenger } =
+    useSkolepengerSøknad();
   const bosituasjon = søknad.bosituasjon;
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);

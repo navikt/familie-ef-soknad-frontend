@@ -52,12 +52,9 @@ const Forside: React.FC = () => {
   const kanBrukeMellomlagretSøknad =
     mellomlagretBarnetilsyn !== undefined &&
     mellomlagretBarnetilsyn.søknad.person.hash === person.hash &&
-    mellomlagretBarnetilsyn.modellVersjon ===
-      Environment().modellVersjon.barnetilsyn;
+    mellomlagretBarnetilsyn.modellVersjon === Environment().modellVersjon.barnetilsyn;
 
-  const skalViseSpråkValg = !(
-    kanBrukeMellomlagretSøknad && mellomlagretBarnetilsyn
-  );
+  const skalViseSpråkValg = !(kanBrukeMellomlagretSøknad && mellomlagretBarnetilsyn);
 
   useSpråkValg(skalViseSpråkValg);
 

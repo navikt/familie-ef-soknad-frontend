@@ -17,26 +17,16 @@ interface Props {
   stønadstype: Stønadstype;
 }
 
-const OppsummeringBarnasBosituasjon: FC<Props> = ({
-  barn,
-  endreInformasjonPath,
-  stønadstype,
-}) => {
+const OppsummeringBarnasBosituasjon: FC<Props> = ({ barn, endreInformasjonPath, stønadstype }) => {
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
 
   const felterAlleForeldrene = barn
-    .filter((barn) =>
-      stønadstype == Stønadstype.barnetilsyn
-        ? barn.skalHaBarnepass?.verdi
-        : true
-    )
+    .filter((barn) => (stønadstype == Stønadstype.barnetilsyn ? barn.skalHaBarnepass?.verdi : true))
     .map((barn) => {
       if (!barn.forelder) return null;
 
-      const visningsIdent = barn.forelder.fraFolkeregister
-        ? undefined
-        : barn.forelder.ident;
+      const visningsIdent = barn.forelder.fraFolkeregister ? undefined : barn.forelder.ident;
 
       const visningForelder = {
         ...barn.forelder,
@@ -70,10 +60,7 @@ const OppsummeringBarnasBosituasjon: FC<Props> = ({
       <KomponentGruppe>{felterAlleForeldrene}</KomponentGruppe>
       <LenkeMedIkon
         onClick={() =>
-          navigate(
-            { pathname: endreInformasjonPath },
-            { state: { kommerFraOppsummering: true } }
-          )
+          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
         }
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}

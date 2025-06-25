@@ -8,10 +8,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { IForelder } from '../../../../models/steg/forelder';
 import { IBarn } from '../../../../models/steg/barn';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
-import {
-  hentBarnNavnEllerBarnet,
-  hentSpørsmålTekstMedNavnEllerBarn,
-} from '../../../../utils/barn';
+import { hentBarnNavnEllerBarnet, hentSpørsmålTekstMedNavnEllerBarn } from '../../../../utils/barn';
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
@@ -65,25 +62,16 @@ const SkalBarnetBoHosSøker: React.FC<Props> = ({
         <MultiSvarSpørsmålMedNavn
           key={skalBarnetBoHosSøkerConfig.søknadid}
           spørsmål={skalBarnetBoHosSøkerConfig}
-          spørsmålTekst={hentBarnNavnEllerBarnet(
-            barn,
-            skalBarnetBoHosSøkerConfig.tekstid,
-            intl
-          )}
+          spørsmålTekst={hentBarnNavnEllerBarnet(barn, skalBarnetBoHosSøkerConfig.tekstid, intl)}
           valgtSvar={forelder.skalBarnetBoHosSøker?.verdi}
           settSpørsmålOgSvar={settSkalBarnetBoHosSøkerFelt}
         />
       </KomponentGruppe>
-      {forelder.skalBarnetBoHosSøker?.svarid ===
-        ESkalBarnetBoHosSøker.jaMenSamarbeiderIkke && (
+      {forelder.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.jaMenSamarbeiderIkke && (
         <FeltGruppe>
           <AlertStripeDokumentasjon>
             <FormattedHtmlMessage
-              id={hentBarnNavnEllerBarnet(
-                barn,
-                'barnasbosted.alert.hvisFaktiskBor',
-                intl
-              )}
+              id={hentBarnNavnEllerBarnet(barn, 'barnasbosted.alert.hvisFaktiskBor', intl)}
             />
           </AlertStripeDokumentasjon>
         </FeltGruppe>

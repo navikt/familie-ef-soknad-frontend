@@ -28,11 +28,7 @@ const StyledCheckboxSpørsmål = styled.div`
 
 interface Props {
   spørsmål: ISpørsmål;
-  settValgteSvar: (
-    spørsmål: ISpørsmål,
-    svarHuketAv: boolean,
-    svar: ISvar
-  ) => void;
+  settValgteSvar: (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => void;
   valgteSvar: string[];
   skalLogges: boolean;
   brukSvarIdSomVerdi?: boolean;
@@ -80,13 +76,7 @@ const CheckboxSpørsmål: React.FC<Props> = ({
               checked={alleredeHuketAvISøknad}
               onChange={() => {
                 if (!alleredeHuketAvISøknad) {
-                  logSpørsmålBesvart(
-                    skjemanavn,
-                    skjemaId,
-                    legend,
-                    svar.svar_tekst,
-                    skalLogges
-                  );
+                  logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
                 }
 
                 settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);

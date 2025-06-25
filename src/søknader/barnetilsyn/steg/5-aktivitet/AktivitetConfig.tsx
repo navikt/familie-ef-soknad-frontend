@@ -10,8 +10,7 @@ import { LokalIntlShape } from '../../../../language/typer';
 
 // --- DOKUMENTASJON
 
-export const DokumentasjonSyk: IDokumentasjon =
-  DokumentasjonsConfig.DokumentasjonSyk;
+export const DokumentasjonSyk: IDokumentasjon = DokumentasjonsConfig.DokumentasjonSyk;
 
 export const DokumentasjonOmVirksomhetenDuEtablerer: IDokumentasjon =
   DokumentasjonsConfig.DokumentasjonOmVirksomhetenDuEtablerer;
@@ -36,9 +35,7 @@ export const ErDuIArbeidSpm = (intl: LokalIntlShape): ISpørsmål => ({
   ],
 });
 
-export const hvaErDinArbeidssituasjonSpm = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const hvaErDinArbeidssituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
   tekstid: 'arbeidssituasjon.spm',
   lesmer: {

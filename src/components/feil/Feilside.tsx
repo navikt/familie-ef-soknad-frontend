@@ -26,11 +26,7 @@ const Feilside: FC<{ tekstId?: string; alvorlighetsgrad?: string }> = ({
   return (
     <div className="feilside">
       <Alert variant={variant}>
-        {tekstId ? (
-          <FormattedHtmlMessage id={tekstId} />
-        ) : (
-          intl.formatMessage({ id: 'feil.alert' })
-        )}
+        {tekstId ? <FormattedHtmlMessage id={tekstId} /> : intl.formatMessage({ id: 'feil.alert' })}
       </Alert>
     </div>
   );

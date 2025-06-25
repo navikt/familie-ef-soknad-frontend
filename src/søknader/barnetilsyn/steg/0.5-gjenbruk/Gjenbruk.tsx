@@ -1,12 +1,6 @@
 import React, { FC } from 'react';
-import {
-  ERouteBarnetilsyn,
-  RoutesBarnetilsyn,
-} from '../../routing/routesBarnetilsyn';
-import {
-  EEventsnavn,
-  logSidevisningBarnetilsyn,
-} from '../../../../utils/amplitude';
+import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { EEventsnavn, logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Box, GuidePanel } from '@navikt/ds-react';
@@ -58,13 +52,9 @@ const Gjenbruk: FC = () => {
                 )}
               </BodyShort>
 
-              <BodyShort>
-                {hentTekst('tidligere.barnetilsyn.søknad.finnes', intl)}
-              </BodyShort>
+              <BodyShort>{hentTekst('tidligere.barnetilsyn.søknad.finnes', intl)}</BodyShort>
 
-              <BodyShort>
-                {hentTekst('gjenbruk.tidligere.barnetilsyn.søknad', intl)}
-              </BodyShort>
+              <BodyShort>{hentTekst('gjenbruk.tidligere.barnetilsyn.søknad', intl)}</BodyShort>
             </BodyShortContainer>
             <SenterContainer>
               <KnappContainer>

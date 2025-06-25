@@ -8,10 +8,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import FormattedMessage from '../../../../language/FormattedMessage';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
-import {
-  Datovelger,
-  DatoBegrensning,
-} from '../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 
 interface Props {
@@ -38,12 +35,7 @@ const RadiopanelWrapper = styled.div`
   }
 `;
 
-const LeggTilBarnUfødt: React.FC<Props> = ({
-  settBo,
-  boHosDeg,
-  settDato,
-  barnDato,
-}) => {
+const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDato }) => {
   const intl = useLokalIntlContext();
 
   return (
@@ -60,10 +52,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
       {barnDato &&
-        erDatoGyldigOgInnaforBegrensninger(
-          barnDato,
-          DatoBegrensning.FremtidigeDatoer
-        ) && (
+        erDatoGyldigOgInnaforBegrensninger(barnDato, DatoBegrensning.FremtidigeDatoer) && (
           <KomponentGruppe>
             <RadiopanelWrapper>
               <RadioGroup

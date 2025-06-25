@@ -1,4 +1,4 @@
-import { object, string, array } from 'yup';
+import { array, object, string } from 'yup';
 import { dnr as dnrValidator, fnr as fnrValidator } from '@navikt/fnrvalidator';
 
 // eslint-disable-next-line
@@ -87,14 +87,10 @@ export const medlemskapSchema = object({
       object({
         periode: object({
           fra: object({
-            verdi: string()
-              .required()
-              .matches(datoRegex, 'Ikke en gyldig dato'),
+            verdi: string().required().matches(datoRegex, 'Ikke en gyldig dato'),
           }),
           til: object({
-            verdi: string()
-              .required()
-              .matches(datoRegex, 'Ikke en gyldig dato'),
+            verdi: string().required().matches(datoRegex, 'Ikke en gyldig dato'),
           }),
         }),
       })
@@ -115,8 +111,7 @@ export const sivilstatusSchema = object({
 });
 
 export const identErGyldig = (ident: string): boolean =>
-  fnrValidator(ident).status === 'valid' ||
-  dnrValidator(ident).status === 'valid';
+  fnrValidator(ident).status === 'valid' || dnrValidator(ident).status === 'valid';
 
 export const datoSkalGifteSegEllerBliSamboerSchema = object({
   verdi: string().required().matches(datoRegex, 'Ikke en gyldig dato'),
@@ -125,13 +120,9 @@ export const datoSkalGifteSegEllerBliSamboerSchema = object({
 export const identSchema = object({
   verdi: string()
     .required()
-    .test('ident', 'Ikke gyldig ident', (ident: string) =>
-      identErGyldig(ident)
-    ),
+    .test('ident', 'Ikke gyldig ident', (ident: string) => identErGyldig(ident)),
 });
 
 export const fødselsdatoSchema = object({
-  verdi: string()
-    .required('Fødselsdato mangler')
-    .matches(datoRegex, 'Ikke en gyldig dato'),
+  verdi: string().required('Fødselsdato mangler').matches(datoRegex, 'Ikke en gyldig dato'),
 });

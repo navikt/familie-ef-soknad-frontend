@@ -39,9 +39,7 @@ const OmFirmaeneDine: React.FC<Props> = ({
   overskuddsår,
 }) => {
   const [firmaer, settFirmaer] = useState<IFirma[]>(
-    arbeidssituasjon.firmaer
-      ? arbeidssituasjon.firmaer
-      : [tomtFirma(inkludertArbeidsmengde)]
+    arbeidssituasjon.firmaer ? arbeidssituasjon.firmaer : [tomtFirma(inkludertArbeidsmengde)]
   );
 
   useEffect(() => {

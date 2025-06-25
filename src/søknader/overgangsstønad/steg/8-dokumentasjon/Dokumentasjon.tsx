@@ -5,7 +5,7 @@ import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import SendSøknadKnapper from './SendSøknad';
 import { useLocation } from 'react-router-dom';
-import { usePrevious } from '../../../../utils/hooks';
+import { useMount, usePrevious } from '../../../../utils/hooks';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
 import Side, { ESide } from '../../../../components/side/Side';
@@ -14,7 +14,6 @@ import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -22,8 +21,7 @@ import { DokumentasjonBeskrivelse } from '../../../felles/steg/8-dokumentasjon/D
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { søknad, settSøknad, mellomlagreOvergangsstønad } =
-    useOvergangsstønadSøknad();
+  const { søknad, settSøknad, mellomlagreOvergangsstønad } = useOvergangsstønadSøknad();
   const location = useLocation();
   const { dokumentasjonsbehov } = søknad;
   const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
@@ -37,27 +35,22 @@ const Dokumentasjon: React.FC = () => {
     harSendtInnTidligere: boolean
   ) => {
     settSøknad((prevSoknad: SøknadOvergangsstønad) => {
-      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map(
-        (dok) => {
-          return dok.id === dokumentasjonsid
-            ? {
-                ...dok,
-                opplastedeVedlegg: opplastedeVedlegg,
-                harSendtInn: harSendtInnTidligere,
-              }
-            : dok;
-        }
-      );
+      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map((dok) => {
+        return dok.id === dokumentasjonsid
+          ? {
+              ...dok,
+              opplastedeVedlegg: opplastedeVedlegg,
+              harSendtInn: harSendtInnTidligere,
+            }
+          : dok;
+      });
       return { ...prevSoknad, dokumentasjonsbehov: dokumentasjonMedVedlegg };
     });
   };
 
-  const debounceMellomlagreOvergangsstønad = useDebouncedCallback(
-    (pathName) => {
-      mellomlagreOvergangsstønad(pathName);
-    },
-    500
-  );
+  const debounceMellomlagreOvergangsstønad = useDebouncedCallback((pathName) => {
+    mellomlagreOvergangsstønad(pathName);
+  }, 500);
 
   useEffect(() => {
     if (forrigeDokumentasjonsbehov !== undefined) {
@@ -78,11 +71,7 @@ const Dokumentasjon: React.FC = () => {
             message: `Fjernet ugyldig vedlegg fra søknaden.`,
             level: 'warning',
           });
-          oppdaterDokumentasjon(
-            dokBehov.id,
-            gyldigeVedlegg,
-            dokBehov.harSendtInn
-          );
+          oppdaterDokumentasjon(dokBehov.id, gyldigeVedlegg, dokBehov.harSendtInn);
         }
       }
     });
@@ -99,9 +88,7 @@ const Dokumentasjon: React.FC = () => {
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}
     >
-      <DokumentasjonBeskrivelse
-        harDokumentasjonsbehov={harDokumentasjonsbehov}
-      />
+      <DokumentasjonBeskrivelse harDokumentasjonsbehov={harDokumentasjonsbehov} />
       <SeksjonGruppe>
         {dokumentasjonsbehov
           .filter(unikeDokumentasjonsbehov)

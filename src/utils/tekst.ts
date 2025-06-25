@@ -4,9 +4,7 @@ export const storeForbokstaver = (tekst: string): string => {
     .map((ord) =>
       ord
         .split('-')
-        .map(
-          (navn) => navn.charAt(0).toUpperCase() + navn.slice(1).toLowerCase()
-        )
+        .map((navn) => navn.charAt(0).toUpperCase() + navn.slice(1).toLowerCase())
         .join('-')
     )
     .join(' ');

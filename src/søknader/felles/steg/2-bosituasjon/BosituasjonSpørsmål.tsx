@@ -3,10 +3,7 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import {
-  ESøkerDelerBolig,
-  IBosituasjon,
-} from '../../../../models/steg/bosituasjon';
+import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import SøkerSkalFlytteSammenEllerFåSamboer from './SøkerSkalFlytteSammenEllerFåSamboer';
 import EkteskapsliknendeForhold from './EkteskapsliknendeForhold';
@@ -14,10 +11,7 @@ import OmTidligereSamboer from './OmTidligereSamboer';
 import { hentTekst } from '../../../../utils/søknad';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { delerSøkerBoligMedAndreVoksne } from './BosituasjonConfig';
-import {
-  erValgtSvarLiktSomSvar,
-  harValgtSvar,
-} from '../../../../utils/spørsmålogsvar';
+import { erValgtSvarLiktSomSvar, harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -27,11 +21,7 @@ import { Alert } from '@navikt/ds-react';
 interface Props {
   bosituasjon: IBosituasjon;
   settBosituasjon: (bosituasjon: IBosituasjon) => void;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 const BosituasjonSpørsmål: FC<Props> = ({
@@ -41,8 +31,7 @@ const BosituasjonSpørsmål: FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
-  const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetFraHverandre } =
-    bosituasjon;
+  const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetFraHverandre } = bosituasjon;
 
   const hovedSpørsmål: ISpørsmål = delerSøkerBoligMedAndreVoksne(intl);
 
@@ -63,21 +52,16 @@ const BosituasjonSpørsmål: FC<Props> = ({
     settDokumentasjonsbehov(spørsmål, svar);
   };
 
-  const valgtSvar: ISvar | undefined = hovedSpørsmål.svaralternativer.find(
-    (svar) =>
-      erValgtSvarLiktSomSvar(delerBoligMedAndreVoksne.verdi, svar.svar_tekst)
+  const valgtSvar: ISvar | undefined = hovedSpørsmål.svaralternativer.find((svar) =>
+    erValgtSvarLiktSomSvar(delerBoligMedAndreVoksne.verdi, svar.svar_tekst)
   );
 
   const harSøkerEkteskapsliknendeForhold =
-    delerBoligMedAndreVoksne.svarid ===
-    ESøkerDelerBolig.harEkteskapsliknendeForhold;
+    delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.harEkteskapsliknendeForhold;
 
   const harSattDatoFlyttetFraHverandre: boolean = !!(
     datoFlyttetFraHverandre?.verdi &&
-    erDatoGyldigOgInnaforBegrensninger(
-      datoFlyttetFraHverandre?.verdi,
-      DatoBegrensning.AlleDatoer
-    )
+    erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, DatoBegrensning.AlleDatoer)
   );
   const tidligereSamboerFortsattRegistrertPåAdresse =
     delerBoligMedAndreVoksne.svarid ===
@@ -87,10 +71,8 @@ const BosituasjonSpørsmål: FC<Props> = ({
     harValgtSvar(datoFlyttetFraHverandre?.verdi);
 
   const planerOmÅFlytteSammenEllerFåSamboer =
-    delerBoligMedAndreVoksne.svarid ===
-      ESøkerDelerBolig.borAleneMedBarnEllerGravid ||
-    delerBoligMedAndreVoksne.svarid ===
-      ESøkerDelerBolig.delerBoligMedAndreVoksne ||
+    delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.borAleneMedBarnEllerGravid ||
+    delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.delerBoligMedAndreVoksne ||
     tidligereSamboerFortsattRegistrertPåAdresse;
 
   return (
@@ -121,10 +103,7 @@ const BosituasjonSpørsmål: FC<Props> = ({
       {delerBoligMedAndreVoksne.svarid ===
         ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse && (
         <SeksjonGruppe>
-          <OmTidligereSamboer
-            bosituasjon={bosituasjon}
-            settBosituasjon={settBosituasjon}
-          />
+          <OmTidligereSamboer bosituasjon={bosituasjon} settBosituasjon={settBosituasjon} />
         </SeksjonGruppe>
       )}
 
@@ -139,10 +118,7 @@ const BosituasjonSpørsmål: FC<Props> = ({
       )}
 
       {harSøkerEkteskapsliknendeForhold && (
-        <EkteskapsliknendeForhold
-          settBosituasjon={settBosituasjon}
-          bosituasjon={bosituasjon}
-        />
+        <EkteskapsliknendeForhold settBosituasjon={settBosituasjon} bosituasjon={bosituasjon} />
       )}
     </>
   );

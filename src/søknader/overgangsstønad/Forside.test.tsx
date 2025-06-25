@@ -6,11 +6,7 @@ import { OvergangsstønadApp } from './OvergangsstønadApp';
 import { TestContainer } from '../../test/TestContainer';
 import { mockGet } from '../../test/axios';
 import axios from 'axios';
-import {
-  lagPersonData,
-  lagSistInnsendteSøknad,
-  lagSøker,
-} from '../../test/utils';
+import { lagPersonData, lagSistInnsendteSøknad, lagSøker } from '../../test/utils';
 import Environment from '../../Environment';
 
 vi.mock('axios', () => {
@@ -105,10 +101,7 @@ describe('Forside for overgangsstønad', () => {
 
   test('skal vise varsel om tidligere innsendt søknad', async () => {
     (axios.get as any).mockImplementation((url: string) => {
-      if (
-        url ===
-        `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`
-      ) {
+      if (url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`) {
         return Promise.resolve({
           data: [lagSistInnsendteSøknad({ søknadsdato: '2025-05-17' })],
         });
@@ -137,9 +130,7 @@ describe('Forside for overgangsstønad', () => {
         })
       ).toBeInTheDocument();
     });
-    expect(
-      screen.getByText('Du søkte om OVERGANGSSTØNAD den 17.05.2025.')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Du søkte om OVERGANGSSTØNAD den 17.05.2025.')).toBeInTheDocument();
 
     expect(
       screen.getByText(
@@ -169,9 +160,7 @@ describe('Forside for overgangsstønad', () => {
       expect(velkomsthilsen).toBeInTheDocument();
     });
 
-    expect(
-      screen.queryByRole('button', { name: 'Start søknad' })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Start søknad' })).not.toBeInTheDocument();
     await user.click(
       screen.getByRole('checkbox', {
         name: 'Jeg, Ola Nordmann, bekrefter at jeg vil gi riktige og fullstendige opplysninger',
@@ -179,12 +168,8 @@ describe('Forside for overgangsstønad', () => {
     );
     expect(screen.getByRole('button', { name: 'Start søknad' })).toBeEnabled();
 
-    expect(
-      screen.queryByRole('heading', { level: 2, name: 'Om deg' })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 2, name: 'Om deg' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Start søknad' }));
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Om deg' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Om deg' })).toBeInTheDocument();
   });
 });

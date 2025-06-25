@@ -28,9 +28,7 @@ export const mockGet = (
       data: lagMellomlagretSøknadOvergangsstønad(),
     });
   }
-  if (
-    url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`
-  ) {
+  if (url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`) {
     return Promise.resolve({
       data: [],
     });

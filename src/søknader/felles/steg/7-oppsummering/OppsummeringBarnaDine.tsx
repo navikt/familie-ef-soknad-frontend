@@ -17,11 +17,7 @@ interface Props {
   endreInformasjonPath?: string;
 }
 
-const OppsummeringBarnaDine: React.FC<Props> = ({
-  barn,
-  stønadstype,
-  endreInformasjonPath,
-}) => {
+const OppsummeringBarnaDine: React.FC<Props> = ({ barn, stønadstype, endreInformasjonPath }) => {
   const intl = useLokalIntlContext();
   const navigate = useNavigate();
   const barnaDine: IBarn[] = barn;
@@ -45,11 +41,7 @@ const OppsummeringBarnaDine: React.FC<Props> = ({
     return nyttBarn;
   };
   const oppsummeringBarnaDine = barnaDine
-    .filter((barn) =>
-      stønadstype == Stønadstype.barnetilsyn
-        ? barn.skalHaBarnepass?.verdi
-        : true
-    )
+    .filter((barn) => (stønadstype == Stønadstype.barnetilsyn ? barn.skalHaBarnepass?.verdi : true))
     .map((barn) => {
       const endretBarn = hentEndretBarn(barn);
 
@@ -66,10 +58,7 @@ const OppsummeringBarnaDine: React.FC<Props> = ({
       <KomponentGruppe>{oppsummeringBarnaDine}</KomponentGruppe>
       <LenkeMedIkon
         onClick={() =>
-          navigate(
-            { pathname: endreInformasjonPath },
-            { state: { kommerFraOppsummering: true } }
-          )
+          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
         }
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}

@@ -12,10 +12,9 @@ export const filtrerAktivitetSvaralternativer = (
   );
 
   if (!harSøkerBarnUnderEttÅr) {
-    const filtrerteSvaralternativer: ISvar[] =
-      AktivitetSpørsmål.svaralternativer.filter(
-        (svar) => svar.id !== EAktivitet.erHjemmeMedBarnUnderEttÅr
-      );
+    const filtrerteSvaralternativer: ISvar[] = AktivitetSpørsmål.svaralternativer.filter(
+      (svar) => svar.id !== EAktivitet.erHjemmeMedBarnUnderEttÅr
+    );
     return {
       ...AktivitetSpørsmål,
       svaralternativer: filtrerteSvaralternativer,
@@ -23,10 +22,7 @@ export const filtrerAktivitetSvaralternativer = (
   } else return AktivitetSpørsmål;
 };
 
-export const fjernAktivitet = (
-  svarider: string[],
-  arbeidssituasjon: IAktivitet
-) => {
+export const fjernAktivitet = (svarider: string[], arbeidssituasjon: IAktivitet) => {
   const endretArbeidssituasjon = arbeidssituasjon;
 
   const erSvarid = (aktivitet: EAktivitet) => {
@@ -52,15 +48,9 @@ export const fjernAktivitet = (
 
   if (!erSvarid(EAktivitet.erAnsattIEgetAS) && endretArbeidssituasjon.egetAS)
     delete endretArbeidssituasjon.egetAS;
-  if (
-    !erSvarid(EAktivitet.erArbeidssøker) &&
-    endretArbeidssituasjon.arbeidssøker
-  )
+  if (!erSvarid(EAktivitet.erArbeidssøker) && endretArbeidssituasjon.arbeidssøker)
     delete endretArbeidssituasjon.arbeidssøker;
-  if (
-    !erSvarid(EAktivitet.tarUtdanning) &&
-    endretArbeidssituasjon.underUtdanning
-  )
+  if (!erSvarid(EAktivitet.tarUtdanning) && endretArbeidssituasjon.underUtdanning)
     delete endretArbeidssituasjon.underUtdanning;
 
   return endretArbeidssituasjon;

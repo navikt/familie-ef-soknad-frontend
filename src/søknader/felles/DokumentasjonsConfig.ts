@@ -1,4 +1,5 @@
 import {
+  AdresseopplysningerDokumentasjon,
   AktivitetDokumentasjon,
   BarnasBostedDokumentasjon,
   BarnDokumentasjon,
@@ -6,25 +7,18 @@ import {
   BosituasjonDokumentasjon,
   IDokumentasjon,
   OmDegDokumentasjon,
-  AdresseopplysningerDokumentasjon,
   SituasjonDokumentasjon,
 } from '../../models/steg/dokumentasjon';
 import { EArbeidssøker } from '../../models/steg/aktivitet/arbeidssøker';
 import { ESvar } from '../../models/felles/spørsmålogsvar';
-import {
-  EAktivitet,
-  EArbeidssituasjon,
-} from '../../models/steg/aktivitet/aktivitet';
+import { EAktivitet, EArbeidssituasjon } from '../../models/steg/aktivitet/aktivitet';
 import { EUtdanning } from '../../models/steg/aktivitet/utdanning';
 import {
   DinSituasjonType,
   ESagtOppEllerRedusertStilling,
   ESituasjon,
 } from '../../models/steg/dinsituasjon/meromsituasjon';
-import {
-  EArbeidsgiver,
-  EStilling,
-} from '../../models/steg/aktivitet/arbeidsgiver';
+import { EArbeidsgiver, EStilling } from '../../models/steg/aktivitet/arbeidsgiver';
 import { EBarn } from '../../models/steg/barn';
 import {
   EBarnepass,
@@ -33,14 +27,8 @@ import {
 } from '../barnetilsyn/models/barnepass';
 import { EBosituasjon, ESøkerDelerBolig } from '../../models/steg/bosituasjon';
 import { EForelder } from '../../models/steg/forelder';
-import {
-  EHarSkriftligSamværsavtale,
-  ESkalBarnetBoHosSøker,
-} from '../../models/steg/barnasbosted';
-import {
-  EBegrunnelse,
-  ESivilstatusSøknadid,
-} from '../../models/steg/omDeg/sivilstatus';
+import { EHarSkriftligSamværsavtale, ESkalBarnetBoHosSøker } from '../../models/steg/barnasbosted';
+import { EBegrunnelse, ESivilstatusSøknadid } from '../../models/steg/omDeg/sivilstatus';
 import { EAdresseopplysninger } from '../../models/steg/adresseopplysninger';
 
 type IDokumentasjonsConfig = {

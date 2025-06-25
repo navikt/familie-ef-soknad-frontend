@@ -5,10 +5,7 @@ import { Seksjon } from '../../components/forside/Seksjon';
 import { Overskrift } from '../../components/forside/Overskrift';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
-import {
-  ERouteOvergangsstønad,
-  RoutesOvergangsstonad,
-} from './routing/routesOvergangsstonad';
+import { ERouteOvergangsstønad, RoutesOvergangsstonad } from './routing/routesOvergangsstonad';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
 import React from 'react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
@@ -24,14 +21,11 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   harBekreftet,
   settBekreftelse,
 }) => {
-  const nesteSide =
-    hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
+  const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
 
   return (
     <>
-      <TidligereInnsendteSøknaderAlert
-        stønadType={Stønadstype.overgangsstønad}
-      />
+      <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
 
       <Seksjon>
         <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />

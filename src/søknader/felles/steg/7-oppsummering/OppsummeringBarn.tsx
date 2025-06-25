@@ -13,16 +13,8 @@ interface Props {
 
 const OppsummeringBarn: FC<Props> = ({ stønadstype, barn }) => {
   const intl = useLokalIntlContext();
-  const {
-    alder,
-    ident,
-    navn,
-    født,
-    skalHaBarnepass,
-    harSammeAdresse,
-    lagtTil,
-    harAdressesperre,
-  } = barn;
+  const { alder, ident, navn, født, skalHaBarnepass, harSammeAdresse, lagtTil, harAdressesperre } =
+    barn;
 
   return (
     <>
@@ -67,9 +59,7 @@ const OppsummeringBarn: FC<Props> = ({ stønadstype, barn }) => {
           <Label as="p">
             <LocaleTekst tekst="barnekort.skalHaBarnepass" />
           </Label>
-          <BodyShort>
-            {verdiTilTekstsvar(skalHaBarnepass?.verdi, intl)}
-          </BodyShort>
+          <BodyShort>{verdiTilTekstsvar(skalHaBarnepass?.verdi, intl)}</BodyShort>
         </div>
       )}
 
@@ -78,9 +68,7 @@ const OppsummeringBarn: FC<Props> = ({ stønadstype, barn }) => {
           <Label as="p">
             <LocaleTekst tekst="barnekort.spm.sammeAdresse" />
           </Label>
-          <BodyShort>
-            {verdiTilTekstsvar(harSammeAdresse.verdi, intl)}
-          </BodyShort>
+          <BodyShort>{verdiTilTekstsvar(harSammeAdresse.verdi, intl)}</BodyShort>
         </div>
       )}
     </>

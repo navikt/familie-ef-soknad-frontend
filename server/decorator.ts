@@ -1,7 +1,4 @@
-import {
-  DecoratorParams,
-  injectDecoratorServerSide,
-} from '@navikt/nav-dekoratoren-moduler/ssr';
+import { DecoratorParams, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
 import logger from './logger';
 import { miljø } from './miljø';
 

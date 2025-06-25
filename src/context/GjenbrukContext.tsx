@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  ReactNode,
-  SetStateAction,
-  Dispatch,
-} from 'react';
+import React, { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
 export const GjenbrukContext = createContext<{
   skalGjenbrukeSøknad: boolean;
@@ -15,8 +9,7 @@ export const GjenbrukContext = createContext<{
 });
 
 export const GjenbrukProvider = ({ children }: { children: ReactNode }) => {
-  const [skalGjenbrukeSøknad, settSkalGjenbrukeSøknad] =
-    useState<boolean>(false);
+  const [skalGjenbrukeSøknad, settSkalGjenbrukeSøknad] = useState<boolean>(false);
 
   return (
     <GjenbrukContext.Provider

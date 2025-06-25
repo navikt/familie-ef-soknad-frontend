@@ -9,19 +9,12 @@ import {
   ønsketArbeidssted,
 } from './ArbeidssøkerConfig';
 import { IArbeidssøker } from '../../../../../models/steg/aktivitet/arbeidssøker';
-import {
-  ESvar,
-  ISpørsmål,
-  ISvar,
-} from '../../../../../models/felles/spørsmålogsvar';
+import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
-import {
-  hentSvarAlertFraSpørsmål,
-  hentTekst,
-} from '../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -30,11 +23,7 @@ import { Alert, Heading } from '@navikt/ds-react';
 interface Props {
   arbeidssituasjon: IAktivitet;
   settArbeidssituasjon: (nyArbeidssituasjon: IAktivitet) => void;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 const Arbeidssøker: React.FC<Props> = ({
@@ -111,8 +100,7 @@ const Arbeidssøker: React.FC<Props> = ({
             onChange={settJaNeiSpørsmål}
             valgtSvar={arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.verdi}
           />
-          {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid ===
-            ESvar.NEI && (
+          {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid === ESvar.NEI && (
             <AlertStripeDokumentasjon>
               <LocaleTekst tekst={'arbeidssøker.alert.villig'} />
             </AlertStripeDokumentasjon>

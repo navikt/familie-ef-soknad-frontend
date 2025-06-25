@@ -63,9 +63,7 @@ const CheckboxPanelCustom: React.FC<Properties> = ({
       value={value}
       name={name}
       onChange={onChange}
-      className={
-        checked ? 'checkbox-panel active' : 'checkbox-panel non-active'
-      }
+      className={checked ? 'checkbox-panel active' : 'checkbox-panel non-active'}
     >
       {children}
     </StyledCheckbox>

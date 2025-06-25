@@ -26,16 +26,16 @@ import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
 import {
-  SøknadOvergangsstønad,
   SettDokumentasjonsbehovBarn,
+  SøknadOvergangsstønad,
 } from '../../../overgangsstønad/models/søknad';
 import styled from 'styled-components';
 import {
   finnFørsteBarnTilHverForelder,
   finnTypeBarnForMedForelder,
   harValgtBorISammeHus,
-  skalBorAnnenForelderINorgeVises,
   skalAnnenForelderRedigeres,
+  skalBorAnnenForelderINorgeVises,
 } from '../../../../helpers/steg/barnetsBostedEndre';
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
 import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
@@ -46,10 +46,7 @@ const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;
 `;
 
-const visBostedOgSamværSeksjon = (
-  forelder: IForelder,
-  visesBorINorgeSpørsmål: boolean
-) => {
+const visBostedOgSamværSeksjon = (forelder: IForelder, visesBorINorgeSpørsmål: boolean) => {
   return visesBorINorgeSpørsmål
     ? utfyltBorINorge(forelder)
     : erGyldigDato(forelder.fødselsdato?.verdi);
@@ -106,19 +103,12 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     stringHarVerdiOgErIkkeTom(barn?.medforelder?.verdi?.navn) ||
     barn?.medforelder?.verdi?.harAdressesperre === true;
 
-  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(
-    barneListe,
-    barn
-  );
+  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barneListe, barn);
 
   const typeBarn = finnTypeBarnForMedForelder(barn, forelderidenterMedBarn);
 
-  const [barnHarSammeForelder, settBarnHarSammeForelder] = useState<
-    boolean | undefined
-  >(
-    typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON
-      ? true
-      : undefined
+  const [barnHarSammeForelder, settBarnHarSammeForelder] = useState<boolean | undefined>(
+    typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON ? true : undefined
   );
 
   const leggTilForelder = () => {
@@ -144,10 +134,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
   };
 
   const finnesBarnISøknadMedRegistrertAnnenForelder = barneListe.some(
-    (b) =>
-      erBarnMedISøknad(b) &&
-      b.medforelder?.verdi?.ident &&
-      b.medforelder?.verdi?.navn
+    (b) => erBarnMedISøknad(b) && b.medforelder?.verdi?.ident && b.medforelder?.verdi?.navn
   );
 
   const visAnnenForelderRedigering = skalAnnenForelderRedigeres(
@@ -168,8 +155,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     kjennerIkkeIdent
   );
 
-  const skalFylleUtHarBoddSammenFør =
-    harValgtBorISammeHus(forelder) && utfyltBorINorge(forelder);
+  const skalFylleUtHarBoddSammenFør = harValgtBorISammeHus(forelder) && utfyltBorINorge(forelder);
 
   const skalViseAnnenForelderKnapperForGjenbruk =
     barn.erFraForrigeSøknad &&
@@ -201,8 +187,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
           />
         )}
 
-        {(barn.harSammeAdresse?.verdi ||
-          harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
+        {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
           <SeksjonGruppe>
             <BarnetsAndreForelderTittel barn={barn} />
 
@@ -268,43 +253,28 @@ const BarnetsBostedEndre: React.FC<Props> = ({
           />
         )}
 
-        {!barnHarSammeForelder &&
-          visSpørsmålHvisIkkeSammeForelder(forelder) && (
-            <>
-              {utfyltBorINorge(forelder) && (
-                <BorAnnenForelderISammeHus
-                  forelder={forelder}
-                  settForelder={settForelder}
-                  barn={barn}
-                />
-              )}
+        {!barnHarSammeForelder && visSpørsmålHvisIkkeSammeForelder(forelder) && (
+          <>
+            {utfyltBorINorge(forelder) && (
+              <BorAnnenForelderISammeHus
+                forelder={forelder}
+                settForelder={settForelder}
+                barn={barn}
+              />
+            )}
 
-              {skalFylleUtHarBoddSammenFør && (
-                <BoddSammenFør
-                  forelder={forelder}
-                  barn={barn}
-                  settForelder={settForelder}
-                />
-              )}
+            {skalFylleUtHarBoddSammenFør && (
+              <BoddSammenFør forelder={forelder} barn={barn} settForelder={settForelder} />
+            )}
 
-              {((skalFylleUtHarBoddSammenFør &&
-                boddSammenFør?.verdi === false) ||
-                (skalFylleUtHarBoddSammenFør &&
-                  erGyldigDato(flyttetFra?.verdi))) && (
-                <HvorMyeSammen
-                  forelder={forelder}
-                  barn={barn}
-                  settForelder={settForelder}
-                />
-              )}
-            </>
-          )}
+            {((skalFylleUtHarBoddSammenFør && boddSammenFør?.verdi === false) ||
+              (skalFylleUtHarBoddSammenFør && erGyldigDato(flyttetFra?.verdi))) && (
+              <HvorMyeSammen forelder={forelder} barn={barn} settForelder={settForelder} />
+            )}
+          </>
+        )}
 
-        {erForelderUtfylt(
-          barn.harSammeAdresse,
-          forelder,
-          harForelderFraPdl
-        ) && (
+        {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) && (
           <Button variant="secondary" onClick={leggTilForelder}>
             <LocaleTekst tekst={'knapp.neste'} />
           </Button>

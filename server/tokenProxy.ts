@@ -64,11 +64,7 @@ const getAccessToken = async (
     );
     return `Bearer ${accessToken}`;
   } catch (error) {
-    logWarn(
-      `Noe gikk galt ved setting av token (${req.method} - ${req.path}): `,
-      req,
-      error
-    );
+    logWarn(`Noe gikk galt ved setting av token (${req.method} - ${req.path}): `, req, error);
     res.status(401).send('En uventet feil oppstod. Ingen gyldig token');
   }
 };

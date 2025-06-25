@@ -27,9 +27,7 @@ const BarnasBosted: React.FC = () => {
 
   useMount(() => logSidevisningBarnetilsyn('BarnasBosted'));
 
-  const aktuelleBarn = søknad.person.barn.filter(
-    (barn: IBarn) => barn.skalHaBarnepass?.verdi
-  );
+  const aktuelleBarn = søknad.person.barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const barnMedLevendeForeldre = aktuelleBarn.filter((barn: IBarn) => {
     return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
@@ -41,8 +39,7 @@ const BarnasBosted: React.FC = () => {
     : ESide.visTilbakeTilOppsummeringKnapp;
 
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
-    antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) ===
-      barnMedLevendeForeldre.length
+    antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length
   );
 
   return (

@@ -68,11 +68,9 @@ const PeriodeDatovelgere: FC<Props> = ({
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' &&
-      !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' &&
-      !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -91,23 +89,16 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
       return 'datovelger.periode.likeDatoer';
-    else if (
-      startDato &&
-      sluttDato &&
-      !erFraDatoSenereEnnTilDato(startDato, sluttDato)
-    )
+    else if (startDato && sluttDato && !erFraDatoSenereEnnTilDato(startDato, sluttDato))
       return 'datovelger.periode.startFørSlutt';
     else return '';
   };
 
   useEffect(() => {
-    const harStartEllerSluttDato =
-      periode.fra.verdi !== '' || periode.til.verdi !== '';
+    const harStartEllerSluttDato = periode.fra.verdi !== '' || periode.til.verdi !== '';
 
     harStartEllerSluttDato &&
-      settFeilmelding(
-        sammenlignDatoerOgHentFeilmelding(periode, datobegrensning)
-      );
+      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, datobegrensning));
 
     if (onValidate && feilmelding !== '') onValidate(true);
     if (onValidate && feilmelding === '') onValidate(false);

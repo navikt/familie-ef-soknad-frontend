@@ -13,10 +13,7 @@ interface Props {
   settUtdanning: (utdanning: IUnderUtdanning) => void;
 }
 
-const NårSkalDuVæreElevEllerStudent: React.FC<Props> = ({
-  utdanning,
-  settUtdanning,
-}) => {
+const NårSkalDuVæreElevEllerStudent: React.FC<Props> = ({ utdanning, settUtdanning }) => {
   const intl = useLokalIntlContext();
   useEffect(() => {
     if (!utdanning.periode) {
@@ -32,10 +29,7 @@ const NårSkalDuVæreElevEllerStudent: React.FC<Props> = ({
         ...utdanning,
         periode: {
           ...utdanning.periode,
-          label: hentTekst(
-            'utdanning.datovelger.studieperiode.fremtidig',
-            intl
-          ),
+          label: hentTekst('utdanning.datovelger.studieperiode.fremtidig', intl),
           [nøkkel]: {
             label: hentTekst('periode.' + nøkkel, intl),
             verdi: dato,

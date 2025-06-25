@@ -1,9 +1,4 @@
-import {
-  IBooleanFelt,
-  IDatoFelt,
-  ISpørsmålFelt,
-  ITekstFelt,
-} from '../../søknad/søknadsfelter';
+import { IBooleanFelt, IDatoFelt, ISpørsmålFelt, ITekstFelt } from '../../søknad/søknadsfelter';
 
 export interface IArbeidsgiver {
   id: string;

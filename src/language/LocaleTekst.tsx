@@ -30,10 +30,7 @@ const LocaleTekst = ({ tekst, replaceArgument0 }: Props) => {
             </span>
           )
         ) : (
-          <FormattedHtmlMessage
-            id={tekst}
-            replaceArgument0={replaceArgument0}
-          />
+          <FormattedHtmlMessage id={tekst} replaceArgument0={replaceArgument0} />
         )
       ) : (
         <FormattedMessage id={'feil.udefinerttekst'} />

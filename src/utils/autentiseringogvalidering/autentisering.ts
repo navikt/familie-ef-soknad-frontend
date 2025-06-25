@@ -10,13 +10,9 @@ import {
   barnetilsynForsideUrl,
   erUrlBarnetilsyn,
 } from '../../søknader/barnetilsyn/routing/routesBarnetilsyn';
-import {
-  erUrlSkolepenger,
-  skolepengerForsideUrl,
-} from '../../søknader/skolepenger/routing/routes';
+import { erUrlSkolepenger, skolepengerForsideUrl } from '../../søknader/skolepenger/routing/routes';
 
-const er401Feil = (error: AxiosError) =>
-  error && error.response && error.response.status === 401;
+const er401Feil = (error: AxiosError) => error && error.response && error.response.status === 401;
 
 const loggInn = () => !erLokaltMedMock();
 

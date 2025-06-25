@@ -70,9 +70,7 @@ export const BarnaDineInnhold: React.FC<Props> = ({
                   <EndreEllerSlettBarn
                     fjernBarnFraSøknad={fjernBarnFraSøknad}
                     id={barn.id}
-                    settDokumentasjonsbehovForBarn={
-                      settDokumentasjonsbehovForBarn
-                    }
+                    settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
                     barneListe={barneliste}
                     oppdaterBarnISøknaden={oppdaterBarnISøknaden}
                   />

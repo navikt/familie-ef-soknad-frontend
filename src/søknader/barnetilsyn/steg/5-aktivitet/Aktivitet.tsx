@@ -36,16 +36,10 @@ import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 
 const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    søknad,
-    settSøknad,
-    settDokumentasjonsbehov,
-    mellomlagreBarnetilsyn,
-  } = useBarnetilsynSøknad();
+  const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreBarnetilsyn } =
+    useBarnetilsynSøknad();
   const location = useLocation();
-  const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(
-    søknad?.aktivitet
-  );
+  const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
   const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
@@ -78,8 +72,7 @@ const Aktivitet: React.FC = () => {
           svarid: [],
           label: '',
           verdi: [],
-          alternativer:
-            endretArbeidssituasjon.hvaErDinArbeidssituasjon.alternativer,
+          alternativer: endretArbeidssituasjon.hvaErDinArbeidssituasjon.alternativer,
         },
       };
     }
@@ -95,11 +88,7 @@ const Aktivitet: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, svar);
   };
 
-  const settArbeidssituasjonFelt = (
-    spørsmål: ISpørsmål,
-    svarHuketAv: boolean,
-    svar: ISvar
-  ) => {
+  const settArbeidssituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(
       hvaErDinArbeidssituasjon,
       svarHuketAv,
@@ -128,19 +117,13 @@ const Aktivitet: React.FC = () => {
     (hvaErDinArbeidssituasjon?.svarid?.length !== 0 && erAlleFelterUtfylt) ||
     erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk;
 
-  const erSpørsmålFørAktivitetBesvart = (
-    svarid: string,
-    arbeidssituasjon: IAktivitet
-  ) => {
-    const svaridPos =
-      arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid.indexOf(svarid);
+  const erSpørsmålFørAktivitetBesvart = (svarid: string, arbeidssituasjon: IAktivitet) => {
+    const svaridPos = arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid.indexOf(svarid);
     return (
       svaridPos &&
       arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid
         .filter((aktivitet, index) => aktivitet && index < svaridPos)
-        .every((id) =>
-          erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon, false)
-        )
+        .every((id) => erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon, false))
     );
   };
 
@@ -184,49 +167,39 @@ const Aktivitet: React.FC = () => {
                 hvaErDinArbeidssituasjonSpm(intl)
               )}
               settValgteSvar={settArbeidssituasjonFelt}
-              valgteSvar={
-                hvaErDinArbeidssituasjon?.verdi
-                  ? hvaErDinArbeidssituasjon?.verdi
-                  : []
-              }
+              valgteSvar={hvaErDinArbeidssituasjon?.verdi ? hvaErDinArbeidssituasjon?.verdi : []}
               skalLogges={true}
             />
           </KomponentGruppe>
         )}
 
-        {arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid?.map(
-          (svarid, index) => {
-            const harValgtMinstEnAktivitet =
-              hvaErDinArbeidssituasjon?.svarid.length !== 0;
+        {arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid?.map((svarid, index) => {
+          const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon?.svarid.length !== 0;
 
-            const erValgtFørsteAktivitet =
-              hvaErDinArbeidssituasjon?.svarid[0] === svarid;
+          const erValgtFørsteAktivitet = hvaErDinArbeidssituasjon?.svarid[0] === svarid;
 
-            const visSeksjon = harValgtMinstEnAktivitet
-              ? !erValgtFørsteAktivitet
-                ? erSpørsmålFørAktivitetBesvart(svarid, arbeidssituasjon)
-                : true
-              : true;
+          const visSeksjon = harValgtMinstEnAktivitet
+            ? !erValgtFørsteAktivitet
+              ? erSpørsmålFørAktivitetBesvart(svarid, arbeidssituasjon)
+              : true
+            : true;
 
-            return (
-              visSeksjon && (
-                <AktivitetOppfølgingSpørsmål
-                  aria-live="polite"
-                  key={index}
-                  svarid={svarid}
-                  arbeidssituasjon={arbeidssituasjon}
-                  settArbeidssituasjon={settArbeidssituasjon}
-                  settDokumentasjonsbehov={settDokumentasjonsbehov}
-                  overskuddsår={
-                    nullableStrengTilDato(
-                      søknad.datoPåbegyntSøknad
-                    )?.getFullYear() || nåværendeÅr
-                  }
-                />
-              )
-            );
-          }
-        )}
+          return (
+            visSeksjon && (
+              <AktivitetOppfølgingSpørsmål
+                aria-live="polite"
+                key={index}
+                svarid={svarid}
+                arbeidssituasjon={arbeidssituasjon}
+                settArbeidssituasjon={settArbeidssituasjon}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+                overskuddsår={
+                  nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
+                }
+              />
+            )
+          );
+        })}
       </SeksjonGruppe>
     </Side>
   );

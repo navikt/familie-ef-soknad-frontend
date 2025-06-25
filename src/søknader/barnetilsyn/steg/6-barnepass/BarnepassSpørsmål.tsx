@@ -15,11 +15,7 @@ import { hentTekst } from '../../../../utils/søknad';
 import BarnepassBeløp from './BarnepassBeløp';
 import { erÅrsakBarnepassSpmBesvart } from './hjelper';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import {
-  EBarnepass,
-  ETypeBarnepassOrdning,
-  IBarnepassOrdning,
-} from '../../models/barnepass';
+import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
@@ -46,8 +42,7 @@ const BarnepassSpørsmål: FC<Props> = ({
   const { hvaSlagsBarnepassOrdning, periode } = barnepassOrdning;
 
   const navnLabel =
-    barnepassOrdning.hvaSlagsBarnepassOrdning?.svarid ===
-    ETypeBarnepassOrdning.barnehageOgLiknende
+    barnepassOrdning.hvaSlagsBarnepassOrdning?.svarid === ETypeBarnepassOrdning.barnehageOgLiknende
       ? hentTekst('barnehageOgLiknende.label.navnPåBarnepass', intl)
       : hentBarnNavnEllerBarnet(barn, 'privat.label.navnPåBarnepass', intl);
   const spørsmålTekstBarnepassOrdning = hentBarnNavnEllerBarnet(
@@ -90,19 +85,10 @@ const BarnepassSpørsmål: FC<Props> = ({
         verdi: svar.svar_tekst,
       },
     });
-    settDokumentasjonsbehovForBarn(
-      spørsmål,
-      svar,
-      barn.id,
-      barnepassOrdning.id
-    );
+    settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id, barnepassOrdning.id);
   };
 
-  const settInputFelt = (
-    e: React.FormEvent<HTMLInputElement>,
-    nøkkel: string,
-    label: string
-  ) => {
+  const settInputFelt = (e: React.FormEvent<HTMLInputElement>, nøkkel: string, label: string) => {
     settBarnepassOrdning({
       ...barnepassOrdning,
       [nøkkel]: { label: label, verdi: e.currentTarget.value },
@@ -110,9 +96,7 @@ const BarnepassSpørsmål: FC<Props> = ({
   };
 
   const settPeriode = (objektnøkkel: EPeriode, dato?: string) => {
-    const periode = barnepassOrdning.periode
-      ? barnepassOrdning.periode
-      : tomPeriode;
+    const periode = barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode;
 
     const datovelgerTekst =
       objektnøkkel === EPeriode.fra
@@ -177,24 +161,15 @@ const BarnepassSpørsmål: FC<Props> = ({
             }}
             fomTekstid={'periode.startdato'}
             tomTekstid={'periode.sluttdato'}
-            periode={
-              barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode
-            }
+            periode={barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode}
             datobegrensning={DatoBegrensning.AlleDatoer}
             settDato={settPeriode}
           />
         </KomponentGruppe>
       )}
-      {periode &&
-        erPeriodeGyldigOgInnaforBegrensninger(
-          periode,
-          DatoBegrensning.AlleDatoer
-        ) && (
-          <BarnepassBeløp
-            barnepassOrdning={barnepassOrdning}
-            settInputFelt={settInputFelt}
-          />
-        )}
+      {periode && erPeriodeGyldigOgInnaforBegrensninger(periode, DatoBegrensning.AlleDatoer) && (
+        <BarnepassBeløp barnepassOrdning={barnepassOrdning} settInputFelt={settInputFelt} />
+      )}
     </SeksjonGruppe>
   );
 };

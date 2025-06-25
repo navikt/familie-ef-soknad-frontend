@@ -1,18 +1,12 @@
 import React, { FC } from 'react';
-import {
-  EBosituasjon,
-  IBosituasjon,
-} from '../../../../models/steg/bosituasjon';
+import { EBosituasjon, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import OmSamboerenDin from './OmSamboerenDin';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harFyltUtSamboerDetaljer } from '../../../../utils/person';
-import {
-  DatoBegrensning,
-  Datovelger,
-} from '../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 
 interface Props {
   settBosituasjon: (bosituasjon: IBosituasjon) => void;
@@ -27,10 +21,7 @@ const OmTidligereSamboer: FC<Props> = ({ settBosituasjon, bosituasjon }) => {
       settBosituasjon({
         ...bosituasjon,
         [EBosituasjon.datoFlyttetFraHverandre]: {
-          label: hentTekst(
-            'bosituasjon.datovelger.nårFlyttetDereFraHverandre',
-            intl
-          ),
+          label: hentTekst('bosituasjon.datovelger.nårFlyttetDereFraHverandre', intl),
           verdi: dato,
         },
       });

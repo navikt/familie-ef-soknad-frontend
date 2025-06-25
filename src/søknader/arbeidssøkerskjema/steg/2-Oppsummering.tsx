@@ -19,11 +19,7 @@ import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
-import {
-  hentForrigeRoute,
-  hentNesteRoute,
-  hentPath,
-} from '../../../utils/routing';
+import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
 import { logSidevisningArbeidssokerskjema } from '../../../utils/amplitude';
 import { useMount } from '../../../utils/hooks';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
@@ -45,21 +41,13 @@ const Oppsummering: React.FC = () => {
     melding: `Søknad kan sendes`,
     venter: false,
   });
-  const forrigeRoute = hentForrigeRoute(
-    RoutesArbeidssokerskjema,
-    location.pathname
-  );
-  const nesteRoute = hentNesteRoute(
-    RoutesArbeidssokerskjema,
-    location.pathname
-  );
+  const forrigeRoute = hentForrigeRoute(RoutesArbeidssokerskjema, location.pathname);
+  const nesteRoute = hentNesteRoute(RoutesArbeidssokerskjema, location.pathname);
   const spørsmålOgSvar = VisLabelOgSvar(skjema.arbeidssøker);
 
   useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
-  const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (
-    mappetSkjema: Record<string, object>
-  ) => {
+  const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (mappetSkjema: Record<string, object>) => {
     try {
       const kvittering = await sendInnArbeidssøkerSkjema(mappetSkjema);
 
@@ -91,10 +79,7 @@ const Oppsummering: React.FC = () => {
   };
 
   return (
-    <Side
-      tittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })}
-      skalViseKnapper={false}
-    >
+    <Side tittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })} skalViseKnapper={false}>
       <SeksjonGruppe>
         <div className="oppsummering-arbeidssøker">
           <p className="navds-body-short navds-body-long disclaimer">
@@ -109,10 +94,7 @@ const Oppsummering: React.FC = () => {
           onClick={() =>
             navigate(
               {
-                pathname: hentPath(
-                  RoutesArbeidssokerskjema,
-                  ERouteArbeidssøkerskjema.Spørsmål
-                ),
+                pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål),
               },
               { state: { kommerFraOppsummering: true } }
             )
@@ -141,9 +123,7 @@ const Oppsummering: React.FC = () => {
 
           <Button
             variant={'primary'}
-            onClick={() =>
-              !innsendingState.venter && sendSkjema(skjema.arbeidssøker)
-            }
+            onClick={() => !innsendingState.venter && sendSkjema(skjema.arbeidssøker)}
             className={'neste'}
             loading={innsendingState.venter}
           >

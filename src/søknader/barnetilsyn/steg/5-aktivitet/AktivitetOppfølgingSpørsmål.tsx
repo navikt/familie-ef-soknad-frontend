@@ -1,8 +1,5 @@
 import React, { FC } from 'react';
-import {
-  EAktivitet,
-  IAktivitet,
-} from '../../../../models/steg/aktivitet/aktivitet';
+import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import OmArbeidsforholdetDitt from '../../../felles/steg/5-aktivitet/arbeidsforhold/OmArbeidsforholdetDitt';
 import EgetAS from '../../../felles/steg/5-aktivitet/aksjeselskap/EgetAS';
@@ -13,11 +10,7 @@ interface Props {
   arbeidssituasjon: IAktivitet;
   settArbeidssituasjon: (arbeidssituasjon: IAktivitet) => void;
   svarid: string;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   overskuddsår: number;
 }
 const AktivitetOppfølgingSpørsmål: FC<Props> = ({

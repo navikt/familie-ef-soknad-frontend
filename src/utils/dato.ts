@@ -1,19 +1,19 @@
 import {
-  format,
-  formatISO,
-  isValid,
-  parse,
-  isAfter,
-  setHours,
-  setMinutes,
   addDays,
   addMonths,
+  addYears,
+  format,
+  formatISO,
+  isAfter,
+  isValid,
+  parse,
+  setHours,
+  setMinutes,
   startOfDay,
   startOfToday,
-  addYears,
+  subMonths,
   subYears,
 } from 'date-fns';
-import { subMonths } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { IPeriode } from '../models/felles/periode';
 import { DatoBegrensning } from '../components/dato/Datovelger';
@@ -84,10 +84,7 @@ export const erGyldigDato = (verdi: string | undefined): boolean => {
 
 // Vedlegg er lagret ut neste døgn
 export const erVedleggstidspunktGyldig = (verdi: string): boolean => {
-  const grenseTidForVedlegg = addDays(
-    setMinutes(setHours(new Date(verdi), 23), 59),
-    1
-  );
+  const grenseTidForVedlegg = addDays(setMinutes(setHours(new Date(verdi), 23), 59), 1);
   return isAfter(grenseTidForVedlegg, dagensDato);
 };
 
@@ -101,10 +98,7 @@ export const erEnMånedTilbakeITid = (dato: string): boolean => {
 
 export const nåværendeÅr = new Date().getFullYear();
 
-export const erNåværendeMånedMellomMåneder = (
-  startMåned: number,
-  sluttMåned: number
-): boolean => {
+export const erNåværendeMånedMellomMåneder = (startMåned: number, sluttMåned: number): boolean => {
   const nåværendeDato = new Date();
   const nåværendeMåned = nåværendeDato.getMonth() + 1;
 
