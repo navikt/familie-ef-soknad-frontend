@@ -1,19 +1,19 @@
 import {
-  format,
-  formatISO,
-  isValid,
-  parse,
-  isAfter,
-  setHours,
-  setMinutes,
   addDays,
   addMonths,
+  addYears,
+  format,
+  formatISO,
+  isAfter,
+  isValid,
+  parse,
+  setHours,
+  setMinutes,
   startOfDay,
   startOfToday,
-  addYears,
+  subMonths,
   subYears,
 } from 'date-fns';
-import { subMonths } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { IPeriode } from '../models/felles/periode';
 import { DatoBegrensning } from '../components/dato/Datovelger';
@@ -75,6 +75,9 @@ export const formatMånederTilbake = (dato: Date, antallMåneder: number) => {
 };
 
 export const dagensDato = startOfToday();
+
+export const dagensIsoDatoMinusMåneder = (antallMåneder: number) =>
+  formatIsoDate(subMonths(dagensDato, antallMåneder));
 
 export const dagensDatoMedTidspunktStreng = new Date().toISOString();
 
