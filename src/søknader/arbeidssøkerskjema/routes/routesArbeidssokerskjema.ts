@@ -37,8 +37,7 @@ export const RoutesArbeidssokerskjema: IRoute[] = [
 
 export const erUrlArbeidssøkerSkjema = (): boolean => {
   return window.location.href.includes(
-    PUBLIC_URL +
-      hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Forside)
+    PUBLIC_URL + hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Forside)
   );
 };
 

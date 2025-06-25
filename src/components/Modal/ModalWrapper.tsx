@@ -14,8 +14,7 @@ const Innhold = styled.div`
 const ButtonContainer = styled.div<{ marginTop?: number }>`
   display: flex;
   justify-content: flex-end;
-  margin-top: ${(props) =>
-    props.marginTop ? `${props.marginTop}rem` : '1rem'};
+  margin-top: ${(props) => (props.marginTop ? `${props.marginTop}rem` : '1rem')};
   margin-right: 2rem;
   margin-bottom: 0.5rem;
 `;

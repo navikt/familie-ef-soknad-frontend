@@ -6,11 +6,7 @@ import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiS
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { IBarn } from '../../../../models/steg/barn';
-import {
-  EÅrsakBarnepass,
-  IBarnepass,
-  IBarnepassOrdning,
-} from '../../models/barnepass';
+import { EÅrsakBarnepass, IBarnepass, IBarnepassOrdning } from '../../models/barnepass';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
@@ -25,31 +21,21 @@ interface Props {
   settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const ÅrsakBarnepass: FC<Props> = ({
-  barn,
-  settBarnepass,
-  settDokumentasjonsbehovForBarn,
-}) => {
+const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbehovForBarn }) => {
   const intl = useLokalIntlContext();
   const { barnepass } = barn;
 
   const årsakBarnepassConfig = årsakBarnepass(intl);
 
-  const spørsmålTekstMedNavn = hentBarnNavnEllerBarnet(
-    barn,
-    årsakBarnepassConfig.tekstid,
-    intl
-  );
-  const barnepassordningerListe: IBarnepassOrdning[] =
-    barnepass?.barnepassordninger
-      ? barnepass.barnepassordninger
-      : [{ id: hentUid() }];
+  const spørsmålTekstMedNavn = hentBarnNavnEllerBarnet(barn, årsakBarnepassConfig.tekstid, intl);
+  const barnepassordningerListe: IBarnepassOrdning[] = barnepass?.barnepassordninger
+    ? barnepass.barnepassordninger
+    : [{ id: hentUid() }];
 
   const valgtÅrsak = barnepass?.årsakBarnepass?.svarid;
-  const dokumentasjonsbehovTekst: string | undefined =
-    årsakBarnepassConfig.svaralternativer.find(
-      (svarsalternativ) => svarsalternativ.id === valgtÅrsak
-    )?.alert_tekstid;
+  const dokumentasjonsbehovTekst: string | undefined = årsakBarnepassConfig.svaralternativer.find(
+    (svarsalternativ) => svarsalternativ.id === valgtÅrsak
+  )?.alert_tekstid;
 
   const settÅrsakBarnepass = (spørsmål: ISpørsmål, svar: ISvar) => {
     settBarnepass(

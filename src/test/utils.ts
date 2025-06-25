@@ -1,10 +1,4 @@
-import {
-  Adresse,
-  Barn,
-  IPerson,
-  PersonData,
-  Søker,
-} from '../models/søknad/person';
+import { Adresse, Barn, IPerson, PersonData, Søker } from '../models/søknad/person';
 import {
   IBooleanFelt,
   IDatoFelt,
@@ -49,9 +43,7 @@ export const lagSøknadOvergangsstønad = (
   };
 };
 
-export const lagDinSituasjon = (
-  dinSituasjon?: Partial<IDinSituasjon>
-): IDinSituasjon => {
+export const lagDinSituasjon = (dinSituasjon?: Partial<IDinSituasjon>): IDinSituasjon => {
   return {
     gjelderDetteDeg: lagSpørsmålListeFelt(),
     søknadsdato: undefined,
@@ -92,19 +84,14 @@ export const lagSpørsmålListeFelt = (
   };
 };
 
-export const lagTekstListeFelt = (
-  label?: string,
-  verdi?: string[]
-): ITekstListeFelt => {
+export const lagTekstListeFelt = (label?: string, verdi?: string[]): ITekstListeFelt => {
   return {
     label: label ?? '',
     verdi: verdi ?? [],
   };
 };
 
-export const lagBosituasjon = (
-  bosituasjon?: Partial<IBosituasjon>
-): IBosituasjon => {
+export const lagBosituasjon = (bosituasjon?: Partial<IBosituasjon>): IBosituasjon => {
   return {
     delerBoligMedAndreVoksne: lagSpørsmålFelt(),
     skalGifteSegEllerBliSamboer: lagSpørsmålBooleanFelt(),
@@ -147,10 +134,7 @@ export const lagTekstfelt = (label?: string, verdi?: string): ITekstFelt => {
   return { label: label ?? '', verdi: verdi ?? '' };
 };
 
-export const lagBooleanFelt = (
-  label?: string,
-  verdi?: boolean
-): IBooleanFelt => {
+export const lagBooleanFelt = (label?: string, verdi?: boolean): IBooleanFelt => {
   return {
     label: label ?? '',
     verdi: verdi ?? false,
@@ -164,9 +148,7 @@ export const lagDatoFelt = (label: string, verdi: string): IDatoFelt => {
   };
 };
 
-export const lagMedlemskap = (
-  medlemskap?: Partial<IMedlemskap>
-): IMedlemskap => {
+export const lagMedlemskap = (medlemskap?: Partial<IMedlemskap>): IMedlemskap => {
   return {
     søkerOppholderSegINorge: undefined,
     oppholdsland: undefined,
@@ -176,9 +158,7 @@ export const lagMedlemskap = (
   };
 };
 
-export const lagSivilstatus = (
-  sivilstatus?: Partial<ISivilstatus>
-): ISivilstatus => {
+export const lagSivilstatus = (sivilstatus?: Partial<ISivilstatus>): ISivilstatus => {
   return {
     harSøktSeparasjon: undefined,
     datoSøktSeparasjon: undefined,

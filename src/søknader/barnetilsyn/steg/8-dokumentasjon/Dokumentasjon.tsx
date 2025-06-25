@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
-import { usePrevious } from '../../../../utils/hooks';
+import { useMount, usePrevious } from '../../../../utils/hooks';
 import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg';
 import SendSøknadKnapper from './SendBarnetilsynSøknad';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
@@ -12,7 +12,6 @@ import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
@@ -37,17 +36,15 @@ const Dokumentasjon: React.FC = () => {
     harSendtInnTidligere: boolean
   ) => {
     settSøknad((prevSoknad: SøknadBarnetilsyn) => {
-      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map(
-        (dok) => {
-          return dok.id === dokumentasjonsid
-            ? {
-                ...dok,
-                opplastedeVedlegg: opplastedeVedlegg,
-                harSendtInn: harSendtInnTidligere,
-              }
-            : dok;
-        }
-      );
+      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map((dok) => {
+        return dok.id === dokumentasjonsid
+          ? {
+              ...dok,
+              opplastedeVedlegg: opplastedeVedlegg,
+              harSendtInn: harSendtInnTidligere,
+            }
+          : dok;
+      });
       return { ...prevSoknad, dokumentasjonsbehov: dokumentasjonMedVedlegg };
     });
   };
@@ -64,11 +61,7 @@ const Dokumentasjon: React.FC = () => {
             message: `Fjernet ugyldig vedlegg fra søknaden.`,
             level: 'warning',
           });
-          oppdaterDokumentasjon(
-            dokBehov.id,
-            gyldigeVedlegg,
-            dokBehov.harSendtInn
-          );
+          oppdaterDokumentasjon(dokBehov.id, gyldigeVedlegg, dokBehov.harSendtInn);
         }
       }
     });
@@ -95,9 +88,7 @@ const Dokumentasjon: React.FC = () => {
       erSpørsmålBesvart={false}
       routesStønad={RoutesBarnetilsyn}
     >
-      <DokumentasjonBeskrivelse
-        harDokumentasjonsbehov={harDokumentasjonsbehov}
-      />
+      <DokumentasjonBeskrivelse harDokumentasjonsbehov={harDokumentasjonsbehov} />
       <SeksjonGruppe>
         {dokumentasjonsbehov
           .filter(unikeDokumentasjonsbehov)

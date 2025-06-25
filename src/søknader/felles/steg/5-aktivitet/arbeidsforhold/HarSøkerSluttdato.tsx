@@ -3,15 +3,9 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { harDuSluttdato } from './ArbeidsgiverConfig';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import {
-  Datovelger,
-  DatoBegrensning,
-} from '../../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import {
-  EArbeidsgiver,
-  IArbeidsgiver,
-} from '../../../../../models/steg/aktivitet/arbeidsgiver';
+import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -21,10 +15,7 @@ interface Props {
   settArbeidsgiver: (arbeidsgiver: IArbeidsgiver) => void;
 }
 
-const HarSøkerSluttdato: React.FC<Props> = ({
-  arbeidsgiver,
-  settArbeidsgiver,
-}) => {
+const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver }) => {
   const intl = useLokalIntlContext();
 
   const settDato = (dato: string) => {

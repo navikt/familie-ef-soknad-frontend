@@ -1,8 +1,5 @@
 import { ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
-import {
-  EAktivitet,
-  EArbeidssituasjon,
-} from '../../../../models/steg/aktivitet/aktivitet';
+import { EAktivitet, EArbeidssituasjon } from '../../../../models/steg/aktivitet/aktivitet';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
@@ -12,8 +9,7 @@ import { LokalIntlShape } from '../../../../language/typer';
 export const DokumentasjonUtgifterUtdanning: IDokumentasjon =
   DokumentasjonsConfig.DokumentasjonUtgifterUtdanning;
 
-export const DokumentasjonUtdanning: IDokumentasjon =
-  DokumentasjonsConfig.DokumentasjonUtdanning;
+export const DokumentasjonUtdanning: IDokumentasjon = DokumentasjonsConfig.DokumentasjonUtdanning;
 
 const DokumentasjonArbeidskontrakt: IDokumentasjon =
   DokumentasjonsConfig.DokumentasjonArbeidskontrakt;
@@ -26,9 +22,7 @@ export const DokumentasjonOmVirksomhetenDuEtablerer: IDokumentasjon =
 
 // --- SPØRSMÅL
 
-export const hvaErDinArbeidssituasjonSpm = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const hvaErDinArbeidssituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
   tekstid: 'arbeidssituasjon.spm',
   lesmer: {

@@ -4,10 +4,7 @@ import Filopplaster from '../../../../components/filopplaster/Filopplaster';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentTekst } from '../../../../utils/søknad';
-import {
-  BarnetilsynDokumentasjon,
-  IDokumentasjon,
-} from '../../../../models/steg/dokumentasjon';
+import { BarnetilsynDokumentasjon, IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { EFiltyper } from '../../../../helpers/filtyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -34,10 +31,7 @@ interface Props {
   ) => void;
 }
 
-const LastOppVedlegg: React.FC<Props> = ({
-  dokumentasjon,
-  oppdaterDokumentasjon,
-}) => {
+const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon }) => {
   const intl = useLokalIntlContext();
 
   const settHarSendtInnTidligere = (huketAv: boolean) => {
@@ -76,12 +70,7 @@ const LastOppVedlegg: React.FC<Props> = ({
             oppdaterDokumentasjon={oppdaterDokumentasjon}
             dokumentasjon={dokumentasjon}
             maxFilstørrelse={1024 * 1024 * 10}
-            tillatteFiltyper={[
-              EFiltyper.PNG,
-              EFiltyper.PDF,
-              EFiltyper.JPG,
-              EFiltyper.JPEG,
-            ]}
+            tillatteFiltyper={[EFiltyper.PNG, EFiltyper.PDF, EFiltyper.JPG, EFiltyper.JPEG]}
           />
         )}
       </StyledGuidePanel>

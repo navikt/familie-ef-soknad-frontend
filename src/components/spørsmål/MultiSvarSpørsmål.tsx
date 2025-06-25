@@ -41,12 +41,7 @@ interface Props {
   valgtSvar: string | undefined;
 }
 
-const MultiSvarSpørsmål: FC<Props> = ({
-  className,
-  spørsmål,
-  settSpørsmålOgSvar,
-  valgtSvar,
-}) => {
+const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålOgSvar, valgtSvar }) => {
   const intl = useLokalIntlContext();
 
   const skalLogges = true;
@@ -67,9 +62,7 @@ const MultiSvarSpørsmål: FC<Props> = ({
           <Show if={spørsmål.lesmer}>
             <LesMerTekst
               åpneTekstid={spørsmål.lesmer ? spørsmål.lesmer.headerTekstid : ''}
-              innholdTekstid={
-                spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''
-              }
+              innholdTekstid={spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''}
             />
           </Show>
         }
@@ -84,13 +77,7 @@ const MultiSvarSpørsmål: FC<Props> = ({
               value={svar.svar_tekst}
               checked={svarISøknad ? svarISøknad : false}
               onChange={() => {
-                logSpørsmålBesvart(
-                  skjemanavn,
-                  skjemaId,
-                  legend,
-                  svar.svar_tekst,
-                  skalLogges
-                );
+                logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
                 settSpørsmålOgSvar(spørsmål, svar);
               }}
             >

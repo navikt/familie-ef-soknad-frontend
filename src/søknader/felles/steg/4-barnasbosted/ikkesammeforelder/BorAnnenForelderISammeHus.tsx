@@ -17,19 +17,12 @@ interface Props {
   settForelder: (verdi: IForelder) => void;
   barn: IBarn;
 }
-const BorAnnenForelderISammeHus: FC<Props> = ({
-  forelder,
-  settForelder,
-  barn,
-}) => {
+const BorAnnenForelderISammeHus: FC<Props> = ({ forelder, settForelder, barn }) => {
   const intl = useLokalIntlContext();
 
   const borAnnenForelderISammeHusConfig = borAnnenForelderISammeHus(intl);
 
-  const settBorAnnenForelderISammeHus = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
+  const settBorAnnenForelderISammeHus = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const nyForelder = {
       ...forelder,
       [borAnnenForelderISammeHusConfig.søknadid]: {
@@ -50,16 +43,11 @@ const BorAnnenForelderISammeHus: FC<Props> = ({
     settForelder(nyForelder);
   };
 
-  const settBorAnnenForelderISammeHusBeskrivelse = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const settBorAnnenForelderISammeHusBeskrivelse = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     settForelder({
       ...forelder,
       borAnnenForelderISammeHusBeskrivelse: {
-        label: hentTekst(
-          'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse',
-          intl
-        ),
+        label: hentTekst('barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse', intl),
         verdi: e.target.value,
       },
     });
@@ -77,13 +65,10 @@ const BorAnnenForelderISammeHus: FC<Props> = ({
             intl
           )}
           valgtSvar={forelder.borAnnenForelderISammeHus?.verdi}
-          settSpørsmålOgSvar={(spørsmål, svar) =>
-            settBorAnnenForelderISammeHus(spørsmål, svar)
-          }
+          settSpørsmålOgSvar={(spørsmål, svar) => settBorAnnenForelderISammeHus(spørsmål, svar)}
         />
       </KomponentGruppe>
-      {forelder.borAnnenForelderISammeHus?.svarid ===
-        EBorAnnenForelderISammeHus.ja && (
+      {forelder.borAnnenForelderISammeHus?.svarid === EBorAnnenForelderISammeHus.ja && (
         <>
           <FeltGruppe>
             <Textarea

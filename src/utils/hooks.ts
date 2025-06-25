@@ -4,10 +4,7 @@ import { leggTilSærligeBehov } from '../søknader/felles/steg/6-meromsituasjon/
 import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
-import {
-  byteTilKilobyte,
-  filtypeOgFilstørrelseStreng,
-} from './nedlastningFilformater';
+import { byteTilKilobyte, filtypeOgFilstørrelseStreng } from './nedlastningFilformater';
 import { setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 
 export const usePrevious = (value: any) => {
@@ -61,13 +58,9 @@ export const useHentFilInformasjon = (path: string) => {
   useEffect(() => {
     const hentFilInformasjon = (url: string) => {
       fetch(url, { method: 'HEAD' }).then((res) => {
-        const filStørrelse = byteTilKilobyte(
-          res.headers.get('Content-Length') ?? 0
-        );
+        const filStørrelse = byteTilKilobyte(res.headers.get('Content-Length') ?? 0);
         const filType = res.headers.get('Content-Type') ?? '';
-        settFilInformasjon(
-          filtypeOgFilstørrelseStreng(filType, Number(filStørrelse))
-        );
+        settFilInformasjon(filtypeOgFilstørrelseStreng(filType, Number(filStørrelse)));
       });
     };
     hentFilInformasjon(path);

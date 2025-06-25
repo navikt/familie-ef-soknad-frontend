@@ -21,11 +21,8 @@ import { Alert } from '@navikt/ds-react';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    søknad,
-    nullstillMellomlagretSkolepenger,
-    nullstillSøknadSkolepenger,
-  } = useSkolepengerSøknad();
+  const { søknad, nullstillMellomlagretSkolepenger, nullstillSøknadSkolepenger } =
+    useSkolepengerSøknad();
   const { person } = usePersonContext();
 
   useMount(() => logSidevisningSkolepenger('Kvittering'));
@@ -36,20 +33,14 @@ const Kvittering: React.FC = () => {
       const barnelisteMedLabels = oppdaterBarnMedLabel(person.barn, intl);
       nullstillSøknadSkolepenger(person, barnelisteMedLabels);
     };
-  }, [
-    nullstillMellomlagretSkolepenger,
-    nullstillSøknadSkolepenger,
-    person,
-    intl,
-  ]);
+  }, [nullstillMellomlagretSkolepenger, nullstillSøknadSkolepenger, person, intl]);
 
   const mottattAlert: string =
     hentTekst('kvittering.skolepenger.alert.mottatt', intl) +
     ` ${søknad?.innsendingsdato && formatDateHour(søknad?.innsendingsdato)} `;
 
   const erklæringSamlivsbrudd =
-    søknad.sivilstatus.årsakEnslig?.svarid ===
-    EBegrunnelse.samlivsbruddForeldre;
+    søknad.sivilstatus.årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre;
 
   return søknad.innsendingsdato ? (
     <Side
@@ -71,9 +62,7 @@ const Kvittering: React.FC = () => {
       />
       {erklæringSamlivsbrudd && <ErklæringSamlivsbrudd />}
       <RegistrerBarnIFolkeregister barna={søknad.person.barn} />
-      {søknad.utdanning && (
-        <TilleggsstønaderUnderUtdanning stønadstype={Stønadstype.skolepenger} />
-      )}
+      {søknad.utdanning && <TilleggsstønaderUnderUtdanning stønadstype={Stønadstype.skolepenger} />}
     </Side>
   ) : (
     <Feilside />

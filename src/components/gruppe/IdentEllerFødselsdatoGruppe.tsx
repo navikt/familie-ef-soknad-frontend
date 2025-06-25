@@ -58,11 +58,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
           />
         </FeltGruppe>
         <FeltGruppe>
-          <Checkbox
-            className={'checkbox'}
-            checked={checked}
-            onChange={() => settChecked(!checked)}
-          >
+          <Checkbox className={'checkbox'} checked={checked} onChange={() => settChecked(!checked)}>
             {checkboxLabel}
           </Checkbox>
         </FeltGruppe>

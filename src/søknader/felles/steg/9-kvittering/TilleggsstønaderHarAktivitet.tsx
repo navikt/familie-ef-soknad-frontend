@@ -10,36 +10,24 @@ const TilleggsstønaderHarAktivitet: FC = () => {
     <SeksjonGruppe>
       <FeltGruppe>
         <Heading size="small" level="4">
-          <LocaleTekst
-            tekst={'kvittering.tittel.tilleggsstønader.aktivitetskrav'}
-          />
+          <LocaleTekst tekst={'kvittering.tittel.tilleggsstønader.aktivitetskrav'} />
         </Heading>
       </FeltGruppe>
       <FeltGruppe>
         <StyledBeskrivelse>
           <BodyShort>
-            <LocaleTekst
-              tekst={'kvittering.beskrivelse.tilleggsstønader.aktivitetskrav'}
-            />
+            <LocaleTekst tekst={'kvittering.beskrivelse.tilleggsstønader.aktivitetskrav'} />
           </BodyShort>
         </StyledBeskrivelse>
       </FeltGruppe>
       <BodyShort>
         <Link href={'https://www.nav.no/barnetilsyn-enslig'}>
-          <LocaleTekst
-            tekst={'kvittering.lenke.tilleggsstønader.aktivitetskrav'}
-          />
+          <LocaleTekst tekst={'kvittering.lenke.tilleggsstønader.aktivitetskrav'} />
         </Link>
       </BodyShort>
       <BodyShort>
-        <Link
-          href={
-            'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far#NAV150002'
-          }
-        >
-          <LocaleTekst
-            tekst={'kvittering.knapp.tilleggsstønader.aktivitetskrav'}
-          />
+        <Link href={'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far#NAV150002'}>
+          <LocaleTekst tekst={'kvittering.knapp.tilleggsstønader.aktivitetskrav'} />
         </Link>
       </BodyShort>
     </SeksjonGruppe>

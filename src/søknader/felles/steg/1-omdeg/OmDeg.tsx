@@ -41,8 +41,7 @@ const OmDeg: FC = () => {
     søker?.erStrengtFortrolig;
 
   const skalViseMedlemskapsdialog =
-    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus);
+    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) && erÅrsakEnsligBesvart(sivilstatus);
 
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     sivilstatus,

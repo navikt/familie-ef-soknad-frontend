@@ -5,10 +5,7 @@ export interface OversettProps {
   id: string | number;
 }
 const LokalIntlContext = createContext<{
-  formatMessage: (
-    props: OversettProps,
-    parametre?: Record<string, string>
-  ) => string;
+  formatMessage: (props: OversettProps, parametre?: Record<string, string>) => string;
   messages: Record<string, string>;
 }>({
   formatMessage: () => 'oversettelser ikke tilgjengelig',
@@ -21,10 +18,7 @@ const LokalIntlProvider: React.FC<{
   children?: React.ReactNode;
 }> = ({ children, tekster }) => {
   LokalIntlProvider.displayName = 'LOKAL_INTL_PROVIDER';
-  const formatMessage = (
-    props: OversettProps,
-    parametre?: Record<string, string>
-  ) => {
+  const formatMessage = (props: OversettProps, parametre?: Record<string, string>) => {
     const tekst = tekster[props.id];
     if (tekst === undefined || tekst === null) {
       console.warn(`Finner ikke oversettelse for ${props.id}`);

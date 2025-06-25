@@ -1,8 +1,5 @@
 import React, { FC } from 'react';
-import {
-  EAktivitet,
-  IAktivitet,
-} from '../../../../models/steg/aktivitet/aktivitet';
+import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import HjemmeMedBarnUnderEttÅr from './HjemmeMedBarnUnderEttÅr';
 import OmArbeidsforholdetDitt from './arbeidsforhold/OmArbeidsforholdetDitt';
 import EtablererEgenVirksomhet from './EtablererEgenVirksomhet';
@@ -19,11 +16,7 @@ interface Props {
   arbeidssituasjon: IAktivitet;
   settArbeidssituasjon: (arbeidssituasjon: IAktivitet) => void;
   svarid: string;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   overskuddsår: number;
 }
 const AktivitetOppfølgingSpørsmål: FC<Props> = ({
@@ -57,10 +50,7 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
 
     case EAktivitet.erAnsattIEgetAS:
       return (
-        <EgetAS
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
-        />
+        <EgetAS arbeidssituasjon={arbeidssituasjon} settArbeidssituasjon={settArbeidssituasjon} />
       );
 
     case EAktivitet.etablererEgenVirksomhet:

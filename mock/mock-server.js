@@ -43,10 +43,7 @@ app.get('/api/soknad/:stonadstype', (req, res) => {
   if (mellomlagretData) {
     res.status(200).json(mellomlagretData);
   } else {
-    console.log(
-      `Fant ikke mellomlagret ${stonadstype}`,
-      Object.keys(mellomlager)
-    );
+    console.log(`Fant ikke mellomlagret ${stonadstype}`, Object.keys(mellomlager));
     res.sendStatus(404);
   }
 });

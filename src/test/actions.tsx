@@ -40,3 +40,20 @@ export const klikkSvarRadioknapp = async (
   const radio = within(radioGroup).getByRole('radio', { name: radioLabel });
   await user.click(radio);
 };
+
+export const klikkCheckbox = async (name: string, screen: Screen, user: UserEvent) => {
+  await user.click(
+    screen.getByRole('checkbox', {
+      name: name,
+    })
+  );
+};
+
+export const skrivFritekst = async (
+  name: string,
+  fritekst: string,
+  screen: Screen,
+  user: UserEvent
+) => {
+  await user.type(screen.getByRole('textbox', { name: name }), fritekst);
+};

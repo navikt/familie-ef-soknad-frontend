@@ -3,10 +3,7 @@ import KomponentGruppe from '../gruppe/KomponentGruppe';
 import LesMerTekst from '../LesMerTekst';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
-import {
-  IDatoFelt,
-  ISpørsmålBooleanFelt,
-} from '../../models/søknad/søknadsfelter';
+import { IDatoFelt, ISpørsmålBooleanFelt } from '../../models/søknad/søknadsfelter';
 import LocaleTekst from '../../language/LocaleTekst';
 import AlertStripeDokumentasjon from '../AlertstripeDokumentasjon';
 import MånedÅrVelger from '../dato/MånedÅrVelger';
@@ -99,9 +96,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
           </Label>
           <StyledDatovelger>
             <MånedÅrVelger
-              valgtDato={
-                valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined
-              }
+              valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}
               tekstid={datovelgerLabel}
               datobegrensning={DatoBegrensning.FemÅrTidligereOgSeksMånederFrem}
               settDato={settDato}

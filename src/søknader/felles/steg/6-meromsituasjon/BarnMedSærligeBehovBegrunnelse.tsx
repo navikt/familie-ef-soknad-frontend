@@ -16,19 +16,14 @@ const MAX_LENGDE_BEGRUNDELSE = 1500;
 const BarnMedSærligeBehovBegrunnelse = () => {
   const intl = useLokalIntlContext();
   const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
-  const barnMedSærligeBehov = søknad.person.barn.filter(
-    (barn: IBarn) => barn.særligeTilsynsbehov
-  );
+  const barnMedSærligeBehov = søknad.person.barn.filter((barn: IBarn) => barn.særligeTilsynsbehov);
 
-  const settBarnSærligBehovBegrunnelse = (
-    barnMedSærligeBehovBegrunnelse: IBarn
-  ) => {
+  const settBarnSærligBehovBegrunnelse = (barnMedSærligeBehovBegrunnelse: IBarn) => {
     return (event: ChangeEvent<HTMLTextAreaElement>) => {
       const indeksBarnSomErHuket = søknad.person.barn.findIndex(
         (barn: IBarn) => barn.id === barnMedSærligeBehovBegrunnelse.id
       );
-      const barnMedSærligeBehov: IBarn =
-        søknad.person.barn[indeksBarnSomErHuket];
+      const barnMedSærligeBehov: IBarn = søknad.person.barn[indeksBarnSomErHuket];
       const oppdatertBarn: IBarn = {
         ...barnMedSærligeBehov,
         særligeTilsynsbehov: {
@@ -66,9 +61,7 @@ const BarnMedSærligeBehovLabelTekst: React.FC<{
 }> = (props: { barn: IBarn; intl: LokalIntlShape }) => {
   const barnetsNavn = hentBarnetsNavnEllerBeskrivelse(props.barn, props.intl);
   const intl = useLokalIntlContext();
-  const navn = props.barn.navn.verdi
-    ? storeForbokstaver(barnetsNavn)
-    : barnetsNavn;
+  const navn = props.barn.navn.verdi ? storeForbokstaver(barnetsNavn) : barnetsNavn;
   const omBarnetsTilsynsbehovLabel = hentBeskjedMedNavn(
     navn,
     intl.formatMessage({
@@ -80,9 +73,7 @@ const BarnMedSærligeBehovLabelTekst: React.FC<{
     <section className="om-barnets-tilsynsbehov" aria-live="polite">
       <Label className="blokk-xs">{omBarnetsTilsynsbehovLabel}</Label>
       <BodyShort>
-        <LocaleTekst
-          tekst={'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse'}
-        />
+        <LocaleTekst tekst={'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse'} />
       </BodyShort>
     </section>
   );

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  EUtdanning,
-  IUnderUtdanning,
-} from '../../../../../models/steg/aktivitet/utdanning';
+import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { linjeKursGrad, skoleUtdanningssted } from './UtdanningConfig';
 import { hentTekst } from '../../../../../utils/søknad';
@@ -26,10 +23,7 @@ const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
     oppdaterUtdanning(nøkkel, label, e.currentTarget.value);
   };
 
-  const skoleUtdanningstedLabel = hentTekst(
-    skoleUtdanningssted.label_tekstid,
-    intl
-  );
+  const skoleUtdanningstedLabel = hentTekst(skoleUtdanningssted.label_tekstid, intl);
   const linjeKursGradLabel = hentTekst(linjeKursGrad.label_tekstid, intl);
 
   return (
@@ -40,17 +34,9 @@ const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
           label={skoleUtdanningstedLabel}
           type="text"
           bredde={'XL'}
-          value={
-            utdanning?.skoleUtdanningssted?.verdi
-              ? utdanning?.skoleUtdanningssted?.verdi
-              : ''
-          }
+          value={utdanning?.skoleUtdanningssted?.verdi ? utdanning?.skoleUtdanningssted?.verdi : ''}
           onChange={(e) =>
-            settInputFelt(
-              EUtdanning.skoleUtdanningssted,
-              skoleUtdanningstedLabel,
-              e
-            )
+            settInputFelt(EUtdanning.skoleUtdanningssted, skoleUtdanningstedLabel, e)
           }
         />
       </FeltGruppe>
@@ -61,14 +47,8 @@ const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
             label={linjeKursGradLabel}
             type="text"
             bredde={'XL'}
-            onChange={(e) =>
-              settInputFelt(EUtdanning.linjeKursGrad, linjeKursGradLabel, e)
-            }
-            value={
-              utdanning?.linjeKursGrad?.verdi
-                ? utdanning?.linjeKursGrad?.verdi
-                : ''
-            }
+            onChange={(e) => settInputFelt(EUtdanning.linjeKursGrad, linjeKursGradLabel, e)}
+            value={utdanning?.linjeKursGrad?.verdi ? utdanning?.linjeKursGrad?.verdi : ''}
           />
         </FeltGruppe>
       )}

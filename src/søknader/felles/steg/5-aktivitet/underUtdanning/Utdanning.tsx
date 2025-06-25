@@ -42,8 +42,7 @@ const Utdanning: React.FC<Props> = ({
         else return tidligereUtdanningFraSøknad;
       }
     );
-    endretTidligereUtdanninger &&
-      settTidligereUtdanninger(endretTidligereUtdanninger);
+    endretTidligereUtdanninger && settTidligereUtdanninger(endretTidligereUtdanninger);
     // eslint-disable-next-line
   }, [utdanning]);
 
@@ -58,10 +57,7 @@ const Utdanning: React.FC<Props> = ({
     }
   };
 
-  const settInputFelt = (
-    label: string,
-    e: React.FormEvent<HTMLInputElement>
-  ) => {
+  const settInputFelt = (label: string, e: React.FormEvent<HTMLInputElement>) => {
     settUtdanning({
       ...utdanning,
       linjeKursGrad: { label: label, verdi: e.currentTarget.value },
@@ -98,10 +94,7 @@ const Utdanning: React.FC<Props> = ({
           {utdanningTittel}
         </Heading>
         {skalViseSlettKnapp && (
-          <SlettKnapp
-            onClick={() => fjernUtdanning()}
-            tekstid={'utdanning.knapp.slett'}
-          />
+          <SlettKnapp onClick={() => fjernUtdanning()} tekstid={'utdanning.knapp.slett'} />
         )}
       </TittelOgSlettKnapp>
       <FeltGruppe aria-live="polite">

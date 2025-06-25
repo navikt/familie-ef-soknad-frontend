@@ -10,21 +10,14 @@ import { IDatoFelt } from '../../models/søknad/søknadsfelter';
 const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => {
   const { skalGifteSegEllerBliSamboer } = bosituasjon;
 
-  return (
-    skalGifteSegEllerBliSamboer !== undefined &&
-    skalGifteSegEllerBliSamboer.verdi
-  );
+  return skalGifteSegEllerBliSamboer !== undefined && skalGifteSegEllerBliSamboer.verdi;
 };
 
 const harSattFødselsdato = (fødselsdato?: string): boolean =>
   stringHarVerdiOgErIkkeTom(fødselsdato) &&
-  erDatoGyldigOgInnaforBegrensninger(
-    fødselsdato,
-    DatoBegrensning.TidligereDatoer
-  );
+  erDatoGyldigOgInnaforBegrensninger(fødselsdato, DatoBegrensning.TidligereDatoer);
 
-const harSattIdent = (ident?: string): boolean =>
-  stringHarVerdiOgErIkkeTom(ident);
+const harSattIdent = (ident?: string): boolean => stringHarVerdiOgErIkkeTom(ident);
 
 const harFerdigUtfyltOmSamboer = (
   samboerDetaljer?: IPersonDetaljer,
@@ -55,23 +48,15 @@ export const erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid = (
   );
 };
 
-const harFerdigUtfyltPlanerOmÅBliSamboerEllerBliGift = (
-  bosituasjon: IBosituasjon
-): boolean => {
-  const {
-    skalGifteSegEllerBliSamboer,
-    datoSkalGifteSegEllerBliSamboer,
-    vordendeSamboerEktefelle,
-  } = bosituasjon;
+const harFerdigUtfyltPlanerOmÅBliSamboerEllerBliGift = (bosituasjon: IBosituasjon): boolean => {
+  const { skalGifteSegEllerBliSamboer, datoSkalGifteSegEllerBliSamboer, vordendeSamboerEktefelle } =
+    bosituasjon;
 
   const erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid =
-    erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(
-      datoSkalGifteSegEllerBliSamboer
-    );
+    erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(datoSkalGifteSegEllerBliSamboer);
 
   return !!(
-    (skalGifteSegEllerBliSamboer &&
-      skalGifteSegEllerBliSamboer?.verdi === false) ||
+    (skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer?.verdi === false) ||
     (harPlanerOmÅBliSamboerEllerSkalGifteSeg(bosituasjon) &&
       erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid &&
       harFerdigUtfyltOmSamboer(vordendeSamboerEktefelle, false))
@@ -82,19 +67,12 @@ const harSattDatoFlyttetFraHverandre = (bosituasjon: IBosituasjon) => {
   const { datoFlyttetFraHverandre } = bosituasjon;
   return (
     stringHarVerdiOgErIkkeTom(datoFlyttetFraHverandre) &&
-    erDatoGyldigOgInnaforBegrensninger(
-      datoFlyttetFraHverandre?.verdi,
-      DatoBegrensning.AlleDatoer
-    )
+    erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, DatoBegrensning.AlleDatoer)
   );
 };
 
 export const erFerdigUtfylt = (bosituasjon: IBosituasjon) => {
-  const {
-    delerBoligMedAndreVoksne,
-    samboerDetaljer,
-    datoFlyttetSammenMedSamboer,
-  } = bosituasjon;
+  const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetSammenMedSamboer } = bosituasjon;
 
   switch (delerBoligMedAndreVoksne.svarid) {
     case ESøkerDelerBolig.borAleneMedBarnEllerGravid:

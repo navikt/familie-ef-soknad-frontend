@@ -111,17 +111,12 @@ const Medlemskap: React.FC = () => {
           <KomponentGruppe key={bosattINorgeDeSisteFemÅrConfig.søknadid}>
             <JaNeiSpørsmål
               spørsmål={bosattINorgeDeSisteFemÅrConfig}
-              valgtSvar={hentValgtSvar(
-                bosattINorgeDeSisteFemÅrConfig,
-                medlemskap
-              )}
+              valgtSvar={hentValgtSvar(bosattINorgeDeSisteFemÅrConfig, medlemskap)}
               onChange={settBosattSisteFemÅr}
             />
           </KomponentGruppe>
 
-          {søkerBosattINorgeSisteTreÅr?.verdi === false && (
-            <PeriodeBoddIUtlandet land={land} />
-          )}
+          {søkerBosattINorgeSisteTreÅr?.verdi === false && <PeriodeBoddIUtlandet land={land} />}
         </>
       )}
     </SeksjonGruppe>

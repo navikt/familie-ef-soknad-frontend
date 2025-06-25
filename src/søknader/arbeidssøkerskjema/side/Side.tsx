@@ -4,7 +4,7 @@ import { RoutesArbeidssokerskjema } from '../routes/routesArbeidssokerskjema';
 import { useLocation } from 'react-router-dom';
 import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Heading, BodyShort, Box } from '@navikt/ds-react';
+import { BodyShort, Box, Heading } from '@navikt/ds-react';
 import { KnappLocaleTekstOgNavigate } from '../../../components/knapper/KnappLocaleTekstOgNavigate';
 import Stegindikator from '../../../components/stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../../utils/stegindikator';
@@ -31,17 +31,9 @@ const Side: React.FC<ISide> = ({
   routes.shift();
 
   const stegobjekter = stegSomSkalVisesPåStegindikator(routes);
-  const aktivtSteg = stegobjekter.findIndex(
-    (steg) => steg.path === location.pathname
-  );
-  const nesteRoute = hentNesteRoute(
-    RoutesArbeidssokerskjema,
-    location.pathname
-  );
-  const forrigeRoute = hentForrigeRoute(
-    RoutesArbeidssokerskjema,
-    location.pathname
-  );
+  const aktivtSteg = stegobjekter.findIndex((steg) => steg.path === location.pathname);
+  const nesteRoute = hentNesteRoute(RoutesArbeidssokerskjema, location.pathname);
+  const forrigeRoute = hentForrigeRoute(RoutesArbeidssokerskjema, location.pathname);
 
   return (
     <div className={'skjema'}>
@@ -65,15 +57,8 @@ const Side: React.FC<ISide> = ({
                 {intl.formatMessage({ id: 'knapp.uu-tekst' })}
               </BodyShort>
             )}
-            <div
-              className={
-                erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper'
-              }
-            >
-              <KnappLocaleTekstOgNavigate
-                nesteSide={forrigeRoute.path}
-                tekst={'knapp.tilbake'}
-              />
+            <div className={erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper'}>
+              <KnappLocaleTekstOgNavigate nesteSide={forrigeRoute.path} tekst={'knapp.tilbake'} />
               {erSpørsmålBesvart && (
                 <KnappLocaleTekstOgNavigate
                   variant="secondary"

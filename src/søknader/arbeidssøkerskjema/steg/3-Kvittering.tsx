@@ -21,9 +21,7 @@ const Kvittering: React.FC = () => {
 
   const mottattAlert: string =
     hentTekst('skjema.alert.mottatt', intl) +
-    ` ${formatDateHour(
-      skjema?.innsendingsdato ? skjema.innsendingsdato : dagensDato
-    )} `;
+    ` ${formatDateHour(skjema?.innsendingsdato ? skjema.innsendingsdato : dagensDato)} `;
 
   return skjema?.innsendingsdato ? (
     <Side

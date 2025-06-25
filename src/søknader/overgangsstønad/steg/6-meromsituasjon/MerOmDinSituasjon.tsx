@@ -25,21 +25,19 @@ import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import SituasjonOppfølgingSpørsmål from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
-import {
-  dagensDato,
-  datoTilStreng,
-  formatMånederTilbake,
-} from '../../../../utils/dato';
+import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
-import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
+import {
+  useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov,
+  useMount,
+} from '../../../../utils/hooks';
 import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import styled from 'styled-components';
-import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
 
@@ -62,12 +60,9 @@ const MerOmDinSituasjon: React.FC = () => {
   const skalViseKnapper = !kommerFraOppsummering
     ? ESide.visTilbakeNesteAvbrytKnapp
     : ESide.visTilbakeTilOppsummeringKnapp;
-  const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(
-    søknad.merOmDinSituasjon
-  );
+  const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
-  const søkerJobberMindreEnnFemtiProsent =
-    harSøkerMindreEnnHalvStilling(søknad);
+  const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);
 
   useMount(() => logSidevisningOvergangsstonad('MerOmDinSituasjon'));
 
@@ -75,17 +70,11 @@ const MerOmDinSituasjon: React.FC = () => {
 
   const hjelpetekstFørsteAvsnitt = hentBeskjedMedNavn(
     formatMånederTilbake(dagensDato, 3),
-    hentTekst(
-      'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
-      intl
-    )
+    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1', intl)
   );
   const hjelpetekstAndreAvsnitt = hentBeskjedMedNavn(
     formatMånederTilbake(dagensDato, 5),
-    hentTekst(
-      'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2',
-      intl
-    )
+    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2', intl)
   );
   const hjelpetekstTredjeAvsnitt = hentTekst(
     'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del3',
@@ -106,17 +95,9 @@ const MerOmDinSituasjon: React.FC = () => {
     }));
   }, [dinSituasjon, settSøknad]);
 
-  useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov(
-    søknad,
-    intl,
-    oppdaterBarnISøknaden
-  );
+  useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov(søknad, intl, oppdaterBarnISøknaden);
 
-  const settDinSituasjonFelt = (
-    spørsmål: ISpørsmål,
-    svarHuketAv: boolean,
-    svar: ISvar
-  ) => {
+  const settDinSituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const spørsmålTekst = hentTekst(spørsmål.tekstid, intl);
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(
       dinSituasjon.gjelderDetteDeg,
@@ -158,9 +139,7 @@ const MerOmDinSituasjon: React.FC = () => {
         verdi: svar.id === ESøkerFraBestemtMåned.ja,
       },
       søknadsdato:
-        svar.id === ESøkerFraBestemtMåned.neiNavKanVurdere
-          ? undefined
-          : dinSituasjon.søknadsdato,
+        svar.id === ESøkerFraBestemtMåned.neiNavKanVurdere ? undefined : dinSituasjon.søknadsdato,
     });
   };
 
@@ -170,8 +149,7 @@ const MerOmDinSituasjon: React.FC = () => {
     ? harValgtMinstEttAlternativ &&
       harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål(dinSituasjon) &&
       hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad)
-    : harValgtMinstEttAlternativ &&
-      hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad);
+    : harValgtMinstEttAlternativ && hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad);
 
   const erAlleSpørsmålBesvart =
     søknadsdato?.verdi !== undefined ||
@@ -197,8 +175,7 @@ const MerOmDinSituasjon: React.FC = () => {
           />
         </KomponentGruppe>
         {dinSituasjon.gjelderDetteDeg.svarid.map((svarid, index) => {
-          const harValgtMinstEttAlternativ =
-            gjelderDetteDeg.svarid.length !== 0;
+          const harValgtMinstEttAlternativ = gjelderDetteDeg.svarid.length !== 0;
 
           return (
             harValgtMinstEttAlternativ && (

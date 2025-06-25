@@ -13,8 +13,7 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
     const søker = lagSøker({ erStrengtFortrolig: true });
     const person = lagPerson({ søker: søker });
     const søknad = lagSøknadOvergangsstønad({ person: person });
-    const validering =
-      søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
+    const validering = søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
     expect(validering).toBe(true);
   });
@@ -27,8 +26,7 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
     const søknad = lagSøknadOvergangsstønad({
       søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
     });
-    const validering =
-      søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
+    const validering = søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
     expect(validering).toBe(true);
   });
@@ -41,16 +39,14 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
     const søknad = lagSøknadOvergangsstønad({
       adresseopplysninger: adresseopplysninger,
     });
-    const validering =
-      søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
+    const validering = søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
     expect(validering).toBe(true);
   });
 
   test('skal ikke vise sivilstandsspørsmål dersom relevante spørsmål ikke er utfylt', () => {
     const søknad = lagSøknadOvergangsstønad();
-    const validering =
-      søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
+    const validering = søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring(søknad);
 
     expect(validering).toBe(false);
   });

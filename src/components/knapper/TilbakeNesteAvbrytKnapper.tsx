@@ -3,7 +3,7 @@ import LocaleTekst from '../../language/LocaleTekst';
 import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { IRoute } from '../../models/routes';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
 
 const StyledNavigeringsKnapper = styled.div`
@@ -81,16 +81,10 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
 
   return (
     <StyledNavigeringsKnapper
-      className={
-        erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper '
-      }
+      className={erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper '}
       aria-live="polite"
     >
-      <Button
-        className={'tilbake'}
-        variant="secondary"
-        onClick={() => navigate(forrigeRoute.path)}
-      >
+      <Button className={'tilbake'} variant="secondary" onClick={() => navigate(forrigeRoute.path)}>
         <LocaleTekst tekst={'knapp.tilbake'} />
       </Button>
       {erSpørsmålBesvart && (

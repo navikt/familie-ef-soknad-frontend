@@ -42,11 +42,7 @@ interface Props {
   nøkkel: string;
   type?: 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
   bredde?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
-  settInputFelt: (
-    e: React.FormEvent<HTMLInputElement>,
-    nøkkel: string,
-    label: string
-  ) => void;
+  settInputFelt: (e: React.FormEvent<HTMLInputElement>, nøkkel: string, label: string) => void;
   beskrivendeTekst: string;
   value: string;
   feil?: React.ReactNode | boolean;

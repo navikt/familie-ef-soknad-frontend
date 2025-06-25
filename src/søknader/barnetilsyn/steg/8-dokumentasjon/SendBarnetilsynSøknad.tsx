@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
@@ -14,23 +14,12 @@ import {
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IBarn } from '../../../../models/steg/barn';
-import {
-  hentForrigeRoute,
-  hentNesteRoute,
-  hentPath,
-} from '../../../../utils/routing';
+import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 
-import {
-  logDokumetasjonsbehov,
-  logInnsendingFeilet,
-} from '../../../../utils/amplitude';
+import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/amplitude';
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  ERouteSkolepenger,
-  RoutesSkolepenger,
-} from '../../../skolepenger/routing/routes';
+import { ERouteSkolepenger, RoutesSkolepenger } from '../../../skolepenger/routing/routes';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
@@ -97,14 +86,9 @@ const SendSøknadKnapper: FC = () => {
     const barnMedEntenIdentEllerFødselsdato = filtrerBarnSomSkalHaBarnepass(
       mapBarnTilEntenIdentEllerFødselsdato(søknad.person.barn)
     );
-    const barnMedOppdaterteLabels = oppdaterBarnLabels(
-      barnMedEntenIdentEllerFødselsdato,
-      intl
-    );
+    const barnMedOppdaterteLabels = oppdaterBarnLabels(barnMedEntenIdentEllerFødselsdato, intl);
 
-    const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(
-      unikeDokumentasjonsbehov
-    );
+    const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(unikeDokumentasjonsbehov);
     logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Barnetilsyn);
     const søknadMedFiltrerteBarn: SøknadBarnetilsyn = {
       ...søknad,

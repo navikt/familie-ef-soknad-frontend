@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Feilside from '../../components/feil/Feilside';
 import { hentPersonDataArbeidssoker } from '../../utils/søknad';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import {
   autentiseringsInterceptor,
   verifiserAtBrukerErAutentisert,
@@ -96,10 +96,7 @@ const App = () => {
                   </RedirectArbeidssoker>
                 }
               />
-              <Route
-                path={'*'}
-                element={<Forside visningsnavn={visningsnavn} />}
-              />
+              <Route path={'*'} element={<Forside visningsnavn={visningsnavn} />} />
             </Routes>
           </SkjemaProvider>
         </>

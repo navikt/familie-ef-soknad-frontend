@@ -10,11 +10,7 @@ interface Props {
 const RedirectArbeidssoker: React.FC<Props> = ({ children }) => {
   const { skjema } = useSkjema();
 
-  return !skjema.harBekreftet ? (
-    <Navigate to={RoutesArbeidssokerskjema[0].path} />
-  ) : (
-    children
-  );
+  return !skjema.harBekreftet ? <Navigate to={RoutesArbeidssokerskjema[0].path} /> : children;
 };
 
 export default RedirectArbeidssoker;
