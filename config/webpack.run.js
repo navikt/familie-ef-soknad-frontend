@@ -95,9 +95,7 @@ const config = {
       'process.env.NODE_ENV': JSON.stringify('development'),
       'process.env.PUBLIC_URL': JSON.stringify(publicPath),
       'process.env.BRUK_MOCK_LOKALT': JSON.stringify(brukMockLokalt),
-      'process.env.BRUK_DEV_API': JSON.stringify(
-        process.env.BRUK_DEV_API || false
-      ),
+      'process.env.BRUK_DEV_API': JSON.stringify(process.env.BRUK_DEV_API || false),
     }),
     new ReactRefreshWebpackPlugin({
       overlay: false,

@@ -32,11 +32,10 @@ export const [OmDegProvider, useOmDeg] = constate(
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
     const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
-    const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] =
-      useState(søknad.søkerBorPåRegistrertAdresse);
-    const [adresseopplysninger, settAdresseopplysninger] = useState(
-      søknad.adresseopplysninger
+    const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] = useState(
+      søknad.søkerBorPåRegistrertAdresse
     );
+    const [adresseopplysninger, settAdresseopplysninger] = useState(søknad.adresseopplysninger);
 
     const mellomlagreSteg = () => {
       const oppdatertSøknad = validerOmDeg(
