@@ -12,6 +12,7 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
 
   const [aleneMedBarnÅrsak, settAleneMedBarnÅrsak] = useState<string>();
   const [samlivsbruddDatoVerdi, settSamlivsbruddDatoVerdi] = useState<Date | undefined>();
+  const [endringIOmsorgDatoVerdi, settEndringIOmsorgDatoVerdi] = useState<Date | undefined>();
   const [oppholdesINorgeMedBarn, settOppholdesINorgeMedBarn] = useState<string>();
 
   const skalViseOmDenTidligereSamboerenDin = aleneMedBarnÅrsak === 'samlivsbrudd-med-noen-andre';
@@ -19,10 +20,15 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
   const skalViseOppholdMedBarnINorge =
     aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-fra-fødsel' ||
     aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-på-grunn-av-dødsfall';
+  const skalViseEndringIOmsorg = aleneMedBarnÅrsak === 'endring-i-omsorgen-for-barn';
 
   const samlivsBruddDato = useDatepicker({
     toDate: new Date(),
     onDateChange: settSamlivsbruddDatoVerdi,
+  });
+
+  const endringIOmsorgDato = useDatepicker({
+    onDateChange: settEndringIOmsorgDatoVerdi,
   });
 
   return (
@@ -112,6 +118,16 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
             </div>
           </RadioGroup>
         </SpørsmålWrapper>
+      )}
+
+      {/* 5. Når skjedde endringen / når skal endringen skje? */}
+      {skalViseEndringIOmsorg && (
+        <DatePicker {...endringIOmsorgDato.datepickerProps}>
+          <DatePicker.Input
+            {...endringIOmsorgDato.inputProps}
+            label={hentTekst('sivilstatus.datovelger.endring', intl)}
+          />
+        </DatePicker>
       )}
     </VStack>
   );
