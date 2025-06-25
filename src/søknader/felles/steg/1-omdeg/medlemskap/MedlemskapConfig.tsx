@@ -1,9 +1,6 @@
 import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
 import { JaNeiSvar } from '../../../../../helpers/svar';
-import {
-  EMedlemskap,
-  ILandMedKode,
-} from '../../../../../models/steg/omDeg/medlemskap';
+import { EMedlemskap, ILandMedKode } from '../../../../../models/steg/omDeg/medlemskap';
 import { LocaleType, LokalIntlShape } from '../../../../../language/typer';
 import CountryData, { Countries, CountryFilter } from '@navikt/land-verktoy';
 

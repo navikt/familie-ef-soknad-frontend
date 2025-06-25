@@ -14,12 +14,7 @@ interface Props {
   settDato: (date: Date | null) => void;
 }
 
-const MånedÅrVelger: React.FC<Props> = ({
-  tekstid,
-  datobegrensning,
-  valgtDato,
-  settDato,
-}) => {
+const MånedÅrVelger: React.FC<Props> = ({ tekstid, datobegrensning, valgtDato, settDato }) => {
   const [locale] = useSpråkContext();
   const intl = useLokalIntlContext();
   const datolabelid = hentUid();
@@ -45,9 +40,7 @@ const MånedÅrVelger: React.FC<Props> = ({
       {...monthpickerProps}
       id={datolabelid}
       locale={locale}
-      dropdownCaption={
-        begrensninger.minDate && begrensninger.maxDate ? true : false
-      }
+      dropdownCaption={begrensninger.minDate && begrensninger.maxDate ? true : false}
       fromDate={begrensninger?.minDate}
       toDate={begrensninger?.maxDate}
     >

@@ -3,16 +3,10 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import {
-  EBosituasjon,
-  IBosituasjon,
-} from '../../../../models/steg/bosituasjon';
+import { EBosituasjon, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
-import {
-  EPersonDetaljer,
-  IPersonDetaljer,
-} from '../../../../models/søknad/person';
+import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
 import { Label } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../components/TextFieldMedBredde';
 
@@ -21,9 +15,7 @@ interface Props {
   erIdentEllerFødselsdatoObligatorisk: boolean;
   settBosituasjon: (bositasjon: IBosituasjon) => void;
   bosituasjon: IBosituasjon;
-  samboerDetaljerType:
-    | EBosituasjon.samboerDetaljer
-    | EBosituasjon.vordendeSamboerEktefelle;
+  samboerDetaljerType: EBosituasjon.samboerDetaljer | EBosituasjon.vordendeSamboerEktefelle;
 }
 
 const OmSamboerenDin: FC<Props> = ({
@@ -38,12 +30,8 @@ const OmSamboerenDin: FC<Props> = ({
   const [samboerInfo, settSamboerInfo] = useState<IPersonDetaljer>(
     samboerDetaljer ? samboerDetaljer : { kjennerIkkeIdent: false }
   );
-  const [ident, settIdent] = useState<string>(
-    samboerInfo?.ident ? samboerInfo?.ident.verdi : ''
-  );
-  const [erGyldigIdent, settGyldigIdent] = useState<boolean>(
-    !!samboerDetaljer?.ident?.verdi
-  );
+  const [ident, settIdent] = useState<string>(samboerInfo?.ident ? samboerInfo?.ident.verdi : '');
+  const [erGyldigIdent, settGyldigIdent] = useState<boolean>(!!samboerDetaljer?.ident?.verdi);
 
   useEffect(() => {
     erGyldigIdent &&
@@ -79,8 +67,7 @@ const OmSamboerenDin: FC<Props> = ({
       delete endretSamboerInfo.ident;
       settIdent('');
     }
-    if (!checked && endretSamboerInfo.fødselsdato?.verdi)
-      delete endretSamboerInfo.fødselsdato;
+    if (!checked && endretSamboerInfo.fødselsdato?.verdi) delete endretSamboerInfo.fødselsdato;
 
     settSamboerInfo({ ...endretSamboerInfo, kjennerIkkeIdent: checked });
   };

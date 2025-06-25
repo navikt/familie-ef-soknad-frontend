@@ -10,21 +10,14 @@ interface Props {
   settForelder: (verdi: IForelder) => void;
 }
 
-const HvordanPraktiseresSamværet: React.FC<Props> = ({
-  forelder,
-  settForelder,
-}) => {
+const HvordanPraktiseresSamværet: React.FC<Props> = ({ forelder, settForelder }) => {
   const intl = useLokalIntlContext();
 
   return (
     <KomponentGruppe className="hvordan-praktiseres-samværet">
       <FeltGruppe>
-        <Label as="p">
-          {intl.formatMessage({ id: 'barnasbosted.element.samvær' })}
-        </Label>
-        <BodyShort>
-          {intl.formatMessage({ id: 'barnasbosted.normaltekst.opplysninger' })}
-        </BodyShort>
+        <Label as="p">{intl.formatMessage({ id: 'barnasbosted.element.samvær' })}</Label>
+        <BodyShort>{intl.formatMessage({ id: 'barnasbosted.normaltekst.opplysninger' })}</BodyShort>
         <ul>
           <li>
             <BodyShort>
@@ -46,8 +39,7 @@ const HvordanPraktiseresSamværet: React.FC<Props> = ({
         <Textarea
           autoComplete={'off'}
           value={
-            forelder.hvordanPraktiseresSamværet &&
-            forelder.hvordanPraktiseresSamværet.verdi
+            forelder.hvordanPraktiseresSamværet && forelder.hvordanPraktiseresSamværet.verdi
               ? forelder.hvordanPraktiseresSamværet.verdi
               : ''
           }

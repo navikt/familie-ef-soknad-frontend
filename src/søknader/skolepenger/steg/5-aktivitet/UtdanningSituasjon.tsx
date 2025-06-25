@@ -32,8 +32,9 @@ const UtdanningSituasjon: React.FC = () => {
     });
   };
 
-  const erSisteSpørsmålBesvartOgMinstEttAlternativValgt =
-    erAllUtdanningFerdigUtfyltForSkolepenger(søknad.utdanning);
+  const erSisteSpørsmålBesvartOgMinstEttAlternativValgt = erAllUtdanningFerdigUtfyltForSkolepenger(
+    søknad.utdanning
+  );
 
   return (
     <Side

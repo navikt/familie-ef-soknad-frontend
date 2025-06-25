@@ -8,10 +8,7 @@ import OppsummeringAktiviteter from '../../../felles/steg/7-oppsummering/Oppsumm
 import OppsummeringDinSituasjon from '../../../felles/steg/7-oppsummering/OppsummeringDinSituasjon';
 import OppsummeringBosituasjonenDin from '../../../felles/steg/7-oppsummering/OppsummeringBosituasjon';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import {
-  ERouteOvergangsstønad,
-  RoutesOvergangsstonad,
-} from '../../routing/routesOvergangsstonad';
+import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPath } from '../../../../utils/routing';
 import Side, { ESide } from '../../../../components/side/Side';
 import { hentTekst } from '../../../../utils/søknad';
@@ -73,22 +70,16 @@ const Oppsummering: React.FC = () => {
 
   const validerHvisSøkerSkalGifteSeg = () => {
     if (søknad.bosituasjon.skalGifteSegEllerBliSamboer?.verdi) {
-      const harGyldigDatoForGiftemål =
-        datoSkalGifteSegEllerBliSamboerSchema.isValidSync(
-          søknad.bosituasjon.datoSkalGifteSegEllerBliSamboer
-        );
+      const harGyldigDatoForGiftemål = datoSkalGifteSegEllerBliSamboerSchema.isValidSync(
+        søknad.bosituasjon.datoSkalGifteSegEllerBliSamboer
+      );
       const harGyldigIdent =
         søknad.bosituasjon.vordendeSamboerEktefelle &&
-        identSchema.isValidSync(
-          søknad.bosituasjon.vordendeSamboerEktefelle.ident
-        );
+        identSchema.isValidSync(søknad.bosituasjon.vordendeSamboerEktefelle.ident);
       const harGyldigFødselsdato =
         søknad.bosituasjon.vordendeSamboerEktefelle &&
-        fødselsdatoSchema.isValidSync(
-          søknad.bosituasjon.vordendeSamboerEktefelle.fødselsdato
-        );
-      const harGyldigIdentEllerDatoPåVordende =
-        harGyldigFødselsdato || harGyldigIdent;
+        fødselsdatoSchema.isValidSync(søknad.bosituasjon.vordendeSamboerEktefelle.fødselsdato);
+      const harGyldigIdentEllerDatoPåVordende = harGyldigFødselsdato || harGyldigIdent;
       if (!harGyldigIdentEllerDatoPåVordende || !harGyldigDatoForGiftemål) {
         if (feilIkkeRegistrertFor(ManglendeFelter.BOSITUASJONEN_DIN)) {
           oppdaterManglendeFelter(ManglendeFelter.BOSITUASJONEN_DIN);
@@ -111,11 +102,7 @@ const Oppsummering: React.FC = () => {
       .validate(søknad.aktivitet)
       .then()
       .catch((e) => {
-        if (
-          !manglendeFelter.includes(
-            manglendeFelterTilTekst[ManglendeFelter.AKTIVITET]
-          )
-        ) {
+        if (!manglendeFelter.includes(manglendeFelterTilTekst[ManglendeFelter.AKTIVITET])) {
           oppdaterManglendeFelter(ManglendeFelter.AKTIVITET);
         }
         logManglendeFelter(ESkjemanavn.Overgangsstønad, skjemaId, e);
@@ -174,18 +161,12 @@ const Oppsummering: React.FC = () => {
           <KomponentGruppe>
             <Accordion>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.omDeg', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.omDeg', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringOmDeg
                     søker={søknad.person.søker}
-                    søkerBorPåRegistrertAdresse={
-                      søknad.søkerBorPåRegistrertAdresse
-                    }
-                    harMeldtAdresseendring={
-                      søknad.adresseopplysninger?.harMeldtAdresseendring
-                    }
+                    søkerBorPåRegistrertAdresse={søknad.søkerBorPåRegistrertAdresse}
+                    harMeldtAdresseendring={søknad.adresseopplysninger?.harMeldtAdresseendring}
                     sivilstatus={søknad.sivilstatus}
                     medlemskap={søknad.medlemskap}
                     endreInformasjonPath={hentPath(
@@ -196,9 +177,7 @@ const Oppsummering: React.FC = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.bosituasjon', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.bosituasjon', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringBosituasjonenDin
                     bosituasjon={søknad.bosituasjon}
@@ -210,9 +189,7 @@ const Oppsummering: React.FC = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('barnadine.sidetittel', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('barnadine.sidetittel', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringBarnaDine
                     barn={søknad.person.barn}
@@ -225,9 +202,7 @@ const Oppsummering: React.FC = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('barnasbosted.sidetittel', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('barnasbosted.sidetittel', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringBarnasBosituasjon
                     barn={søknad.person.barn}
@@ -254,9 +229,7 @@ const Oppsummering: React.FC = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.dinSituasjon', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.dinSituasjon', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringDinSituasjon
                     tittel={hentTekst('stegtittel.dinSituasjon', intl)}
@@ -273,9 +246,9 @@ const Oppsummering: React.FC = () => {
           </KomponentGruppe>
           {harManglendeFelter && (
             <Alert size="small" variant="warning">
-              Det er felter i søknaden som ikke er fylt ut eller har ugyldig
-              verdi. Gå til {listManglendeFelter(manglendeFelter)} for å legge
-              inn gyldige verdier før du sender inn søknaden.
+              Det er felter i søknaden som ikke er fylt ut eller har ugyldig verdi. Gå til{' '}
+              {listManglendeFelter(manglendeFelter)} for å legge inn gyldige verdier før du sender
+              inn søknaden.
             </Alert>
           )}
         </div>

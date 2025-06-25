@@ -21,10 +21,7 @@ export const VeilederBoks: React.FC<VeilederBoksProps> = ({ navn }) => {
   return (
     <VeilederContainer>
       <VeilederSnakkeboble
-        tekst={hentBeskjedMedNavn(
-          søkerNavn,
-          intl.formatMessage({ id: 'skjema.hei' })
-        )}
+        tekst={hentBeskjedMedNavn(søkerNavn, intl.formatMessage({ id: 'skjema.hei' }))}
       />
     </VeilederContainer>
   );

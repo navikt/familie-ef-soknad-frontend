@@ -17,10 +17,7 @@ export const hentSpørsmålTekstMedNavnEllerBarn = (
   return hentBeskjedMedNavn(navnEllerBarn, hentTekst(spørsmålTekstid, intl));
 };
 
-export const hentBarnetsNavnEllerBeskrivelse = (
-  barn: IBarn,
-  intl: LokalIntlShape
-) => {
+export const hentBarnetsNavnEllerBeskrivelse = (barn: IBarn, intl: LokalIntlShape) => {
   if (barn.harAdressesperre) {
     return hentTekst('barnekort.normaltekst.barn', intl);
   }
@@ -48,10 +45,7 @@ export const barnetsNavnEllerBarnet = (barn: IBarn, intl: LokalIntlShape) => {
     : barn.navn.verdi;
 };
 
-export const flereBarnsNavn = (
-  barneliste: IBarn[],
-  intl: LokalIntlShape
-): string => {
+export const flereBarnsNavn = (barneliste: IBarn[], intl: LokalIntlShape): string => {
   if (barneliste.length === 0) {
     return '';
   } else if (barneliste.length === 1) {
@@ -70,35 +64,21 @@ export const flereBarnsNavn = (
     }, '');
   }
 };
-export const hentBarnNavnEllerBarnet = (
-  barn: IBarn,
-  tekstid: string,
-  intl: LokalIntlShape
-) => {
-  return hentBeskjedMedNavn(
-    barnetsNavnEllerBarnet(barn, intl),
-    hentTekst(tekstid, intl)
-  );
+export const hentBarnNavnEllerBarnet = (barn: IBarn, tekstid: string, intl: LokalIntlShape) => {
+  return hentBeskjedMedNavn(barnetsNavnEllerBarnet(barn, intl), hentTekst(tekstid, intl));
 };
 
-export const oppdaterBarnIBarneliste = (
-  barneListe: IBarn[],
-  nyttBarn: IBarn
-) => {
-  const erEndringAvEksisterendeBarn =
-    barneListe.findIndex((barn) => barn.id === nyttBarn.id) >= 0;
+export const oppdaterBarnIBarneliste = (barneListe: IBarn[], nyttBarn: IBarn) => {
+  const erEndringAvEksisterendeBarn = barneListe.findIndex((barn) => barn.id === nyttBarn.id) >= 0;
   if (erEndringAvEksisterendeBarn) {
-    return barneListe.map((barn) =>
-      barn.id === nyttBarn.id ? nyttBarn : barn
-    );
+    return barneListe.map((barn) => (barn.id === nyttBarn.id ? nyttBarn : barn));
   }
   return [...barneListe, nyttBarn];
 };
 
 export const oppdaterBarneliste = (barneListe: IBarn[], nyeBarn: IBarn[]) => {
   return barneListe.map(
-    (barn) =>
-      nyeBarn.find((oppdatertBarn) => oppdatertBarn.id === barn.id) || barn
+    (barn) => nyeBarn.find((oppdatertBarn) => oppdatertBarn.id === barn.id) || barn
   );
 };
 
@@ -149,10 +129,7 @@ export const oppdaterBarnLabels = (barn: IBarn[], intl: LokalIntlShape) => {
 
         let labelMedNavnEllerBarnet = oppdatertBarn.forelder[key].label;
 
-        labelMedNavnEllerBarnet = labelMedNavnEllerBarnet?.replace(
-          '[0]',
-          navnEllerBarn
-        );
+        labelMedNavnEllerBarnet = labelMedNavnEllerBarnet?.replace('[0]', navnEllerBarn);
 
         oppdatertBarn.forelder[key].label = labelMedNavnEllerBarnet;
       });
@@ -165,9 +142,7 @@ export const oppdaterBarnLabels = (barn: IBarn[], intl: LokalIntlShape) => {
 };
 
 const unikeForelderidenter = (barn: IBarn[]) =>
-  Array.from(new Set(barn.map((b) => b.forelder?.ident?.verdi))).filter(
-    harVerdi
-  );
+  Array.from(new Set(barn.map((b) => b.forelder?.ident?.verdi))).filter(harVerdi);
 
 export const forelderidentMedBarn = (barn: IBarn[]) =>
   new Map(
@@ -191,8 +166,7 @@ export const kopierFellesForeldreInformasjon = (
       ident: oppdatertForelder?.ident,
       borINorge: oppdatertForelder?.borINorge,
       borAnnenForelderISammeHus: oppdatertForelder?.borAnnenForelderISammeHus,
-      borAnnenForelderISammeHusBeskrivelse:
-        oppdatertForelder?.borAnnenForelderISammeHusBeskrivelse,
+      borAnnenForelderISammeHusBeskrivelse: oppdatertForelder?.borAnnenForelderISammeHusBeskrivelse,
       boddSammenFør: oppdatertForelder?.boddSammenFør,
       flyttetFra: oppdatertForelder?.flyttetFra,
       hvorMyeSammen: oppdatertForelder?.hvorMyeSammen,

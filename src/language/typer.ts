@@ -13,9 +13,6 @@ export enum LangType {
 }
 
 export interface LokalIntlShape {
-  formatMessage: (
-    props: OversettProps,
-    parametre?: Record<string, string>
-  ) => string;
+  formatMessage: (props: OversettProps, parametre?: Record<string, string>) => string;
   messages: Record<string, string>;
 }

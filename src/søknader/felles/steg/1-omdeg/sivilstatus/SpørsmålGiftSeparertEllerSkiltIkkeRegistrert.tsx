@@ -1,20 +1,10 @@
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import {
-  erUformeltGiftSpørsmål,
-  erUformeltSeparertEllerSkiltSpørsmål,
-} from './SivilstatusConfig';
-import {
-  ESvar,
-  ISpørsmål,
-  ISvar,
-} from '../../../../../models/felles/spørsmålogsvar';
+import { erUformeltGiftSpørsmål, erUformeltSeparertEllerSkiltSpørsmål } from './SivilstatusConfig';
+import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import LocaleTekst from '../../../../../language/LocaleTekst';
-import {
-  hentSvarAlertFraSpørsmål,
-  hentTekst,
-} from '../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
 import React from 'react';
 import Show from '../../../../../utils/showIf';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -27,8 +17,7 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { erUformeltGift } = sivilstatus;
 
-  const harSvartJaPåUformeltGift =
-    sivilstatus.erUformeltGift?.svarid === ESvar.JA;
+  const harSvartJaPåUformeltGift = sivilstatus.erUformeltGift?.svarid === ESvar.JA;
 
   const harSvartJaUformeltSeparertEllerSkilt =
     sivilstatus.erUformeltSeparertEllerSkilt?.svarid === ESvar.JA;
@@ -47,10 +36,7 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
     });
   };
 
-  const settErUformeltSeparertEllerSkilt = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
+  const settErUformeltSeparertEllerSkilt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     settSivilstatus({
       ...sivilstatus,
       erUformeltSeparertEllerSkilt: {
@@ -72,12 +58,7 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
         />
         <Show if={harSvartJaPåUformeltGift}>
           <AlertstripeDokumentasjon>
-            <LocaleTekst
-              tekst={hentSvarAlertFraSpørsmål(
-                ESvar.JA,
-                erUformeltGiftSpørsmål(intl)
-              )}
-            />
+            <LocaleTekst tekst={hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl))} />
           </AlertstripeDokumentasjon>
         </Show>
       </KomponentGruppe>
@@ -86,10 +67,7 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
           <JaNeiSpørsmål
             spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
             onChange={settErUformeltSeparertEllerSkilt}
-            valgtSvar={hentValgtSvar(
-              erUformeltSeparertEllerSkiltSpørsmål(intl),
-              sivilstatus
-            )}
+            valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
           />
           <Show if={harSvartJaUformeltSeparertEllerSkilt}>
             <AlertstripeDokumentasjon>

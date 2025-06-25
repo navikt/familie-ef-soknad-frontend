@@ -69,9 +69,7 @@ const BarneHeader: React.FC<Props> = ({ barn, visBakgrunn = false }) => {
 
   return (
     <StyledBarnasBostedHeader>
-      <div
-        className={visBakgrunn ? 'barnas-bosted-header' : 'barnas-bosted-tom'}
-      >
+      <div className={visBakgrunn ? 'barnas-bosted-header' : 'barnas-bosted-tom'}>
         <img alt="barn" className="barneikon" src={ikon} />
       </div>
       <div className="navn">

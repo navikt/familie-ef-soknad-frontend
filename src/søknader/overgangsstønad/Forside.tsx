@@ -8,7 +8,7 @@ import LocaleTekst from '../../language/LocaleTekst';
 import { useMount, useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Heading, Box } from '@navikt/ds-react';
+import { Box, Heading } from '@navikt/ds-react';
 import { OvergangsstønadInformasjon } from './OvergangsstønadInformasjon';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
@@ -42,14 +42,11 @@ const Forside: React.FC = () => {
   const kanBrukeMellomlagretSøknad =
     mellomlagretOvergangsstønad !== undefined &&
     mellomlagretOvergangsstønad.søknad.person.hash === person.hash &&
-    mellomlagretOvergangsstønad.modellVersjon ===
-      Environment().modellVersjon.overgangsstønad;
+    mellomlagretOvergangsstønad.modellVersjon === Environment().modellVersjon.overgangsstønad;
 
   const alder = person.søker.alder;
 
-  const skalViseSpråkValg = !(
-    kanBrukeMellomlagretSøknad && mellomlagretOvergangsstønad
-  );
+  const skalViseSpråkValg = !(kanBrukeMellomlagretSøknad && mellomlagretOvergangsstønad);
 
   useSpråkValg(skalViseSpråkValg);
 

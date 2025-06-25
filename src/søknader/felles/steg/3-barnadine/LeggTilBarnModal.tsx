@@ -48,9 +48,7 @@ const LeggTilBarnModal: React.FC<Props> = ({
   const [navn, settNavn] = useState('');
   const [ident, settIdent] = useState<string>('');
   const [boHosDeg, settBoHosDeg] = useState<string>('');
-  const [skalHaBarnepass, settSkalHaBarnepass] = useState<boolean | undefined>(
-    true
-  );
+  const [skalHaBarnepass, settSkalHaBarnepass] = useState<boolean | undefined>(true);
   const barnetFødtSpm = barnetFødt(intl);
 
   useEffect(() => {
@@ -62,8 +60,7 @@ const LeggTilBarnModal: React.FC<Props> = ({
       settBarnFødt(detteBarnet?.født?.verdi);
       settBoHosDeg(detteBarnet?.harSammeAdresse?.verdi ? ESvar.JA : ESvar.NEI);
       settSkalHaBarnepass(detteBarnet?.skalHaBarnepass?.verdi);
-      detteBarnet?.fødselsdato.verdi &&
-        settDato(detteBarnet.fødselsdato?.verdi);
+      detteBarnet?.fødselsdato.verdi && settDato(detteBarnet.fødselsdato?.verdi);
     }
     // eslint-disable-next-line
   }, []);
@@ -88,15 +85,8 @@ const LeggTilBarnModal: React.FC<Props> = ({
       skalHaBarnepass
     );
 
-    const erBarnFødtSvar = barnetFødtSpm.svaralternativer.find(
-      (svar) => svar.id === ESvar.NEI
-    );
-    erBarnFødtSvar &&
-      settDokumentasjonsbehovForBarn(
-        barnetFødtSpm,
-        erBarnFødtSvar,
-        nyttBarn.id
-      );
+    const erBarnFødtSvar = barnetFødtSpm.svaralternativer.find((svar) => svar.id === ESvar.NEI);
+    erBarnFødtSvar && settDokumentasjonsbehovForBarn(barnetFødtSpm, erBarnFødtSvar, nyttBarn.id);
 
     oppdaterBarnISøknaden(nyttBarn);
 
@@ -115,11 +105,7 @@ const LeggTilBarnModal: React.FC<Props> = ({
           />
         </KomponentGruppe>
         {boHosDeg && (
-          <Button
-            variant="primary"
-            aria-live="polite"
-            onClick={() => leggTilEllerEndreBarn(id)}
-          >
+          <Button variant="primary" aria-live="polite" onClick={() => leggTilEllerEndreBarn(id)}>
             <LocaleTekst tekst={'barnadine.leggtil'} />
           </Button>
         )}

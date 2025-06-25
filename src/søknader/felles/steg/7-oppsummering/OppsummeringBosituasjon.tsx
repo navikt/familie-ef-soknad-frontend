@@ -2,10 +2,7 @@ import React from 'react';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/søknad';
-import {
-  ESøkerDelerBolig,
-  IBosituasjon,
-} from '../../../../models/steg/bosituasjon';
+import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar } from '../../../../utils/visning';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
@@ -18,18 +15,14 @@ interface Props {
   endreInformasjonPath?: string;
 }
 
-const OppsummeringBosituasionenDin: React.FC<Props> = ({
-  bosituasjon,
-  endreInformasjonPath,
-}) => {
+const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInformasjonPath }) => {
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
 
   const samboerDetaljer =
     bosituasjon.samboerDetaljer && VisLabelOgSvar(bosituasjon.samboerDetaljer);
   const vordendeSamboerEktefelle =
-    bosituasjon.vordendeSamboerEktefelle &&
-    VisLabelOgSvar(bosituasjon.vordendeSamboerEktefelle);
+    bosituasjon.vordendeSamboerEktefelle && VisLabelOgSvar(bosituasjon.vordendeSamboerEktefelle);
 
   const lagSamboerOverskrift = () => {
     if (
@@ -38,8 +31,7 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({
     ) {
       return hentTekst('bosituasjon.tittel.omTidligereSamboer', intl);
     } else if (
-      bosituasjon.delerBoligMedAndreVoksne.svarid ===
-      ESøkerDelerBolig.harEkteskapsliknendeForhold
+      bosituasjon.delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.harEkteskapsliknendeForhold
     ) {
       return hentTekst('bosituasjon.tittel.omSamboer', intl);
     }
@@ -58,10 +50,7 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({
       {vordendeSamboerEktefelle && (
         <KomponentGruppe>
           <Ingress>
-            {hentTekst(
-              'bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed',
-              intl
-            )}
+            {hentTekst('bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed', intl)}
           </Ingress>
           {vordendeSamboerEktefelle}
         </KomponentGruppe>
@@ -69,10 +58,7 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({
 
       <LenkeMedIkon
         onClick={() =>
-          navigate(
-            { pathname: endreInformasjonPath },
-            { state: { kommerFraOppsummering: true } }
-          )
+          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
         }
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}

@@ -23,23 +23,17 @@ interface Props {
   endreInformasjonPath?: string;
 }
 
-const OppsummeringAktiviteter: React.FC<Props> = ({
-  aktivitet,
-  endreInformasjonPath,
-}) => {
+const OppsummeringAktiviteter: React.FC<Props> = ({ aktivitet, endreInformasjonPath }) => {
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
 
   return (
     <StyledOppsummeringMedUndertitler>
-      {aktivitet.erIArbeid &&
-        visLabelOgVerdiForSpørsmålFelt(aktivitet?.erIArbeid, intl)}
+      {aktivitet.erIArbeid && visLabelOgVerdiForSpørsmålFelt(aktivitet?.erIArbeid, intl)}
 
       {aktivitet.hvaErDinArbeidssituasjon && (
         <SeksjonSpacingBottom>
-          {visLabelOgVerdiForSpørsmålListeFelt(
-            aktivitet.hvaErDinArbeidssituasjon
-          )}
+          {visLabelOgVerdiForSpørsmålListeFelt(aktivitet.hvaErDinArbeidssituasjon)}
         </SeksjonSpacingBottom>
       )}
 
@@ -64,19 +58,13 @@ const OppsummeringAktiviteter: React.FC<Props> = ({
 
       {aktivitet.firmaer && (
         <SeksjonSpacingBottom>
-          {visListeAvLabelOgSvar(
-            aktivitet.firmaer,
-            hentTekst('firmaer.tittel', intl)
-          )}
+          {visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}
         </SeksjonSpacingBottom>
       )}
 
       {aktivitet.egetAS && (
         <SeksjonSpacingBottom>
-          {visListeAvLabelOgSvar(
-            aktivitet.egetAS,
-            hentTekst('arbeidsforhold.tittel.egetAS', intl)
-          )}
+          {visListeAvLabelOgSvar(aktivitet.egetAS, hentTekst('arbeidsforhold.tittel.egetAS', intl))}
         </SeksjonSpacingBottom>
       )}
 

@@ -24,9 +24,7 @@ describe('OmDegSteg, personopplysninger', () => {
     settOppMellomlagretSøknad();
     const { screen } = await navigerTilOmDeg();
 
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Om deg' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Om deg' })).toBeInTheDocument();
   });
 
   test('Rendre spørsmål om uformelt gift dersom bruker er ugift og borPåAdresse er ja', async () => {
@@ -163,9 +161,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.getByText(
-        'Når du er gift, har du ikke rett til stønad til enslig mor eller far'
-      )
+      screen.getByText('Når du er gift, har du ikke rett til stønad til enslig mor eller far')
     ).toBeInTheDocument();
 
     expect(
@@ -182,9 +178,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.queryByText(
-        'Når du er gift, har du ikke rett til stønad til enslig mor eller far'
-      )
+      screen.queryByText('Når du er gift, har du ikke rett til stønad til enslig mor eller far')
     ).not.toBeInTheDocument();
 
     expect(
@@ -196,11 +190,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await user.click(screen.getByRole('button', { name: 'Åpne datovelger' }));
     await user.click(screen.getByRole('button', { name: 'mandag 2' }));
 
-    expect(
-      screen.getByText(
-        'Du må legge ved bekreftelse fra Statsforvalteren eller domstolen.'
-      )
-    );
+    expect(screen.getByText('Du må legge ved bekreftelse fra Statsforvalteren eller domstolen.'));
 
     expect(
       screen.getByRole('group', {
@@ -285,10 +275,7 @@ describe('OmDegSteg, sivilstatus', () => {
       })
     ).toBeInTheDocument();
 
-    await user.type(
-      screen.getByRole('textbox', { name: 'Navn' }),
-      'Ola Nordmann'
-    );
+    await user.type(screen.getByRole('textbox', { name: 'Navn' }), 'Ola Nordmann');
 
     await user.type(
       screen.getByRole('textbox', {
@@ -297,15 +284,9 @@ describe('OmDegSteg, sivilstatus', () => {
       '1234'
     );
 
-    expect(
-      screen.getByText('Ugyldig fødselsnummer eller d-nummer')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
-    );
-    expect(
-      screen.getByRole('button', { name: 'Åpne datovelger' })
-    ).toBeInTheDocument();
+    expect(screen.getByText('Ugyldig fødselsnummer eller d-nummer')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' }));
+    expect(screen.getByRole('button', { name: 'Åpne datovelger' })).toBeInTheDocument();
 
     await user.clear(
       screen.getByRole('textbox', {
@@ -377,29 +358,20 @@ describe('OmDegSteg, sivilstatus', () => {
 
     await skrivFritekst('Navn', 'Ola Nordmann', screen, user);
 
-    await klikkCheckbox(
-      'Jeg kjenner ikke fødselsnummer / d-nummer',
-      screen,
-      user
-    );
+    await klikkCheckbox('Jeg kjenner ikke fødselsnummer / d-nummer', screen, user);
 
-    await user.type(
-      screen.getByRole('textbox', { name: 'Fødselsdato' }),
-      '02.06.1990'
-    );
+    await user.type(screen.getByRole('textbox', { name: 'Fødselsdato' }), '02.06.1990');
 
-    expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toHaveValue(
-      '02.06.1990'
-    );
+    expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toHaveValue('02.06.1990');
 
     await user.type(
       screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' }),
       '02.06.2025'
     );
 
-    expect(
-      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
-    ).toHaveValue('02.06.2025');
+    expect(screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })).toHaveValue(
+      '02.06.2025'
+    );
 
     expect(
       screen.getByRole('group', {
@@ -517,12 +489,8 @@ describe('OmDegSteg, sivilstatus', () => {
       )
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('link', { name: 'gjenlevende' })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: 'barnepensjon' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'gjenlevende' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'barnepensjon' })).toBeInTheDocument();
 
     expect(screen.getByRole('link', { name: 'gjenlevende' })).toHaveAttribute(
       'href',
@@ -566,12 +534,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
 
-    await klikkSvarRadioknapp(
-      'Oppholder du og barnet/barna dere i Norge?',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -604,12 +567,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
 
-    await klikkSvarRadioknapp(
-      'Oppholder du og barnet/barna dere i Norge?',
-      'Nei',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Nei', screen, user);
 
     expect(
       screen.getByRole('combobox', {
@@ -655,19 +613,9 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
 
-    await klikkSvarRadioknapp(
-      'Oppholder du og barnet/barna dere i Norge?',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
-      'Har du oppholdt deg i Norge de siste 5 årene?',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
 
     expect(screen.getByRole('button', { name: 'Neste' }));
   });
@@ -696,19 +644,9 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
 
-    await klikkSvarRadioknapp(
-      'Oppholder du og barnet/barna dere i Norge?',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
-      'Har du oppholdt deg i Norge de siste 5 årene?',
-      'Nei',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
 
     await user.type(screen.getByRole('textbox', { name: 'Fra' }), '02.06.2019');
 
@@ -728,13 +666,9 @@ describe('OmDegSteg, medlemskap', () => {
       'Var på stranda'
     );
 
-    expect(
-      screen.getByText('Har du hatt flere utenlandsopphold de siste 5 årene?')
-    );
+    expect(screen.getByText('Har du hatt flere utenlandsopphold de siste 5 årene?'));
 
-    expect(
-      screen.getByRole('button', { name: 'Legg til et utenlandsopphold' })
-    );
+    expect(screen.getByRole('button', { name: 'Legg til et utenlandsopphold' }));
 
     expect(screen.getByRole('button', { name: 'Neste' }));
   });
@@ -763,19 +697,9 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
 
-    await klikkSvarRadioknapp(
-      'Oppholder du og barnet/barna dere i Norge?',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
-      'Har du oppholdt deg i Norge de siste 5 årene?',
-      'Nei',
-      screen,
-      user
-    );
+    await klikkSvarRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
 
     await user.type(screen.getByRole('textbox', { name: 'Fra' }), '02.06.2019');
 
@@ -835,13 +759,9 @@ describe('OmDegSteg, medlemskap', () => {
       'Fyrstikkaleen 1'
     );
 
-    expect(
-      screen.getByText('Har du hatt flere utenlandsopphold de siste 5 årene?')
-    );
+    expect(screen.getByText('Har du hatt flere utenlandsopphold de siste 5 årene?'));
 
-    expect(
-      screen.getByRole('button', { name: 'Legg til et utenlandsopphold' })
-    );
+    expect(screen.getByRole('button', { name: 'Legg til et utenlandsopphold' }));
 
     expect(screen.getByRole('button', { name: 'Neste' }));
   });

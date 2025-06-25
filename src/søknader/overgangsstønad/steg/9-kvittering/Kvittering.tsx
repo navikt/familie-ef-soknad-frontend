@@ -30,24 +30,15 @@ import { Alert } from '@navikt/ds-react';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    søknad,
-    nullstillMellomlagretOvergangsstønad,
-    nullstillSøknadOvergangsstønad,
-  } = useOvergangsstønadSøknad();
+  const { søknad, nullstillMellomlagretOvergangsstønad, nullstillSøknadOvergangsstønad } =
+    useOvergangsstønadSøknad();
 
   useMount(() => logSidevisningOvergangsstonad('Kvittering'));
 
   const { person } = usePersonContext();
   const [locale] = useSpråkContext();
-  const {
-    arbeidssøker,
-    underUtdanning,
-    arbeidsforhold,
-    firmaer,
-    egetAS,
-    etablererEgenVirksomhet,
-  } = søknad.aktivitet;
+  const { arbeidssøker, underUtdanning, arbeidsforhold, firmaer, egetAS, etablererEgenVirksomhet } =
+    søknad.aktivitet;
 
   useEffect(() => {
     nullstillMellomlagretOvergangsstønad();
@@ -55,12 +46,7 @@ const Kvittering: React.FC = () => {
       const barnelisteMedLabels = oppdaterBarnMedLabel(person.barn, intl);
       nullstillSøknadOvergangsstønad(person, barnelisteMedLabels);
     };
-  }, [
-    nullstillMellomlagretOvergangsstønad,
-    nullstillSøknadOvergangsstønad,
-    person,
-    intl,
-  ]);
+  }, [nullstillMellomlagretOvergangsstønad, nullstillSøknadOvergangsstønad, person, intl]);
 
   const mottattAlert: string =
     hentTekst('kvittering.alert.mottatt', intl) +
@@ -75,8 +61,7 @@ const Kvittering: React.FC = () => {
   );
 
   const erklæringSamlivsbrudd =
-    søknad.sivilstatus.årsakEnslig?.svarid ===
-    EBegrunnelse.samlivsbruddForeldre;
+    søknad.sivilstatus.årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre;
 
   return søknad.innsendingsdato ? (
     <Side
@@ -117,9 +102,7 @@ const Kvittering: React.FC = () => {
       {arbeidssøker && <TilleggsstønaderArbeidssøker />}
 
       {underUtdanning && (
-        <TilleggsstønaderUnderUtdanning
-          stønadstype={Stønadstype.overgangsstønad}
-        />
+        <TilleggsstønaderUnderUtdanning stønadstype={Stønadstype.overgangsstønad} />
       )}
       {(arbeidsforhold || firmaer || etablererEgenVirksomhet || egetAS) && (
         <TilleggsstønaderHarAktivitet />

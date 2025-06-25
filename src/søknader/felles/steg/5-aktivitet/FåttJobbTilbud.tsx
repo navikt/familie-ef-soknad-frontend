@@ -1,9 +1,6 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import {
-  Datovelger,
-  DatoBegrensning,
-} from '../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/søknad';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
@@ -15,10 +12,7 @@ interface Props {
   arbeidssituasjon: IAktivitet;
   settArbeidssituasjon: (arbeidssituasjon: IAktivitet) => void;
 }
-const FåttJobbTilbud: React.FC<Props> = ({
-  arbeidssituasjon,
-  settArbeidssituasjon,
-}) => {
+const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasjon }) => {
   const intl = useLokalIntlContext();
 
   const settDato = (dato: string) => {

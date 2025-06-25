@@ -14,8 +14,7 @@ import {
 
 describe('validerer dokumentasjonsconfig', () => {
   test('Skal ha like mange keys i dokumentasjonsconfig som vi har i enums', () => {
-    const antallKeysIDokumentasjonsconfig =
-      Object.keys(DokumentasjonsConfig).length;
+    const antallKeysIDokumentasjonsconfig = Object.keys(DokumentasjonsConfig).length;
 
     const alleEnums: number = [
       Object.keys(SituasjonDokumentasjon).length,
@@ -39,21 +38,15 @@ describe('validerer dokumentasjonsconfig', () => {
       Object.values(DokumentasjonsConfig),
       'id'
     );
-    const alleInnslagMedSammeId: IDokumentasjon[][] = Object.values(
-      alleInnslagGruppertPåId
-    ).filter((dokumentasjonListe) => dokumentasjonListe.length > 1);
+    const alleInnslagMedSammeId: IDokumentasjon[][] = Object.values(alleInnslagGruppertPåId).filter(
+      (dokumentasjonListe) => dokumentasjonListe.length > 1
+    );
 
     expect(alleInnslagMedSammeId.length).toBe(1);
     expect(alleInnslagMedSammeId[0].length).toBe(2);
-    expect(alleInnslagMedSammeId[0][0].id).toBe(
-      BarnasBostedDokumentasjon.SAMVÆRSAVTALE
-    );
-    expect(alleInnslagMedSammeId[0][0].tittel).toBe(
-      alleInnslagMedSammeId[0][1].tittel
-    );
-    expect(alleInnslagMedSammeId[0][0].beskrivelse).toBe(
-      alleInnslagMedSammeId[0][1].beskrivelse
-    );
+    expect(alleInnslagMedSammeId[0][0].id).toBe(BarnasBostedDokumentasjon.SAMVÆRSAVTALE);
+    expect(alleInnslagMedSammeId[0][0].tittel).toBe(alleInnslagMedSammeId[0][1].tittel);
+    expect(alleInnslagMedSammeId[0][0].beskrivelse).toBe(alleInnslagMedSammeId[0][1].beskrivelse);
   });
 });
 

@@ -1,15 +1,11 @@
 import { IDokumentasjon } from '../../../../../models/steg/dokumentasjon';
-import {
-  EBegrunnelse,
-  ESivilstatusSøknadid,
-} from '../../../../../models/steg/omDeg/sivilstatus';
+import { EBegrunnelse, ESivilstatusSøknadid } from '../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
 import { JaSvar, NeiSvar } from '../../../../../helpers/svar';
 import { DokumentasjonsConfig } from '../../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../../language/typer';
 
-const ErklæringSamlivsbrudd: IDokumentasjon =
-  DokumentasjonsConfig.ErklæringSamlivsbrudd;
+const ErklæringSamlivsbrudd: IDokumentasjon = DokumentasjonsConfig.ErklæringSamlivsbrudd;
 
 const DokumentasjonInngåttEkteskap: IDokumentasjon =
   DokumentasjonsConfig.DokumentasjonInngåttEkteskap;
@@ -48,9 +44,7 @@ export const erUformeltGiftSpørsmål = (intl: LokalIntlShape): ISpørsmål => (
   ],
 });
 
-export const erUformeltSeparertEllerSkiltSpørsmål = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const erUformeltSeparertEllerSkiltSpørsmål = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: ESivilstatusSøknadid.erUformeltSeparertEllerSkilt,
   tekstid: 'sivilstatus.spm.erUformeltSeparertEllerSkilt',
   flersvar: false,

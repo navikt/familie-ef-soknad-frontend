@@ -3,10 +3,7 @@ import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmå
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
-import {
-  borDuPåDenneAdressen,
-  harMeldtAdresseendringSpørsmål,
-} from './PersonopplysningerConfig';
+import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -29,10 +26,7 @@ const Personopplysninger: React.FC = () => {
   } = useOmDeg();
   const { søker } = søknad.person;
 
-  const settSøkerBorPåRegistrertAdr = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar
-  ) => {
+  const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     settSøkerBorPåRegistrertAdresse({
       spørsmålid: spørsmål.søknadid,
       svarid: valgtSvar.id,
@@ -84,9 +78,7 @@ const Personopplysninger: React.FC = () => {
               />
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
                 <AlertStripeDokumentasjon>
-                  <LocaleTekst
-                    tekst={'personopplysninger.alert.meldtAdresseendring'}
-                  />
+                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
                 </AlertStripeDokumentasjon>
               )}
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (

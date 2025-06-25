@@ -30,9 +30,7 @@ const EøsIdent: React.FC<Props> = ({
     { 0: utenlandsopphold.land.verdi }
   );
 
-  const settUtenlandskPersonId = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const settUtenlandskPersonId = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const oppdatertUtenlandsopphold = {
       ...utenlandsopphold,
       personidentEøsLand: {
@@ -43,9 +41,7 @@ const EøsIdent: React.FC<Props> = ({
     settUtenlandsopphold(oppdatertUtenlandsopphold);
   };
 
-  const toggleHarUtenlandskPersonId = (
-    kanIkkeOppgiPersonident: boolean
-  ): void => {
+  const toggleHarUtenlandskPersonId = (kanIkkeOppgiPersonident: boolean): void => {
     const oppdatertUtenlandsopphold = {
       ...utenlandsopphold,
       kanIkkeOppgiPersonident: kanIkkeOppgiPersonident,
@@ -76,15 +72,11 @@ const EøsIdent: React.FC<Props> = ({
       />
       <Checkbox
         checked={utenlandsopphold.kanIkkeOppgiPersonident}
-        onChange={() =>
-          toggleHarUtenlandskPersonId(!utenlandsopphold.kanIkkeOppgiPersonident)
-        }
+        onChange={() => toggleHarUtenlandskPersonId(!utenlandsopphold.kanIkkeOppgiPersonident)}
       >
-        {hentTekstMedVariabel(
-          'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer',
-          intl,
-          { 0: utenlandsopphold.land.verdi }
-        )}
+        {hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl, {
+          0: utenlandsopphold.land.verdi,
+        })}
       </Checkbox>
     </div>
   );

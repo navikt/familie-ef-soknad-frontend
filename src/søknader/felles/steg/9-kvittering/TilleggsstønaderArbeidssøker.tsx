@@ -10,34 +10,24 @@ const TilleggsstønaderArbeidssøker: FC = () => {
     <SeksjonGruppe>
       <FeltGruppe>
         <Heading size="small" level="4">
-          <LocaleTekst
-            tekst={'kvittering.tittel.tilleggsstønader.arbeidssøker'}
-          />
+          <LocaleTekst tekst={'kvittering.tittel.tilleggsstønader.arbeidssøker'} />
         </Heading>
       </FeltGruppe>
       <FeltGruppe>
         <StyledBeskrivelse>
           <BodyShort>
-            <LocaleTekst
-              tekst={'kvittering.beskrivelse.tilleggsstønader.arbeidssøker'}
-            />
+            <LocaleTekst tekst={'kvittering.beskrivelse.tilleggsstønader.arbeidssøker'} />
           </BodyShort>
         </StyledBeskrivelse>
       </FeltGruppe>
       <BodyShort>
         <Link href={'https://www.nav.no/tilleggsstonader-enslig'}>
-          <LocaleTekst
-            tekst={'kvittering.lenke.tilleggsstønader.arbeidssøker'}
-          />
+          <LocaleTekst tekst={'kvittering.lenke.tilleggsstønader.arbeidssøker'} />
         </Link>
       </BodyShort>
       <BodyShort>
-        <Link
-          href={'https://www.nav.no/soknader/nb/person/arbeid/tilleggsstonader'}
-        >
-          <LocaleTekst
-            tekst={'kvittering.knapp.tilleggsstønader.arbeidssøker'}
-          />
+        <Link href={'https://www.nav.no/soknader/nb/person/arbeid/tilleggsstonader'}>
+          <LocaleTekst tekst={'kvittering.knapp.tilleggsstønader.arbeidssøker'} />
         </Link>
       </BodyShort>
     </SeksjonGruppe>

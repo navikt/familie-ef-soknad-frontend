@@ -1,8 +1,4 @@
-import {
-  IBooleanFelt,
-  ISpørsmålBooleanFelt,
-  ITekstFelt,
-} from '../søknad/søknadsfelter';
+import { IBooleanFelt, ISpørsmålBooleanFelt, ITekstFelt } from '../søknad/søknadsfelter';
 import { IForelder } from './forelder';
 import { IMedforelderFelt } from './medforelder';
 import { IBarnepass } from '../../søknader/barnetilsyn/models/barnepass';

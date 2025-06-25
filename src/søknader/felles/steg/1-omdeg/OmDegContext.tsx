@@ -15,11 +15,7 @@ export interface Props<T extends Søknad> {
   mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
   routes: IRoute[];
   pathOppsummering: string | undefined;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 export const [OmDegProvider, useOmDeg] = constate(
@@ -36,11 +32,10 @@ export const [OmDegProvider, useOmDeg] = constate(
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
     const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
-    const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] =
-      useState(søknad.søkerBorPåRegistrertAdresse);
-    const [adresseopplysninger, settAdresseopplysninger] = useState(
-      søknad.adresseopplysninger
+    const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] = useState(
+      søknad.søkerBorPåRegistrertAdresse
     );
+    const [adresseopplysninger, settAdresseopplysninger] = useState(søknad.adresseopplysninger);
 
     const mellomlagreSteg = () => {
       const oppdatertSøknad = validerOmDeg(

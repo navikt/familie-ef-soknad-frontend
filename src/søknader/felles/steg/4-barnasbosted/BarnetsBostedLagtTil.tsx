@@ -9,7 +9,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { hentTekst } from '../../../../utils/søknad';
 import { ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { Label, BodyShort } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { harVerdi } from '../../../../utils/typer';
 
 interface Props {
@@ -32,10 +32,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
       ? barn.navn.verdi
       : hentTekst('barnet.storForBokstav', intl);
 
-  if (
-    !forelder ||
-    (!barn.forelder?.borINorge && !barn.forelder?.kanIkkeOppgiAnnenForelderFar)
-  )
+  if (!forelder || (!barn.forelder?.borINorge && !barn.forelder?.kanIkkeOppgiAnnenForelderFar))
     return null;
 
   const endreInformasjon = () => {
@@ -54,8 +51,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
               {intl.formatMessage({ id: 'barnasbosted.element.andreforelder' })}
             </Label>
             <BodyShort>
-              {forelder.navn?.verdi === 'Ikke oppgitt' &&
-              barn.erFraForrigeSøknad
+              {forelder.navn?.verdi === 'Ikke oppgitt' && barn.erFraForrigeSøknad
                 ? hentTekst('barnasbosted.kanikkeoppgiforelder', intl)
                 : forelder.navn?.verdi
                   ? forelder.navn?.verdi
@@ -80,19 +76,13 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         )}
         {harValgtSvar(forelder.fødselsdato?.verdi) && forelder.fødselsdato && (
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              {intl.formatMessage({ id: 'datovelger.fødselsdato' })}
-            </Label>
-            <BodyShort>
-              {formatDate(strengTilDato(forelder.fødselsdato.verdi))}
-            </BodyShort>
+            <Label as="p">{intl.formatMessage({ id: 'datovelger.fødselsdato' })}</Label>
+            <BodyShort>{formatDate(strengTilDato(forelder.fødselsdato.verdi))}</BodyShort>
           </div>
         )}
         {!forelder.fraFolkeregister && forelder.ident && (
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              {intl.formatMessage({ id: 'person.ident.visning' })}
-            </Label>
+            <Label as="p">{intl.formatMessage({ id: 'person.ident.visning' })}</Label>
             <BodyShort>{forelder.ident.verdi}</BodyShort>
           </div>
         )}
@@ -113,9 +103,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         )}
         {forelder.land && (
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              {intl.formatMessage({ id: 'barnasbosted.hvilketLand' })}
-            </Label>
+            <Label as="p">{intl.formatMessage({ id: 'barnasbosted.hvilketLand' })}</Label>
             <BodyShort>{forelder.land?.verdi}</BodyShort>
           </div>
         )}
@@ -129,9 +117,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
                 })
               )}
             </Label>
-            <BodyShort>
-              {forelder.harAnnenForelderSamværMedBarn?.verdi || ''}
-            </BodyShort>
+            <BodyShort>{forelder.harAnnenForelderSamværMedBarn?.verdi || ''}</BodyShort>
           </div>
         )}
         {forelder.harDereSkriftligSamværsavtale?.verdi ? (
@@ -144,16 +130,12 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
                 })
               )}
             </Label>
-            <BodyShort>
-              {forelder.harDereSkriftligSamværsavtale.verdi}
-            </BodyShort>
+            <BodyShort>{forelder.harDereSkriftligSamværsavtale.verdi}</BodyShort>
           </div>
         ) : null}
         {forelder.hvordanPraktiseresSamværet?.verdi ? (
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              {intl.formatMessage({ id: 'barnasbosted.element.samvær' })}
-            </Label>
+            <Label as="p">{intl.formatMessage({ id: 'barnasbosted.element.samvær' })}</Label>
             <BodyShort>{forelder.hvordanPraktiseresSamværet.verdi}</BodyShort>
           </div>
         ) : null}
@@ -197,9 +179,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
                 })
               )}
             </Label>
-            <BodyShort>
-              {formatDate(strengTilDato(forelder.flyttetFra.verdi))}
-            </BodyShort>
+            <BodyShort>{formatDate(strengTilDato(forelder.flyttetFra.verdi))}</BodyShort>
           </div>
         ) : null}
         {forelder?.hvorMyeSammen?.verdi ? (
@@ -228,11 +208,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
             <BodyShort>{forelder.beskrivSamværUtenBarn.verdi}</BodyShort>
           </div>
         )}
-        <LenkeMedIkon
-          onClick={endreInformasjon}
-          tekst_id="barnasbosted.knapp.endre"
-          ikon={endre}
-        />
+        <LenkeMedIkon onClick={endreInformasjon} tekst_id="barnasbosted.knapp.endre" ikon={endre} />
       </div>
     </div>
   );

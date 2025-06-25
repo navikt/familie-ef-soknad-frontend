@@ -6,11 +6,7 @@ export const hentBeskjedMedNavn = (navn: string, tekststreng: string) => {
   return tekststreng.replace('[0]', navn);
 };
 
-export const hentBeskjedMedToParametre = (
-  tekststreng: string,
-  en?: string,
-  to?: string
-) => {
+export const hentBeskjedMedToParametre = (tekststreng: string, en?: string, to?: string) => {
   let tekst = tekststreng;
 
   if (en) tekst = tekst.replace('[0]', en);

@@ -14,11 +14,7 @@ interface Props {
   onClick: () => void;
 }
 
-export const SlettKnapp: React.FC<Props> = ({
-  tekstid,
-  onClick,
-  className,
-}) => (
+export const SlettKnapp: React.FC<Props> = ({ tekstid, onClick, className }) => (
   <Knapp
     className={className}
     iconPosition={'right'}
