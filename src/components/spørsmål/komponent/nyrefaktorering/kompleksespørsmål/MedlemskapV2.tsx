@@ -3,6 +3,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
 import { hentTekst } from '../../../../../utils/søknad';
 import {
+  Alert,
   Box,
   DatePicker,
   Heading,
@@ -34,15 +35,41 @@ export const MedlemskapV2: React.FC = () => {
     oppholdMedBarnINorge === 'ja' || oppholdsLandMedBarn !== undefined;
   const skalViseÅrsakForOppholdILand = oppholdINorgeSiste5År === 'nei';
 
+  const [utenlandsPeriodeAlertTekst, settUtenlandsPeriodeAlertTekst] = useState<
+    string | undefined
+  >();
+  const skalViseUtelandsPeriodeAlert = utenlandsPeriodeAlertTekst !== undefined;
+
   const utlandsPeriodeFraDato = useDatepicker({
     toDate: new Date(),
-    onDateChange: settUtelandsPeriodeFraDatoVerdi,
+    onDateChange: (dato) => {
+      settUtelandsPeriodeFraDatoVerdi(dato);
+      validerUtenlandsPeriode(dato, utelandsPeriodeTilDatoVerdi);
+    },
   });
 
   const utlandsPeriodeTilDato = useDatepicker({
     toDate: new Date(),
-    onDateChange: settUtelandsPeriodeTilDatoVerdi,
+    onDateChange: (dato) => {
+      settUtelandsPeriodeTilDatoVerdi(dato);
+      validerUtenlandsPeriode(utelandsPeriodeFraDatoVerdi, dato);
+    },
   });
+
+  const validerUtenlandsPeriode = (fraDato?: Date, tilDato?: Date) => {
+    if (!fraDato || !tilDato) {
+      settUtenlandsPeriodeAlertTekst(undefined);
+      return;
+    }
+
+    if (fraDato.getTime() > tilDato.getTime()) {
+      settUtenlandsPeriodeAlertTekst(hentTekst('datovelger.periode.startFørSlutt', intl));
+    } else if (fraDato.getTime() === tilDato.getTime()) {
+      settUtenlandsPeriodeAlertTekst(hentTekst('datovelger.periode.likeDatoer', intl));
+    } else {
+      settUtenlandsPeriodeAlertTekst(undefined);
+    }
+  };
 
   return (
     <VStack gap="6">
@@ -121,6 +148,11 @@ export const MedlemskapV2: React.FC = () => {
                 />
               </DatePicker>
             </HStack>
+            {skalViseUtelandsPeriodeAlert && (
+              <Alert variant={'error'} size={'small'}>
+                {utenlandsPeriodeAlertTekst}
+              </Alert>
+            )}
             <Select
               label={hentTekst('medlemskap.periodeBoddIUtlandet.land', intl)}
               value={utelandsPeriodeLand}
