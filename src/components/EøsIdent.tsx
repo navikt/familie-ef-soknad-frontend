@@ -61,7 +61,7 @@ const EøsIdent: React.FC<Props> = ({
       <TextFieldMedBredde
         className={'inputfelt-tekst'}
         key={'navn'}
-        label={'label'}
+        label={utenlandskIDNummerTekst}
         hideLabel={true}
         type="text"
         bredde={'L'}

@@ -6,53 +6,44 @@ import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { Søker } from '../../../../../models/søknad/person';
-import { ISpørsmålBooleanFelt } from '../../../../../models/søknad/søknadsfelter';
-import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
+import { useOmDeg } from '../OmDegContext';
 
-interface Props {
-  søker: Søker;
-  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
-  søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
-  settSøkerBorPåRegistrertAdresse: (søkerBorPåRegistrertAdresse: ISpørsmålBooleanFelt) => void;
-  harMeldtAdresseendring?: ISpørsmålBooleanFelt;
-  settHarMeldtAdresseendring: (harMeldtAdresseendring: ISpørsmålBooleanFelt) => void;
-  stønadstype: Stønadstype;
-}
-
-const Personopplysninger: React.FC<Props> = ({
-  søker,
-  settDokumentasjonsbehov,
-  søkerBorPåRegistrertAdresse,
-  settSøkerBorPåRegistrertAdresse,
-  harMeldtAdresseendring,
-  settHarMeldtAdresseendring,
-  stønadstype,
-}) => {
+const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
+  const {
+    søknad,
+    settDokumentasjonsbehov,
+    søkerBorPåRegistrertAdresse,
+    settSøkerBorPåRegistrertAdresse,
+    adresseopplysninger,
+    settAdresseopplysninger,
+    stønadstype,
+  } = useOmDeg();
+  const { søker } = søknad.person;
 
-  const settPersonopplysningerFelt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+  const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     settSøkerBorPåRegistrertAdresse({
       spørsmålid: spørsmål.søknadid,
       svarid: valgtSvar.id,
       label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar,
+      verdi: hentBooleanFraValgtSvar(valgtSvar),
     });
   };
 
   const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-    settHarMeldtAdresseendring({
-      spørsmålid: spørsmål.søknadid,
-      svarid: valgtSvar.id,
-      label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar,
+    settAdresseopplysninger({
+      harMeldtAdresseendring: {
+        spørsmålid: spørsmål.søknadid,
+        svarid: valgtSvar.id,
+        label: hentTekst(spørsmål.tekstid, intl),
+        verdi: svar,
+      },
     });
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
@@ -74,7 +65,7 @@ const Personopplysninger: React.FC<Props> = ({
             <JaNeiSpørsmål
               spørsmål={borDuPåDenneAdressen(intl)}
               valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settPersonopplysningerFelt}
+              onChange={settSøkerBorPåRegistrertAdr}
             />
           </KomponentGruppe>
 
@@ -82,15 +73,15 @@ const Personopplysninger: React.FC<Props> = ({
             <KomponentGruppe>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-                valgtSvar={harMeldtAdresseendring?.verdi}
+                valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
                 onChange={settMeldtAdresseendring}
               />
-              {harMeldtAdresseendring?.verdi === true && (
+              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
                 <AlertStripeDokumentasjon>
                   <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
                 </AlertStripeDokumentasjon>
               )}
-              {harMeldtAdresseendring?.verdi === false && (
+              {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
                 <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
               )}
             </KomponentGruppe>

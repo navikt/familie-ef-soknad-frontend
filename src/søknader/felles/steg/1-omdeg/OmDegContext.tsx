@@ -1,5 +1,5 @@
 import constate from 'constate';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { validerOmDeg } from './OmDegValidering';
@@ -23,7 +23,6 @@ export const [OmDegProvider, useOmDeg] = constate(
     stønadstype,
     søknad,
     oppdaterSøknad,
-    mellomlagretSøknad,
     mellomlagreSøknad,
     routes,
     pathOppsummering,
@@ -33,18 +32,20 @@ export const [OmDegProvider, useOmDeg] = constate(
 
     const [medlemskap, settMedlemskap] = useState(søknad.medlemskap);
     const [sivilstatus, settSivilstatus] = useState(søknad.sivilstatus);
-
-    useEffect(() => {
-      if (mellomlagretSøknad?.søknad.medlemskap) {
-        settMedlemskap(mellomlagretSøknad.søknad.medlemskap);
-      }
-      if (mellomlagretSøknad?.søknad.sivilstatus) {
-        settSivilstatus(mellomlagretSøknad.søknad.sivilstatus);
-      }
-    }, [mellomlagretSøknad]);
+    const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] =
+      useState(søknad.søkerBorPåRegistrertAdresse);
+    const [adresseopplysninger, settAdresseopplysninger] = useState(
+      søknad.adresseopplysninger
+    );
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = validerOmDeg(søknad, sivilstatus, medlemskap);
+      const oppdatertSøknad = validerOmDeg(
+        søknad,
+        sivilstatus,
+        medlemskap,
+        adresseopplysninger,
+        søkerBorPåRegistrertAdresse
+      );
 
       oppdaterSøknad(oppdatertSøknad);
 
@@ -52,6 +53,10 @@ export const [OmDegProvider, useOmDeg] = constate(
     };
 
     return {
+      søkerBorPåRegistrertAdresse,
+      settSøkerBorPåRegistrertAdresse,
+      adresseopplysninger,
+      settAdresseopplysninger,
       sivilstatus,
       settSivilstatus,
       medlemskap,

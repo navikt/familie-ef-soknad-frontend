@@ -254,7 +254,7 @@ export const lagMellomlagretSøknadOvergangsstønad = (
 ): MellomlagretSøknadOvergangsstønad => {
   return {
     søknad: lagSøknadOvergangsstønad(),
-    modellVersjon: 1,
+    modellVersjon: 7,
     gjeldendeSteg: '/',
     locale: '',
     ...søknad,
