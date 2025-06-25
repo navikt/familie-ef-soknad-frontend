@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
-import { Alert, Box, DatePicker, Radio, RadioGroup, useDatepicker, VStack } from '@navikt/ds-react';
+import React, { useEffect, useState } from 'react';
+import {
+  Alert,
+  Box,
+  Checkbox,
+  DatePicker,
+  Heading,
+  Radio,
+  RadioGroup,
+  TextField,
+  useDatepicker,
+  VStack,
+} from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
 import styles from './PersonopplysningerV2.module.css';
 import LocaleTekst from '../../../../../language/LocaleTekst';
-import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
+import { identErGyldig } from '../../../../../utils/validering/validering';
 
 export const HvorforErDuAleneMedBarn: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -15,12 +26,33 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
   const [endringIOmsorgDatoVerdi, settEndringIOmsorgDatoVerdi] = useState<Date | undefined>();
   const [oppholdesINorgeMedBarn, settOppholdesINorgeMedBarn] = useState<string>();
 
+  // Om den tidligere samboeren din
+  const [samboerNavn, settSamboerNavn] = useState('');
+  const [samboerIdent, settSamboerIdent] = useState('');
+  const [visFeil, settVisFeil] = useState(false);
+  const [brukerIkkeIdent, settBrukerIkkeIdent] = useState(false);
+
+  const [samboerFødselsdatoVerdi, settSamboerFødselsdatoVerdi] = useState<Date | undefined>();
+  const [samboerFlyttedatoVerdi, settSamboerFlyttedatoVerdi] = useState<Date | undefined>();
+
   const skalViseOmDenTidligereSamboerenDin = aleneMedBarnÅrsak === 'samlivsbrudd-med-noen-andre';
   const skalViseDatoForSamlivsbrudd = aleneMedBarnÅrsak === 'samlivsbrudd-med-den-andre-forelderen';
+  const skalViseEndringIOmsorg = aleneMedBarnÅrsak === 'endring-i-omsorgen-for-barn';
+  const skalViseFødselsdato = brukerIkkeIdent;
+  const skalViseFlyttedato =
+    (brukerIkkeIdent && samboerNavn.trim() !== '' && samboerFødselsdatoVerdi) ||
+    (!brukerIkkeIdent && samboerNavn.trim() !== '' && identErGyldig(samboerIdent));
+
   const skalViseOppholdMedBarnINorge =
     aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-fra-fødsel' ||
-    aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-på-grunn-av-dødsfall';
-  const skalViseEndringIOmsorg = aleneMedBarnÅrsak === 'endring-i-omsorgen-for-barn';
+    aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-på-grunn-av-dødsfall' ||
+    endringIOmsorgDatoVerdi !== undefined ||
+    samlivsbruddDatoVerdi !== undefined ||
+    (samboerNavn !== '' &&
+      brukerIkkeIdent &&
+      samboerFødselsdatoVerdi !== undefined &&
+      samboerFlyttedatoVerdi !== undefined) ||
+    (samboerNavn !== '' && identErGyldig(samboerIdent) && samboerFlyttedatoVerdi !== undefined);
 
   const samlivsBruddDato = useDatepicker({
     toDate: new Date(),
@@ -30,6 +62,28 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
   const endringIOmsorgDato = useDatepicker({
     onDateChange: settEndringIOmsorgDatoVerdi,
   });
+
+  const fødselsdato = useDatepicker({
+    onDateChange: settSamboerFødselsdatoVerdi,
+  });
+
+  const flyttetFraDato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: settSamboerFlyttedatoVerdi,
+  });
+
+  // Liten debounce som stopper feilmelding fra å dukke opp sekundet bruker skriver.
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (samboerIdent.trim() !== '' && !brukerIkkeIdent) {
+        settVisFeil(!identErGyldig(samboerIdent));
+      } else {
+        settVisFeil(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [samboerIdent, brukerIkkeIdent]);
 
   return (
     <VStack gap="6">
@@ -97,9 +151,71 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
       )}
 
       {/* 3. Om  den tidligere samboeren din. */}
-      {skalViseOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
+      {skalViseOmDenTidligereSamboerenDin && (
+        <VStack gap="6" align="start">
+          <Heading size="small">{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Heading>
 
-      {/* 4. Oppholder du og barnet/barna dere i Norge? */}
+          <TextField
+            label={hentTekst('person.navn', intl)}
+            value={samboerNavn}
+            onChange={(e) => settSamboerNavn(e.target.value)}
+          />
+
+          <TextField
+            label={hentTekst('person.ident', intl)}
+            value={samboerIdent}
+            maxLength={11}
+            onChange={(e) => settSamboerIdent(e.target.value)}
+            disabled={brukerIkkeIdent}
+            error={visFeil ? hentTekst('person.feilmelding.ident', intl) : undefined}
+          />
+
+          <Checkbox
+            checked={brukerIkkeIdent}
+            onChange={(e) => {
+              const checked = e.target.checked;
+
+              settBrukerIkkeIdent(checked);
+
+              if (checked) {
+                settSamboerIdent('');
+              }
+            }}
+          >
+            {hentTekst('person.checkbox.ident', intl)}
+          </Checkbox>
+
+          {skalViseFødselsdato && (
+            <DatePicker {...fødselsdato.datepickerProps}>
+              <DatePicker.Input
+                {...fødselsdato.inputProps}
+                label={hentTekst('datovelger.fødselsdato', intl)}
+              />
+            </DatePicker>
+          )}
+
+          {skalViseFlyttedato && (
+            <DatePicker {...flyttetFraDato.datepickerProps}>
+              <DatePicker.Input
+                {...flyttetFraDato.inputProps}
+                label={hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl)}
+              />
+            </DatePicker>
+          )}
+        </VStack>
+      )}
+
+      {/* 4. Når skjedde endringen / når skal endringen skje? */}
+      {skalViseEndringIOmsorg && (
+        <DatePicker {...endringIOmsorgDato.datepickerProps}>
+          <DatePicker.Input
+            {...endringIOmsorgDato.inputProps}
+            label={hentTekst('sivilstatus.datovelger.endring', intl)}
+          />
+        </DatePicker>
+      )}
+
+      {/* 5. Oppholder du og barnet/barna dere i Norge? */}
       {skalViseOppholdMedBarnINorge && (
         <SpørsmålWrapper tittel={hentTekst('medlemskap.spm.opphold', intl)}>
           <RadioGroup
@@ -118,16 +234,6 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
             </div>
           </RadioGroup>
         </SpørsmålWrapper>
-      )}
-
-      {/* 5. Når skjedde endringen / når skal endringen skje? */}
-      {skalViseEndringIOmsorg && (
-        <DatePicker {...endringIOmsorgDato.datepickerProps}>
-          <DatePicker.Input
-            {...endringIOmsorgDato.inputProps}
-            label={hentTekst('sivilstatus.datovelger.endring', intl)}
-          />
-        </DatePicker>
       )}
     </VStack>
   );
