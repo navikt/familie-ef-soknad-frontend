@@ -1,13 +1,11 @@
 import React from 'react';
-import { PersonopplysningerV2 } from './kompleksespørsmål/PersonopplysningerV2';
 import { VStack } from '@navikt/ds-react';
-import { HvorforErDuAleneMedBarn } from './kompleksespørsmål/HvorforErDuAleneMedBarn';
+import { MedlemskapV2 } from './kompleksespørsmål/MedlemskapV2';
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
   return (
     <VStack gap={'6'}>
-      <PersonopplysningerV2 />
-      <HvorforErDuAleneMedBarn />
+      <MedlemskapV2 />
     </VStack>
   );
 };
