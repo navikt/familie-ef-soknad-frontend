@@ -14,10 +14,7 @@ import { Søker } from '../models/søknad/person';
 import axios from 'axios';
 import { ESøknad } from '../søknader/overgangsstønad/models/søknad';
 import { ESvar } from '../models/felles/spørsmålogsvar';
-import {
-  EBegrunnelse,
-  ESivilstatusSøknadid,
-} from '../models/steg/omDeg/sivilstatus';
+import { EBegrunnelse, ESivilstatusSøknadid } from '../models/steg/omDeg/sivilstatus';
 import { dagensIsoDatoMinusMåneder } from '../utils/dato';
 
 type StønadType = 'overgangsstonad' | 'barnetilsyn' | 'skolepenger';
@@ -123,10 +120,7 @@ const søknadOvergangsstønadBosituasjon = lagSøknadOvergangsstønad({
     ),
   },
   medlemskap: {
-    søkerOppholderSegINorge: lagBooleanFelt(
-      'Oppholder du og barnet/barna dere i Norge?',
-      true
-    ),
+    søkerOppholderSegINorge: lagBooleanFelt('Oppholder du og barnet/barna dere i Norge?', true),
     søkerBosattINorgeSisteTreÅr: lagBooleanFelt(
       'Har du oppholdt deg i Norge de siste 5 årene?',
       true
