@@ -1,7 +1,4 @@
-import {
-  ESvarTekstid,
-  ISpørsmål,
-} from '../../../../models/felles/spørsmålogsvar';
+import { ESvarTekstid, ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
 import {
   DinSituasjonType,
   ESagtOppEllerRedusertStilling,
@@ -13,11 +10,9 @@ import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
 
 // DOKUMENTASJON
-export const DokumentasjonSykdom: IDokumentasjon =
-  DokumentasjonsConfig.DokumentasjonSykdom;
+export const DokumentasjonSykdom: IDokumentasjon = DokumentasjonsConfig.DokumentasjonSykdom;
 
-export const DokumentasjonSyktBarn: IDokumentasjon =
-  DokumentasjonsConfig.DokumentasjonSyktBarn;
+export const DokumentasjonSyktBarn: IDokumentasjon = DokumentasjonsConfig.DokumentasjonSyktBarn;
 
 export const DokumentasjonBarnepassMangel: IDokumentasjon =
   DokumentasjonsConfig.DokumentasjonBarnepassMangel;
@@ -70,9 +65,7 @@ export const gjelderNoeAvDetteDeg = (intl: LokalIntlShape): ISpørsmål => {
   };
 };
 
-export const SagtOppEllerRedusertStillingSpm = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const SagtOppEllerRedusertStillingSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: ESituasjon.sagtOppEllerRedusertStilling,
   tekstid: 'dinSituasjon.spm.sagtOppEllerRedusertStilling',
   flersvar: false,
@@ -108,8 +101,7 @@ export const SøkerFraBestemtMånedSpm = (intl: LokalIntlShape): ISpørsmål => 
   flersvar: false,
   lesmer: {
     headerTekstid: 'søkerFraBestemtMåned.hjelpetekst-åpne',
-    innholdTekstid:
-      'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
+    innholdTekstid: 'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
   },
   svaralternativer: [
     {

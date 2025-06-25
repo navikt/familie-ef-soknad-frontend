@@ -58,15 +58,9 @@ const HvorMyeSammen: FC<Props> = ({ forelder, barn, settForelder }) => {
         <MultiSvarSpørsmålMedNavn
           key={hvorMyeSammenConfig.søknadid}
           spørsmål={hvorMyeSammenConfig}
-          spørsmålTekst={hentBarnNavnEllerBarnet(
-            barn,
-            hvorMyeSammenConfig.tekstid,
-            intl
-          )}
+          spørsmålTekst={hentBarnNavnEllerBarnet(barn, hvorMyeSammenConfig.tekstid, intl)}
           valgtSvar={forelder.hvorMyeSammen?.verdi}
-          settSpørsmålOgSvar={(spørsmål, svar) =>
-            settHvorMyeSammen(spørsmål, svar)
-          }
+          settSpørsmålOgSvar={(spørsmål, svar) => settHvorMyeSammen(spørsmål, svar)}
         />
       </KomponentGruppe>
       {forelder.hvorMyeSammen?.svarid === EHvorMyeSammen.møtesUtenom && (
@@ -75,17 +69,12 @@ const HvorMyeSammen: FC<Props> = ({ forelder, barn, settForelder }) => {
             <Textarea
               autoComplete={'off'}
               value={
-                forelder.beskrivSamværUtenBarn &&
-                forelder.beskrivSamværUtenBarn.verdi
+                forelder.beskrivSamværUtenBarn && forelder.beskrivSamværUtenBarn.verdi
                   ? forelder.beskrivSamværUtenBarn.verdi
                   : ''
               }
               onChange={(e) => settBeskrivSamværUtenBarn(e.target.value)}
-              label={hentBarnNavnEllerBarnet(
-                barn,
-                'barnasbosted.spm.beskrivSamværUtenBarn',
-                intl
-              )}
+              label={hentBarnNavnEllerBarnet(barn, 'barnasbosted.spm.beskrivSamværUtenBarn', intl)}
             />
           </FeltGruppe>
         </>

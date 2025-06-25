@@ -87,10 +87,7 @@ export const erGyldigDato = (verdi: string | undefined): boolean => {
 
 // Vedlegg er lagret ut neste døgn
 export const erVedleggstidspunktGyldig = (verdi: string): boolean => {
-  const grenseTidForVedlegg = addDays(
-    setMinutes(setHours(new Date(verdi), 23), 59),
-    1
-  );
+  const grenseTidForVedlegg = addDays(setMinutes(setHours(new Date(verdi), 23), 59), 1);
   return isAfter(grenseTidForVedlegg, dagensDato);
 };
 
@@ -104,10 +101,7 @@ export const erEnMånedTilbakeITid = (dato: string): boolean => {
 
 export const nåværendeÅr = new Date().getFullYear();
 
-export const erNåværendeMånedMellomMåneder = (
-  startMåned: number,
-  sluttMåned: number
-): boolean => {
+export const erNåværendeMånedMellomMåneder = (startMåned: number, sluttMåned: number): boolean => {
   const nåværendeDato = new Date();
   const nåværendeMåned = nåværendeDato.getMonth() + 1;
 

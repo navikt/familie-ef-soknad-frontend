@@ -60,9 +60,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   };
 
   const ikoner = [barn1, barn2, barn3];
-  const ikon = født?.verdi
-    ? ikoner[Math.floor(Math.random() * ikoner.length)]
-    : ufødtIkon;
+  const ikon = født?.verdi ? ikoner[Math.floor(Math.random() * ikoner.length)] : ufødtIkon;
 
   let bosted: string = '';
 
@@ -87,9 +85,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
       </Header>
       <Innhold>
         <Heading size="small" level="3">
-          {navn.verdi
-            ? navn.verdi
-            : intl.formatMessage({ id: 'barnekort.normaltekst.barn' })}
+          {navn.verdi ? navn.verdi : intl.formatMessage({ id: 'barnekort.normaltekst.barn' })}
         </Heading>
         {!harAdressesperre &&
           (ident.verdi ? (
@@ -99,9 +95,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
             />
           ) : (
             <InformasjonsElement
-              forklaringId={
-                født?.verdi ? 'barnekort.fødselsdato' : 'barnekort.termindato'
-              }
+              forklaringId={født?.verdi ? 'barnekort.fødselsdato' : 'barnekort.termindato'}
               verdi={formatDate(strengTilDato(fødselsdato.verdi))}
             />
           ))}
@@ -114,26 +108,22 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
           }
         />
         {!harAdressesperre && (
+          <InformasjonsElement forklaringId={'barnekort.bosted'} verdi={bosted} />
+        )}
+        {medforelder && (medforelder.verdi?.navn || medforelder.verdi?.alder) && (
           <InformasjonsElement
-            forklaringId={'barnekort.bosted'}
-            verdi={bosted}
+            forklaringId={'barnasbosted.forelder.annen'}
+            verdi={
+              medforelder?.verdi && medforelder?.verdi.navn
+                ? medforelder?.verdi?.navn
+                : medforelder?.verdi?.alder
+                  ? `${hentTekst('barnekort.medforelder.hemmelig', intl)}, ${
+                      medforelder.verdi.alder
+                    }`
+                  : null
+            }
           />
         )}
-        {medforelder &&
-          (medforelder.verdi?.navn || medforelder.verdi?.alder) && (
-            <InformasjonsElement
-              forklaringId={'barnasbosted.forelder.annen'}
-              verdi={
-                medforelder?.verdi && medforelder?.verdi.navn
-                  ? medforelder?.verdi?.navn
-                  : medforelder?.verdi?.alder
-                    ? `${hentTekst('barnekort.medforelder.hemmelig', intl)}, ${
-                        medforelder.verdi.alder
-                      }`
-                    : null
-              }
-            />
-          )}
         {footer}
       </Innhold>
     </Container>

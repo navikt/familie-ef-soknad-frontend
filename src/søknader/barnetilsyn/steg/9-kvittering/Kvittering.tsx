@@ -26,11 +26,8 @@ import { Alert } from '@navikt/ds-react';
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
   const [locale] = useSpråkContext();
-  const {
-    søknad,
-    nullstillMellomlagretBarnetilsyn,
-    nullstillSøknadBarnetilsyn,
-  } = useBarnetilsynSøknad();
+  const { søknad, nullstillMellomlagretBarnetilsyn, nullstillSøknadBarnetilsyn } =
+    useBarnetilsynSøknad();
   const { person } = usePersonContext();
   const barnSomSkalHaBarnepass = søknad.person.barn.filter(
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
@@ -44,22 +41,15 @@ const Kvittering: React.FC = () => {
       const barnelisteMedLabels = oppdaterBarnMedLabel(person.barn, intl);
       nullstillSøknadBarnetilsyn(person, barnelisteMedLabels);
     };
-  }, [
-    nullstillMellomlagretBarnetilsyn,
-    nullstillSøknadBarnetilsyn,
-    person,
-    intl,
-  ]);
+  }, [nullstillMellomlagretBarnetilsyn, nullstillSøknadBarnetilsyn, person, intl]);
 
   const mottattAlert: string =
     hentTekst('kvittering.barnetilsyn.alert.mottatt', intl) +
     ` ${søknad?.innsendingsdato && formatDateHour(søknad?.innsendingsdato)} `;
 
-  const sykSøker =
-    søknad.aktivitet?.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk;
+  const sykSøker = søknad.aktivitet?.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk;
   const erklæringSamlivsbrudd =
-    søknad.sivilstatus.årsakEnslig?.svarid ===
-    EBegrunnelse.samlivsbruddForeldre;
+    søknad.sivilstatus.årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre;
 
   return søknad.innsendingsdato ? (
     <Side

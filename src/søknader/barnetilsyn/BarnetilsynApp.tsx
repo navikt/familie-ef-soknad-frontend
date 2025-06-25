@@ -4,8 +4,8 @@ import hentToggles from '../../toggles/api';
 import { oppdaterBarnMedLabel } from '../../utils/søknad';
 import { usePersonContext } from '../../context/PersonContext';
 import {
-  verifiserAtBrukerErAutentisert,
   autentiseringsInterceptor,
+  verifiserAtBrukerErAutentisert,
 } from '../../utils/autentiseringogvalidering/autentisering';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { useToggles } from '../../context/TogglesContext';
@@ -20,13 +20,9 @@ import { GjenbrukContext } from '../../context/GjenbrukContext';
 const BarnetilsynApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
   const [fetching, settFetching] = useState<boolean>(true);
-  const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } =
-    usePersonContext();
-  const {
-    settSøknad,
-    hentMellomlagretBarnetilsyn,
-    hentForrigeSøknadBarnetilsyn,
-  } = useBarnetilsynSøknad();
+  const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
+  const { settSøknad, hentMellomlagretBarnetilsyn, hentForrigeSøknadBarnetilsyn } =
+    useBarnetilsynSøknad();
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
   const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
@@ -37,10 +33,7 @@ const BarnetilsynApp = () => {
     verifiserAtBrukerErAutentisert(settAutentisering);
   }, [autentisert]);
 
-  const oppdaterSøknadMedBarn = (
-    person: PersonData,
-    barneliste: Barn[] | IBarn[]
-  ) => {
+  const oppdaterSøknadMedBarn = (person: PersonData, barneliste: Barn[] | IBarn[]) => {
     const barnMedLabels = oppdaterBarnMedLabel(barneliste as IBarn[], intl);
 
     settSøknad((prevSøknad) => {
@@ -82,17 +75,13 @@ const BarnetilsynApp = () => {
     if (!error) {
       return (
         <>
-          <title>
-            {intl.formatMessage({ id: 'banner.tittel.barnetilsyn' })}
-          </title>
+          <title>{intl.formatMessage({ id: 'banner.tittel.barnetilsyn' })}</title>
 
           <SøknadsdialogBarnetilsyn />
         </>
       );
     } else if (error) {
-      return (
-        <Feilside tekstId={feilmelding} alvorlighetsgrad={alvorlighetsgrad} />
-      );
+      return <Feilside tekstId={feilmelding} alvorlighetsgrad={alvorlighetsgrad} />;
     } else {
       return <Loader variant="neutral" size="xlarge" title="venter..." />;
     }

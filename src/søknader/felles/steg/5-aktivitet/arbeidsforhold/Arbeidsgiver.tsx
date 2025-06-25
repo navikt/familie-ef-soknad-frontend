@@ -30,11 +30,7 @@ interface Props {
   settArbeidsforhold: (arbeidsforhold: IArbeidsgiver[]) => void;
   arbeidsgivernummer: number;
   inkludertArbeidsmengde: boolean;
-  settDokumentasjonsbehov: (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    erHuketAv?: boolean
-  ) => void;
+  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 const Arbeidsgiver: React.FC<Props> = ({
@@ -48,17 +44,13 @@ const Arbeidsgiver: React.FC<Props> = ({
   const arbeidsgiverFraSøknad = arbeidsforhold?.find(
     (arbeidsgiver, index) => index === arbeidsgivernummer && arbeidsgiver
   );
-  const [arbeidsgiver, settArbeidsgiver] = useState<IArbeidsgiver>(
-    arbeidsgiverFraSøknad!
-  );
+  const [arbeidsgiver, settArbeidsgiver] = useState<IArbeidsgiver>(arbeidsgiverFraSøknad!);
 
   useEffect(() => {
-    const endretArbeidsforhold = arbeidsforhold?.map(
-      (arbeidsgiverFraSøknad, index) => {
-        if (index === arbeidsgivernummer) return arbeidsgiver;
-        else return arbeidsgiverFraSøknad;
-      }
-    );
+    const endretArbeidsforhold = arbeidsforhold?.map((arbeidsgiverFraSøknad, index) => {
+      if (index === arbeidsgivernummer) return arbeidsgiver;
+      else return arbeidsgiverFraSøknad;
+    });
     endretArbeidsforhold && settArbeidsforhold(endretArbeidsforhold);
     // eslint-disable-next-line
   }, [arbeidsgiver]);
@@ -117,10 +109,7 @@ const Arbeidsgiver: React.FC<Props> = ({
     intl.formatMessage({ id: 'arbeidsforhold.tittel.arbeidsgiver' })
   );
   const navnLabel: string = hentTekst('arbeidsforhold.label.navn', intl);
-  const arbeidsmengdeLabel: string = hentTekst(
-    'arbeidsforhold.label.arbeidsmengde',
-    intl
-  );
+  const arbeidsmengdeLabel: string = hentTekst('arbeidsforhold.label.arbeidsmengde', intl);
 
   const skalViseSlettKnapp = arbeidsforhold?.length > 1;
 
@@ -152,23 +141,13 @@ const Arbeidsgiver: React.FC<Props> = ({
           <InputLabelGruppe
             label={arbeidsmengdeLabel}
             nøkkel={EArbeidsgiver.arbeidsmengde}
-            utvidetTekstNøkkel={
-              'arbeidsforhold.label.arbeidsmengde.beskrivelse'
-            }
+            utvidetTekstNøkkel={'arbeidsforhold.label.arbeidsmengde.beskrivelse'}
             type={'number'}
             bredde={'XXS'}
             settInputFelt={(e) =>
-              settTekstInputFelt(
-                e,
-                EArbeidsgiver.arbeidsmengde,
-                arbeidsmengdeLabel
-              )
+              settTekstInputFelt(e, EArbeidsgiver.arbeidsmengde, arbeidsmengdeLabel)
             }
-            value={
-              arbeidsgiver?.arbeidsmengde?.verdi
-                ? arbeidsgiver?.arbeidsmengde?.verdi
-                : ''
-            }
+            value={arbeidsgiver?.arbeidsmengde?.verdi ? arbeidsgiver?.arbeidsmengde?.verdi : ''}
             beskrivendeTekst={'%'}
           />
         </FeltGruppe>
@@ -192,10 +171,7 @@ const Arbeidsgiver: React.FC<Props> = ({
         </FeltGruppe>
       )}
       {arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig && (
-        <HarSøkerSluttdato
-          arbeidsgiver={arbeidsgiver}
-          settArbeidsgiver={settArbeidsgiver}
-        />
+        <HarSøkerSluttdato arbeidsgiver={arbeidsgiver} settArbeidsgiver={settArbeidsgiver} />
       )}
     </StyledArbeidsgiver>
   );

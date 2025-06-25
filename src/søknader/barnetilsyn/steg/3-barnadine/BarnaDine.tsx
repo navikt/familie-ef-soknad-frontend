@@ -31,8 +31,7 @@ const BarnaDine: React.FC = () => {
   useMount(() => logSidevisningBarnetilsyn('BarnaDine'));
 
   const intl = useLokalIntlContext();
-  const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } =
-    useBarnetilsynSøknad();
+  const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
   const skalViseKnapper = ESide.visTilbakeNesteAvbrytKnapp;
 
   const toggleSkalHaBarnepass = (id: string) => {
@@ -43,11 +42,7 @@ const BarnaDine: React.FC = () => {
     const skalHaBarnepassVerdi = !detteBarnet.skalHaBarnepass?.verdi;
     const nyttBarn: IBarn = {
       ...detteBarnet,
-      skalHaBarnepass: hentFeltObjekt(
-        'barnekort.skalHaBarnepass',
-        skalHaBarnepassVerdi,
-        intl
-      ),
+      skalHaBarnepass: hentFeltObjekt('barnekort.skalHaBarnepass', skalHaBarnepassVerdi, intl),
     };
 
     if (!skalHaBarnepassVerdi) {
@@ -57,9 +52,7 @@ const BarnaDine: React.FC = () => {
     oppdaterBarnISøknaden(nyttBarn);
   };
 
-  const harValgtMinstEttBarn = søknad.person.barn.some(
-    (b: IBarn) => b.skalHaBarnepass?.verdi
-  );
+  const harValgtMinstEttBarn = søknad.person.barn.some((b: IBarn) => b.skalHaBarnepass?.verdi);
 
   const harBarnRegistrertIFolkeregisteret = søknad.person.barn.length > 0;
 

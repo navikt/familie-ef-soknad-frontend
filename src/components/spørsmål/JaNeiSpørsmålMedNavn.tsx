@@ -45,8 +45,7 @@ const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
 
   const erValgtSvarRadioKnapp = (svar: ISvar, valgtSvar: boolean): boolean => {
     return (
-      (svar.id === ESvar.JA && valgtSvar === true) ||
-      (svar.id === ESvar.NEI && valgtSvar === false)
+      (svar.id === ESvar.JA && valgtSvar === true) || (svar.id === ESvar.NEI && valgtSvar === false)
     );
   };
 
@@ -77,8 +76,7 @@ const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
         }
       >
         {spørsmål.svaralternativer.map((svar: ISvar) => {
-          const svarISøknad =
-            valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
+          const svarISøknad = valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
 
           return (
             <RadioPanelCustom

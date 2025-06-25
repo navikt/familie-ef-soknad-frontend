@@ -8,7 +8,7 @@ import { useSkjema } from './SkjemaContext';
 import { useMount, useSpråkValg } from '../../utils/hooks';
 import { hentPath } from '../../utils/routing';
 import { logSidevisningArbeidssokerskjema } from '../../utils/amplitude';
-import { Heading, Box } from '@navikt/ds-react';
+import { Box, Heading } from '@navikt/ds-react';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { Seksjon } from '../../components/forside/Seksjon';
@@ -28,8 +28,7 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
     });
   };
 
-  const nesteSide =
-    hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål) || '';
+  const nesteSide = hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål) || '';
 
   const skalViseSpråkValg = true;
 
@@ -55,9 +54,7 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
             <Overskrift tekst="forside.arbeidssøker.overskrift.riktigeOpplysninger" />
             <Tekst tekst="forside.arbeidssøker.riktigeOpplysninger" />
             <Tekst tekst="forside.arbeidssøker.meldeEndringer" />
-            <LocaleTekst
-              tekst={'forside.arbeidssøker.personopplysningeneDineLenke'}
-            />
+            <LocaleTekst tekst={'forside.arbeidssøker.personopplysningeneDineLenke'} />
           </Seksjon>
 
           <DisclaimerBoks
@@ -67,9 +64,7 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
             settBekreftelse={settBekreftelse}
           />
 
-          {skjema.harBekreftet && (
-            <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />
-          )}
+          {skjema.harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
         </Box>
       </div>
     </div>

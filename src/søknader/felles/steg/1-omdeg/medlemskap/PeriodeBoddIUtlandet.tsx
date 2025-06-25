@@ -6,10 +6,7 @@ import Utenlandsopphold from './Utenlandsopphold';
 
 import { hentTekst } from '../../../../../utils/søknad';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
-import {
-  ILandMedKode,
-  IUtenlandsopphold,
-} from '../../../../../models/steg/omDeg/medlemskap';
+import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -30,11 +27,8 @@ const PeriodeBoddIUtlandet: FC<{
       verdi: '',
     },
   };
-  const [perioderBoddIUtlandet, settPerioderBoddIUtlandet] = useState<
-    IUtenlandsopphold[]
-  >(
-    medlemskap?.perioderBoddIUtlandet &&
-      medlemskap.perioderBoddIUtlandet.length > 0
+  const [perioderBoddIUtlandet, settPerioderBoddIUtlandet] = useState<IUtenlandsopphold[]>(
+    medlemskap?.perioderBoddIUtlandet && medlemskap.perioderBoddIUtlandet.length > 0
       ? medlemskap.perioderBoddIUtlandet
       : [tomtUtenlandsopphold]
   );
@@ -81,9 +75,7 @@ const PeriodeBoddIUtlandet: FC<{
         <KomponentGruppe>
           <FeltGruppe>
             <Label as="p">
-              <LocaleTekst
-                tekst={'medlemskap.periodeBoddIUtlandet.flereutenlandsopphold'}
-              />
+              <LocaleTekst tekst={'medlemskap.periodeBoddIUtlandet.flereutenlandsopphold'} />
             </Label>
             <LeggTilKnapp onClick={() => leggTilUtenlandsperiode()}>
               <LocaleTekst tekst={'medlemskap.periodeBoddIUtlandet.knapp'} />

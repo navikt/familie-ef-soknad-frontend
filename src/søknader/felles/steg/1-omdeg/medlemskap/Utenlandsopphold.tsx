@@ -3,10 +3,7 @@ import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
 import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
-import {
-  ILandMedKode,
-  IUtenlandsopphold,
-} from '../../../../../models/steg/omDeg/medlemskap';
+import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
@@ -113,9 +110,7 @@ const Utenlandsopphold: FC<Props> = ({
   };
 
   const settFeltNavn = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>,
     feltnavn: string,
     label: string
   ): void => {
@@ -126,19 +121,14 @@ const Utenlandsopphold: FC<Props> = ({
     oppdaterUtenlandsopphold(oppdatertUtenlandsopphold);
   };
 
-  const oppdaterUtenlandsopphold = (
-    oppdatertUtenlandsopphold: IUtenlandsopphold
-  ) => {
-    const perioderMedUtenlandskPersonId = perioderBoddIUtlandet.map(
-      (utenlandsopphold, index) =>
-        index === oppholdsnr ? oppdatertUtenlandsopphold : utenlandsopphold
+  const oppdaterUtenlandsopphold = (oppdatertUtenlandsopphold: IUtenlandsopphold) => {
+    const perioderMedUtenlandskPersonId = perioderBoddIUtlandet.map((utenlandsopphold, index) =>
+      index === oppholdsnr ? oppdatertUtenlandsopphold : utenlandsopphold
     );
     settPeriodeBoddIUtlandet(perioderMedUtenlandskPersonId);
   };
 
-  const skalVisePersonidentTekstfelt = (
-    utenlandsopphold: IUtenlandsopphold
-  ) => {
+  const skalVisePersonidentTekstfelt = (utenlandsopphold: IUtenlandsopphold) => {
     return (
       utenlandsopphold.land &&
       utenlandsopphold.erEøsLand &&
@@ -149,9 +139,7 @@ const Utenlandsopphold: FC<Props> = ({
   const skalViseAdresseTekstfelt = (utenlandsopphold: IUtenlandsopphold) => {
     return (
       skalVisePersonidentTekstfelt(utenlandsopphold) &&
-      (stringHarVerdiOgErIkkeTom(
-        utenlandsopphold.personidentEøsLand?.verdi?.trim()
-      ) ||
+      (stringHarVerdiOgErIkkeTom(utenlandsopphold.personidentEøsLand?.verdi?.trim()) ||
         utenlandsopphold.kanIkkeOppgiPersonident)
     );
   };
@@ -206,23 +194,16 @@ const Utenlandsopphold: FC<Props> = ({
           />
         )}
 
-      {utenlandsopphold.land &&
-        skalVisePersonidentTekstfelt(utenlandsopphold) && (
-          <EøsIdent
-            halvåpenTekstid={hentTekst(
-              'medlemskap.hjelpetekst-åpne.begrunnelse',
-              intl
-            )}
-            åpneTekstid={hentTekst(
-              'medlemskap.hjelpetekst-innhold.begrunnelse',
-              intl
-            )}
-            utenlandsopphold={utenlandsopphold}
-            settUtenlandsopphold={(oppdatertUtenlandsopphold) =>
-              oppdaterUtenlandsopphold(oppdatertUtenlandsopphold)
-            }
-          />
-        )}
+      {utenlandsopphold.land && skalVisePersonidentTekstfelt(utenlandsopphold) && (
+        <EøsIdent
+          halvåpenTekstid={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}
+          åpneTekstid={hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
+          utenlandsopphold={utenlandsopphold}
+          settUtenlandsopphold={(oppdatertUtenlandsopphold) =>
+            oppdaterUtenlandsopphold(oppdatertUtenlandsopphold)
+          }
+        />
+      )}
       {utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold) && (
         <TextFieldMedBredde
           className={'inputfelt-tekst'}

@@ -25,10 +25,7 @@ type PersonContextType = {
   feilmelding: string;
   alvorlighetsgrad: EAlvorlighetsgrad | undefined;
   fetchPersonData: (
-    oppdaterSøknadMedBarn: (
-      person: PersonData,
-      barneliste: Barn[] | IBarn[]
-    ) => void,
+    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[] | IBarn[]) => void,
     skjemanavn: ESkjemanavn
   ) => Promise<void>;
 };
@@ -60,16 +57,14 @@ const PersonContext = createContext<PersonContextType>({
 
 const usePersonContext = () => useContext(PersonContext);
 
-const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   PersonProvider.displayName = 'PERSON_PROVIDER';
   const [person, settPerson] = useReducer(reducer, initialState);
   const [error, settError] = useState<boolean>(false);
   const [feilmelding, settFeilmelding] = useState<string>('');
-  const [alvorlighetsgrad, settAlvorlighetsgrad] = useState<
-    EAlvorlighetsgrad | undefined
-  >(undefined);
+  const [alvorlighetsgrad, settAlvorlighetsgrad] = useState<EAlvorlighetsgrad | undefined>(
+    undefined
+  );
   const intl = useLokalIntlContext();
 
   const håndterError = (e: any, skjemanavn: ESkjemanavn) => {
@@ -116,9 +111,7 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({
     fetchPersonData,
   };
 
-  return (
-    <PersonContext.Provider value={value}>{children}</PersonContext.Provider>
-  );
+  return <PersonContext.Provider value={value}>{children}</PersonContext.Provider>;
 };
 
 export { usePersonContext, PersonProvider };

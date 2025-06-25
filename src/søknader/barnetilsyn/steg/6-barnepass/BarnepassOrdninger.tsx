@@ -19,29 +19,19 @@ interface Props {
   settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const BarnepassOrdninger: FC<Props> = ({
-  barn,
-  settBarnepass,
-  settDokumentasjonsbehovForBarn,
-}) => {
+const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbehovForBarn }) => {
   const intl = useLokalIntlContext();
   const barnepass: IBarnepass = barn.barnepass
     ? barn.barnepass
     : { barnepassordninger: [{ id: hentUid() }] };
-  const leggTilLabel = hentBarnNavnEllerBarnet(
-    barn,
-    'barnepass.label.leggTilOrdning',
-    intl
-  );
+  const leggTilLabel = hentBarnNavnEllerBarnet(barn, 'barnepass.label.leggTilOrdning', intl);
 
   const settBarnepassOrdning = (endretBarnepassordning: IBarnepassOrdning) => {
-    const endretBarnepassordninger = barnepass.barnepassordninger.map(
-      (ordning) => {
-        if (ordning.id === endretBarnepassordning.id) {
-          return endretBarnepassordning;
-        } else return ordning;
-      }
-    );
+    const endretBarnepassordninger = barnepass.barnepassordninger.map((ordning) => {
+      if (ordning.id === endretBarnepassordning.id) {
+        return endretBarnepassordning;
+      } else return ordning;
+    });
     settBarnepass(
       {
         ...barn.barnepass,
@@ -54,10 +44,7 @@ const BarnepassOrdninger: FC<Props> = ({
   const leggTilBarnepassordning = () => {
     const endretBarnepassordninger = barnepass.barnepassordninger;
     endretBarnepassordninger.push({ id: hentUid() });
-    settBarnepass(
-      { ...barn.barnepass, barnepassordninger: endretBarnepassordninger },
-      barn.id
-    );
+    settBarnepass({ ...barn.barnepass, barnepassordninger: endretBarnepassordninger }, barn.id);
   };
 
   const fjernBarnepassOrdning = (barnepassordning: IBarnepassOrdning) => {
@@ -66,10 +53,7 @@ const BarnepassOrdninger: FC<Props> = ({
       const endretBarnepassOrdning = barnepassordninger?.filter(
         (ordning) => ordning.id !== barnepassordning.id
       );
-      settBarnepass(
-        { ...barnepass, barnepassordninger: endretBarnepassOrdning },
-        barn.id
-      );
+      settBarnepass({ ...barnepass, barnepassordninger: endretBarnepassOrdning }, barn.id);
     }
   };
 

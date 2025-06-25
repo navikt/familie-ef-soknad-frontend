@@ -1,8 +1,5 @@
 import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
-import {
-  EArbeidssted,
-  EArbeidssøker,
-} from '../../../../../models/steg/aktivitet/arbeidssøker';
+import { EArbeidssted, EArbeidssøker } from '../../../../../models/steg/aktivitet/arbeidssøker';
 import { JaNeiSvar, JaSvar, NeiSvar } from '../../../../../helpers/svar';
 import { DokumentasjonIkkeVilligTilArbeid } from '../AktivitetConfig';
 import { LokalIntlShape } from '../../../../../language/typer';
@@ -47,9 +44,7 @@ export const kanBegynneInnenEnUke = (intl: LokalIntlShape): ISpørsmål => ({
 });
 
 //TODO HVOR BRUKES DENNE?
-export const kanSkaffeBarnepassInnenEnUke = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const kanSkaffeBarnepassInnenEnUke = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EArbeidssøker.kanSkaffeBarnepassInnenEnUke,
   tekstid: 'arbeidssøker.label.barnepass',
   flersvar: false,

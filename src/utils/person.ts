@@ -12,8 +12,7 @@ export const harFyltUtSamboerDetaljer = (
         samboerDetaljer.fødselsdato.verdi,
         DatoBegrensning.TidligereDatoer
       )
-    : samboerDetaljer?.ident?.verdi !== '' &&
-      samboerDetaljer?.ident?.verdi !== undefined;
+    : samboerDetaljer?.ident?.verdi !== '' && samboerDetaljer?.ident?.verdi !== undefined;
 
   return valgfriIdentEllerFødselsdato
     ? samboerDetaljer?.navn?.verdi !== '' &&

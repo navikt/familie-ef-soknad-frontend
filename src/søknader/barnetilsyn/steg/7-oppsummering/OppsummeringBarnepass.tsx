@@ -4,18 +4,12 @@ import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/søknad';
 import { IBarn } from '../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import {
-  IDatoFelt,
-  ISpørsmålBooleanFelt,
-} from '../../../../models/søknad/søknadsfelter';
+import { IDatoFelt, ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 
 import { formatDate, strengTilDato } from '../../../../utils/dato';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import {
-  VisLabelOgSvar,
-  visLabelOgVerdiForSpørsmålFelt,
-} from '../../../../utils/visning';
+import { VisLabelOgSvar, visLabelOgVerdiForSpørsmålFelt } from '../../../../utils/visning';
 import BarneHeader from '../../../../components/BarneHeader';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
@@ -72,24 +66,18 @@ const OppsummeringBarnepass: FC<Props> = ({
             </BodyShort>
           </div>
 
-          {søkerFraBestemtDato.svarid === ESøkerFraBestemtMåned.ja &&
-            søknadsdato?.verdi && (
-              <div className={'spørsmål-og-svar'}>
-                <Label as="p">{søknadsdato.label}</Label>
-                <BodyShort>
-                  {formatDate(strengTilDato(søknadsdato?.verdi))}
-                </BodyShort>
-              </div>
-            )}
+          {søkerFraBestemtDato.svarid === ESøkerFraBestemtMåned.ja && søknadsdato?.verdi && (
+            <div className={'spørsmål-og-svar'}>
+              <Label as="p">{søknadsdato.label}</Label>
+              <BodyShort>{formatDate(strengTilDato(søknadsdato?.verdi))}</BodyShort>
+            </div>
+          )}
         </KomponentGruppe>
       )}
       <KomponentGruppe>
         <LenkeMedIkon
           onClick={() =>
-            navigate(
-              { pathname: endreInformasjonPath },
-              { state: { kommerFraOppsummering: true } }
-            )
+            navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
           }
           tekst_id="barnasbosted.knapp.endre"
           ikon={endre}

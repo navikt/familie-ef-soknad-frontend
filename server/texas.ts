@@ -20,15 +20,11 @@ export class TexasClient {
       user_token: token,
     };
 
-    const response = await axios.post<SuksessResponse>(
-      exchangeTokenUrl,
-      requestBody,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await axios.post<SuksessResponse>(exchangeTokenUrl, requestBody, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     return response.data;
   }

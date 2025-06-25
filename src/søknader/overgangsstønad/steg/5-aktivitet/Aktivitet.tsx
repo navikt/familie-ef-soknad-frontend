@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/AktivitetConfig';
-import {
-  EAktivitet,
-  IAktivitet,
-} from '../../../../models/steg/aktivitet/aktivitet';
+import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/søknad';
@@ -30,12 +27,8 @@ import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 
 const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    søknad,
-    settSøknad,
-    settDokumentasjonsbehov,
-    mellomlagreOvergangsstønad,
-  } = useOvergangsstønadSøknad();
+  const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreOvergangsstønad } =
+    useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
@@ -57,11 +50,7 @@ const Aktivitet: React.FC = () => {
     settArbeidssituasjon({ ...arbeidssituasjon, ...nyArbeidssituasjon });
   };
 
-  const settArbeidssituasjonFelt = (
-    spørsmål: ISpørsmål,
-    svarHuketAv: boolean,
-    svar: ISvar
-  ) => {
+  const settArbeidssituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(
       hvaErDinArbeidssituasjon,
       svarHuketAv,
@@ -71,8 +60,7 @@ const Aktivitet: React.FC = () => {
     const endretArbeidssituasjon = fjernAktivitet(svarider, arbeidssituasjon);
 
     // bør løses bedre. Hvis "harFåttTilbudOmJobb" valget tas og senere fravelges må datofeltet for nyJobb slettes så det ikke sendes med i søknad.
-    const skalDatoNyjobbNulstilles =
-      svar.id === EAktivitet.harFåttJobbTilbud && svarHuketAv;
+    const skalDatoNyjobbNulstilles = svar.id === EAktivitet.harFåttJobbTilbud && svarHuketAv;
 
     oppdaterArbeidssituasjon({
       ...endretArbeidssituasjon,
@@ -96,12 +84,8 @@ const Aktivitet: React.FC = () => {
   const erSisteSpørsmålBesvartOgMinstEttAlternativValgt =
     hvaErDinArbeidssituasjon.svarid.length !== 0 && erAlleFelterUtfylt;
 
-  const erSpørsmålFørAktivitetBesvart = (
-    svarid: string,
-    arbeidssituasjon: IAktivitet
-  ) => {
-    const svaridPos =
-      arbeidssituasjon.hvaErDinArbeidssituasjon.svarid.indexOf(svarid);
+  const erSpørsmålFørAktivitetBesvart = (svarid: string, arbeidssituasjon: IAktivitet) => {
+    const svaridPos = arbeidssituasjon.hvaErDinArbeidssituasjon.svarid.indexOf(svarid);
     return arbeidssituasjon.hvaErDinArbeidssituasjon.svarid
       .filter((aktivitet, index) => aktivitet && index < svaridPos)
       .every((id) => erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon));
@@ -130,11 +114,9 @@ const Aktivitet: React.FC = () => {
       </SeksjonGruppe>
 
       {arbeidssituasjon.hvaErDinArbeidssituasjon.svarid.map((svarid, index) => {
-        const harValgtMinstEnAktivitet =
-          hvaErDinArbeidssituasjon.svarid.length !== 0;
+        const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon.svarid.length !== 0;
 
-        const erValgtFørsteAktivitet =
-          hvaErDinArbeidssituasjon.svarid[0] === svarid;
+        const erValgtFørsteAktivitet = hvaErDinArbeidssituasjon.svarid[0] === svarid;
 
         const visSeksjon = harValgtMinstEnAktivitet
           ? !erValgtFørsteAktivitet
@@ -151,9 +133,7 @@ const Aktivitet: React.FC = () => {
               settArbeidssituasjon={settArbeidssituasjon}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
               overskuddsår={
-                nullableStrengTilDato(
-                  søknad.datoPåbegyntSøknad
-                )?.getFullYear() || nåværendeÅr
+                nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
               }
             />
           )

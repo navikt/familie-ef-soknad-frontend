@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Datovelger,
-  DatoBegrensning,
-} from '../../../../../components/dato/Datovelger';
+import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
@@ -68,9 +65,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
       });
   };
 
-  const settArbeidsukeTekst = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ): void => {
+  const settArbeidsukeTekst = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     settFirma({
       ...firma,
       arbeidsuke: {
@@ -93,9 +88,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
 
   const fjernFirma = () => {
     if (firmaer && firmaer.length > 1) {
-      const oppdaterteFirmaer = firmaer?.filter(
-        (arbeidsgiver, index) => index !== firmanr
-      );
+      const oppdaterteFirmaer = firmaer?.filter((arbeidsgiver, index) => index !== firmanr);
       settFirmaer(oppdaterteFirmaer);
     }
   };
@@ -127,10 +120,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
           {firmaTittel}
         </Heading>
         {skalViseSlettKnapp && (
-          <SlettKnapp
-            onClick={() => fjernFirma()}
-            tekstid={'firma.knapp.slett'}
-          />
+          <SlettKnapp onClick={() => fjernFirma()} tekstid={'firma.knapp.slett'} />
         )}
       </TittelOgSlettKnapp>
       <FeltGruppe>
@@ -152,11 +142,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
               type={'text'}
               onChange={(e) => settOrganisasjonsnr(e.target.value)}
               onBlur={(e) =>
-                settInputTekstFelt(
-                  e,
-                  EFirma.organisasjonsnummer,
-                  labelOrganisasjonsnr
-                )
+                settInputTekstFelt(e, EFirma.organisasjonsnummer, labelOrganisasjonsnr)
               }
               value={organisasjonsnummer ? organisasjonsnummer : ''}
               error={harValgtUgyldigOrganisasjonsnummer}
@@ -195,13 +181,9 @@ const OmFirmaetDitt: React.FC<Props> = ({
               nøkkel={labelArbeidsmengde}
               type={'number'}
               bredde={'XXS'}
-              settInputFelt={(e) =>
-                settInputTekstFelt(e, EFirma.arbeidsmengde, labelArbeidsmengde)
-              }
+              settInputFelt={(e) => settInputTekstFelt(e, EFirma.arbeidsmengde, labelArbeidsmengde)}
               beskrivendeTekst={'%'}
-              value={
-                firma?.arbeidsmengde?.verdi ? firma?.arbeidsmengde?.verdi : ''
-              }
+              value={firma?.arbeidsmengde?.verdi ? firma?.arbeidsmengde?.verdi : ''}
             />
           </FeltGruppe>
         )}
@@ -213,10 +195,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
             <Label as={'label'} htmlFor={labelArbeidsuke}>
               {labelArbeidsuke}
             </Label>
-            <LesMerTekst
-              åpneTekstid={''}
-              innholdTekstid={'firma.lesmer-innhold.arbeidsuke'}
-            />
+            <LesMerTekst åpneTekstid={''} innholdTekstid={'firma.lesmer-innhold.arbeidsuke'} />
             <Textarea
               autoComplete={'off'}
               key={labelArbeidsuke}
@@ -237,9 +216,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
               nøkkel={labelOverskudd}
               type={'number'}
               bredde={'XS'}
-              settInputFelt={(e) =>
-                settInputTekstFelt(e, EFirma.overskudd, labelOverskudd)
-              }
+              settInputFelt={(e) => settInputTekstFelt(e, EFirma.overskudd, labelOverskudd)}
               beskrivendeTekst={'kroner'}
               value={firma?.overskudd?.verdi ? firma?.overskudd?.verdi : ''}
             />

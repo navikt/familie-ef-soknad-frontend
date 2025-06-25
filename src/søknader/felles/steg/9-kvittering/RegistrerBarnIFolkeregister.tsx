@@ -19,9 +19,7 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
   const intl = useLokalIntlContext();
 
   const barnSomSkalRegistreresIFolkeregister = barna.filter((barn) => {
-    return (
-      barn?.forelder?.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.ja
-    );
+    return barn?.forelder?.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.ja;
   });
 
   if (barnSomSkalRegistreresIFolkeregister.length === 0) {
@@ -47,9 +45,7 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
           target={'_blank'}
           rel={'noreferrer noopener'}
           className={'knapp knapp--standard kvittering'}
-          href={
-            'https://www.skatteetaten.no/person/folkeregister/flytte/i-norge/'
-          }
+          href={'https://www.skatteetaten.no/person/folkeregister/flytte/i-norge/'}
         >
           <LocaleTekst tekst={'barnasbosted.skalBliFolkeregistrert.knapp'} />
         </a>

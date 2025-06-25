@@ -1,4 +1,4 @@
-import { ConfirmationPanel, Heading, BodyShort } from '@navikt/ds-react';
+import { BodyShort, ConfirmationPanel, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { hentBeskjedMedNavn } from '../../utils/språk';
 import { hentTekst } from '../../utils/søknad';
@@ -27,10 +27,7 @@ export const DisclaimerBoks: React.FC<{
       </DisclaimerTittel>
       <StyledConfirmationPanel
         checked={!!harBekreftet}
-        label={hentBeskjedMedNavn(
-          navn,
-          intl.formatMessage({ id: 'side.bekreftelse' })
-        )}
+        label={hentBeskjedMedNavn(navn, intl.formatMessage({ id: 'side.bekreftelse' }))}
         onChange={() => settBekreftelse(!harBekreftet)}
       >
         <BodyShort>{hentTekst(tekst, intl)}</BodyShort>

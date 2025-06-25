@@ -41,11 +41,7 @@ export const klikkSvarRadioknapp = async (
   await user.click(radio);
 };
 
-export const klikkCheckbox = async (
-  name: string,
-  screen: Screen,
-  user: UserEvent
-) => {
+export const klikkCheckbox = async (name: string, screen: Screen, user: UserEvent) => {
   await user.click(
     screen.getByRole('checkbox', {
       name: name,

@@ -10,10 +10,7 @@ export const filtypeTekst = (typeTekst: string): string => {
   return typeTekst.slice(typeTekst.indexOf('/') + 1).toUpperCase();
 };
 
-export const filtypeOgFilstørrelseStreng = (
-  filtype: string,
-  filstorrelse: number
-): string => {
+export const filtypeOgFilstørrelseStreng = (filtype: string, filstorrelse: number): string => {
   const skalViseFilInformasjon = filstorrelse != 0 && filtype != '';
   return skalViseFilInformasjon
     ? ` (${filtypeTekst(filtype)}, ${rundOppTilToDesimaler(filstorrelse)}kb)`

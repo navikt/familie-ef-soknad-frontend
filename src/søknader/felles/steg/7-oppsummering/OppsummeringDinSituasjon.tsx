@@ -24,11 +24,13 @@ const OppsummeringDinSituasjon: React.FC<Props> = ({
 
   const { gjelderDetteDeg, ...rest } = dinSituasjon;
 
-  const barnMedsærligeTilsynsbehovlabelOgSvar =
-    barnMedsærligeTilsynsbehov.reduce((acc, val, idx) => {
+  const barnMedsærligeTilsynsbehovlabelOgSvar = barnMedsærligeTilsynsbehov.reduce(
+    (acc, val, idx) => {
       acc[`barnMedsærligeTilsynsbehov${idx}`] = val;
       return acc;
-    }, {} as any);
+    },
+    {} as any
+  );
 
   return (
     <>
@@ -42,10 +44,7 @@ const OppsummeringDinSituasjon: React.FC<Props> = ({
         </KomponentGruppe>
         <LenkeMedIkon
           onClick={() =>
-            navigate(
-              { pathname: endreInformasjonPath },
-              { state: { kommerFraOppsummering: true } }
-            )
+            navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
           }
           tekst_id="barnasbosted.knapp.endre"
           ikon={endre}

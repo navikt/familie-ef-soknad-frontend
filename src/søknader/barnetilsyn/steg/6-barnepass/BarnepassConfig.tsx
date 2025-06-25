@@ -1,10 +1,6 @@
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
-import {
-  EBarnepass,
-  ETypeBarnepassOrdning,
-  EÅrsakBarnepass,
-} from '../../models/barnepass';
+import { EBarnepass, ETypeBarnepassOrdning, EÅrsakBarnepass } from '../../models/barnepass';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { DokumentasjonsConfig } from '../../../felles/DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
@@ -13,8 +9,7 @@ import { LokalIntlShape } from '../../../../language/typer';
 
 export const FakturaFraBarnepassordning: IDokumentasjon =
   DokumentasjonsConfig.FakturaFraBarnepassordning;
-export const AvtaleMedBarnepasser: IDokumentasjon =
-  DokumentasjonsConfig.AvtaleMedBarnepasser;
+export const AvtaleMedBarnepasser: IDokumentasjon = DokumentasjonsConfig.AvtaleMedBarnepasser;
 
 export const DokumentasjonTrengerMerPassEnnJevnaldrede: IDokumentasjon =
   DokumentasjonsConfig.DokumentasjonTrengerMerPassEnnJevnaldrede;
@@ -55,9 +50,7 @@ export const årsakBarnepass = (intl: LokalIntlShape): ISpørsmål => ({
   ],
 });
 
-export const HvaSlagsBarnepassOrdningSpm = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const HvaSlagsBarnepassOrdningSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EBarnepass.hvaSlagsBarnepassOrdning,
   tekstid: 'barnepass.spm.hvaSlagsOrdning',
   flersvar: false,
@@ -77,9 +70,7 @@ export const HvaSlagsBarnepassOrdningSpm = (
   ],
 });
 
-export const SøkerDuStønadFraBestemtMndSpm = (
-  intl: LokalIntlShape
-): ISpørsmål => ({
+export const SøkerDuStønadFraBestemtMndSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EBarnepass.søkerFraBestemtMåned,
   tekstid: 'søkerFraBestemtMåned.spm.barnepass',
   flersvar: false,

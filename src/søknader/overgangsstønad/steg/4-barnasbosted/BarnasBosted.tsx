@@ -35,8 +35,7 @@ const BarnasBosted: React.FC = () => {
     : ESide.visTilbakeTilOppsummeringKnapp;
 
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
-    antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) ===
-      barnMedLevendeForeldre.length
+    antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length
   );
 
   useMount(() => logSidevisningOvergangsstonad('BarnasBosted'));
