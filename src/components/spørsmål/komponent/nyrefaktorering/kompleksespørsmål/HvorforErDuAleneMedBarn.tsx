@@ -5,11 +5,14 @@ import { hentTekst } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
 import styles from './PersonopplysningerV2.module.css';
 import LocaleTekst from '../../../../../language/LocaleTekst';
+import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 
 export const HvorforErDuAleneMedBarn: React.FC = () => {
   const intl = useLokalIntlContext();
 
   const [aleneMedBarnÅrsak, settAleneMedBarnÅrsak] = useState<string>();
+
+  const skalViseOmDenTidligereSamboerenDin = aleneMedBarnÅrsak === 'samlivsbrudd-med-noen-andre';
 
   return (
     <VStack gap="6">
@@ -60,6 +63,9 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
           </Alert>
         )}
       </SpørsmålWrapper>
+
+      {/* 2. Om  den tidligere samboeren din. */}
+      {skalViseOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
     </VStack>
   );
 };
