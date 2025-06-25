@@ -29,13 +29,25 @@ export const PersonopplysningerV2: React.FC = () => {
           onChange={settBorPåAdresse}
           value={borPåAdresse}
         >
+          {/* TODO: Gå gjennom implementasjo av knapp som er hel-klikkbar. */}
           <div className={styles.stackHorizontal}>
-            <Box className={styles.radioBox}>
-              <Radio value="ja">{hentTekst('svar.ja', intl)}</Radio>
-            </Box>
-            <Box className={styles.radioBox}>
-              <Radio value="nei">{hentTekst('svar.nei', intl)}</Radio>
-            </Box>
+            {['ja', 'nei'].map((verdi) => (
+              <Box
+                key={verdi}
+                className={`${styles.radioBox} ${borPåAdresse === verdi ? styles.selected : ''}`}
+                onClick={() => settBorPåAdresse(verdi)}
+                role="radio"
+                aria-checked={borPåAdresse === verdi}
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    settBorPåAdresse(verdi);
+                  }
+                }}
+              >
+                <Radio value={verdi}>{hentTekst(`svar.${verdi}`, intl)}</Radio>
+              </Box>
+            ))}
           </div>
         </RadioGroup>
       </SpørsmålWrapper>

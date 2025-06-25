@@ -39,3 +39,8 @@
   gap: var(--a-spacing-6);
   flex-wrap: nowrap;
 }
+
+.radioBox input[type='radio'] {
+  pointer-events: none;
+}
+
