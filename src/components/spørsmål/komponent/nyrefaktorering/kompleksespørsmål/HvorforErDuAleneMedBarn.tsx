@@ -1,12 +1,15 @@
-import React from 'react';
-import { Box, Radio, RadioGroup, VStack } from '@navikt/ds-react';
+import React, { useState } from 'react';
+import { Alert, Box, Radio, RadioGroup, VStack } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
 import styles from './PersonopplysningerV2.module.css';
+import LocaleTekst from '../../../../../language/LocaleTekst';
 
 export const HvorforErDuAleneMedBarn: React.FC = () => {
   const intl = useLokalIntlContext();
+
+  const [aleneMedBarnÅrsak, settAleneMedBarnÅrsak] = useState<string>();
 
   return (
     <VStack gap="6">
@@ -19,8 +22,8 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
         <RadioGroup
           legend={hentTekst('sivilstatus.spm.begrunnelse', intl)}
           hideLegend
-          onChange={() => {}}
-          value={undefined}
+          onChange={settAleneMedBarnÅrsak}
+          value={aleneMedBarnÅrsak}
         >
           <div className={styles.stackVertical}>
             <Box className={styles.radioBox}>
@@ -50,6 +53,12 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
             </Box>
           </div>
         </RadioGroup>
+
+        {aleneMedBarnÅrsak === 'jeg-er-alene-med-barn-på-grunn-av-dødsfall' && (
+          <Alert variant="info" inline>
+            <LocaleTekst tekst="sivilstatus.alert.dødsfall" />
+          </Alert>
+        )}
       </SpørsmålWrapper>
     </VStack>
   );
