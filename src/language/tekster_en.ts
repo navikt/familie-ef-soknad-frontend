@@ -1,10 +1,8 @@
 // sist redigert 20.12.2021 12:29
 export default {
-  'generell.beskrivelse.alert-med-lenke':
-    'Hi! I am alaert with a link to: {link}.',
+  'generell.beskrivelse.alert-med-lenke': 'Hi! I am alaert with a link to: {link}.',
   'generell.label.skatteetaten': 'Skatteetaten',
-  'generell.link-flytting.skatteetten':
-    'https://www.skatteetaten.no/person/folkeregister/flytte/',
+  'generell.link-flytting.skatteetten': 'https://www.skatteetaten.no/person/folkeregister/flytte/',
 
   'språk.bokmål': 'Bokmål',
   'språk.engelsk': 'English',

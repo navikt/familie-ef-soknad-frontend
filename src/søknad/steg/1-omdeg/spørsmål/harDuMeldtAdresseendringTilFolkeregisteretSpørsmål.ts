@@ -1,32 +1,31 @@
 import { SingleSelectSpørsmål } from '../../../../components/spørsmål/komponent/nyrefaktorering/Spørsmål';
 
-export const harDuMeldtAdresseendringTilFolkeregisteretSpørsmål: SingleSelectSpørsmål =
-  {
-    id: 'harDuMeldtAdresseendringTilFolkeregisteret',
-    spørsmålTekstKey: 'personopplysninger.spm.meldtAdresseendring',
+export const harDuMeldtAdresseendringTilFolkeregisteretSpørsmål: SingleSelectSpørsmål = {
+  id: 'harDuMeldtAdresseendringTilFolkeregisteret',
+  spørsmålTekstKey: 'personopplysninger.spm.meldtAdresseendring',
 
-    type: 'single-select',
+  type: 'single-select',
 
-    alerts: [
-      {
-        id: 'alertMeldtAdresseEndring',
-        alertTekstKey: 'personopplysninger.alert.meldtAdresseendring',
-        alertVariant: 'info',
-        inline: true,
-        visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',
-      },
-      {
-        id: 'alertRiktigAdresse',
-        alertTekstKey: 'personopplysninger.alert.riktigAdresse',
-        alertVariant: 'warning',
-        inline: false,
-        visAlertNår: ({ valgtSvar }) => valgtSvar === 'Nei',
-      },
-    ],
+  alerts: [
+    {
+      id: 'alertMeldtAdresseEndring',
+      alertTekstKey: 'personopplysninger.alert.meldtAdresseendring',
+      alertVariant: 'info',
+      inline: true,
+      visAlertNår: ({ valgtSvar }) => valgtSvar === 'Ja',
+    },
+    {
+      id: 'alertRiktigAdresse',
+      alertTekstKey: 'personopplysninger.alert.riktigAdresse',
+      alertVariant: 'warning',
+      inline: false,
+      visAlertNår: ({ valgtSvar }) => valgtSvar === 'Nei',
+    },
+  ],
 
-    svarAlternativ: [
-      { svarVerdi: 'Ja', label: 'svar.ja' },
-      { svarVerdi: 'Nei', label: 'svar.nei' },
-    ],
-    svarAlternativLayout: 'horizontal',
-  };
+  svarAlternativ: [
+    { svarVerdi: 'Ja', label: 'svar.ja' },
+    { svarVerdi: 'Nei', label: 'svar.nei' },
+  ],
+  svarAlternativLayout: 'horizontal',
+};

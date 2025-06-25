@@ -26,8 +26,7 @@ export const oppfølgingsSpørsmålMap: Record<string, OppfølgningsSpørsmål[]
   erDuGiftUtenAtDetErFolkeregistrertINorge: [
     {
       visNår: (valgtSvar) => valgtSvar !== null,
-      spørsmål:
-        erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorgeSpørsmål,
+      spørsmål: erDuSeparertEllerSkiltUtenAtDetteErRegistrertIFolkeregisteretINorgeSpørsmål,
     },
   ],
 

@@ -13,14 +13,8 @@ export const HvorforErDuAleneMedBarn: React.FC = () => {
       {/* 1. Hvorfor er du alene med barn? */}
       <SpørsmålWrapper
         tittel={hentTekst('sivilstatus.spm.begrunnelse', intl)}
-        lesMerTittel={hentTekst(
-          'sivilstatus.hjelpetekst-åpne.begrunnelse',
-          intl
-        )}
-        lesMerTekst={hentTekst(
-          'sivilstatus.hjelpetekst-innhold.begrunnelse',
-          intl
-        )}
+        lesMerTittel={hentTekst('sivilstatus.hjelpetekst-åpne.begrunnelse', intl)}
+        lesMerTekst={hentTekst('sivilstatus.hjelpetekst-innhold.begrunnelse', intl)}
       >
         <RadioGroup
           legend={hentTekst('sivilstatus.spm.begrunnelse', intl)}

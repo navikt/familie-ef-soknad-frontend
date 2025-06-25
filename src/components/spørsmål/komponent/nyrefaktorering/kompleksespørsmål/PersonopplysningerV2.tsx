@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Alert,
-  BodyShort,
-  Box,
-  Radio,
-  RadioGroup,
-  VStack,
-} from '@navikt/ds-react';
+import { Alert, BodyShort, Box, Radio, RadioGroup, VStack } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
 import LocaleTekst from '../../../../../language/LocaleTekst';
@@ -22,17 +15,14 @@ export const PersonopplysningerV2: React.FC = () => {
   const [erUformeltSeparert, settErUformeltSeparert] = useState<string>();
 
   const skalViseMeldtAdresseendring = borPåAdresse === 'nei';
-  const skalViseErUformeltGift =
-    borPåAdresse === 'ja' || meldtAdresseendring === 'ja';
+  const skalViseErUformeltGift = borPåAdresse === 'ja' || meldtAdresseendring === 'ja';
   const skalViseEndreAdresse = meldtAdresseendring === 'nei';
   const skalViseErSeparert = erUformeltGift !== undefined;
 
   return (
     <VStack gap="6">
       {/* 1. Bor du på denne adressen? */}
-      <SpørsmålWrapper
-        tittel={hentTekst('personopplysninger.spm.riktigAdresse', intl)}
-      >
+      <SpørsmålWrapper tittel={hentTekst('personopplysninger.spm.riktigAdresse', intl)}>
         <RadioGroup
           legend={hentTekst('personopplysninger.spm.riktigAdresse', intl)}
           hideLegend
@@ -52,14 +42,9 @@ export const PersonopplysningerV2: React.FC = () => {
 
       {/* 2. Har du meldt adresseendring til Folkeregisteret? */}
       {skalViseMeldtAdresseendring && (
-        <SpørsmålWrapper
-          tittel={hentTekst('personopplysninger.spm.meldtAdresseendring', intl)}
-        >
+        <SpørsmålWrapper tittel={hentTekst('personopplysninger.spm.meldtAdresseendring', intl)}>
           <RadioGroup
-            legend={hentTekst(
-              'personopplysninger.spm.meldtAdresseendring',
-              intl
-            )}
+            legend={hentTekst('personopplysninger.spm.meldtAdresseendring', intl)}
             hideLegend
             onChange={settMeldtAdresseendring}
             value={meldtAdresseendring}
@@ -90,9 +75,7 @@ export const PersonopplysningerV2: React.FC = () => {
 
       {/* 3. Skal du ikke endre adresse i Folkeregisteret? */}
       {skalViseEndreAdresse && (
-        <SpørsmålWrapper
-          tittel={hentTekst('personopplysninger.info.endreAdresse', intl)}
-        >
+        <SpørsmålWrapper tittel={hentTekst('personopplysninger.info.endreAdresse', intl)}>
           <BodyShort>
             <LocaleTekst tekst="personopplysninger.lenke.pdfskjema" />
           </BodyShort>
@@ -103,14 +86,8 @@ export const PersonopplysningerV2: React.FC = () => {
       {skalViseErUformeltGift && (
         <SpørsmålWrapper
           tittel={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
-          lesMerTittel={hentTekst(
-            'sivilstatus.lesmer-åpne.erUformeltGift',
-            intl
-          )}
-          lesMerTekst={hentTekst(
-            'sivilstatus.lesmer-innhold.erUformeltGift',
-            intl
-          )}
+          lesMerTittel={hentTekst('sivilstatus.lesmer-åpne.erUformeltGift', intl)}
+          lesMerTekst={hentTekst('sivilstatus.lesmer-innhold.erUformeltGift', intl)}
         >
           <RadioGroup
             legend={hentTekst('sivilstatus.spm.erUformeltGift', intl)}
@@ -138,17 +115,9 @@ export const PersonopplysningerV2: React.FC = () => {
 
       {/* 5. Er du separert eller skilt uten at det er registrert i Norge? */}
       {skalViseErSeparert && (
-        <SpørsmålWrapper
-          tittel={hentTekst(
-            'sivilstatus.spm.erUformeltSeparertEllerSkilt',
-            intl
-          )}
-        >
+        <SpørsmålWrapper tittel={hentTekst('sivilstatus.spm.erUformeltSeparertEllerSkilt', intl)}>
           <RadioGroup
-            legend={hentTekst(
-              'sivilstatus.spm.erUformeltSeparertEllerSkilt',
-              intl
-            )}
+            legend={hentTekst('sivilstatus.spm.erUformeltSeparertEllerSkilt', intl)}
             hideLegend
             onChange={settErUformeltSeparert}
             value={erUformeltSeparert}
@@ -165,10 +134,7 @@ export const PersonopplysningerV2: React.FC = () => {
 
           {erUformeltSeparert === 'ja' && (
             <Alert variant="info" inline>
-              {hentTekst(
-                'sivilstatus.alert.erUformeltSeparertEllerSkilt',
-                intl
-              )}
+              {hentTekst('sivilstatus.alert.erUformeltSeparertEllerSkilt', intl)}
             </Alert>
           )}
         </SpørsmålWrapper>

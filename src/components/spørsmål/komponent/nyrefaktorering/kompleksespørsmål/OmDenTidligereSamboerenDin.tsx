@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Checkbox,
-  Heading,
-  TextField,
-  VStack,
-  DatePicker,
-  useDatepicker,
-} from '@navikt/ds-react';
+import { Checkbox, Heading, TextField, VStack, DatePicker, useDatepicker } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/søknad';
 import { identErGyldig } from '../../../../../utils/validering/validering';
@@ -55,9 +48,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
 
   return (
     <VStack gap="6" align="start">
-      <Heading size="small">
-        {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
-      </Heading>
+      <Heading size="small">{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Heading>
 
       <TextField
         label={hentTekst('person.navn', intl)}
@@ -71,9 +62,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
         maxLength={11}
         onChange={(e) => settIdent(e.target.value)}
         disabled={brukerIkkeIdent}
-        error={
-          visFeil ? hentTekst('person.feilmelding.ident', intl) : undefined
-        }
+        error={visFeil ? hentTekst('person.feilmelding.ident', intl) : undefined}
       />
 
       <Checkbox
@@ -104,10 +93,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
         <DatePicker {...flyttetFraDato.datepickerProps}>
           <DatePicker.Input
             {...flyttetFraDato.inputProps}
-            label={hentTekst(
-              'sivilstatus.datovelger.flyttetFraHverandre',
-              intl
-            )}
+            label={hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl)}
           />
         </DatePicker>
       )}

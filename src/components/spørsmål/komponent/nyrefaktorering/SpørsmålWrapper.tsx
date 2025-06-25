@@ -14,9 +14,7 @@ export const SpørsmålWrapper: React.FC<{
         {tittel}
       </Heading>
 
-      {lesMerTittel && lesMerTekst && (
-        <ReadMore header={lesMerTittel}>{lesMerTekst}</ReadMore>
-      )}
+      {lesMerTittel && lesMerTekst && <ReadMore header={lesMerTittel}>{lesMerTekst}</ReadMore>}
 
       {children}
     </VStack>
