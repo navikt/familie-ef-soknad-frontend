@@ -55,4 +55,31 @@ describe('BosituasjonSteg', () => {
     await user.click(screen.getByRole('button', { name: 'Neste' }));
     expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
   });
+
+  test('Bruker og den andre forelderen bor midlertidig fra hverandre', async () => {
+    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
+    const { screen, user } = await navigerTilSteg();
+
+    expect(
+      screen.queryByText(
+        'Når dere bor midlertidig fra hverandre, har du ikke rett til stønad til enslig mor eller far.'
+      )
+    ).not.toBeInTheDocument();
+    await klikkRadioknapp(
+      'Deler du bolig med andre voksne?',
+      'Ja, men jeg og den andre forelderen bor midlertidig fra hverandre',
+      screen,
+      user
+    );
+    expect(
+      screen.getByText(
+        'Når dere bor midlertidig fra hverandre, har du ikke rett til stønad til enslig mor eller far.'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+  });
 });
