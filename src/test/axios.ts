@@ -3,7 +3,6 @@ import {
   lagBooleanFelt,
   lagDatoFelt,
   lagMellomlagretSøknadOvergangsstønad,
-  lagPerson,
   lagPersonData,
   lagSpørsmålBooleanFelt,
   lagSpørsmålFelt,
@@ -15,10 +14,7 @@ import axios from 'axios';
 import { ESøknad } from '../søknader/overgangsstønad/models/søknad';
 import { ESvar } from '../models/felles/spørsmålogsvar';
 import { dagensIsoDatoMinusMåneder } from '../utils/dato';
-import {
-  EBegrunnelse,
-  ESivilstatusSøknadid,
-} from '../models/steg/omDeg/sivilstatus';
+import { EBegrunnelse, ESivilstatusSøknadid } from '../models/steg/omDeg/sivilstatus';
 
 type StønadType = 'overgangsstonad' | 'barnetilsyn' | 'skolepenger';
 type SøknadSteg =
@@ -56,24 +52,34 @@ export const mockGet = (url: string, stønadstype: StønadType) => {
   return Promise.resolve({ data: {} });
 };
 
+export const mockPost = (url: string, stønadstype: StønadType) => {
+  if (url === `${Environment().mellomlagerProxyUrl + stønadstype}`) {
+    return Promise.resolve({
+      data: lagSøknadOvergangsstønad(),
+    });
+  }
+};
+
 export const mockMellomlagretSøknad = (
   stønadstype: StønadType,
-  gjeldendeSteg: SøknadSteg,
+  gjeldendeSteg?: SøknadSteg,
   søker?: Partial<Søker>
 ) => {
   (axios.get as any).mockImplementation((url: string) => {
     if (url === `${Environment().mellomlagerProxyUrl + stønadstype}`) {
       return Promise.resolve({
-        data: lagMellomlagretSøknadOvergangsstønad({
-          søknad: utledSøknad(gjeldendeSteg),
-          gjeldendeSteg: gjeldendeSteg,
-        }),
+        data: gjeldendeSteg
+          ? lagMellomlagretSøknadOvergangsstønad({
+              søknad: utledSøknad(gjeldendeSteg),
+              gjeldendeSteg: gjeldendeSteg,
+            })
+          : undefined,
       });
     }
 
     if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
       return Promise.resolve({
-        data: lagPerson({
+        data: lagPersonData({
           søker: lagSøker({ ...søker }),
         }),
       });
@@ -123,10 +129,7 @@ const søknadOvergangsstønadBosituasjon = lagSøknadOvergangsstønad({
     ),
   },
   medlemskap: {
-    søkerOppholderSegINorge: lagBooleanFelt(
-      'Oppholder du og barnet/barna dere i Norge?',
-      true
-    ),
+    søkerOppholderSegINorge: lagBooleanFelt('Oppholder du og barnet/barna dere i Norge?', true),
     søkerBosattINorgeSisteTreÅr: lagBooleanFelt(
       'Har du oppholdt deg i Norge de siste 5 årene?',
       true

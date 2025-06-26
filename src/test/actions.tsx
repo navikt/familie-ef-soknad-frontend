@@ -42,11 +42,7 @@ export const klikkRadioknapp = async (
 };
 
 export const klikkCheckbox = async (name: string, screen: Screen, user: UserEvent) => {
-  await user.click(
-    screen.getByRole('checkbox', {
-      name: name,
-    })
-  );
+  await user.click(screen.getByRole('checkbox', { name: name }));
 };
 
 export const skrivFritekst = async (

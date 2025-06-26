@@ -231,7 +231,7 @@ export const lagIBarn = (barn?: Partial<IBarn>): IBarn => {
     id: '1234',
     fnr: undefined,
     alder: lagTekstfelt('', ''),
-    fødselsdato: lagTekstfelt('', ''),
+    fødselsdato: lagTekstfelt('Fødselsdato', dagensIsoDatoMinusMåneder(1)),
     ident: lagTekstfelt('', ''),
     harSammeAdresse: lagBooleanFelt('', true),
     navn: lagTekstfelt('', ''),
