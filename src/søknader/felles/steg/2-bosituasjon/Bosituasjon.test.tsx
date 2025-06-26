@@ -6,6 +6,7 @@ import {
   navigerTilSteg,
   skrivFritekst,
 } from '../../../../test/actions';
+import { queryByRole } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -152,6 +153,85 @@ describe('BosituasjonSteg', () => {
     expect(screen.getByRole('textbox', { name: 'Når flyttet dere sammen?' })).toHaveValue(
       '01.06.2025'
     );
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+  });
+
+  test('Bruker deler bolig med andre voksne', async () => {
+    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
+    const { screen, user } = await navigerTilSteg();
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
+      })
+    ).not.toBeInTheDocument();
+    await klikkRadioknapp(
+      'Deler du bolig med andre voksne?',
+      'Ja, jeg deler bolig med andre voksne, for eksempel utleier, venn, søsken eller egne foreldre',
+      screen,
+      user
+    );
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
+      })
+    ).toBeInTheDocument();
+
+    expect(screen.queryByRole('textbox', { name: 'Når skal dette skje?' })).not.toBeInTheDocument();
+    await klikkRadioknapp(
+      'Har du konkrete planer om å gifte deg eller bli samboer?',
+      'Ja',
+      screen,
+      user
+    );
+    expect(screen.getByRole('textbox', { name: 'Når skal dette skje?' })).toBeInTheDocument();
+
+    expect(screen.queryByRole('textbox', { name: 'Navn' })).not.toBeInTheDocument();
+    await skrivFritekst('Når skal dette skje?', '10.02.2030', screen, user);
+    expect(screen.getByRole('textbox', { name: 'Navn' })).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('checkbox', { name: 'Jeg kjenner ikke fødselsnummer / d-nummer' })
+    ).not.toBeInTheDocument();
+    await skrivFritekst('Navn', 'Kari Nordmann', screen, user);
+    expect(
+      screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: 'Jeg kjenner ikke fødselsnummer / d-nummer' })
+    ).not.toBeChecked();
+
+    expect(screen.queryByRole('textbox', { name: 'Fødselsdato' })).not.toBeInTheDocument();
+    await klikkCheckbox('Jeg kjenner ikke fødselsnummer / d-nummer', screen, user);
+    expect(
+      screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' })
+    ).toBeDisabled();
+    expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: 'Jeg kjenner ikke fødselsnummer / d-nummer' })
+    ).toBeChecked();
+
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    await skrivFritekst('Fødselsdato', '24.02.1995', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkCheckbox('Jeg kjenner ikke fødselsnummer / d-nummer', screen, user);
+    expect(
+      screen.getByRole('checkbox', { name: 'Jeg kjenner ikke fødselsnummer / d-nummer' })
+    ).not.toBeChecked();
+    expect(
+      screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' })
+    ).not.toBeDisabled();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+
+    await skrivFritekst('Fødselsnummer / d-nummer (11 siffer)', '27909698168', screen, user);
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
