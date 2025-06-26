@@ -30,7 +30,7 @@ export const navigerTilSteg = async () => {
   return { screen, user };
 };
 
-export const klikkSvarRadioknapp = async (
+export const klikkRadioknapp = async (
   groupName: string,
   radioLabel: string,
   screen: Screen,
