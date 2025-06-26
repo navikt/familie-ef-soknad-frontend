@@ -11,6 +11,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Textarea,
   useDatepicker,
   VStack,
 } from '@navikt/ds-react';
@@ -39,6 +40,8 @@ export const MedlemskapV2: React.FC = () => {
     string | undefined
   >();
   const skalViseUtelandsPeriodeAlert = utenlandsPeriodeAlertTekst !== undefined;
+  const skalViseIHvilketLandOppholdDuDegIInput =
+    utelandsPeriodeLand !== undefined && utenlandsPeriodeAlertTekst === undefined;
 
   const utlandsPeriodeFraDato = useDatepicker({
     toDate: new Date(),
@@ -163,6 +166,13 @@ export const MedlemskapV2: React.FC = () => {
               <option value="sverige">Sverige</option>
               <option value="danmark">Danmark</option>
             </Select>
+
+            {skalViseIHvilketLandOppholdDuDegIInput && (
+              <Textarea
+                label={hentTekst('medlemskap.periodeBoddIUtlandet.begrunnelse', intl)}
+                maxLength={1000}
+              />
+            )}
           </SpørsmålWrapper>
         </VStack>
       )}
