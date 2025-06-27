@@ -11,12 +11,19 @@ import {
   useDatepicker,
   VStack,
 } from '@navikt/ds-react';
-import styles from './MedlemskapV2.module.css';
+import styles from './UtenlandsperioderVelger.module.css';
 import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
-import { PlusCircleFillIcon } from '@navikt/aksel-icons';
+import { PlusCircleFillIcon, TrashIcon } from '@navikt/aksel-icons';
 
-export const Utelandsperiode: React.FC = () => {
+interface Utelandsperiode {
+  fraDato: Date;
+  tilDato: Date;
+  land: string;
+  begrunnelse: string;
+}
+
+export const UtelandsperiodeVelger: React.FC = () => {
   const intl = useLokalIntlContext();
 
   const [utelandsPeriodeFraDatoVerdi, settUtelandsPeriodeFraDatoVerdi] = useState<
@@ -30,6 +37,7 @@ export const Utelandsperiode: React.FC = () => {
   const [utenlandsPeriodeAlertTekst, settUtenlandsPeriodeAlertTekst] = useState<
     string | undefined
   >();
+
   const skalViseUtelandsPeriodeAlert = utenlandsPeriodeAlertTekst !== undefined;
   const skalViseIHvilketLandOppholdDuDegIInput =
     utelandsPeriodeLand !== undefined &&
@@ -42,7 +50,7 @@ export const Utelandsperiode: React.FC = () => {
     toDate: new Date(),
     onDateChange: (dato) => {
       settUtelandsPeriodeFraDatoVerdi(dato);
-      validerUtenlandsPeriode(dato, utelandsPeriodeTilDatoVerdi);
+      validerUtenlandsPeriodeDatoer(dato, utelandsPeriodeTilDatoVerdi);
     },
   });
 
@@ -50,11 +58,11 @@ export const Utelandsperiode: React.FC = () => {
     toDate: new Date(),
     onDateChange: (dato) => {
       settUtelandsPeriodeTilDatoVerdi(dato);
-      validerUtenlandsPeriode(utelandsPeriodeFraDatoVerdi, dato);
+      validerUtenlandsPeriodeDatoer(utelandsPeriodeFraDatoVerdi, dato);
     },
   });
 
-  const validerUtenlandsPeriode = (fraDato?: Date, tilDato?: Date) => {
+  const validerUtenlandsPeriodeDatoer = (fraDato?: Date, tilDato?: Date) => {
     if (!fraDato || !tilDato) {
       settUtenlandsPeriodeAlertTekst(undefined);
       return;
@@ -71,9 +79,20 @@ export const Utelandsperiode: React.FC = () => {
 
   return (
     <VStack gap={'6'}>
-      <Heading size="small" className={styles.heading}>
-        {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)}
-      </Heading>
+      <HStack className={styles.headerRad}>
+        <Heading size="small">
+          {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)}
+        </Heading>
+        <Button
+          variant="tertiary"
+          size="small"
+          iconPosition="right"
+          icon={<TrashIcon />}
+          className={styles.slettKnapp}
+        >
+          {hentTekst('medlemskap.periodeBoddIUtlandet.slett', intl)}
+        </Button>
+      </HStack>
 
       <SpørsmålWrapper tittel={hentTekst('medlemskap.periodeBoddIUtlandet', intl)}>
         <HStack gap={'6'}>

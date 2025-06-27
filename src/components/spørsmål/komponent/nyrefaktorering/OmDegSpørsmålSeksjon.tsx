@@ -1,11 +1,11 @@
 import React from 'react';
 import { VStack } from '@navikt/ds-react';
-import { Utelandsperiode } from './kompleksespørsmål/Utelandsperiode';
+import { UtelandsperiodeVelger } from './kompleksespørsmål/UtelandsperiodeVelger';
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
   return (
     <VStack gap={'6'}>
-      <Utelandsperiode />
+      <UtelandsperiodeVelger />
     </VStack>
   );
 };
