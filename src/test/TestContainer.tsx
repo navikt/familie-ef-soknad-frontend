@@ -4,16 +4,17 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { SpråkProvider } from '../context/SpråkContext';
 
 interface Props {
+  path: '*' | '/barnetilsyn/*' | '/skolepenger/*';
   children: ReactNode;
 }
 
-export const TestContainer: React.FC<Props> = ({ children }) => {
+export const TestContainer: React.FC<Props> = ({ path, children }) => {
   return (
     <SpråkProvider>
       <ContextProviders>
         <Router basename={'/'}>
           <Routes>
-            <Route path={'*'} element={children} />
+            <Route path={path} element={children} />
           </Routes>
         </Router>
       </ContextProviders>

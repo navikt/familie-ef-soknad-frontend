@@ -33,7 +33,7 @@ describe('Forside for overgangsstønad', () => {
 
   test('skal vise statiske tekster', async () => {
     const { screen } = render(
-      <TestContainer>
+      <TestContainer path="/">
         <OvergangsstønadApp />
       </TestContainer>
     );
@@ -73,7 +73,7 @@ describe('Forside for overgangsstønad', () => {
     });
 
     const { screen } = render(
-      <TestContainer>
+      <TestContainer path="/">
         <OvergangsstønadApp />
       </TestContainer>
     );
@@ -115,7 +115,7 @@ describe('Forside for overgangsstønad', () => {
     });
 
     const { screen } = render(
-      <TestContainer>
+      <TestContainer path="/">
         <OvergangsstønadApp />
       </TestContainer>
     );
@@ -150,7 +150,7 @@ describe('Forside for overgangsstønad', () => {
     });
 
     const { screen, user } = render(
-      <TestContainer>
+      <TestContainer path="/">
         <OvergangsstønadApp />
       </TestContainer>
     );
