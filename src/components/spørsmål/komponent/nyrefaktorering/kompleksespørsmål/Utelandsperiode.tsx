@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import {
   Alert,
+  Button,
   DatePicker,
   Heading,
   HStack,
@@ -13,6 +14,7 @@ import {
 import styles from './MedlemskapV2.module.css';
 import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
+import { PlusCircleFillIcon } from '@navikt/aksel-icons';
 
 export const Utelandsperiode: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -34,6 +36,7 @@ export const Utelandsperiode: React.FC = () => {
     utenlandsPeriodeAlertTekst === undefined &&
     utelandsPeriodeFraDatoVerdi !== undefined &&
     utelandsPeriodeTilDatoVerdi !== undefined;
+  const skalViseLeggTilUtenlandsPeriode = true;
 
   const utlandsPeriodeFraDato = useDatepicker({
     toDate: new Date(),
@@ -112,6 +115,17 @@ export const Utelandsperiode: React.FC = () => {
           />
         )}
       </SpørsmålWrapper>
+      {skalViseLeggTilUtenlandsPeriode && (
+        <SpørsmålWrapper
+          tittel={hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
+        >
+          <div>
+            <Button variant="tertiary" icon={<PlusCircleFillIcon />}>
+              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+            </Button>
+          </div>
+        </SpørsmålWrapper>
+      )}
     </VStack>
   );
 };
