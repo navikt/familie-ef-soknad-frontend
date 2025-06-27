@@ -105,7 +105,12 @@ const LeggTilBarnModal: React.FC<Props> = ({
           />
         </KomponentGruppe>
         {boHosDeg && (
-          <Button variant="primary" aria-live="polite" onClick={() => leggTilEllerEndreBarn(id)}>
+          <Button
+            data-testid="leggTilBarnModal"
+            variant="primary"
+            aria-live="polite"
+            onClick={() => leggTilEllerEndreBarn(id)}
+          >
             <LocaleTekst tekst={'barnadine.leggtil'} />
           </Button>
         )}

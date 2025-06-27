@@ -20,6 +20,7 @@ import { IBarn } from '../models/steg/barn';
 import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
+import { IMedforelder } from '../models/steg/medforelder';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -237,7 +238,7 @@ export const lagIBarn = (barn?: Partial<IBarn>): IBarn => {
     id: '1234',
     fnr: undefined,
     alder: lagTekstfelt('', ''),
-    fødselsdato: lagTekstfelt('', ''),
+    fødselsdato: lagTekstfelt('Fødselsdato', '2021-05-09'),
     ident: lagTekstfelt('', ''),
     harSammeAdresse: lagBooleanFelt('', true),
     navn: lagTekstfelt('', ''),
@@ -261,6 +262,17 @@ export const lagPersonData = (personData?: Partial<PersonData>): PersonData => {
     barn: [lagBarn()],
     hash: 'hash',
     ...personData,
+  };
+};
+
+export const lagIMedforelder = (medforelder?: Partial<IMedforelder>): IMedforelder => {
+  return {
+    alder: undefined,
+    død: undefined,
+    harAdressesperre: false,
+    ident: undefined,
+    navn: undefined,
+    ...medforelder,
   };
 };
 

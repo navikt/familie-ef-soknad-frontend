@@ -26,8 +26,6 @@ const BarnaDine: React.FC = () => {
 
   const harMinstEttBarn = søknad.person.barn.length > 0;
 
-  console.log(søknad.person.barn);
-
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
