@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Radio, RadioGroup, VStack } from '@navikt/ds-react';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../utils/søknad';
-import LocaleTekst from '../../../../../language/LocaleTekst';
-import { SpørsmålWrapper } from '../SpørsmålWrapper';
-import styles from './PersonopplysningerV2.module.css';
+import { SpørsmålWrapper } from '../../SpørsmålWrapper';
+import { hentTekst } from '../../../../../../utils/søknad';
+import styles from './OmDegMegaSpørsmål.module.css';
+import LocaleTekst from '../../../../../../language/LocaleTekst';
 
-export const PersonopplysningerV2: React.FC = () => {
+export const OmDegMegaSpørsmål: React.FC = () => {
   const intl = useLokalIntlContext();
 
   const [borPåAdresse, settBorPåAdresse] = useState<string>();
@@ -17,8 +17,7 @@ export const PersonopplysningerV2: React.FC = () => {
   const skalViseMeldtAdresseendring = borPåAdresse === 'nei';
   const skalViseErUformeltGift = borPåAdresse === 'ja' || meldtAdresseendring === 'ja';
   const skalViseEndreAdresse = meldtAdresseendring === 'nei';
-  const skalViseErSeparert =
-    erUformeltGift !== undefined && borPåAdresse !== 'nei' && meldtAdresseendring !== 'nei';
+  const skalViseErSeparert = erUformeltGift !== undefined;
 
   return (
     <VStack gap="6">
