@@ -1,6 +1,7 @@
 import { Adresse, Barn, IPerson, PersonData, Søker } from '../models/søknad/person';
 import {
   IBooleanFelt,
+  IDatoFelt,
   ISpørsmålBooleanFelt,
   ISpørsmålFelt,
   ISpørsmålListeFelt,
@@ -14,11 +15,12 @@ import { IBosituasjon } from '../models/steg/bosituasjon';
 import { IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
 import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
-import { formatIsoDate } from '../utils/dato';
+import { dagensIsoDatoMinusMåneder } from '../utils/dato';
 import { IBarn } from '../models/steg/barn';
 import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstønad/models/mellomlagretSøknad';
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
+import { IMedforelder } from '../models/steg/medforelder';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -105,31 +107,45 @@ export const lagBosituasjon = (bosituasjon?: Partial<IBosituasjon>): IBosituasjo
 
 export const lagSpørsmålBooleanFelt = (
   spørsmålid?: string,
-  svarid?: string
+  svarid?: string,
+  label?: string,
+  verdi?: boolean
 ): ISpørsmålBooleanFelt => {
   return {
     spørsmålid: spørsmålid ?? '',
     svarid: svarid ?? '',
-    ...lagBooleanFelt(),
+    ...lagBooleanFelt(label, verdi),
   };
 };
 
-export const lagSpørsmålFelt = (spørsmålid?: string, svarid?: string): ISpørsmålFelt => {
+export const lagSpørsmålFelt = (
+  spørsmålid?: string,
+  svarid?: string,
+  label?: string,
+  verdi?: string
+): ISpørsmålFelt => {
   return {
     spørsmålid: spørsmålid ?? '',
     svarid: svarid ?? '',
-    ...lagTekstfelt('', ''),
+    ...lagTekstfelt(label, verdi),
   };
 };
 
-export const lagTekstfelt = (label: string, verdi: string): ITekstFelt => {
-  return { label: label, verdi: verdi };
+export const lagTekstfelt = (label?: string, verdi?: string): ITekstFelt => {
+  return { label: label ?? '', verdi: verdi ?? '' };
 };
 
 export const lagBooleanFelt = (label?: string, verdi?: boolean): IBooleanFelt => {
   return {
     label: label ?? '',
     verdi: verdi ?? false,
+  };
+};
+
+export const lagDatoFelt = (label: string, verdi: string): IDatoFelt => {
+  return {
+    label: label,
+    verdi: verdi,
   };
 };
 
@@ -205,7 +221,7 @@ export const lagBarn = (barn?: Partial<Barn>): Barn => {
   return {
     alder: 10,
     fnr: '12345678910',
-    fødselsdato: formatIsoDate(dagensDato),
+    fødselsdato: dagensIsoDatoMinusMåneder(1),
     harAdressesperre: false,
     harSammeAdresse: false,
     medforelder: undefined,
@@ -222,7 +238,7 @@ export const lagIBarn = (barn?: Partial<IBarn>): IBarn => {
     id: '1234',
     fnr: undefined,
     alder: lagTekstfelt('', ''),
-    fødselsdato: lagTekstfelt('', ''),
+    fødselsdato: lagTekstfelt('Fødselsdato', '2021-05-09'),
     ident: lagTekstfelt('', ''),
     harSammeAdresse: lagBooleanFelt('', true),
     navn: lagTekstfelt('', ''),
@@ -249,6 +265,17 @@ export const lagPersonData = (personData?: Partial<PersonData>): PersonData => {
   };
 };
 
+export const lagIMedforelder = (medforelder?: Partial<IMedforelder>): IMedforelder => {
+  return {
+    alder: undefined,
+    død: undefined,
+    harAdressesperre: false,
+    ident: undefined,
+    navn: undefined,
+    ...medforelder,
+  };
+};
+
 export const lagMellomlagretSøknadOvergangsstønad = (
   søknad?: Partial<MellomlagretSøknadOvergangsstønad>
 ): MellomlagretSøknadOvergangsstønad => {
@@ -268,7 +295,7 @@ export const lagSistInnsendteSøknad = (
   dagensDato.setMonth(dagensDato.getMonth() - 1);
 
   return {
-    søknadsdato: formatIsoDate(dagensDato),
+    søknadsdato: dagensIsoDatoMinusMåneder(1),
     stønadType: Stønadstype.overgangsstønad,
     ...søknad,
   };

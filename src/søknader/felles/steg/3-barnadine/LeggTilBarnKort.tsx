@@ -25,7 +25,11 @@ export const LeggTilBarnKort: React.FC<{
   return (
     <BarnekortContainer>
       <BodyShort as="p">{hentTekst('barnadine.leggtil.info', intl)}</BodyShort>
-      <Button variant="secondary" onClick={() => settÅpenModal(true)}>
+      <Button
+        data-testid="leggTilBarnKnapp"
+        variant="secondary"
+        onClick={() => settÅpenModal(true)}
+      >
         {hentTekst('barnadine.leggtil', intl)}
       </Button>
     </BarnekortContainer>

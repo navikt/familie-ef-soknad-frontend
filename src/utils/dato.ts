@@ -76,6 +76,9 @@ export const formatMånederTilbake = (dato: Date, antallMåneder: number) => {
 
 export const dagensDato = startOfToday();
 
+export const dagensIsoDatoMinusMåneder = (antallMåneder: number) =>
+  formatIsoDate(subMonths(dagensDato, antallMåneder));
+
 export const dagensDatoMedTidspunktStreng = new Date().toISOString();
 
 export const erGyldigDato = (verdi: string | undefined): boolean => {

@@ -5,7 +5,7 @@ import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
 import { UserEvent } from '@testing-library/user-event/index';
 
-export const navigerTilOmDeg = async () => {
+export const navigerTilSteg = async () => {
   const { screen, user } = render(
     <TestContainer>
       <OvergangsstønadApp />
