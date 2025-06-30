@@ -16,8 +16,8 @@ export const PersonopplysningerV2: React.FC = () => {
 
   const skalViseMeldtAdresseendring = borPåAdresse === 'nei';
   const skalViseErUformeltGift = borPåAdresse === 'ja' || meldtAdresseendring === 'ja';
-  const skalViseEndreAdresse = meldtAdresseendring === 'nei' && borPåAdresse !== 'ja';
-  const skalViseErSeparert = erUformeltGift !== undefined || false;
+  const skalViseEndreAdresse = meldtAdresseendring === 'nei' && borPåAdresse === 'nei';
+  const skalViseErSeparert = erUformeltGift !== undefined && meldtAdresseendring !== 'nei';
 
   return (
     <VStack gap="6">
