@@ -72,7 +72,7 @@ export const PersonopplysningerV2: React.FC = () => {
           </RadioGroup>
 
           {meldtAdresseendring === 'ja' && (
-            <Alert variant="info" inline>
+            <Alert variant="info" size={'small'} inline>
               {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
             </Alert>
           )}
@@ -118,7 +118,7 @@ export const PersonopplysningerV2: React.FC = () => {
           </RadioGroup>
 
           {erUformeltGift === 'ja' && (
-            <Alert variant="info" inline>
+            <Alert variant="info" size={'small'} inline>
               {hentTekst('sivilstatus.alert.erUformeltGift', intl)}
             </Alert>
           )}
@@ -145,7 +145,7 @@ export const PersonopplysningerV2: React.FC = () => {
           </RadioGroup>
 
           {erUformeltSeparert === 'ja' && (
-            <Alert variant="info" inline>
+            <Alert variant="info" size={'small'} inline>
               {hentTekst('sivilstatus.alert.erUformeltSeparertEllerSkilt', intl)}
             </Alert>
           )}
