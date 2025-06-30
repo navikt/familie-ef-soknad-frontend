@@ -14,6 +14,8 @@ import { TrashIcon, PlusCircleFillIcon } from '@navikt/aksel-icons';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../SpørsmålWrapper';
+import { hentLand } from '../../../../../søknader/felles/steg/1-omdeg/medlemskap/MedlemskapConfig';
+import { useSpråkContext } from '../../../../../context/SpråkContext';
 
 interface Utenlandsperiode {
   fraDato?: Date;
@@ -31,6 +33,9 @@ const PeriodeBlokk: React.FC<{
   intl: ReturnType<typeof useLokalIntlContext>;
   total: number;
 }> = ({ index, periode, oppdater, fjern, intl, total }) => {
+  const [locale] = useSpråkContext();
+  const land = hentLand(locale);
+
   const fraPicker = useDatepicker({
     defaultSelected: periode.fraDato,
     toDate: new Date(),
@@ -79,10 +84,15 @@ const PeriodeBlokk: React.FC<{
           value={periode.land || ''}
           onChange={(e) => oppdater(index, { land: e.target.value })}
         >
-          <option value="">- Velg land -</option>
-          <option value="Norge">Norge</option>
-          <option value="Sverige">Sverige</option>
-          <option value="Danmark">Danmark</option>
+          <option value={undefined} selected>
+            {hentTekst('landVelger.alternativ', intl)}
+          </option>
+
+          {land.map((landItem) => (
+            <option key={landItem.svar_tekst} value={landItem.svar_tekst}>
+              {landItem.svar_tekst}
+            </option>
+          ))}
         </Select>
 
         {periode.fraDato && periode.tilDato && periode.land && !periode.feil && (
