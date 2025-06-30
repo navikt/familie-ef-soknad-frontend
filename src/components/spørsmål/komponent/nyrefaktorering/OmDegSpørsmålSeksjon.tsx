@@ -1,6 +1,11 @@
 import React from 'react';
-import { OmDegMegaSpørsmål } from './kompleksespørsmål/xp/OmDegMegaSpørsmål';
+import { PersonopplysningerV2 } from './kompleksespørsmål/PersonopplysningerV2';
+import { VStack } from '@navikt/ds-react';
 
 export const OmDegSpørsmålSeksjon: React.FC = () => {
-  return <OmDegMegaSpørsmål />;
+  return (
+    <VStack gap={'6'}>
+      <PersonopplysningerV2 />
+    </VStack>
+  );
 };
