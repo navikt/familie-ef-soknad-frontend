@@ -4,6 +4,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IRoute } from '../../../../models/routes';
 import { useState } from 'react';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
+import { useLocation } from 'react-router-dom';
 
 export interface Props<T extends Søknad> {
   stønadstype: Stønadstype;
@@ -31,6 +32,7 @@ export const [BarnaDineProvider, useBarnaDine] = constate(
     pathOppsummering,
     settDokumentasjonsbehovForBarn,
   }: Props<Søknad>) => {
+    const location = useLocation();
     const [barneliste, settBarneliste] = useState(søknad.person.barn);
 
     const mellomlagreSteg = () => {
