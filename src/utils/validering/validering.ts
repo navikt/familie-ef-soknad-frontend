@@ -126,3 +126,19 @@ export const identSchema = object({
 export const fødselsdatoSchema = object({
   verdi: string().required('Fødselsdato mangler').matches(datoRegex, 'Ikke en gyldig dato'),
 });
+
+export function saniterInnlimtTekst(input: string): string {
+  const bulletRegex = /[\u2022\u2023\u25E6\u2043\u2219]/g;
+
+  let sanitertTekst = input.replace(bulletRegex, '-');
+
+  sanitertTekst = sanitertTekst.replace(/\t/g, '');
+  sanitertTekst = sanitertTekst.replace(/ +/g, ' ');
+
+  sanitertTekst = sanitertTekst
+    .split('\n')
+    .map((line) => line.trim())
+    .join('\n');
+
+  return sanitertTekst;
+}
