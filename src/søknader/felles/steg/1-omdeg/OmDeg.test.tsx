@@ -191,8 +191,10 @@ describe('OmDegSteg, sivilstatus', () => {
       })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Åpne datovelger' }));
-    await user.click(screen.getByRole('button', { name: 'mandag 2' }));
+    await user.type(
+      screen.getByRole('textbox', { name: 'Når søkte dere eller reiste sak?' }),
+      '02.06.2025'
+    );
 
     expect(screen.getByText('Du må legge ved bekreftelse fra Statsforvalteren eller domstolen.'));
 
@@ -230,8 +232,7 @@ describe('OmDegSteg, sivilstatus', () => {
       user
     );
 
-    await user.click(screen.getByRole('button', { name: 'Åpne datovelger' }));
-    await user.click(screen.getByRole('button', { name: 'mandag 2' }));
+    await user.type(screen.getByRole('textbox', { name: 'Dato for samlivsbrudd' }), '02.06.2025');
 
     expect(
       screen.getByRole('group', {
@@ -305,8 +306,10 @@ describe('OmDegSteg, sivilstatus', () => {
       '09469425085'
     );
 
-    await user.click(screen.getByRole('button', { name: 'Åpne datovelger' }));
-    await user.click(screen.getByRole('button', { name: 'mandag 2' }));
+    await user.type(
+      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' }),
+      '02.06.2025'
+    );
 
     expect(
       screen.getByRole('group', {
