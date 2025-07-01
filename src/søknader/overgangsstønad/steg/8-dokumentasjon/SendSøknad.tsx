@@ -23,6 +23,7 @@ import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/am
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
+import { saniterTekst } from '../../../../utils/validering/validering';
 
 interface Innsending {
   status: string;
@@ -47,8 +48,38 @@ const SendSøknadKnapper: FC = () => {
   });
 
   const sendInnSøknad = async (søknadMedFiltrerteBarn: SøknadOvergangsstønad) => {
+    if (!søknadMedFiltrerteBarn.medlemskap.perioderBoddIUtlandet) {
+      return;
+    }
+
     try {
-      const kvittering = await sendInnOvergangstønadSøknad(søknadMedFiltrerteBarn);
+      const tekstForSanitering =
+        søknadMedFiltrerteBarn.medlemskap.perioderBoddIUtlandet[0].begrunnelse?.verdi;
+
+      let oppdatertSøknad = søknadMedFiltrerteBarn;
+
+      if (tekstForSanitering !== undefined) {
+        const sanitertTekst = saniterTekst(tekstForSanitering);
+
+        oppdatertSøknad = {
+          ...søknadMedFiltrerteBarn,
+          medlemskap: {
+            ...søknadMedFiltrerteBarn.medlemskap,
+            perioderBoddIUtlandet: [
+              {
+                ...søknadMedFiltrerteBarn.medlemskap.perioderBoddIUtlandet[0],
+                begrunnelse: {
+                  ...søknadMedFiltrerteBarn.medlemskap.perioderBoddIUtlandet[0].begrunnelse,
+                  verdi: sanitertTekst,
+                },
+              },
+              ...søknadMedFiltrerteBarn.medlemskap.perioderBoddIUtlandet.slice(1),
+            ],
+          },
+        };
+      }
+
+      const kvittering = await sendInnOvergangstønadSøknad(oppdatertSøknad);
 
       settinnsendingState({
         ...innsendingState,
@@ -56,10 +87,12 @@ const SendSøknadKnapper: FC = () => {
         melding: `Vi har kontakt: ${kvittering.text}`,
         venter: false,
       });
+
       settSøknad({
         ...søknad,
         innsendingsdato: parseISO(kvittering.mottattDato),
       });
+
       navigate(nesteRoute.path);
     } catch (e: any) {
       settinnsendingState({
