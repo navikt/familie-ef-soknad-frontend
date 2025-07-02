@@ -51,8 +51,6 @@ const Personopplysninger: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
-  const svarAlternativer: string[] = ['Valg 1', 'Valg 2', 'Valg 3'];
-
   return (
     <VStack gap={'8'}>
       <Alert variant="info" inline={true}>
@@ -73,6 +71,7 @@ const Personopplysninger: React.FC = () => {
               onChange={settSøkerBorPåRegistrertAdr}
             />
           </KomponentGruppe>
+          <JaNeiSpørsmålV2 tittel={hentTekst('personopplysninger.spm.riktigAdresse', intl)} />
 
           {søkerBorPåRegistrertAdresse?.verdi === false && (
             <KomponentGruppe>
