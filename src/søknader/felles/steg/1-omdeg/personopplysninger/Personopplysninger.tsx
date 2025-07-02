@@ -1,5 +1,4 @@
 import React from 'react';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
@@ -12,6 +11,7 @@ import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();

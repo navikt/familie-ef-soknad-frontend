@@ -1,5 +1,4 @@
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { erUformeltGiftSpørsmål, erUformeltSeparertEllerSkiltSpørsmål } from './SivilstatusConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
@@ -11,6 +10,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentValgtSvar } from '../../../../../utils/sivilstatus';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 
 const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   const intl = useLokalIntlContext();

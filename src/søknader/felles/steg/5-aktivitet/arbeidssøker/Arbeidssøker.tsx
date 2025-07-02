@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import {
   erSøkerArbeidssøker,
   erVilligTilÅTaImotTilbud,
@@ -19,6 +18,7 @@ import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

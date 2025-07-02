@@ -7,7 +7,6 @@ import {
   søkersOppholdsland,
 } from './MedlemskapConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import PeriodeBoddIUtlandet from './PeriodeBoddIUtlandet';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
@@ -16,6 +15,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { useOmDeg } from '../OmDegContext';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 
 const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
