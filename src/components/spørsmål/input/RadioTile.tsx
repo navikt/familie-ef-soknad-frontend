@@ -28,6 +28,7 @@ export const RadioTile: React.FC<Props> = ({
       onChange={(verdi: string) => onChange(verdi)}
     >
       <div
+        role="group"
         className={
           radioTileLayoutDirection === 'vertical' ? styles.stackVertical : styles.stackHorizontal
         }

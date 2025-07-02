@@ -48,9 +48,7 @@ export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChan
       }
     >
       <RadioTile
-        legend={
-          spørsmål.lesmer?.headerTekstid ? hentTekst(spørsmål.lesmer.headerTekstid, intl) : ''
-        }
+        legend={spørsmål.tekstid ? hentTekst(spørsmål.tekstid, intl) : ''}
         svarAlternativer={svarAlternativer}
         radioTileLayoutDirection={'horizontal'}
         valgtVerdi={valgtVerdi}
