@@ -63,11 +63,17 @@ const BosituasjonSpørsmål: FC<Props> = ({
     datoFlyttetFraHverandre?.verdi &&
     erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, DatoBegrensning.AlleDatoer)
   );
+
+  const harFyltUtIdentEllerKjennerIkkeIdentPåTidligereSamboer =
+    samboerDetaljer?.kjennerIkkeIdent ||
+    (samboerDetaljer?.ident?.verdi !== '' && samboerDetaljer?.ident?.verdi !== undefined);
+
   const tidligereSamboerFortsattRegistrertPåAdresse =
     delerBoligMedAndreVoksne.svarid ===
       ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse &&
     harSattDatoFlyttetFraHverandre &&
     harValgtSvar(samboerDetaljer?.navn?.verdi) &&
+    harFyltUtIdentEllerKjennerIkkeIdentPåTidligereSamboer &&
     harValgtSvar(datoFlyttetFraHverandre?.verdi);
 
   const planerOmÅFlytteSammenEllerFåSamboer =

@@ -110,6 +110,12 @@ const SøkerSkalFlytteSammenEllerFåSamboer: FC<Props> = ({
                 settBosituasjon={settBosituasjon}
                 bosituasjon={bosituasjon}
                 samboerDetaljerType={EBosituasjon.vordendeSamboerEktefelle}
+                dataTestIdTextFieldMedBredde={'bosituasjon-skal-gifte-seg-navn'}
+                dataTestIdsIdentEllerFødselsdatoGruppe={[
+                  'bosituasjon-skal-gifte-seg-fødselsnummer',
+                  'bosituasjon-skal-gifte-seg-checkbox',
+                  'bosituasjon-skal-gifte-seg-fødselsdato',
+                ]}
               />
             </KomponentGruppe>
           )}

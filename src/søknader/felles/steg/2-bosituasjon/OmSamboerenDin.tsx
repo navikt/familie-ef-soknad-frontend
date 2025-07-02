@@ -16,6 +16,8 @@ interface Props {
   settBosituasjon: (bositasjon: IBosituasjon) => void;
   bosituasjon: IBosituasjon;
   samboerDetaljerType: EBosituasjon.samboerDetaljer | EBosituasjon.vordendeSamboerEktefelle;
+  dataTestIdTextFieldMedBredde?: string;
+  dataTestIdsIdentEllerFødselsdatoGruppe?: string[];
 }
 
 const OmSamboerenDin: FC<Props> = ({
@@ -24,6 +26,8 @@ const OmSamboerenDin: FC<Props> = ({
   settBosituasjon,
   bosituasjon,
   samboerDetaljerType,
+  dataTestIdTextFieldMedBredde,
+  dataTestIdsIdentEllerFødselsdatoGruppe,
 }) => {
   const intl = useLokalIntlContext();
   const samboerDetaljer = bosituasjon[samboerDetaljerType];
@@ -114,6 +118,7 @@ const OmSamboerenDin: FC<Props> = ({
           bredde={'L'}
           onChange={(e) => settNavn(e)}
           value={samboerInfo.navn?.verdi ? samboerInfo.navn?.verdi : ''}
+          data-testid={dataTestIdTextFieldMedBredde}
         />
       </KomponentGruppe>
       <KomponentGruppe>
@@ -134,6 +139,7 @@ const OmSamboerenDin: FC<Props> = ({
             settFødselsdato={settFødselsdato}
             settChecked={settChecked}
             settIdent={oppdaterIdent}
+            dataTestIds={dataTestIdsIdentEllerFødselsdatoGruppe}
           />
         )}
       </KomponentGruppe>
