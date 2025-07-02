@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Radio, RadioGroup } from '@navikt/ds-react';
 import styles from './RadioTile.module.css';
 import clsx from 'clsx';
@@ -9,21 +9,23 @@ interface Props {
   legend: string;
   svarAlternativer: string[];
   radioTileLayoutDirection: RadioTileLayoutDirection;
+  valgtVerdi: string | null;
+  onChange: (verdi: string) => void;
 }
 
 export const RadioTile: React.FC<Props> = ({
   legend,
   svarAlternativer,
   radioTileLayoutDirection,
+  valgtVerdi,
+  onChange,
 }) => {
-  const [valgtVerdi, settValgtVerdi] = useState<string | null>(null);
-
   return (
     <RadioGroup
       legend={legend}
       hideLegend
       value={valgtVerdi || undefined}
-      onChange={(verdi: string) => settValgtVerdi(verdi)}
+      onChange={(verdi: string) => onChange(verdi)}
     >
       <div
         className={
@@ -36,7 +38,7 @@ export const RadioTile: React.FC<Props> = ({
             className={clsx(styles.radioBox, {
               [styles.selected]: valgtVerdi === verdi,
             })}
-            onClick={() => settValgtVerdi(verdi)}
+            onClick={() => onChange(verdi)}
           >
             <Radio value={verdi}>{verdi}</Radio>
           </Box>

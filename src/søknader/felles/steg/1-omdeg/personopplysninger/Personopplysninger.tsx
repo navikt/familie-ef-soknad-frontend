@@ -12,9 +12,6 @@ import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
-import { SpørsmålWrapper } from '../../../../../components/spørsmål/SpørsmålWrapper';
-import { JaNeiSpørsmålV2 } from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
-import { RadioTile } from '../../../../../components/spørsmål/input/RadioTile';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -71,8 +68,6 @@ const Personopplysninger: React.FC = () => {
               onChange={settSøkerBorPåRegistrertAdr}
             />
           </KomponentGruppe>
-          <JaNeiSpørsmålV2 tittel={hentTekst('personopplysninger.spm.riktigAdresse', intl)} />
-
           {søkerBorPåRegistrertAdresse?.verdi === false && (
             <KomponentGruppe>
               <JaNeiSpørsmål
