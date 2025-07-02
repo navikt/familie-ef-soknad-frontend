@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Aktivitet from './steg/5-aktivitet/Aktivitet';
-import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import Forside from './Forside';
 import MerOmDinSituasjon from './steg/6-meromsituasjon/MerOmDinSituasjon';
@@ -18,6 +17,8 @@ import { pathOppsummeringOvergangsstønad } from './utils';
 import { erOvergangsstønadSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
+import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
+import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -26,6 +27,7 @@ const Søknadsdialog: FC = () => {
     mellomlagretOvergangsstønad,
     mellomlagreOvergangsstønad2,
     settDokumentasjonsbehov,
+    settDokumentasjonsbehovForBarn,
   } = useOvergangsstønadSøknad();
 
   const oppdaterOvergangsstønadSøknad = (søknad: Søknad) => {
@@ -95,7 +97,18 @@ const Søknadsdialog: FC = () => {
           path={'/barn'}
           element={
             <RedirectTilStart>
-              <BarnaDine />
+              <BarnaDineProvider
+                stønadstype={Stønadstype.overgangsstønad}
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagretSøknad={mellomlagretOvergangsstønad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                routes={RoutesOvergangsstonad}
+                pathOppsummering={pathOppsummeringOvergangsstønad}
+                settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
+              >
+                <BarnaDine />
+              </BarnaDineProvider>
             </RedirectTilStart>
           }
         />

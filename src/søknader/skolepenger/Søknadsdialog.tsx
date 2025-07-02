@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import RedirectTilStart from './RedirectTilStart';
-import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';
 import Oppsummering from './steg/6-oppsummering/Oppsummering';
@@ -17,6 +16,8 @@ import { pathOppsummeringSkolepenger } from './utils';
 import { erSkolepengerSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
+import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
+import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
 
 const SøknadsdialogSkolepenger: FC = () => {
   const {
@@ -25,6 +26,7 @@ const SøknadsdialogSkolepenger: FC = () => {
     mellomlagretSkolepenger,
     mellomlagreSkolepenger2,
     settDokumentasjonsbehov,
+    settDokumentasjonsbehovForBarn,
   } = useSkolepengerSøknad();
 
   const oppdaterSkolepengerSøknad = (søknad: Søknad) => {
@@ -85,7 +87,18 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/barn'}
         element={
           <RedirectTilStart>
-            <BarnaDine />
+            <BarnaDineProvider
+              stønadstype={Stønadstype.skolepenger}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              mellomlagretSøknad={mellomlagretSkolepenger}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              routes={RoutesSkolepenger}
+              pathOppsummering={pathOppsummeringSkolepenger}
+              settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
+            >
+              <BarnaDine />
+            </BarnaDineProvider>
           </RedirectTilStart>
         }
       />

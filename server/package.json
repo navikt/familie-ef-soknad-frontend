@@ -7,10 +7,10 @@
     "build": "tsc --build --verbose"
   },
   "dependencies": {
-    "@navikt/nav-dekoratoren-moduler": "^3.2.3",
+    "@navikt/nav-dekoratoren-moduler": "^3.3.0",
     "@types/express": "^5.0.3",
     "axios": "^1.10.0",
-    "dotenv": "^16.5.0",
+    "dotenv": "^17.0.0",
     "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
     "express-http-proxy": "^2.1.1",
