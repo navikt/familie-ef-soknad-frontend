@@ -1,0 +1,22 @@
+import { render } from '../../../test/render';
+import { RadioTile } from './RadioTile';
+
+describe('RadioTile komponent', () => {
+  test('Rendrer alternativer horisontalt', async () => {
+    const svarAlternativer = ['Ja', 'Nei'];
+
+    const { screen } = render(
+      <RadioTile
+        legend={'RadioTile horistontalt'}
+        svarAlternativer={svarAlternativer}
+        radioTileLayoutDirection={'horizontal'}
+        valgtVerdi={null}
+        onChange={() => {}}
+      ></RadioTile>
+    );
+
+    svarAlternativer.forEach((alternativ) => {
+      expect(screen.getByRole('radio', { name: alternativ })).toBeInTheDocument();
+    });
+  });
+});
