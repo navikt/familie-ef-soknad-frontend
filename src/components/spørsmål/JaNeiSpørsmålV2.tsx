@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const JaNeiSpørsmålV2: React.FC<Props> = ({ tittel, lesMerTittel, lesMerTekst }) => {
-  const svarAlternativer = ['ja', 'nei'];
+  const svarAlternativer = ['Ja', 'Nei'];
 
   return (
     <SpørsmålWrapper tittel={tittel} lesMerTittel={lesMerTittel} lesMerTekst={lesMerTekst}>

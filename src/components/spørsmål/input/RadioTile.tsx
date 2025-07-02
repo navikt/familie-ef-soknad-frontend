@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Radio, RadioGroup } from '@navikt/ds-react';
 import styles from './RadioTile.module.css';
+import clsx from 'clsx';
 
 export type RadioTileLayoutDirection = 'vertical' | 'horizontal';
 
@@ -15,6 +16,8 @@ export const RadioTile: React.FC<Props> = ({
   svarAlternativer,
   radioTileLayoutDirection,
 }) => {
+  const [valgtVerdi, settValgtVerdi] = useState<string | null>(null);
+
   return (
     <RadioGroup legend={legend} hideLegend>
       <div
@@ -25,11 +28,14 @@ export const RadioTile: React.FC<Props> = ({
         {svarAlternativer.map((verdi) => (
           <Box
             key={verdi}
-            className={styles.radioBox}
-            onClick={() => {}} // TODO: Fix
-            role="radio"
+            className={clsx(styles.radioBox, {
+              [styles.selected]: valgtVerdi === verdi,
+            })}
+            onClick={() => settValgtVerdi(verdi)}
           >
-            <Radio value={verdi}>{verdi}</Radio>
+            <Radio value={verdi} checked={valgtVerdi === verdi}>
+              {verdi}
+            </Radio>
           </Box>
         ))}
       </div>
