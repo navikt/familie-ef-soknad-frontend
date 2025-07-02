@@ -37,7 +37,7 @@ export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChan
 
   return (
     <SpørsmålWrapper
-      tittel={intl.formatMessage({ id: spørsmål.tekstid })}
+      tittel={hentTekst(spørsmål.tekstid, intl)}
       lesMerTittel={
         spørsmål.lesmer?.headerTekstid ? hentTekst(spørsmål.lesmer.headerTekstid, intl) : undefined
       }
