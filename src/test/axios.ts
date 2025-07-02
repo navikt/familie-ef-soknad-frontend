@@ -2,12 +2,16 @@ import Environment from '../Environment';
 import {
   lagBooleanFelt,
   lagDatoFelt,
+  lagIBarn,
+  lagIMedforelder,
   lagMellomlagretSøknadOvergangsstønad,
+  lagPerson,
   lagPersonData,
   lagSpørsmålBooleanFelt,
   lagSpørsmålFelt,
   lagSøker,
   lagSøknadOvergangsstønad,
+  lagTekstfelt,
 } from './utils';
 import { Søker } from '../models/søknad/person';
 import axios from 'axios';
@@ -89,6 +93,8 @@ const utledSøknad = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadOverg
       return søknadOvergangsstønadBosituasjon;
     case '/barn':
       return søknadOvergangsstønadBarnaDine(søknad);
+    case '/barnas-bosted':
+      return søknadOvergangsstønadBarnasBosted(søknad);
     default:
       return lagSøknadOvergangsstønad({ harBekreftet: true });
   }
@@ -177,5 +183,83 @@ const søknadOvergangsstønadBarnaDine = (søknad?: Partial<SøknadOvergangsstø
         false
       ),
     },
+    ...søknad,
+  });
+
+const søknadOvergangsstønadBarnasBosted = (søknad?: Partial<SøknadOvergangsstønad>) =>
+  lagSøknadOvergangsstønad({
+    harBekreftet: true,
+    søkerBorPåRegistrertAdresse: lagSpørsmålBooleanFelt(
+      ESøknad.søkerBorPåRegistrertAdresse,
+      ESvar.JA,
+      'Bor du på denne adressen?',
+      true
+    ),
+    sivilstatus: {
+      harSøktSeparasjon: lagBooleanFelt(
+        'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
+        true
+      ),
+      datoSøktSeparasjon: lagDatoFelt(
+        'Når søkte dere eller reiste sak?',
+        dagensIsoDatoMinusMåneder(1)
+      ),
+      årsakEnslig: lagSpørsmålFelt(
+        ESivilstatusSøknadid.årsakEnslig,
+        EBegrunnelse.samlivsbruddAndre,
+        'Hvorfor er du alene med barn?',
+        'Samlivsbrudd med den andre forelderen'
+      ),
+    },
+    medlemskap: {
+      søkerOppholderSegINorge: lagBooleanFelt('Oppholder du og barnet/barna dere i Norge?', true),
+      søkerBosattINorgeSisteTreÅr: lagBooleanFelt(
+        'Har du oppholdt deg i Norge de siste 5 årene?',
+        true
+      ),
+    },
+    bosituasjon: {
+      delerBoligMedAndreVoksne: lagSpørsmålFelt(
+        EBosituasjon.delerBoligMedAndreVoksne,
+        ESøkerDelerBolig.borAleneMedBarnEllerGravid,
+        'Deler du bolig med andre voksne?',
+        'Nei, jeg bor alene med barn eller jeg er gravid og bor alene'
+      ),
+      skalGifteSegEllerBliSamboer: lagSpørsmålBooleanFelt(
+        EBosituasjon.skalGifteSegEllerBliSamboer,
+        ESvar.NEI,
+        'Har du konkrete planer om å gifte deg eller bli samboer?',
+        false
+      ),
+    },
+    person: lagPerson({
+      barn: [
+        lagIBarn({
+          navn: lagTekstfelt('Navn', 'GÅEN PC'),
+          fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
+          ident: lagTekstfelt('', '18877598140'),
+          født: lagSpørsmålBooleanFelt('', '', '', true),
+          alder: lagTekstfelt('Alder', '5'),
+          harSammeAdresse: lagBooleanFelt('', true),
+          medforelder: {
+            label: '',
+            verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+          },
+        }),
+        lagIBarn({
+          navn: lagTekstfelt('Navn', 'GAMMEL TRUBADUR'),
+          fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
+          ident: lagTekstfelt('', '09469425085'),
+          født: lagSpørsmålBooleanFelt('', '', '', true),
+          alder: lagTekstfelt('Alder', '3'),
+          harSammeAdresse: lagBooleanFelt('', true),
+          medforelder: {
+            label: '',
+            verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+          },
+        }),
+      ],
+    }),
+
     ...søknad,
   });
