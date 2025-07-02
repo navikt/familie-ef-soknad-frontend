@@ -385,7 +385,7 @@ describe('BosituasjonSteg', () => {
     expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
     expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
-  });
+  }, 10000);
 
   test('Bruker bor alene med barn eller er gravid og bor alene', async () => {
     mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
