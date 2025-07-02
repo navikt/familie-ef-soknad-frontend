@@ -19,7 +19,12 @@ export const RadioTile: React.FC<Props> = ({
   const [valgtVerdi, settValgtVerdi] = useState<string | null>(null);
 
   return (
-    <RadioGroup legend={legend} hideLegend>
+    <RadioGroup
+      legend={legend}
+      hideLegend
+      value={valgtVerdi || undefined}
+      onChange={(verdi: string) => settValgtVerdi(verdi)}
+    >
       <div
         className={
           radioTileLayoutDirection === 'vertical' ? styles.stackVertical : styles.stackHorizontal
@@ -33,9 +38,7 @@ export const RadioTile: React.FC<Props> = ({
             })}
             onClick={() => settValgtVerdi(verdi)}
           >
-            <Radio value={verdi} checked={valgtVerdi === verdi}>
-              {verdi}
-            </Radio>
+            <Radio value={verdi}>{verdi}</Radio>
           </Box>
         ))}
       </div>

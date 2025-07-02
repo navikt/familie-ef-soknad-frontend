@@ -14,6 +14,7 @@ import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 import { SpørsmålWrapper } from '../../../../../components/spørsmål/SpørsmålWrapper';
 import { JaNeiSpørsmålV2 } from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
+import { RadioTile } from '../../../../../components/spørsmål/input/RadioTile';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -50,6 +51,8 @@ const Personopplysninger: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
+  const svarAlternativer: string[] = ['Valg 1', 'Valg 2', 'Valg 3'];
+
   return (
     <VStack gap={'8'}>
       <Alert variant="info" inline={true}>
@@ -61,7 +64,6 @@ const Personopplysninger: React.FC = () => {
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-      <JaNeiSpørsmålV2 tittel={'JaNei spørsmål'} />
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
