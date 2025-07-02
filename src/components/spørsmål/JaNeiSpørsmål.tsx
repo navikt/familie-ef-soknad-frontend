@@ -27,7 +27,7 @@ export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChan
       const url = window.location.href;
       const skjemanavn = urlTilSkjemanavn(url);
       const skjemaId = skjemanavnTilId(skjemanavn);
-      const spørsmålTekst = intl.formatMessage({ id: spørsmål.tekstid });
+      const spørsmålTekst = hentTekst('spørsmål.tekstid', intl);
 
       logSpørsmålBesvart(skjemanavn, skjemaId, spørsmålTekst, svarObjekt.svar_tekst, true);
 
