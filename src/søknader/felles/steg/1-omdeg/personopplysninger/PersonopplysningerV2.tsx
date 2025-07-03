@@ -48,6 +48,13 @@ const PersonopplysningerV2: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
+  const skalViseBorPåAdresse = !søker?.erStrengtFortrolig;
+  const skalViseHarMeldtAdresseEndring = søkerBorPåRegistrertAdresse?.verdi === false;
+  const skalViseHarMeldtAdresseEndringAlert =
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
+  const skalViseSøkerBorIkkePåAdresse =
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === false;
+
   return (
     <VStack gap={'8'}>
       <PersonopplysningerVisning
@@ -57,7 +64,7 @@ const PersonopplysningerV2: React.FC = () => {
         adresse={søker.adresse}
       />
 
-      {!søker?.erStrengtFortrolig && (
+      {skalViseBorPåAdresse && (
         <VStack gap={'6'}>
           <JaNeiSpørsmål
             spørsmål={borDuPåDenneAdressen(intl)}
@@ -65,7 +72,7 @@ const PersonopplysningerV2: React.FC = () => {
             onChange={settSøkerBorPåRegistrertAdr}
           />
 
-          {søkerBorPåRegistrertAdresse?.verdi === false && (
+          {skalViseHarMeldtAdresseEndring && (
             <VStack gap={'6'}>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}
@@ -73,7 +80,7 @@ const PersonopplysningerV2: React.FC = () => {
                 onChange={settMeldtAdresseendring}
               />
 
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
+              {skalViseHarMeldtAdresseEndringAlert && (
                 <Alert variant={'info'} inline size={'small'}>
                   <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
                 </Alert>
@@ -81,9 +88,7 @@ const PersonopplysningerV2: React.FC = () => {
             </VStack>
           )}
 
-          {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
-            <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-          )}
+          {skalViseSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
         </VStack>
       )}
     </VStack>
