@@ -16,6 +16,9 @@ interface Props {
 export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChange }) => {
   const intl = useLokalIntlContext();
 
+  const lesMerHeaderTekstid = spørsmål.lesmer?.headerTekstid;
+  const lesMerinnholdTekstid = spørsmål.lesmer?.innholdTekstid;
+
   const svarAlternativer = spørsmål.svaralternativer.map((svar) => svar.svar_tekst);
 
   const valgtVerdi = valgtSvar === undefined ? null : valgtSvar ? 'Ja' : 'Nei';
@@ -38,14 +41,8 @@ export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChan
   return (
     <SpørsmålWrapper
       tittel={hentTekst(spørsmål.tekstid, intl)}
-      lesMerTittel={
-        spørsmål.lesmer?.headerTekstid ? hentTekst(spørsmål.lesmer.headerTekstid, intl) : undefined
-      }
-      lesMerTekst={
-        spørsmål.lesmer?.innholdTekstid
-          ? hentTekst(spørsmål.lesmer.innholdTekstid, intl)
-          : undefined
-      }
+      lesMerTittel={lesMerHeaderTekstid && hentTekst(lesMerHeaderTekstid, intl)}
+      lesMerTekst={lesMerinnholdTekstid && hentTekst(lesMerinnholdTekstid, intl)}
     >
       <RadioTile
         legend={spørsmål.tekstid ? hentTekst(spørsmål.tekstid, intl) : ''}
