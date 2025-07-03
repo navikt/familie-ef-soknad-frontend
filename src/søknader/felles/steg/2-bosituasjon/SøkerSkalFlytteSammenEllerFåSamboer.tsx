@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
 import { skalSøkerGifteSegMedSamboer } from './BosituasjonConfig';
 import OmSamboerenDin from './OmSamboerenDin';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -10,6 +9,7 @@ import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsm
 import { hentTekst } from '../../../../utils/søknad';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
+import { JaNeiSpørsmål } from '../../../../components/spørsmål/JaNeiSpørsmål';
 
 interface Props {
   settBosituasjon: (bosituasjon: IBosituasjon) => void;
