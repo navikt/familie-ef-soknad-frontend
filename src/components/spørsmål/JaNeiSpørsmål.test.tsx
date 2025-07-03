@@ -5,13 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { render } from '../../test/render';
 
-vi.mock('../../../utils/søknad', () => ({
-  hentTekst: (key: string) => key,
-}));
-vi.mock('../../../utils/amplitude', () => ({
-  logSpørsmålBesvart: vi.fn(),
-}));
-
 describe('JaNeiSpørsmål', () => {
   const svarJa: ISvar = { id: 'svar.ja', svar_tekst: 'Ja' };
   const svarNei: ISvar = { id: 'svar.nei', svar_tekst: 'Nei' };
