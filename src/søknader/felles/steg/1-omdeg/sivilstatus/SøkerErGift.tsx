@@ -26,6 +26,9 @@ export const SøkerErGift: React.FC = () => {
     });
   };
 
+  const skalViseSøkerHarSøktSeperasjon = harSøktSeparasjon?.verdi !== undefined;
+  const skalViseSøktSeperasjonAlert = harSøktSeparasjon?.verdi === false;
+
   return (
     <VStack gap={'6'}>
       <JaNeiSpørsmål
@@ -33,16 +36,13 @@ export const SøkerErGift: React.FC = () => {
         onChange={settHarSøktSeparasjon}
         valgtSvar={harSøktSeparasjon ? harSøktSeparasjon.verdi : undefined}
       />
-
-      {harSøktSeparasjon?.verdi ? (
-        <SøkerHarSøktSeparasjon />
-      ) : (
-        harSøktSeparasjon?.verdi === false && (
-          <Alert variant={'warning'} inline size={'small'}>
-            <LocaleTekst tekst={'sivilstatus.alert-advarsel.søktSeparasjon'} />
-          </Alert>
-        )
+      {skalViseSøkerHarSøktSeperasjon && <SøkerHarSøktSeparasjon />}
+      {skalViseSøktSeperasjonAlert && (
+        <Alert variant={'warning'} inline size={'small'}>
+          <LocaleTekst tekst={'sivilstatus.alert-advarsel.søktSeparasjon'} />
+        </Alert>
       )}
+      );
     </VStack>
   );
 };
