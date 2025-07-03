@@ -1,12 +1,10 @@
 import React from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
@@ -50,42 +48,41 @@ const Personopplysninger: React.FC = () => {
 
   return (
     <VStack gap={'8'}>
-      <Alert variant="info" inline={true}>
-        {hentTekst('personopplysninger.alert.infohentet', intl)}
-      </Alert>
       <PersonopplysningerVisning
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
+
       {!søker?.erStrengtFortrolig && (
-        <>
-          <KomponentGruppe aria-live="polite">
-            <JaNeiSpørsmål
-              spørsmål={borDuPåDenneAdressen(intl)}
-              valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settSøkerBorPåRegistrertAdr}
-            />
-          </KomponentGruppe>
+        <VStack gap={'6'}>
+          <JaNeiSpørsmål
+            spørsmål={borDuPåDenneAdressen(intl)}
+            valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
+            onChange={settSøkerBorPåRegistrertAdr}
+          />
+
           {søkerBorPåRegistrertAdresse?.verdi === false && (
-            <KomponentGruppe>
+            <VStack gap={'6'}>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}
                 valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
                 onChange={settMeldtAdresseendring}
               />
+
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
-                <AlertStripeDokumentasjon>
+                <Alert variant={'info'} inline size={'small'}>
                   <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
-                </AlertStripeDokumentasjon>
+                </Alert>
               )}
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
-                <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-              )}
-            </KomponentGruppe>
+            </VStack>
           )}
-        </>
+
+          {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
+            <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
+          )}
+        </VStack>
       )}
     </VStack>
   );
