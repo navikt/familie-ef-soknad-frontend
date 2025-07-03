@@ -41,7 +41,7 @@ const SøkerSkalFlytteSammenEllerFåSamboer: FC<Props> = ({
       },
     };
 
-    if (svar === false) {
+    if (!svar) {
       delete bosituasjon.datoSkalGifteSegEllerBliSamboer;
       delete bosituasjon.vordendeSamboerEktefelle;
     }
