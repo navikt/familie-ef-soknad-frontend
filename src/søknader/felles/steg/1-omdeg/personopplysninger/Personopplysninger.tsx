@@ -1,6 +1,5 @@
 import React from 'react';
 import LocaleTekst from '../../../../../language/LocaleTekst';
-import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
@@ -10,9 +9,11 @@ import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { SøkerBorIkkePåAdresse } from './SøkerBorIkkePåAdresse';
 
-const Personopplysninger: React.FC = () => {
+export const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const {
     søknad,
     settDokumentasjonsbehov,
@@ -22,6 +23,7 @@ const Personopplysninger: React.FC = () => {
     settAdresseopplysninger,
     stønadstype,
   } = useOmDeg();
+
   const { søker } = søknad.person;
 
   const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
@@ -46,6 +48,13 @@ const Personopplysninger: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
+  const skalViseBorPåAdresse = !søker?.erStrengtFortrolig;
+  const skalViseHarMeldtAdresseEndring = søkerBorPåRegistrertAdresse?.verdi === false;
+  const skalViseHarMeldtAdresseEndringAlert =
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
+  const skalViseSøkerBorIkkePåAdresse =
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === false;
+
   return (
     <VStack gap={'8'}>
       <PersonopplysningerVisning
@@ -55,7 +64,8 @@ const Personopplysninger: React.FC = () => {
         adresse={søker.adresse}
       />
 
-      {!søker?.erStrengtFortrolig && (
+      {/* Bor du på denne adressen? */}
+      {skalViseBorPåAdresse && (
         <VStack gap={'6'}>
           <JaNeiSpørsmål
             spørsmål={borDuPåDenneAdressen(intl)}
@@ -63,7 +73,8 @@ const Personopplysninger: React.FC = () => {
             onChange={settSøkerBorPåRegistrertAdr}
           />
 
-          {søkerBorPåRegistrertAdresse?.verdi === false && (
+          {/* Har du meldt adresseendring til Folkeregisteret? */}
+          {skalViseHarMeldtAdresseEndring && (
             <VStack gap={'6'}>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}
@@ -71,7 +82,7 @@ const Personopplysninger: React.FC = () => {
                 onChange={settMeldtAdresseendring}
               />
 
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
+              {skalViseHarMeldtAdresseEndringAlert && (
                 <Alert variant={'info'} inline size={'small'}>
                   <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
                 </Alert>
@@ -79,13 +90,10 @@ const Personopplysninger: React.FC = () => {
             </VStack>
           )}
 
-          {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
-            <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-          )}
+          {/* Skal du ikke endre adresse i Folkeregisteret? */}
+          {skalViseSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
         </VStack>
       )}
     </VStack>
   );
 };
-
-export default Personopplysninger;
