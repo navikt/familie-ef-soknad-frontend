@@ -2,13 +2,13 @@ import React from 'react';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
-import SøkerHarSøktSeparasjon from './SøkerHarSøktSeparasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { SøkerHarSøktSeparasjon } from './SøkerHarSøktSeparasjon';
 
 export const SøkerErGift: React.FC = () => {
   const intl = useLokalIntlContext();

@@ -1,18 +1,16 @@
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { erUformeltGiftSpørsmål, erUformeltSeparertEllerSkiltSpørsmål } from './SivilstatusConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
 import React from 'react';
-import Show from '../../../../../utils/showIf';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentValgtSvar } from '../../../../../utils/sivilstatus';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { Alert, VStack } from '@navikt/ds-react';
 
-const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
+export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { erUformeltGift } = sivilstatus;
@@ -49,40 +47,33 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   };
 
   return (
-    <>
-      <KomponentGruppe>
+    <VStack gap={'6'}>
+      <JaNeiSpørsmål
+        spørsmål={erUformeltGiftSpørsmål(intl)}
+        onChange={settErUformeltGift}
+        valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
+      />
+      {harSvartJaPåUformeltGift && (
+        <Alert variant={'info'} inline size={'small'}>
+          <LocaleTekst tekst={hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl))} />
+        </Alert>
+      )}
+
+      {harSvartPåUformeltGiftSpørsmålet && (
         <JaNeiSpørsmål
-          spørsmål={erUformeltGiftSpørsmål(intl)}
-          onChange={settErUformeltGift}
-          valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
+          spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
+          onChange={settErUformeltSeparertEllerSkilt}
+          valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
         />
-        <Show if={harSvartJaPåUformeltGift}>
-          <AlertstripeDokumentasjon>
-            <LocaleTekst tekst={hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl))} />
-          </AlertstripeDokumentasjon>
-        </Show>
-      </KomponentGruppe>
-      <Show if={harSvartPåUformeltGiftSpørsmålet}>
-        <KomponentGruppe>
-          <JaNeiSpørsmål
-            spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
-            onChange={settErUformeltSeparertEllerSkilt}
-            valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
+      )}
+
+      {harSvartJaUformeltSeparertEllerSkilt && (
+        <Alert variant={'info'} inline size={'small'}>
+          <LocaleTekst
+            tekst={hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltSeparertEllerSkiltSpørsmål(intl))}
           />
-          <Show if={harSvartJaUformeltSeparertEllerSkilt}>
-            <AlertstripeDokumentasjon>
-              <LocaleTekst
-                tekst={hentSvarAlertFraSpørsmål(
-                  ESvar.JA,
-                  erUformeltSeparertEllerSkiltSpørsmål(intl)
-                )}
-              />
-            </AlertstripeDokumentasjon>
-          </Show>
-        </KomponentGruppe>
-      </Show>
-    </>
+        </Alert>
+      )}
+    </VStack>
   );
 };
-
-export default SpørsmålGiftSeparertEllerSkiltIkkeRegistrert;

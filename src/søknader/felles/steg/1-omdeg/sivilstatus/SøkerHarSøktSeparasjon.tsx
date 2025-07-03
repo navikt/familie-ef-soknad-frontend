@@ -7,7 +7,7 @@ import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Dato
 import { useOmDeg } from '../OmDegContext';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
-const SøkerHarSøktSeparasjon: React.FC = () => {
+export const SøkerHarSøktSeparasjon: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { datoSøktSeparasjon } = sivilstatus;
   const datovelgerTekstid = 'sivilstatus.datovelger.søktSeparasjon';
@@ -41,5 +41,3 @@ const SøkerHarSøktSeparasjon: React.FC = () => {
     </KomponentGruppe>
   );
 };
-
-export default SøkerHarSøktSeparasjon;

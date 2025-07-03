@@ -75,19 +75,16 @@ export const Personopplysninger: React.FC = () => {
 
           {/* Har du meldt adresseendring til Folkeregisteret? */}
           {skalViseHarMeldtAdresseEndring && (
-            <VStack gap={'6'}>
-              <JaNeiSpørsmål
-                spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-                valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
-                onChange={settMeldtAdresseendring}
-              />
-
-              {skalViseHarMeldtAdresseEndringAlert && (
-                <Alert variant={'info'} inline size={'small'}>
-                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
-                </Alert>
-              )}
-            </VStack>
+            <JaNeiSpørsmål
+              spørsmål={harMeldtAdresseendringSpørsmål(intl)}
+              valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
+              onChange={settMeldtAdresseendring}
+            />
+          )}
+          {skalViseHarMeldtAdresseEndringAlert && (
+            <Alert variant={'info'} inline size={'small'}>
+              <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+            </Alert>
           )}
 
           {/* Skal du ikke endre adresse i Folkeregisteret? */}
