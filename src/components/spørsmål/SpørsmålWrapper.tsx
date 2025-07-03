@@ -4,16 +4,16 @@ import styles from './SpørsmålWrapper.module.css';
 
 interface Props {
   tittel: string;
+  children: React.ReactNode;
   lesMerTittel?: string;
   lesMerTekst?: string;
-  children: React.ReactNode;
 }
 
 export const SpørsmålWrapper: React.FC<Props> = ({
   tittel,
+  children,
   lesMerTittel,
   lesMerTekst,
-  children,
 }) => {
   return (
     <VStack gap="6">
