@@ -12,6 +12,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
 import { Personopplysninger } from './personopplysninger/Personopplysninger';
+import { VStack } from '@navikt/ds-react';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -60,9 +61,11 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
-      <Personopplysninger />
-      {SkalViseSivilstatusdialog && <Sivilstatus />}
-      {skalViseMedlemskapsdialog && <Medlemskap />}
+      <VStack gap={'6'}>
+        <Personopplysninger />
+        {SkalViseSivilstatusdialog && <Sivilstatus />}
+        {skalViseMedlemskapsdialog && <Medlemskap />}
+      </VStack>
     </Side>
   );
 };
