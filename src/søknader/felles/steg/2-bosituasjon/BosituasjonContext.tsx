@@ -7,6 +7,9 @@ import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { validerBosituasjonSteg } from './validering';
 import { IBosituasjon } from '../../../../models/steg/bosituasjon';
+import { hentTekst } from '../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { delerSøkerBoligMedAndreVoksne } from './BosituasjonConfig';
 
 interface Props<T extends Søknad> {
   stønadstype: Stønadstype;
@@ -30,8 +33,11 @@ export const [BosituasjonProvider, useBosituasjon] = constate(
     settDokumentasjonsbehov,
   }: Props<Søknad>) => {
     const location = useLocation();
+    const intl = useLokalIntlContext();
 
     const [bosituasjon, settBosituasjon] = useState<IBosituasjon>(søknad.bosituasjon);
+
+    const hovedSpørsmål: ISpørsmål = delerSøkerBoligMedAndreVoksne(intl);
 
     const mellomlagreSteg = () => {
       const oppdatertSøknad = validerBosituasjonSteg(søknad, bosituasjon);
@@ -39,6 +45,23 @@ export const [BosituasjonProvider, useBosituasjon] = constate(
       oppdaterSøknad(oppdatertSøknad);
 
       return mellomlagreSøknad(location.pathname, oppdatertSøknad);
+    };
+
+    const oppdaterDelerBoligMedAndreVoksne = (spørsmål: ISpørsmål, svar: ISvar) => {
+      const svarTekst: string = svar.svar_tekst;
+      const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
+
+      const nyBosituasjon = {
+        delerBoligMedAndreVoksne: {
+          spørsmålid: spørsmål.søknadid,
+          svarid: svar.id,
+          label: spørsmålTekst,
+          verdi: svarTekst,
+        },
+      };
+
+      settBosituasjon(nyBosituasjon);
+      settDokumentasjonsbehov(spørsmål, svar);
     };
 
     return {
@@ -49,6 +72,8 @@ export const [BosituasjonProvider, useBosituasjon] = constate(
       settDokumentasjonsbehov,
       settBosituasjon,
       mellomlagreSteg,
+      oppdaterDelerBoligMedAndreVoksne,
+      hovedSpørsmål,
     };
   }
 );

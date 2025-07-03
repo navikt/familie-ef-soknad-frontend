@@ -2,22 +2,14 @@ import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
-import BosituasjonSpørsmål from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
+import { BosituasjonSpørsmål } from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
 import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useBosituasjon } from './BosituasjonContext';
 
 export const Bosituasjon: FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    bosituasjon,
-    settBosituasjon,
-    stønadstype,
-    routes,
-    mellomlagreSteg,
-    pathOppsummering,
-    settDokumentasjonsbehov,
-  } = useBosituasjon();
+  const { bosituasjon, stønadstype, routes, mellomlagreSteg, pathOppsummering } = useBosituasjon();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
@@ -34,11 +26,7 @@ export const Bosituasjon: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
-      <BosituasjonSpørsmål
-        bosituasjon={bosituasjon}
-        settBosituasjon={settBosituasjon}
-        settDokumentasjonsbehov={settDokumentasjonsbehov}
-      />
+      <BosituasjonSpørsmål />
     </Side>
   );
 };

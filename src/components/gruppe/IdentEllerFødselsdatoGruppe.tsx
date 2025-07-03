@@ -19,7 +19,7 @@ interface Props {
   settGyldigIdent: (erGyldig: boolean) => void;
   settChecked: (checked: boolean) => void;
   settFødselsdato: (date: string) => void;
-  settIdent: (ident: React.ChangeEvent<HTMLInputElement>) => void;
+  settIdent: (ident: string) => void;
   dataTestIds?: string[];
 }
 
@@ -54,7 +54,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
             value={ident}
             error={erGyldigIdent || !ident ? undefined : feilmelding}
             onChange={(e) => {
-              settIdent(e);
+              settIdent(e.currentTarget.value);
               settGyldigIdent(identErGyldig(e.target.value));
             }}
             data-testid={dataTestIds && dataTestIds[0]}

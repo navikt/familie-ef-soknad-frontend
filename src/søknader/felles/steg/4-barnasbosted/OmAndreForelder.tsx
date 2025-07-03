@@ -62,8 +62,8 @@ const OmAndreForelder: React.FC<Props> = ({
     settGyldigIdent(erGyldig);
   };
 
-  const oppdaterIdent = (e: React.FormEvent<HTMLInputElement>) => {
-    settIdentFelt(e.currentTarget.value);
+  const oppdaterIdent = (ident: string) => {
+    settIdentFelt(ident);
   };
 
   const settChecked = (checked: boolean) => {
