@@ -14,7 +14,7 @@ export const validerBosituasjonSteg = <T extends Søknad>(
 const validerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
   const { delerBoligMedAndreVoksne } = bosituasjon;
 
-  switch (delerBoligMedAndreVoksne.svarid) {
+  switch (delerBoligMedAndreVoksne.svarid as ESøkerDelerBolig) {
     case ESøkerDelerBolig.borSammenOgVenterBarn:
     case ESøkerDelerBolig.borMidlertidigFraHverandre:
       return { delerBoligMedAndreVoksne: delerBoligMedAndreVoksne };
@@ -24,12 +24,12 @@ const validerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
       return utledDelerBoligMedAndreVoksne(bosituasjon);
     case ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse:
       return utledTidligereSamboerFortsattRegistrertPåSammeAdresse(bosituasjon);
-    default:
-      return { ...bosituasjon };
+    case ESøkerDelerBolig.borAleneMedBarnEllerGravid:
+      return utledBorAleneMedBarnEllerGravid(bosituasjon);
   }
 };
 
-const utledHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon) => {
+const utledHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon): IBosituasjon => {
   const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetSammenMedSamboer } = bosituasjon;
 
   return {
@@ -62,7 +62,9 @@ const utledDelerBoligMedAndreVoksne = (bosituasjon: IBosituasjon): IBosituasjon 
   };
 };
 
-const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (bosituasjon: IBosituasjon) => {
+const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (
+  bosituasjon: IBosituasjon
+): IBosituasjon => {
   const {
     delerBoligMedAndreVoksne,
     samboerDetaljer,
@@ -79,7 +81,7 @@ const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (bosituasjon: IBo
       datoFlyttetFraHverandre: datoFlyttetFraHverandre,
       skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
       datoSkalGifteSegEllerBliSamboer: datoSkalGifteSegEllerBliSamboer,
-      vordendeSamboerEktefelle,
+      vordendeSamboerEktefelle: vordendeSamboerEktefelle,
     };
   }
 
@@ -87,6 +89,29 @@ const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (bosituasjon: IBo
     delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
     samboerDetaljer: samboerDetaljer,
     datoFlyttetFraHverandre: datoFlyttetFraHverandre,
+    skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
+  };
+};
+
+const utledBorAleneMedBarnEllerGravid = (bosituasjon: IBosituasjon): IBosituasjon => {
+  const {
+    delerBoligMedAndreVoksne,
+    skalGifteSegEllerBliSamboer,
+    datoSkalGifteSegEllerBliSamboer,
+    vordendeSamboerEktefelle,
+  } = bosituasjon;
+
+  if (skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi) {
+    return {
+      delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+      skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
+      datoSkalGifteSegEllerBliSamboer: datoSkalGifteSegEllerBliSamboer,
+      vordendeSamboerEktefelle: vordendeSamboerEktefelle,
+    };
+  }
+
+  return {
+    delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
     skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
   };
 };
