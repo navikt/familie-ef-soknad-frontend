@@ -41,11 +41,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -84,11 +84,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -141,11 +141,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -200,11 +200,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',

@@ -8,11 +8,7 @@ import {
   skrivFritekst,
   skrivFritekstTilKomponentMedId,
 } from '../../../../test/actions';
-import {
-  dagensIsoDatoMinusMåneder,
-  dagensIsoDatoPlussMåneder,
-  formatIsoToStandardFormat,
-} from '../../../../utils/dato';
+import { datoEnMånedFrem, datoEnMånedTilbake } from '../../../../test/dato';
 
 vi.mock('axios', () => {
   return {
@@ -28,9 +24,6 @@ vi.mock('axios', () => {
 });
 
 describe('BosituasjonSteg', () => {
-  const datoEnMånedFrem = formatIsoToStandardFormat(dagensIsoDatoPlussMåneder(1));
-  const datoEnMånedTilbake = formatIsoToStandardFormat(dagensIsoDatoMinusMåneder(1));
-
   test('Skal navigere til bosituasjonsteg fra mellomlagret søknad', async () => {
     mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
     const { screen } = await navigerTilSteg();
