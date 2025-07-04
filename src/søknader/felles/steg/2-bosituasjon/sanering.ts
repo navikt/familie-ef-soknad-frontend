@@ -1,17 +1,14 @@
 import { Søknad } from '../../../../models/søknad/søknad';
 import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 
-export const validerBosituasjonSteg = <T extends Søknad>(
-  søknad: T,
-  bosituasjon: IBosituasjon
-): T => {
+export const sanerBosituasjonSteg = <T extends Søknad>(søknad: T, bosituasjon: IBosituasjon): T => {
   return {
     ...søknad,
-    bosituasjon: validerBosituasjon(bosituasjon),
+    bosituasjon: sanerBosituasjon(bosituasjon),
   };
 };
 
-const validerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
+const sanerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
   const { delerBoligMedAndreVoksne } = bosituasjon;
 
   switch (delerBoligMedAndreVoksne.svarid as ESøkerDelerBolig) {
@@ -19,16 +16,16 @@ const validerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
     case ESøkerDelerBolig.borMidlertidigFraHverandre:
       return { delerBoligMedAndreVoksne: delerBoligMedAndreVoksne };
     case ESøkerDelerBolig.harEkteskapsliknendeForhold:
-      return utledHarEkteskapsliknendeForhold(bosituasjon);
+      return sanerHarEkteskapsliknendeForhold(bosituasjon);
     case ESøkerDelerBolig.delerBoligMedAndreVoksne:
     case ESøkerDelerBolig.borAleneMedBarnEllerGravid:
-      return utledDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid(bosituasjon);
+      return sanerDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid(bosituasjon);
     case ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse:
-      return utledTidligereSamboerFortsattRegistrertPåSammeAdresse(bosituasjon);
+      return sanerTidligereSamboerFortsattRegistrertPåSammeAdresse(bosituasjon);
   }
 };
 
-const utledHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon): IBosituasjon => {
+const sanerHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon): IBosituasjon => {
   const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetSammenMedSamboer } = bosituasjon;
 
   return {
@@ -38,7 +35,7 @@ const utledHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon): IBosituasj
   };
 };
 
-const utledDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid = (
+const sanerDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid = (
   bosituasjon: IBosituasjon
 ): IBosituasjon => {
   const {
@@ -63,7 +60,7 @@ const utledDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid = (
   };
 };
 
-const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (
+const sanerTidligereSamboerFortsattRegistrertPåSammeAdresse = (
   bosituasjon: IBosituasjon
 ): IBosituasjon => {
   const {

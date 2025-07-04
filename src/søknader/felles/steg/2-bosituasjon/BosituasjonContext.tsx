@@ -5,7 +5,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
 import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { validerBosituasjonSteg } from './validering';
+import { sanerBosituasjonSteg } from './sanering';
 import { IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -40,7 +40,7 @@ export const [BosituasjonProvider, useBosituasjon] = constate(
     const hovedSpørsmål: ISpørsmål = delerSøkerBoligMedAndreVoksne(intl);
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = validerBosituasjonSteg(søknad, bosituasjon);
+      const oppdatertSøknad = sanerBosituasjonSteg(søknad, bosituasjon);
 
       oppdaterSøknad(oppdatertSøknad);
 
