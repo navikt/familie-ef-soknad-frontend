@@ -1,12 +1,5 @@
 import { Søknad } from '../../../../models/søknad/søknad';
 import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
-import {
-  IDatoFelt,
-  ISpørsmålBooleanFelt,
-  ISpørsmålFelt,
-} from '../../../../models/søknad/søknadsfelter';
-import { harVerdi } from '../../../../utils/typer';
-import { IPersonDetaljer } from '../../../../models/søknad/person';
 
 export const validerBosituasjonSteg = <T extends Søknad>(
   søknad: T,
@@ -19,43 +12,41 @@ export const validerBosituasjonSteg = <T extends Søknad>(
 };
 
 const validerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
-  const {
-    delerBoligMedAndreVoksne,
-    samboerDetaljer,
-    datoFlyttetSammenMedSamboer,
-    skalGifteSegEllerBliSamboer,
-    datoSkalGifteSegEllerBliSamboer,
-    vordendeSamboerEktefelle,
-  } = bosituasjon;
+  const { delerBoligMedAndreVoksne } = bosituasjon;
 
   switch (delerBoligMedAndreVoksne.svarid) {
     case ESøkerDelerBolig.borSammenOgVenterBarn:
     case ESøkerDelerBolig.borMidlertidigFraHverandre:
       return { delerBoligMedAndreVoksne: delerBoligMedAndreVoksne };
     case ESøkerDelerBolig.harEkteskapsliknendeForhold:
-      return {
-        delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
-        samboerDetaljer: samboerDetaljer,
-        datoFlyttetSammenMedSamboer: datoFlyttetSammenMedSamboer,
-      };
+      return utledHarEkteskapsliknendeForhold(bosituasjon);
     case ESøkerDelerBolig.delerBoligMedAndreVoksne:
-      return utledDelerBoligMedAndreVoksne(
-        delerBoligMedAndreVoksne,
-        skalGifteSegEllerBliSamboer,
-        datoSkalGifteSegEllerBliSamboer,
-        vordendeSamboerEktefelle
-      );
+      return utledDelerBoligMedAndreVoksne(bosituasjon);
+    case ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse:
+      return utledTidligereSamboerFortsattRegistrertPåSammeAdresse(bosituasjon);
     default:
       return { ...bosituasjon };
   }
 };
 
-const utledDelerBoligMedAndreVoksne = (
-  delerBoligMedAndreVoksne: ISpørsmålFelt,
-  skalGifteSegEllerBliSamboer?: ISpørsmålBooleanFelt,
-  datoSkalGifteSegEllerBliSamboer?: IDatoFelt,
-  vordendeSamboerEktefelle?: IPersonDetaljer
-): IBosituasjon => {
+const utledHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon) => {
+  const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetSammenMedSamboer } = bosituasjon;
+
+  return {
+    delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+    samboerDetaljer: samboerDetaljer,
+    datoFlyttetSammenMedSamboer: datoFlyttetSammenMedSamboer,
+  };
+};
+
+const utledDelerBoligMedAndreVoksne = (bosituasjon: IBosituasjon): IBosituasjon => {
+  const {
+    delerBoligMedAndreVoksne,
+    skalGifteSegEllerBliSamboer,
+    datoSkalGifteSegEllerBliSamboer,
+    vordendeSamboerEktefelle,
+  } = bosituasjon;
+
   if (skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi) {
     return {
       delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
@@ -67,6 +58,35 @@ const utledDelerBoligMedAndreVoksne = (
 
   return {
     delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+    skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
+  };
+};
+
+const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (bosituasjon: IBosituasjon) => {
+  const {
+    delerBoligMedAndreVoksne,
+    samboerDetaljer,
+    datoFlyttetFraHverandre,
+    skalGifteSegEllerBliSamboer,
+    datoSkalGifteSegEllerBliSamboer,
+    vordendeSamboerEktefelle,
+  } = bosituasjon;
+
+  if (skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi) {
+    return {
+      delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+      samboerDetaljer: samboerDetaljer,
+      datoFlyttetFraHverandre: datoFlyttetFraHverandre,
+      skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
+      datoSkalGifteSegEllerBliSamboer: datoSkalGifteSegEllerBliSamboer,
+      vordendeSamboerEktefelle,
+    };
+  }
+
+  return {
+    delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+    samboerDetaljer: samboerDetaljer,
+    datoFlyttetFraHverandre: datoFlyttetFraHverandre,
     skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
   };
 };
