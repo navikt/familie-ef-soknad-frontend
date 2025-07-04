@@ -21,11 +21,10 @@ const validerBosituasjon = (bosituasjon: IBosituasjon): IBosituasjon => {
     case ESøkerDelerBolig.harEkteskapsliknendeForhold:
       return utledHarEkteskapsliknendeForhold(bosituasjon);
     case ESøkerDelerBolig.delerBoligMedAndreVoksne:
-      return utledDelerBoligMedAndreVoksne(bosituasjon);
+    case ESøkerDelerBolig.borAleneMedBarnEllerGravid:
+      return utledDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid(bosituasjon);
     case ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse:
       return utledTidligereSamboerFortsattRegistrertPåSammeAdresse(bosituasjon);
-    case ESøkerDelerBolig.borAleneMedBarnEllerGravid:
-      return utledBorAleneMedBarnEllerGravid(bosituasjon);
   }
 };
 
@@ -39,7 +38,9 @@ const utledHarEkteskapsliknendeForhold = (bosituasjon: IBosituasjon): IBosituasj
   };
 };
 
-const utledDelerBoligMedAndreVoksne = (bosituasjon: IBosituasjon): IBosituasjon => {
+const utledDelerBoligMedAndreVoksneEllerSøkerBorAleneMedBarnEllerGravid = (
+  bosituasjon: IBosituasjon
+): IBosituasjon => {
   const {
     delerBoligMedAndreVoksne,
     skalGifteSegEllerBliSamboer,
@@ -89,29 +90,6 @@ const utledTidligereSamboerFortsattRegistrertPåSammeAdresse = (
     delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
     samboerDetaljer: samboerDetaljer,
     datoFlyttetFraHverandre: datoFlyttetFraHverandre,
-    skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
-  };
-};
-
-const utledBorAleneMedBarnEllerGravid = (bosituasjon: IBosituasjon): IBosituasjon => {
-  const {
-    delerBoligMedAndreVoksne,
-    skalGifteSegEllerBliSamboer,
-    datoSkalGifteSegEllerBliSamboer,
-    vordendeSamboerEktefelle,
-  } = bosituasjon;
-
-  if (skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi) {
-    return {
-      delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
-      skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
-      datoSkalGifteSegEllerBliSamboer: datoSkalGifteSegEllerBliSamboer,
-      vordendeSamboerEktefelle: vordendeSamboerEktefelle,
-    };
-  }
-
-  return {
-    delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
     skalGifteSegEllerBliSamboer: skalGifteSegEllerBliSamboer,
   };
 };
