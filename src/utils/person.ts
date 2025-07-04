@@ -6,27 +6,31 @@ export const harFyltUtSamboerDetaljer = (
   samboerDetaljer: IPersonDetaljer,
   valgfriIdentEllerFødselsdato: boolean
 ): boolean => {
+  const harFyltUtNavn =
+    samboerDetaljer?.navn?.verdi !== '' && samboerDetaljer?.navn?.verdi !== undefined;
+  const harFyltUtIdent =
+    samboerDetaljer?.ident?.verdi !== '' && samboerDetaljer?.ident?.verdi !== undefined;
+  const harFyltUtIdentEllerKjennerIkkeIdent = harFyltUtIdent || samboerDetaljer.kjennerIkkeIdent;
+
   const harFyltUtFødselsdatoEllerIdent = samboerDetaljer.kjennerIkkeIdent
     ? samboerDetaljer.fødselsdato?.verdi !== undefined &&
       erDatoGyldigOgInnaforBegrensninger(
         samboerDetaljer.fødselsdato.verdi,
         DatoBegrensning.TidligereDatoer
       )
-    : samboerDetaljer?.ident?.verdi !== '' && samboerDetaljer?.ident?.verdi !== undefined;
+    : harFyltUtIdent;
 
   return valgfriIdentEllerFødselsdato
-    ? samboerDetaljer?.navn?.verdi !== '' &&
-        samboerDetaljer?.navn?.verdi !== undefined &&
+    ? harFyltUtNavn &&
+        harFyltUtIdentEllerKjennerIkkeIdent &&
         erFødselsdatoUtfyltOgGyldigEllerTomtFelt(
           samboerDetaljer.fødselsdato?.verdi,
           DatoBegrensning.TidligereDatoer
         )
-    : harFyltUtFødselsdatoEllerIdent &&
-        samboerDetaljer?.navn?.verdi !== '' &&
-        samboerDetaljer?.navn?.verdi !== undefined;
+    : harFyltUtNavn && harFyltUtFødselsdatoEllerIdent;
 };
 
-export const erFødselsdatoUtfyltOgGyldigEllerTomtFelt = (
+const erFødselsdatoUtfyltOgGyldigEllerTomtFelt = (
   dato: string | undefined,
   begrensning: DatoBegrensning
 ) => {

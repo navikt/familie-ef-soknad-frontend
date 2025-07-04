@@ -19,10 +19,7 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
   });
 
   test('skal vise sivilstandsspørsmål dersom søker bor på registrert adresse', () => {
-    const søkerBorPåRegistrertAdresse = {
-      ...lagSpørsmålBooleanFelt(),
-      verdi: true,
-    };
+    const søkerBorPåRegistrertAdresse = lagSpørsmålBooleanFelt({ verdi: true });
     const søknad = lagSøknadOvergangsstønad({
       søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
     });
@@ -32,7 +29,7 @@ describe('skal validere rendering av spørsmål om sivilstand på side: Om deg',
   });
 
   test('skal vise sivilstandsspørsmål dersom søker har meldt adresseendring', () => {
-    const harMeldtAdresseendring = { ...lagSpørsmålBooleanFelt(), verdi: true };
+    const harMeldtAdresseendring = lagSpørsmålBooleanFelt({ verdi: true });
     const adresseopplysninger = lagAdresseopplysninger({
       harMeldtAdresseendring: harMeldtAdresseendring,
     });

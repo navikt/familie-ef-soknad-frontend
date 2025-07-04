@@ -1,5 +1,5 @@
 import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
-import { klikkSvarRadioknapp, navigerTilSteg } from '../../../../test/actions';
+import { klikkRadioknapp, navigerTilSteg } from '../../../../test/actions';
 import { expect } from 'vitest';
 import {
   lagBooleanFelt,
@@ -41,11 +41,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -84,11 +84,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -107,7 +107,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
     expect(screen.getByRole('group', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
+    await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
     expect(
       screen.getByText(
         'Når barnet ikke skal bo hos deg, har du ikke rett til stønad til enslig mor eller far'
@@ -115,7 +115,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
     ).toBeInTheDocument();
     expect(screen.getByTestId('leggTilBarnModal')).toBeInTheDocument();
 
-    await klikkSvarRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
     expect(
       screen.queryByText(
         'Når barnet ikke skal bo hos deg, har du ikke rett til stønad til enslig mor eller far'
@@ -141,11 +141,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -160,7 +160,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
     await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    await klikkSvarRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
     await user.click(screen.getByTestId('leggTilBarnModal'));
 
     expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
@@ -180,7 +180,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
       screen.getByRole('textbox', { name: 'Termindato' }),
       formatDate(addDays(dagensDato, 1))
     );
-    await klikkSvarRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
+    await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
     await user.click(screen.getByTestId('leggTilBarnModal'));
 
     expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
@@ -200,11 +200,11 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         person: lagPerson({
           barn: [
             lagIBarn({
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               medforelder: {
                 label: '',
@@ -219,7 +219,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
     await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    await klikkSvarRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
     await user.click(screen.getByTestId('leggTilBarnModal'));
 
     expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
@@ -257,7 +257,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
     await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    await klikkSvarRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
     await user.click(screen.getByTestId('leggTilBarnModal'));
 
     expect(screen.queryByRole('button', { name: 'Neste' })).toBeInTheDocument();

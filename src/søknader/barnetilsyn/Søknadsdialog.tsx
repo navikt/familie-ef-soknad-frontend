@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Routes } from 'react-router';
 import Forside from './Forside';
-import Bosituasjon from './steg/2-bosituasjon/Bosituasjon';
 import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import Aktivitet from './steg/5-aktivitet/Aktivitet';
@@ -18,6 +17,8 @@ import { RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from './utils';
 import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
+import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
+import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -102,7 +103,18 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/bosituasjon'}
         element={
           <RedirectTilStart>
-            <Bosituasjon />
+            <BosituasjonProvider
+              stønadstype={Stønadstype.barnetilsyn}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagretSøknad={mellomlagretBarnetilsyn}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
+              <Bosituasjon />
+            </BosituasjonProvider>
           </RedirectTilStart>
         }
       />

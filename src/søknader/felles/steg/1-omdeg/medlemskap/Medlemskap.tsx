@@ -38,6 +38,7 @@ const Medlemskap: React.FC = () => {
 
   const bosattINorgeDeSisteFemÅrConfig = bosattINorgeDeSisteFemÅr(intl);
 
+  //TODO: Feltet heter søkerBosattINorgeSisteTreÅr men vi spør om fem år nå
   const settBosattSisteFemÅr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
 
