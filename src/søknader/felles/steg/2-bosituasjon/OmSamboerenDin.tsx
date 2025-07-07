@@ -10,6 +10,7 @@ import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/per
 import { Label } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../components/TextFieldMedBredde';
 import { useBosituasjon } from './BosituasjonContext';
+import { identErGyldig } from '../../../../utils/validering/validering';
 
 interface Props {
   tittel: string;
@@ -33,7 +34,6 @@ export const OmSamboerenDin: FC<Props> = ({
     samboerDetaljer ? samboerDetaljer : { kjennerIkkeIdent: false }
   );
   const [ident, settIdent] = useState<string>(samboerInfo?.ident ? samboerInfo?.ident.verdi : '');
-  const [erGyldigIdent, settGyldigIdent] = useState<boolean>(!!samboerDetaljer?.ident?.verdi);
 
   const oppdaterSamboerInfo = (personDetaljer: IPersonDetaljer) => {
     settSamboerInfo(personDetaljer);
@@ -78,14 +78,9 @@ export const OmSamboerenDin: FC<Props> = ({
     }
   };
 
-  const oppdaterGyldigIdent = (erGyldig: boolean) => {
-    settGyldigIdent(erGyldig);
-    oppdaterSamboerInfoMedIdent(ident, erGyldig);
-  };
-
   const oppdaterIdent = (ident: string) => {
     settIdent(ident);
-    oppdaterSamboerInfoMedIdent(ident, erGyldigIdent);
+    oppdaterSamboerInfoMedIdent(ident, identErGyldig(ident));
   };
 
   const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
@@ -128,11 +123,10 @@ export const OmSamboerenDin: FC<Props> = ({
             ident={ident && !samboerInfo.kjennerIkkeIdent ? ident : ''}
             fødselsdato={samboerInfo.fødselsdato?.verdi || ''}
             checked={samboerInfo?.kjennerIkkeIdent}
-            erGyldigIdent={erGyldigIdent}
-            settGyldigIdent={oppdaterGyldigIdent}
+            erGyldigIdent={identErGyldig(ident)}
+            settIdent={oppdaterIdent}
             settFødselsdato={settFødselsdato}
             settChecked={settChecked}
-            settIdent={oppdaterIdent}
             testIder={testIderIdentEllerFødselsdatoGruppe}
           />
         )}

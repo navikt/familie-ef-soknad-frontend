@@ -6,7 +6,6 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
-import { identErGyldig } from '../../utils/validering/validering';
 
 interface Props {
   identLabel: string;
@@ -16,10 +15,9 @@ interface Props {
   fødselsdato: string;
   checked: boolean;
   erGyldigIdent: boolean;
-  settGyldigIdent: (erGyldig: boolean) => void;
+  settIdent: (ident: string) => void;
   settChecked: (checked: boolean) => void;
   settFødselsdato: (date: string) => void;
-  settIdent: (ident: string) => void;
   testIder?: string[];
 }
 
@@ -31,9 +29,8 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   ident,
   fødselsdato,
   erGyldigIdent,
-  settGyldigIdent,
-  settChecked,
   settIdent,
+  settChecked,
   settFødselsdato,
   testIder,
 }) => {
@@ -54,8 +51,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
             value={ident}
             error={erGyldigIdent || !ident ? undefined : feilmelding}
             onChange={(e) => {
-              settIdent(e.currentTarget.value);
-              settGyldigIdent(identErGyldig(e.target.value));
+              settIdent(e.target.value);
             }}
             data-testid={testIder && testIder[0]}
           />
