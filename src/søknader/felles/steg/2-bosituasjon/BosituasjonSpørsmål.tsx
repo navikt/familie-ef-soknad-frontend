@@ -3,77 +3,49 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
+import { ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import SøkerSkalFlytteSammenEllerFåSamboer from './SøkerSkalFlytteSammenEllerFåSamboer';
-import EkteskapsliknendeForhold from './EkteskapsliknendeForhold';
+import { EkteskapsliknendeForhold } from './EkteskapsliknendeForhold';
 import OmTidligereSamboer from './OmTidligereSamboer';
-import { hentTekst } from '../../../../utils/søknad';
-import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { delerSøkerBoligMedAndreVoksne } from './BosituasjonConfig';
+import { ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { erValgtSvarLiktSomSvar, harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
-import { DatoBegrensning } from '../../../../components/dato/Datovelger';
-import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
 import { Alert } from '@navikt/ds-react';
+import { useBosituasjon } from './BosituasjonContext';
 
-interface Props {
-  bosituasjon: IBosituasjon;
-  settBosituasjon: (bosituasjon: IBosituasjon) => void;
-  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
-}
-
-const BosituasjonSpørsmål: FC<Props> = ({
-  bosituasjon,
-  settBosituasjon,
-  settDokumentasjonsbehov,
-}) => {
-  const intl = useLokalIntlContext();
+export const BosituasjonSpørsmål: FC = () => {
+  const {
+    bosituasjon,
+    settBosituasjon,
+    settDokumentasjonsbehov,
+    oppdaterDelerBoligMedAndreVoksne,
+    hovedSpørsmål,
+  } = useBosituasjon();
 
   const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetFraHverandre } = bosituasjon;
-
-  const hovedSpørsmål: ISpørsmål = delerSøkerBoligMedAndreVoksne(intl);
-
-  const settBosituasjonFelt = (spørsmål: ISpørsmål, svar: ISvar) => {
-    const svarTekst: string = svar.svar_tekst;
-    const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
-
-    const nyBosituasjon = {
-      delerBoligMedAndreVoksne: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: svar.id,
-        label: spørsmålTekst,
-        verdi: svarTekst,
-      },
-    };
-
-    settBosituasjon(nyBosituasjon);
-    settDokumentasjonsbehov(spørsmål, svar);
-  };
 
   const valgtSvar: ISvar | undefined = hovedSpørsmål.svaralternativer.find((svar) =>
     erValgtSvarLiktSomSvar(delerBoligMedAndreVoksne.verdi, svar.svar_tekst)
   );
 
-  const harSøkerEkteskapsliknendeForhold =
+  const harEkteskapsliknendeForhold =
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.harEkteskapsliknendeForhold;
 
-  const harSattDatoFlyttetFraHverandre: boolean = !!(
-    datoFlyttetFraHverandre?.verdi &&
-    erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, DatoBegrensning.AlleDatoer)
-  );
-  const tidligereSamboerFortsattRegistrertPåAdresse =
+  const harFyltUtIdentEllerKjennerIkkeIdentPåTidligereSamboer =
+    samboerDetaljer?.kjennerIkkeIdent || harValgtSvar(samboerDetaljer?.ident?.verdi);
+
+  const ferdigUtfyltTidligereSamboerFortsattRegistrertPåAdresse =
     delerBoligMedAndreVoksne.svarid ===
       ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse &&
-    harSattDatoFlyttetFraHverandre &&
     harValgtSvar(samboerDetaljer?.navn?.verdi) &&
+    harFyltUtIdentEllerKjennerIkkeIdentPåTidligereSamboer &&
     harValgtSvar(datoFlyttetFraHverandre?.verdi);
 
-  const planerOmÅFlytteSammenEllerFåSamboer =
+  const visPlanerOmÅFlytteSammenEllerFåSamboer =
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.borAleneMedBarnEllerGravid ||
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.delerBoligMedAndreVoksne ||
-    tidligereSamboerFortsattRegistrertPåAdresse;
+    ferdigUtfyltTidligereSamboerFortsattRegistrertPåAdresse;
 
   return (
     <>
@@ -82,7 +54,7 @@ const BosituasjonSpørsmål: FC<Props> = ({
           key={hovedSpørsmål.søknadid}
           spørsmål={hovedSpørsmål}
           valgtSvar={delerBoligMedAndreVoksne.verdi}
-          settSpørsmålOgSvar={settBosituasjonFelt}
+          settSpørsmålOgSvar={oppdaterDelerBoligMedAndreVoksne}
         />
         {valgtSvar && valgtSvar.alert_tekstid && (
           <FeltGruppe>
@@ -107,7 +79,7 @@ const BosituasjonSpørsmål: FC<Props> = ({
         </SeksjonGruppe>
       )}
 
-      {planerOmÅFlytteSammenEllerFåSamboer && (
+      {visPlanerOmÅFlytteSammenEllerFåSamboer && (
         <SeksjonGruppe>
           <SøkerSkalFlytteSammenEllerFåSamboer
             settBosituasjon={settBosituasjon}
@@ -117,11 +89,7 @@ const BosituasjonSpørsmål: FC<Props> = ({
         </SeksjonGruppe>
       )}
 
-      {harSøkerEkteskapsliknendeForhold && (
-        <EkteskapsliknendeForhold settBosituasjon={settBosituasjon} bosituasjon={bosituasjon} />
-      )}
+      {harEkteskapsliknendeForhold && <EkteskapsliknendeForhold />}
     </>
   );
 };
-
-export default BosituasjonSpørsmål;
