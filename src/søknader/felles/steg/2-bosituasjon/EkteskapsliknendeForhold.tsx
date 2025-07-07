@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { EBosituasjon } from '../../../../models/steg/bosituasjon';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import OmSamboerenDin from './OmSamboerenDin';
+import { OmSamboerenDin } from './OmSamboerenDin';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -30,8 +30,6 @@ export const EkteskapsliknendeForhold: FC = () => {
       <OmSamboerenDin
         tittel={'bosituasjon.tittel.omSamboer'}
         erIdentEllerFødselsdatoObligatorisk={true}
-        settBosituasjon={settBosituasjon}
-        bosituasjon={bosituasjon}
         samboerDetaljerType={EBosituasjon.samboerDetaljer}
       />
       {samboerDetaljer && harFyltUtSamboerDetaljer(samboerDetaljer, false) && (

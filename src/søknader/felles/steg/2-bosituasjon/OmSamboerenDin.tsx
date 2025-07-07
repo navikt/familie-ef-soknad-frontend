@@ -3,32 +3,30 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { EBosituasjon, IBosituasjon } from '../../../../models/steg/bosituasjon';
+import { EBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/søknad';
 import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
 import { Label } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../components/TextFieldMedBredde';
+import { useBosituasjon } from './BosituasjonContext';
 
 interface Props {
   tittel: string;
   erIdentEllerFødselsdatoObligatorisk: boolean;
-  settBosituasjon: (bositasjon: IBosituasjon) => void;
-  bosituasjon: IBosituasjon;
   samboerDetaljerType: EBosituasjon.samboerDetaljer | EBosituasjon.vordendeSamboerEktefelle;
   testIderTextFieldMedBredde?: string;
   testIderIdentEllerFødselsdatoGruppe?: string[];
 }
 
-const OmSamboerenDin: FC<Props> = ({
+export const OmSamboerenDin: FC<Props> = ({
   tittel,
   erIdentEllerFødselsdatoObligatorisk,
-  settBosituasjon,
-  bosituasjon,
   samboerDetaljerType,
   testIderTextFieldMedBredde,
   testIderIdentEllerFødselsdatoGruppe,
 }) => {
+  const { bosituasjon, settBosituasjon } = useBosituasjon();
   const intl = useLokalIntlContext();
   const samboerDetaljer = bosituasjon[samboerDetaljerType];
   const [samboerInfo, settSamboerInfo] = useState<IPersonDetaljer>(
@@ -142,5 +140,3 @@ const OmSamboerenDin: FC<Props> = ({
     </>
   );
 };
-
-export default OmSamboerenDin;

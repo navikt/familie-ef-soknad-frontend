@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
 import { skalSøkerGifteSegMedSamboer } from './BosituasjonConfig';
-import OmSamboerenDin from './OmSamboerenDin';
+import { OmSamboerenDin } from './OmSamboerenDin';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { EBosituasjon, ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -10,18 +10,10 @@ import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsm
 import { hentTekst } from '../../../../utils/søknad';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
+import { useBosituasjon } from './BosituasjonContext';
 
-interface Props {
-  settBosituasjon: (bosituasjon: IBosituasjon) => void;
-  bosituasjon: IBosituasjon;
-  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
-}
-
-const SøkerSkalFlytteSammenEllerFåSamboer: FC<Props> = ({
-  settBosituasjon,
-  bosituasjon,
-  settDokumentasjonsbehov,
-}) => {
+export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
+  const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();
   const intl = useLokalIntlContext();
 
   const { delerBoligMedAndreVoksne, skalGifteSegEllerBliSamboer, datoSkalGifteSegEllerBliSamboer } =
@@ -107,8 +99,6 @@ const SøkerSkalFlytteSammenEllerFåSamboer: FC<Props> = ({
               <OmSamboerenDin
                 tittel={'bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed'}
                 erIdentEllerFødselsdatoObligatorisk={true}
-                settBosituasjon={settBosituasjon}
-                bosituasjon={bosituasjon}
                 samboerDetaljerType={EBosituasjon.vordendeSamboerEktefelle}
                 testIderTextFieldMedBredde={'bosituasjon-skal-gifte-seg-navn'}
                 testIderIdentEllerFødselsdatoGruppe={[
@@ -124,5 +114,3 @@ const SøkerSkalFlytteSammenEllerFåSamboer: FC<Props> = ({
     </>
   );
 };
-
-export default SøkerSkalFlytteSammenEllerFåSamboer;
