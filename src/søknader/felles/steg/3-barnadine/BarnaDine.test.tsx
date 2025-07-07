@@ -8,7 +8,7 @@ import {
   lagPerson,
   lagSpørsmålBooleanFelt,
   lagTekstfelt,
-} from '../../../../test/utils';
+} from '../../../../test/domeneUtils';
 import { dagensDato, dagensIsoDatoMinusMåneder, formatDate } from '../../../../utils/dato';
 import { addDays } from 'date-fns';
 

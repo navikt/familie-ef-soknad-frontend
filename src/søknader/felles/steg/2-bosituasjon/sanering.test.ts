@@ -7,7 +7,7 @@ import {
   lagSpørsmålFelt,
   lagSøknadOvergangsstønad,
   lagTekstfelt,
-} from '../../../../test/utils';
+} from '../../../../test/domeneUtils';
 import { isoDatoEnMånedFrem, isoDatoEnMånedTilbake } from '../../../../test/dato';
 import { EBosituasjon, ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import { ISpørsmålFelt } from '../../../../models/søknad/søknadsfelter';

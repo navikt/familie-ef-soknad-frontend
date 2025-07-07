@@ -6,7 +6,7 @@ import {
   lagSpørsmålBooleanFelt,
   lagSøker,
   lagSøknadOvergangsstønad,
-} from '../../test/utils';
+} from '../../test/domeneUtils';
 
 describe('skal validere rendering av spørsmål om sivilstand på side: Om deg', () => {
   test('skal vise sivilstandsspørsmål dersom søker er strengt fortrolig', () => {
