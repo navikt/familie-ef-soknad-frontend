@@ -20,7 +20,7 @@ interface Props {
   settChecked: (checked: boolean) => void;
   settFødselsdato: (date: string) => void;
   settIdent: (ident: string) => void;
-  dataTestIds?: string[];
+  testIder?: string[];
 }
 
 const IdentEllerFødselsdatoGruppe: FC<Props> = ({
@@ -35,7 +35,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   settChecked,
   settIdent,
   settFødselsdato,
-  dataTestIds,
+  testIder,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -57,7 +57,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
               settIdent(e.currentTarget.value);
               settGyldigIdent(identErGyldig(e.target.value));
             }}
-            data-testid={dataTestIds && dataTestIds[0]}
+            data-testid={testIder && testIder[0]}
           />
         </FeltGruppe>
         <FeltGruppe>
@@ -65,7 +65,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
             className={'checkbox'}
             checked={checked}
             onChange={() => settChecked(!checked)}
-            data-testid={dataTestIds && dataTestIds[1]}
+            data-testid={testIder && testIder[1]}
           >
             {checkboxLabel}
           </Checkbox>
@@ -78,7 +78,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
             tekstid={datoLabel}
             datobegrensning={DatoBegrensning.TidligereDatoer}
             settDato={(e) => settFødselsdato(e)}
-            dataTestId={dataTestIds && dataTestIds[2]}
+            testId={testIder && testIder[2]}
           />
         </KomponentGruppe>
       )}

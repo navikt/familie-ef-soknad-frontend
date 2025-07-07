@@ -35,8 +35,8 @@ const OmTidligereSamboer: FC<Props> = ({ settBosituasjon, bosituasjon }) => {
         settBosituasjon={settBosituasjon}
         bosituasjon={bosituasjon}
         samboerDetaljerType={EBosituasjon.samboerDetaljer}
-        dataTestIdTextFieldMedBredde={'bosituasjon-tidligere-samboer-navn'}
-        dataTestIdsIdentEllerFødselsdatoGruppe={[
+        testIderTextFieldMedBredde={'bosituasjon-tidligere-samboer-navn'}
+        testIderIdentEllerFødselsdatoGruppe={[
           'bosituasjon-tidligere-samboer-fødselsnummer',
           'bosituasjon-tidligere-samboer-checkbox',
           'bosituasjon-tidligere-samboer-fødselsdato',
