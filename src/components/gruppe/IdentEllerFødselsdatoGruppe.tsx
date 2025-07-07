@@ -6,7 +6,6 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
-import { identErGyldig } from '../../utils/validering/validering';
 
 interface Props {
   identLabel: string;
