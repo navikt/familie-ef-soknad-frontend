@@ -5,9 +5,9 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import LocaleTekst from '../../../../language/LocaleTekst';
-import SøkerSkalFlytteSammenEllerFåSamboer from './SøkerSkalFlytteSammenEllerFåSamboer';
+import { SøkerSkalFlytteSammenEllerFåSamboer } from './SøkerSkalFlytteSammenEllerFåSamboer';
 import { EkteskapsliknendeForhold } from './EkteskapsliknendeForhold';
-import OmTidligereSamboer from './OmTidligereSamboer';
+import { OmTidligereSamboer } from './OmTidligereSamboer';
 import { ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { erValgtSvarLiktSomSvar, harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
@@ -15,13 +15,7 @@ import { Alert } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
 
 export const BosituasjonSpørsmål: FC = () => {
-  const {
-    bosituasjon,
-    settBosituasjon,
-    settDokumentasjonsbehov,
-    oppdaterDelerBoligMedAndreVoksne,
-    hovedSpørsmål,
-  } = useBosituasjon();
+  const { bosituasjon, oppdaterDelerBoligMedAndreVoksne, hovedSpørsmål } = useBosituasjon();
 
   const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetFraHverandre } = bosituasjon;
 
@@ -75,17 +69,13 @@ export const BosituasjonSpørsmål: FC = () => {
       {delerBoligMedAndreVoksne.svarid ===
         ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse && (
         <SeksjonGruppe>
-          <OmTidligereSamboer bosituasjon={bosituasjon} settBosituasjon={settBosituasjon} />
+          <OmTidligereSamboer />
         </SeksjonGruppe>
       )}
 
       {visPlanerOmÅFlytteSammenEllerFåSamboer && (
         <SeksjonGruppe>
-          <SøkerSkalFlytteSammenEllerFåSamboer
-            settBosituasjon={settBosituasjon}
-            bosituasjon={bosituasjon}
-            settDokumentasjonsbehov={settDokumentasjonsbehov}
-          />
+          <SøkerSkalFlytteSammenEllerFåSamboer />
         </SeksjonGruppe>
       )}
 
