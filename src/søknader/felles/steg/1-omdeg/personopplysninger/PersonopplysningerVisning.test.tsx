@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { Adresse, Søker } from '../../../../../models/søknad/person';
-import { lagAdresse, lagSøker } from '../../../../../test/utils';
+import { lagAdresse, lagSøker } from '../../../../../test/domeneUtils';
 import { render } from '../../../../../test/render';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 

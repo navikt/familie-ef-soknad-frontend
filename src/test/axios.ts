@@ -8,7 +8,7 @@ import {
   lagSpørsmålFelt,
   lagSøker,
   lagSøknadOvergangsstønad,
-} from './utils';
+} from './domeneUtils';
 import { Søker } from '../models/søknad/person';
 import axios from 'axios';
 import { ESøknad, SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
