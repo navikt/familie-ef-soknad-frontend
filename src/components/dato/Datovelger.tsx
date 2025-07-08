@@ -21,9 +21,16 @@ interface Props {
   tekstid: string;
   datobegrensning: DatoBegrensning;
   settDato: (dato: string) => void;
+  testId?: string;
 }
 
-const Datovelger: React.FC<Props> = ({ tekstid, datobegrensning, valgtDato, settDato }) => {
+export const Datovelger: React.FC<Props> = ({
+  tekstid,
+  datobegrensning,
+  valgtDato,
+  settDato,
+  testId,
+}) => {
   const [locale] = useSpråkContext();
   const [_dato, _settDato] = useState<string>(valgtDato ? valgtDato : '');
   const intl = useLokalIntlContext();
@@ -108,10 +115,9 @@ const Datovelger: React.FC<Props> = ({ tekstid, datobegrensning, valgtDato, sett
           label={label}
           error={feilmelding && hentTekst(feilmelding, intl)}
           placeholder="DD.MM.YYYY"
+          data-testid={testId}
         />
       </DatePicker>
     </FeltGruppe>
   );
 };
-
-export { Datovelger };

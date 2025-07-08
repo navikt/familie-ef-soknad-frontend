@@ -6,7 +6,7 @@ import { OvergangsstønadApp } from './OvergangsstønadApp';
 import { TestContainer } from '../../test/TestContainer';
 import { mockGet } from '../../test/axios';
 import axios from 'axios';
-import { lagPersonData, lagSistInnsendteSøknad, lagSøker } from '../../test/utils';
+import { lagPersonData, lagSistInnsendteSøknad, lagSøker } from '../../test/domeneUtils';
 import Environment from '../../Environment';
 
 vi.mock('axios', () => {

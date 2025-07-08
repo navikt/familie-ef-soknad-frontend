@@ -44,6 +44,11 @@ export const formatIsoDate = (date: Date) => {
   return formatISO(date, { representation: 'date' });
 };
 
+export const formatIsoToStandardFormat = (isoDate: string) => {
+  const date = new Date(isoDate);
+  return isValid(date) ? format(date, STANDARD_DATOFORMAT) : '';
+};
+
 export const formatDateFnr = (date: Date) => {
   return format(date, FØDSELSNUMMER_DATOFORMAT);
 };
@@ -78,6 +83,9 @@ export const dagensDato = startOfToday();
 
 export const dagensIsoDatoMinusMåneder = (antallMåneder: number) =>
   formatIsoDate(subMonths(dagensDato, antallMåneder));
+
+export const dagensIsoDatoPlussMåneder = (antallMåneder: number) =>
+  formatIsoDate(addMonths(dagensDato, antallMåneder));
 
 export const dagensDatoMedTidspunktStreng = new Date().toISOString();
 

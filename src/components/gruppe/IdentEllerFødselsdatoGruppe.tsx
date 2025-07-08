@@ -6,7 +6,6 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
-import { identErGyldig } from '../../utils/validering/validering';
 
 interface Props {
   identLabel: string;
@@ -16,10 +15,10 @@ interface Props {
   fødselsdato: string;
   checked: boolean;
   erGyldigIdent: boolean;
-  settGyldigIdent: (erGyldig: boolean) => void;
+  settIdent: (ident: string) => void;
   settChecked: (checked: boolean) => void;
   settFødselsdato: (date: string) => void;
-  settIdent: (ident: React.ChangeEvent<HTMLInputElement>) => void;
+  testIder?: string[];
 }
 
 const IdentEllerFødselsdatoGruppe: FC<Props> = ({
@@ -30,10 +29,10 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   ident,
   fødselsdato,
   erGyldigIdent,
-  settGyldigIdent,
-  settChecked,
   settIdent,
+  settChecked,
   settFødselsdato,
+  testIder,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -52,13 +51,18 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
             value={ident}
             error={erGyldigIdent || !ident ? undefined : feilmelding}
             onChange={(e) => {
-              settIdent(e);
-              settGyldigIdent(identErGyldig(e.target.value));
+              settIdent(e.target.value);
             }}
+            data-testid={testIder && testIder[0]}
           />
         </FeltGruppe>
         <FeltGruppe>
-          <Checkbox className={'checkbox'} checked={checked} onChange={() => settChecked(!checked)}>
+          <Checkbox
+            className={'checkbox'}
+            checked={checked}
+            onChange={() => settChecked(!checked)}
+            data-testid={testIder && testIder[1]}
+          >
             {checkboxLabel}
           </Checkbox>
         </FeltGruppe>
@@ -70,6 +74,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
             tekstid={datoLabel}
             datobegrensning={DatoBegrensning.TidligereDatoer}
             settDato={(e) => settFødselsdato(e)}
+            testId={testIder && testIder[2]}
           />
         </KomponentGruppe>
       )}
