@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AnnenForelderKnapper from './AnnenForelderKnapper';
 import BarneHeader from '../../../../components/BarneHeader';
 import BostedOgSamvær from './bostedOgSamvær/BostedOgSamvær';
-import OmAndreForelder from './OmAndreForelder';
+import { OmAndreForelder } from './OmAndreForelder';
 import SkalBarnetBoHosSøker from './SkalBarnetBoHosSøker';
 import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';

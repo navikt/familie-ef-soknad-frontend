@@ -29,7 +29,7 @@ import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
 import { JaNeiSpørsmål } from '../../../components/spørsmål/JaNeiSpørsmål';
 
-const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
+export const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const intl = useLokalIntlContext();
@@ -155,5 +155,3 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
     </Side>
   );
 };
-
-export default Spørsmål;

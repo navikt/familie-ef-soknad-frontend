@@ -4,7 +4,7 @@ import {
   EUtdanning,
   IUnderUtdanning,
 } from '../../../../../models/steg/aktivitet/utdanning';
-import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
+import { ErUtdanningenOffentligEllerPrivat } from './ErUtdanningenOffentligEllerPrivat';
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';

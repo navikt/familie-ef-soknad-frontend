@@ -19,7 +19,7 @@ import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBre
 import { useOmDeg } from '../../OmDegContext';
 import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
 
-const ÅrsakEnslig: FC = () => {
+export const ÅrsakEnslig: FC = () => {
   const intl = useLokalIntlContext();
   const spørsmål: ISpørsmål = begrunnelseSpørsmål(intl);
   const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
@@ -110,5 +110,3 @@ const ÅrsakEnslig: FC = () => {
     </div>
   );
 };
-
-export default ÅrsakEnslig;

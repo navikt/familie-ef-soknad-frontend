@@ -26,7 +26,7 @@ interface Props {
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
-const Arbeidssøker: React.FC<Props> = ({
+export const Arbeidssøker: React.FC<Props> = ({
   arbeidssituasjon,
   settArbeidssituasjon,
   settDokumentasjonsbehov,
@@ -148,5 +148,3 @@ const Arbeidssøker: React.FC<Props> = ({
     </SeksjonGruppe>
   );
 };
-
-export default Arbeidssøker;

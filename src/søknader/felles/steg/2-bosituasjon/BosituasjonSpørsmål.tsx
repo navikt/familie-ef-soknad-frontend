@@ -24,7 +24,7 @@ interface Props {
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
-const BosituasjonSpørsmål: FC<Props> = ({
+export const BosituasjonSpørsmål: FC<Props> = ({
   bosituasjon,
   settBosituasjon,
   settDokumentasjonsbehov,
@@ -123,5 +123,3 @@ const BosituasjonSpørsmål: FC<Props> = ({
     </>
   );
 };
-
-export default BosituasjonSpørsmål;

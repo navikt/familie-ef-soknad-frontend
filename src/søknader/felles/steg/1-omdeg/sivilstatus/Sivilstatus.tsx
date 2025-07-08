@@ -2,13 +2,13 @@ import React from 'react';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import { usePersonContext } from '../../../../../context/PersonContext';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../../../../utils/sivilstatus';
-import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
+import { ÅrsakEnslig } from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
 import { useOmDeg } from '../OmDegContext';
 import { SøkerErGift } from './SøkerErGift';
 import { SpørsmålGiftSeparertEllerSkiltIkkeRegistrert } from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
 
-const Sivilstatus: React.FC = () => {
+export const Sivilstatus: React.FC = () => {
   const { sivilstatus } = useOmDeg();
   const { person } = usePersonContext();
   const sivilstand = person.søker.sivilstand;
@@ -25,5 +25,3 @@ const Sivilstatus: React.FC = () => {
     </SeksjonGruppe>
   );
 };
-
-export default Sivilstatus;

@@ -22,7 +22,7 @@ interface Props {
   settDinSituasjon: (dinSituasjon: IDinSituasjon) => void;
 }
 
-const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
+export const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
   dinSituasjon,
   settDinSituasjon,
 }) => {
@@ -176,5 +176,3 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     </>
   );
 };
-
-export default HarSøkerSagtOppEllerRedusertStilling;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Arbeidsgiver from './Arbeidsgiver';
+import { Arbeidsgiver } from './Arbeidsgiver';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';

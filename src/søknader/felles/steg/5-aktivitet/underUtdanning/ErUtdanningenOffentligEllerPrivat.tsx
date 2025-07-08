@@ -11,7 +11,11 @@ interface Props {
   utdanning: IUnderUtdanning;
   settUtdanning: (utdanning: IUnderUtdanning) => void;
 }
-const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtdanning }) => {
+
+export const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({
+  utdanning,
+  settUtdanning,
+}) => {
   const intl = useLokalIntlContext();
 
   const settMultiSpørsmål = (spørsmål: ISpørsmål, svar: ISvar) => {
@@ -35,5 +39,3 @@ const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtd
     </KomponentGruppe>
   );
 };
-
-export default ErUtdanningenOffentligEllerPrivat;

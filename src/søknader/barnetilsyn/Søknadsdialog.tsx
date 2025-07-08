@@ -4,7 +4,7 @@ import Forside from './Forside';
 import Bosituasjon from './steg/2-bosituasjon/Bosituasjon';
 import BarnaDine from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
-import Aktivitet from './steg/5-aktivitet/Aktivitet';
+import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Kvittering from './steg/9-kvittering/Kvittering';

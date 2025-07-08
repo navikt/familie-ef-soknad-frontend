@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
-import HarSøkerSagtOppEllerRedusertStilling from './HarSøkerSagtOppEllerRedusertStilling';
+import { HarSøkerSagtOppEllerRedusertStilling } from './HarSøkerSagtOppEllerRedusertStilling';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 

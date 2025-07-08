@@ -7,7 +7,7 @@ import {
   verifiserAtBrukerErAutentisert,
 } from '../../utils/autentiseringogvalidering/autentisering';
 import Forside from './Forside';
-import Spørsmål from './steg/1-Spørsmål';
+import { Spørsmål } from './steg/1-Spørsmål';
 import Oppsummering from './steg/2-Oppsummering';
 import Kvittering from './steg/3-Kvittering';
 import { SkjemaProvider } from './SkjemaContext';

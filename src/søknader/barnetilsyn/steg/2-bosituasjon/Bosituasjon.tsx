@@ -4,7 +4,7 @@ import { IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import BosituasjonSpørsmål from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
+import { BosituasjonSpørsmål } from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';

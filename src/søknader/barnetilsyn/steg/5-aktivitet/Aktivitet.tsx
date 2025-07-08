@@ -34,7 +34,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { Alert, Label } from '@navikt/ds-react';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 
-const Aktivitet: React.FC = () => {
+export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreBarnetilsyn } =
     useBarnetilsynSøknad();
@@ -204,5 +204,3 @@ const Aktivitet: React.FC = () => {
     </Side>
   );
 };
-
-export default Aktivitet;

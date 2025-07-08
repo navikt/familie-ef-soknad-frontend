@@ -25,7 +25,7 @@ interface Props {
   settSisteBarnUtfylt: (sisteBarnUtfylt: boolean) => void;
 }
 
-const OmAndreForelder: React.FC<Props> = ({
+export const OmAndreForelder: React.FC<Props> = ({
   settForelder,
   forelder,
   kjennerIkkeIdent,
@@ -227,5 +227,3 @@ const OmAndreForelder: React.FC<Props> = ({
     </>
   );
 };
-
-export default OmAndreForelder;

@@ -33,7 +33,7 @@ interface Props {
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
-const Arbeidsgiver: React.FC<Props> = ({
+export const Arbeidsgiver: React.FC<Props> = ({
   arbeidsforhold,
   settArbeidsforhold,
   arbeidsgivernummer,
@@ -176,5 +176,3 @@ const Arbeidsgiver: React.FC<Props> = ({
     </StyledArbeidsgiver>
   );
 };
-
-export default Arbeidsgiver;

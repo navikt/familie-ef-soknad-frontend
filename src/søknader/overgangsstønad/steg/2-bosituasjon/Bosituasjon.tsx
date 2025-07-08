@@ -4,7 +4,7 @@ import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
-import BosituasjonSpørsmål from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
+import { BosituasjonSpørsmål } from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';

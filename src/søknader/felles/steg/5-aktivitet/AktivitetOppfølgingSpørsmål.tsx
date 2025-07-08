@@ -3,7 +3,7 @@ import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivi
 import HjemmeMedBarnUnderEttÅr from './HjemmeMedBarnUnderEttÅr';
 import OmArbeidsforholdetDitt from './arbeidsforhold/OmArbeidsforholdetDitt';
 import EtablererEgenVirksomhet from './EtablererEgenVirksomhet';
-import Arbeidssøker from './arbeidssøker/Arbeidssøker';
+import { Arbeidssøker } from './arbeidssøker/Arbeidssøker';
 import UnderUtdanning from './underUtdanning/UnderUtdanning';
 import EgetAS from './aksjeselskap/EgetAS';
 import FåttJobbTilbud from './FåttJobbTilbud';
