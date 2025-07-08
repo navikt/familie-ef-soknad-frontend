@@ -246,18 +246,6 @@ const søknadOvergangsstønadBarnasBosted = (søknad?: Partial<SøknadOvergangss
             verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
           },
         }),
-        lagIBarn({
-          navn: lagTekstfelt('Navn', 'GAMMEL TRUBADUR'),
-          fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-          ident: lagTekstfelt('', '09469425085'),
-          født: lagSpørsmålBooleanFelt('', '', '', true),
-          alder: lagTekstfelt('Alder', '3'),
-          harSammeAdresse: lagBooleanFelt('', true),
-          medforelder: {
-            label: '',
-            verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
-          },
-        }),
       ],
     }),
 

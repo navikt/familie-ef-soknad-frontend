@@ -37,6 +37,7 @@ const HvordanPraktiseresSamværet: React.FC<Props> = ({ forelder, settForelder }
       </FeltGruppe>
       <FeltGruppe>
         <Textarea
+          data-testid="hvordanPraktiseresSamværet"
           autoComplete={'off'}
           value={
             forelder.hvordanPraktiseresSamværet && forelder.hvordanPraktiseresSamværet.verdi
