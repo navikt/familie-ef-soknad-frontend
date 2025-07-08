@@ -4,7 +4,7 @@ import {
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import LocaleTekst from '../../../../language/LocaleTekst';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { hentTekst } from '../../../../utils/søknad';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
@@ -133,8 +133,8 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     <>
       <MultiSvarSpørsmål
         spørsmål={SagtOppEllerRedusertStillingSpm(intl)}
-        settSpørsmålOgSvar={settSagtOppEllerRedusertStilling}
         valgtSvar={sagtOppEllerRedusertStilling?.verdi}
+        onChange={settSagtOppEllerRedusertStilling}
       />
       {(harSagtOpp || harRedusertStilling) && (
         <>

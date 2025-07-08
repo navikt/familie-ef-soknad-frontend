@@ -16,7 +16,7 @@ import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { ESvar, ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
 import { hentBooleanFraValgtSvar } from '../../../utils/spørsmålogsvar';
 import { useSkjema } from '../SkjemaContext';
-import MultiSvarSpørsmål from '../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../components/spørsmål/MultiSvarSpørsmål';
 import {
   ERouteArbeidssøkerskjema,
   RoutesArbeidssokerskjema,
@@ -124,8 +124,8 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
           <KomponentGruppe>
             <MultiSvarSpørsmål
               spørsmål={ønsketArbeidssted(intl)}
-              settSpørsmålOgSvar={settMultiSvarSpørsmål}
               valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
+              onChange={settMultiSvarSpørsmål}
             />
           </KomponentGruppe>
         )}

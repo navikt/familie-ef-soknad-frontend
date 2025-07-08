@@ -11,7 +11,7 @@ import { IArbeidssøker } from '../../../../../models/steg/aktivitet/arbeidssøk
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
-import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
@@ -126,8 +126,8 @@ const Arbeidssøker: React.FC<Props> = ({
         <KomponentGruppe>
           <MultiSvarSpørsmål
             spørsmål={ønsketArbeidssted(intl)}
-            settSpørsmålOgSvar={settMultiSvarSpørsmål}
             valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
+            onChange={settMultiSvarSpørsmål}
           />
         </KomponentGruppe>
       )}

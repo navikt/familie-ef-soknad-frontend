@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { heltidEllerDeltidSpm } from './UtdanningConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
@@ -11,6 +11,7 @@ interface Props {
   utdanning: IUnderUtdanning;
   settUtdanning: (utdanning: IUnderUtdanning) => void;
 }
+
 const ErUtdanningenPåHeltidEllerDeltid: React.FC<Props> = ({ utdanning, settUtdanning }) => {
   const intl = useLokalIntlContext();
 
@@ -41,9 +42,8 @@ const ErUtdanningenPåHeltidEllerDeltid: React.FC<Props> = ({ utdanning, settUtd
     <KomponentGruppe>
       <MultiSvarSpørsmål
         spørsmål={heltidEllerDeltidSpm(intl)}
-        settSpørsmålOgSvar={settMultiSpørsmål}
         valgtSvar={utdanning.heltidEllerDeltid?.verdi}
-        className="toKorteSvar"
+        onChange={settMultiSpørsmål}
       />
     </KomponentGruppe>
   );

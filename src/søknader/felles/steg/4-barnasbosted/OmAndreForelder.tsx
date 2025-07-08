@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { EHvorforIkkeOppgi } from '../../../../models/steg/barnasbosted';
 import { hentTekst } from '../../../../utils/søknad';
 import { hvorforIkkeOppgi } from './ForeldreConfig';
@@ -205,12 +205,12 @@ const OmAndreForelder: React.FC<Props> = ({
         <KomponentGruppe>
           <MultiSvarSpørsmål
             spørsmål={hvorforIkkeOppgi(intl)}
-            settSpørsmålOgSvar={settHvorforIkkeOppgi}
             valgtSvar={
               forelder.hvorforIkkeOppgi?.svarid === EHvorforIkkeOppgi.annet
                 ? hentTekst('barnasbosted.spm.annet', intl)
                 : forelder.hvorforIkkeOppgi?.verdi
             }
+            onChange={settHvorforIkkeOppgi}
           />
         </KomponentGruppe>
       )}

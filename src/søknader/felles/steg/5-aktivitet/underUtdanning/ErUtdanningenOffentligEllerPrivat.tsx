@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { privatEllerOffentligSpm } from './UtdanningConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
@@ -29,9 +29,8 @@ const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtd
     <KomponentGruppe>
       <MultiSvarSpørsmål
         spørsmål={privatEllerOffentligSpm(intl)}
-        settSpørsmålOgSvar={settMultiSpørsmål}
         valgtSvar={utdanning.offentligEllerPrivat?.verdi}
-        className="toKorteSvar"
+        onChange={settMultiSpørsmål}
       />
     </KomponentGruppe>
   );

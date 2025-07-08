@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import DatoForSamlivsbrudd from './DatoForSamlivsbrudd';
 import EndringISamvær from './EndringISamvær';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
-import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
 import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
@@ -68,7 +68,7 @@ const ÅrsakEnslig: FC = () => {
           key={spørsmål.tekstid}
           spørsmål={spørsmål}
           valgtSvar={sivilstatus.årsakEnslig?.verdi}
-          settSpørsmålOgSvar={settÅrsakEnslig}
+          onChange={settÅrsakEnslig}
         />
       </KomponentGruppe>
 

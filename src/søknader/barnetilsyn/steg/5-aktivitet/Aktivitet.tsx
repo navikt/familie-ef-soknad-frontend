@@ -20,7 +20,7 @@ import {
   IAktivitet,
 } from '../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
@@ -143,8 +143,8 @@ const Aktivitet: React.FC = () => {
         <KomponentGruppe>
           <MultiSvarSpørsmål
             spørsmål={ErDuIArbeidSpm(intl)}
-            settSpørsmålOgSvar={settErDuIArbeid}
             valgtSvar={arbeidssituasjon?.erIArbeid?.verdi}
+            onChange={settErDuIArbeid}
           />
         </KomponentGruppe>
         {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (

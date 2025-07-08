@@ -3,7 +3,7 @@ import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import styled from 'styled-components';
 import { hvaSlagsStilling } from './ArbeidsgiverConfig';
-import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import HarSøkerSluttdato from './HarSøkerSluttdato';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
@@ -157,8 +157,8 @@ const Arbeidsgiver: React.FC<Props> = ({
         <FeltGruppe>
           <MultiSvarSpørsmål
             spørsmål={hvaSlagsStilling(intl)}
-            settSpørsmålOgSvar={settSpørsmålOgSvar}
             valgtSvar={arbeidsgiver.ansettelsesforhold?.verdi}
+            onChange={settSpørsmålOgSvar}
           />
         </FeltGruppe>
       )}

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
@@ -81,8 +81,8 @@ const BosituasjonSpørsmål: FC<Props> = ({
         <MultiSvarSpørsmål
           key={hovedSpørsmål.søknadid}
           spørsmål={hovedSpørsmål}
+          onChange={settBosituasjonFelt}
           valgtSvar={delerBoligMedAndreVoksne.verdi}
-          settSpørsmålOgSvar={settBosituasjonFelt}
         />
         {valgtSvar && valgtSvar.alert_tekstid && (
           <FeltGruppe>

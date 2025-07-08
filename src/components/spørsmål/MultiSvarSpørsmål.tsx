@@ -1,93 +1,56 @@
 import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LesMerTekst from '../LesMerTekst';
-import styled from 'styled-components';
-import Show from '../../utils/showIf';
 import { logSpørsmålBesvart } from '../../utils/amplitude';
 import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { RadioGroup } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
-
-const StyledMultisvarSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
-    margin-top: 0;
-  }
-  .navds-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .toKorteSvar .navds-radio-buttons {
-    grid-template-columns: 1fr 1fr;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import { hentTekst } from '../../utils/søknad';
+import { SpørsmålWrapper } from './SpørsmålWrapper';
+import { RadioTile } from './input/RadioTile';
 
 interface Props {
-  className?: string;
   spørsmål: ISpørsmål;
-  settSpørsmålOgSvar: (spørsmål: ISpørsmål, svar: ISvar) => void;
   valgtSvar: string | undefined;
+  onChange: (spørsmål: ISpørsmål, svar: ISvar) => void;
 }
 
-const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålOgSvar, valgtSvar }) => {
+export const MultiSvarSpørsmål: FC<Props> = ({ spørsmål, valgtSvar, onChange }) => {
   const intl = useLokalIntlContext();
 
-  const skalLogges = true;
+  const lesMerHeaderTekstid = spørsmål.lesmer?.headerTekstid;
+  const lesMerinnholdTekstid = spørsmål.lesmer?.innholdTekstid;
 
-  const url = window.location.href;
+  const svarAlternativer = spørsmål.svaralternativer.map((svar) => svar.svar_tekst);
 
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
+  const valgtVerdi = valgtSvar === undefined ? null : valgtSvar;
 
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
+  const håndterEndring = (valg: string) => {
+    const svarObjekt = spørsmål.svaralternativer.find((svar) => svar.svar_tekst === valg);
+
+    if (svarObjekt) {
+      const url = window.location.href;
+      const skjemanavn = urlTilSkjemanavn(url);
+      const skjemaId = skjemanavnTilId(skjemanavn);
+      const spørsmålTekst = hentTekst(spørsmål.tekstid, intl);
+
+      logSpørsmålBesvart(skjemanavn, skjemaId, spørsmålTekst, svarObjekt.svar_tekst, true);
+
+      onChange(spørsmål, svarObjekt);
+    }
+  };
 
   return (
-    <StyledMultisvarSpørsmål key={spørsmål.søknadid}>
-      <RadioGroup
-        legend={legend}
-        value={valgtSvar}
-        description={
-          <Show if={spørsmål.lesmer}>
-            <LesMerTekst
-              åpneTekstid={spørsmål.lesmer ? spørsmål.lesmer.headerTekstid : ''}
-              innholdTekstid={spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''}
-            />
-          </Show>
-        }
-      >
-        {spørsmål.svaralternativer.map((svar: ISvar) => {
-          const svarISøknad = svar.svar_tekst === valgtSvar;
-          return (
-            <RadioPanelCustom
-              className={className}
-              key={svar.svar_tekst}
-              name={spørsmål.søknadid}
-              value={svar.svar_tekst}
-              checked={svarISøknad ? svarISøknad : false}
-              onChange={() => {
-                logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
-                settSpørsmålOgSvar(spørsmål, svar);
-              }}
-            >
-              {svar.svar_tekst}
-            </RadioPanelCustom>
-          );
-        })}
-      </RadioGroup>
-    </StyledMultisvarSpørsmål>
+    <SpørsmålWrapper
+      tittel={hentTekst(spørsmål.tekstid, intl)}
+      lesMerTittel={lesMerHeaderTekstid && hentTekst(lesMerHeaderTekstid, intl)}
+      lesMerTekst={lesMerinnholdTekstid && hentTekst(lesMerinnholdTekstid, intl)}
+    >
+      <RadioTile
+        legend={spørsmål.tekstid ? hentTekst(spørsmål.tekstid, intl) : ''}
+        svarAlternativer={svarAlternativer}
+        radioTileLayoutDirection={'vertical'}
+        valgtVerdi={valgtVerdi}
+        onChange={håndterEndring}
+      />
+    </SpørsmålWrapper>
   );
 };
-
-export default MultiSvarSpørsmål;
