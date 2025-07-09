@@ -1,7 +1,7 @@
 import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
 import {
   klikkCheckbox,
-  klikkSvarRadioknapp,
+  klikkRadioknapp,
   navigerTilSteg,
   skrivFritekst,
 } from '../../../../test/actions';
@@ -14,9 +14,8 @@ import {
   lagPerson,
   lagSpørsmålBooleanFelt,
   lagTekstfelt,
-} from '../../../../test/utils';
+} from '../../../../test/domeneUtils';
 import { dagensDato, dagensIsoDatoMinusMåneder, formatDate } from '../../../../utils/dato';
-import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -50,7 +49,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
     expect(screen.getByText('Navn')).toBeInTheDocument();
-    expect(screen.getByText('GÅEN MEDFORELDER')).toBeInTheDocument();
+    expect(screen.getByText('GÅEN SKADE')).toBeInTheDocument();
     expect(
       screen.getByRole('group', { name: 'Bor GÅEN PCs andre forelder i Norge?' })
     ).toBeInTheDocument();
@@ -64,7 +63,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
 
     expect(
       screen.getByRole('combobox', { name: 'Hvilket land bor den andre forelderen i?' })
@@ -93,7 +92,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
@@ -104,7 +103,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.getByText(
@@ -122,7 +121,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
@@ -133,7 +132,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GÅEN PC?',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
@@ -155,7 +154,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.getByText(
@@ -173,7 +172,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
@@ -204,7 +203,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       )
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GÅEN PC?',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
@@ -226,7 +225,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.queryByRole('group', {
@@ -239,14 +238,14 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       )
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+    await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -259,7 +258,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.queryByRole('group', {
@@ -267,7 +266,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
@@ -278,7 +277,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GÅEN PC?',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
@@ -300,7 +299,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.queryByRole('group', {
@@ -308,7 +307,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
@@ -319,7 +318,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GÅEN PC?',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
@@ -358,7 +357,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.queryByRole('group', {
@@ -366,7 +365,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
@@ -377,7 +376,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+    await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
 
     expect(
       screen.queryByText((tekst) => tekst.includes('Du må legge ved samværsavtalen'))
@@ -411,7 +410,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
       screen.queryByRole('group', {
@@ -419,7 +418,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
@@ -442,8 +441,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
@@ -454,7 +453,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.queryByRole('textbox', { name: 'Hvordan bor dere nærme hverandre?' })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Ja',
       screen,
@@ -486,8 +485,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
@@ -500,7 +499,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Nei',
       screen,
@@ -518,8 +517,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
@@ -532,7 +531,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
@@ -550,14 +549,14 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
@@ -578,7 +577,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.queryByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Ja',
       screen,
@@ -613,14 +612,14 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
@@ -637,7 +636,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).toHaveLength(1);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
@@ -666,20 +665,20 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
@@ -688,7 +687,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes ikke',
       screen,
@@ -702,20 +701,20 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
@@ -724,7 +723,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes kun når barnet skal hentes eller leveres',
       screen,
@@ -738,20 +737,20 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
@@ -764,7 +763,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes også utenom henting og levering',
       screen,
@@ -792,26 +791,26 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes ikke',
       screen,
@@ -847,9 +846,10 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
       screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
     ).toBeInTheDocument();
     expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Endre informasjon Endre informasjon' }));
-
-    await user.click(screen.getByRole('button', { name: 'Neste' }));
+    expect(
+      screen.getByRole('button', { name: 'Endre informasjon Endre informasjon' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
 });
 
@@ -863,8 +863,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         person: lagPerson({
           barn: [
             lagIBarn({
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(0)),
-              født: lagSpørsmålBooleanFelt('', '', '', false),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+              født: lagSpørsmålBooleanFelt({ verdi: false }),
               harSammeAdresse: lagBooleanFelt('', true),
             }),
           ],
@@ -892,12 +892,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
       screen.queryByRole('textbox', { name: 'Hvorfor kan du ikke oppgi den andre forelderen?' })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
-      'Hvorfor kan du ikke oppgi den andre forelderen?',
-      'Annet',
-      screen,
-      user
-    );
+    await klikkRadioknapp('Hvorfor kan du ikke oppgi den andre forelderen?', 'Annet', screen, user);
 
     expect(
       screen.getByRole('textbox', { name: 'Hvorfor kan du ikke oppgi den andre forelderen?' })
@@ -921,8 +916,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         person: lagPerson({
           barn: [
             lagIBarn({
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(0)),
-              født: lagSpørsmålBooleanFelt('', '', '', false),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+              født: lagSpørsmålBooleanFelt({ verdi: false }),
               harSammeAdresse: lagBooleanFelt('', true),
             }),
           ],
@@ -953,12 +948,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
-      'Hvorfor kan du ikke oppgi den andre forelderen?',
-      'Donor',
-      screen,
-      user
-    );
+    await klikkRadioknapp('Hvorfor kan du ikke oppgi den andre forelderen?', 'Donor', screen, user);
 
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
@@ -972,8 +962,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         person: lagPerson({
           barn: [
             lagIBarn({
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(0)),
-              født: lagSpørsmålBooleanFelt('', '', '', false),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+              født: lagSpørsmålBooleanFelt({ verdi: false }),
               harSammeAdresse: lagBooleanFelt('', true),
             }),
           ],
@@ -1051,8 +1041,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         person: lagPerson({
           barn: [
             lagIBarn({
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(0)),
-              født: lagSpørsmålBooleanFelt('', '', '', false),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+              født: lagSpørsmålBooleanFelt({ verdi: false }),
               harSammeAdresse: lagBooleanFelt('', false),
             }),
           ],
@@ -1069,7 +1059,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
       screen.queryByRole('group', { name: 'Bor barnets andre forelder i Norge?' })
     ).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Skal barnet ha adresse hos deg?',
       'Ja, og vi har eller skal registrere adressen i Folkeregisteret',
       screen,
@@ -1083,7 +1073,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Navn' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Skal barnet ha adresse hos deg?',
       'Ja, men den andre forelderen samarbeider ikke om adresseendring',
       screen,
@@ -1099,7 +1089,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Navn' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Skal barnet ha adresse hos deg?',
       'Nei, barnet har adresse hos den andre forelderen fordi vi har avtale om delt fast bosted',
       screen,
@@ -1108,7 +1098,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Navn' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp('Skal barnet ha adresse hos deg?', 'Nei', screen, user);
+    await klikkRadioknapp('Skal barnet ha adresse hos deg?', 'Nei', screen, user);
     expect(
       screen.getByText(
         'Når barnet ikke bor hos deg, har du ikke rett til stønad til enslig mor eller far.'
@@ -1130,16 +1120,16 @@ describe('2 barn, samme forelder', () => {
           barn: [
             lagIBarn({
               id: '1',
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               forelder: lagIForelder({
-                navn: lagTekstfelt('', 'Forelder'),
+                navn: lagTekstfelt({ verdi: 'Forelder' }),
                 id: '1',
-                ident: lagTekstfelt('', '22891699941'),
+                ident: lagTekstfelt({ verdi: '22891699941' }),
               }),
               medforelder: {
                 label: '',
@@ -1148,16 +1138,16 @@ describe('2 barn, samme forelder', () => {
             }),
             lagIBarn({
               id: '2',
-              navn: lagTekstfelt('Navn', 'GAMMEL TRUBADUR'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(45)),
-              ident: lagTekstfelt('', '09469425085'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '3'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09469425085' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
               harSammeAdresse: lagBooleanFelt('', true),
               forelder: lagIForelder({
-                navn: lagTekstfelt('', 'Forelder'),
+                navn: lagTekstfelt({ verdi: 'Forelder' }),
                 id: '1',
-                ident: lagTekstfelt('', '22891699941'),
+                ident: lagTekstfelt({ verdi: '22891699941' }),
               }),
               medforelder: {
                 label: '',
@@ -1170,26 +1160,26 @@ describe('2 barn, samme forelder', () => {
     );
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes ikke',
       screen,
@@ -1261,16 +1251,16 @@ describe('2 barn, samme forelder', () => {
           barn: [
             lagIBarn({
               id: '1',
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               forelder: lagIForelder({
-                navn: lagTekstfelt('', 'Forelder'),
+                navn: lagTekstfelt({ verdi: 'Forelder' }),
                 id: '1',
-                ident: lagTekstfelt('', '22891699941'),
+                ident: lagTekstfelt({ verdi: '22891699941' }),
               }),
               medforelder: {
                 label: '',
@@ -1279,16 +1269,16 @@ describe('2 barn, samme forelder', () => {
             }),
             lagIBarn({
               id: '2',
-              navn: lagTekstfelt('Navn', 'GAMMEL TRUBADUR'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(45)),
-              ident: lagTekstfelt('', '09469425085'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '3'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09469425085' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
               harSammeAdresse: lagBooleanFelt('', true),
               forelder: lagIForelder({
-                navn: lagTekstfelt('', 'Forelder'),
+                navn: lagTekstfelt({ verdi: 'Forelder' }),
                 id: '1',
-                ident: lagTekstfelt('', '22891699941'),
+                ident: lagTekstfelt({ verdi: '22891699941' }),
               }),
               medforelder: {
                 label: '',
@@ -1301,26 +1291,26 @@ describe('2 barn, samme forelder', () => {
     );
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes ikke',
       screen,
@@ -1337,7 +1327,7 @@ describe('2 barn, samme forelder', () => {
       screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
       'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
@@ -1353,7 +1343,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
@@ -1363,7 +1353,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
@@ -1373,7 +1363,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
       'Nei',
       screen,
@@ -1383,13 +1373,13 @@ describe('2 barn, samme forelder', () => {
     expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
       'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
@@ -1404,7 +1394,7 @@ describe('2 barn, samme forelder', () => {
       1
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
@@ -1432,7 +1422,7 @@ describe('2 barn, samme forelder', () => {
 
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
       'Nei',
       screen,
@@ -1458,7 +1448,7 @@ describe('2 barn, samme forelder', () => {
 
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
@@ -1482,16 +1472,16 @@ describe('2 barn, samme forelder', () => {
           barn: [
             lagIBarn({
               id: '1',
-              navn: lagTekstfelt('Navn', 'GÅEN PC'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(65)),
-              ident: lagTekstfelt('', '18877598140'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '5'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
               harSammeAdresse: lagBooleanFelt('', true),
               forelder: lagIForelder({
-                navn: lagTekstfelt('', 'SØKENDE FORELDER'),
+                navn: lagTekstfelt({ verdi: 'SØKENDE FORELDER' }),
                 id: '1',
-                ident: lagTekstfelt('', '22891699941'),
+                ident: lagTekstfelt({ verdi: '22891699941' }),
               }),
               medforelder: {
                 label: '',
@@ -1500,16 +1490,16 @@ describe('2 barn, samme forelder', () => {
             }),
             lagIBarn({
               id: '2',
-              navn: lagTekstfelt('Navn', 'GAMMEL TRUBADUR'),
-              fødselsdato: lagTekstfelt('', dagensIsoDatoMinusMåneder(45)),
-              ident: lagTekstfelt('', '09469425085'),
-              født: lagSpørsmålBooleanFelt('', '', '', true),
-              alder: lagTekstfelt('Alder', '3'),
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09469425085' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
               harSammeAdresse: lagBooleanFelt('', true),
               forelder: lagIForelder({
-                navn: lagTekstfelt('', 'SØKENDE FORELDER'),
+                navn: lagTekstfelt({ verdi: 'SØKENDE FORELDER' }),
                 id: '1',
-                ident: lagTekstfelt('', '22891699941'),
+                ident: lagTekstfelt({ verdi: '22891699941' }),
               }),
               medforelder: {
                 label: '',
@@ -1522,41 +1512,39 @@ describe('2 barn, samme forelder', () => {
     );
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GÅEN PC?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
       'Vi møtes ikke',
       screen,
       user
     );
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-
-    console.log(prettyDOM(undefined, Infinity));
 
     expect(
       screen.getByRole('heading', {
