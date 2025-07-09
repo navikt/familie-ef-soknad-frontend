@@ -1606,8 +1606,724 @@ describe('2 barn, samme forelder', () => {
   });
 });
 
+describe('2 barn, forskjellige foreldre', () => {
+  test('Oversikten over første barn, første spørsmål andre barn', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+            lagIBarn({
+              id: '2',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09469425085' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '24520386773' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
+    expect(screen.getByText('GÅEN MEDFORELDER')).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Bor GÅEN PCs andre forelder i Norge?'))
+    ).toBeInTheDocument();
+    expect(screen.getByText('Har den andre forelderen samvær med GÅEN PC?')).toBeInTheDocument();
+    expect(
+      screen.getByText('Nei, den andre forelderen har ikke samvær med barnet')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GÅEN PC før?')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Endre informasjon Endre informasjon' })
+    ).toBeInTheDocument();
+
+    expect(screen.getAllByText('Ja')).toHaveLength(2); //En per barn på spørsmål om annen forelder bor i Norge
+    expect(screen.getAllByText('Nei')).toHaveLength(2); //En per barn på spørsmål om annen forelder bor i Norge
+
+    expect(screen.getByText('GAMMEL TRUBADUR')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+  });
+
+  test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+            lagIBarn({
+              id: '2',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09469425085' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '24520386773' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    expect(
+      screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+    ).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Nei', screen, user);
+
+    expect(
+      screen.getByRole('combobox', { name: 'Hvilket land bor den andre forelderen i?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+    ).not.toBeInTheDocument();
+
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: 'Hvilket land bor den andre forelderen i?',
+      }),
+      'Kuwait'
+    );
+
+    expect(
+      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
+
+    expect(
+      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
+    ).toBeInTheDocument();
+    expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).not.toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+
+    expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+
+    expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Nei',
+      screen,
+      user
+    );
+
+    expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+
+    expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    expect(screen.getAllByText('Vi trenger opplysninger om')).toHaveLength(1);
+    expect(screen.getAllByText('når barnet reiser til og fra den andre forelderen')).toHaveLength(
+      1
+    );
+
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
+    expect(screen.getByText('Hvordan praktiserer dere samværet?')).toBeInTheDocument();
+    expect(screen.getAllByText('Vi trenger opplysninger om')).toHaveLength(2);
+    expect(
+      screen.getByText(
+        'hvor mange dager og netter barnet oppholder seg hos den andre forelderen i minst en to ukers-periode'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('når barnet reiser til og fra den andre forelderen')).toHaveLength(
+      2
+    );
+    expect(screen.getByTestId('hvordanPraktiseresSamværet')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+
+    await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'Ved å være sammen');
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Nei',
+      screen,
+      user
+    );
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
+    expect(screen.getByText('Hvordan praktiserer dere samværet?')).toBeInTheDocument();
+    expect(screen.getAllByText('Vi trenger opplysninger om')).toHaveLength(2);
+    expect(
+      screen.getByText(
+        'hvor mange dager og netter barnet oppholder seg hos den andre forelderen i minst en to ukers-periode'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('når barnet reiser til og fra den andre forelderen')).toHaveLength(
+      2
+    );
+    expect(screen.getByTestId('hvordanPraktiseresSamværet')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(screen.getByTestId('hvordanPraktiseresSamværet')).toHaveValue('');
+
+    await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'ikke ha samværsavtale');
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    expect(
+      screen.queryByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('hvordanPraktiseresSamværet')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Ja',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('textbox', { name: 'Hvordan bor dere nærme hverandre?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', {
+        name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      })
+    ).not.toBeInTheDocument();
+
+    await user.type(
+      screen.getByRole('textbox', { name: 'Hvordan bor dere nærme hverandre?' }),
+      'Ved å eksistere'
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?')
+    ).not.toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      'Nei',
+      screen,
+      user
+    );
+    expect(
+      screen.getByRole('group', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Vi møtes også utenom henting og levering',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      })
+    ).toBeInTheDocument();
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      }),
+      'Masse'
+    );
+
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Vi møtes kun når barnet skal hentes eller leveres',
+      screen,
+      user
+    );
+
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      'Ja',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('textbox', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      })
+    ).not.toBeInTheDocument();
+
+    await user.type(
+      screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' }),
+      '12.06.2025'
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Nei',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('Oversikten over begge barn', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'SPRUDLENE MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+            lagIBarn({
+              id: '2',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09469425085' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '24520386773' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'SPRUDLENE MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
+
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
+    expect(screen.getByText('ABSOLUTT FORELDER')).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Bor GÅEN PCs andre forelder i Norge?'))
+    ).toBeInTheDocument();
+    expect(screen.getByText('Har den andre forelderen samvær med GÅEN PC?')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GÅEN PC før?')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toBeInTheDocument();
+
+    expect(screen.getByRole('heading', { level: 3, name: 'GAMMEL TRUBADUR' })).toBeInTheDocument();
+    expect(screen.getByText('GAMMEL TRUBADURs andre forelder')).toBeInTheDocument();
+    expect(screen.getByText('UKJENT KJEKKAS')).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Bor GAMMEL TRUBADURs andre forelder i Norge?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Har den andre forelderen samvær med GAMMEL TRUBADUR?')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?')
+    ).toBeInTheDocument();
+
+    expect(screen.getAllByText('Ja')).toHaveLength(2);
+    expect(
+      screen.getAllByText('Nei, den andre forelderen har ikke samvær med barnet')
+    ).toHaveLength(2);
+    expect(screen.getAllByText('Jeg vet ikke hvor den andre forelderen bor')).toHaveLength(2);
+    expect(screen.getAllByText('Nei')).toHaveLength(2);
+    expect(screen.getAllByText('Vi møtes ikke')).toHaveLength(2);
+    expect(
+      screen.getAllByRole('button', { name: 'Endre informasjon Endre informasjon' })
+    ).toHaveLength(2);
+
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+  });
+});
+
 //Skrive tester for flere barn
-//Flere terminbarn (tvillinger f.eks)
 //Skrive tester for oppsummeringssiden, med alle alternativer
 //Skrive tester om skalAnnenForelderRedigeres i barnetsbostedendre.ts
 //Skrive tester for flere barn, div kombinasjoner av foreldre (Samme foreldre, forskjellige foreldre, noen ukjente, noen kjente osv)
