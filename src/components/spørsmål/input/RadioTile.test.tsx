@@ -12,7 +12,7 @@ describe('RadioTile komponent', () => {
         radioTileLayoutDirection={'horizontal'}
         valgtVerdi={null}
         onChange={() => {}}
-      ></RadioTile>
+      />
     );
 
     svarAlternativer.forEach((alternativ) => {
