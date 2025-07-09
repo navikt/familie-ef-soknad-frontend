@@ -34,3 +34,14 @@ export interface ITekst {
   label_tekstid: string;
   alert_tekstid?: string;
 }
+
+export interface StegSpørsmål {
+  id: string;
+  spørsmålKey: string;
+  svarAlternativer?: SvarAlternativ[];
+}
+
+export interface SvarAlternativ {
+  id: string;
+  labelKey: string;
+}
