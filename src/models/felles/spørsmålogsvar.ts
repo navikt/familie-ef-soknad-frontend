@@ -38,7 +38,6 @@ export interface ITekst {
 export interface StegSpørsmål {
   id: string;
   spørsmålKey: string;
-  svarAlternativer?: SvarAlternativ[];
 }
 
 export interface SvarAlternativ {

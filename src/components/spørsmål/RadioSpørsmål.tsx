@@ -1,7 +1,7 @@
 import React from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Box, Radio, RadioGroup } from '@navikt/ds-react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/søknad';
 import styles from './RadioSpørsmål.module.css';
 import clsx from 'clsx';
@@ -10,18 +10,24 @@ export type SvarLayout = 'vertical' | 'horizontal';
 
 export interface Props {
   spørsmål: StegSpørsmål;
+  svarAlternativer: SvarAlternativ[];
   valgtVerdi: SvarAlternativ | undefined;
   svarLayout: SvarLayout;
   onChange: (svar: SvarAlternativ) => void;
 }
 
-export const RadioSpørsmål: React.FC<Props> = ({ spørsmål, valgtVerdi, svarLayout, onChange }) => {
+export const RadioSpørsmål: React.FC<Props> = ({
+  spørsmål,
+  svarAlternativer,
+  valgtVerdi,
+  svarLayout,
+  onChange,
+}) => {
   const intl = useLokalIntlContext();
   const spørsmålTekst = hentTekst(spørsmål.spørsmålKey, intl);
-  const svarAlternativer = spørsmål.svarAlternativer;
 
   const handleChange = (valgtSvarId: string) => {
-    const valgt = svarAlternativer?.find((svar: SvarAlternativ) => svar.id === valgtSvarId);
+    const valgt = svarAlternativer.find((svar) => svar.id === valgtSvarId);
     if (valgt) onChange(valgt);
   };
 
@@ -31,16 +37,21 @@ export const RadioSpørsmål: React.FC<Props> = ({ spørsmål, valgtVerdi, svarL
         role="group"
         className={svarLayout === 'vertical' ? styles.stackVertical : styles.stackHorizontal}
       >
-        {svarAlternativer?.map((svar) => (
-          <Box
-            key={svar.id}
-            className={clsx(styles.radioBox, {
-              [styles.selected]: valgtVerdi?.id === svar.id,
-            })}
-          >
-            <Radio value={svar.id}>{hentTekst(svar.labelKey, intl)}</Radio>
-          </Box>
-        ))}
+        {svarAlternativer.map((svar) => {
+          const isSelected = valgtVerdi?.id === svar.id;
+
+          return (
+            <label
+              key={svar.id}
+              htmlFor={svar.id}
+              className={clsx(styles.radioBox, { [styles.selected]: isSelected })}
+            >
+              <Radio id={svar.id} value={svar.id} name={spørsmål.spørsmålKey}>
+                {hentTekst(svar.labelKey, intl)}
+              </Radio>
+            </label>
+          );
+        })}
       </div>
     </RadioGroup>
   );
