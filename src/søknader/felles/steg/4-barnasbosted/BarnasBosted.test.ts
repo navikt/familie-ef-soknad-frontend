@@ -2323,7 +2323,1280 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 });
 
-//Skrive tester for flere barn
-//Skrive tester for oppsummeringssiden, med alle alternativer
+describe('Oppsummeringssiden viser riktig informasjon', () => {
+  test('Oversikten viser annen forelder bor i Norge', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Bor GÅEN PCs andre forelder i Norge?'))
+    ).toBeInTheDocument();
+    expect(screen.getByText('Ja')).toBeInTheDocument();
+  });
+  test('Oversikten viser annen forelder bor ikke i Norge', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
+
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: 'Hvilket land bor den andre forelderen i?',
+      }),
+      'Argentina'
+    );
+
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Bor GÅEN PCs andre forelder i Norge?'))
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('Nei')).toHaveLength(2); //Nei dukker opp på et annet spørsmål og.
+    expect(
+      screen.getByText((tekst) => tekst.includes('Hvilket land bor den andre forelderen i?'))
+    ).toBeInTheDocument();
+    expect(screen.getByText('Argentina')).toBeInTheDocument();
+  });
+  test('Oversikten viser annen forelder har mindre samvær enn en ettermiddag + annenhver helg', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+    await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Har den andre forelderen samvær med GÅEN PC?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende'
+      )
+    ).toBeInTheDocument();
+  });
+  test('Oversikten viser annen forelder har mer samvær enn en ettermiddag + annenhver helg', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GÅEN PC?',
+      'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Har den andre forelderen samvær med GÅEN PC?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende'
+      )
+    ).toBeInTheDocument();
+  });
+  test('Oversikten viser annen forelder har ikke samvær', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Har den andre forelderen samvær med GÅEN PC?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Nei, den andre forelderen har ikke samvær med barnet')
+    ).toBeInTheDocument();
+  });
+  test('Oversikten viser har ukjent samvær, beskrivende samværsavtale', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GÅEN PC?',
+      'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Har den andre forelderen samvær med GÅEN PC?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende'
+      )
+    ).toBeInTheDocument();
+  });
+  test('Oversikten viser har ukjent samvær, ikke-beskrivende samværsavtale', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GÅEN PC?',
+      'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+
+    await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'En beskrivelse av samværet');
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Har den andre forelderen samvær med GÅEN PC?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Har dere skriftlig samværsavtale for GÅEN PC?')).toBeInTheDocument();
+    expect(
+      screen.getByText('Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Hvordan praktiserer dere samværet?')).toBeInTheDocument();
+    expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
+  });
+  test('Oversikten viser har ukjent samvær, ikke samværsavtale', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+    await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+
+    await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'En beskrivelse av samværet');
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) => tekst.includes('Har den andre forelderen samvær med GÅEN PC?'))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Har dere skriftlig samværsavtale for GÅEN PC?')).toBeInTheDocument();
+    expect(screen.getAllByText('Nei')).toHaveLength(2); // Nei på et annet spørsmål også
+    expect(screen.getByText('Hvordan praktiserer dere samværet?')).toBeInTheDocument();
+    expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
+  });
+  test('Oversikten viser foreldre bor nærme', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Ja',
+      screen,
+      user
+    );
+
+    await user.type(
+      screen.getByRole('textbox', { name: 'Hvordan bor dere nærme hverandre?' }),
+      'Naboer'
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('Ja')).toHaveLength(2);
+  });
+  test('Oversikten viser foreldre bor ikke nærme', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('Nei')).toHaveLength(2);
+  });
+  test('Oversikten viser vet ikke hvor den andre forelderen bor', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
+  });
+  test('Oversikten viser har bodd med den andre forelderen før', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Ja',
+      screen,
+      user
+    );
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Når flyttet dere fra hverandre?',
+      }),
+      '02.06.2025'
+    );
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GÅEN PC før?')
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('Ja')).toHaveLength(2);
+    expect(screen.getByText('Når flyttet dere fra hverandre?')).toBeInTheDocument();
+    expect(screen.getByText('02.06.2025')).toBeInTheDocument();
+  });
+  test('Oversikten viser har ikke bodd med den andre forelderen før', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GÅEN PC før?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Nei')).toBeInTheDocument();
+  });
+  test('Oversikten viser møter ikke andre forelder', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
+  });
+  test('Oversikten viser møtes ved henting og levering', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes kun når barnet skal hentes eller leveres',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Vi møtes kun når barnet skal hentes eller leveres')
+    ).toBeInTheDocument();
+  });
+  test('Oversikten viser møtes ved henting og levering', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes også utenom henting og levering',
+      screen,
+      user
+    );
+
+    await user.type(
+      screen.getByRole('textbox', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      }),
+      'Masse'
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getAllByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toHaveLength(2); //De to spørsmålene er like
+    expect(screen.getByText('Vi møtes også utenom henting og levering')).toBeInTheDocument();
+    expect(screen.getByText('Masse')).toBeInTheDocument();
+  });
+});
+
 //Skrive tester om skalAnnenForelderRedigeres i barnetsbostedendre.ts
-//Skrive tester for flere barn, div kombinasjoner av foreldre (Samme foreldre, forskjellige foreldre, noen ukjente, noen kjente osv)
