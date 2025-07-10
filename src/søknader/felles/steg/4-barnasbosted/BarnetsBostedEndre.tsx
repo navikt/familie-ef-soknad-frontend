@@ -275,7 +275,11 @@ const BarnetsBostedEndre: React.FC<Props> = ({
         )}
 
         {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) && (
-          <Button variant="secondary" onClick={leggTilForelder}>
+          <Button
+            variant="secondary"
+            onClick={leggTilForelder}
+            data-testid={'leggTilForelderKnapp'}
+          >
             <LocaleTekst tekst={'knapp.neste'} />
           </Button>
         )}

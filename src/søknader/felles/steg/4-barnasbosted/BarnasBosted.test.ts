@@ -3599,4 +3599,226 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
   });
 });
 
-//Skrive tester om skalAnnenForelderRedigeres i barnetsbostedendre.ts
+describe('Endre informasjon', () => {
+  test('Oversikten viser møter ikke andre forelder', async () => {
+    mockMellomlagretSøknad(
+      'overgangsstonad',
+      '/barnas-bosted',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              id: '1',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              forelder: lagIForelder({
+                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
+                id: '1',
+                ident: lagTekstfelt({ verdi: '22891699941' }),
+              }),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilSteg();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Nei, den andre forelderen har ikke samvær med barnet',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Jeg vet ikke hvor den andre forelderen bor',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes ikke',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByText('GÅEN PC')).toBeInTheDocument();
+    expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
+    expect(screen.getByText('ABSOLUTT FORELDER')).toBeInTheDocument();
+    expect(screen.getByText('Bor GÅEN PCs andre forelder i Norge?')).toBeInTheDocument();
+    expect(screen.getByText('Ja')).toBeInTheDocument();
+    expect(screen.getByText('Har den andre forelderen samvær med GÅEN PC?')).toBeInTheDocument();
+    expect(
+      screen.getByText('Nei, den andre forelderen har ikke samvær med barnet')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GÅEN PC før?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Nei')).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Endre informasjon Endre informasjon' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Endre informasjon Endre informasjon' }));
+
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 4, name: 'Barnets andre forelder' })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Navn')).toBeInTheDocument();
+    expect(screen.getByText('GÅEN MEDFORELDER')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
+
+    await user.selectOptions(
+      screen.getByRole('combobox', {
+        name: 'Hvilket land bor den andre forelderen i?',
+      }),
+      'Kuwait'
+    );
+
+    await klikkRadioknapp(
+      'Har den andre forelderen samvær med GÅEN PC?',
+      'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har dere skriftlig samværsavtale for GÅEN PC?',
+      'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
+      screen,
+      user
+    );
+
+    await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'Ved å være sammen');
+
+    await klikkRadioknapp(
+      'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Nei',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp(
+      'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
+      'Ja',
+      screen,
+      user
+    );
+
+    await skrivFritekst('Når flyttet dere fra hverandre?', '02.06.2025', screen, user);
+
+    await klikkRadioknapp(
+      'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+      'Vi møtes kun når barnet skal hentes eller leveres',
+      screen,
+      user
+    );
+
+    await user.click(screen.getByTestId('leggTilForelderKnapp'));
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: 'Den andre forelderen og samvær',
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByText('GÅEN PC')).toBeInTheDocument();
+    expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
+    expect(screen.getByText('ABSOLUTT FORELDER')).toBeInTheDocument();
+    expect(screen.getByText('Bor GÅEN PCs andre forelder i Norge?')).toBeInTheDocument();
+    expect(screen.getAllByText('Nei')).toHaveLength(2);
+    expect(screen.getByText('Har den andre forelderen samvær med GÅEN PC?')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Har dere skriftlig samværsavtale for GÅEN PC?')).toBeInTheDocument();
+    expect(
+      screen.getByText('Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Hvordan praktiserer dere samværet?')).toBeInTheDocument();
+    expect(screen.getByText('Ved å være sammen')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('Nei')).toHaveLength(2);
+    expect(
+      screen.getByText('Har du bodd sammen med den andre forelderen til GÅEN PC før?')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Ja')).toBeInTheDocument();
+    expect(screen.getByText('Når flyttet dere fra hverandre?')).toBeInTheDocument();
+    expect(screen.getByText('02.06.2025')).toBeInTheDocument();
+    expect(
+      screen.getByText('Hvor mye er du sammen med den andre forelderen til GÅEN PC?')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Vi møtes kun når barnet skal hentes eller leveres')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Endre informasjon Endre informasjon' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+  });
+});
