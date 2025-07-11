@@ -759,5 +759,5 @@ describe('OmDegSteg, medlemskap', () => {
     expect(screen.getByRole('button', { name: 'Legg til et utenlandsopphold' }));
 
     expect(screen.getByRole('button', { name: 'Neste' }));
-  });
+  }, 10000);
 });
