@@ -30,7 +30,7 @@ export const navigerTilSteg = async () => {
   return { screen, user };
 };
 
-export const klikkSvarRadioknapp = async (
+export const klikkRadioknapp = async (
   groupName: string,
   radioLabel: string,
   screen: Screen,
@@ -42,11 +42,11 @@ export const klikkSvarRadioknapp = async (
 };
 
 export const klikkCheckbox = async (name: string, screen: Screen, user: UserEvent) => {
-  await user.click(
-    screen.getByRole('checkbox', {
-      name: name,
-    })
-  );
+  await user.click(screen.getByRole('checkbox', { name: name }));
+};
+
+export const klikkKomponentMedId = async (id: string, screen: Screen, user: UserEvent) => {
+  await user.click(screen.getByTestId(id));
 };
 
 export const skrivFritekst = async (
@@ -56,4 +56,13 @@ export const skrivFritekst = async (
   user: UserEvent
 ) => {
   await user.type(screen.getByRole('textbox', { name: name }), fritekst);
+};
+
+export const skrivFritekstTilKomponentMedId = async (
+  id: string,
+  fritekst: string,
+  screen: Screen,
+  user: UserEvent
+) => {
+  await user.type(screen.getByTestId(id), fritekst);
 };

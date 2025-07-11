@@ -16,6 +16,7 @@ import {
   slettIrrelevantPropertiesHvisHuketAvKanIkkeOppgiAnnenForelder,
 } from '../../../../helpers/steg/forelder';
 import { TextFieldMedBredde } from '../../../../components/TextFieldMedBredde';
+import { identErGyldig } from '../../../../utils/validering/validering';
 
 interface Props {
   settForelder: (verdi: IForelder) => void;
@@ -58,12 +59,9 @@ const OmAndreForelder: React.FC<Props> = ({
     // eslint-disable-next-line
   }, [erGyldigIdent, identFelt]);
 
-  const hvisGyldigIdentSettIdent = (erGyldig: boolean) => {
-    settGyldigIdent(erGyldig);
-  };
-
-  const oppdaterIdent = (e: React.FormEvent<HTMLInputElement>) => {
-    settIdentFelt(e.currentTarget.value);
+  const hvisGyldigIdentSettIdent = (ident: string) => {
+    settGyldigIdent(identErGyldig(ident));
+    settIdentFelt(ident);
   };
 
   const settChecked = (checked: boolean) => {
@@ -195,10 +193,9 @@ const OmAndreForelder: React.FC<Props> = ({
           fødselsdato={forelder?.fødselsdato?.verdi || ''}
           checked={kjennerIkkeIdent}
           erGyldigIdent={erGyldigIdent}
-          settGyldigIdent={hvisGyldigIdentSettIdent}
+          settIdent={hvisGyldigIdentSettIdent}
           settFødselsdato={settFødselsdato}
           settChecked={settChecked}
-          settIdent={oppdaterIdent}
         />
       )}
       {forelder.kanIkkeOppgiAnnenForelderFar?.verdi && (

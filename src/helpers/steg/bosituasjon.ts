@@ -25,7 +25,7 @@ const harFerdigUtfyltOmSamboer = (
 ): boolean =>
   harValgtSvar(samboerDetaljer?.navn?.verdi) &&
   (erIdentValgfritt
-    ? true
+    ? samboerDetaljer?.kjennerIkkeIdent || harSattIdent(samboerDetaljer?.ident?.verdi)
     : harSattIdent(samboerDetaljer?.ident?.verdi) ||
       harSattFødselsdato(samboerDetaljer?.fødselsdato?.verdi));
 

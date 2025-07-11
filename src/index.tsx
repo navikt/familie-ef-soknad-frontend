@@ -35,6 +35,8 @@ if (container == null) {
   throw new Error('Mangler container for appen');
 } else {
   const root = createRoot(container);
+
+  //TODO: Prefix med /overganggstonad
   root.render(
     <SpråkProvider>
       <ContextProviders>

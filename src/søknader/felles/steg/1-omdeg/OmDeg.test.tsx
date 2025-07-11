@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
 import {
   klikkCheckbox,
-  klikkSvarRadioknapp,
+  klikkRadioknapp,
   navigerTilSteg,
   skrivFritekst,
 } from '../../../../test/actions';
@@ -31,7 +31,7 @@ describe('OmDegSteg, personopplysninger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -46,7 +46,7 @@ describe('OmDegSteg, personopplysninger', () => {
     });
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -59,7 +59,7 @@ describe('OmDegSteg, personopplysninger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -67,12 +67,7 @@ describe('OmDegSteg, personopplysninger', () => {
       })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
-      'Har du meldt adresseendring til Folkeregisteret?',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkRadioknapp('Har du meldt adresseendring til Folkeregisteret?', 'Ja', screen, user);
 
     expect(
       screen.getByText(
@@ -80,12 +75,7 @@ describe('OmDegSteg, personopplysninger', () => {
       )
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
-      'Har du meldt adresseendring til Folkeregisteret?',
-      'Nei',
-      screen,
-      user
-    );
+    await klikkRadioknapp('Har du meldt adresseendring til Folkeregisteret?', 'Nei', screen, user);
 
     expect(
       screen.getByText((tekst) =>
@@ -100,7 +90,7 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -108,7 +98,7 @@ describe('OmDegSteg, sivilstatus', () => {
       })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Ja',
       screen,
@@ -125,7 +115,7 @@ describe('OmDegSteg, sivilstatus', () => {
       })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
@@ -144,12 +134,10 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer spørsmål om uregistrert gift/skilt/separert dersom bruker er gift', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg', {
-      sivilstand: 'GIFT',
-    });
+    mockMellomlagretSøknad('overgangsstonad', '/om-deg', { sivilstand: 'GIFT' });
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -157,7 +145,7 @@ describe('OmDegSteg, sivilstatus', () => {
       })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
       'Nei',
       screen,
@@ -174,7 +162,7 @@ describe('OmDegSteg, sivilstatus', () => {
       })
     ).toBeInTheDocument();
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
       'Ja',
       screen,
@@ -209,23 +197,23 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Samlivsbrudd med den andre forelderen',
       screen,
@@ -245,23 +233,23 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Samlivsbrudd med noen andre',
       screen,
@@ -322,23 +310,23 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Samlivsbrudd med noen andre',
       screen,
@@ -391,23 +379,23 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn fra fødsel',
       screen,
@@ -425,23 +413,23 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Endring i omsorgen for barn',
       screen,
@@ -466,23 +454,23 @@ describe('OmDegSteg, sivilstatus', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
@@ -521,27 +509,27 @@ describe('OmDegSteg, medlemskap', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
     expect(
       screen.getByRole('group', {
@@ -554,27 +542,27 @@ describe('OmDegSteg, medlemskap', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Nei', screen, user);
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Nei', screen, user);
 
     expect(
       screen.getByRole('combobox', {
@@ -600,29 +588,29 @@ describe('OmDegSteg, medlemskap', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
 
     expect(screen.getByRole('button', { name: 'Neste' }));
   });
@@ -631,29 +619,29 @@ describe('OmDegSteg, medlemskap', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
 
     await user.type(screen.getByRole('textbox', { name: 'Fra' }), '02.06.2019');
 
@@ -684,29 +672,29 @@ describe('OmDegSteg, medlemskap', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen, user } = await navigerTilSteg();
 
-    await klikkSvarRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp(
       'Er du gift uten at det er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       'Nei',
       screen,
       user
     );
-    await klikkSvarRadioknapp(
+    await klikkRadioknapp(
       'Hvorfor er du alene med barn?',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
     );
 
-    await klikkSvarRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
 
-    await klikkSvarRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
 
     await user.type(screen.getByRole('textbox', { name: 'Fra' }), '02.06.2019');
 
@@ -771,5 +759,5 @@ describe('OmDegSteg, medlemskap', () => {
     expect(screen.getByRole('button', { name: 'Legg til et utenlandsopphold' }));
 
     expect(screen.getByRole('button', { name: 'Neste' }));
-  });
+  }, 10000);
 });
