@@ -1,4 +1,4 @@
-import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
+import { ISpørsmål, StegSpørsmål } from '../../../../../models/felles/spørsmålogsvar';
 import { JaNeiSvar, JaSvar, NeiSvar } from '../../../../../helpers/svar';
 import { ESøknad } from '../../../../overgangsstønad/models/søknad';
 import { LokalIntlShape } from '../../../../../language/typer';
@@ -10,6 +10,11 @@ export const borDuPåDenneAdressen = (intl: LokalIntlShape): ISpørsmål => ({
   tekstid: 'personopplysninger.spm.riktigAdresse',
   flersvar: false,
   svaralternativer: JaNeiSvar(intl),
+});
+
+export const borDuPåDenneAdressenStegSpørsmål = (): StegSpørsmål => ({
+  id: ESøknad.søkerBorPåRegistrertAdresse,
+  spørsmålKey: 'personopplysninger.spm.riktigAdresse',
 });
 
 export const harMeldtAdresseendringSpørsmål = (intl: LokalIntlShape): ISpørsmål => ({

@@ -3,15 +3,26 @@ import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmå
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
-import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
+import {
+  borDuPåDenneAdressen,
+  borDuPåDenneAdressenStegSpørsmål,
+  harMeldtAdresseendringSpørsmål,
+} from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
+import {
+  ESvar,
+  ISpørsmål,
+  ISvar,
+  SvarAlternativ,
+} from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
-import { Alert, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
+import { JaNeiSpørsmålV2 } from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
+import { ESøknad } from '../../../../overgangsstønad/models/søknad';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -32,6 +43,18 @@ const Personopplysninger: React.FC = () => {
       svarid: valgtSvar.id,
       label: hentTekst(spørsmål.tekstid, intl),
       verdi: hentBooleanFraValgtSvar(valgtSvar),
+    });
+  };
+
+  const settSøkerBorPåAdresseMedSvar = (svarAlternativ: SvarAlternativ) => {
+    const spørsmål = borDuPåDenneAdressenStegSpørsmål();
+    const svarVerdiSomBoolean = svarAlternativ.id === ESvar.JA;
+
+    settSøkerBorPåRegistrertAdresse({
+      spørsmålid: spørsmål.id,
+      svarid: svarAlternativ.id,
+      label: hentTekst(spørsmål.spørsmålKey, intl),
+      verdi: svarVerdiSomBoolean,
     });
   };
 
@@ -59,10 +82,9 @@ const Personopplysninger: React.FC = () => {
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
-            <JaNeiSpørsmål
-              spørsmål={borDuPåDenneAdressen(intl)}
-              valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settSøkerBorPåRegistrertAdr}
+            <JaNeiSpørsmålV2
+              spørsmål={borDuPåDenneAdressenStegSpørsmål()}
+              onChange={settSøkerBorPåAdresseMedSvar}
             />
           </KomponentGruppe>
 
