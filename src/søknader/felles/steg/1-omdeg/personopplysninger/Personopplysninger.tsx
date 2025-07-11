@@ -50,9 +50,6 @@ const Personopplysninger: React.FC = () => {
 
   return (
     <VStack gap={'8'}>
-      <Alert variant="info" inline={true}>
-        {hentTekst('personopplysninger.alert.infohentet', intl)}
-      </Alert>
       <PersonopplysningerVisning
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}

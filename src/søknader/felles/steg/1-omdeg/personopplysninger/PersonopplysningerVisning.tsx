@@ -1,5 +1,5 @@
 import React from 'react';
-import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Adresse } from '../../../../../models/søknad/person';
@@ -24,6 +24,9 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
 
   return (
     <VStack gap={'4'}>
+      <Alert variant="info" inline={true}>
+        {hentTekst('personopplysninger.alert.infohentet', intl)}
+      </Alert>
       <VStack align={'start'}>
         <Heading size="xsmall">{hentTekst('person.ident.visning', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
