@@ -28,6 +28,7 @@ import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteS�
 import { Stønadstype } from '../models/søknad/stønadstyper';
 import { IMedforelder } from '../models/steg/medforelder';
 import { datoEnMånedTilbake, isoDatoEnMånedTilbake } from './dato';
+import { IForelder } from '../models/steg/forelder';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -269,6 +270,32 @@ export const lagPersonData = (personData?: Partial<PersonData>): PersonData => {
     barn: [lagBarn()],
     hash: 'hash',
     ...personData,
+  };
+};
+
+export const lagIForelder = (forelder?: Partial<IForelder>): IForelder => {
+  return {
+    id: undefined,
+    navn: undefined,
+    skalBarnetBoHosSøker: undefined,
+    fødselsdato: undefined,
+    ident: undefined,
+    kanIkkeOppgiAnnenForelderFar: undefined,
+    hvorforIkkeOppgi: undefined,
+    ikkeOppgittAnnenForelderBegrunnelse: undefined,
+    borINorge: undefined,
+    land: undefined,
+    harAnnenForelderSamværMedBarn: undefined,
+    harDereSkriftligSamværsavtale: undefined,
+    hvordanPraktiseresSamværet: undefined,
+    borAnnenForelderISammeHus: undefined,
+    borAnnenForelderISammeHusBeskrivelse: undefined,
+    boddSammenFør: undefined,
+    flyttetFra: undefined,
+    hvorMyeSammen: undefined,
+    beskrivSamværUtenBarn: undefined,
+    fraFolkeregister: undefined,
+    ...forelder,
   };
 };
 
