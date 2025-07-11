@@ -1,6 +1,5 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { harDuSluttdato } from './ArbeidsgiverConfig';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
@@ -9,6 +8,7 @@ import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivit
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 
 interface Props {
   arbeidsgiver: IArbeidsgiver;

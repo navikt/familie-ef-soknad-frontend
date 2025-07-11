@@ -3,7 +3,6 @@ import Side from '../side/Side';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { hentTekst } from '../../../utils/søknad';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
-import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
 import {
   erSøkerArbeidssøker,
   erVilligTilÅTaImotTilbud,
@@ -28,6 +27,7 @@ import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
+import { JaNeiSpørsmål } from '../../../components/spørsmål/JaNeiSpørsmål';
 
 const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
   const location = useLocation();
