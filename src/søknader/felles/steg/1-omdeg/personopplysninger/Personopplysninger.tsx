@@ -1,22 +1,23 @@
 import React from 'react';
+import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
-import {
-  borDuPåDenneAdressenStegSpørsmål,
-  harMeldtAdresseendringStegSpørsmål,
-} from './PersonopplysningerConfig';
-import { ESvar, SvarAlternativ } from '../../../../../models/felles/spørsmålogsvar';
+import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
+import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
+import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
-import { JaNeiSpørsmålV2 } from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
 
-export const Personopplysninger: React.FC = () => {
+const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
   const {
     søknad,
+    settDokumentasjonsbehov,
     søkerBorPåRegistrertAdresse,
     settSøkerBorPåRegistrertAdresse,
     adresseopplysninger,
@@ -25,41 +26,27 @@ export const Personopplysninger: React.FC = () => {
   } = useOmDeg();
   const { søker } = søknad.person;
 
-  const settSøkerBorPåAdresseMedSvar = (svarAlternativ: SvarAlternativ) => {
-    const spørsmål = borDuPåDenneAdressenStegSpørsmål();
-    const svarVerdiSomBoolean = svarAlternativ.id === ESvar.JA;
-
+  const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     settSøkerBorPåRegistrertAdresse({
-      spørsmålid: spørsmål.id,
-      svarid: svarAlternativ.id,
-      label: hentTekst(spørsmål.spørsmålKey, intl),
-      verdi: svarVerdiSomBoolean,
+      spørsmålid: spørsmål.søknadid,
+      svarid: valgtSvar.id,
+      label: hentTekst(spørsmål.tekstid, intl),
+      verdi: hentBooleanFraValgtSvar(valgtSvar),
     });
   };
 
-  const settMeldtAdresseendringMedSvar = (svarAlternativ: SvarAlternativ) => {
-    const spørsmål = harMeldtAdresseendringStegSpørsmål();
-    const svarVerdiSomBoolean = svarAlternativ.id === ESvar.JA;
-
+  const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
     settAdresseopplysninger({
       harMeldtAdresseendring: {
-        spørsmålid: spørsmål.id,
-        svarid: svarAlternativ.id,
-        label: hentTekst(spørsmål.spørsmålKey, intl),
-        verdi: svarVerdiSomBoolean,
+        spørsmålid: spørsmål.søknadid,
+        svarid: valgtSvar.id,
+        label: hentTekst(spørsmål.tekstid, intl),
+        verdi: svar,
       },
     });
-
-    // TODO: Fiks denne.
-    // settDokumentasjonsbehov(spørsmål, valgtSvar);
+    settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
-
-  const skalViseSpørsmål = !søker?.erStrengtFortrolig;
-  const skalViseSøkerBorPåRegistretAdresseSpørsmål = søkerBorPåRegistrertAdresse?.verdi === false;
-  const skalViseSøkerBorPåRegistretAdresseAlert =
-    adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
-  const skalViseSøkerBorIkkePåRegistrertAdresse =
-    adresseopplysninger?.harMeldtAdresseendring?.verdi === false;
 
   return (
     <VStack gap={'8'}>
@@ -69,32 +56,37 @@ export const Personopplysninger: React.FC = () => {
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-
-      {skalViseSpørsmål && (
-        <VStack gap={'6'}>
-          <JaNeiSpørsmålV2
-            spørsmål={borDuPåDenneAdressenStegSpørsmål()}
-            onChange={settSøkerBorPåAdresseMedSvar}
-          />
-
-          {skalViseSøkerBorPåRegistretAdresseSpørsmål && (
-            <JaNeiSpørsmålV2
-              spørsmål={harMeldtAdresseendringStegSpørsmål()}
-              onChange={settMeldtAdresseendringMedSvar}
+      {!søker?.erStrengtFortrolig && (
+        <>
+          <KomponentGruppe aria-live="polite">
+            <JaNeiSpørsmål
+              spørsmål={borDuPåDenneAdressen(intl)}
+              valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
+              onChange={settSøkerBorPåRegistrertAdr}
             />
-          )}
+          </KomponentGruppe>
 
-          {skalViseSøkerBorPåRegistretAdresseAlert && (
-            <Alert variant={'info'} size={'small'} inline>
-              <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
-            </Alert>
+          {søkerBorPåRegistrertAdresse?.verdi === false && (
+            <KomponentGruppe>
+              <JaNeiSpørsmål
+                spørsmål={harMeldtAdresseendringSpørsmål(intl)}
+                valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
+                onChange={settMeldtAdresseendring}
+              />
+              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
+                <AlertStripeDokumentasjon>
+                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+                </AlertStripeDokumentasjon>
+              )}
+              {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
+                <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
+              )}
+            </KomponentGruppe>
           )}
-
-          {skalViseSøkerBorIkkePåRegistrertAdresse && (
-            <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-          )}
-        </VStack>
+        </>
       )}
     </VStack>
   );
 };
+
+export default Personopplysninger;

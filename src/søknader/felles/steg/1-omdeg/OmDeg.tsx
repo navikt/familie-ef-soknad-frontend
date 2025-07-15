@@ -6,7 +6,7 @@ import {
   erÅrsakEnsligBesvart,
 } from '../../../../helpers/steg/omdeg';
 import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
-import { Personopplysninger } from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
+import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
 import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
