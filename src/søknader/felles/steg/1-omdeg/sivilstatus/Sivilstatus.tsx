@@ -7,6 +7,7 @@ import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../../../.
 import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
 import { useOmDeg } from '../OmDegContext';
+import { SivilstatusV2 } from './SivilstatusV2';
 
 const Sivilstatus: React.FC = () => {
   const { sivilstatus } = useOmDeg();
@@ -15,6 +16,7 @@ const Sivilstatus: React.FC = () => {
 
   return (
     <SeksjonGruppe aria-live="polite">
+      <SivilstatusV2 />
       {erSøkerGift(sivilstand) && <SøkerErGift />}
 
       {erSøkerUGiftSkiltSeparertEllerEnke(sivilstand) && (

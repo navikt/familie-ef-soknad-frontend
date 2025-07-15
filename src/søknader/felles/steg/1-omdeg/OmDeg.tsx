@@ -61,9 +61,10 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
-      <Personopplysninger />
-      {SkalViseSivilstatusdialog && <Sivilstatus />}
-      {skalViseMedlemskapsdialog && <Medlemskap />}
+      {/*<Personopplysninger />*/}
+      {/*{SkalViseSivilstatusdialog && <Sivilstatus />}*/}
+      <Sivilstatus />
+      {/*{skalViseMedlemskapsdialog && <Medlemskap />}*/}
     </Side>
   );
 };

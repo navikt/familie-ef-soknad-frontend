@@ -24,6 +24,7 @@ export const useJaNeiBoolean = (initialValue?: boolean) => {
     erJa: value === true,
     erNei: value === false,
     erUbesvart: value === undefined,
+    erBesvart: value !== undefined,
   };
 };
 

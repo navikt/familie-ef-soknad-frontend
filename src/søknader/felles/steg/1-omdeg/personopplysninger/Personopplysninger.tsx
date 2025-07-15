@@ -57,7 +57,6 @@ const Personopplysninger: React.FC = () => {
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-      <Adresseopplysninger />
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
