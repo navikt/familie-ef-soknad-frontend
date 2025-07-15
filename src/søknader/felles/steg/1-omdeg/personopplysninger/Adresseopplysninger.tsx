@@ -72,6 +72,7 @@ export const Adresseopplysninger: React.FC = () => {
           <Heading size="xsmall" className={styles.heading}>
             {hentTekst('personopplysninger.info.endreAdresse', intl)}
           </Heading>
+          {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
           <LocaleTekst tekst={hentTekst('personopplysninger.lenke.pdfskjema', intl)} />
         </VStack>
       )}
