@@ -1,6 +1,6 @@
 import React from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../models/felles/spørsmålogsvar';
-import styles from './YeNeSpørsmål.module.css';
+import styles from './JaNeiSpørsmålV2.module.css';
 import { Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/søknad';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
