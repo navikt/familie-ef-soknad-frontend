@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../models/felles/spørsmålogsvar';
-import styles from './JaNeiSpørsmålV2.module.css';
-import { Heading, ReadMore, VStack } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from './RadioSpørsmål';
+import { SpørsmålWrapper } from './SpørsmålWrapper';
 
 export const useJaNeiBoolean = (initialValue?: boolean) => {
   const [value, setValue] = useState<boolean | undefined>(initialValue);
@@ -41,9 +39,6 @@ export const JaNeiSpørsmålV2: React.FC<Props> = ({
   lesMerTekst,
   onChange,
 }) => {
-  const intl = useLokalIntlContext();
-  const spørsmålTekst = hentTekst(spørsmål.spørsmålKey, intl);
-
   const svarAlternativer: SvarAlternativ[] = [
     { id: 'JA', labelKey: 'svar.ja' },
     { id: 'NEI', labelKey: 'svar.nei' },
@@ -51,11 +46,7 @@ export const JaNeiSpørsmålV2: React.FC<Props> = ({
 
   return (
     <VStack gap="6">
-      <Heading size="xsmall" className={styles.heading}>
-        {spørsmålTekst}
-      </Heading>
-
-      {lesMerTittel && lesMerTekst && <ReadMore header={lesMerTittel}>{lesMerTekst}</ReadMore>}
+      <SpørsmålWrapper spørsmål={spørsmål} lesMerTittel={lesMerTittel} lesMerTekst={lesMerTekst} />
 
       <RadioSpørsmål
         spørsmål={spørsmål}
