@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../../../../models/felles/spørsmålogsvar';
 import { Alert, Heading, VStack } from '@navikt/ds-react';
-import { JaNeiSpørsmålV2 } from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
+import {
+  JaNeiSpørsmålV2,
+  useJaNeiBoolean,
+} from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import styles from './Adresseopplysninger.module.css';
 import { hentTekst } from '../../../../../utils/søknad';
@@ -9,6 +12,9 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 export const Adresseopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
+
+  const søkerBorPåRegistrertAdresse = useJaNeiBoolean();
+  const søkerHarMeldtAdresseEndring = useJaNeiBoolean();
 
   const søkerBorPåReigstrertAdresseSpørsmål: StegSpørsmål = {
     id: 'søkerBorPåRegistretAdresse',
@@ -20,44 +26,42 @@ export const Adresseopplysninger: React.FC = () => {
     spørsmålKey: 'personopplysninger.spm.meldtAdresseendring',
   };
 
-  const [søkerBorPåRegistrertAdresse, settSøkerBorPåRegistrertAdresse] = useState<
-    SvarAlternativ | undefined
-  >();
-  const [søkerHarMeldtAdresseEndring, settSøkerHarMeldtAdresseEndring] = useState<
-    SvarAlternativ | undefined
-  >();
+  const onSøkerBorPåRegistrertAdresse = (svar: SvarAlternativ) => {
+    søkerBorPåRegistrertAdresse.handleChange(svar);
 
-  const visSøkerHarMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse?.id === 'NEI';
-  const visSøkerMåMeldeAdresseEndringAlert = søkerHarMeldtAdresseEndring?.id === 'NEI';
-  const visPapirSøknadTekst = søkerHarMeldtAdresseEndring?.id === 'NEI';
-
-  const handleSøkerBorPåRegistrertAdresse = (svar: SvarAlternativ) => {
-    settSøkerBorPåRegistrertAdresse(svar);
-    if (svar.id === 'JA') {
-      settSøkerHarMeldtAdresseEndring(undefined);
+    if (søkerBorPåRegistrertAdresse.erJa) {
+      søkerHarMeldtAdresseEndring.setValue(undefined);
     }
   };
 
-  const handlesøkerHarMeldtAdresseEndring = (svar: SvarAlternativ) => {
-    settSøkerHarMeldtAdresseEndring(svar);
-  };
+  const visSøkerHarMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse.erNei;
+  const visSøkerHarMeldtAdresseEndringAlert = søkerHarMeldtAdresseEndring.erJa;
+  const visSøkerMåMeldeAdresseEndringAlert = søkerHarMeldtAdresseEndring.erNei;
+  const visPapirSøknadTekst = søkerHarMeldtAdresseEndring.erNei;
 
   return (
     <VStack gap={'6'}>
       <JaNeiSpørsmålV2
         spørsmål={søkerBorPåReigstrertAdresseSpørsmål}
-        onChange={handleSøkerBorPåRegistrertAdresse}
+        onChange={onSøkerBorPåRegistrertAdresse}
       />
 
       {visSøkerHarMeldtAdresseEndringSpørsmål && (
         <VStack gap={'6'}>
           <JaNeiSpørsmålV2
             spørsmål={søkerHarMeldtAdresseEndringSpørsmål}
-            onChange={handlesøkerHarMeldtAdresseEndring}
+            onChange={søkerHarMeldtAdresseEndring.handleChange}
           />
+
+          {visSøkerHarMeldtAdresseEndringAlert && (
+            <Alert variant={'info'} size={'small'} inline>
+              <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+            </Alert>
+          )}
+
           {visSøkerMåMeldeAdresseEndringAlert && (
             <Alert variant={'warning'} size={'small'} inline>
-              <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+              <LocaleTekst tekst={'personopplysninger.alert.riktigAdresse'} />
             </Alert>
           )}
         </VStack>
