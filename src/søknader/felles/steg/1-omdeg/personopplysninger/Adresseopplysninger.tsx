@@ -3,7 +3,7 @@ import { StegSpørsmål, SvarAlternativ } from '../../../../../models/felles/sp�
 import { Alert, Heading, VStack } from '@navikt/ds-react';
 import { JaNeiSpørsmålV2 } from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
 import LocaleTekst from '../../../../../language/LocaleTekst';
-import styles from '../../../../../components/spørsmål/JaNeiSpørsmålV2.module.css';
+import styles from './Adresseopplysninger.module.css';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
