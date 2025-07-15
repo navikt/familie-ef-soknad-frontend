@@ -38,13 +38,13 @@ export const RadioSpørsmål: React.FC<Props> = ({
         className={svarLayout === 'vertical' ? styles.stackVertical : styles.stackHorizontal}
       >
         {svarAlternativer.map((svar) => {
-          const isSelected = valgtVerdi?.id === svar.id;
+          const erValgt = valgtVerdi?.id === svar.id;
 
           return (
             <label
               key={svar.id}
               htmlFor={svar.id}
-              className={clsx(styles.radioBox, { [styles.selected]: isSelected })}
+              className={clsx(styles.radioBox, { [styles.selected]: erValgt })}
             >
               <Radio id={svar.id} value={svar.id} name={spørsmål.spørsmålKey}>
                 {hentTekst(svar.labelKey, intl)}

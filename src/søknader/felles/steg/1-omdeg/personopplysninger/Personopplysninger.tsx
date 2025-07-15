@@ -10,8 +10,9 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
-import { Alert, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
+import { Adresseopplysninger } from './Adresseopplysninger';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -56,6 +57,7 @@ const Personopplysninger: React.FC = () => {
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
+      <Adresseopplysninger />
       {!søker?.erStrengtFortrolig && (
         <>
           <KomponentGruppe aria-live="polite">
