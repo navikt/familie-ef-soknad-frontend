@@ -1,5 +1,4 @@
 import React from 'react';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import SøkerErGift from './SøkerErGift';
 import { usePersonContext } from '../../../../../context/PersonContext';
 import SpørsmålGiftSeparertEllerSkiltIkkeRegistrert from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
@@ -8,6 +7,7 @@ import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
 import { useOmDeg } from '../OmDegContext';
 import { SivilstatusV2 } from './SivilstatusV2';
+import { VStack } from '@navikt/ds-react';
 
 const Sivilstatus: React.FC = () => {
   const { sivilstatus } = useOmDeg();
@@ -15,16 +15,24 @@ const Sivilstatus: React.FC = () => {
   const sivilstand = person.søker.sivilstand;
 
   return (
-    <SeksjonGruppe aria-live="polite">
+    <VStack gap={'6'}>
       <SivilstatusV2 />
-      {erSøkerGift(sivilstand) && <SøkerErGift />}
 
+      {/* TODO: Fjern meg! */}
+      <div
+        style={{
+          borderBottom: '1px solid #e5e7eb',
+          margin: '16px 0',
+          opacity: 0.5,
+        }}
+      />
+
+      {erSøkerGift(sivilstand) && <SøkerErGift />}
       {erSøkerUGiftSkiltSeparertEllerEnke(sivilstand) && (
         <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert />
       )}
-
       {erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) && <ÅrsakEnslig />}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 
