@@ -20,7 +20,6 @@ export const Adresseopplysninger: React.FC = () => {
     id: 'søkerBorPåRegistretAdresse',
     spørsmålKey: 'personopplysninger.spm.riktigAdresse',
   };
-
   const søkerHarMeldtAdresseEndringSpørsmål: StegSpørsmål = {
     id: 'søkerHarMeldtAdresseEndring',
     spørsmålKey: 'personopplysninger.spm.meldtAdresseendring',
@@ -29,9 +28,14 @@ export const Adresseopplysninger: React.FC = () => {
   const onSøkerBorPåRegistrertAdresse = (svar: SvarAlternativ) => {
     søkerBorPåRegistrertAdresse.handleChange(svar);
 
-    if (søkerBorPåRegistrertAdresse.erJa) {
+    // TODO: Dette kan muligens gjøres enklere.
+    if (svar.id === 'JA') {
       søkerHarMeldtAdresseEndring.setValue(undefined);
     }
+  };
+
+  const onSøkerHarMeldtAdresseEndring = (svar: SvarAlternativ) => {
+    søkerHarMeldtAdresseEndring.handleChange(svar);
   };
 
   const visSøkerHarMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse.erNei;
@@ -50,7 +54,7 @@ export const Adresseopplysninger: React.FC = () => {
         <VStack gap={'6'}>
           <JaNeiSpørsmålV2
             spørsmål={søkerHarMeldtAdresseEndringSpørsmål}
-            onChange={søkerHarMeldtAdresseEndring.handleChange}
+            onChange={onSøkerHarMeldtAdresseEndring}
           />
 
           {visSøkerHarMeldtAdresseEndringAlert && (
