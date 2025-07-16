@@ -130,6 +130,10 @@ export default {
   'barnet.litenForBokstav': 'the child',
 
   'stegtittel.omDeg': 'About you',
+  'stegtittel.barnaDine': 'Barna dine',
+  'stegtittel.andreForelderOgSamvær': 'Den andre forelderen og samvær',
+  'stegtittel.oppsummering': 'Oppsumering',
+  'stegtittel.lastOppDokumentasjon': 'Last opp dokumentasjon',
 
   // --- OM DEG
   'personopplysninger.fnr': 'National identity number',

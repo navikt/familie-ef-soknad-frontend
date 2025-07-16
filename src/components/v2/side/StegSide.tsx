@@ -4,6 +4,7 @@ import { SøknadBanner } from './SøknadBanner';
 
 interface Props {
   tittel: string;
+  children?: React.ReactNode;
 }
 
 export const StegSide: React.FC<Props> = ({ tittel }) => {

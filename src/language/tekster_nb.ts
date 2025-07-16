@@ -70,6 +70,9 @@ export default {
   'side.fortsettSøknad.knapp.startPåNytt': 'Start på nytt',
   'side.fortsettSøknad.knapp.fortsett': 'Fortsett på søknaden',
   'stegtittel.omDeg': 'Om deg',
+  'stegtittel.barnaDine': 'Barna dine',
+  'stegtittel.andreForelderOgSamvær': 'Den andre forelderen og samvær',
+  'stegtittel.oppsummering': 'Oppsumering',
   'personopplysninger.fnr': 'Fødselsnr',
   'personopplysninger.telefonnr': 'Telefonnummer',
   'personopplysninger.feilmelding.telefonnr': 'Telefonnummeret må ha minst 8 siffer',
@@ -162,6 +165,7 @@ export default {
   'medlemskap.periodeBoddIUtlandet.knapp': 'Legg til et utenlandsopphold',
   'landVelger.alternativ': 'Velg et alternativ',
   'stegtittel.bosituasjon': 'Bosituasjonen din',
+  'stegtittel.lastOppDokumentasjon': 'Last opp dokumentasjon',
   'bosituasjon.spm.delerSøkerBoligMedAndreVoksne': 'Deler du bolig med andre voksne?',
   'bosituasjon.svar.borAleneMedBarnEllerGravid':
     'Nei, jeg bor alene med barn eller jeg er gravid og bor alene',
