@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Adresse } from '../../../../../models/søknad/person';

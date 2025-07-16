@@ -10,7 +10,6 @@ import Kvittering from './steg/9-kvittering/Kvittering';
 import RedirectTilStart from './RedirectTilStart';
 import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
 import { RoutesOvergangsstonad } from './routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from './utils';
@@ -19,6 +18,7 @@ import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonCon
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
+import { OmDegV2 } from '../felles/steg/1-omdeg/v2/OmDegV2';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -145,7 +145,7 @@ const Søknadsdialog: FC = () => {
                 pathOppsummering={pathOppsummeringOvergangsstønad}
                 settDokumentasjonsbehov={settDokumentasjonsbehov}
               >
-                <OmDeg />
+                <OmDegV2 />
               </OmDegProvider>
             </RedirectTilStart>
           }

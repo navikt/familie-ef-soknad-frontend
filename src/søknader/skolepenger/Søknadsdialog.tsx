@@ -9,7 +9,6 @@ import Kvittering from './steg/8-kvittering/Kvittering';
 import Dokumentasjon from './steg/7-dokumentasjon/Dokumentasjon';
 import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 import { useSkolepengerSøknad } from './SkolepengerContext';
 import { RoutesSkolepenger } from './routing/routes';
 import { pathOppsummeringSkolepenger } from './utils';
@@ -18,6 +17,7 @@ import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonCon
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
+import { OmDegV2 } from '../felles/steg/1-omdeg/v2/OmDegV2';
 
 const SøknadsdialogSkolepenger: FC = () => {
   const {
@@ -135,7 +135,7 @@ const SøknadsdialogSkolepenger: FC = () => {
               pathOppsummering={pathOppsummeringSkolepenger}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
             >
-              <OmDeg />
+              <OmDegV2 />
             </OmDegProvider>
           </RedirectTilStart>
         }

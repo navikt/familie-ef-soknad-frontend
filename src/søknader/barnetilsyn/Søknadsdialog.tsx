@@ -11,7 +11,6 @@ import Barnepass from './steg/6-barnepass/Barnepass';
 import RedirectTilStart from './RedirectTilStart';
 import Gjenbruk from './steg/0.5-gjenbruk/Gjenbruk';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from './utils';
@@ -19,6 +18,7 @@ import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
+import { OmDegV2 } from '../felles/steg/1-omdeg/v2/OmDegV2';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -132,7 +132,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
               pathOppsummering={pathOppsummeringBarnetilsyn}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
             >
-              <OmDeg />
+              <OmDegV2 />
             </OmDegProvider>
           </RedirectTilStart>
         }

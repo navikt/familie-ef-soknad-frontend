@@ -5,5 +5,5 @@ export interface StegSpørsmål {
 
 export interface SvarAlternativ {
   id: string;
-  labelKey: string;
+  svarKey: string;
 }
