@@ -1,16 +1,26 @@
 import React from 'react';
 import { VStack } from '@navikt/ds-react';
 import { SøknadBanner } from './SøknadBanner';
+import { StegindikatorV2 } from '../stegindikator/StegindikatorV2';
+import { GenerelleSøknadSteg, SøknadSteg } from '../stegindikator/GenerelleSøknadSteg';
+import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { hentTekst } from '../../../utils/søknad';
 
 interface Props {
-  tittel: string;
+  søknadSteg: SøknadSteg;
   children?: React.ReactNode;
 }
 
-export const StegSide: React.FC<Props> = ({ tittel }) => {
+export const StegSide: React.FC<Props> = ({ søknadSteg }) => {
+  const intl = useLokalIntlContext();
+
+  const bannerTekst = hentTekst(søknadSteg.stegKey, intl);
+  const steg = GenerelleSøknadSteg;
+
   return (
     <VStack gap={'6'}>
-      <SøknadBanner bannerTekst={tittel} />
+      <SøknadBanner bannerTekst={bannerTekst} />
+      <StegindikatorV2 steg={steg} aktivtSteg={søknadSteg} />
     </VStack>
   );
 };

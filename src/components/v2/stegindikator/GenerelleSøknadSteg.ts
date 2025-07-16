@@ -4,7 +4,7 @@ export interface SøknadSteg {
 }
 
 // TODO: Denne må gåes igjennom, rydd opp strenger og generer hjelpe medotder basert på stønad osv.
-export const SøknadSteg: SøknadSteg[] = [
+export const GenerelleSøknadSteg: SøknadSteg[] = [
   {
     id: 'omDeg',
     stegKey: 'stegtittel.omDeg',
