@@ -12,7 +12,6 @@ import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
-import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -61,10 +60,9 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
-      {/*<Personopplysninger />*/}
-      {/*{SkalViseSivilstatusdialog && <Sivilstatus />}*/}
-      <Sivilstatus />
-      {/*{skalViseMedlemskapsdialog && <Medlemskap />}*/}
+      <Personopplysninger />
+      {SkalViseSivilstatusdialog && <Sivilstatus />}
+      {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
 };

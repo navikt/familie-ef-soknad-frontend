@@ -10,9 +10,8 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/søknad';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
-import { VStack } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
-import { Adresseopplysninger } from './Adresseopplysninger';
 
 const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -51,6 +50,9 @@ const Personopplysninger: React.FC = () => {
 
   return (
     <VStack gap={'8'}>
+      <Alert variant="info" inline={true}>
+        {hentTekst('personopplysninger.alert.infohentet', intl)}
+      </Alert>
       <PersonopplysningerVisning
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}

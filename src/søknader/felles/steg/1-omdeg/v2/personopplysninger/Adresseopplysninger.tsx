@@ -1,14 +1,14 @@
 import React from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../../../../models/felles/spørsmålogsvar';
+import { StegSpørsmål, SvarAlternativ } from '../../../../../../models/felles/spørsmålogsvar';
 import { Alert, Heading, VStack } from '@navikt/ds-react';
 import {
   JaNeiSpørsmålV2,
   useJaNeiBoolean,
-} from '../../../../../components/spørsmål/JaNeiSpørsmålV2';
-import LocaleTekst from '../../../../../language/LocaleTekst';
+} from '../../../../../../components/spørsmål/JaNeiSpørsmålV2';
+import LocaleTekst from '../../../../../../language/LocaleTekst';
 import styles from './Adresseopplysninger.module.css';
-import { hentTekst } from '../../../../../utils/søknad';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 
 export const Adresseopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
