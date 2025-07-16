@@ -5,6 +5,7 @@ import { StegindikatorV2 } from '../stegindikator/StegindikatorV2';
 import { GenerelleSøknadSteg, SøknadSteg } from '../stegindikator/GenerelleSøknadSteg';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { hentTekst } from '../../../utils/søknad';
+import styles from './StegSide.module.css';
 
 interface Props {
   søknadSteg: SøknadSteg;
@@ -20,7 +21,9 @@ export const StegSide: React.FC<Props> = ({ søknadSteg }) => {
   return (
     <VStack gap={'6'}>
       <SøknadBanner bannerTekst={bannerTekst} />
-      <StegindikatorV2 steg={steg} aktivtSteg={søknadSteg} />
+      <VStack gap={'6'} className={styles.innhold}>
+        <StegindikatorV2 steg={steg} aktivtSteg={søknadSteg} />
+      </VStack>
     </VStack>
   );
 };
