@@ -12,7 +12,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const StegSide: React.FC<Props> = ({ søknadSteg }) => {
+export const StegSide: React.FC<Props> = ({ søknadSteg, children }) => {
   const intl = useLokalIntlContext();
 
   const bannerTekst = hentTekst(søknadSteg.stegKey, intl);
@@ -23,6 +23,8 @@ export const StegSide: React.FC<Props> = ({ søknadSteg }) => {
       <SøknadBanner bannerTekst={bannerTekst} />
       <VStack gap={'6'} className={styles.innhold}>
         <StegindikatorV2 steg={steg} aktivtSteg={søknadSteg} />
+
+        {children}
       </VStack>
     </VStack>
   );

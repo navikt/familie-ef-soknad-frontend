@@ -15,6 +15,8 @@ export const StegindikatorV2: React.FC<Props> = ({ steg, aktivtSteg }) => {
   const antallSteg = steg.length;
   const aktivtStegIndex = steg.findIndex((steg) => steg.id === aktivtSteg.id) + 1;
 
+  // TODO: Husk å sette oversettelser.
+
   return (
     <FormProgress
       totalSteps={antallSteg}
