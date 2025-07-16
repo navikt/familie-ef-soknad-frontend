@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../../models/felles/spørsmålogsvar';
 import { VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from './RadioSpørsmål';
 import { SpørsmålWrapper } from './SpørsmålWrapper';
+import {
+  StegSpørsmål,
+  SvarAlternativ,
+} from '../../../søknader/felles/steg/1-omdeg/v2/typer/SpørsmålSvarStruktur';
 
 export const useJaNeiBoolean = (initialValue?: boolean) => {
   const [value, setValue] = useState<boolean | undefined>(initialValue);
@@ -40,8 +43,8 @@ export const JaNeiSpørsmålV2: React.FC<Props> = ({
   onChange,
 }) => {
   const svarAlternativer: SvarAlternativ[] = [
-    { id: 'JA', labelKey: 'svar.ja' },
-    { id: 'NEI', labelKey: 'svar.nei' },
+    { id: 'JA', svarKey: 'svar.ja' },
+    { id: 'NEI', svarKey: 'svar.nei' },
   ];
 
   return (

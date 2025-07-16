@@ -1,5 +1,4 @@
 import React from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../../../../../models/felles/spørsmålogsvar';
 import { Alert, Heading, VStack } from '@navikt/ds-react';
 import {
   JaNeiSpørsmålV2,
@@ -9,6 +8,7 @@ import LocaleTekst from '../../../../../../language/LocaleTekst';
 import styles from './Adresseopplysninger.module.css';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
+import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
 
 export const Adresseopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();

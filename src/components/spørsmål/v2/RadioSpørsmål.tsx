@@ -1,10 +1,13 @@
 import React from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../../utils/søknad';
 import styles from './RadioSpørsmål.module.css';
 import clsx from 'clsx';
+import {
+  StegSpørsmål,
+  SvarAlternativ,
+} from '../../../søknader/felles/steg/1-omdeg/v2/typer/SpørsmålSvarStruktur';
 
 export type SvarLayout = 'vertical' | 'horizontal';
 
@@ -47,7 +50,7 @@ export const RadioSpørsmål: React.FC<Props> = ({
               className={clsx(styles.radioBox, { [styles.selected]: erValgt })}
             >
               <Radio id={svar.id} value={svar.id} name={spørsmål.spørsmålKey}>
-                {hentTekst(svar.labelKey, intl)}
+                {hentTekst(svar.svarKey, intl)}
               </Radio>
             </label>
           );

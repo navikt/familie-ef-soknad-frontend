@@ -1,12 +1,12 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { StegSpørsmål, SvarAlternativ } from '../../../../../../models/felles/spørsmålogsvar';
 import {
   JaNeiSpørsmålV2,
   useJaNeiBoolean,
 } from '../../../../../../components/spørsmål/v2/JaNeiSpørsmålV2';
 import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
+import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
 
 export const SivilstatusV2: React.FC = () => {
   const intl = useLokalIntlContext();
