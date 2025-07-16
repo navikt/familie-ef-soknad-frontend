@@ -1,8 +1,8 @@
 import React from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../models/felles/spørsmålogsvar';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { StegSpørsmål, SvarAlternativ } from '../../../models/felles/spørsmålogsvar';
+import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../../utils/søknad';
 import styles from './RadioSpørsmål.module.css';
 import clsx from 'clsx';
 

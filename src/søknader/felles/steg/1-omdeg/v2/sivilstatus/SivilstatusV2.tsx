@@ -4,7 +4,7 @@ import { StegSpørsmål, SvarAlternativ } from '../../../../../../models/felles/
 import {
   JaNeiSpørsmålV2,
   useJaNeiBoolean,
-} from '../../../../../../components/spørsmål/JaNeiSpørsmålV2';
+} from '../../../../../../components/spørsmål/v2/JaNeiSpørsmålV2';
 import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
 

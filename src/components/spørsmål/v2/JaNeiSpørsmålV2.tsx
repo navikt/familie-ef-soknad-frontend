@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../models/felles/spørsmålogsvar';
+import { StegSpørsmål, SvarAlternativ } from '../../../models/felles/spørsmålogsvar';
 import { VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from './RadioSpørsmål';
 import { SpørsmålWrapper } from './SpørsmålWrapper';

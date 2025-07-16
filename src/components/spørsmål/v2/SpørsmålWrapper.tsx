@@ -1,9 +1,9 @@
 import React from 'react';
 import { Heading, ReadMore, VStack } from '@navikt/ds-react';
 import styles from './SpørsmålWrapper.module.css';
-import { StegSpørsmål } from '../../models/felles/spørsmålogsvar';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentTekst } from '../../utils/søknad';
+import { StegSpørsmål } from '../../../models/felles/spørsmålogsvar';
+import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { hentTekst } from '../../../utils/søknad';
 
 interface Props {
   spørsmål: StegSpørsmål;
