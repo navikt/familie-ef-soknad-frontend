@@ -8,7 +8,6 @@ import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Kvittering from './steg/9-kvittering/Kvittering';
 import RedirectTilStart from './RedirectTilStart';
-import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
 import { RoutesOvergangsstonad } from './routing/routesOvergangsstonad';
@@ -19,6 +18,7 @@ import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
 import { OmDegV2 } from '../felles/steg/1-omdeg/v2/OmDegV2';
+import { OmDegProviderV2 } from '../felles/steg/1-omdeg/v2/typer/OmDegContextV2';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -135,18 +135,9 @@ const Søknadsdialog: FC = () => {
           path={'/om-deg'}
           element={
             <RedirectTilStart>
-              <OmDegProvider
-                stønadstype={Stønadstype.overgangsstønad}
-                søknad={søknad}
-                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
-                mellomlagretSøknad={mellomlagretOvergangsstønad}
-                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesOvergangsstonad}
-                pathOppsummering={pathOppsummeringOvergangsstønad}
-                settDokumentasjonsbehov={settDokumentasjonsbehov}
-              >
+              <OmDegProviderV2 stønadstype={Stønadstype.overgangsstønad} søknad={søknad}>
                 <OmDegV2 />
-              </OmDegProvider>
+              </OmDegProviderV2>
             </RedirectTilStart>
           }
         />

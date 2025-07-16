@@ -14,11 +14,11 @@ import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from './utils';
-import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { OmDegV2 } from '../felles/steg/1-omdeg/v2/OmDegV2';
+import { OmDegProviderV2 } from '../felles/steg/1-omdeg/v2/typer/OmDegContextV2';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -122,18 +122,9 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDegProvider
-              stønadstype={Stønadstype.barnetilsyn}
-              søknad={søknad}
-              oppdaterSøknad={oppdaterBarnetilsynSøknad}
-              mellomlagretSøknad={mellomlagretBarnetilsyn}
-              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
-              pathOppsummering={pathOppsummeringBarnetilsyn}
-              settDokumentasjonsbehov={settDokumentasjonsbehov}
-            >
+            <OmDegProviderV2 stønadstype={Stønadstype.barnetilsyn} søknad={søknad}>
               <OmDegV2 />
-            </OmDegProvider>
+            </OmDegProviderV2>
           </RedirectTilStart>
         }
       />

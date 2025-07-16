@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import { SøknadBanner } from './SøknadBanner';
 import { StegindikatorV2 } from '../stegindikator/StegindikatorV2';
 import { GenerelleSøknadSteg, SøknadSteg } from '../stegindikator/GenerelleSøknadSteg';
@@ -16,15 +16,22 @@ export const StegSide: React.FC<Props> = ({ søknadSteg, children }) => {
   const intl = useLokalIntlContext();
 
   const bannerTekst = hentTekst(søknadSteg.stegKey, intl);
-  const steg = GenerelleSøknadSteg;
+  const stegForSøknad = GenerelleSøknadSteg;
+
+  const stegTittel = hentTekst(søknadSteg.stegKey, intl);
 
   return (
     <VStack gap={'6'}>
       <SøknadBanner bannerTekst={bannerTekst} />
       <VStack gap={'6'} className={styles.innhold}>
-        <StegindikatorV2 steg={steg} aktivtSteg={søknadSteg} />
+        <StegindikatorV2 steg={stegForSøknad} aktivtSteg={søknadSteg} />
 
-        {children}
+        <VStack gap={'8'} className={styles.children}>
+          <Heading size={'medium'} className={styles.stegTittel}>
+            {stegTittel}
+          </Heading>
+          {children}
+        </VStack>
       </VStack>
     </VStack>
   );

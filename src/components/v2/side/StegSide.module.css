@@ -1,5 +1,13 @@
 .innhold {
     margin: auto;
     width: 50rem;
+}
+
+.stegTittel {
+    align-self: center;
+}
+
+.children {
+    padding-inline: 4rem;
     padding-bottom: 4rem;
 }

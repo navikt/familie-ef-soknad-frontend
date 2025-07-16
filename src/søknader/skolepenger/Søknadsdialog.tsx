@@ -7,7 +7,6 @@ import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';
 import Oppsummering from './steg/6-oppsummering/Oppsummering';
 import Kvittering from './steg/8-kvittering/Kvittering';
 import Dokumentasjon from './steg/7-dokumentasjon/Dokumentasjon';
-import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { useSkolepengerSøknad } from './SkolepengerContext';
 import { RoutesSkolepenger } from './routing/routes';
@@ -18,6 +17,7 @@ import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
 import { OmDegV2 } from '../felles/steg/1-omdeg/v2/OmDegV2';
+import { OmDegProviderV2 } from '../felles/steg/1-omdeg/v2/typer/OmDegContextV2';
 
 const SøknadsdialogSkolepenger: FC = () => {
   const {
@@ -125,18 +125,9 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDegProvider
-              stønadstype={Stønadstype.skolepenger}
-              søknad={søknad}
-              oppdaterSøknad={oppdaterSkolepengerSøknad}
-              mellomlagretSøknad={mellomlagretSkolepenger}
-              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
-              routes={RoutesSkolepenger}
-              pathOppsummering={pathOppsummeringSkolepenger}
-              settDokumentasjonsbehov={settDokumentasjonsbehov}
-            >
+            <OmDegProviderV2 stønadstype={Stønadstype.skolepenger} søknad={søknad}>
               <OmDegV2 />
-            </OmDegProvider>
+            </OmDegProviderV2>
           </RedirectTilStart>
         }
       />
