@@ -19,6 +19,7 @@ export interface Props<T extends Søknad> {
 
 export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }: Props<Søknad>) => {
   const søker = søknad.person.søker;
+  const sivilstatus = useState(søknad.sivilstatus);
 
   const [personopplysningerData, setPersonopplysningerData] = useState<PersonopplysningerData>({});
 
@@ -39,6 +40,7 @@ export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }
   return {
     stønadstype,
     søker,
+    sivilstatus,
     personopplysningerData,
     oppdaterPersonopplysninger,
     hentStegData,
