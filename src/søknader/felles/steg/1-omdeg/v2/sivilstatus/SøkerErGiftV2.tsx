@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import {
   JaNeiSpørsmålV2,
@@ -10,11 +10,15 @@ import { hentTekst } from '../../../../../../utils/søknad';
 
 export const SøkerErGiftV2: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const søkerHarSøktSeperasjon = useJaNeiBoolean();
+  const [separasjonsDato, settSeparasjonsDato] = useState<Date | undefined>();
 
   const { datepickerProps, inputProps } = useDatepicker({
     toDate: new Date(),
-    onDateChange: console.info,
+    onDateChange: (dato: Date | undefined) => {
+      settSeparasjonsDato(dato);
+    },
   });
 
   const søkerHarSøktSeperasjonSpørsmål: StegSpørsmål = {
@@ -24,6 +28,10 @@ export const SøkerErGiftV2: React.FC = () => {
 
   const onSøkerHarSøktSeperasjon = (svar: SvarAlternativ) => {
     søkerHarSøktSeperasjon.handleChange(svar);
+
+    if (svar.id === 'NEI') {
+      settSeparasjonsDato(undefined);
+    }
   };
 
   const visSøkerHarIkkeRettPåStønadNårGiftAlert = søkerHarSøktSeperasjon.erNei;
@@ -48,6 +56,7 @@ export const SøkerErGiftV2: React.FC = () => {
           <DatePicker.Input
             {...inputProps}
             label={hentTekst('sivilstatus.datovelger.søktSeparasjon', intl)}
+            placeholder="DD.MM.YYYY"
           />
         </DatePicker>
       )}
