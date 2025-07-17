@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Heading, VStack } from '@navikt/ds-react';
 import {
   JaNeiSpørsmålV2,
@@ -9,9 +9,11 @@ import styles from './Adresseopplysninger.module.css';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { useOmDegV2 } from '../typer/OmDegContextV2';
 
 export const Adresseopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
+  const { oppdaterPersonopplysninger } = useOmDegV2();
 
   const søkerBorPåRegistrertAdresse = useJaNeiBoolean();
   const søkerHarMeldtAdresseEndring = useJaNeiBoolean();
@@ -24,6 +26,17 @@ export const Adresseopplysninger: React.FC = () => {
     id: 'søkerHarMeldtAdresseEndring',
     spørsmålKey: 'personopplysninger.spm.meldtAdresseendring',
   };
+
+  useEffect(() => {
+    oppdaterPersonopplysninger({
+      søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse.value,
+      søkerHarMeldtAdresseEndring: søkerHarMeldtAdresseEndring.value,
+    });
+  }, [
+    søkerBorPåRegistrertAdresse.value,
+    søkerHarMeldtAdresseEndring.value,
+    oppdaterPersonopplysninger,
+  ]);
 
   const onSøkerBorPåRegistrertAdresse = (svar: SvarAlternativ) => {
     søkerBorPåRegistrertAdresse.handleChange(svar);

@@ -1,22 +1,18 @@
 import React from 'react';
 import { Button } from '@navikt/ds-react';
 import styles from './StegDebugKnapp.module.css';
-import { OmDegStegData } from '../typer/OmDegStegData';
+import { useOmDegV2 } from '../typer/OmDegContextV2';
 
-interface Props {
-  stegData: OmDegStegData;
-}
+export const StegDebugKnapp: React.FC = () => {
+  const { hentStegData } = useOmDegV2();
 
-export const StegDebugKnapp: React.FC<Props> = ({ stegData }) => {
+  const onValiderKlikk = () => {
+    const stegData = hentStegData();
+    console.log('PersonopplysningerData:', stegData.personopplysningerData);
+  };
+
   return (
-    <Button
-      variant="primary"
-      size="medium"
-      className={styles.button}
-      onClick={() => {
-        console.log('OmDegStegData er: ', stegData);
-      }}
-    >
+    <Button variant="primary" size="medium" className={styles.button} onClick={onValiderKlikk}>
       Valider
     </Button>
   );
