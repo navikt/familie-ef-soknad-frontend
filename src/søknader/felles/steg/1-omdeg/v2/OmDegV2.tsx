@@ -3,8 +3,8 @@ import { StegSide } from '../../../../../components/v2/side/StegSide';
 import { SøknadSteg } from '../../../../../components/v2/stegindikator/GenerelleSøknadSteg';
 import { PersonopplysningerV2 } from './personopplysninger/PersonopplysningerV2';
 import { useOmDegV2 } from './typer/OmDegContextV2';
-import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 import { StegDebugKnapp } from './debug/StegDebugKnapp';
+import { SøkerErGiftV2 } from './sivilstatus/SøkerErGiftV2';
 
 export const OmDegV2: React.FC = () => {
   const { søker } = useOmDegV2();
@@ -21,7 +21,7 @@ export const OmDegV2: React.FC = () => {
         adresse={søker.adresse.adresse} // TODO: Fix denne så adresse er formatert med post nummer og sted.
       />
 
-      <Adresseopplysninger />
+      <SøkerErGiftV2 />
       <StegDebugKnapp />
     </StegSide>
   );
