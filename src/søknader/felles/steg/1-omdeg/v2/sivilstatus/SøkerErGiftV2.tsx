@@ -36,7 +36,6 @@ export const SøkerErGiftV2: React.FC = () => {
 
   const visSøkerHarIkkeRettPåStønadNårGiftAlert = søkerHarSøktSeperasjon.erNei;
   const visDatoForSkilsmisseInput = søkerHarSøktSeperasjon.erJa;
-  const visBekreftelsePåSkilsmisseAlert = søkerHarSøktSeperasjon.erJa;
 
   return (
     <VStack gap={'6'}>
@@ -52,19 +51,19 @@ export const SøkerErGiftV2: React.FC = () => {
       )}
 
       {visDatoForSkilsmisseInput && (
-        <DatePicker {...datepickerProps}>
-          <DatePicker.Input
-            {...inputProps}
-            label={hentTekst('sivilstatus.datovelger.søktSeparasjon', intl)}
-            placeholder="DD.MM.YYYY"
-          />
-        </DatePicker>
-      )}
+        <VStack gap={'6'}>
+          <DatePicker {...datepickerProps}>
+            <DatePicker.Input
+              {...inputProps}
+              label={hentTekst('sivilstatus.datovelger.søktSeparasjon', intl)}
+              placeholder="DD.MM.YYYY"
+            />
+          </DatePicker>
 
-      {visBekreftelsePåSkilsmisseAlert && (
-        <Alert variant={'info'} size={'small'} inline>
-          {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
-        </Alert>
+          <Alert variant={'info'} size={'small'} inline>
+            {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
+          </Alert>
+        </VStack>
       )}
     </VStack>
   );
