@@ -1,0 +1,8 @@
+.title {
+    align-self: center;
+}
+
+.textField {
+    width: fit-content;
+    max-width: 50%;
+}

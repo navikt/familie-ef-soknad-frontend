@@ -5,6 +5,7 @@ import { Alert, DatePicker, useDatepicker, VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from '../../../../../../../components/spørsmål/v2/RadioSpørsmål';
 import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
+import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 
 export const AleneMedBarnÅrsak: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -39,6 +40,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
   };
 
   const visDatoForSamvlivsbruddInput = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
+  const visOmDenTidligereSamboerenDinSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddAndre';
 
   return (
     <VStack gap={'6'}>
@@ -58,6 +60,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
         />
       </VStack>
 
+      {/* TODO: Muligens gjøre til egen komponent, flytte ut state. */}
       {visDatoForSamvlivsbruddInput && (
         <VStack gap={'6'}>
           <DatePicker {...datepickerProps}>
@@ -73,6 +76,8 @@ export const AleneMedBarnÅrsak: React.FC = () => {
           </Alert>
         </VStack>
       )}
+
+      {visOmDenTidligereSamboerenDinSpørsmål && <OmDenTidligereSamboerenDin />}
     </VStack>
   );
 };
