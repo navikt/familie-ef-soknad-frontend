@@ -27,7 +27,6 @@ export const DatoForSamlivsbrudd: React.FC = () => {
       <Alert variant={'info'} size={'small'} inline>
         {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
       </Alert>
-      )
     </VStack>
   );
 };

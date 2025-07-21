@@ -40,25 +40,6 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
     return () => clearTimeout(timeout);
   }, [ident, brukerIkkeIdent]);
 
-  // TODO: Fiks dette, trenger ikke html event.
-  const håndterNavnEndring = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    settNavn(e.target.value);
-  }, []);
-
-  const håndterIdentEndring = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    settIdent(e.target.value);
-  }, []);
-
-  const håndterCheckboxEndring = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const erChecked = e.target.checked;
-    settBrukerIkkeIdent(erChecked);
-
-    if (erChecked) {
-      settIdent('');
-      settVisFeil(false);
-    }
-  }, []);
-
   const harGyldigNavn = navn.trim() !== '';
   const harGyldigIdent = ident.trim() !== '' && identErGyldig(ident.trim());
 
@@ -75,19 +56,30 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
       <TextField
         label={hentTekst('person.navn', intl)}
         value={navn}
-        onChange={håndterNavnEndring}
+        onChange={(event) => settNavn(event.target.value)}
       />
 
       <TextField
         label={hentTekst('person.ident', intl)}
         value={ident}
         maxLength={11}
-        onChange={håndterIdentEndring}
+        onChange={(event) => settIdent(event.target.value)}
         disabled={brukerIkkeIdent}
         error={visFeil ? hentTekst('person.feilmelding.ident', intl) : undefined}
       />
 
-      <Checkbox checked={brukerIkkeIdent} onChange={håndterCheckboxEndring}>
+      <Checkbox
+        checked={brukerIkkeIdent}
+        onChange={(event) => {
+          const checked = event.target.checked;
+
+          settBrukerIkkeIdent(checked);
+
+          if (checked) {
+            settIdent('');
+          }
+        }}
+      >
         {hentTekst('person.checkbox.ident', intl)}
       </Checkbox>
 
