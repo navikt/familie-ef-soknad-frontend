@@ -8,7 +8,7 @@ export const StegDebugKnapp: React.FC = () => {
 
   const onValiderKlikk = () => {
     const stegData = hentStegData();
-    console.log('PersonopplysningerData:', stegData.personopplysningerData);
+    console.log('OmDegStegData er:', stegData);
   };
 
   return (
