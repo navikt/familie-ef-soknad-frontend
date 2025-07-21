@@ -40,6 +40,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
     return () => clearTimeout(timeout);
   }, [ident, brukerIkkeIdent]);
 
+  // TODO: Fiks dette, trenger ikke html event.
   const håndterNavnEndring = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     settNavn(e.target.value);
   }, []);

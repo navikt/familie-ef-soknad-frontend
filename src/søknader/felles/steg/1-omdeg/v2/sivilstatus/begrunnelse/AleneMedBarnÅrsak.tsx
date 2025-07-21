@@ -6,6 +6,7 @@ import { RadioSpørsmål } from '../../../../../../../components/spørsmål/v2/R
 import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
+import { OmsorgEndringForBarn } from './OmsorgEndringForBarn';
 
 export const AleneMedBarnÅrsak: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -41,6 +42,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
 
   const visDatoForSamvlivsbruddInput = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
   const visOmDenTidligereSamboerenDinSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddAndre';
+  const visOmsorgEndringDatoSpørsmål = søkerAleneMedBarnÅrsak?.id === 'endringISamværsordning';
 
   return (
     <VStack gap={'6'}>
@@ -78,6 +80,8 @@ export const AleneMedBarnÅrsak: React.FC = () => {
       )}
 
       {visOmDenTidligereSamboerenDinSpørsmål && <OmDenTidligereSamboerenDin />}
+
+      {visOmsorgEndringDatoSpørsmål && <OmsorgEndringForBarn />}
     </VStack>
   );
 };
