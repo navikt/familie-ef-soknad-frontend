@@ -7,6 +7,7 @@ import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { OmsorgEndringForBarn } from './OmsorgEndringForBarn';
+import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 
 export const AleneMedBarnÅrsak: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -14,14 +15,6 @@ export const AleneMedBarnÅrsak: React.FC = () => {
   const [søkerAleneMedBarnÅrsak, settSøkerAleneMedBarnÅrsak] = useState<
     SvarAlternativ | undefined
   >();
-  const [samlivsbruddDato, settSamlivsbruddDato] = useState<Date | undefined>();
-
-  const { datepickerProps, inputProps } = useDatepicker({
-    toDate: new Date(),
-    onDateChange: (dato: Date | undefined) => {
-      settSamlivsbruddDato(dato);
-    },
-  });
 
   const hvorforErDuAleneMedBarnSpørsmål: StegSpørsmål = {
     id: 'årsakEnslig',
@@ -40,7 +33,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
     settSøkerAleneMedBarnÅrsak(svar);
   };
 
-  const visDatoForSamvlivsbruddInput = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
+  const visDatoForSamvlivsbruddSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
   const visOmDenTidligereSamboerenDinSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddAndre';
   const visOmsorgEndringDatoSpørsmål = søkerAleneMedBarnÅrsak?.id === 'endringISamværsordning';
 
@@ -62,25 +55,8 @@ export const AleneMedBarnÅrsak: React.FC = () => {
         />
       </VStack>
 
-      {/* TODO: Muligens gjøre til egen komponent, flytte ut state. */}
-      {visDatoForSamvlivsbruddInput && (
-        <VStack gap={'6'}>
-          <DatePicker {...datepickerProps}>
-            <DatePicker.Input
-              {...inputProps}
-              label={hentTekst('sivilstatus.datovelger.samlivsbrudd', intl)}
-              placeholder="DD.MM.YYYY"
-            />
-          </DatePicker>
-
-          <Alert variant={'info'} size={'small'} inline>
-            {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
-          </Alert>
-        </VStack>
-      )}
-
+      {visDatoForSamvlivsbruddSpørsmål && <DatoForSamlivsbrudd />}
       {visOmDenTidligereSamboerenDinSpørsmål && <OmDenTidligereSamboerenDin />}
-
       {visOmsorgEndringDatoSpørsmål && <OmsorgEndringForBarn />}
     </VStack>
   );

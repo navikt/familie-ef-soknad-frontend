@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
-import { DatePicker, useDatepicker, VStack } from '@navikt/ds-react';
+import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../../utils/søknad';
 
 export const OmsorgEndringForBarn: React.FC = () => {
