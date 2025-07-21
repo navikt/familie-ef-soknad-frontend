@@ -28,11 +28,6 @@ export const SøkerErSeparertEllerUgift: React.FC = () => {
   };
   const onSøkerErSeparertEllerSkiltUtenRegistrering = (svar: SvarAlternativ) => {
     søkerErSeparertEllerSkiltUtenRegistrering.handleChange(svar);
-    console.log('Svar verdi er: ', svar);
-    console.log(
-      'State verdi for søkerErSeparertEllerSkiltUtenRegistrering er: ',
-      søkerErSeparertEllerSkiltUtenRegistrering
-    );
   };
 
   const visSøkerMåDokumentereEkteskapAlert = søkerErGiftUtenRegistrering.erJa;
