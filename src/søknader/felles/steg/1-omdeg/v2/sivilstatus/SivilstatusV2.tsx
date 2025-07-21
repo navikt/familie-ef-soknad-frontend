@@ -20,9 +20,7 @@ export const SivilstatusV2: React.FC = () => {
   return (
     <VStack gap={'6'}>
       {visSøkerErGiftSpørsmål && <SøkerErGiftV2 />}
-
       {visSøkerErSeparertEllerSkiltSpørsmål && <SøkerErSeparertEllerUgift />}
-
       {visÅrsakEnsligSpørsmål && <AleneMedBarnÅrsak />}
     </VStack>
   );

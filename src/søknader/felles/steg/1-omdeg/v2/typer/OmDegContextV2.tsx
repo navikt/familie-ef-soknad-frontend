@@ -3,13 +3,13 @@ import { useState, useCallback } from 'react';
 import { Søknad } from '../../../../../../models/søknad/søknad';
 import { Stønadstype } from '../../../../../../models/søknad/stønadstyper';
 
-export interface PersonopplysningerData {
+export interface AdresseopplysningerData {
   søkerBorPåRegistrertAdresse?: boolean;
   søkerHarMeldtAdresseEndring?: boolean;
 }
 
 export interface OmDegStegData {
-  personopplysningerData?: PersonopplysningerData;
+  personopplysningerData?: AdresseopplysningerData;
 }
 
 export interface Props<T extends Søknad> {
@@ -21,10 +21,12 @@ export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }
   const søker = søknad.person.søker;
   const sivilstatus = useState(søknad.sivilstatus);
 
-  const [personopplysningerData, setPersonopplysningerData] = useState<PersonopplysningerData>({});
+  const [personopplysningerData, settPersonopplysningerData] = useState<AdresseopplysningerData>(
+    {}
+  );
 
-  const oppdaterPersonopplysninger = useCallback((data: Partial<PersonopplysningerData>) => {
-    setPersonopplysningerData((prev) => ({
+  const oppdaterPersonopplysninger = useCallback((data: Partial<AdresseopplysningerData>) => {
+    settPersonopplysningerData((prev) => ({
       ...prev,
       ...data,
     }));
