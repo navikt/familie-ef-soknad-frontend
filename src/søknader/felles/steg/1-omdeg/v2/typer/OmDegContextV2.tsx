@@ -8,8 +8,16 @@ export interface AdresseopplysningerData {
   søkerHarMeldtAdresseEndring?: boolean;
 }
 
+export interface SivilstatusData {
+  søkerHarSøktSeperasjon?: boolean;
+  separasjonsDato?: Date;
+  søkerErGiftUtenRegistrering?: boolean;
+  søkerErSeparertEllerSkiltUtenRegistrering?: boolean;
+}
+
 export interface OmDegStegData {
   personopplysningerData?: AdresseopplysningerData;
+  sivilstatusData?: SivilstatusData;
 }
 
 export interface Props<T extends Søknad> {
