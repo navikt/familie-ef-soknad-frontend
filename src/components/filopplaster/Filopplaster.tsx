@@ -98,12 +98,6 @@ const Filopplaster: React.FC<Props> = ({
             1: maks,
           });
 
-          // const feilmelding = hentBeskjedMedToParametre(
-          //   intl.formatMessage({ id: 'filopplaster.feilmelding.maks' }),
-          //   fil.name,
-          //   maks
-          // );
-
           feilmeldingsliste.push(feilmelding);
 
           logFeilFilopplasting(skjemanavn, skjemaId, {
