@@ -13,6 +13,10 @@ export interface SivilstatusData {
   separasjonsDato?: Date;
   søkerErGiftUtenRegistrering?: boolean;
   søkerErSeparertEllerSkiltUtenRegistrering?: boolean;
+
+  årsakEnslig?: string;
+
+  datoSamlivsbruddMedAnnenForelder?: Date;
 }
 
 export interface OmDegStegData {

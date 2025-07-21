@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../typer/SpørsmålSvarStruktur';
 import { SpørsmålWrapper } from '../../../../../../../components/spørsmål/v2/SpørsmålWrapper';
-import { Alert, DatePicker, useDatepicker, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from '../../../../../../../components/spørsmål/v2/RadioSpørsmål';
 import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { OmsorgEndringForBarn } from './OmsorgEndringForBarn';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
+import { useOmDegV2 } from '../../typer/OmDegContextV2';
 
 export const AleneMedBarnÅrsak: React.FC = () => {
   const intl = useLokalIntlContext();
+
+  const { oppdaterSivilstatus } = useOmDegV2();
 
   const [søkerAleneMedBarnÅrsak, settSøkerAleneMedBarnÅrsak] = useState<
     SvarAlternativ | undefined
@@ -31,6 +34,10 @@ export const AleneMedBarnÅrsak: React.FC = () => {
 
   const onÅrsakSøkerErAleneMedBarn = (svar: SvarAlternativ) => {
     settSøkerAleneMedBarnÅrsak(svar);
+
+    oppdaterSivilstatus({
+      årsakEnslig: svar.id,
+    });
   };
 
   const visDatoForSamvlivsbruddSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
