@@ -8,14 +8,15 @@ import {
 } from '../../../../../../utils/sivilstatus';
 import { SøkerErSeparertEllerUgift } from './SøkerErSeparertEllerUgift';
 import { AleneMedBarnÅrsak } from './begrunnelse/AleneMedBarnÅrsak';
+import { erSivilstandSpørsmålBesvartV2 } from './SivilstatusV2Helpers';
 
 export const SivilstatusV2: React.FC = () => {
-  const { søker } = useOmDegV2();
+  const { søker, sivilstatusData } = useOmDegV2();
   const sivilstand = søker.sivilstand;
 
   const visSøkerErGiftSpørsmål = erSøkerGift(sivilstand);
   const visSøkerErSeparertEllerSkiltSpørsmål = erSøkerUGiftSkiltSeparertEllerEnke(sivilstand);
-  const visÅrsakEnsligSpørsmål = true; // TODO: Fiks denne slik at vi viser den kun når sivilstand spørsmål er svart.
+  const visÅrsakEnsligSpørsmål = erSivilstandSpørsmålBesvartV2(sivilstand, sivilstatusData);
 
   return (
     <VStack gap={'6'}>

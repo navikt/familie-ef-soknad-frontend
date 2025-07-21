@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import {
   JaNeiSpørsmålV2,
@@ -7,17 +7,20 @@ import {
 import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
 import { Alert, DatePicker, useDatepicker, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
+import { useOmDegV2 } from '../typer/OmDegContextV2';
 
 export const SøkerErGiftV2: React.FC = () => {
   const intl = useLokalIntlContext();
+  const { oppdaterSivilstatus } = useOmDegV2();
 
   const søkerHarSøktSeperasjon = useJaNeiBoolean();
-  const [separasjonsDato, settSeparasjonsDato] = useState<Date | undefined>();
 
   const { datepickerProps, inputProps } = useDatepicker({
     toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
-      settSeparasjonsDato(dato);
+      oppdaterSivilstatus({
+        separasjonsDato: dato,
+      });
     },
   });
 
@@ -26,11 +29,21 @@ export const SøkerErGiftV2: React.FC = () => {
     spørsmålKey: 'sivilstatus.spm.søktSeparasjon',
   };
 
+  // Oppdater context når verdier endres
+  useEffect(() => {
+    oppdaterSivilstatus({
+      søkerHarSøktSeperasjon: søkerHarSøktSeperasjon.value,
+    });
+  }, [søkerHarSøktSeperasjon.value, oppdaterSivilstatus]);
+
   const onSøkerHarSøktSeperasjon = (svar: SvarAlternativ) => {
     søkerHarSøktSeperasjon.handleChange(svar);
 
     if (svar.id === 'NEI') {
-      settSeparasjonsDato(undefined);
+      // Nullstill dato hvis svaret er nei
+      oppdaterSivilstatus({
+        separasjonsDato: undefined,
+      });
     }
   };
 

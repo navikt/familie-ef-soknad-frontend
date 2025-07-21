@@ -33,8 +33,17 @@ export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }
     {}
   );
 
+  const [sivilstatusData, settSivilstatusData] = useState<SivilstatusData>({});
+
   const oppdaterPersonopplysninger = useCallback((data: Partial<AdresseopplysningerData>) => {
     settPersonopplysningerData((prev) => ({
+      ...prev,
+      ...data,
+    }));
+  }, []);
+
+  const oppdaterSivilstatus = useCallback((data: Partial<SivilstatusData>) => {
+    settSivilstatusData((prev) => ({
       ...prev,
       ...data,
     }));
@@ -43,8 +52,9 @@ export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }
   const hentStegData = useCallback(
     (): OmDegStegData => ({
       personopplysningerData,
+      sivilstatusData,
     }),
-    [personopplysningerData]
+    [personopplysningerData, sivilstatusData]
   );
 
   return {
@@ -52,7 +62,9 @@ export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }
     søker,
     sivilstatus,
     personopplysningerData,
+    sivilstatusData,
     oppdaterPersonopplysninger,
+    oppdaterSivilstatus,
     hentStegData,
   };
 });

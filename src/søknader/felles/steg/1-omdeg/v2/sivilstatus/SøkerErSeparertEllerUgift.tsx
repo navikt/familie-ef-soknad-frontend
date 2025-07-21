@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import {
   JaNeiSpørsmålV2,
@@ -7,9 +7,11 @@ import {
 import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { useOmDegV2 } from '../typer/OmDegContextV2';
 
 export const SøkerErSeparertEllerUgift: React.FC = () => {
   const intl = useLokalIntlContext();
+  const { oppdaterSivilstatus } = useOmDegV2();
 
   const søkerErGiftUtenRegistrering = useJaNeiBoolean();
   const søkerErSeparertEllerSkiltUtenRegistrering = useJaNeiBoolean();
@@ -23,9 +25,22 @@ export const SøkerErSeparertEllerUgift: React.FC = () => {
     spørsmålKey: 'sivilstatus.spm.erUformeltSeparertEllerSkilt',
   };
 
+  // Oppdater context når verdier endres
+  useEffect(() => {
+    oppdaterSivilstatus({
+      søkerErGiftUtenRegistrering: søkerErGiftUtenRegistrering.value,
+      søkerErSeparertEllerSkiltUtenRegistrering: søkerErSeparertEllerSkiltUtenRegistrering.value,
+    });
+  }, [
+    søkerErGiftUtenRegistrering.value,
+    søkerErSeparertEllerSkiltUtenRegistrering.value,
+    oppdaterSivilstatus,
+  ]);
+
   const onSøkerErGiftUtenRegistrering = (svar: SvarAlternativ) => {
     søkerErGiftUtenRegistrering.handleChange(svar);
   };
+
   const onSøkerErSeparertEllerSkiltUtenRegistrering = (svar: SvarAlternativ) => {
     søkerErSeparertEllerSkiltUtenRegistrering.handleChange(svar);
   };
