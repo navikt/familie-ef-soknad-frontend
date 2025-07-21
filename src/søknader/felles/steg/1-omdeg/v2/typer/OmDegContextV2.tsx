@@ -2,6 +2,7 @@ import constate from 'constate';
 import { useState, useCallback } from 'react';
 import { Søknad } from '../../../../../../models/søknad/søknad';
 import { Stønadstype } from '../../../../../../models/søknad/stønadstyper';
+import { DinTidligereSamboer } from '../sivilstatus/begrunnelse/OmDenTidligereSamboerenDin';
 
 export interface AdresseopplysningerData {
   søkerBorPåRegistrertAdresse?: boolean;
@@ -17,6 +18,8 @@ export interface SivilstatusData {
   årsakEnslig?: string;
 
   datoSamlivsbruddMedAnnenForelder?: Date;
+
+  søkerSinTidligereSamboer?: DinTidligereSamboer;
 }
 
 export interface OmDegStegData {
