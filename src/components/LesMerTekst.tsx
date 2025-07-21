@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import LocaleTekst from '../language/LocaleTekst';
 import { hentTekst } from '../utils/søknad';
-import hiddenIf from '../utils/hiddenIf';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import FormattedHtmlMessage from '../language/FormattedHtmlMessage';
 import { BodyShort, ReadMore } from '@navikt/ds-react';
@@ -72,4 +71,4 @@ const LesMerTekst: React.FC<Props> = ({
   }
 };
 
-export default hiddenIf(LesMerTekst);
+export default LesMerTekst;
