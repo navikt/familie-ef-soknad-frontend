@@ -6,7 +6,6 @@ import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokum
 import LocaleTekst from '../../../../../language/LocaleTekst';
 import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
 import React from 'react';
-import Show from '../../../../../utils/showIf';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentValgtSvar } from '../../../../../utils/sivilstatus';
 import { useOmDeg } from '../OmDegContext';
@@ -56,20 +55,20 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
           onChange={settErUformeltGift}
           valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
         />
-        <Show if={harSvartJaPåUformeltGift}>
+        {harSvartJaPåUformeltGift && (
           <AlertstripeDokumentasjon>
             <LocaleTekst tekst={hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl))} />
           </AlertstripeDokumentasjon>
-        </Show>
+        )}
       </KomponentGruppe>
-      <Show if={harSvartPåUformeltGiftSpørsmålet}>
+      {harSvartPåUformeltGiftSpørsmålet && (
         <KomponentGruppe>
           <JaNeiSpørsmål
             spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
             onChange={settErUformeltSeparertEllerSkilt}
             valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
           />
-          <Show if={harSvartJaUformeltSeparertEllerSkilt}>
+          {harSvartJaUformeltSeparertEllerSkilt && (
             <AlertstripeDokumentasjon>
               <LocaleTekst
                 tekst={hentSvarAlertFraSpørsmål(
@@ -78,9 +77,9 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
                 )}
               />
             </AlertstripeDokumentasjon>
-          </Show>
+          )}
         </KomponentGruppe>
-      </Show>
+      )}
     </>
   );
 };
