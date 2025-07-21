@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { hentTekst } from '../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../utils/søknad';
 import { formatDate, strengTilDato } from '../utils/dato';
 import { useLocation } from 'react-router-dom';
 import { isValidISODateString } from 'iso-datestring-validator';
-import { hentBeskjedMedNavn } from '../utils/språk';
 import {
   ISpørsmålBooleanFelt,
   ISpørsmålFelt,
@@ -120,7 +119,7 @@ export const VisLabelOgSvar = (objekt: object | undefined, navn?: string) => {
     }
 
     const label =
-      navn && spørsmål.label ? hentBeskjedMedNavn(navn, spørsmål.label) : spørsmål.label;
+      navn && spørsmål.label ? hentTekstMedEnVariabel(spørsmål.label, intl, navn) : spørsmål.label;
     return (
       harValgtSvar(spørsmål.verdi) &&
       label && (

@@ -1,9 +1,9 @@
 import React from 'react';
 import VeilederSnakkeboble from '../../assets/VeilederSnakkeboble';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentBeskjedMedNavn } from '../../utils/språk';
 import { usePersonContext } from '../../context/PersonContext';
 import styled from 'styled-components';
+import { hentTekstMedEnVariabel } from '../../utils/søknad';
 
 const VeilederContainer = styled.div`
   margin-bottom: 4rem;
@@ -20,9 +20,7 @@ export const VeilederBoks: React.FC<VeilederBoksProps> = ({ navn }) => {
   const søkerNavn = navn ? navn : person.søker.forkortetNavn;
   return (
     <VeilederContainer>
-      <VeilederSnakkeboble
-        tekst={hentBeskjedMedNavn(søkerNavn, intl.formatMessage({ id: 'skjema.hei' }))}
-      />
+      <VeilederSnakkeboble tekst={hentTekstMedEnVariabel('skjema.hei', intl, søkerNavn)} />
     </VeilederContainer>
   );
 };

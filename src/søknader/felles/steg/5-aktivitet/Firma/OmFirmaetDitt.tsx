@@ -3,7 +3,7 @@ import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Dato
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/søknad';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import styled from 'styled-components';
@@ -14,7 +14,6 @@ import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSl
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
-import { hentBeskjedMedNavn } from '../../../../../utils/språk';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 
 const StyledFirma = styled.div`
@@ -95,10 +94,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
 
   const labelArbeidsmengde = hentTekst('firma.label.arbeidsmengde', intl);
   const labelArbeidsuke = hentTekst('firma.label.arbeidsuke', intl);
-  const labelOverskudd = hentBeskjedMedNavn(
-    `${overskuddsår}`,
-    hentTekst('firma.label.overskudd', intl)
-  );
+  const labelOverskudd = hentTekstMedEnVariabel('firma.label.overskudd', intl, `${overskuddsår}`);
   const labelOrganisasjonsnr = hentTekst('firma.label.organisasjonnr', intl);
   const labelNavn = hentTekst('firma.label.navn', intl);
   const firmaTittel = hentTittelMedNr(

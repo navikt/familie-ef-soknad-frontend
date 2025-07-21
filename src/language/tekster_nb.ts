@@ -149,14 +149,14 @@ export default {
   'medlemskap.periodeBoddIUtlandet.utenlandsopphold': 'Utenlandsperiode',
   'medlemskap.periodeBoddIUtlandet.slett': 'Fjern utenlandsperiode',
   'medlemskap.periodeBoddIUtlandet': 'Når oppholdt du deg i utlandet?',
-  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'Hva er id-nummeret ditt i {0}?',
-  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'Jeg har ikke id-nummer i {0}',
+  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'Hva er id-nummeret ditt i [0]?',
+  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'Jeg har ikke id-nummer i [0]',
   'medlemskap.hjelpetekst-åpne.begrunnelse': 'Grunnen til at vi spør om dette',
   'medlemskap.hjelpetekst-innhold.begrunnelse':
     'Når du har oppholdt deg i et annet EØS-land i løpet av de siste 5 årene, må vi noen ganger innhente opplysninger fra dette landet. Det er fordi vi trenger opplysninger for å vurdere om du har rett til stønad.',
-  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'Hva er den siste adressen du bodde på i {0}?',
+  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'Hva er den siste adressen du bodde på i [0]?',
   'medlemskap.periodeBoddIUtlandet.land': 'I hvilket land oppholdt du deg i?',
-  'medlemskap.periodeBoddIUtlandet.begrunnelse': 'Hvorfor oppholdt du deg i {0}?',
+  'medlemskap.periodeBoddIUtlandet.begrunnelse': 'Hvorfor oppholdt du deg i [0]?',
   'medlemskap.periodeBoddIUtlandet.flereutenlandsopphold':
     'Har du hatt flere utenlandsopphold de siste 5 årene?',
   'medlemskap.periodeBoddIUtlandet.knapp': 'Legg til et utenlandsopphold',

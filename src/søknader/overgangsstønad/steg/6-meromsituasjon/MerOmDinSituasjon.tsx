@@ -8,7 +8,7 @@ import {
   gjelderNoeAvDetteDeg,
   SøkerFraBestemtMånedSpm,
 } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -36,7 +36,6 @@ import {
   useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov,
   useMount,
 } from '../../../../utils/hooks';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
@@ -68,13 +67,15 @@ const MerOmDinSituasjon: React.FC = () => {
 
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
 
-  const hjelpetekstFørsteAvsnitt = hentBeskjedMedNavn(
-    formatMånederTilbake(dagensDato, 3),
-    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1', intl)
+  const hjelpetekstFørsteAvsnitt = hentTekstMedEnVariabel(
+    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
+    intl,
+    formatMånederTilbake(dagensDato, 3)
   );
-  const hjelpetekstAndreAvsnitt = hentBeskjedMedNavn(
-    formatMånederTilbake(dagensDato, 5),
-    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2', intl)
+  const hjelpetekstAndreAvsnitt = hentTekstMedEnVariabel(
+    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2',
+    intl,
+    formatMånederTilbake(dagensDato, 5)
   );
   const hjelpetekstTredjeAvsnitt = hentTekst(
     'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del3',

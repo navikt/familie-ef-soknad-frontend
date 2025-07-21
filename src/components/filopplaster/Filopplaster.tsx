@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { hentBeskjedMedNavn, hentBeskjedMedToParametre } from '../../utils/språk';
 import opplasting from '../../assets/opplasting.svg';
 import OpplastedeFiler from './OpplastedeFiler';
 import { formaterFilstørrelse } from './utils';
@@ -17,6 +16,7 @@ import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
 import styled from 'styled-components';
 import { ABlue500, ADeepblue50, AGray700 } from '@navikt/ds-tokens/dist/tokens';
+import { hentTekstMedEnVariabel, hentTekstMedFlereVariabler } from '../../utils/søknad';
 
 interface Props {
   oppdaterDokumentasjon: (
@@ -93,11 +93,16 @@ const Filopplaster: React.FC<Props> = ({
         if (maxFilstørrelse && fil.size > maxFilstørrelse) {
           const maks = formaterFilstørrelse(maxFilstørrelse);
 
-          const feilmelding = hentBeskjedMedToParametre(
-            intl.formatMessage({ id: 'filopplaster.feilmelding.maks' }),
-            fil.name,
-            maks
-          );
+          const feilmelding = hentTekstMedFlereVariabler('filopplaster.feilmelding.maks', intl, {
+            0: fil.name,
+            1: maks,
+          });
+
+          // const feilmelding = hentBeskjedMedToParametre(
+          //   intl.formatMessage({ id: 'filopplaster.feilmelding.maks' }),
+          //   fil.name,
+          //   maks
+          // );
 
           feilmeldingsliste.push(feilmelding);
 
@@ -113,9 +118,10 @@ const Filopplaster: React.FC<Props> = ({
         }
 
         if (tillatteFiltyper && !tillatteFiltyper.includes(fil.type)) {
-          const feilmelding = hentBeskjedMedNavn(
-            fil.name,
-            intl.formatMessage({ id: 'filopplaster.feilmelding.filtype' })
+          const feilmelding = hentTekstMedEnVariabel(
+            'filopplaster.feilmelding.filtype',
+            intl,
+            fil.name
           );
           feilmeldingsliste.push(feilmelding);
           settFeilmeldinger(feilmeldingsliste);

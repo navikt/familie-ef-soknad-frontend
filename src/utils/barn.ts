@@ -1,5 +1,5 @@
-import { hentTekst } from './søknad';
-import { førsteBokstavStor, hentBeskjedMedNavn } from './språk';
+import { hentTekst, hentTekstMedEnVariabel } from './søknad';
+import { førsteBokstavStor } from './språk';
 import { IBarn } from '../models/steg/barn';
 import { ESvar } from '../models/felles/spørsmålogsvar';
 import { formatDate, strengTilDato } from './dato';
@@ -14,7 +14,7 @@ export const hentSpørsmålTekstMedNavnEllerBarn = (
   navnEllerBarn: string,
   intl: LokalIntlShape
 ) => {
-  return hentBeskjedMedNavn(navnEllerBarn, hentTekst(spørsmålTekstid, intl));
+  return hentTekstMedEnVariabel(spørsmålTekstid, intl, navnEllerBarn);
 };
 
 export const hentBarnetsNavnEllerBeskrivelse = (barn: IBarn, intl: LokalIntlShape) => {
@@ -28,14 +28,16 @@ export const hentBarnetsNavnEllerBeskrivelse = (barn: IBarn, intl: LokalIntlShap
     return hentTekst('barnet.litenForBokstav', intl);
   }
   if (barn.født?.svarid === ESvar.JA) {
-    return hentBeskjedMedNavn(
-      formatDate(strengTilDato(barn.fødselsdato.verdi)),
-      hentTekst('født.barn', intl)
+    return hentTekstMedEnVariabel(
+      'født.barn',
+      intl,
+      formatDate(strengTilDato(barn.fødselsdato.verdi))
     );
   }
-  return hentBeskjedMedNavn(
-    formatDate(strengTilDato(barn.fødselsdato.verdi)),
-    hentTekst('ufødt.barn', intl)
+  return hentTekstMedEnVariabel(
+    'ufødt.barn',
+    intl,
+    formatDate(strengTilDato(barn.fødselsdato.verdi))
   );
 };
 
@@ -65,7 +67,7 @@ export const flereBarnsNavn = (barneliste: IBarn[], intl: LokalIntlShape): strin
   }
 };
 export const hentBarnNavnEllerBarnet = (barn: IBarn, tekstid: string, intl: LokalIntlShape) => {
-  return hentBeskjedMedNavn(barnetsNavnEllerBarnet(barn, intl), hentTekst(tekstid, intl));
+  return hentTekstMedEnVariabel(tekstid, intl, barnetsNavnEllerBarnet(barn, intl));
 };
 
 export const oppdaterBarnIBarneliste = (barneListe: IBarn[], nyttBarn: IBarn) => {

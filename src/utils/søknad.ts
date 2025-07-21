@@ -70,7 +70,11 @@ export const hentTekst = (id: string, intl: LokalIntlShape) => {
   return intl.formatMessage({ id: id });
 };
 
-export const hentTekstMedVariabel = (
+export const hentTekstMedEnVariabel = (id: string, intl: LokalIntlShape, variabel: string) => {
+  return intl.formatMessage({ id: id }, { 0: variabel });
+};
+
+export const hentTekstMedFlereVariabler = (
   id: string,
   intl: LokalIntlShape,
   variabel?: Record<string, string>

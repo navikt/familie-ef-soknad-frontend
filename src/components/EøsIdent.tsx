@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox, Label, ReadMore } from '@navikt/ds-react';
 import { TextFieldMedBredde } from './TextFieldMedBredde';
-import { hentTekstMedVariabel } from '../utils/søknad';
+import { hentTekstMedEnVariabel } from '../utils/søknad';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { IUtenlandsopphold } from '../models/steg/omDeg/medlemskap';
 
@@ -24,10 +24,10 @@ const EøsIdent: React.FC<Props> = ({
     return null;
   }
 
-  const utenlandskIDNummerTekst = hentTekstMedVariabel(
+  const utenlandskIDNummerTekst = hentTekstMedEnVariabel(
     'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer',
     intl,
-    { 0: utenlandsopphold.land.verdi }
+    utenlandsopphold.land.verdi
   );
 
   const settUtenlandskPersonId = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -74,9 +74,11 @@ const EøsIdent: React.FC<Props> = ({
         checked={utenlandsopphold.kanIkkeOppgiPersonident}
         onChange={() => toggleHarUtenlandskPersonId(!utenlandsopphold.kanIkkeOppgiPersonident)}
       >
-        {hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl, {
-          0: utenlandsopphold.land.verdi,
-        })}
+        {hentTekstMedEnVariabel(
+          'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer',
+          intl,
+          utenlandsopphold.land.verdi
+        )}
       </Checkbox>
     </div>
   );

@@ -4,9 +4,8 @@ import BarneHeader from '../../../../components/BarneHeader';
 import { formatDate, strengTilDato } from '../../../../utils/dato';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { IBarn } from '../../../../models/steg/barn';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
 import { ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BodyShort, Label } from '@navikt/ds-react';
@@ -62,10 +61,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder.hvorforIkkeOppgi && (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({ id: 'barnasbosted.spm.hvorforikkeoppgi' })
-              )}
+              {hentTekstMedEnVariabel('barnasbosted.spm.hvorforikkeoppgi', intl, barnetsNavn)}
             </Label>
             <BodyShort>
               {forelder.ikkeOppgittAnnenForelderBegrunnelse
@@ -89,10 +85,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder.borINorge && (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({ id: 'barnasbosted.borinorge' })
-              )}
+              {hentTekstMedEnVariabel('barnasbosted.borinorge', intl, barnetsNavn)}
             </Label>
             <BodyShort>
               {forelder.borINorge?.verdi
@@ -110,11 +103,10 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder.harAnnenForelderSamværMedBarn?.verdi && (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.spm.harAnnenForelderSamværMedBarn',
-                })
+              {hentTekstMedEnVariabel(
+                'barnasbosted.spm.harAnnenForelderSamværMedBarn',
+                intl,
+                barnetsNavn
               )}
             </Label>
             <BodyShort>{forelder.harAnnenForelderSamværMedBarn?.verdi || ''}</BodyShort>
@@ -123,11 +115,10 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder.harDereSkriftligSamværsavtale?.verdi ? (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.spm.harDereSkriftligSamværsavtale',
-                })
+              {hentTekstMedEnVariabel(
+                'barnasbosted.spm.harDereSkriftligSamværsavtale',
+                intl,
+                barnetsNavn
               )}
             </Label>
             <BodyShort>{forelder.harDereSkriftligSamværsavtale.verdi}</BodyShort>
@@ -142,11 +133,10 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder.borAnnenForelderISammeHus ? (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.spm.borAnnenForelderISammeHus',
-                })
+              {hentTekstMedEnVariabel(
+                'barnasbosted.spm.borAnnenForelderISammeHus',
+                intl,
+                barnetsNavn
               )}
             </Label>
             <BodyShort>{forelder.borAnnenForelderISammeHus.verdi}</BodyShort>
@@ -155,12 +145,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {harVerdi(forelder?.boddSammenFør?.verdi) ? (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.spm.boddsammenfør',
-                })
-              )}
+              {hentTekstMedEnVariabel('barnasbosted.spm.boddsammenfør', intl, barnetsNavn)}
             </Label>
             <BodyShort>
               {forelder.boddSammenFør?.verdi
@@ -172,12 +157,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder?.flyttetFra?.verdi ? (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.normaltekst.nårflyttetfra',
-                })
-              )}
+              {hentTekstMedEnVariabel('barnasbosted.normaltekst.nårflyttetfra', intl, barnetsNavn)}
             </Label>
             <BodyShort>{formatDate(strengTilDato(forelder.flyttetFra.verdi))}</BodyShort>
           </div>
@@ -185,12 +165,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder?.hvorMyeSammen?.verdi ? (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.spm.hvorMyeSammen',
-                })
-              )}
+              {hentTekstMedEnVariabel('barnasbosted.spm.hvorMyeSammen', intl, barnetsNavn)}
             </Label>
             <BodyShort>{forelder.hvorMyeSammen.verdi}</BodyShort>
           </div>
@@ -198,12 +173,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         {forelder.beskrivSamværUtenBarn && (
           <div className="spørsmål-og-svar">
             <Label as="p">
-              {hentBeskjedMedNavn(
-                barnetsNavn,
-                intl.formatMessage({
-                  id: 'barnasbosted.spm.beskrivSamværUtenBarn',
-                })
-              )}
+              {hentTekstMedEnVariabel('barnasbosted.spm.beskrivSamværUtenBarn', intl, barnetsNavn)}
             </Label>
             <BodyShort>{forelder.beskrivSamværUtenBarn.verdi}</BodyShort>
           </div>

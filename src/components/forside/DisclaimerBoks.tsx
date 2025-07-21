@@ -1,7 +1,6 @@
 import { BodyShort, ConfirmationPanel, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
-import { hentBeskjedMedNavn } from '../../utils/språk';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../utils/søknad';
 import React from 'react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
@@ -27,7 +26,7 @@ export const DisclaimerBoks: React.FC<{
       </DisclaimerTittel>
       <StyledConfirmationPanel
         checked={!!harBekreftet}
-        label={hentBeskjedMedNavn(navn, intl.formatMessage({ id: 'side.bekreftelse' }))}
+        label={hentTekstMedEnVariabel('side.bekreftelse', intl, navn)}
         onChange={() => settBekreftelse(!harBekreftet)}
       >
         <BodyShort>{hentTekst(tekst, intl)}</BodyShort>

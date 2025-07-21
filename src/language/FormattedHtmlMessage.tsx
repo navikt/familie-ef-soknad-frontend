@@ -1,6 +1,6 @@
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import React from 'react';
-import { hentBeskjedMedNavn } from '../utils/språk';
+import { hentTekstMedEnVariabel } from '../utils/søknad';
 
 interface Props {
   id: string;
@@ -11,7 +11,7 @@ const FormattedHtmlMessage: React.FC<Props> = ({ id, replaceArgument0 }) => {
   const intl = useLokalIntlContext();
   let text = intl.formatMessage({ id: id });
   if (replaceArgument0) {
-    text = hentBeskjedMedNavn(replaceArgument0, text);
+    text = hentTekstMedEnVariabel(id, intl, replaceArgument0);
   }
   return <span dangerouslySetInnerHTML={{ __html: text }} />;
 };

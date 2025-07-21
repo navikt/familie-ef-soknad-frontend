@@ -5,11 +5,11 @@ import { useOvergangsstønadSøknad } from '../../../overgangsstønad/Overgangss
 import { storeForbokstaver } from '../../../../utils/tekst';
 import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import { LokalIntlShape } from '../../../../language/typer';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Label, Textarea } from '@navikt/ds-react';
+import { hentTekstMedEnVariabel } from '../../../../utils/søknad';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 
@@ -62,11 +62,10 @@ const BarnMedSærligeBehovLabelTekst: React.FC<{
   const barnetsNavn = hentBarnetsNavnEllerBeskrivelse(props.barn, props.intl);
   const intl = useLokalIntlContext();
   const navn = props.barn.navn.verdi ? storeForbokstaver(barnetsNavn) : barnetsNavn;
-  const omBarnetsTilsynsbehovLabel = hentBeskjedMedNavn(
-    navn,
-    intl.formatMessage({
-      id: 'dinSituasjon.alert.harBarnMedSærligeBehov.tittel',
-    })
+  const omBarnetsTilsynsbehovLabel = hentTekstMedEnVariabel(
+    'dinSituasjon.alert.harBarnMedSærligeBehov.tittel',
+    intl,
+    navn
   );
 
   return (

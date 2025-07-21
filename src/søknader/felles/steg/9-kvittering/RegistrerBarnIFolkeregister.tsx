@@ -3,9 +3,8 @@ import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import { IBarn } from '../../../../models/steg/barn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekstMedEnVariabel } from '../../../../utils/søknad';
 import { flereBarnsNavn } from '../../../../utils/barn';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import LocaleTekst from '../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
@@ -27,18 +26,15 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
   }
 
   const barnasNavn = flereBarnsNavn(barnSomSkalRegistreresIFolkeregister, intl);
-  const tekst = hentBeskjedMedNavn(
-    barnasNavn,
-    hentTekst('barnasbosted.skalBliFolkeregistrert.tekst', intl)
-  );
-  const undertittelMedNavn = hentBeskjedMedNavn(
-    barnasNavn,
-    hentTekst('barnasbosted.skalBliFolkeregistrert.tekst', intl)
+  const tekst = hentTekstMedEnVariabel(
+    'barnasbosted.skalBliFolkeregistrert.tekst',
+    intl,
+    barnasNavn
   );
 
   return (
     <SeksjonGruppe>
-      <StyledUndertittel size={'small'}>{undertittelMedNavn}</StyledUndertittel>
+      <StyledUndertittel size={'small'}>{tekst}</StyledUndertittel>
       <BodyShort>{tekst}</BodyShort>
       <KomponentGruppe>
         <a
