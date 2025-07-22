@@ -1,0 +1,134 @@
+import React, { useState } from 'react';
+import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
+import {
+  Button,
+  Checkbox,
+  DatePicker,
+  Heading,
+  HStack,
+  ReadMore,
+  Select,
+  Textarea,
+  useDatepicker,
+  VStack,
+} from '@navikt/ds-react';
+import { hentTekst } from '../../../../../../utils/søknad';
+import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
+import { SpørsmålWrapper } from '../../../../../../components/spørsmål/v2/SpørsmålWrapper';
+import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
+import { useSpråkContext } from '../../../../../../context/SpråkContext';
+import { hentLand } from '../../medlemskap/MedlemskapConfig';
+import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
+import { PlusCircleFillIcon } from '@navikt/aksel-icons'; // TODO: Fix denne
+
+export const UtenlandsperiodeV2: React.FC = () => {
+  const intl = useLokalIntlContext();
+  const [locale] = useSpråkContext();
+  const landListe = hentLand(locale);
+
+  const [periodeLand, settPeriodeLand] = useState<string>('');
+
+  const nårOppholdtSøkerSegIUtlandetSpørsmål: StegSpørsmål = {
+    id: 'utenlandsperiode',
+    spørsmålKey: 'medlemskap.periodeBoddIUtlandet',
+  };
+
+  const fraDato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: (dato: Date | undefined) => {
+      // TODO: Fix
+    },
+  });
+
+  const tilDato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: (dato: Date | undefined) => {
+      // TODO: Fix
+    },
+  });
+
+  const onLandEndring = (land: string) => {
+    settPeriodeLand(land);
+  };
+
+  return (
+    <VStack gap={'6'}>
+      <Heading size={'small'}>
+        {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)}
+      </Heading>
+
+      <SpørsmålWrapper spørsmål={nårOppholdtSøkerSegIUtlandetSpørsmål} />
+
+      <HStack gap={'6'}>
+        <DatePicker {...tilDato.datepickerProps}>
+          <DatePicker.Input
+            {...fraDato.inputProps}
+            label={hentTekst('periode.fra', intl)}
+            placeholder={'DD.MM.YYYY'}
+          />
+        </DatePicker>
+
+        <DatePicker {...tilDato.datepickerProps}>
+          <DatePicker.Input
+            {...tilDato.inputProps}
+            label={hentTekst('periode.til', intl)}
+            placeholder={'DD.MM.YYYY'}
+          />
+        </DatePicker>
+      </HStack>
+
+      <Select
+        label={hentTekst('medlemskap.periodeBoddIUtlandet.land', intl)}
+        value={periodeLand}
+        onChange={(event) => {
+          onLandEndring(event.target.value);
+        }}
+      >
+        <option value="" disabled>
+          {hentTekst('landVelger.alternativ', intl)}
+        </option>
+
+        {landListe.map((land: ILandMedKode) => (
+          <option key={land.id} value={land.id}>
+            {land.svar_tekst}
+          </option>
+        ))}
+      </Select>
+
+      <Textarea
+        label={hentTekst('medlemskap.periodeBoddIUtlandet.begrunnelse', intl)}
+        maxLength={1000}
+      />
+
+      <VStack gap="4">
+        <Heading size="xsmall" className={styles.heading}>
+          {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
+        </Heading>
+        <ReadMore header={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}>
+          {hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
+        </ReadMore>
+      </VStack>
+
+      <Textarea
+        label={hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
+        hideLabel
+      />
+
+      <Checkbox checked={undefined} onChange={(event) => {}}>
+        {hentTekst('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl)}
+      </Checkbox>
+
+      <VStack gap="4">
+        <Heading size="xsmall" className={styles.heading}>
+          {hentTekst('Har du hatt flere utenlandsopphold de siste 5 årene?', intl)}
+        </Heading>
+
+        <div>
+          <Button variant="tertiary" icon={<PlusCircleFillIcon />} onClick={() => {}}>
+            {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+          </Button>
+        </div>
+      </VStack>
+    </VStack>
+  );
+};

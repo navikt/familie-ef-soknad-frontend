@@ -10,6 +10,7 @@ import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
+import { UtenlandsperiodeV2 } from './UtenlandsperiodeV2';
 
 export const MedlemskapV2: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -45,7 +46,9 @@ export const MedlemskapV2: React.FC = () => {
   };
 
   const visHvorOppholderDuOgBarnSpørsmål = søkerOppholderSegINorgeMedBarn.erNei;
-  const visOppholdINorgeSiste5ÅrSpørsmål = valgtLand.trim() !== '';
+  const visOppholdINorgeSiste5ÅrSpørsmål =
+    søkerOppholderSegINorgeMedBarn.erJa || valgtLand.trim() !== '';
+  const visUtenlandsopphold = søkerHarOppholdtSegINorgeSiste5År.erNei;
 
   return (
     <VStack gap={'6'}>
@@ -80,6 +83,8 @@ export const MedlemskapV2: React.FC = () => {
           onChange={onSøkerHarOppholdtSegINorgeSiste5År}
         />
       )}
+
+      {visUtenlandsopphold && <UtenlandsperiodeV2 />}
     </VStack>
   );
 };
