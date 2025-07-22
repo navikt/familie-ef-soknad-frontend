@@ -4,7 +4,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { verdiTilTekstsvar } from '../../../../utils/visning';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Label } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   stønadstype: Stønadstype;

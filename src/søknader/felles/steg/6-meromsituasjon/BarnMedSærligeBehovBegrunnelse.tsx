@@ -2,13 +2,16 @@ import React, { ChangeEvent } from 'react';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
-import { storeForbokstaver } from '../../../../utils/teksthåndtering';
+import {
+  hentTekst,
+  hentTekstMedEnVariabel,
+  storeForbokstaver,
+} from '../../../../utils/teksthåndtering';
 import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { LokalIntlShape } from '../../../../language/typer';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Label, Textarea } from '@navikt/ds-react';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 

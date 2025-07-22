@@ -8,7 +8,7 @@ import {
   gjelderNoeAvDetteDeg,
   SøkerFraBestemtMånedSpm,
 } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';

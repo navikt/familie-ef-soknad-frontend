@@ -11,7 +11,7 @@ import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPath } from '../../../../utils/routing';
 import Side, { ESide } from '../../../../components/side/Side';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import {
   logBrowserBackOppsummering,

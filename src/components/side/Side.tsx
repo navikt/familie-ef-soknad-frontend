@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from '../Banner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SendBrevSVG from '../../assets/SendSøknadSVG';
-import { hentTekst } from '../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import TilbakeNesteAvbrytKnapper from '../knapper/TilbakeNesteAvbrytKnapper';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
@@ -11,7 +11,6 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Stegindikator from '../stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
-import { hentHTMLTekst } from '../../utils/teksthåndtering';
 
 export enum ESide {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',

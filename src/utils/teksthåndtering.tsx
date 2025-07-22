@@ -60,6 +60,22 @@ const parseHtml = (htmlString: string): React.ReactNode => {
   return <>{Array.from(doc.body.childNodes).map((node, i) => finnNode(node, i))}</>;
 };
 
+export const hentTekst = (id: string, intl: LokalIntlShape) => {
+  return intl.formatMessage({ id: id });
+};
+
+export const hentTekstMedEnVariabel = (id: string, intl: LokalIntlShape, variabel: string) => {
+  return intl.formatMessage({ id: id }, { 0: variabel });
+};
+
+export const hentTekstMedFlereVariabler = (
+  id: string,
+  intl: LokalIntlShape,
+  variabel?: Record<string, string>
+) => {
+  return intl.formatMessage({ id: id }, variabel);
+};
+
 export const hentHTMLTekst = (id: string, intl: LokalIntlShape): React.ReactNode => {
   const tekststreng = intl.formatMessage({ id });
   return parseHtml(tekststreng);

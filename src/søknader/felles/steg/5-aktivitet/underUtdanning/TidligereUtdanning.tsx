@@ -6,7 +6,7 @@ import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmå
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import Utdanning from './Utdanning';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { tidligereUtdanningHjelpetekst, utdanningEtterGrunnskolenSpm } from './UtdanningConfig';
 import { lagTomUtdanning } from '../../../../../helpers/steg/utdanning';

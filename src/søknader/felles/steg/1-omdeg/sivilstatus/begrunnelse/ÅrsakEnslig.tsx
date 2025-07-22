@@ -7,7 +7,7 @@ import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSv
 import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
-import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
 import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
@@ -16,7 +16,7 @@ import { Alert, Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { useOmDeg } from '../../OmDegContext';
 import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
-import { hentHTMLTekst } from '../../../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../../../utils/teksthåndtering';
 
 const ÅrsakEnslig: FC = () => {
   const intl = useLokalIntlContext();

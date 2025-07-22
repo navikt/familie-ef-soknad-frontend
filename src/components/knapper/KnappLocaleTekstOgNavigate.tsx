@@ -4,7 +4,7 @@ import FeltGruppe from '../gruppe/FeltGruppe';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { EEventsnavn, logEvent } from '../../utils/amplitude';
 import React from 'react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 export const KnappLocaleTekstOgNavigate: React.FC<{

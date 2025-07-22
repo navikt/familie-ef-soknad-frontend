@@ -8,7 +8,7 @@ import TilleggsstønaderHarAktivitet from '../../../felles/steg/9-kvittering/Til
 import TilleggsstønaderUnderUtdanning from '../../../felles/steg/9-kvittering/TilleggsstønaderUnderUtdanning';
 import { ESvar } from '../../../../models/felles/spørsmålogsvar';
 import { formatDateHour } from '../../../../utils/dato';
-import { hentTekst, oppdaterBarnMedLabel } from '../../../../utils/søknad';
+import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import SyktBarn from '../../../felles/steg/9-kvittering/SyktBarn';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -27,6 +27,7 @@ import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useMount } from '../../../../utils/hooks';
 import { Alert } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();

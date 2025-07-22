@@ -2,7 +2,7 @@ import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort, Label } from '@navikt/ds-react';

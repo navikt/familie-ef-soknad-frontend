@@ -11,7 +11,7 @@ import { erSisteArbeidsgiverFerdigUtfylt } from '../../../../../helpers/steg/akt
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { Heading, Label } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {

@@ -1,7 +1,7 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { ESvar, ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';

@@ -7,7 +7,7 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { EBosituasjon, ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
 import { useBosituasjon } from './BosituasjonContext';

@@ -4,7 +4,7 @@ import barn2 from '../../../../assets/barn2.svg';
 import barn3 from '../../../../assets/barn3.svg';
 import ufødtIkon from '../../../../assets/ufodt.svg';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import { formatDate, strengTilDato } from '../../../../utils/dato';
 import { Heading } from '@navikt/ds-react';

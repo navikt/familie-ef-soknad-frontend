@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { hentTekst } from '../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../utils/teksthåndtering';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { BodyShort, ReadMore } from '@navikt/ds-react';
-import { hentHTMLTekst } from '../utils/teksthåndtering';
 
 const StyledÅpenHjelpetekst = styled.div`
   .navds-body-short {

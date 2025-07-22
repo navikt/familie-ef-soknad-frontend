@@ -13,7 +13,7 @@ import {
 } from '../../../../innsending/api';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
-import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
+import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/amplitude';
@@ -22,6 +22,7 @@ import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { useSpråkContext } from '../../../../context/SpråkContext';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Innsending {
   status: string;

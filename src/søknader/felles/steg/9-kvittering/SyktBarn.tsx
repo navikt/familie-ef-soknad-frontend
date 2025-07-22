@@ -8,7 +8,7 @@ import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const StyledLenke = styled.div`
   margin-top: 1rem;

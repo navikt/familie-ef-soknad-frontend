@@ -7,7 +7,7 @@ import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';

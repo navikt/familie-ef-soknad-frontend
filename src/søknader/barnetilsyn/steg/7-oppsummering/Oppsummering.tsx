@@ -12,7 +12,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentPath } from '../../../../utils/routing';
 import Side, { ESide } from '../../../../components/side/Side';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';

@@ -3,7 +3,7 @@ import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import { IBarn } from '../../../../models/steg/barn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { flereBarnsNavn } from '../../../../utils/barn';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledUndertittel } from '../../../../components/gruppe/Spacing';

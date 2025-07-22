@@ -4,7 +4,7 @@ import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { hentTittelMedNr } from '../../../../../language/utils';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EAksjeselskap, IAksjeselskap } from '../../../../../models/steg/aktivitet/aktivitet';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';

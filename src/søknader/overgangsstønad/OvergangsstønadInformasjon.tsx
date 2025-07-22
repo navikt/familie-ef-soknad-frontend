@@ -9,7 +9,7 @@ import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocale
 import React from 'react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 export interface SistInnsendtSøknad {

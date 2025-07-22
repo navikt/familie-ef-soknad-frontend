@@ -4,7 +4,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 interface Props {

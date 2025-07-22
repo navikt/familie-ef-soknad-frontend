@@ -2,12 +2,11 @@ import { førsteBokstavStor } from './språk';
 import { IBarn } from '../models/steg/barn';
 import { ESvar } from '../models/felles/spørsmålogsvar';
 import { formatDate, strengTilDato } from './dato';
-import { storeForbokstaver } from './teksthåndtering';
+import { hentTekst, hentTekstMedEnVariabel, storeForbokstaver } from './teksthåndtering';
 import { erForelderUtfylt } from '../helpers/steg/forelder';
 import { LokalIntlShape } from '../language/typer';
 import { IForelder } from '../models/steg/forelder';
 import { harVerdi, stringHarVerdiOgErIkkeTom } from './typer';
-import { hentTekst, hentTekstMedEnVariabel } from './søknad';
 
 export const hentSpørsmålTekstMedNavnEllerBarn = (
   spørsmålTekstid: string,

@@ -9,7 +9,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { GjenbrukKnapp } from './GjenbrukKnapp';
 import styled from 'styled-components';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ESkjemanavn } from '../../../../utils/skjemanavn';
 
 const Gjenbruk: FC = () => {

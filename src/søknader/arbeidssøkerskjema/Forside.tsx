@@ -14,9 +14,8 @@ import { Seksjon } from '../../components/forside/Seksjon';
 import { Overskrift } from '../../components/forside/Overskrift';
 import { Tekst } from '../../components/forside/Tekst';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
-import { hentTekst } from '../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentHTMLTekst } from '../../utils/teksthåndtering';
 
 const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
   const intl = useLokalIntlContext();

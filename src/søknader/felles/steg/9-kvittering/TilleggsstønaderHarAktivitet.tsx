@@ -3,7 +3,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const TilleggsstønaderHarAktivitet: FC = () => {

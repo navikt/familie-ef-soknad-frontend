@@ -13,7 +13,7 @@ import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/d
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
-import { hentTekst, hentTekstMedEnVariabel } from '../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 
 const StyledAlert = styled(Alert)`
   margin-bottom: 2rem;

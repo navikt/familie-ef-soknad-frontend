@@ -3,7 +3,7 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import Utenlandsopphold from './Utenlandsopphold';
 
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';

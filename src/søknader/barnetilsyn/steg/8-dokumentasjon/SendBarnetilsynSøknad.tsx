@@ -14,7 +14,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
-import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
+import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 
 import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/amplitude';
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
@@ -23,6 +23,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { useSpråkContext } from '../../../../context/SpråkContext';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Innsending {
   status: string;

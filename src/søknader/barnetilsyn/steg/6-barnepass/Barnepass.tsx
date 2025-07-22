@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { SøkerDuStønadFraBestemtMndSpm } from './BarnepassConfig';

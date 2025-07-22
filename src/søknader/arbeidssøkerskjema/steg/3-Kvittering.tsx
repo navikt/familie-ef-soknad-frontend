@@ -1,7 +1,7 @@
 import React from 'react';
 import Side from '../side/Side';
 import { dagensDato, formatDateHour } from '../../../utils/dato';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst } from '../../../utils/teksthåndtering';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { useSkjema } from '../SkjemaContext';
 import Feilside from '../../../components/feil/Feilside';

@@ -6,7 +6,7 @@ import {
 } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IMedlemskap, IUtenlandsopphold } from '../../../../models/steg/omDeg/medlemskap';
 import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import { Søker } from '../../../../models/søknad/person';

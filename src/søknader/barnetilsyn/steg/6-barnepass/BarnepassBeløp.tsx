@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../components/gruppe/InputLabelGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
 import { Detail } from '@navikt/ds-react';
-import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   barnepassOrdning: IBarnepassOrdning;

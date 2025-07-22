@@ -5,7 +5,7 @@ import { logSpørsmålBesvart } from '../../utils/amplitude';
 import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Select } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 interface Props {
   spørsmål: ISpørsmål;

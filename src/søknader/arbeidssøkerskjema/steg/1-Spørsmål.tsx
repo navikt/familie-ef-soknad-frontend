@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Side from '../side/Side';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst } from '../../../utils/teksthåndtering';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
 import {

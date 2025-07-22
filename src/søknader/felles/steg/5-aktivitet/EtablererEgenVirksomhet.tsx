@@ -6,7 +6,7 @@ import {
   IAktivitet,
 } from '../../../../models/steg/aktivitet/aktivitet';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { Heading, Textarea } from '@navikt/ds-react';

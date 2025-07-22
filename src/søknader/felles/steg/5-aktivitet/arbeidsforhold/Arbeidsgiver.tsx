@@ -7,12 +7,8 @@ import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarS
 import HarSøkerSluttdato from './HarSøkerSluttdato';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
-import { hentTekst } from '../../../../../utils/søknad';
-import {
-  EArbeidsgiver,
-  EStilling,
-  IArbeidsgiver,
-} from '../../../../../models/steg/aktivitet/arbeidsgiver';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { EArbeidsgiver, EStilling, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';

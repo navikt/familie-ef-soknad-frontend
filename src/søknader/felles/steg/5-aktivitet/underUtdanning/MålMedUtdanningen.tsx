@@ -1,7 +1,7 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';

@@ -5,7 +5,7 @@ import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokum
 import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../OmDegContext';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 const SøkerHarSøktSeparasjon: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();

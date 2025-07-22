@@ -9,7 +9,7 @@ import Aksjeselskap from './Aksjeselskap';
 import { erAksjeselskapFerdigUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { Heading, Label } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {

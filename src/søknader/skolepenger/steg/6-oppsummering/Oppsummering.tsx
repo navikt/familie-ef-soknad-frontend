@@ -14,7 +14,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();

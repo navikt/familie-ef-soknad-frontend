@@ -11,9 +11,8 @@ import { ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { erValgtSvarLiktSomSvar, harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { Alert } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 
 export const BosituasjonSpørsmål: FC = () => {
   const { bosituasjon, oppdaterDelerBoligMedAndreVoksne, hovedSpørsmål } = useBosituasjon();

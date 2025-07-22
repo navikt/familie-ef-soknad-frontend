@@ -11,7 +11,7 @@ import { Button } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { styled } from 'styled-components';
 import { ModalWrapper } from '../../../../components/Modal/ModalWrapper';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   tittel: string;

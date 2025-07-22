@@ -3,7 +3,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { EHvorforIkkeOppgi } from '../../../../models/steg/barnasbosted';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { hvorforIkkeOppgi } from './ForeldreConfig';
 import { IForelder } from '../../../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';

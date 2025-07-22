@@ -5,7 +5,7 @@ import BarnMedSærligeBehovBegrunnelse from './BarnMedSærligeBehovBegrunnelse';
 import HvilkeBarnHarSærligeBehov from './HvilkeBarnHarSærligeBehov';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const BarnMedSærligeBehov: React.FC = () => {
   const intl = useLokalIntlContext();

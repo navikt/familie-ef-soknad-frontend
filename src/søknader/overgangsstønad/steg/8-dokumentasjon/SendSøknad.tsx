@@ -14,7 +14,7 @@ import {
   mapBarnUtenBarnepass,
   sendInnOvergangstønadSøknad,
 } from '../../../../innsending/api';
-import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
+import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
@@ -22,6 +22,7 @@ import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/am
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Innsending {
   status: string;

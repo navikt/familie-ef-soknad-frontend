@@ -13,8 +13,7 @@ import { årsakBarnepass } from './BarnepassConfig';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
-import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   barn: IBarn;

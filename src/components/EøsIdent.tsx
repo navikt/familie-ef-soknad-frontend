@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox, Label, ReadMore } from '@navikt/ds-react';
 import { TextFieldMedBredde } from './TextFieldMedBredde';
-import { hentTekstMedEnVariabel } from '../utils/søknad';
+import { hentTekstMedEnVariabel } from '../utils/teksthåndtering';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { IUtenlandsopphold } from '../models/steg/omDeg/medlemskap';
 

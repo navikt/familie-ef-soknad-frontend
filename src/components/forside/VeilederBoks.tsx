@@ -3,7 +3,7 @@ import VeilederSnakkeboble from '../../assets/VeilederSnakkeboble';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { usePersonContext } from '../../context/PersonContext';
 import styled from 'styled-components';
-import { hentTekstMedEnVariabel } from '../../utils/søknad';
+import { hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 
 const VeilederContainer = styled.div`
   margin-bottom: 4rem;

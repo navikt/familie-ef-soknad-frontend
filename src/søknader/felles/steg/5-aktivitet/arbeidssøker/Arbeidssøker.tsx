@@ -13,11 +13,12 @@ import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsm�
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
-import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

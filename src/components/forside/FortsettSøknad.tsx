@@ -5,7 +5,7 @@ import { EEventsnavn, logEvent } from '../../utils/amplitude';
 import { useNavigate } from 'react-router-dom';
 import { LokalIntlShape } from '../../language/typer';
 import { BodyShort, Button } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 interface FortsettSøknadProps {
   intl: LokalIntlShape;

@@ -2,7 +2,7 @@ import React from 'react';
 import { ReadMore } from '@navikt/ds-react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import styled from 'styled-components';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const ReadMoreMedPadding = styled(ReadMore)`

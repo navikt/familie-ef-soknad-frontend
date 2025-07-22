@@ -3,7 +3,7 @@ import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning'
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EPeriode } from '../../../../../models/felles/periode';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';

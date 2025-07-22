@@ -11,7 +11,7 @@ import { HvaSlagsBarnepassOrdningSpm } from './BarnepassConfig';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { tomPeriode } from '../../../../helpers/tommeSøknadsfelter';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import BarnepassBeløp from './BarnepassBeløp';
 import { erÅrsakBarnepassSpmBesvart } from './hjelper';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';

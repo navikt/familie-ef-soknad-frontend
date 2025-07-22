@@ -1,7 +1,7 @@
 import React from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { skalBarnetBoHosSøker } from './ForeldreConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -13,7 +13,6 @@ import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
-import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   barn: IBarn;

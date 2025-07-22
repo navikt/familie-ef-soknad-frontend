@@ -4,7 +4,7 @@ import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe
 import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../../utils/søknad';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 const DatoForSamlivsbrudd: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();

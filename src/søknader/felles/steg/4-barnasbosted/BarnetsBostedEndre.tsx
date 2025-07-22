@@ -8,7 +8,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import {
   erForelderUtfylt,
   utfyltBorINorge,

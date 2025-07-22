@@ -10,7 +10,7 @@ import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { IFirma } from '../../../../../models/steg/aktivitet/firma';
 import OmFirmaetDitt from './OmFirmaetDitt';
 import { Heading, Label } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {

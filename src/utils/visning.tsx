@@ -12,7 +12,7 @@ import { harValgtSvar } from './spørsmålogsvar';
 import { LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { BodyShort, Ingress, Label } from '@navikt/ds-react';
-import { hentTekst, hentTekstMedEnVariabel } from './søknad';
+import { hentTekst, hentTekstMedEnVariabel } from './teksthåndtering';
 
 export const visListeAvLabelOgSvar = (liste: object[] | undefined, overskrift: string) => {
   if (!liste) return null;

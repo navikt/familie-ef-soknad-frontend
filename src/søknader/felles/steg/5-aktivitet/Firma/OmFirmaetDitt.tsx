@@ -3,7 +3,7 @@ import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Dato
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import styled from 'styled-components';

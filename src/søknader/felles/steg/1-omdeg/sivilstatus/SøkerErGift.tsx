@@ -9,7 +9,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 const SøktSeparasjonAlert = styled(Alert)`
   margin-bottom: 3rem;

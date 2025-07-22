@@ -3,7 +3,7 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const SøktBarnepassOgVenterPåSvar: React.FC = () => {
   const intl = useLokalIntlContext();

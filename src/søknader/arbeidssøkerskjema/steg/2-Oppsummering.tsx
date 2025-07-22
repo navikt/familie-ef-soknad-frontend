@@ -7,7 +7,7 @@ import {
 } from '../routes/routesArbeidssokerskjema';
 import { mapDataTilLabelOgVerdiTyper } from '../utils/innsending';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst } from '../../../utils/teksthåndtering';
 import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../../utils/visning';
 import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';

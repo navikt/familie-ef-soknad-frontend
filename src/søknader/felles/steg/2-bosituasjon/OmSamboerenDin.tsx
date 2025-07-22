@@ -4,7 +4,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { EBosituasjon } from '../../../../models/steg/bosituasjon';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
 import { Label } from '@navikt/ds-react';

@@ -1,6 +1,6 @@
 import { BodyShort, ConfirmationPanel, Heading } from '@navikt/ds-react';
 import styled from 'styled-components';
-import { hentTekst, hentTekstMedEnVariabel } from '../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 import React from 'react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 

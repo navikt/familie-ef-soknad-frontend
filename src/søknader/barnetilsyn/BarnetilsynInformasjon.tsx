@@ -5,7 +5,7 @@ import { Overskrift } from '../../components/forside/Overskrift';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
-import { hentDataFraForrigeBarnetilsynSøknad, hentTekst } from '../../utils/søknad';
+import { hentDataFraForrigeBarnetilsynSøknad } from '../../utils/søknad';
 import React, { useContext, useEffect, useState } from 'react';
 import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { useSpråkContext } from '../../context/SpråkContext';
@@ -14,6 +14,7 @@ import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,

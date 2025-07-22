@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const Knapp = styled(Button)`
   width: fit-content;

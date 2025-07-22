@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/teksthåndtering';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';

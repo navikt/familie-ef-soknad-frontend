@@ -11,7 +11,7 @@ import { Box, Heading } from '@navikt/ds-react';
 import { OvergangsstønadInformasjon } from './OvergangsstønadInformasjon';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const Forside: React.FC = () => {
   useMount(() => {

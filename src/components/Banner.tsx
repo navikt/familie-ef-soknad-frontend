@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Heading } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
-import { hentTekst } from '../utils/søknad';
+import { hentTekst } from '../utils/teksthåndtering';
 
 const StyledBanner = styled.div`
   width: 100%;

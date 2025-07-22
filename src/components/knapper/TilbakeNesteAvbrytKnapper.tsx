@@ -4,7 +4,7 @@ import { IRoute } from '../../models/routes';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 const StyledNavigeringsKnapper = styled.div`

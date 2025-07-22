@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';

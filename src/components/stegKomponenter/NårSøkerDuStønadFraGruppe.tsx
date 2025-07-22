@@ -11,7 +11,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Label, RadioGroup } from '@navikt/ds-react';
 import { DatoBegrensning } from '../dato/Datovelger';
 import RadioPanelCustom from '../panel/RadioPanel';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {

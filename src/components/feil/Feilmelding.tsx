@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 const StyledFeilmelding = styled.span`

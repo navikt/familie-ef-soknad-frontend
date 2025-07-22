@@ -2,7 +2,7 @@ import React from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import Filopplaster from '../../../../components/filopplaster/Filopplaster';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { BarnetilsynDokumentasjon, IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { EFiltyper } from '../../../../helpers/filtyper';

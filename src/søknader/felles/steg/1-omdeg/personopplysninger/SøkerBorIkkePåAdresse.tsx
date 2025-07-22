@@ -4,8 +4,11 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import { Alert, BodyShort, Label } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../utils/søknad';
-import { hentHTMLTekst, hentHTMLTekstMedEnVariabel } from '../../../../../utils/teksthåndtering';
+import {
+  hentHTMLTekst,
+  hentHTMLTekstMedEnVariabel,
+  hentTekst,
+} from '../../../../../utils/teksthåndtering';
 
 interface Props {
   stønadstype: Stønadstype;

@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import {

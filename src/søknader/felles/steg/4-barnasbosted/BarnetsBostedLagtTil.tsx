@@ -5,7 +5,7 @@ import { formatDate, strengTilDato } from '../../../../utils/dato';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { IBarn } from '../../../../models/steg/barn';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BodyShort, Label } from '@navikt/ds-react';

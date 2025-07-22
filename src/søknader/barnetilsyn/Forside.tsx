@@ -13,7 +13,7 @@ import { useMount, useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { BarnetilsynInformasjon } from './BarnetilsynInformasjon';
-import { hentTekst, hentTekstMedEnVariabel } from '../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 
 const StyledAlert = styled(Alert)`
   margin-bottom: 2rem;

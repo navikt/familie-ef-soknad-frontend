@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  EStudieandel,
-  EUtdanning,
-  IUnderUtdanning,
-} from '../../../../../models/steg/aktivitet/utdanning';
+import { EStudieandel, EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
 import LesMerTekst from '../../../../../components/LesMerTekst';
@@ -28,7 +24,7 @@ import styled from 'styled-components';
 import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
 import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
 import { Heading } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`

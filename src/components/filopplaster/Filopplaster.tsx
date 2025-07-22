@@ -16,7 +16,7 @@ import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
 import styled from 'styled-components';
 import { ABlue500, ADeepblue50, AGray700 } from '@navikt/ds-tokens/dist/tokens';
-import { hentTekstMedEnVariabel, hentTekstMedFlereVariabler } from '../../utils/søknad';
+import { hentTekstMedEnVariabel, hentTekstMedFlereVariabler } from '../../utils/teksthåndtering';
 
 interface Props {
   oppdaterDokumentasjon: (

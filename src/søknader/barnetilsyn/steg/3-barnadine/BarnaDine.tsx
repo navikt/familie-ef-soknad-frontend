@@ -1,5 +1,5 @@
 import React from 'react';
-import { hentFeltObjekt, hentTekst } from '../../../../utils/søknad';
+import { hentFeltObjekt } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import LesMerTekst from '../../../../components/LesMerTekst';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
@@ -19,7 +19,7 @@ import {
   BarneKortWrapper,
 } from '../../../felles/steg/3-barnadine/BarnaDineInnhold';
 import styled from 'styled-components';
-import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 
 const AlertContainer = styled.div`
   & > *:not(:first-child) {

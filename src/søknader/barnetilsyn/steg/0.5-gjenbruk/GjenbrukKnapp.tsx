@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import { GjenbrukContext } from '../../../../context/GjenbrukContext';
 import { EEventsnavn, logEvent } from '../../../../utils/amplitude';
 import { ESkjemanavn } from '../../../../utils/skjemanavn';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 export const GjenbrukKnapp: React.FC<{

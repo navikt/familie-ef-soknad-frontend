@@ -7,7 +7,7 @@ import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Dato
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
