@@ -25,7 +25,7 @@ export const OmDegV2: React.FC = () => {
     return søkerBorPåRegistrertAdresse === false && søkerHarMeldtAdresseEndring === true;
   };
 
-  const skalViseMedlemskap = false;
+  const skalViseMedlemskap = true;
 
   return (
     <StegSide søknadSteg={søknadSteg}>
@@ -36,8 +36,8 @@ export const OmDegV2: React.FC = () => {
         adresse={søker.adresse.adresse} // TODO: Fix denne så adresse er formatert med post nummer og sted.
       />
 
-      <Adresseopplysninger />
-      {skalViseSivilstatus() && <SivilstatusV2 />}
+      {/*<Adresseopplysninger />
+      {skalViseSivilstatus() && <SivilstatusV2 />}*/}
 
       {skalViseMedlemskap && <MedlemskapV2 />}
 

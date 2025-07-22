@@ -5,6 +5,7 @@ import {
   useJaNeiBoolean,
 } from '../../../../../../components/spørsmål/v2/JaNeiSpørsmålV2';
 import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { OppholdMedBarn } from './OppholdMedBarn';
 
 export const MedlemskapV2: React.FC = () => {
   const søkerOppholderSegINorgeMedBarn = useJaNeiBoolean();
@@ -18,12 +19,16 @@ export const MedlemskapV2: React.FC = () => {
     søkerOppholderSegINorgeMedBarn.handleChange(svar);
   };
 
+  const visHvorOppholderDuOgBarnSpørsmål = søkerOppholderSegINorgeMedBarn.erNei;
+
   return (
     <VStack gap={'6'}>
       <JaNeiSpørsmålV2
         spørsmål={søkerOppholderSegINorgeMedBarnSpørsmål}
         onChange={onSøkerOppholderSegILandMedBarn}
       />
+
+      {visHvorOppholderDuOgBarnSpørsmål && <OppholdMedBarn />}
     </VStack>
   );
 };
