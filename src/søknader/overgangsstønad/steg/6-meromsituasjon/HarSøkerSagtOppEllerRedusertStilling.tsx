@@ -3,7 +3,6 @@ import {
   ESagtOppEllerRedusertStilling,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { hentTekst } from '../../../../utils/søknad';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -139,9 +138,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
       {(harSagtOpp || harRedusertStilling) && (
         <>
           <KomponentGruppe>
-            <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={alertLabel} />
-            </AlertStripeDokumentasjon>
+            <AlertStripeDokumentasjon>{hentTekst(alertLabel, intl)}</AlertStripeDokumentasjon>
           </KomponentGruppe>
           <KomponentGruppe>
             <Textarea
@@ -166,7 +163,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
               />
               {erValgtDatoMindreEnn6mndSiden && (
                 <Alert size="small" variant="info" inline>
-                  <LocaleTekst tekst={valgtDatoMindreEnn6mndSidenAlert} />
+                  {hentTekst(valgtDatoMindreEnn6mndSidenAlert, intl)}
                 </Alert>
               )}
             </KomponentGruppe>

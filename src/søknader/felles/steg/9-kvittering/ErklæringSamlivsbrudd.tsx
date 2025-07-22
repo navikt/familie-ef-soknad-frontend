@@ -3,12 +3,12 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import download from '../../../../assets/download.svg';
 import styled from 'styled-components';
 import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
+import { hentTekst } from '../../../../utils/søknad';
 
 const StyledLenke = styled.div`
   margin-top: 1rem;
@@ -40,11 +40,9 @@ const ErklæringSamlivsbrudd: FC = () => {
   return (
     <SeksjonGruppe>
       <StyledUndertittel size="small">
-        <LocaleTekst tekst={'kvittering.tittel.samlivsbrudd'} />
+        {hentTekst('kvittering.tittel.samlivsbrudd', intl)}
       </StyledUndertittel>
-      <BodyShort>
-        <LocaleTekst tekst={'kvittering.beskrivelse.samlivsbrudd'} />
-      </BodyShort>
+      <BodyShort>{hentTekst('kvittering.beskrivelse.samlivsbrudd', intl)}</BodyShort>
 
       <StyledLenke>
         <Link href={hentÆrklæringBasertPåSpråk()} download>

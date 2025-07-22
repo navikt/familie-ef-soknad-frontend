@@ -1,6 +1,5 @@
 import React from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import {
   EAktivitet,
   EArbeidssituasjon,
@@ -37,7 +36,7 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeid
     <>
       <FeltGruppe>
         <Heading size="small" level="3">
-          <LocaleTekst tekst={'arbeidssituasjon.tittel.etablererEgenVirksomhet'} />
+          {hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)}
         </Heading>
       </FeltGruppe>
       <KomponentGruppe>
@@ -52,7 +51,7 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeid
         />
         <FeltGruppe>
           <AlertStripeDokumentasjon>
-            <LocaleTekst tekst={'arbeidssituasjon.alert.etablererEgenVirksomhet'} />
+            {hentTekst('arbeidssituasjon.alert.etablererEgenVirksomhet', intl)}
           </AlertStripeDokumentasjon>
         </FeltGruppe>
       </KomponentGruppe>

@@ -3,9 +3,9 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import BarnMedSærligeBehovBegrunnelse from './BarnMedSærligeBehovBegrunnelse';
 import HvilkeBarnHarSærligeBehov from './HvilkeBarnHarSærligeBehov';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/søknad';
 
 const BarnMedSærligeBehov: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -18,7 +18,7 @@ const BarnMedSærligeBehov: React.FC = () => {
               id: 'dinSituasjon.dok.harBarnMedSærligeBehov.tittel',
             })}
           </BodyShort>
-          <LocaleTekst tekst="dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse" />
+          {hentTekst('dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse', intl)}
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
       <HvilkeBarnHarSærligeBehov />

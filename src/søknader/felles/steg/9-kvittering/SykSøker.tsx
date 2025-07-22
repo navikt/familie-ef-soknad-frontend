@@ -3,10 +3,10 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import download from '../../../../assets/download.svg';
 import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
 import styled from 'styled-components';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
+import { hentTekst } from '../../../../utils/søknad';
 
 const StyledLenke = styled.div`
   margin-top: 1rem;
@@ -27,12 +27,10 @@ const SykSøker: FC<{ filPath: string }> = ({ filPath }) => {
   return (
     <SeksjonGruppe>
       <StyledUndertittel size="small">
-        <LocaleTekst tekst={'kvittering.tittel.huskeliste.erSyk'} />
+        {hentTekst('kvittering.tittel.huskeliste.erSyk', intl)}
       </StyledUndertittel>
 
-      <BodyShort>
-        <LocaleTekst tekst={'kvittering.beskrivelse.huskeliste.erSyk'} />
-      </BodyShort>
+      <BodyShort>{hentTekst('kvittering.beskrivelse.huskeliste.erSyk', intl)}</BodyShort>
       <StyledLenke>
         <Link href={filPath} download>
           <img alt="Nedlastingsikon" src={download} />

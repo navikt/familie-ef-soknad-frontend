@@ -1,11 +1,11 @@
 import React from 'react';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../OmDegContext';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../utils/søknad';
 
 const SøkerHarSøktSeparasjon: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
@@ -35,7 +35,7 @@ const SøkerHarSøktSeparasjon: React.FC = () => {
       </FeltGruppe>
       <FeltGruppe>
         <AlertStripeDokumentasjon>
-          <LocaleTekst tekst={'sivilstatus.alert-info.søktSeparasjon'} />
+          {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
         </AlertStripeDokumentasjon>
       </FeltGruppe>
     </KomponentGruppe>

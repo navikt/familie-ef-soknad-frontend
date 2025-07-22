@@ -9,7 +9,7 @@ import { fraStringTilTall } from '../../../../utils/søknad';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
-import { storeForbokstaver } from '../../../../utils/tekst';
+import { storeForbokstaver } from '../../../../utils/teksthåndtering';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';

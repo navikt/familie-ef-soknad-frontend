@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { EAlvorlighetsgrad } from '../../models/felles/feilmelding';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import FormattedHtmlMessage from '../../language/FormattedHtmlMessage';
 import { Alert } from '@navikt/ds-react';
+import { hentHTMLTekst } from '../../utils/teksthåndtering';
 
 type AlertVariant = 'info' | 'success' | 'error' | 'warning';
 
@@ -26,7 +26,7 @@ const Feilside: FC<{ tekstId?: string; alvorlighetsgrad?: string }> = ({
   return (
     <div className="feilside">
       <Alert variant={variant}>
-        {tekstId ? <FormattedHtmlMessage id={tekstId} /> : intl.formatMessage({ id: 'feil.alert' })}
+        {tekstId ? hentHTMLTekst(tekstId, intl) : intl.formatMessage({ id: 'feil.alert' })}
       </Alert>
     </div>
   );

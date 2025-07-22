@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { hentTekst } from '../../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
@@ -13,6 +12,7 @@ import { useMount } from '../../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
+import { hentTekst } from '../../../../utils/søknad';
 
 const BarnasBosted: React.FC = () => {
   const intl = useLokalIntlContext();

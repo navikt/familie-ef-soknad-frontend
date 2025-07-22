@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { FC } from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
@@ -14,6 +13,8 @@ import { årsakBarnepass } from './BarnepassConfig';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
+import { hentTekst } from '../../../../utils/søknad';
 
 interface Props {
   barn: IBarn;
@@ -57,7 +58,7 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbeh
     <SeksjonGruppe>
       <KomponentGruppe>
         <Alert size="small" variant="warning" inline>
-          <LocaleTekst tekst={'barnepass.alert-advarsel.årsak'} />
+          {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
         </Alert>
       </KomponentGruppe>
       <KomponentGruppe>
@@ -71,13 +72,13 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbeh
       <KomponentGruppe>
         {valgtÅrsak === EÅrsakBarnepass.myeBortePgaJobb && (
           <Alert size="small" variant="info" inline>
-            <LocaleTekst tekst={'barnepass.alert-info.myeBortePgaJobb'} />
+            {hentTekst('barnepass.alert-info.myeBortePgaJobb', intl)}
           </Alert>
         )}
 
         {dokumentasjonsbehovTekst && (
           <AlertStripeDokumentasjon>
-            <LocaleTekst tekst={dokumentasjonsbehovTekst} />
+            {hentTekst(dokumentasjonsbehovTekst, intl)}
           </AlertStripeDokumentasjon>
         )}
       </KomponentGruppe>

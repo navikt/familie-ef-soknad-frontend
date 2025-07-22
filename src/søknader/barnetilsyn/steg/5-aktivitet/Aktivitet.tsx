@@ -21,7 +21,6 @@ import {
 } from '../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
@@ -150,12 +149,10 @@ const Aktivitet: React.FC = () => {
         {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
           <>
             <Alert variant={'info'} inline>
-              <Label as="p">
-                <LocaleTekst tekst={'erDuIArbeid.alertsstripe-info'} />
-              </Label>
+              <Label as="p">{hentTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
             </Alert>
             <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={'erDuIArbeid.alertsstripe-dokumentasjon'} />
+              {hentTekst('erDuIArbeid.alertsstripe-dokumentasjon', intl)}
             </AlertStripeDokumentasjon>
           </>
         )}

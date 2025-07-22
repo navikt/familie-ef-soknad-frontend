@@ -1,4 +1,3 @@
-import LocaleTekst from '../../language/LocaleTekst';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { Tekst } from '../../components/forside/Tekst';
 import { Seksjon } from '../../components/forside/Seksjon';
@@ -66,12 +65,10 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
       <Seksjon>
         <Tekst tekst="forside.barnetilsyn.info" />
         <Tekst tekst="forside.barnetilsyn.fåStønadSkoleår" />
-        <LocaleTekst tekst="forside.barnetilsyn.merOmStønad" />
+        {hentTekst('forside.barnetilsyn.merOmStønad', intl)}
       </Seksjon>
 
-      <Seksjon>
-        <LocaleTekst tekst="forside.barnetilsyn.arbeidssøkerUtdanning" />
-      </Seksjon>
+      <Seksjon>{hentTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.barnetilsyn.overskrift.riktigeOpplysninger" />
@@ -83,16 +80,16 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <Overskrift tekst="forside.barnetilsyn.overskrift.sendeDokumentasjon" />
         <Tekst tekst="forside.barnetilsyn.beskjedDokumentere" />
         <Tekst tekst="forside.barnetilsyn.merInformasjon" />
-        <LocaleTekst tekst="forside.barnetilsyn.oversiktDokumentasjon" />
+        {hentTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
       </Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.barnetilsyn.overskrift.henteInformasjon" />
         <Tekst tekst="forside.barnetilsyn.henteInformasjon" />
         <Tekst tekst="forside.barnetilsyn.viHenter" />
-        <LocaleTekst tekst="forside.barnetilsyn.henterPunktliste" />
+        {hentTekst('forside.barnetilsyn.henterPunktliste', intl)}
         <Tekst tekst="forside.barnetilsyn.tidligereOpplysninger" />
-        <LocaleTekst tekst="forside.barnetilsyn.personopplysningeneDine" />
+        {hentTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
       </Seksjon>
 
       <Seksjon>

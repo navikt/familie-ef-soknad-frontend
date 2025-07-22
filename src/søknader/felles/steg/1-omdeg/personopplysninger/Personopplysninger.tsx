@@ -1,7 +1,6 @@
 import React from 'react';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
@@ -78,7 +77,7 @@ const Personopplysninger: React.FC = () => {
               />
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
                 <AlertStripeDokumentasjon>
-                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+                  {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
                 </AlertStripeDokumentasjon>
               )}
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (

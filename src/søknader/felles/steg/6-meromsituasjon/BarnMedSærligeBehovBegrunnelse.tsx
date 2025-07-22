@@ -2,14 +2,13 @@ import React, { ChangeEvent } from 'react';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
-import { storeForbokstaver } from '../../../../utils/tekst';
+import { storeForbokstaver } from '../../../../utils/teksthåndtering';
 import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { LokalIntlShape } from '../../../../language/typer';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Label, Textarea } from '@navikt/ds-react';
-import { hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 
@@ -72,7 +71,7 @@ const BarnMedSærligeBehovLabelTekst: React.FC<{
     <section className="om-barnets-tilsynsbehov" aria-live="polite">
       <Label className="blokk-xs">{omBarnetsTilsynsbehovLabel}</Label>
       <BodyShort>
-        <LocaleTekst tekst={'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse'} />
+        {hentTekst('dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse', intl)}
       </BodyShort>
     </section>
   );

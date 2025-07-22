@@ -14,7 +14,6 @@ import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
-import LocaleTekst from '../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
@@ -118,7 +117,7 @@ const Oppsummering: React.FC = () => {
             variant={'secondary'}
             onClick={() => navigate(forrigeRoute.path)}
           >
-            <LocaleTekst tekst={'knapp.tilbake'} />
+            {hentTekst('knapp.tilbake', intl)}
           </Button>
 
           <Button
@@ -127,7 +126,7 @@ const Oppsummering: React.FC = () => {
             className={'neste'}
             loading={innsendingState.venter}
           >
-            <LocaleTekst tekst={'skjema.send'} />
+            {hentTekst('skjema.send', intl)}
           </Button>
 
           <Button
@@ -135,7 +134,7 @@ const Oppsummering: React.FC = () => {
             variant={'tertiary'}
             onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}
           >
-            <LocaleTekst tekst={'knapp.avbryt'} />
+            {hentTekst('knapp.avbryt', intl)}
           </Button>
         </StyledKnapper>
       </SeksjonGruppe>

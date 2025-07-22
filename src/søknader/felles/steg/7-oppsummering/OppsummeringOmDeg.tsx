@@ -17,7 +17,6 @@ import {
   StyledOppsummering,
   StyledOppsummeringMedUndertitler,
 } from '../../../../components/stegKomponenter/StyledOppsummering';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { useNavigate } from 'react-router-dom';
 import { BodyShort, Ingress, Label } from '@navikt/ds-react';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
@@ -62,21 +61,15 @@ const OppsummeringOmDeg: FC<Props> = ({
       <KomponentGruppe>
         <StyledOppsummering>
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              <LocaleTekst tekst="person.ident" />
-            </Label>
+            <Label as="p">{hentTekst('person.ident', intl)}</Label>
             <BodyShort>{omDeg.fnr}</BodyShort>
           </div>
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              <LocaleTekst tekst="person.statsborgerskap" />
-            </Label>
+            <Label as="p">{hentTekst('person.statsborgerskap', intl)}</Label>
             <BodyShort>{omDeg.statsborgerskap}</BodyShort>
           </div>
           <div className="spørsmål-og-svar">
-            <Label as="p">
-              <LocaleTekst tekst="person.adresse" />
-            </Label>
+            <Label as="p">{hentTekst('person.adresse', intl)}</Label>
             <BodyShort>{omDeg.adresse.adresse}</BodyShort>
             <BodyShort>
               {omDeg.adresse.postnummer} {omDeg.adresse.poststed}

@@ -3,9 +3,8 @@ import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import { IBarn } from '../../../../models/steg/barn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekstMedEnVariabel } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/søknad';
 import { flereBarnsNavn } from '../../../../utils/barn';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
 import { BodyShort } from '@navikt/ds-react';
@@ -43,7 +42,7 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
           className={'knapp knapp--standard kvittering'}
           href={'https://www.skatteetaten.no/person/folkeregister/flytte/i-norge/'}
         >
-          <LocaleTekst tekst={'barnasbosted.skalBliFolkeregistrert.knapp'} />
+          {hentTekst('barnasbosted.skalBliFolkeregistrert.knapp', intl)}
         </a>
       </KomponentGruppe>
     </SeksjonGruppe>

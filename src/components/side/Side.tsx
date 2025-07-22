@@ -7,11 +7,11 @@ import TilbakeNesteAvbrytKnapper from '../knapper/TilbakeNesteAvbrytKnapper';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { hentBannertittel } from '../../utils/stønadstype';
-import LocaleTekst from '../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Stegindikator from '../stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
+import { hentHTMLTekst } from '../../utils/teksthåndtering';
 
 export enum ESide {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',
@@ -84,7 +84,7 @@ const Side: React.FC<ISide> = ({
 
         {informasjonstekstId && (
           <Alert size="small" variant="info" className="side__informasjon" inline>
-            <LocaleTekst tekst={informasjonstekstId} />
+            {hentHTMLTekst(informasjonstekstId, intl)}
           </Alert>
         )}
 

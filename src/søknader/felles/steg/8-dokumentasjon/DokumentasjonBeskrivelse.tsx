@@ -4,7 +4,6 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import styled from 'styled-components';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import LocaleTekst from '../../../../language/LocaleTekst';
 
 const ReadMoreMedPadding = styled(ReadMore)`
   padding: 1rem 0;
@@ -24,14 +23,14 @@ export const DokumentasjonBeskrivelse: React.FC<Props> = ({ harDokumentasjonsbeh
     <SeksjonsGruppeMindrePadding>
       {harDokumentasjonsbehov ? (
         <>
-          <LocaleTekst tekst={'dokumentasjon.beskrivelse'} />
+          {hentTekst('dokumentasjon.beskrivelse', intl)}
           <ReadMoreMedPadding header={hentTekst('dokumentasjon.beskrivelseBilderHeader', intl)}>
-            <LocaleTekst tekst={'dokumentasjon.beskrivelseBilderInnhold'} />
+            {hentTekst('dokumentasjon.beskrivelseBilderInnhold', intl)}
           </ReadMoreMedPadding>
-          <LocaleTekst tekst={'dokumentasjon.beskrivelseSlutt'} />
+          {hentTekst('dokumentasjon.beskrivelseSlutt', intl)}
         </>
       ) : (
-        <LocaleTekst tekst={'dokumentasjon.ingenDokumentasjonsbehov.beskrivelse'} />
+        hentTekst('dokumentasjon.ingenDokumentasjonsbehov.beskrivelse', intl)
       )}
     </SeksjonsGruppeMindrePadding>
   );

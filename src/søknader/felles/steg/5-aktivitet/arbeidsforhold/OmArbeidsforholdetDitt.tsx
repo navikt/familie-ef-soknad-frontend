@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Arbeidsgiver from './Arbeidsgiver';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
@@ -12,6 +11,8 @@ import { erSisteArbeidsgiverFerdigUtfylt } from '../../../../../helpers/steg/akt
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { Heading, Label } from '@navikt/ds-react';
+import { hentTekst } from '../../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
   arbeidssituasjon: IAktivitet;
@@ -39,6 +40,7 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
   settDokumentasjonsbehov,
   inkludertArbeidsmengde = true,
 }) => {
+  const intl = useLokalIntlContext();
   const [arbeidsforhold, settArbeidsforhold] = useState<IArbeidsgiver[]>(
     arbeidssituasjon.arbeidsforhold
       ? arbeidssituasjon.arbeidsforhold
@@ -67,7 +69,7 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
     <>
       <KomponentGruppe className={'sentrert'}>
         <Heading size="small" level="3">
-          <LocaleTekst tekst={'arbeidsforhold.tittel'} />
+          {hentTekst('arbeidsforhold.tittel', intl)}
         </Heading>
       </KomponentGruppe>
       {arbeidssituasjon.arbeidsforhold?.map((arbeidsgiver, index) => {
@@ -87,11 +89,9 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
       {erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold) && (
         <KomponentGruppe>
           <FeltGruppe>
-            <Label as="p">
-              <LocaleTekst tekst={'arbeidsforhold.label.flereArbeidsgivere'} />
-            </Label>
+            <Label as="p">{hentTekst('arbeidsforhold.label.flereArbeidsgivere', intl)}</Label>
             <LeggTilKnapp onClick={() => leggTilArbeidsgiver()}>
-              <LocaleTekst tekst={'arbeidsforhold.knapp.leggTilArbeidsgiver'} />
+              {hentTekst('arbeidsforhold.knapp.leggTilArbeidsgiver', intl)}
             </LeggTilKnapp>
           </FeltGruppe>
         </KomponentGruppe>

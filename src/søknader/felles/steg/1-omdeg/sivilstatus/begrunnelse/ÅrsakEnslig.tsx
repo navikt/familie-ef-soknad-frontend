@@ -10,14 +10,13 @@ import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
 import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
-import LocaleTekst from '../../../../../../language/LocaleTekst';
 import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import FormattedHtmlMessage from '../../../../../../language/FormattedHtmlMessage';
 import { Alert, Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { useOmDeg } from '../../OmDegContext';
 import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
+import { hentHTMLTekst } from '../../../../../../utils/teksthåndtering';
 
 const ÅrsakEnslig: FC = () => {
   const intl = useLokalIntlContext();
@@ -78,7 +77,7 @@ const ÅrsakEnslig: FC = () => {
         <KomponentGruppe>
           <FeltGruppe>
             <Heading size="small" level="3">
-              <LocaleTekst tekst={'sivilstatus.tittel.samlivsbruddAndre'} />
+              {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
             </Heading>
           </FeltGruppe>
           <FeltGruppe>
@@ -103,7 +102,7 @@ const ÅrsakEnslig: FC = () => {
       {årsakEnslig?.svarid === EBegrunnelse.dødsfall && (
         <KomponentGruppe>
           <Alert size="small" variant="info" inline>
-            <FormattedHtmlMessage id={alertTekstForDødsfall} />
+            {hentHTMLTekst(alertTekstForDødsfall, intl)}
           </Alert>
         </KomponentGruppe>
       )}

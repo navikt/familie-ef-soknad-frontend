@@ -5,7 +5,8 @@ import { IVedlegg } from '../../models/steg/vedlegg';
 import { BodyShort, Button } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { TrashFillIcon } from '@navikt/aksel-icons';
-import LocaleTekst from '../../language/LocaleTekst';
+import { hentTekst } from '../../utils/søknad';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 interface Props {
   filliste: IVedlegg[];
@@ -21,6 +22,7 @@ const Filrad = styled.div`
 `;
 
 const OpplastedeFiler: React.FC<Props> = ({ filliste, slettVedlegg }) => {
+  const intl = useLokalIntlContext();
   return (
     <>
       {filliste.map((fil: IVedlegg, index: number) => (
@@ -39,7 +41,7 @@ const OpplastedeFiler: React.FC<Props> = ({ filliste, slettVedlegg }) => {
                 slettVedlegg(fil);
               }}
             >
-              <LocaleTekst tekst="dokumentasjon.knapp.slett" />
+              {hentTekst('dokumentasjon.knapp.slett', intl)}
             </Button>
           </Filrad>
           {index === filliste.length - 1 ? <br /> : <hr />}

@@ -11,9 +11,9 @@ import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiS
 import { hentBarnNavnEllerBarnet, hentSpørsmålTekstMedNavnEllerBarn } from '../../../../utils/barn';
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
 import { Alert } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   barn: IBarn;
@@ -70,9 +70,10 @@ const SkalBarnetBoHosSøker: React.FC<Props> = ({
       {forelder.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.jaMenSamarbeiderIkke && (
         <FeltGruppe>
           <AlertStripeDokumentasjon>
-            <FormattedHtmlMessage
-              id={hentBarnNavnEllerBarnet(barn, 'barnasbosted.alert.hvisFaktiskBor', intl)}
-            />
+            {hentHTMLTekst(
+              hentBarnNavnEllerBarnet(barn, 'barnasbosted.alert.hvisFaktiskBor', intl),
+              intl
+            )}
           </AlertStripeDokumentasjon>
         </FeltGruppe>
       )}

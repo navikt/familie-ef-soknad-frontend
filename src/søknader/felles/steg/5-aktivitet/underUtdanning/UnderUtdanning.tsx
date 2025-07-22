@@ -8,7 +8,6 @@ import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPriv
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import NårSkalDuVæreElevEllerStudent from './NårSkalDuElevEllerStudent';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import SkoleOgLinje from './SkoleOgLinjeInputFelter';
@@ -29,6 +28,8 @@ import styled from 'styled-components';
 import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
 import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
 import { Heading } from '@navikt/ds-react';
+import { hentTekst } from '../../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
   margin-top: -2rem;
@@ -45,6 +46,7 @@ const UnderUtdanning: React.FC<Props> = ({
   oppdaterUnderUtdanning,
   stønadstype,
 }) => {
+  const intl = useLokalIntlContext();
   const skalHaDetaljertUtdanning = stønadstype === Stønadstype.skolepenger;
   const [utdanning, settUtdanning] = useState<IUnderUtdanning | IDetaljertUtdanning>(
     underUtdanning ? underUtdanning : lagTomUnderUtdanning()
@@ -86,7 +88,7 @@ const UnderUtdanning: React.FC<Props> = ({
           {stønadstype === Stønadstype.overgangsstønad && (
             <>
               <Heading size="small" level="3" className={'sentrert'}>
-                <LocaleTekst tekst={'utdanning.tittel'} />
+                {hentTekst('utdanning.tittel', intl)}
               </Heading>
               <LesMerTekst
                 åpneTekstid={utdanningDuKanFåStønadTil.headerTekstid}

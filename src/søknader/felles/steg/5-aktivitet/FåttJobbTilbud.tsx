@@ -5,7 +5,6 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/søknad';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 interface Props {
@@ -27,13 +26,9 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
   return (
     <KomponentGruppe>
       <AlertStripeDokumentasjon>
-        <Label as="p">
-          <LocaleTekst tekst={'dokumentasjon.arbeidskontrakt.tittel'} />
-        </Label>
+        <Label as="p">{hentTekst('dokumentasjon.arbeidskontrakt.tittel', intl)}</Label>
         <br />
-        <BodyShort>
-          <LocaleTekst tekst={'dokumentasjon.arbeidskontrakt.beskrivelse'} />
-        </BodyShort>
+        <BodyShort>{hentTekst('dokumentasjon.arbeidskontrakt.beskrivelse', intl)}</BodyShort>
       </AlertStripeDokumentasjon>
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}

@@ -4,18 +4,20 @@ import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpø
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { SøkerSkalFlytteSammenEllerFåSamboer } from './SøkerSkalFlytteSammenEllerFåSamboer';
 import { EkteskapsliknendeForhold } from './EkteskapsliknendeForhold';
 import { OmTidligereSamboer } from './OmTidligereSamboer';
 import { ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { erValgtSvarLiktSomSvar, harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
 import { Alert } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
+import { hentTekst } from '../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 
 export const BosituasjonSpørsmål: FC = () => {
   const { bosituasjon, oppdaterDelerBoligMedAndreVoksne, hovedSpørsmål } = useBosituasjon();
+  const intl = useLokalIntlContext();
 
   const { delerBoligMedAndreVoksne, samboerDetaljer, datoFlyttetFraHverandre } = bosituasjon;
 
@@ -55,11 +57,11 @@ export const BosituasjonSpørsmål: FC = () => {
             {delerBoligMedAndreVoksne.svarid ===
             ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse ? (
               <AlertStripeDokumentasjon>
-                <FormattedHtmlMessage id={valgtSvar.alert_tekstid} />
+                {hentHTMLTekst(valgtSvar.alert_tekstid, intl)}
               </AlertStripeDokumentasjon>
             ) : (
               <Alert size="small" variant="warning" inline>
-                <LocaleTekst tekst={valgtSvar.alert_tekstid} />
+                {hentTekst(valgtSvar.alert_tekstid, intl)}
               </Alert>
             )}
           </FeltGruppe>

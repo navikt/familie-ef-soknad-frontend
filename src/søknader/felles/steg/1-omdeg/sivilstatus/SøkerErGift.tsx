@@ -1,7 +1,6 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
 import SøkerHarSøktSeparasjon from './SøkerHarSøktSeparasjon';
@@ -46,7 +45,7 @@ const SøkerErGift: React.FC = () => {
       ) : (
         harSøktSeparasjon?.verdi === false && (
           <SøktSeparasjonAlert variant="warning" inline>
-            <LocaleTekst tekst={'sivilstatus.alert-advarsel.søktSeparasjon'} />
+            {hentTekst('sivilstatus.alert-advarsel.søktSeparasjon', intl)}
           </SøktSeparasjonAlert>
         )
       )}

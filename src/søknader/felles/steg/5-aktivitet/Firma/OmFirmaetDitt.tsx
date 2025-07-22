@@ -7,7 +7,6 @@ import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/søknad'
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import styled from 'styled-components';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import { erStrengGyldigOrganisasjonsnummer } from '../../../../../utils/autentiseringogvalidering/feltvalidering';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
@@ -146,9 +145,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
           </FeltGruppe>
           {harValgtUgyldigOrganisasjonsnummer && (
             <FeltGruppe>
-              <ErrorMessage>
-                <LocaleTekst tekst={'firma.feilmelding.organisasjonnr'} />
-              </ErrorMessage>
+              <ErrorMessage>{hentTekst('firma.feilmelding.organisasjonnr', intl)}</ErrorMessage>
             </FeltGruppe>
           )}
         </>

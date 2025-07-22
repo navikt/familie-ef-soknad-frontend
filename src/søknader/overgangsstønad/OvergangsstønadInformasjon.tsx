@@ -1,4 +1,3 @@
-import LocaleTekst from '../../language/LocaleTekst';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { Tekst } from '../../components/forside/Tekst';
 import { Seksjon } from '../../components/forside/Seksjon';
@@ -10,6 +9,8 @@ import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocale
 import React from 'react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
+import { hentTekst } from '../../utils/søknad';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 export interface SistInnsendtSøknad {
   søknadsdato: string;
@@ -21,16 +22,16 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   harBekreftet,
   settBekreftelse,
 }) => {
+  const intl = useLokalIntlContext();
   const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
 
   return (
     <>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
-
       <Seksjon>
         <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />
         <Tekst tekst="forside.overgangsstønad.sammeSøknad" />
-        <LocaleTekst tekst="forside.overgangsstønad.merOmOvergangsstønad" />
+        {hentTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
       </Seksjon>
 
       <Seksjon>
@@ -43,16 +44,16 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <Overskrift tekst="forside.overgangsstønad.overskrift.sendeDokumentasjon" />
         <Tekst tekst="forside.overgangsstønad.beskjedDokumentere" />
         <Tekst tekst="forside.overgangsstønad.merInformasjon" />
-        <LocaleTekst tekst="forside.overgangsstønad.oversiktDokumentasjon" />
+        {hentTekst('forside.overgangsstønad.oversiktDokumentasjon', intl)}
       </Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.overgangsstønad.overskrift.henteInformasjon" />
         <Tekst tekst="forside.overgangsstønad.henteInformasjon" />
         <Tekst tekst="forside.overgangsstønad.viHenter" />
-        <LocaleTekst tekst="forside.overgangsstønad.henterPunktliste" />
+        {hentTekst('forside.overgangsstønad.henterPunktliste', intl)}
         <Tekst tekst="forside.overgangsstønad.tidligereOpplysninger" />
-        <LocaleTekst tekst="forside.overgangsstønad.personopplysningeneDine" />
+        {hentTekst('forside.overgangsstønad.personopplysningeneDine', intl)}
       </Seksjon>
 
       <Seksjon>

@@ -1,7 +1,6 @@
 import React from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import Filopplaster from '../../../../components/filopplaster/Filopplaster';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentTekst } from '../../../../utils/søknad';
 import { BarnetilsynDokumentasjon, IDokumentasjon } from '../../../../models/steg/dokumentasjon';
@@ -47,13 +46,11 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
       <StyledGuidePanel illustration={<GrøntDokumentIkon />} poster>
         <FeltGruppe>
           <Heading size="small" level="3" style={{ justifyContent: 'left' }}>
-            <LocaleTekst tekst={dokumentasjon.tittel} />
+            {hentTekst(dokumentasjon.tittel, intl)}
           </Heading>
         </FeltGruppe>
         {dokumentasjon.beskrivelse && (
-          <FeltGruppe>
-            <LocaleTekst tekst={dokumentasjon.beskrivelse} />
-          </FeltGruppe>
+          <FeltGruppe>{hentTekst(dokumentasjon.beskrivelse, intl)}</FeltGruppe>
         )}
         {hvisIkkeFakturaForBarnepass && (
           <FeltGruppe>

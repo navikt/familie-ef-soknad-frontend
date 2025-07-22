@@ -11,7 +11,6 @@ import {
 import { IArbeidssøker } from '../../../../../models/steg/aktivitet/arbeidssøker';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
@@ -76,7 +75,7 @@ const Arbeidssøker: React.FC<Props> = ({
     <SeksjonGruppe>
       <KomponentGruppe>
         <Heading size="small" level="3" className={'sentrert'}>
-          <LocaleTekst tekst={'arbeidssøker.tittel'} />
+          {hentTekst('arbeidssøker.tittel', intl)}
         </Heading>
       </KomponentGruppe>
 
@@ -88,7 +87,7 @@ const Arbeidssøker: React.FC<Props> = ({
         />
         {arbeidssøker.registrertSomArbeidssøkerNav?.svarid === ESvar.NEI && (
           <Alert size="small" variant="info" inline>
-            <LocaleTekst tekst={registrertSomArbeidssøkerAlert} />
+            {hentTekst(registrertSomArbeidssøkerAlert, intl)}
           </Alert>
         )}
       </KomponentGruppe>
@@ -102,7 +101,7 @@ const Arbeidssøker: React.FC<Props> = ({
           />
           {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid === ESvar.NEI && (
             <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={'arbeidssøker.alert.villig'} />
+              {hentTekst('arbeidssøker.alert.villig', intl)}
             </AlertStripeDokumentasjon>
           )}
         </KomponentGruppe>
@@ -116,7 +115,7 @@ const Arbeidssøker: React.FC<Props> = ({
           />
           {arbeidssøker.kanBegynneInnenEnUke?.svarid === ESvar.NEI && (
             <Alert size="small" variant={'warning'} inline>
-              <LocaleTekst tekst={'arbeidssøker.alert.senestEnUke'} />
+              {hentTekst('arbeidssøker.alert.senestEnUke', intl)}
             </Alert>
           )}
         </KomponentGruppe>
@@ -140,7 +139,7 @@ const Arbeidssøker: React.FC<Props> = ({
           />
           {arbeidssøker.ønskerSøker50ProsentStilling?.svarid === ESvar.NEI && (
             <Alert size="small" variant={'warning'} inline>
-              <LocaleTekst tekst={'arbeidssøker.alert.halvstilling'} />
+              {hentTekst('arbeidssøker.alert.halvstilling', intl)}
             </Alert>
           )}
         </KomponentGruppe>

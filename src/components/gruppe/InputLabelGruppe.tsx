@@ -4,7 +4,8 @@ import LesMerTekst from '../LesMerTekst';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
-import LocaleTekst from '../../language/LocaleTekst';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { hentTekst } from '../../utils/søknad';
 
 const StyledComponent = styled.div`
   display: grid;
@@ -62,6 +63,7 @@ const InputLabelGruppe: React.FC<Props> = ({
   placeholder,
   utvidetTekstNøkkel,
 }) => {
+  const intl = useLokalIntlContext();
   const ignorerScrollForTallInput = (e: any) => e.target.blur();
 
   return (
@@ -80,7 +82,7 @@ const InputLabelGruppe: React.FC<Props> = ({
       {utvidetTekstNøkkel && (
         <HjelpetekstContainer>
           <BodyShort as={'span'} size={'small'}>
-            <LocaleTekst tekst={utvidetTekstNøkkel} />
+            {hentTekst(utvidetTekstNøkkel, intl)}
           </BodyShort>
         </HjelpetekstContainer>
       )}

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentTekst } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -17,7 +16,7 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stø
         <KomponentGruppe>
           <FeltGruppe>
             <Heading size="small" level="4">
-              <LocaleTekst tekst={'kvittering.tittel.skolepenger'} />
+              {hentTekst('kvittering.tittel.skolepenger', intl)}
             </Heading>
           </FeltGruppe>
           <FeltGruppe>
@@ -32,33 +31,31 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stø
             <Link
               href={'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far#NAV150004'}
             >
-              <LocaleTekst tekst={'kvittering.knapp.skolepenger'} />
+              {hentTekst('kvittering.knapp.skolepenger', intl)}
             </Link>
           </KomponentGruppe>
         </KomponentGruppe>
       )}
       <FeltGruppe>
         <Heading size="small" level="4">
-          <LocaleTekst tekst={'kvittering.tittel.tilleggsstønader'} />
+          {hentTekst('kvittering.tittel.tilleggsstønader', intl)}
         </Heading>
       </FeltGruppe>
 
       <FeltGruppe>
         <StyledBeskrivelse>
-          <BodyShort>
-            <LocaleTekst tekst={'kvittering.beskrivelse.tilleggsstønader'} />
-          </BodyShort>
+          <BodyShort>{hentTekst('kvittering.beskrivelse.tilleggsstønader', intl)}</BodyShort>
         </StyledBeskrivelse>
       </FeltGruppe>
 
       <BodyShort>
         <Link href={'https://www.nav.no/tilleggsstonader-enslig'}>
-          <LocaleTekst tekst={'kvittering.lenke.tilleggsstønader'} />
+          {hentTekst('kvittering.lenke.tilleggsstønader', intl)}
         </Link>
       </BodyShort>
       <BodyShort>
         <Link href={'https://www.nav.no/soknader/nb/person/arbeid/tilleggsstonader'}>
-          <LocaleTekst tekst={'kvittering.knapp.tilleggsstønader'} />
+          {hentTekst('kvittering.knapp.tilleggsstønader', intl)}
         </Link>
       </BodyShort>
     </SeksjonGruppe>

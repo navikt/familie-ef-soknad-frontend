@@ -1,33 +1,35 @@
 import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
+import { hentTekst } from '../../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const TilleggsstønaderHarAktivitet: FC = () => {
+  const intl = useLokalIntlContext();
   return (
     <SeksjonGruppe>
       <FeltGruppe>
         <Heading size="small" level="4">
-          <LocaleTekst tekst={'kvittering.tittel.tilleggsstønader.aktivitetskrav'} />
+          {hentTekst('kvittering.tittel.tilleggsstønader.aktivitetskrav', intl)}
         </Heading>
       </FeltGruppe>
       <FeltGruppe>
         <StyledBeskrivelse>
           <BodyShort>
-            <LocaleTekst tekst={'kvittering.beskrivelse.tilleggsstønader.aktivitetskrav'} />
+            {hentTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
           </BodyShort>
         </StyledBeskrivelse>
       </FeltGruppe>
       <BodyShort>
         <Link href={'https://www.nav.no/barnetilsyn-enslig'}>
-          <LocaleTekst tekst={'kvittering.lenke.tilleggsstønader.aktivitetskrav'} />
+          {hentTekst('kvittering.lenke.tilleggsstønader.aktivitetskrav', intl)}
         </Link>
       </BodyShort>
       <BodyShort>
         <Link href={'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far#NAV150002'}>
-          <LocaleTekst tekst={'kvittering.knapp.tilleggsstønader.aktivitetskrav'} />
+          {hentTekst('kvittering.knapp.tilleggsstønader.aktivitetskrav', intl)}
         </Link>
       </BodyShort>
     </SeksjonGruppe>
