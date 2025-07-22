@@ -22,7 +22,8 @@ export const StegSide: React.FC<Props> = ({ søknadSteg, children }) => {
 
   return (
     <VStack gap={'6'}>
-      <SøknadBanner bannerTekst={bannerTekst} />
+      {/*TODO: Fiks denne, skal ha søknadstype navn, ikke steg.*/}
+      <SøknadBanner bannerTekst={bannerTekst} />{' '}
       <VStack gap={'6'} className={styles.innhold}>
         <StegindikatorV2 steg={stegForSøknad} aktivtSteg={søknadSteg} />
 
@@ -30,6 +31,7 @@ export const StegSide: React.FC<Props> = ({ søknadSteg, children }) => {
           <Heading size={'medium'} className={styles.stegTittel}>
             {stegTittel}
           </Heading>
+
           {children}
         </VStack>
       </VStack>

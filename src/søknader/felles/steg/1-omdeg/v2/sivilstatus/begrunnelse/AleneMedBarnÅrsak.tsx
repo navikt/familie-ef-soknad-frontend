@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../typer/SpørsmålSvarStruktur';
 import { SpørsmålWrapper } from '../../../../../../../components/spørsmål/v2/SpørsmålWrapper';
-import { VStack } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from '../../../../../../../components/spørsmål/v2/RadioSpørsmål';
 import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
@@ -9,6 +9,7 @@ import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { OmsorgEndringForBarn } from './OmsorgEndringForBarn';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
+import LocaleTekst from '../../../../../../../language/LocaleTekst';
 
 export const AleneMedBarnÅrsak: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -43,6 +44,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
   const visDatoForSamvlivsbruddSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
   const visOmDenTidligereSamboerenDinSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddAndre';
   const visOmsorgEndringDatoSpørsmål = søkerAleneMedBarnÅrsak?.id === 'endringISamværsordning';
+  const visAleneMedBarnGrunnetDødsfallAlert = søkerAleneMedBarnÅrsak?.id === 'dødsfall';
 
   return (
     <VStack gap={'6'}>
@@ -60,6 +62,12 @@ export const AleneMedBarnÅrsak: React.FC = () => {
           svarLayout={'vertical'}
           onChange={onÅrsakSøkerErAleneMedBarn}
         />
+
+        {visAleneMedBarnGrunnetDødsfallAlert && (
+          <Alert variant={'info'} size={'small'} inline>
+            <LocaleTekst tekst={hentTekst('sivilstatus.alert.dødsfall', intl)}></LocaleTekst>
+          </Alert>
+        )}
       </VStack>
 
       {visDatoForSamvlivsbruddSpørsmål && <DatoForSamlivsbrudd />}

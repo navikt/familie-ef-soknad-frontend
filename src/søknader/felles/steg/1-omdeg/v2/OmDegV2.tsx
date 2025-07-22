@@ -6,6 +6,7 @@ import { useOmDegV2 } from './typer/OmDegContextV2';
 import { StegDebugKnapp } from './debug/StegDebugKnapp';
 import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 import { SivilstatusV2 } from './sivilstatus/SivilstatusV2';
+import { MedlemskapV2 } from './medlemskap/MedlemskapV2';
 
 export const OmDegV2: React.FC = () => {
   const { søker, personopplysningerData } = useOmDegV2();
@@ -24,6 +25,8 @@ export const OmDegV2: React.FC = () => {
     return søkerBorPåRegistrertAdresse === false && søkerHarMeldtAdresseEndring === true;
   };
 
+  const skalViseMedlemskap = false;
+
   return (
     <StegSide søknadSteg={søknadSteg}>
       <PersonopplysningerV2
@@ -34,8 +37,9 @@ export const OmDegV2: React.FC = () => {
       />
 
       <Adresseopplysninger />
-
       {skalViseSivilstatus() && <SivilstatusV2 />}
+
+      {skalViseMedlemskap && <MedlemskapV2 />}
 
       <StegDebugKnapp />
     </StegSide>
