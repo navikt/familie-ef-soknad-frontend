@@ -9,6 +9,7 @@ import {
   ReadMore,
   Select,
   Textarea,
+  TextField,
   useDatepicker,
   VStack,
 } from '@navikt/ds-react';
@@ -68,7 +69,7 @@ export const UtenlandsperiodeV2: React.FC = () => {
           />
         </DatePicker>
 
-        <DatePicker {...tilDato.datepickerProps}>
+        <DatePicker {...fraDato.datepickerProps}>
           <DatePicker.Input
             {...tilDato.inputProps}
             label={hentTekst('periode.til', intl)}
@@ -117,6 +118,8 @@ export const UtenlandsperiodeV2: React.FC = () => {
       <Checkbox checked={undefined} onChange={(event) => {}}>
         {hentTekst('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl)}
       </Checkbox>
+
+      <TextField label={hentTekst('medlemskap.periodeBoddIUtlandet.sisteAdresse', intl)} />
 
       <VStack gap="4">
         <Heading size="xsmall" className={styles.heading}>
