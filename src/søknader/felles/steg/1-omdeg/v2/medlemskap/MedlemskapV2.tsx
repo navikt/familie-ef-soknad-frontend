@@ -10,7 +10,7 @@ import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
-import { UtenlandsperiodeV2 } from './UtenlandsperiodeV2';
+import { UtenlandsoppholdV2 } from './UtenlandsoppholdV2';
 
 export const MedlemskapV2: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -84,7 +84,7 @@ export const MedlemskapV2: React.FC = () => {
         />
       )}
 
-      {visUtenlandsopphold && <UtenlandsperiodeV2 />}
+      {visUtenlandsopphold && <UtenlandsoppholdV2 />}
     </VStack>
   );
 };
