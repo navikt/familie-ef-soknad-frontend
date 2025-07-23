@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StegSpørsmål, SvarAlternativ } from '../../typer/SpørsmålSvarStruktur';
-import { SpørsmålWrapper } from '../../../../../../../components/spørsmål/v2/SpørsmålWrapper';
+import { SpørsmålWrapper } from '../../komponenter/SpørsmålWrapper';
 import { Alert, VStack } from '@navikt/ds-react';
-import { RadioSpørsmål } from '../../../../../../../components/spørsmål/v2/RadioSpørsmål';
+import { RadioSpørsmål } from '../../komponenter/RadioSpørsmål';
 import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';

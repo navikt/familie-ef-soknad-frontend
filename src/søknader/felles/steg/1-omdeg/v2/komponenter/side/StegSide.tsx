@@ -3,8 +3,8 @@ import { Heading, VStack } from '@navikt/ds-react';
 import { SøknadBanner } from './SøknadBanner';
 import { StegindikatorV2 } from '../stegindikator/StegindikatorV2';
 import { GenerelleSøknadSteg, SøknadSteg } from '../stegindikator/GenerelleSøknadSteg';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { hentTekst } from '../../../utils/søknad';
+import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../../../utils/søknad';
 import styles from './StegSide.module.css';
 
 interface Props {

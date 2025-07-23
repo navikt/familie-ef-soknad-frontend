@@ -1,13 +1,10 @@
 import React from 'react';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst } from '../../../../../../utils/søknad';
 import styles from './RadioSpørsmål.module.css';
 import clsx from 'clsx';
-import {
-  StegSpørsmål,
-  SvarAlternativ,
-} from '../../../søknader/felles/steg/1-omdeg/v2/typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
 
 export type SvarLayout = 'vertical' | 'horizontal';
 

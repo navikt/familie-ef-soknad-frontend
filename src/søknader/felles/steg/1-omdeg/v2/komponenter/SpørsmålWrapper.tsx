@@ -1,9 +1,9 @@
 import React from 'react';
 import { Heading, ReadMore, VStack } from '@navikt/ds-react';
 import styles from './SpørsmålWrapper.module.css';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { hentTekst } from '../../../utils/søknad';
-import { StegSpørsmål } from '../../../søknader/felles/steg/1-omdeg/v2/typer/SpørsmålSvarStruktur';
+import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../../utils/søknad';
+import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
 
 interface Props {
   spørsmål: StegSpørsmål;

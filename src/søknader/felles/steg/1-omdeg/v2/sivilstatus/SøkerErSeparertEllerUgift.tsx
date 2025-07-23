@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import {
-  JaNeiSpørsmålV2,
-  useJaNeiBoolean,
-} from '../../../../../../components/spørsmål/v2/JaNeiSpørsmålV2';
+import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
 import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';

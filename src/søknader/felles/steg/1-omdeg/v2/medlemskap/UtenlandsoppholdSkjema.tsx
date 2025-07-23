@@ -14,9 +14,9 @@ import {
   VStack,
 } from '@navikt/ds-react';
 import { hentTekst, hentTekstMedVariabel } from '../../../../../../utils/søknad';
-import { SpørsmålWrapper } from '../../../../../../components/spørsmål/v2/SpørsmålWrapper';
+import { SpørsmålWrapper } from '../komponenter/SpørsmålWrapper';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
-import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
+import styles from '../komponenter/SpørsmålWrapper.module.css';
 import { validerPeriode } from './utils';
 import { UtenlandsoppholdSkjemaProps } from './typer';
 import { TrashIcon } from '@navikt/aksel-icons';

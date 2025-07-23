@@ -6,7 +6,7 @@ import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { PlusCircleFillIcon } from '@navikt/aksel-icons';
-import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
+import styles from '../komponenter/SpørsmålWrapper.module.css';
 import { UtenlandsoppholdSkjema } from './UtenlandsoppholdSkjema';
 import { opprettTomPeriode, erPerioderGyldige } from './utils';
 import { UtenlandsoppholdFormState } from './typer';

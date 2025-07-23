@@ -1,6 +1,6 @@
 import React from 'react';
-import { StegSide } from '../../../../../components/v2/side/StegSide';
-import { SøknadSteg } from '../../../../../components/v2/stegindikator/GenerelleSøknadSteg';
+import { StegSide } from './komponenter/side/StegSide';
+import { SøknadSteg } from './komponenter/stegindikator/GenerelleSøknadSteg';
 import { PersonopplysningerV2 } from './personopplysninger/PersonopplysningerV2';
 import { useOmDegV2 } from './typer/OmDegContextV2';
 import { StegDebugKnapp } from './debug/StegDebugKnapp';
