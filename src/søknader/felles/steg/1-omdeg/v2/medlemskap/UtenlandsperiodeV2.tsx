@@ -14,7 +14,7 @@ import {
   useDatepicker,
   VStack,
 } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../../utils/søknad';
+import { hentTekst, hentTekstMedVariabel } from '../../../../../../utils/søknad';
 import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
 import { SpørsmålWrapper } from '../../../../../../components/spørsmål/v2/SpørsmålWrapper';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
@@ -94,6 +94,12 @@ export const UtenlandsperiodeV2: React.FC = () => {
     settPeriodeLand(land);
   };
 
+  const begrunnelseLandTekst = hentTekstMedVariabel(
+    'medlemskap.periodeBoddIUtlandet.begrunnelse',
+    intl,
+    { 0: periodeLand }
+  );
+
   return (
     <VStack gap={'6'}>
       <Heading size={'small'}>
@@ -138,17 +144,14 @@ export const UtenlandsperiodeV2: React.FC = () => {
         </option>
 
         {landListe.map((land: ILandMedKode) => (
-          <option key={land.id} value={land.id}>
+          <option key={land.id} value={land.svar_tekst}>
             {land.svar_tekst}
           </option>
         ))}
       </Select>
 
       {visHvorforOppholdIValgtLandTextArea && (
-        <Textarea
-          label={hentTekst('medlemskap.periodeBoddIUtlandet.begrunnelse', intl)}
-          maxLength={1000}
-        />
+        <Textarea label={begrunnelseLandTekst} maxLength={1000} />
       )}
 
       {visIdNummerTextfield && (
