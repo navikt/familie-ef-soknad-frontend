@@ -82,7 +82,7 @@ export const BarnaDineInnhold: React.FC<Props> = ({
       </BarneKortWrapper>
       {åpenModal && (
         <LeggTilBarnModal
-          tittel={intl.formatMessage({ id: 'barnadine.leggtil' })}
+          tittel={hentTekst('barnadine.leggtil', intl)}
           lukkModal={() => settÅpenModal(false)}
           barneListe={barneliste}
           settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}

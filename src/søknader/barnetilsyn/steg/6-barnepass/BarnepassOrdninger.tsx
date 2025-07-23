@@ -12,6 +12,7 @@ import { IBarnepass, IBarnepassOrdning } from '../../models/barnepass';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   barn: IBarn;
@@ -74,7 +75,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, settDokumentasjons
           <FeltGruppe>
             <Label as="p">{leggTilLabel}</Label>
             <LeggTilKnapp onClick={() => leggTilBarnepassordning()}>
-              {intl.formatMessage({ id: 'barnepass.knapp.leggTilOrdning' })}
+              {hentTekst('barnepass.knapp.leggTilOrdning', intl)}
             </LeggTilKnapp>
           </FeltGruppe>
         </KomponentGruppe>

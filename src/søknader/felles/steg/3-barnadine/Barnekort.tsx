@@ -74,8 +74,8 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
         : hentTekst('barnekort.adresse.skalIkkeBo', intl);
   } else {
     bosted = harSammeAdresse.verdi
-      ? intl.formatMessage({ id: 'barnekort.adresse.registrert' })
-      : intl.formatMessage({ id: 'barnekort.adresse.uregistrert' });
+      ? hentTekst('barnekort.adresse.registrert', intl)
+      : hentTekst('barnekort.adresse.uregistrert', intl);
   }
 
   return (
@@ -85,7 +85,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
       </Header>
       <Innhold>
         <Heading size="small" level="3">
-          {navn.verdi ? navn.verdi : intl.formatMessage({ id: 'barnekort.normaltekst.barn' })}
+          {navn.verdi ? navn.verdi : hentTekst('barnekort.normaltekst.barn', intl)}
         </Heading>
         {!harAdressesperre &&
           (ident.verdi ? (
@@ -103,7 +103,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
           forklaringId={'barnekort.alder'}
           verdi={
             født?.verdi
-              ? alder.verdi + ' ' + intl.formatMessage({ id: 'barnekort.år' })
+              ? alder.verdi + ' ' + hentTekst('barnekort.år', intl)
               : hentTekst('barnekort.erUfødt', intl)
           }
         />

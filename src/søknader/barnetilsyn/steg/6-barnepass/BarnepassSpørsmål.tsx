@@ -67,7 +67,7 @@ const BarnepassSpørsmål: FC<Props> = ({
     hentTittelMedNr(
       barn.barnepass?.barnepassordninger ?? [],
       barnepassordningNummer,
-      intl.formatMessage({ id: 'barnepass.tittel.ordning' })
+      hentTekst('barnepass.tittel.ordning', intl)
     );
 
   const settSpørsmålFelt = (spørsmål: ISpørsmål, svar: ISvar) => {

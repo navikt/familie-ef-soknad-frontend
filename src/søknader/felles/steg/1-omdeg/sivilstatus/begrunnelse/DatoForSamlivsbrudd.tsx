@@ -16,7 +16,7 @@ const DatoForSamlivsbrudd: React.FC = () => {
     settSivilstatus({
       ...sivilstatus,
       datoForSamlivsbrudd: {
-        label: intl.formatMessage({ id: tekstid }),
+        label: hentTekst(tekstid, intl),
         verdi: date,
       },
     });

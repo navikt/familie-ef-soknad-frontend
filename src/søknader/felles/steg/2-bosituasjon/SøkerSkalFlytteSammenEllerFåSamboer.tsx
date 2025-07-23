@@ -66,9 +66,7 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
     });
   };
 
-  const datovelgerTekst = intl.formatMessage({
-    id: 'datovelger.nårSkalDetteSkje',
-  });
+  const datovelgerTekst = hentTekst('datovelger.nårSkalDetteSkje', intl);
 
   const erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid =
     erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(datoSkalGifteSegEllerBliSamboer);

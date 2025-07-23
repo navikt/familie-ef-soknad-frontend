@@ -543,7 +543,7 @@ export default {
   'dinSituasjon.datovelger-alert.redusertStilling':
     'If you have reduced your working hours for no reasonable reason, you will not be entitled to benefit until six months after you handed in your notice.',
   'dinSituasjon.legend.særligTilsyn': 'Which of your children needs special supervision?',
-  'dinSituasjon.label.særligTilsyn': 'About {barnetsNavn}’s need for special supervision',
+  'dinSituasjon.label.særligTilsyn': 'About [0]’s need for special supervision',
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'When did you resign?',
   'sagtOppEllerRedusertStilling.datovelger.redusertStilling':
     'When did you reduce your working hours?',

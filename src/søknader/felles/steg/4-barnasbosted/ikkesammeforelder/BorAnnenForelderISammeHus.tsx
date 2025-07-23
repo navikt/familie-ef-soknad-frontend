@@ -80,9 +80,7 @@ const BorAnnenForelderISammeHus: FC<Props> = ({ forelder, settForelder, barn }) 
                   : ''
               }
               onChange={settBorAnnenForelderISammeHusBeskrivelse}
-              label={intl.formatMessage({
-                id: 'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse',
-              })}
+              label={hentTekst('barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse', intl)}
             />
           </FeltGruppe>
         </>

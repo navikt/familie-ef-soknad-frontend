@@ -41,7 +41,7 @@ const Aksjeselskap: FC<Props> = ({
   const aksjeselskapTittel = hentTittelMedNr(
     egetAS!,
     aksjeselskapnummer,
-    intl.formatMessage({ id: 'egetAS.label.aksjeselskap' })
+    hentTekst('egetAS.label.aksjeselskap', intl)
   );
   const navnLabel: string = hentTekst('egetAS.label.navn', intl);
   const arbeidsmengdeLabel: string = hentTekst('arbeidsforhold.label.arbeidsmengde', intl);

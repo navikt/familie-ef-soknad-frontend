@@ -527,7 +527,7 @@ export default {
   'dinSituasjon.datovelger-alert.redusertStilling':
     'Har du redusert arbeidstiden uten rimelig grunn, kan du først ha rett til stønaden 6 måneder etter at du sa opp.',
   'dinSituasjon.legend.særligTilsyn': 'Hvilket av barna dine har behov for særlig tilsyn?',
-  'dinSituasjon.label.særligTilsyn': 'Om tilsynsbehovet til {barnetsNavn}',
+  'dinSituasjon.label.særligTilsyn': 'Om tilsynsbehovet til [0]',
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'Når sa du opp?',
   'sagtOppEllerRedusertStilling.datovelger.redusertStilling': 'Når reduserte du arbeidstiden?',
   'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp':

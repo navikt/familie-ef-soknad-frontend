@@ -47,7 +47,7 @@ const SyktBarn: FC = () => {
         <Link href={hentSøknadBasertPåBrukerSpråk()} download>
           <img alt="Nedlastingsikon" src={download} />
           <Label as="p">
-            {intl.formatMessage({ id: 'kvittering.knapp.huskeliste.syktBarn' })}
+            {hentTekst('kvittering.knapp.huskeliste.syktBarn', intl)}
             {filInformasjon}
           </Label>
         </Link>

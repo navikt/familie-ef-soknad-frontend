@@ -159,7 +159,7 @@ const MerOmDinSituasjon: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.dinSituasjon' })}
+      stegtittel={hentTekst('stegtittel.dinSituasjon', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       mellomlagreStønad={mellomlagreOvergangsstønad}

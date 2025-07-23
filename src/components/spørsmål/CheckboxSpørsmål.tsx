@@ -48,7 +48,7 @@ const CheckboxSpørsmål: React.FC<Props> = ({
   const skjemanavn = urlTilSkjemanavn(url);
   const skjemaId = skjemanavnTilId(skjemanavn);
 
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
+  const legend = hentTekst(spørsmål.tekstid, intl);
 
   return (
     <StyledCheckboxSpørsmål key={spørsmål.søknadid}>

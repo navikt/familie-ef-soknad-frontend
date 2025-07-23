@@ -87,7 +87,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
 
   const erSagtOppEllerRedusertStillingValgt = (valgtSvar: ESagtOppEllerRedusertStilling) => {
     const tekstid: string = 'dinSituasjon.svar.' + valgtSvar;
-    const svarTekst: string = intl.formatMessage({ id: tekstid });
+    const svarTekst: string = hentTekst(tekstid, intl);
     return sagtOppEllerRedusertStilling?.verdi === svarTekst;
   };
 

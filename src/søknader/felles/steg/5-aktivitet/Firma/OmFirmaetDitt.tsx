@@ -96,11 +96,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
   const labelOverskudd = hentTekstMedEnVariabel('firma.label.overskudd', intl, `${overskuddsår}`);
   const labelOrganisasjonsnr = hentTekst('firma.label.organisasjonnr', intl);
   const labelNavn = hentTekst('firma.label.navn', intl);
-  const firmaTittel = hentTittelMedNr(
-    firmaer!,
-    firmanr,
-    intl.formatMessage({ id: 'firma.tittel' })
-  );
+  const firmaTittel = hentTittelMedNr(firmaer!, firmanr, hentTekst('firma.tittel', intl));
   const harValgtUgyldigOrganisasjonsnummer =
     organisasjonsnummer !== '' &&
     firma?.organisasjonsnummer?.verdi &&

@@ -47,7 +47,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
           <div className="spørsmål-og-svar">
             <Label as="p">
               {barnetsNavn}
-              {intl.formatMessage({ id: 'barnasbosted.element.andreforelder' })}
+              {hentTekst('barnasbosted.element.andreforelder', intl)}
             </Label>
             <BodyShort>
               {forelder.navn?.verdi === 'Ikke oppgitt' && barn.erFraForrigeSøknad
@@ -72,13 +72,13 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         )}
         {harValgtSvar(forelder.fødselsdato?.verdi) && forelder.fødselsdato && (
           <div className="spørsmål-og-svar">
-            <Label as="p">{intl.formatMessage({ id: 'datovelger.fødselsdato' })}</Label>
+            <Label as="p">{hentTekst('datovelger.fødselsdato', intl)}</Label>
             <BodyShort>{formatDate(strengTilDato(forelder.fødselsdato.verdi))}</BodyShort>
           </div>
         )}
         {!forelder.fraFolkeregister && forelder.ident && (
           <div className="spørsmål-og-svar">
-            <Label as="p">{intl.formatMessage({ id: 'person.ident.visning' })}</Label>
+            <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
             <BodyShort>{forelder.ident.verdi}</BodyShort>
           </div>
         )}
@@ -96,7 +96,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         )}
         {forelder.land && (
           <div className="spørsmål-og-svar">
-            <Label as="p">{intl.formatMessage({ id: 'barnasbosted.hvilketLand' })}</Label>
+            <Label as="p">{hentTekst('barnasbosted.hvilketLand', intl)}</Label>
             <BodyShort>{forelder.land?.verdi}</BodyShort>
           </div>
         )}
@@ -126,7 +126,7 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({
         ) : null}
         {forelder.hvordanPraktiseresSamværet?.verdi ? (
           <div className="spørsmål-og-svar">
-            <Label as="p">{intl.formatMessage({ id: 'barnasbosted.element.samvær' })}</Label>
+            <Label as="p">{hentTekst('barnasbosted.element.samvær', intl)}</Label>
             <BodyShort>{forelder.hvordanPraktiseresSamværet.verdi}</BodyShort>
           </div>
         ) : null}

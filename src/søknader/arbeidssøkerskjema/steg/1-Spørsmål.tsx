@@ -72,7 +72,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
 
   return (
     <Side
-      tittel={intl.formatMessage({ id: 'skjema.tittel.omarbeidssøker' })}
+      tittel={hentTekst('skjema.tittel.omarbeidssøker', intl)}
       erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
       skalViseKnapper={!kommerFraOppsummering}
     >

@@ -42,9 +42,7 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeid
       <KomponentGruppe>
         <Textarea
           autoComplete={'off'}
-          label={intl.formatMessage({
-            id: 'arbeidssituasjon.label.etablererEgenVirksomhet',
-          })}
+          label={hentTekst('arbeidssituasjon.label.etablererEgenVirksomhet', intl)}
           value={etablererEgenVirksomhet?.verdi ? etablererEgenVirksomhet.verdi : ''}
           maxLength={2000}
           onChange={(e) => settTekstfelt(e)}

@@ -8,6 +8,7 @@ import {
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 // DOKUMENTASJON
 export const DokumentasjonSykdom: IDokumentasjon = DokumentasjonsConfig.DokumentasjonSykdom;
@@ -35,31 +36,27 @@ export const gjelderNoeAvDetteDeg = (intl: LokalIntlShape): ISpørsmål => {
     svaralternativer: [
       {
         id: DinSituasjonType.erSyk,
-        svar_tekst: intl.formatMessage({ id: 'dinSituasjon.svar.erSyk' }),
+        svar_tekst: hentTekst('dinSituasjon.svar.erSyk', intl),
         dokumentasjonsbehov: DokumentasjonSykdom,
       },
       {
         id: DinSituasjonType.harSyktBarn,
-        svar_tekst: intl.formatMessage({ id: 'dinSituasjon.svar.harSyktBarn' }),
+        svar_tekst: hentTekst('dinSituasjon.svar.harSyktBarn', intl),
         dokumentasjonsbehov: DokumentasjonSyktBarn,
       },
       {
         id: DinSituasjonType.harSøktBarnepassOgVenterEnnå,
-        svar_tekst: intl.formatMessage({
-          id: 'dinSituasjon.svar.harSøktBarnepassOgVenterEnnå',
-        }),
+        svar_tekst: hentTekst('dinSituasjon.svar.harSøktBarnepassOgVenterEnnå', intl),
         dokumentasjonsbehov: DokumentasjonBarnepassMangel,
       },
       {
         id: DinSituasjonType.harBarnMedSærligeBehov,
-        svar_tekst: intl.formatMessage({
-          id: 'dinSituasjon.svar.harBarnMedSærligeBehov',
-        }),
+        svar_tekst: hentTekst('dinSituasjon.svar.harBarnMedSærligeBehov', intl),
         dokumentasjonsbehov: DokumentasjonBarnetilsynBehov,
       },
       {
         id: DinSituasjonType.nei,
-        svar_tekst: intl.formatMessage({ id: 'dinSituasjon.svar.nei' }),
+        svar_tekst: hentTekst('dinSituasjon.svar.nei', intl),
       },
     ],
   };
@@ -76,21 +73,19 @@ export const SagtOppEllerRedusertStillingSpm = (intl: LokalIntlShape): ISpørsm�
   svaralternativer: [
     {
       id: ESagtOppEllerRedusertStilling.sagtOpp,
-      svar_tekst: intl.formatMessage({ id: 'dinSituasjon.svar.sagtOpp' }),
+      svar_tekst: hentTekst('dinSituasjon.svar.sagtOpp', intl),
       alert_tekstid: 'dinSituasjon.alert.sagtOpp',
       dokumentasjonsbehov: ArbeidsforholdOgOppsigelsesårsak,
     },
     {
       id: ESagtOppEllerRedusertStilling.redusertStilling,
-      svar_tekst: intl.formatMessage({
-        id: 'dinSituasjon.svar.redusertStilling',
-      }),
+      svar_tekst: hentTekst('dinSituasjon.svar.redusertStilling', intl),
       alert_tekstid: 'dinSituasjon.alert.redusertStilling',
       dokumentasjonsbehov: ArbeidsforholdOgRedusertArbeidstid,
     },
     {
       id: ESagtOppEllerRedusertStilling.nei,
-      svar_tekst: intl.formatMessage({ id: 'svar.nei' }),
+      svar_tekst: hentTekst('svar.nei', intl),
     },
   ],
 });
@@ -106,13 +101,11 @@ export const SøkerFraBestemtMånedSpm = (intl: LokalIntlShape): ISpørsmål => 
   svaralternativer: [
     {
       id: ESøkerFraBestemtMåned.ja,
-      svar_tekst: intl.formatMessage({ id: ESvarTekstid.JA }),
+      svar_tekst: hentTekst(ESvarTekstid.JA, intl),
     },
     {
       id: ESøkerFraBestemtMåned.neiNavKanVurdere,
-      svar_tekst: intl.formatMessage({
-        id: 'søkerFraBestemtMåned.svar.neiNavKanVurdere',
-      }),
+      svar_tekst: hentTekst('søkerFraBestemtMåned.svar.neiNavKanVurdere', intl),
     },
   ],
 });

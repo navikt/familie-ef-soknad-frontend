@@ -91,7 +91,7 @@ const Side: React.FC<ISide> = ({
           <>
             {!erSpørsmålBesvart && (
               <BodyShort size="small" className={'side__uu-tekst'}>
-                {intl.formatMessage({ id: 'knapp.uu-tekst' })}
+                {hentTekst('knapp.uu-tekst', intl)}
               </BodyShort>
             )}
             <TilbakeNesteAvbrytKnapper
@@ -105,7 +105,7 @@ const Side: React.FC<ISide> = ({
         ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
           erSpørsmålBesvart && (
             <>
-              <BodyShort size="small">{intl.formatMessage({ id: 'knapp.uu-tekst' })}</BodyShort>
+              <BodyShort size="small">{hentTekst('knapp.uu-tekst', intl)}</BodyShort>
               <Button
                 variant="primary"
                 className="tilbake-til-oppsummering"

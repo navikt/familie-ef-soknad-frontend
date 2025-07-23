@@ -126,7 +126,7 @@ const Barnepass: FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({ id: 'barnepass.sidetittel' })}
+      stegtittel={hentTekst('barnepass.sidetittel', intl)}
       skalViseKnapper={skalViseKnapper}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}

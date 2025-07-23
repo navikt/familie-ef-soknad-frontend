@@ -14,9 +14,7 @@ const BarnMedSærligeBehov: React.FC = () => {
       <KomponentGruppe>
         <AlertStripeDokumentasjon>
           <BodyShort className="blokk-xs" style={{ fontWeight: 600 }}>
-            {intl.formatMessage({
-              id: 'dinSituasjon.dok.harBarnMedSærligeBehov.tittel',
-            })}
+            {hentTekst('dinSituasjon.dok.harBarnMedSærligeBehov.tittel', intl)}
           </BodyShort>
           {hentTekst('dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse', intl)}
         </AlertStripeDokumentasjon>

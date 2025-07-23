@@ -167,7 +167,7 @@ const OmAndreForelder: React.FC<Props> = ({
           />
           {feilmeldingNavn && (
             <ErrorMessage className={'skjemaelement__feilmelding'}>
-              {intl.formatMessage({ id: 'person.feilmelding.navn' })}
+              {hentTekst('person.feilmelding.navn', intl)}
             </ErrorMessage>
           )}
         </FeltGruppe>

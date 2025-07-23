@@ -26,7 +26,7 @@ const Oppsummering: React.FC = () => {
     <>
       <Side
         stønadstype={Stønadstype.skolepenger}
-        stegtittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })}
+        stegtittel={hentTekst('oppsummering.sidetittel', intl)}
         skalViseKnapper={ESide.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreSkolepenger}
@@ -34,7 +34,7 @@ const Oppsummering: React.FC = () => {
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">
-            {intl.formatMessage({ id: 'oppsummering.normaltekst.lesgjennom' })}
+            {hentTekst('oppsummering.normaltekst.lesgjennom', intl)}
           </BodyShort>
 
           <KomponentGruppe>

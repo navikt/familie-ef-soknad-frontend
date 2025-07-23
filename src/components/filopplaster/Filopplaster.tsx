@@ -16,7 +16,11 @@ import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
 import styled from 'styled-components';
 import { ABlue500, ADeepblue50, AGray700 } from '@navikt/ds-tokens/dist/tokens';
-import { hentTekstMedEnVariabel, hentTekstMedFlereVariabler } from '../../utils/teksthåndtering';
+import {
+  hentTekst,
+  hentTekstMedEnVariabel,
+  hentTekstMedFlereVariabler,
+} from '../../utils/teksthåndtering';
 
 interface Props {
   oppdaterDokumentasjon: (
@@ -223,9 +227,9 @@ const Filopplaster: React.FC<Props> = ({
           <IkonOgTekstWrapper>
             <img src={opplasting} alt="Opplastingsikon" />
             <BodyShort>
-              {intl.formatMessage({
-                id: isDragActive ? 'filopplaster.slipp' : 'filopplaster.dra',
-              })}
+              {isDragActive
+                ? hentTekst('filopplaster.slipp', intl)
+                : hentTekst('filopplaster.dra', intl)}
             </BodyShort>
           </IkonOgTekstWrapper>
         </div>

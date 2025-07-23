@@ -35,7 +35,7 @@ const SykSøker: FC<{ filPath: string }> = ({ filPath }) => {
         <Link href={filPath} download>
           <img alt="Nedlastingsikon" src={download} />
           <Label as="p">
-            {intl.formatMessage({ id: 'kvittering.knapp.huskeliste.erSyk' })}
+            {hentTekst('kvittering.knapp.huskeliste.erSyk', intl)}
             {filInformasjon}
           </Label>
         </Link>

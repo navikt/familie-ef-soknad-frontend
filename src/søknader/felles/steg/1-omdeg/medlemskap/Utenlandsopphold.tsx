@@ -97,7 +97,7 @@ const Utenlandsopphold: FC<Props> = ({
       land: {
         spørsmålid: spørsmål.søknadid,
         svarid: svar.id,
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar.svar_tekst,
       },
       erEøsLand: land.find((l) => l.id === svar.id)?.erEøsland || false,

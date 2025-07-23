@@ -55,9 +55,7 @@ const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
               settForelder({
                 ...forelder,
                 flyttetFra: {
-                  label: intl.formatMessage({
-                    id: 'barnasbosted.normaltekst.nårflyttetfra',
-                  }),
+                  label: hentTekst('barnasbosted.normaltekst.nårflyttetfra', intl),
                   verdi: dato,
                 },
               });

@@ -129,9 +129,7 @@ const Aktivitet: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({
-        id: 'stegtittel.arbeidssituasjon.barnetilsyn',
-      })}
+      stegtittel={hentTekst('stegtittel.arbeidssituasjon.barnetilsyn', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}

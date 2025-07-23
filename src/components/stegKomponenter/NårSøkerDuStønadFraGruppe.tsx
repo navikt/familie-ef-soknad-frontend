@@ -62,7 +62,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
       <KomponentGruppe>
         <StyledMultisvarSpørsmål>
           <RadioGroup
-            legend={intl.formatMessage({ id: spørsmål.tekstid })}
+            legend={hentTekst(spørsmål.tekstid, intl)}
             value={søkerFraBestemtMåned?.svarid}
             description={
               <LesMerTekst

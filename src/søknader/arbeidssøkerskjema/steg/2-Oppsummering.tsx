@@ -78,7 +78,7 @@ const Oppsummering: React.FC = () => {
   };
 
   return (
-    <Side tittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })} skalViseKnapper={false}>
+    <Side tittel={hentTekst('oppsummering.sidetittel', intl)} skalViseKnapper={false}>
       <SeksjonGruppe>
         <div className="oppsummering-arbeidssøker">
           <p className="navds-body-short navds-body-long disclaimer">

@@ -7,6 +7,7 @@ import {
 import { IHjelpetekst } from '../../../../../models/felles/hjelpetekst';
 import { JaNeiSvar } from '../../../../../helpers/svar';
 import { LokalIntlShape } from '../../../../../language/typer';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 // ----- TEKSTER
 export const utdanningDuKanFåStønadTil: IHjelpetekst = {
@@ -47,11 +48,11 @@ export const privatEllerOffentligSpm = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: EUtdanningsform.offentlig,
-      svar_tekst: intl.formatMessage({ id: 'utdanning.svar.offentlig' }),
+      svar_tekst: hentTekst('utdanning.svar.offentlig', intl),
     },
     {
       id: EUtdanningsform.privat,
-      svar_tekst: intl.formatMessage({ id: 'utdanning.svar.privat' }),
+      svar_tekst: hentTekst('utdanning.svar.privat', intl),
     },
   ],
 });
@@ -62,11 +63,11 @@ export const heltidEllerDeltidSpm = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: EStudieandel.heltid,
-      svar_tekst: intl.formatMessage({ id: 'utdanning.svar.heltid' }),
+      svar_tekst: hentTekst('utdanning.svar.heltid', intl),
     },
     {
       id: EStudieandel.deltid,
-      svar_tekst: intl.formatMessage({ id: 'utdanning.svar.deltid' }),
+      svar_tekst: hentTekst('utdanning.svar.deltid', intl),
     },
   ],
 });

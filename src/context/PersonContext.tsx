@@ -7,6 +7,7 @@ import { EAlvorlighetsgrad } from '../models/felles/feilmelding';
 import { IBarn } from '../models/steg/barn';
 import { ESkjemanavn } from '../utils/skjemanavn';
 import { useLokalIntlContext } from './LokalIntlContext';
+import { hentTekst } from '../utils/teksthåndtering';
 
 export enum PersonActionTypes {
   HENT_PERSON = 'HENT_PERSON',
@@ -73,11 +74,7 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) 
     if (feil === 'adressesperre') {
       logAdressesperre(skjemanavn);
       settAlvorlighetsgrad(EAlvorlighetsgrad.INFO);
-      settFeilmelding(
-        intl.formatMessage({
-          id: 'barnasbosted.feilmelding.adressebeskyttelse',
-        })
-      );
+      settFeilmelding(hentTekst('barnasbosted.feilmelding.adressebeskyttelse', intl));
     } else {
       settFeilmelding(feil);
     }

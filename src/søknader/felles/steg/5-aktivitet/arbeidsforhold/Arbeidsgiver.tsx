@@ -106,7 +106,7 @@ const Arbeidsgiver: React.FC<Props> = ({
   const arbeidsgiverTittel = hentTittelMedNr(
     arbeidsforhold!,
     arbeidsgivernummer,
-    intl.formatMessage({ id: 'arbeidsforhold.tittel.arbeidsgiver' })
+    hentTekst('arbeidsforhold.tittel.arbeidsgiver', intl)
   );
   const navnLabel: string = hentTekst('arbeidsforhold.label.navn', intl);
   const arbeidsmengdeLabel: string = hentTekst('arbeidsforhold.label.arbeidsmengde', intl);

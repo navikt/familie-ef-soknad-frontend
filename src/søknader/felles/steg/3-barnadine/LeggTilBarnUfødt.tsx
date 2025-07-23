@@ -55,9 +55,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
           <KomponentGruppe>
             <RadiopanelWrapper>
               <RadioGroup
-                legend={intl.formatMessage({
-                  id: 'barnekort.spm.skalBarnetBoHosSøker',
-                })}
+                legend={hentTekst('barnekort.spm.skalBarnetBoHosSøker', intl)}
                 value={boHosDeg}
               >
                 <RadioPanelCustom

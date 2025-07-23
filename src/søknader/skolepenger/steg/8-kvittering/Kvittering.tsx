@@ -46,7 +46,7 @@ const Kvittering: React.FC = () => {
   return søknad.innsendingsdato ? (
     <Side
       stønadstype={Stønadstype.skolepenger}
-      stegtittel={intl.formatMessage({ id: 'kvittering.takk' })}
+      stegtittel={hentTekst('kvittering.takk', intl)}
       skalViseKnapper={ESide.skjulKnapper}
       routesStønad={RoutesSkolepenger}
       skalViseStegindikator={false}

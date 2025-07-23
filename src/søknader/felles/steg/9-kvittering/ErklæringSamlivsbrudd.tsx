@@ -48,7 +48,7 @@ const ErklæringSamlivsbrudd: FC = () => {
         <Link href={hentÆrklæringBasertPåSpråk()} download>
           <img alt="Nedlastingsikon" src={download} />
           <Label as="p">
-            {intl.formatMessage({ id: 'kvittering.knapp.samlivsbrudd' })}
+            {hentTekst('kvittering.knapp.samlivsbrudd', intl)}
             {filInformasjon}
           </Label>
         </Link>

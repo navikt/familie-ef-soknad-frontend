@@ -24,7 +24,7 @@ const SelectSpørsmål: FC<Props> = ({
   const url = window.location.href;
   const skjemanavn = urlTilSkjemanavn(url);
   const skjemaId = skjemanavnTilId(skjemanavn);
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
+  const legend = hentTekst(spørsmål.tekstid, intl);
 
   const håndterSelectChange = (valgtVerdi: string) => {
     const svar = spørsmål.svaralternativer.find((svar) => svar.id === valgtVerdi);

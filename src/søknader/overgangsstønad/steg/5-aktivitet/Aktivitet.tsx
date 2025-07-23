@@ -93,7 +93,7 @@ const Aktivitet: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.arbeidssituasjon' })}
+      stegtittel={hentTekst('stegtittel.arbeidssituasjon', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreOvergangsstønad}

@@ -17,7 +17,7 @@ const SøkerHarSøktSeparasjon: React.FC = () => {
     settSivilstatus({
       ...sivilstatus,
       datoSøktSeparasjon: {
-        label: intl.formatMessage({ id: tekstid }),
+        label: hentTekst(tekstid, intl),
         verdi: date,
       },
     });

@@ -82,7 +82,7 @@ const Utdanning: React.FC<Props> = ({
   const utdanningTittel = hentTittelMedNr(
     tidligereUtdanninger!,
     utdanningsnummer,
-    intl.formatMessage({ id: 'utdanning.undertittel' })
+    hentTekst('utdanning.undertittel', intl)
   );
 
   const skalViseSlettKnapp = tidligereUtdanninger?.length > 1;

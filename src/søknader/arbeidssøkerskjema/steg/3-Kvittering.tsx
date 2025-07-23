@@ -24,7 +24,7 @@ const Kvittering: React.FC = () => {
 
   return skjema?.innsendingsdato ? (
     <Side
-      tittel={intl.formatMessage({ id: 'skjema.takk' })}
+      tittel={hentTekst('skjema.takk', intl)}
       skalViseKnapper={false}
       skalViseStegindikator={false}
     >
