@@ -20,7 +20,6 @@ export const validerPeriode = (
 ): UtenlandsoppholdValidering => {
   const { fraDato, tilDato, begrunnelsetekst, idNummer, harIkkeIdNummer, sisteAdresse } = periode;
 
-  // Dato validering
   let skalViseAlert = false;
   let alertTekst = '';
   let harGyldigDatoperiode = false;
@@ -43,12 +42,10 @@ export const validerPeriode = (
   const harBegrunnelseTekst = begrunnelsetekst.trim() !== '';
   const erEøsland = valgtLand?.erEøsland ?? false;
 
-  // Kondisjonal visning
   const visHvorforOppholdTextArea = harGyldigDatoperiode && periode.periodeLand !== '';
   const visIdNummerTextfield = visHvorforOppholdTextArea && harBegrunnelseTekst && erEøsland;
   const visSisteAdresseTextfield = harIkkeIdNummer;
 
-  // Legg til knapp logic
   let visLeggTilKnapp = false;
   if (harBegrunnelseTekst) {
     if (!erEøsland) {
@@ -70,4 +67,60 @@ export const validerPeriode = (
     visSisteAdresseTextfield,
     visLeggTilKnapp,
   };
+};
+
+export const erPeriodeKomplett = (
+  periode: UtenlandsoppholdFormState,
+  valgtLand: ILandMedKode | undefined
+): boolean => {
+  const {
+    fraDato,
+    tilDato,
+    begrunnelsetekst,
+    idNummer,
+    harIkkeIdNummer,
+    sisteAdresse,
+    periodeLand,
+  } = periode;
+
+  if (!fraDato || !tilDato || !periodeLand || begrunnelsetekst.trim() === '') {
+    return false;
+  }
+
+  if (fraDato.getTime() >= tilDato.getTime()) {
+    return false;
+  }
+
+  const erEøsland = valgtLand?.erEøsland ?? false;
+  if (erEøsland) {
+    if (harIkkeIdNummer) {
+      return sisteAdresse.trim() !== '';
+    } else {
+      return idNummer.trim() !== '';
+    }
+  }
+
+  return true;
+};
+
+export const erPerioderGyldige = (
+  perioder: UtenlandsoppholdFormState[],
+  landListe: ILandMedKode[]
+): boolean => {
+  return perioder.every((periode) => {
+    const valgtLand = landListe.find((land) => land.svar_tekst === periode.periodeLand);
+    return erPeriodeKomplett(periode, valgtLand);
+  });
+};
+
+export const kanLeggeTilNyPeriode = (
+  perioder: UtenlandsoppholdFormState[],
+  landListe: ILandMedKode[]
+): boolean => {
+  if (perioder.length === 0) return false;
+
+  const sistePeriode = perioder[perioder.length - 1];
+  const valgtLand = landListe.find((land) => land.svar_tekst === sistePeriode.periodeLand);
+
+  return erPeriodeKomplett(sistePeriode, valgtLand);
 };

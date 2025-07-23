@@ -1,12 +1,14 @@
-// UtenlandsoppholdV3.tsx
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { VStack } from '@navikt/ds-react';
+import { VStack, Button, Heading } from '@navikt/ds-react';
 import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
+import { hentTekst } from '../../../../../../utils/søknad';
+import { PlusCircleFillIcon } from '@navikt/aksel-icons';
+import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
 import { UtenlandsoppholdSkjema } from './UtenlandsoppholdSkjema';
-import { opprettTomPeriode } from './utils';
+import { opprettTomPeriode, validerPeriode } from './utils';
 import { UtenlandsoppholdFormState } from './typer';
 
 export const UtenlandsoppholdV2: React.FC = () => {
@@ -50,6 +52,19 @@ export const UtenlandsoppholdV2: React.FC = () => {
     });
   };
 
+  const skalViseLeggTilKnapp = useMemo(() => {
+    const sistePeriodeMedData = perioder
+      .slice()
+      .reverse()
+      .find((periode) => {
+        const valgtLand = landListe.find((land) => land.svar_tekst === periode.periodeLand);
+        const validering = validerPeriode(periode, valgtLand, intl);
+        return validering.visLeggTilKnapp;
+      });
+
+    return !!sistePeriodeMedData;
+  }, [perioder, landListe, intl]);
+
   return (
     <VStack gap="8">
       {perioder.map((periode, index) => (
@@ -64,9 +79,22 @@ export const UtenlandsoppholdV2: React.FC = () => {
           onOppdater={(oppdateringer) => oppdaterPeriode(periode.id, oppdateringer)}
           onLandEndring={(land) => onLandEndring(periode.id, land)}
           onSlett={() => slettPeriode(periode.id)}
-          onLeggTilNy={leggTilNyPeriode}
         />
       ))}
+
+      {skalViseLeggTilKnapp && (
+        <VStack gap="4">
+          <Heading size="xsmall" className={styles.heading}>
+            {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
+          </Heading>
+
+          <div>
+            <Button variant="tertiary" icon={<PlusCircleFillIcon />} onClick={leggTilNyPeriode}>
+              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+            </Button>
+          </div>
+        </VStack>
+      )}
     </VStack>
   );
 };

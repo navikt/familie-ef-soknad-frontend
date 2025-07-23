@@ -33,5 +33,11 @@ export interface UtenlandsoppholdSkjemaProps {
   onOppdater: (oppdateringer: Partial<UtenlandsoppholdFormState>) => void;
   onLandEndring: (land: string) => void;
   onSlett: () => void;
-  onLeggTilNy: () => void;
+}
+
+export interface UtenlandsoppholdTilstand {
+  perioder: UtenlandsoppholdFormState[];
+  kanLeggeTilNy: boolean;
+  erAllePeriodeGyldige: boolean;
+  kanGåVidere: boolean;
 }

@@ -17,9 +17,9 @@ import { hentTekst, hentTekstMedVariabel } from '../../../../../../utils/søknad
 import { SpørsmålWrapper } from '../../../../../../components/spørsmål/v2/SpørsmålWrapper';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
-import { PlusCircleFillIcon, TrashIcon } from '@navikt/aksel-icons';
 import { validerPeriode } from './utils';
 import { UtenlandsoppholdSkjemaProps } from './typer';
+import { TrashIcon } from '@navikt/aksel-icons';
 
 export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
   periode,
@@ -31,7 +31,6 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
   onOppdater,
   onLandEndring,
   onSlett,
-  onLeggTilNy,
 }) => {
   const valgtLand = useMemo(() => {
     return landListe.find((land) => land.svar_tekst === periode.periodeLand);
@@ -55,7 +54,7 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
     },
   });
 
-  const overskriftTekst =
+  const utenlandsperiodeTittelTekst =
     totaltAntallPerioder === 1
       ? hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
       : `${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${periodeIndex + 1}`;
@@ -89,7 +88,7 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
   return (
     <VStack gap="6">
       <HStack gap="6" align="center" justify="space-between">
-        <Heading size="small">{overskriftTekst}</Heading>
+        <Heading size="small">{utenlandsperiodeTittelTekst}</Heading>
 
         {visSlettKnapp && (
           <Button
@@ -198,20 +197,6 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
           value={periode.sisteAdresse}
           onChange={(event) => onOppdater({ sisteAdresse: event.target.value })}
         />
-      )}
-
-      {validering.visLeggTilKnapp && (
-        <VStack gap="4">
-          <Heading size="xsmall" className={styles.heading}>
-            {hentTekst('Har du hatt flere utenlandsopphold de siste 5 årene?', intl)}
-          </Heading>
-
-          <div>
-            <Button variant="tertiary" icon={<PlusCircleFillIcon />} onClick={onLeggTilNy}>
-              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
-            </Button>
-          </div>
-        </VStack>
       )}
     </VStack>
   );
