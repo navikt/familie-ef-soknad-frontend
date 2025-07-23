@@ -4,7 +4,7 @@ import { SøknadSteg } from './komponenter/stegindikator/GenerelleSøknadSteg';
 import { PersonopplysningerV2 } from './personopplysninger/PersonopplysningerV2';
 import { useOmDegV2 } from './typer/OmDegContextV2';
 import { StegDebugKnapp } from './debug/StegDebugKnapp';
-import { UtenlandsoppholdV2 } from './medlemskap/UtenlandsoppholdV2';
+import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 
 export const OmDegV2: React.FC = () => {
   const { søker, personopplysningerData } = useOmDegV2();
@@ -34,7 +34,7 @@ export const OmDegV2: React.FC = () => {
         adresse={søker.adresse.adresse} // TODO: Fix denne så adresse er formatert med post nummer og sted.
       />
 
-      <UtenlandsoppholdV2 />
+      <Adresseopplysninger />
 
       <StegDebugKnapp />
     </StegSide>

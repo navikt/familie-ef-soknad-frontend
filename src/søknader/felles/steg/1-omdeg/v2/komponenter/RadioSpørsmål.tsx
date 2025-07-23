@@ -39,14 +39,15 @@ export const RadioSpørsmål: React.FC<Props> = ({
       >
         {svarAlternativer.map((svar) => {
           const erValgt = valgtVerdi?.id === svar.id;
+          const unikId = `${spørsmål.id}-${svar.id}`;
 
           return (
             <label
               key={svar.id}
-              htmlFor={svar.id}
+              htmlFor={unikId}
               className={clsx(styles.radioBox, { [styles.selected]: erValgt })}
             >
-              <Radio id={svar.id} value={svar.id} name={spørsmål.spørsmålKey}>
+              <Radio id={unikId} value={svar.id} name={spørsmål.id}>
                 {hentTekst(svar.svarKey, intl)}
               </Radio>
             </label>
