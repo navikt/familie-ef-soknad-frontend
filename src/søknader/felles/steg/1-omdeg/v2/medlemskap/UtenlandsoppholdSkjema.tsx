@@ -13,84 +13,75 @@ import {
   useDatepicker,
   VStack,
 } from '@navikt/ds-react';
+import { TrashIcon } from '@navikt/aksel-icons';
 import { hentTekst, hentTekstMedVariabel } from '../../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../komponenter/SpørsmålWrapper';
-import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import styles from '../komponenter/SpørsmålWrapper.module.css';
-import { validerPeriode } from './utils';
-import { UtenlandsoppholdSkjemaProps } from './typer';
-import { TrashIcon } from '@navikt/aksel-icons';
+import { finnLand, utledVisningsregler } from './utils';
+import { SkjemaProps } from './typer';
 
-export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
+export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
   periode,
-  periodeIndex,
-  totaltAntallPerioder,
+  periodeNummer,
+  totalAntallPerioder,
   landListe,
   intl,
-  nårOppholdtSøkerSegIUtlandetSpørsmål,
+  spørsmål,
   onOppdater,
-  onLandEndring,
   onSlett,
 }) => {
-  const valgtLand = useMemo(() => {
-    return landListe.find((land) => land.svar_tekst === periode.periodeLand);
-  }, [landListe, periode.periodeLand]);
+  const valgtLand = useMemo(() => finnLand(periode.land, landListe), [periode.land, landListe]);
 
-  const validering = useMemo(() => {
-    return validerPeriode(periode, valgtLand, intl);
-  }, [periode, valgtLand, intl]);
+  const visningsregler = useMemo(
+    () => utledVisningsregler(periode, valgtLand, intl),
+    [periode, valgtLand, intl]
+  );
 
-  const fraDatoConfig = useDatepicker({
+  const fraDatoKonfig = useDatepicker({
     toDate: new Date(),
-    onDateChange: (dato: Date | undefined) => {
-      onOppdater({ fraDato: dato });
-    },
+    onDateChange: (dato) => onOppdater({ fraDato: dato }),
   });
 
-  const tilDatoConfig = useDatepicker({
+  const tilDatoKonfig = useDatepicker({
     toDate: new Date(),
-    onDateChange: (dato: Date | undefined) => {
-      onOppdater({ tilDato: dato });
-    },
+    onDateChange: (dato) => onOppdater({ tilDato: dato }),
   });
 
-  const utenlandsperiodeTittelTekst =
-    totaltAntallPerioder === 1
+  const periodeTittel =
+    totalAntallPerioder === 1
       ? hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
-      : `${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${periodeIndex + 1}`;
+      : `${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${periodeNummer}`;
 
-  const visSlettKnapp = totaltAntallPerioder > 1;
-
-  const begrunnelseLandTekst = hentTekstMedVariabel(
+  const begrunnelseTekst = hentTekstMedVariabel(
     'medlemskap.periodeBoddIUtlandet.begrunnelse',
     intl,
-    { 0: periode.periodeLand }
+    { 0: periode.land }
   );
 
-  const utenlandskIdNummerTekst = hentTekstMedVariabel(
-    'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer',
-    intl,
-    { 0: periode.periodeLand }
-  );
+  const handleLandEndring = (nyttLand: string) => {
+    onOppdater({
+      land: nyttLand,
+      begrunnelse: '',
+      idNummer: '',
+      harIkkeIdNummer: false,
+      sisteAdresse: '',
+    });
+  };
 
-  const harIkkeIdNummerTekst = hentTekstMedVariabel(
-    'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer',
-    intl,
-    { 0: periode.periodeLand }
-  );
-
-  const sisteAdresseTekst = hentTekstMedVariabel(
-    'medlemskap.periodeBoddIUtlandet.sisteAdresse',
-    intl,
-    { 0: periode.periodeLand }
-  );
+  const handleIdNummerCheckbox = (harIkkeId: boolean) => {
+    onOppdater({
+      harIkkeIdNummer: harIkkeId,
+      idNummer: harIkkeId ? '' : periode.idNummer,
+      sisteAdresse: harIkkeId ? periode.sisteAdresse : '',
+    });
+  };
 
   return (
     <VStack gap="6">
       <HStack gap="6" align="center" justify="space-between">
-        <Heading size="small">{utenlandsperiodeTittelTekst}</Heading>
+        <Heading size="small">{periodeTittel}</Heading>
 
-        {visSlettKnapp && (
+        {totalAntallPerioder > 1 && (
           <Button
             variant="tertiary"
             size="small"
@@ -103,64 +94,63 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
         )}
       </HStack>
 
-      {periodeIndex === 0 && <SpørsmålWrapper spørsmål={nårOppholdtSøkerSegIUtlandetSpørsmål} />}
+      {periodeNummer === 1 && <SpørsmålWrapper spørsmål={spørsmål} />}
 
       <HStack gap="6">
-        <DatePicker {...fraDatoConfig.datepickerProps}>
+        <DatePicker {...fraDatoKonfig.datepickerProps}>
           <DatePicker.Input
-            {...fraDatoConfig.inputProps}
+            {...fraDatoKonfig.inputProps}
             label={hentTekst('periode.fra', intl)}
             placeholder="DD.MM.YYYY"
-            value={periode.fraDato ? fraDatoConfig.inputProps.value : ''}
           />
         </DatePicker>
 
-        <DatePicker {...tilDatoConfig.datepickerProps}>
+        <DatePicker {...tilDatoKonfig.datepickerProps}>
           <DatePicker.Input
-            {...tilDatoConfig.inputProps}
+            {...tilDatoKonfig.inputProps}
             label={hentTekst('periode.til', intl)}
             placeholder="DD.MM.YYYY"
-            value={periode.tilDato ? tilDatoConfig.inputProps.value : ''}
           />
         </DatePicker>
       </HStack>
 
-      {validering.skalViseAlert && (
+      {visningsregler.skalViseAlert && (
         <Alert variant="error" size="small">
-          {validering.alertTekst}
+          {visningsregler.alertTekst}
         </Alert>
       )}
 
       <Select
         label={hentTekst('medlemskap.periodeBoddIUtlandet.land', intl)}
-        value={periode.periodeLand}
-        onChange={(event) => onLandEndring(event.target.value)}
+        value={periode.land}
+        onChange={(e) => handleLandEndring(e.target.value)}
       >
         <option value="" disabled>
           {hentTekst('landVelger.alternativ', intl)}
         </option>
-
-        {landListe.map((land: ILandMedKode) => (
+        {landListe.map((land) => (
           <option key={land.id} value={land.svar_tekst}>
             {land.svar_tekst}
           </option>
         ))}
       </Select>
 
-      {validering.visHvorforOppholdTextArea && (
+      {visningsregler.skalViseBegrunnelse && (
         <Textarea
-          label={begrunnelseLandTekst}
+          label={begrunnelseTekst}
           maxLength={1000}
-          value={periode.begrunnelsetekst}
-          onChange={(event) => onOppdater({ begrunnelsetekst: event.target.value })}
+          value={periode.begrunnelse}
+          onChange={(e) => onOppdater({ begrunnelse: e.target.value })}
         />
       )}
 
-      {validering.visIdNummerTextfield && (
+      {visningsregler.skalViseIdNummer && (
         <VStack gap="6">
           <VStack gap="4">
             <Heading size="xsmall" className={styles.heading}>
-              {utenlandskIdNummerTekst}
+              {hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl, {
+                0: periode.land,
+              })}
             </Heading>
             <ReadMore header={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}>
               {hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
@@ -168,34 +158,35 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
           </VStack>
 
           <TextField
-            label={utenlandskIdNummerTekst}
+            label={hentTekstMedVariabel(
+              'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer',
+              intl,
+              { 0: periode.land }
+            )}
             hideLabel
             value={periode.idNummer}
             disabled={periode.harIkkeIdNummer}
-            onChange={(event) => onOppdater({ idNummer: event.target.value })}
+            onChange={(e) => onOppdater({ idNummer: e.target.value })}
           />
 
           <Checkbox
             checked={periode.harIkkeIdNummer}
-            onChange={(event) => {
-              const checked = event.target.checked;
-              onOppdater({
-                harIkkeIdNummer: checked,
-                idNummer: checked ? '' : periode.idNummer,
-                sisteAdresse: checked ? periode.sisteAdresse : '',
-              });
-            }}
+            onChange={(e) => handleIdNummerCheckbox(e.target.checked)}
           >
-            {harIkkeIdNummerTekst}
+            {hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl, {
+              0: periode.land,
+            })}
           </Checkbox>
         </VStack>
       )}
 
-      {validering.visSisteAdresseTextfield && (
+      {visningsregler.skalViseSisteAdresse && (
         <TextField
-          label={sisteAdresseTekst}
+          label={hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.sisteAdresse', intl, {
+            0: periode.land,
+          })}
           value={periode.sisteAdresse}
-          onChange={(event) => onOppdater({ sisteAdresse: event.target.value })}
+          onChange={(e) => onOppdater({ sisteAdresse: e.target.value })}
         />
       )}
     </VStack>

@@ -1,126 +1,106 @@
 import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
-import { UtenlandsoppholdFormState, UtenlandsoppholdValidering } from './typer';
+import { UtenlandsoppholdPeriode, PeriodeVisningsregler } from './typer';
 
-export const opprettTomPeriode = (): UtenlandsoppholdFormState => ({
-  id: crypto.randomUUID(),
-  periodeLand: '',
+export const opprettTomPeriode = (): UtenlandsoppholdPeriode => ({
+  id: crypto.randomUUID(), // TODO: Denne trengs muligens ikke, bare glem den.
+  land: '',
   fraDato: undefined,
   tilDato: undefined,
-  begrunnelsetekst: '',
+  begrunnelse: '',
   idNummer: '',
   harIkkeIdNummer: false,
   sisteAdresse: '',
 });
 
-export const validerPeriode = (
-  periode: UtenlandsoppholdFormState,
+export const finnLand = (landKode: string, landListe: ILandMedKode[]): ILandMedKode | undefined => {
+  return landListe.find((land) => land.svar_tekst === landKode);
+};
+
+export const validerDatoperiode = (
+  fraDato: Date | undefined,
+  tilDato: Date | undefined,
+  intl: any
+) => {
+  if (!fraDato || !tilDato) {
+    return { erGyldig: false, feilmelding: '' };
+  }
+
+  if (fraDato.getTime() === tilDato.getTime()) {
+    return {
+      erGyldig: false,
+      feilmelding: hentTekst('datovelger.periode.likeDatoer', intl),
+    };
+  }
+
+  if (fraDato.getTime() > tilDato.getTime()) {
+    return {
+      erGyldig: false,
+      feilmelding: hentTekst('datovelger.periode.startFørSlutt', intl),
+    };
+  }
+
+  return { erGyldig: true, feilmelding: '' };
+};
+
+export const utledVisningsregler = (
+  periode: UtenlandsoppholdPeriode,
   valgtLand: ILandMedKode | undefined,
   intl: any
-): UtenlandsoppholdValidering => {
-  const { fraDato, tilDato, begrunnelsetekst, idNummer, harIkkeIdNummer, sisteAdresse } = periode;
+): PeriodeVisningsregler => {
+  const { fraDato, tilDato, begrunnelse, harIkkeIdNummer } = periode;
+  const datoValidering = validerDatoperiode(fraDato, tilDato, intl);
 
-  let skalViseAlert = false;
-  let alertTekst = '';
-  let harGyldigDatoperiode = false;
-
-  if (fraDato && tilDato) {
-    const fraDatoTid = fraDato.getTime();
-    const tilDatoTid = tilDato.getTime();
-
-    if (fraDatoTid === tilDatoTid) {
-      skalViseAlert = true;
-      alertTekst = hentTekst('datovelger.periode.likeDatoer', intl);
-    } else if (fraDatoTid > tilDatoTid) {
-      skalViseAlert = true;
-      alertTekst = hentTekst('datovelger.periode.startFørSlutt', intl);
-    } else {
-      harGyldigDatoperiode = true;
-    }
-  }
-
-  const harBegrunnelseTekst = begrunnelsetekst.trim() !== '';
-  const erEøsland = valgtLand?.erEøsland ?? false;
-
-  const visHvorforOppholdTextArea = harGyldigDatoperiode && periode.periodeLand !== '';
-  const visIdNummerTextfield = visHvorforOppholdTextArea && harBegrunnelseTekst && erEøsland;
-  const visSisteAdresseTextfield = harIkkeIdNummer;
-
-  let visLeggTilKnapp = false;
-  if (harBegrunnelseTekst) {
-    if (!erEøsland) {
-      visLeggTilKnapp = true;
-    } else if (erEøsland && idNummer.trim() !== '') {
-      visLeggTilKnapp = true;
-    } else if (harIkkeIdNummer && sisteAdresse.trim() !== '') {
-      visLeggTilKnapp = true;
-    }
-  }
+  const harGyldigePeriodeData = datoValidering.erGyldig && periode.land !== '';
+  const harBegrunnelse = begrunnelse.trim() !== '';
+  const erEøsLand = valgtLand?.erEøsland ?? false;
 
   return {
-    skalViseAlert,
-    alertTekst,
-    harGyldigDatoperiode,
-    harBegrunnelseTekst,
-    visHvorforOppholdTextArea,
-    visIdNummerTextfield,
-    visSisteAdresseTextfield,
-    visLeggTilKnapp,
+    skalViseBegrunnelse: harGyldigePeriodeData,
+    skalViseIdNummer: harGyldigePeriodeData && harBegrunnelse && erEøsLand,
+    skalViseSisteAdresse: harIkkeIdNummer,
+    skalViseAlert: !datoValidering.erGyldig && datoValidering.feilmelding !== '',
+    alertTekst: datoValidering.feilmelding,
   };
 };
 
-export const erPeriodeGyldig = (
-  periode: UtenlandsoppholdFormState,
+export const erPeriodeUtfylt = (
+  periode: UtenlandsoppholdPeriode,
   valgtLand: ILandMedKode | undefined
 ): boolean => {
-  const {
-    fraDato,
-    tilDato,
-    begrunnelsetekst,
-    idNummer,
-    harIkkeIdNummer,
-    sisteAdresse,
-    periodeLand,
-  } = periode;
+  const { fraDato, tilDato, land, begrunnelse, idNummer, harIkkeIdNummer, sisteAdresse } = periode;
 
-  if (!fraDato || !tilDato || !periodeLand || begrunnelsetekst.trim() === '') {
+  // Grunnleggende krav
+  if (!fraDato || !tilDato || !land || !begrunnelse.trim()) {
     return false;
   }
 
-  if (fraDato.getTime() >= tilDato.getTime()) {
+  // Datovalidering
+  const datoValidering = validerDatoperiode(fraDato, tilDato, {});
+  if (!datoValidering.erGyldig) {
     return false;
   }
 
-  const erEøsland = valgtLand?.erEøsland ?? false;
-  if (erEøsland) {
+  // EØS-spesifikke krav
+  const erEøsLand = valgtLand?.erEøsland ?? false;
+  if (erEøsLand) {
     if (harIkkeIdNummer) {
       return sisteAdresse.trim() !== '';
-    } else {
-      return idNummer.trim() !== '';
     }
+    return idNummer.trim() !== '';
   }
 
   return true;
 };
 
-export const erPerioderGyldige = (
-  perioder: UtenlandsoppholdFormState[],
-  landListe: ILandMedKode[]
-): boolean => {
-  return perioder.every((periode) => {
-    const valgtLand = landListe.find((land) => land.svar_tekst === periode.periodeLand);
-    return erPeriodeGyldig(periode, valgtLand);
-  });
-};
-
 export const kanLeggeTilNyPeriode = (
-  perioder: UtenlandsoppholdFormState[],
+  perioder: UtenlandsoppholdPeriode[],
   landListe: ILandMedKode[]
 ): boolean => {
   if (perioder.length === 0) return false;
 
-  const sistePeriode = perioder[perioder.length - 1];
-  const valgtLand = landListe.find((land) => land.svar_tekst === sistePeriode.periodeLand);
-
-  return erPeriodeGyldig(sistePeriode, valgtLand);
+  return perioder.every((periode) => {
+    const valgtLand = finnLand(periode.land, landListe);
+    return erPeriodeUtfylt(periode, valgtLand);
+  });
 };

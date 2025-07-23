@@ -1,43 +1,32 @@
 import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 
-export interface UtenlandsoppholdFormState {
+export interface UtenlandsoppholdPeriode {
   id: string;
-  periodeLand: string;
+  land: string;
   fraDato: Date | undefined;
   tilDato: Date | undefined;
-  begrunnelsetekst: string;
+  begrunnelse: string;
   idNummer: string;
   harIkkeIdNummer: boolean;
   sisteAdresse: string;
 }
 
-export interface UtenlandsoppholdValidering {
+export interface PeriodeVisningsregler {
+  skalViseBegrunnelse: boolean;
+  skalViseIdNummer: boolean;
+  skalViseSisteAdresse: boolean;
   skalViseAlert: boolean;
   alertTekst: string;
-  harGyldigDatoperiode: boolean;
-  harBegrunnelseTekst: boolean;
-  visHvorforOppholdTextArea: boolean;
-  visIdNummerTextfield: boolean;
-  visSisteAdresseTextfield: boolean;
-  visLeggTilKnapp: boolean;
 }
 
-export interface UtenlandsoppholdSkjemaProps {
-  periode: UtenlandsoppholdFormState;
-  periodeIndex: number;
-  totaltAntallPerioder: number;
+export interface SkjemaProps {
+  periode: UtenlandsoppholdPeriode;
+  periodeNummer: number;
+  totalAntallPerioder: number;
   landListe: ILandMedKode[];
   intl: any;
-  nårOppholdtSøkerSegIUtlandetSpørsmål: StegSpørsmål;
-  onOppdater: (oppdateringer: Partial<UtenlandsoppholdFormState>) => void;
-  onLandEndring: (land: string) => void;
+  spørsmål: StegSpørsmål;
+  onOppdater: (oppdateringer: Partial<UtenlandsoppholdPeriode>) => void;
   onSlett: () => void;
-}
-
-export interface UtenlandsoppholdTilstand {
-  perioder: UtenlandsoppholdFormState[];
-  kanLeggeTilNy: boolean;
-  erAllePeriodeGyldige: boolean;
-  kanGåVidere: boolean;
 }
