@@ -21,7 +21,7 @@ import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
-import { PlusCircleFillIcon } from '@navikt/aksel-icons';
+import { PlusCircleFillIcon, TrashIcon } from '@navikt/aksel-icons';
 
 export const UtenlandsperiodeV2: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -85,13 +85,11 @@ export const UtenlandsperiodeV2: React.FC = () => {
 
   const harBegrunnelseTekst = begrunnelsetekst.trim() !== '';
 
+  const visSlettUtenlandsperiodeKnapp = true;
   const visHvorforOppholdIValgtLandTextArea = harGyldigDatoperiode && periodeLand !== '';
-
   const visIdNummerTextfield =
     visHvorforOppholdIValgtLandTextArea && harBegrunnelseTekst && erEøsland;
-
   const visSisteAdresseIUtlandTextfield = harIkkeIdNummer;
-
   const visLeggTilUtenlandsperiodeKnapp = useMemo(() => {
     if (!harBegrunnelseTekst) return false;
     if (!erEøsland) return true;
@@ -148,9 +146,23 @@ export const UtenlandsperiodeV2: React.FC = () => {
 
   return (
     <VStack gap={'6'}>
-      <Heading size={'small'}>
-        {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)}
-      </Heading>
+      <HStack gap={'6'} align={'center'} justify={'space-between'}>
+        <Heading size={'small'}>
+          {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)}
+        </Heading>
+
+        {visSlettUtenlandsperiodeKnapp && (
+          <Button
+            variant="tertiary"
+            size={'small'}
+            iconPosition="right"
+            icon={<TrashIcon />}
+            onClick={() => {}}
+          >
+            {hentTekst('medlemskap.periodeBoddIUtlandet.slett', intl)}
+          </Button>
+        )}
+      </HStack>
 
       <SpørsmålWrapper spørsmål={nårOppholdtSøkerSegIUtlandetSpørsmål} />
 
