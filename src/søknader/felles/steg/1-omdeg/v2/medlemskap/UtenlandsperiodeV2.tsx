@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import {
+  Alert,
   Button,
   Checkbox,
   DatePicker,
@@ -20,7 +21,7 @@ import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
-import { PlusCircleFillIcon } from '@navikt/aksel-icons'; // TODO: Fix denne
+import { PlusCircleFillIcon } from '@navikt/aksel-icons';
 
 export const UtenlandsperiodeV2: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -28,23 +29,51 @@ export const UtenlandsperiodeV2: React.FC = () => {
   const landListe = hentLand(locale);
 
   const [periodeLand, settPeriodeLand] = useState<string>('');
+  const [fraDato, settFraDato] = useState<Date | undefined>();
+  const [tilDato, settTilDato] = useState<Date | undefined>();
 
   const nårOppholdtSøkerSegIUtlandetSpørsmål: StegSpørsmål = {
     id: 'utenlandsperiode',
     spørsmålKey: 'medlemskap.periodeBoddIUtlandet',
   };
 
-  const fraDato = useDatepicker({
+  // TODO: Flytt denne metoden ut.
+  const { skalViseUtelandsPeriodeAlert, utenlandsPeriodeAlertTekst } = useMemo(() => {
+    if (!fraDato || !tilDato) {
+      return { skalViseUtelandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
+    }
+
+    const fraDatoTid = fraDato.getTime();
+    const tilDatoTid = tilDato.getTime();
+
+    if (fraDatoTid === tilDatoTid) {
+      return {
+        skalViseUtelandsPeriodeAlert: true,
+        utenlandsPeriodeAlertTekst: hentTekst('datovelger.periode.likeDatoer', intl),
+      };
+    }
+
+    if (fraDatoTid > tilDatoTid) {
+      return {
+        skalViseUtelandsPeriodeAlert: true,
+        utenlandsPeriodeAlertTekst: hentTekst('datovelger.periode.startFørSlutt', intl),
+      };
+    }
+
+    return { skalViseUtelandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
+  }, [fraDato, tilDato, intl]);
+
+  const fraDatoConfig = useDatepicker({
     toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
-      // TODO: Fix
+      settFraDato(dato);
     },
   });
 
-  const tilDato = useDatepicker({
+  const tilDatoConfig = useDatepicker({
     toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
-      // TODO: Fix
+      settTilDato(dato);
     },
   });
 
@@ -61,22 +90,28 @@ export const UtenlandsperiodeV2: React.FC = () => {
       <SpørsmålWrapper spørsmål={nårOppholdtSøkerSegIUtlandetSpørsmål} />
 
       <HStack gap={'6'}>
-        <DatePicker {...tilDato.datepickerProps}>
+        <DatePicker {...fraDatoConfig.datepickerProps}>
           <DatePicker.Input
-            {...fraDato.inputProps}
+            {...fraDatoConfig.inputProps}
             label={hentTekst('periode.fra', intl)}
             placeholder={'DD.MM.YYYY'}
           />
         </DatePicker>
 
-        <DatePicker {...fraDato.datepickerProps}>
+        <DatePicker {...tilDatoConfig.datepickerProps}>
           <DatePicker.Input
-            {...tilDato.inputProps}
+            {...tilDatoConfig.inputProps}
             label={hentTekst('periode.til', intl)}
             placeholder={'DD.MM.YYYY'}
           />
         </DatePicker>
       </HStack>
+
+      {skalViseUtelandsPeriodeAlert && (
+        <Alert variant={'error'} size={'small'}>
+          {utenlandsPeriodeAlertTekst}
+        </Alert>
+      )}
 
       <Select
         label={hentTekst('medlemskap.periodeBoddIUtlandet.land', intl)}

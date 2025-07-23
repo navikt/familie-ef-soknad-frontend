@@ -7,6 +7,7 @@ import { StegDebugKnapp } from './debug/StegDebugKnapp';
 import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 import { SivilstatusV2 } from './sivilstatus/SivilstatusV2';
 import { MedlemskapV2 } from './medlemskap/MedlemskapV2';
+import { UtenlandsperiodeV2 } from './medlemskap/UtenlandsperiodeV2';
 
 export const OmDegV2: React.FC = () => {
   const { søker, personopplysningerData } = useOmDegV2();
@@ -39,7 +40,8 @@ export const OmDegV2: React.FC = () => {
       {/*<Adresseopplysninger />
       {skalViseSivilstatus() && <SivilstatusV2 />}*/}
 
-      {skalViseMedlemskap && <MedlemskapV2 />}
+      {/*{skalViseMedlemskap && <MedlemskapV2 />}*/}
+      <UtenlandsperiodeV2 />
 
       <StegDebugKnapp />
     </StegSide>
