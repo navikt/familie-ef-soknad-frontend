@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { EStudieandel, EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import {
+  EStudieandel,
+  EUtdanning,
+  IUnderUtdanning,
+} from '../../../../../models/steg/aktivitet/utdanning';
 import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
 import LesMerTekst from '../../../../../components/LesMerTekst';
