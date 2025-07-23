@@ -31,6 +31,10 @@ export const UtenlandsperiodeV2: React.FC = () => {
   const [periodeLand, settPeriodeLand] = useState<string>('');
   const [fraDato, settFraDato] = useState<Date | undefined>();
   const [tilDato, settTilDato] = useState<Date | undefined>();
+  const [begrunnelsetekst, settBegrunnelsetekst] = useState<string>('');
+  const [idNummer, settIdNummer] = useState<string>('');
+  const [harIkkeIdNummer, settHarIkkeIdNummer] = useState<boolean>(false);
+  const [sisteAdresse, settSisteAdresse] = useState<string>('');
 
   const nårOppholdtSøkerSegIUtlandetSpørsmål: StegSpørsmål = {
     id: 'utenlandsperiode',
@@ -54,12 +58,12 @@ export const UtenlandsperiodeV2: React.FC = () => {
 
     if (fraDatoTid > tilDatoTid) {
       return {
-        visUtelandsPeriodeAlert: true,
+        skalViseUtelandsPeriodeAlert: true,
         utenlandsPeriodeAlertTekst: hentTekst('datovelger.periode.startFørSlutt', intl),
       };
     }
 
-    return { skalViseUterlandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
+    return { skalViseUtelandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
   }, [fraDato, tilDato, intl]);
 
   const harGyldigDatoperiode = useMemo(() => {
@@ -71,10 +75,30 @@ export const UtenlandsperiodeV2: React.FC = () => {
     return fraDatoTid < tilDatoTid;
   }, [fraDato, tilDato]);
 
+  const valgtLand = useMemo(() => {
+    return landListe.find((land) => land.svar_tekst === periodeLand);
+  }, [landListe, periodeLand]);
+
+  const erEøsland = useMemo(() => {
+    return valgtLand?.erEøsland ?? false;
+  }, [valgtLand]);
+
+  const harBegrunnelseTekst = begrunnelsetekst.trim() !== '';
+
   const visHvorforOppholdIValgtLandTextArea = harGyldigDatoperiode && periodeLand !== '';
-  const visIdNummerTextfield = false;
-  const visSisteAdresseIUtlandTextfield = false;
-  const visLeggTilUtenlandsperiodeKnapp = false;
+
+  const visIdNummerTextfield =
+    visHvorforOppholdIValgtLandTextArea && harBegrunnelseTekst && erEøsland;
+
+  const visSisteAdresseIUtlandTextfield = harIkkeIdNummer;
+
+  const visLeggTilUtenlandsperiodeKnapp = useMemo(() => {
+    if (!harBegrunnelseTekst) return false;
+    if (!erEøsland) return true;
+    if (erEøsland && idNummer.trim() !== '') return true;
+    if (harIkkeIdNummer && sisteAdresse.trim() !== '') return true;
+    return false;
+  }, [harBegrunnelseTekst, erEøsland, idNummer, harIkkeIdNummer, sisteAdresse]);
 
   const fraDatoConfig = useDatepicker({
     toDate: new Date(),
@@ -92,10 +116,32 @@ export const UtenlandsperiodeV2: React.FC = () => {
 
   const onLandEndring = (land: string) => {
     settPeriodeLand(land);
+    settBegrunnelsetekst('');
+    settIdNummer('');
+    settHarIkkeIdNummer(false);
+    settSisteAdresse('');
   };
 
   const begrunnelseLandTekst = hentTekstMedVariabel(
     'medlemskap.periodeBoddIUtlandet.begrunnelse',
+    intl,
+    { 0: periodeLand }
+  );
+
+  const utenlandskIdNummerTekst = hentTekstMedVariabel(
+    'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer',
+    intl,
+    { 0: periodeLand }
+  );
+
+  const harIkkeIdNummerTekst = hentTekstMedVariabel(
+    'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer',
+    intl,
+    { 0: periodeLand }
+  );
+
+  const sisteAdresseTekst = hentTekstMedVariabel(
+    'medlemskap.periodeBoddIUtlandet.sisteAdresse',
     intl,
     { 0: periodeLand }
   );
@@ -151,33 +197,55 @@ export const UtenlandsperiodeV2: React.FC = () => {
       </Select>
 
       {visHvorforOppholdIValgtLandTextArea && (
-        <Textarea label={begrunnelseLandTekst} maxLength={1000} />
+        <Textarea
+          label={begrunnelseLandTekst}
+          maxLength={1000}
+          value={begrunnelsetekst}
+          onChange={(event) => settBegrunnelsetekst(event.target.value)}
+        />
       )}
 
       {visIdNummerTextfield && (
         <VStack gap={'6'}>
           <VStack gap="4">
             <Heading size="xsmall" className={styles.heading}>
-              {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
+              {utenlandskIdNummerTekst}
             </Heading>
             <ReadMore header={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}>
               {hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
             </ReadMore>
           </VStack>
 
-          <Textarea
-            label={hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
+          <TextField
+            label={utenlandskIdNummerTekst}
             hideLabel
+            value={idNummer}
+            disabled={harIkkeIdNummer}
+            onChange={(event) => settIdNummer(event.target.value)}
           />
 
-          <Checkbox checked={undefined} onChange={(event) => {}}>
-            {hentTekst('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl)}
+          <Checkbox
+            checked={harIkkeIdNummer}
+            onChange={(event) => {
+              settHarIkkeIdNummer(event.target.checked);
+              if (event.target.checked) {
+                settIdNummer('');
+              } else {
+                settSisteAdresse('');
+              }
+            }}
+          >
+            {harIkkeIdNummerTekst}
           </Checkbox>
         </VStack>
       )}
 
       {visSisteAdresseIUtlandTextfield && (
-        <TextField label={hentTekst('medlemskap.periodeBoddIUtlandet.sisteAdresse', intl)} />
+        <TextField
+          label={sisteAdresseTekst}
+          value={sisteAdresse}
+          onChange={(event) => settSisteAdresse(event.target.value)}
+        />
       )}
 
       {visLeggTilUtenlandsperiodeKnapp && (
