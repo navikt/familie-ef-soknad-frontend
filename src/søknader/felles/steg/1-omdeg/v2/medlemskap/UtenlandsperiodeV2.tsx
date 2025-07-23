@@ -37,7 +37,6 @@ export const UtenlandsperiodeV2: React.FC = () => {
     spørsmålKey: 'medlemskap.periodeBoddIUtlandet',
   };
 
-  // TODO: Flytt denne metoden ut.
   const { skalViseUtelandsPeriodeAlert, utenlandsPeriodeAlertTekst } = useMemo(() => {
     if (!fraDato || !tilDato) {
       return { skalViseUtelandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
@@ -55,13 +54,27 @@ export const UtenlandsperiodeV2: React.FC = () => {
 
     if (fraDatoTid > tilDatoTid) {
       return {
-        skalViseUtelandsPeriodeAlert: true,
+        visUtelandsPeriodeAlert: true,
         utenlandsPeriodeAlertTekst: hentTekst('datovelger.periode.startFørSlutt', intl),
       };
     }
 
-    return { skalViseUtelandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
+    return { skalViseUterlandsPeriodeAlert: false, utenlandsPeriodeAlertTekst: '' };
   }, [fraDato, tilDato, intl]);
+
+  const harGyldigDatoperiode = useMemo(() => {
+    if (!fraDato || !tilDato) return false;
+
+    const fraDatoTid = fraDato.getTime();
+    const tilDatoTid = tilDato.getTime();
+
+    return fraDatoTid < tilDatoTid;
+  }, [fraDato, tilDato]);
+
+  const visHvorforOppholdIValgtLandTextArea = harGyldigDatoperiode && periodeLand !== '';
+  const visIdNummerTextfield = false;
+  const visSisteAdresseIUtlandTextfield = false;
+  const visLeggTilUtenlandsperiodeKnapp = false;
 
   const fraDatoConfig = useDatepicker({
     toDate: new Date(),
@@ -131,42 +144,52 @@ export const UtenlandsperiodeV2: React.FC = () => {
         ))}
       </Select>
 
-      <Textarea
-        label={hentTekst('medlemskap.periodeBoddIUtlandet.begrunnelse', intl)}
-        maxLength={1000}
-      />
+      {visHvorforOppholdIValgtLandTextArea && (
+        <Textarea
+          label={hentTekst('medlemskap.periodeBoddIUtlandet.begrunnelse', intl)}
+          maxLength={1000}
+        />
+      )}
 
-      <VStack gap="4">
-        <Heading size="xsmall" className={styles.heading}>
-          {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
-        </Heading>
-        <ReadMore header={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}>
-          {hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
-        </ReadMore>
-      </VStack>
+      {visIdNummerTextfield && (
+        <VStack gap={'6'}>
+          <VStack gap="4">
+            <Heading size="xsmall" className={styles.heading}>
+              {hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
+            </Heading>
+            <ReadMore header={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}>
+              {hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
+            </ReadMore>
+          </VStack>
 
-      <Textarea
-        label={hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
-        hideLabel
-      />
+          <Textarea
+            label={hentTekst('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl)}
+            hideLabel
+          />
 
-      <Checkbox checked={undefined} onChange={(event) => {}}>
-        {hentTekst('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl)}
-      </Checkbox>
+          <Checkbox checked={undefined} onChange={(event) => {}}>
+            {hentTekst('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl)}
+          </Checkbox>
+        </VStack>
+      )}
 
-      <TextField label={hentTekst('medlemskap.periodeBoddIUtlandet.sisteAdresse', intl)} />
+      {visSisteAdresseIUtlandTextfield && (
+        <TextField label={hentTekst('medlemskap.periodeBoddIUtlandet.sisteAdresse', intl)} />
+      )}
 
-      <VStack gap="4">
-        <Heading size="xsmall" className={styles.heading}>
-          {hentTekst('Har du hatt flere utenlandsopphold de siste 5 årene?', intl)}
-        </Heading>
+      {visLeggTilUtenlandsperiodeKnapp && (
+        <VStack gap="4">
+          <Heading size="xsmall" className={styles.heading}>
+            {hentTekst('Har du hatt flere utenlandsopphold de siste 5 årene?', intl)}
+          </Heading>
 
-        <div>
-          <Button variant="tertiary" icon={<PlusCircleFillIcon />} onClick={() => {}}>
-            {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
-          </Button>
-        </div>
-      </VStack>
+          <div>
+            <Button variant="tertiary" icon={<PlusCircleFillIcon />} onClick={() => {}}>
+              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+            </Button>
+          </div>
+        </VStack>
+      )}
     </VStack>
   );
 };
