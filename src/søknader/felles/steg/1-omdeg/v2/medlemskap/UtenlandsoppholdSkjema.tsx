@@ -55,7 +55,6 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
     },
   });
 
-  // Dynamic heading logic
   const overskriftTekst =
     totaltAntallPerioder === 1
       ? hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
@@ -63,7 +62,6 @@ export const UtenlandsoppholdSkjema: React.FC<UtenlandsoppholdSkjemaProps> = ({
 
   const visSlettKnapp = totaltAntallPerioder > 1;
 
-  // Dynamic text generation
   const begrunnelseLandTekst = hentTekstMedVariabel(
     'medlemskap.periodeBoddIUtlandet.begrunnelse',
     intl,
