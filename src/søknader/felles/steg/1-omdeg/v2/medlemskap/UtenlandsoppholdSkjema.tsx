@@ -97,7 +97,7 @@ export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
       {periodeNummer === 1 && <SpørsmålWrapper spørsmål={spørsmål} />}
 
       <HStack gap="6">
-        <DatePicker {...fraDatoKonfig.datepickerProps}>
+        <DatePicker dropdownCaption {...fraDatoKonfig.datepickerProps}>
           <DatePicker.Input
             {...fraDatoKonfig.inputProps}
             label={hentTekst('periode.fra', intl)}
@@ -105,7 +105,7 @@ export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
           />
         </DatePicker>
 
-        <DatePicker {...tilDatoKonfig.datepickerProps}>
+        <DatePicker dropdownCaption {...tilDatoKonfig.datepickerProps}>
           <DatePicker.Input
             {...tilDatoKonfig.inputProps}
             label={hentTekst('periode.til', intl)}
