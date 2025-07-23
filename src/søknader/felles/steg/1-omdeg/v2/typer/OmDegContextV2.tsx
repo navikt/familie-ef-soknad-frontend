@@ -3,6 +3,8 @@ import { useState, useCallback } from 'react';
 import { Søknad } from '../../../../../../models/søknad/søknad';
 import { Stønadstype } from '../../../../../../models/søknad/stønadstyper';
 import { DinTidligereSamboer } from '../sivilstatus/begrunnelse/OmDenTidligereSamboerenDin';
+import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
+import { UtenlandsoppholdPeriode } from '../medlemskap/typer';
 
 export interface AdresseopplysningerData {
   søkerBorPåRegistrertAdresse?: boolean;
@@ -14,17 +16,22 @@ export interface SivilstatusData {
   separasjonsDato?: Date;
   søkerErGiftUtenRegistrering?: boolean;
   søkerErSeparertEllerSkiltUtenRegistrering?: boolean;
-
   årsakEnslig?: string;
-
   datoSamlivsbruddMedAnnenForelder?: Date;
-
   søkerSinTidligereSamboer?: DinTidligereSamboer;
+}
+
+export interface MedlemskapData {
+  søkerOgBarnOppholderSegINorge?: boolean;
+  oppholdsland?: ILandMedKode;
+  søkerBosattINorgeSisteTreÅr?: boolean;
+  perioderBoddIUtlandet?: UtenlandsoppholdPeriode[];
 }
 
 export interface OmDegStegData {
   personopplysningerData?: AdresseopplysningerData;
   sivilstatusData?: SivilstatusData;
+  medlemskapData?: MedlemskapData;
 }
 
 export interface Props<T extends Søknad> {
