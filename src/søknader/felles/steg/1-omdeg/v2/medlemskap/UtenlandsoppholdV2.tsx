@@ -8,7 +8,7 @@ import { hentTekst } from '../../../../../../utils/søknad';
 import { PlusCircleFillIcon } from '@navikt/aksel-icons';
 import styles from '../../../../../../components/spørsmål/v2/SpørsmålWrapper.module.css';
 import { UtenlandsoppholdSkjema } from './UtenlandsoppholdSkjema';
-import { opprettTomPeriode, validerPeriode } from './utils';
+import { opprettTomPeriode, erPerioderGyldige } from './utils';
 import { UtenlandsoppholdFormState } from './typer';
 
 export const UtenlandsoppholdV2: React.FC = () => {
@@ -53,17 +53,8 @@ export const UtenlandsoppholdV2: React.FC = () => {
   };
 
   const skalViseLeggTilKnapp = useMemo(() => {
-    const sistePeriodeMedData = perioder
-      .slice()
-      .reverse()
-      .find((periode) => {
-        const valgtLand = landListe.find((land) => land.svar_tekst === periode.periodeLand);
-        const validering = validerPeriode(periode, valgtLand, intl);
-        return validering.visLeggTilKnapp;
-      });
-
-    return !!sistePeriodeMedData;
-  }, [perioder, landListe, intl]);
+    return erPerioderGyldige(perioder, landListe);
+  }, [perioder, landListe]);
 
   return (
     <VStack gap="8">

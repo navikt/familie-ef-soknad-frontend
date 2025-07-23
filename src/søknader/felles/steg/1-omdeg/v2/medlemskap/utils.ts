@@ -69,7 +69,7 @@ export const validerPeriode = (
   };
 };
 
-export const erPeriodeKomplett = (
+export const erPeriodeGyldig = (
   periode: UtenlandsoppholdFormState,
   valgtLand: ILandMedKode | undefined
 ): boolean => {
@@ -109,7 +109,7 @@ export const erPerioderGyldige = (
 ): boolean => {
   return perioder.every((periode) => {
     const valgtLand = landListe.find((land) => land.svar_tekst === periode.periodeLand);
-    return erPeriodeKomplett(periode, valgtLand);
+    return erPeriodeGyldig(periode, valgtLand);
   });
 };
 
@@ -122,5 +122,5 @@ export const kanLeggeTilNyPeriode = (
   const sistePeriode = perioder[perioder.length - 1];
   const valgtLand = landListe.find((land) => land.svar_tekst === sistePeriode.periodeLand);
 
-  return erPeriodeKomplett(sistePeriode, valgtLand);
+  return erPeriodeGyldig(sistePeriode, valgtLand);
 };
