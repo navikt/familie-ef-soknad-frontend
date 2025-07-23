@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, VStack } from '@navikt/ds-react';
 import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
 import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
@@ -8,15 +8,22 @@ import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { UtenlandsoppholdV2 } from './UtenlandsoppholdV2';
+import { useOmDegV2 } from '../typer/OmDegContextV2';
+import { UtenlandsoppholdPeriode } from './typer';
 
 export const MedlemskapV2: React.FC = () => {
   const intl = useLokalIntlContext();
   const [locale] = useSpråkContext();
   const landListe = hentLand(locale);
+  const { oppdaterMedlemskap } = useOmDegV2();
 
   const søkerOppholderSegINorgeMedBarn = useJaNeiBoolean();
   const [valgtLand, settValgtLand] = useState<string>('');
+  const [valgtLandObjekt, settValgtLandObjekt] = useState<ILandMedKode | undefined>(undefined);
   const søkerHarOppholdtSegINorgeSiste5År = useJaNeiBoolean();
+  const [perioderBoddIUtlandet, settPerioderBoddIUtlandet] = useState<UtenlandsoppholdPeriode[]>(
+    []
+  );
 
   const søkerOppholderSegINorgeMedBarnSpørsmål: StegSpørsmål = {
     id: 'søkerOppholderSegINorge',
@@ -31,15 +38,39 @@ export const MedlemskapV2: React.FC = () => {
     spørsmålKey: 'medlemskap.spm.bosatt',
   };
 
+  useEffect(() => {
+    oppdaterMedlemskap({
+      søkerOgBarnOppholderSegINorge: søkerOppholderSegINorgeMedBarn.value,
+      oppholdsland: valgtLandObjekt,
+      søkerBosattINorgeSisteTreÅr: søkerHarOppholdtSegINorgeSiste5År.value,
+      perioderBoddIUtlandet: perioderBoddIUtlandet,
+    });
+  }, [
+    søkerOppholderSegINorgeMedBarn.value,
+    valgtLandObjekt,
+    søkerHarOppholdtSegINorgeSiste5År.value,
+    perioderBoddIUtlandet,
+    oppdaterMedlemskap,
+  ]);
+
   const onSøkerOppholderSegILandMedBarn = (svar: SvarAlternativ) => {
     søkerOppholderSegINorgeMedBarn.handleChange(svar);
     settValgtLand('');
+    settValgtLandObjekt(undefined);
   };
-  const onLandEndring = (land: string) => {
-    settValgtLand(land);
+
+  const onLandEndring = (landId: string) => {
+    settValgtLand(landId);
+    const funnetLand = landListe.find((land) => land.id === landId);
+    settValgtLandObjekt(funnetLand);
   };
+
   const onSøkerHarOppholdtSegINorgeSiste5År = (svar: SvarAlternativ) => {
     søkerHarOppholdtSegINorgeSiste5År.handleChange(svar);
+  };
+
+  const onPerioderOppdatert = (nyePerioder: UtenlandsoppholdPeriode[]) => {
+    settPerioderBoddIUtlandet(nyePerioder);
   };
 
   const visHvorOppholderDuOgBarnSpørsmål = søkerOppholderSegINorgeMedBarn.erNei;
@@ -81,7 +112,7 @@ export const MedlemskapV2: React.FC = () => {
         />
       )}
 
-      {visUtenlandsopphold && <UtenlandsoppholdV2 />}
+      {visUtenlandsopphold && <UtenlandsoppholdV2 onPerioderOppdatert={onPerioderOppdatert} />}
     </VStack>
   );
 };

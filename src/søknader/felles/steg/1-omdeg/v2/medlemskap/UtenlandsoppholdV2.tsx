@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { VStack, Button, Heading } from '@navikt/ds-react';
 import { PlusCircleFillIcon } from '@navikt/aksel-icons';
@@ -11,7 +11,11 @@ import { UtenlandsoppholdSkjema } from './UtenlandsoppholdSkjema';
 import { opprettTomPeriode, kanLeggeTilNyPeriode } from './utils';
 import { UtenlandsoppholdPeriode } from './typer';
 
-export const UtenlandsoppholdV2: React.FC = () => {
+interface Props {
+  onPerioderOppdatert: (perioder: UtenlandsoppholdPeriode[]) => void;
+}
+
+export const UtenlandsoppholdV2: React.FC<Props> = ({ onPerioderOppdatert }) => {
   const intl = useLokalIntlContext();
   const [locale] = useSpråkContext();
   const landListe = hentLand(locale);
@@ -27,6 +31,11 @@ export const UtenlandsoppholdV2: React.FC = () => {
     () => kanLeggeTilNyPeriode(perioder, landListe),
     [perioder, landListe]
   );
+
+  // Notify parent when periods change
+  useEffect(() => {
+    onPerioderOppdatert(perioder);
+  }, [perioder, onPerioderOppdatert]);
 
   const leggTilNyPeriode = () => {
     settPerioder((gjeldende) => [...gjeldende, opprettTomPeriode()]);
