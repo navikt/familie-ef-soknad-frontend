@@ -6,25 +6,17 @@ import { useOmDegV2 } from './typer/OmDegContextV2';
 import { StegDebugKnapp } from './debug/StegDebugKnapp';
 import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 import { MedlemskapV2 } from './medlemskap/MedlemskapV2';
+import { SivilstatusV2 } from './sivilstatus/SivilstatusV2';
+import { skalViseMedlemskap, skalViseSivilstatus } from './typer/OmDegV2Helpers';
 
 export const OmDegV2: React.FC = () => {
-  const { søker, personopplysningerData } = useOmDegV2();
+  const { søker, personopplysningerData, sivilstatusData } = useOmDegV2();
 
   // TODO: Denne kan komme fra OmDegV2Provider.
   const søknadSteg: SøknadSteg = { id: 'omDeg', stegKey: 'stegtittel.omDeg' };
 
-  // TODO: Denne må mulig flyttes.
-  const skalViseSivilstatus = (): boolean => {
-    const { søkerBorPåRegistrertAdresse, søkerHarMeldtAdresseEndring } = personopplysningerData;
-
-    if (søkerBorPåRegistrertAdresse === true) {
-      return true;
-    }
-
-    return søkerBorPåRegistrertAdresse === false && søkerHarMeldtAdresseEndring === true;
-  };
-
-  const skalViseMedlemskap = true;
+  const visSivilstatus = skalViseSivilstatus(personopplysningerData);
+  const visMedlemskap = skalViseMedlemskap(sivilstatusData);
 
   return (
     <StegSide søknadSteg={søknadSteg}>
@@ -36,7 +28,9 @@ export const OmDegV2: React.FC = () => {
       />
 
       <Adresseopplysninger />
-      <MedlemskapV2 />
+
+      {visSivilstatus && <SivilstatusV2 />}
+      {visMedlemskap && <MedlemskapV2 />}
 
       <StegDebugKnapp />
     </StegSide>

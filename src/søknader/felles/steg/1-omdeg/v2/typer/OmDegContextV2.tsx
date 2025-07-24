@@ -19,6 +19,7 @@ export interface SivilstatusData {
   årsakEnslig?: string;
   datoSamlivsbruddMedAnnenForelder?: Date;
   søkerSinTidligereSamboer?: DinTidligereSamboer;
+  omsorgEndringDato?: Date;
 }
 
 export interface MedlemskapData {
