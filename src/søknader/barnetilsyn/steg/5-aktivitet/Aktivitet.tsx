@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import {
@@ -147,10 +147,10 @@ const Aktivitet: React.FC = () => {
         {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
           <>
             <Alert variant={'info'} inline>
-              <Label as="p">{hentTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
+              <Label as="p">{hentHTMLTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
             </Alert>
             <AlertStripeDokumentasjon>
-              {hentTekst('erDuIArbeid.alertsstripe-dokumentasjon', intl)}
+              {hentHTMLTekst('erDuIArbeid.alertsstripe-dokumentasjon', intl)}
             </AlertStripeDokumentasjon>
           </>
         )}

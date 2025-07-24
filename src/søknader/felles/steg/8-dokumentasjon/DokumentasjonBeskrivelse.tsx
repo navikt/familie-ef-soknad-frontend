@@ -2,7 +2,7 @@ import React from 'react';
 import { ReadMore } from '@navikt/ds-react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import styled from 'styled-components';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const ReadMoreMedPadding = styled(ReadMore)`
@@ -25,9 +25,9 @@ export const DokumentasjonBeskrivelse: React.FC<Props> = ({ harDokumentasjonsbeh
         <>
           {hentTekst('dokumentasjon.beskrivelse', intl)}
           <ReadMoreMedPadding header={hentTekst('dokumentasjon.beskrivelseBilderHeader', intl)}>
-            {hentTekst('dokumentasjon.beskrivelseBilderInnhold', intl)}
+            {hentHTMLTekst('dokumentasjon.beskrivelseBilderInnhold', intl)}
           </ReadMoreMedPadding>
-          {hentTekst('dokumentasjon.beskrivelseSlutt', intl)}
+          {hentHTMLTekst('dokumentasjon.beskrivelseSlutt', intl)}
         </>
       ) : (
         hentTekst('dokumentasjon.ingenDokumentasjonsbehov.beskrivelse', intl)

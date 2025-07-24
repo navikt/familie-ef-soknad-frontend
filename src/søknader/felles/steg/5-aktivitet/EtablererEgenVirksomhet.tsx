@@ -6,7 +6,7 @@ import {
   IAktivitet,
 } from '../../../../models/steg/aktivitet/aktivitet';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { Heading, Textarea } from '@navikt/ds-react';
@@ -49,7 +49,7 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeid
         />
         <FeltGruppe>
           <AlertStripeDokumentasjon>
-            {hentTekst('arbeidssituasjon.alert.etablererEgenVirksomhet', intl)}
+            {hentHTMLTekst('arbeidssituasjon.alert.etablererEgenVirksomhet', intl)}
           </AlertStripeDokumentasjon>
         </FeltGruppe>
       </KomponentGruppe>

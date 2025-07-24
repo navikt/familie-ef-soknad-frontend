@@ -3,7 +3,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const TilleggsstønaderHarAktivitet: FC = () => {
@@ -18,7 +18,7 @@ const TilleggsstønaderHarAktivitet: FC = () => {
       <FeltGruppe>
         <StyledBeskrivelse>
           <BodyShort>
-            {hentTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
+            {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
           </BodyShort>
         </StyledBeskrivelse>
       </FeltGruppe>

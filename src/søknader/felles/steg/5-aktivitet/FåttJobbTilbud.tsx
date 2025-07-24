@@ -2,7 +2,7 @@ import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort, Label } from '@navikt/ds-react';
@@ -28,7 +28,7 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
       <AlertStripeDokumentasjon>
         <Label as="p">{hentTekst('dokumentasjon.arbeidskontrakt.tittel', intl)}</Label>
         <br />
-        <BodyShort>{hentTekst('dokumentasjon.arbeidskontrakt.beskrivelse', intl)}</BodyShort>
+        <BodyShort>{hentHTMLTekst('dokumentasjon.arbeidskontrakt.beskrivelse', intl)}</BodyShort>
       </AlertStripeDokumentasjon>
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}

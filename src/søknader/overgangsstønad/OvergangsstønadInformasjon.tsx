@@ -9,7 +9,7 @@ import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocale
 import React from 'react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
-import { hentTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 export interface SistInnsendtSøknad {
@@ -31,7 +31,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
       <Seksjon>
         <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />
         <Tekst tekst="forside.overgangsstønad.sammeSøknad" />
-        {hentTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
+        {hentHTMLTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
       </Seksjon>
 
       <Seksjon>
@@ -44,16 +44,16 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <Overskrift tekst="forside.overgangsstønad.overskrift.sendeDokumentasjon" />
         <Tekst tekst="forside.overgangsstønad.beskjedDokumentere" />
         <Tekst tekst="forside.overgangsstønad.merInformasjon" />
-        {hentTekst('forside.overgangsstønad.oversiktDokumentasjon', intl)}
+        {hentHTMLTekst('forside.overgangsstønad.oversiktDokumentasjon', intl)}
       </Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.overgangsstønad.overskrift.henteInformasjon" />
         <Tekst tekst="forside.overgangsstønad.henteInformasjon" />
         <Tekst tekst="forside.overgangsstønad.viHenter" />
-        {hentTekst('forside.overgangsstønad.henterPunktliste', intl)}
+        {hentHTMLTekst('forside.overgangsstønad.henterPunktliste', intl)}
         <Tekst tekst="forside.overgangsstønad.tidligereOpplysninger" />
-        {hentTekst('forside.overgangsstønad.personopplysningeneDine', intl)}
+        {hentHTMLTekst('forside.overgangsstønad.personopplysningeneDine', intl)}
       </Seksjon>
 
       <Seksjon>

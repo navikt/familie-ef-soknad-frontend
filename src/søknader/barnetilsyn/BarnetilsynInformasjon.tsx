@@ -14,7 +14,7 @@ import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import { hentTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -66,10 +66,10 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
       <Seksjon>
         <Tekst tekst="forside.barnetilsyn.info" />
         <Tekst tekst="forside.barnetilsyn.fåStønadSkoleår" />
-        {hentTekst('forside.barnetilsyn.merOmStønad', intl)}
+        {hentHTMLTekst('forside.barnetilsyn.merOmStønad', intl)}
       </Seksjon>
 
-      <Seksjon>{hentTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</Seksjon>
+      <Seksjon>{hentHTMLTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.barnetilsyn.overskrift.riktigeOpplysninger" />
@@ -81,16 +81,16 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <Overskrift tekst="forside.barnetilsyn.overskrift.sendeDokumentasjon" />
         <Tekst tekst="forside.barnetilsyn.beskjedDokumentere" />
         <Tekst tekst="forside.barnetilsyn.merInformasjon" />
-        {hentTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
+        {hentHTMLTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
       </Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.barnetilsyn.overskrift.henteInformasjon" />
         <Tekst tekst="forside.barnetilsyn.henteInformasjon" />
         <Tekst tekst="forside.barnetilsyn.viHenter" />
-        {hentTekst('forside.barnetilsyn.henterPunktliste', intl)}
+        {hentHTMLTekst('forside.barnetilsyn.henterPunktliste', intl)}
         <Tekst tekst="forside.barnetilsyn.tidligereOpplysninger" />
-        {hentTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
+        {hentHTMLTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
       </Seksjon>
 
       <Seksjon>

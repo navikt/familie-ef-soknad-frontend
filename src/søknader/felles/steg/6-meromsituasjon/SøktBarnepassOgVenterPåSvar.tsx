@@ -3,14 +3,16 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 
 const SøktBarnepassOgVenterPåSvar: React.FC = () => {
   const intl = useLokalIntlContext();
   return (
     <KomponentGruppe>
       <AlertStripeDokumentasjon>
-        <BodyShort>{hentTekst('dinSituasjon.alert.harSøktBarnepassOgVenterEnnå', intl)}</BodyShort>
+        <BodyShort>
+          {hentHTMLTekst('dinSituasjon.alert.harSøktBarnepassOgVenterEnnå', intl)}
+        </BodyShort>
       </AlertStripeDokumentasjon>
     </KomponentGruppe>
   );

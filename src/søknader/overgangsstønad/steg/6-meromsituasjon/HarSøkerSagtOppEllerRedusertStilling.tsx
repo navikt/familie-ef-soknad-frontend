@@ -4,7 +4,7 @@ import {
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -138,7 +138,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
       {(harSagtOpp || harRedusertStilling) && (
         <>
           <KomponentGruppe>
-            <AlertStripeDokumentasjon>{hentTekst(alertLabel, intl)}</AlertStripeDokumentasjon>
+            <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabel, intl)}</AlertStripeDokumentasjon>
           </KomponentGruppe>
           <KomponentGruppe>
             <Textarea

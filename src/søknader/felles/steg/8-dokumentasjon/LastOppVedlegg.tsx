@@ -2,7 +2,7 @@ import React from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import Filopplaster from '../../../../components/filopplaster/Filopplaster';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { BarnetilsynDokumentasjon, IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { EFiltyper } from '../../../../helpers/filtyper';
@@ -50,7 +50,7 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
           </Heading>
         </FeltGruppe>
         {dokumentasjon.beskrivelse && (
-          <FeltGruppe>{hentTekst(dokumentasjon.beskrivelse, intl)}</FeltGruppe>
+          <FeltGruppe>{hentHTMLTekst(dokumentasjon.beskrivelse, intl)}</FeltGruppe>
         )}
         {hvisIkkeFakturaForBarnepass && (
           <FeltGruppe>

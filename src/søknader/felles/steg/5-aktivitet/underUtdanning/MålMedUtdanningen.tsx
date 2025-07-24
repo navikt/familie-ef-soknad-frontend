@@ -1,7 +1,7 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -38,7 +38,9 @@ const MålMedUtdanningen: React.FC<Props> = ({ utdanning, oppdaterUtdanning, st�
       <FeltGruppe>
         <AlertStripeDokumentasjon>
           <Label as="p"> {hentTekst('utdanning.alert-tittel.mål', intl)} </Label>
-          <BodyShort>{hentTekst(`utdanning.alert-beskrivelse.mål.${stønadstype}`, intl)}</BodyShort>
+          <BodyShort>
+            {hentHTMLTekst(`utdanning.alert-beskrivelse.mål.${stønadstype}`, intl)}
+          </BodyShort>
         </AlertStripeDokumentasjon>
       </FeltGruppe>
     </KomponentGruppe>

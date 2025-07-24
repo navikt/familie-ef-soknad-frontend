@@ -5,7 +5,7 @@ import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst } from '../../utils/teksthåndtering';
 
 const StyledComponent = styled.div`
   display: grid;
@@ -82,7 +82,7 @@ const InputLabelGruppe: React.FC<Props> = ({
       {utvidetTekstNøkkel && (
         <HjelpetekstContainer>
           <BodyShort as={'span'} size={'small'}>
-            {hentTekst(utvidetTekstNøkkel, intl)}
+            {hentHTMLTekst(utvidetTekstNøkkel, intl)}
           </BodyShort>
         </HjelpetekstContainer>
       )}

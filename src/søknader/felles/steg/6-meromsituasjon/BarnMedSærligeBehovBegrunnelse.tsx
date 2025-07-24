@@ -3,7 +3,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import {
-  hentTekst,
+  hentHTMLTekst,
   hentTekstMedEnVariabel,
   storeForbokstaver,
 } from '../../../../utils/teksthåndtering';
@@ -74,7 +74,7 @@ const BarnMedSærligeBehovLabelTekst: React.FC<{
     <section className="om-barnets-tilsynsbehov" aria-live="polite">
       <Label className="blokk-xs">{omBarnetsTilsynsbehovLabel}</Label>
       <BodyShort>
-        {hentTekst('dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse', intl)}
+        {hentHTMLTekst('dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse', intl)}
       </BodyShort>
     </section>
   );

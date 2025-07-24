@@ -2,7 +2,7 @@ import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const SyktBarn: React.FC = () => {
@@ -10,7 +10,7 @@ const SyktBarn: React.FC = () => {
   return (
     <KomponentGruppe>
       <AlertStripeDokumentasjon>
-        <BodyShort>{hentTekst('dinSituasjon.alert.harSyktBarn', intl)}</BodyShort>
+        <BodyShort>{hentHTMLTekst('dinSituasjon.alert.harSyktBarn', intl)}</BodyShort>
       </AlertStripeDokumentasjon>
     </KomponentGruppe>
   );

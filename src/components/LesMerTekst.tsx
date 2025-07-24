@@ -41,7 +41,7 @@ const LesMerTekst: React.FC<Props> = ({
       <StyledÅpenHjelpetekst>
         <BodyShort>
           {innholdTekst && innholdTekst}
-          {!innholdTekst && innholdTekstid && hentTekst(innholdTekstid, intl)}
+          {!innholdTekst && innholdTekstid && hentHTMLTekst(innholdTekstid, intl)}
         </BodyShort>
       </StyledÅpenHjelpetekst>
     );
@@ -56,7 +56,7 @@ const LesMerTekst: React.FC<Props> = ({
         <ReadMore header={hentTekst(åpneTekstid, intl)}>
           <BodyShort>
             {innholdTekst && innholdTekst}
-            {!innholdTekst && innholdTekstid && html && hentTekst(innholdTekstid, intl)}
+            {!innholdTekst && innholdTekstid && html && hentHTMLTekst(innholdTekstid, intl)}
             {!innholdTekst && innholdTekstid && !html && hentHTMLTekst(innholdTekstid, intl)}
           </BodyShort>
         </ReadMore>

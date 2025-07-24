@@ -1,7 +1,7 @@
 import React from 'react';
 import Side from '../side/Side';
 import { dagensDato, formatDateHour } from '../../../utils/dato';
-import { hentTekst } from '../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../utils/teksthåndtering';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { useSkjema } from '../SkjemaContext';
 import Feilside from '../../../components/feil/Feilside';
@@ -35,14 +35,14 @@ const Kvittering: React.FC = () => {
       </KomponentGruppe>
       <KomponentGruppe>
         <StyledBeskrivelse>
-          <BodyShort>{hentTekst('skjema.beskrivelse', intl)}</BodyShort>
+          <BodyShort>{hentHTMLTekst('skjema.beskrivelse', intl)}</BodyShort>
         </StyledBeskrivelse>
       </KomponentGruppe>
 
       <KomponentGruppe>
         <FeltGruppe>
           <StyledBeskrivelse>
-            <BodyShort>{hentTekst('arbeidssøker.tekst.tillegstønad', intl)}</BodyShort>
+            <BodyShort>{hentHTMLTekst('arbeidssøker.tekst.tillegstønad', intl)}</BodyShort>
           </StyledBeskrivelse>
         </FeltGruppe>
         <FeltGruppe>
