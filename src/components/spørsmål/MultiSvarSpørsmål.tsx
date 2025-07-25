@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
-import Show from '../../utils/showIf';
 import { logSpørsmålBesvart } from '../../utils/amplitude';
 import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
@@ -59,12 +58,12 @@ const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålO
         legend={legend}
         value={valgtSvar}
         description={
-          <Show if={spørsmål.lesmer}>
+          spørsmål.lesmer && (
             <LesMerTekst
               åpneTekstid={spørsmål.lesmer ? spørsmål.lesmer.headerTekstid : ''}
               innholdTekstid={spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''}
             />
-          </Show>
+          )
         }
       >
         {spørsmål.svaralternativer.map((svar: ISvar) => {
