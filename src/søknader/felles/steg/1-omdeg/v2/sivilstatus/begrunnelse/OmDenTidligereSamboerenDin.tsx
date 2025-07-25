@@ -117,9 +117,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
 
   return (
     <VStack gap="6" align="start">
-      <Heading size="small" className={styles.title}>
-        {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
-      </Heading>
+      <Heading size="small">{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Heading>
 
       <TextField
         label={hentTekst('person.navn', intl)}
