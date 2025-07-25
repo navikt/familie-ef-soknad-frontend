@@ -39,7 +39,7 @@ const SøkerBorIkkePåAdresse: FC<Props> = ({ stønadstype }) => {
         <FeltGruppe>
           <BodyShort>
             {hentHTMLTekstMedEnVariabel(
-              `personopplysninger.lenke.pdfskjema.${stønadstype}`,
+              `personopplysninger.lenke.pdfskjema`,
               intl,
               lenkerPDFSøknad[stønadstype]
             )}
