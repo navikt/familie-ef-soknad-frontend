@@ -69,12 +69,14 @@ export const Adresseopplysninger: React.FC = () => {
 
           {visSøkerHarMeldtAdresseEndringAlert && (
             <Alert variant={'info'} size={'small'} inline>
+              {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
               <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
             </Alert>
           )}
 
           {visSøkerMåMeldeAdresseEndringAlert && (
             <Alert variant={'warning'} size={'small'} inline>
+              {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
               <LocaleTekst tekst={'personopplysninger.alert.riktigAdresse'} />
             </Alert>
           )}
