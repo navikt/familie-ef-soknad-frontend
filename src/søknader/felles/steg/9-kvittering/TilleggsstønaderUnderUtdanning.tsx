@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
@@ -44,7 +44,7 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stø
 
       <FeltGruppe>
         <StyledBeskrivelse>
-          <BodyShort>{hentTekst('kvittering.beskrivelse.tilleggsstønader', intl)}</BodyShort>
+          <BodyShort>{hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader', intl)}</BodyShort>
         </StyledBeskrivelse>
       </FeltGruppe>
 

@@ -4,7 +4,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 interface Props {
@@ -22,7 +22,7 @@ const EttersendDokumentasjon: FC<Props> = ({ stønadstype, dokumentasjonsbehov }
         </Heading>
       </FeltGruppe>
       <FeltGruppe>
-        <BodyShort>{hentTekst(`dokumentasjon.ettersend.tekst.${stønadstype}`, intl)}</BodyShort>
+        <BodyShort>{hentHTMLTekst(`dokumentasjon.ettersend.tekst.${stønadstype}`, intl)}</BodyShort>
       </FeltGruppe>
     </KomponentGruppe>
   ) : null;
