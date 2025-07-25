@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { VStack, Button, Heading } from '@navikt/ds-react';
 import { PlusCircleFillIcon } from '@navikt/aksel-icons';
-import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål } from '../komponenter/SpørsmålSvarStruktur';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
 import { hentTekst } from '../../../../../../utils/søknad';

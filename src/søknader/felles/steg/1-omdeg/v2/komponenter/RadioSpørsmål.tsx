@@ -4,7 +4,7 @@ import { Radio, RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
 import styles from './RadioSpørsmål.module.css';
 import clsx from 'clsx';
-import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from './SpørsmålSvarStruktur';
 
 export type SvarLayout = 'vertical' | 'horizontal';
 

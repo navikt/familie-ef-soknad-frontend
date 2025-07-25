@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext'
 import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
 import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
-import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
 
 export const SøkerErSeparertEllerUgift: React.FC = () => {

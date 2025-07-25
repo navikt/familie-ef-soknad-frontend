@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
-import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { Alert, DatePicker, useDatepicker, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { useOmDegV2 } from '../typer/OmDegContextV2';

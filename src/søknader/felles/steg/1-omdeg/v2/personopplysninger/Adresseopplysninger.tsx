@@ -5,7 +5,7 @@ import LocaleTekst from '../../../../../../language/LocaleTekst';
 import styles from './Adresseopplysninger.module.css';
 import { hentTekst } from '../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
 
 export const Adresseopplysninger: React.FC = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StegSpørsmål, SvarAlternativ } from '../../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from '../../komponenter/SpørsmålSvarStruktur';
 import { SpørsmålWrapper } from '../../komponenter/SpørsmålWrapper';
 import { Alert, VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from '../../komponenter/RadioSpørsmål';

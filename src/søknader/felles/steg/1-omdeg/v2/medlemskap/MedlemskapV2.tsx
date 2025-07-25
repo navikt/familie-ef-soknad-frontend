@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Select, VStack } from '@navikt/ds-react';
 import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
-import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';

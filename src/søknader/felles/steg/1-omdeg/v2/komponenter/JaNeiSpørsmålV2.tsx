@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from './RadioSpørsmål';
 import { SpørsmålWrapper } from './SpørsmålWrapper';
-import { StegSpørsmål, SvarAlternativ } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål, SvarAlternativ } from './SpørsmålSvarStruktur';
 
 export const useJaNeiBoolean = (initialValue?: boolean) => {
   const [value, setValue] = useState<boolean | undefined>(initialValue);

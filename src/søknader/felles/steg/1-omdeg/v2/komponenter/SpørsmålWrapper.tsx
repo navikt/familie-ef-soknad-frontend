@@ -3,7 +3,7 @@ import { Heading, ReadMore, VStack } from '@navikt/ds-react';
 import styles from './SpørsmålWrapper.module.css';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/søknad';
-import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål } from './SpørsmålSvarStruktur';
 
 interface Props {
   spørsmål: StegSpørsmål;

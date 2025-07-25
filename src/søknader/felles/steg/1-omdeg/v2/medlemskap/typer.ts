@@ -1,4 +1,4 @@
-import { StegSpørsmål } from '../typer/SpørsmålSvarStruktur';
+import { StegSpørsmål } from '../komponenter/SpørsmålSvarStruktur';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 
 export interface UtenlandsoppholdPeriode {
