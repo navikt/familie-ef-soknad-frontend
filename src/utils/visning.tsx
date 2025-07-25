@@ -12,7 +12,7 @@ import { harValgtSvar } from './spørsmålogsvar';
 import { LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { BodyShort, Ingress, Label } from '@navikt/ds-react';
-import { hentTekst, hentTekstMedEnVariabel } from './teksthåndtering';
+import { hentTekst } from './teksthåndtering';
 
 export const visListeAvLabelOgSvar = (liste: object[] | undefined, overskrift: string) => {
   if (!liste) return null;
@@ -118,8 +118,8 @@ export const VisLabelOgSvar = (objekt: object | undefined, navn?: string) => {
       return VisPeriode(spørsmål);
     }
 
-    const label =
-      navn && spørsmål.label ? hentTekstMedEnVariabel(spørsmål.label, intl, navn) : spørsmål.label;
+    const label = navn && spørsmål.label ? spørsmål.label.replace('[0]', navn) : spørsmål.label;
+
     return (
       harValgtSvar(spørsmål.verdi) &&
       label && (
