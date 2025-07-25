@@ -6,18 +6,21 @@ import { GenerelleSøknadSteg, SøknadSteg } from '../stegindikator/GenerelleSø
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../../utils/søknad';
 import styles from './StegSide.module.css';
+import { hentBannerKey } from '../../../../../../../utils/stønadstype';
+import { Stønadstype } from '../../../../../../../models/søknad/stønadstyper';
 
 interface Props {
+  stønadstype: Stønadstype;
   søknadSteg: SøknadSteg;
   children?: React.ReactNode;
 }
 
-export const StegSide: React.FC<Props> = ({ søknadSteg, children }) => {
+export const StegSide: React.FC<Props> = ({ stønadstype, søknadSteg, children }) => {
   const intl = useLokalIntlContext();
 
-  const bannerTekst = hentTekst(søknadSteg.stegKey, intl);
+  const bannerKey = hentBannerKey(stønadstype);
+  const bannerTekst = hentTekst(bannerKey, intl);
   const stegForSøknad = GenerelleSøknadSteg;
-
   const stegTittel = hentTekst(søknadSteg.stegKey, intl);
 
   return (

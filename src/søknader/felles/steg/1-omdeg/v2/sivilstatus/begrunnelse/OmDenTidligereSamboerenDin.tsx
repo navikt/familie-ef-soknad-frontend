@@ -4,7 +4,6 @@ import { useLokalIntlContext } from '../../../../../../../context/LokalIntlConte
 import { identErGyldig } from '../../../../../../../utils/validering/validering';
 import { hentTekst } from '../../../../../../../utils/søknad';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
-import styles from './OmDenTidligereSamboerenDin.module.css';
 
 export interface DinTidligereSamboer {
   navn: string;
@@ -39,7 +38,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
         navn,
         fødseldato: fødselsdatoVerdi,
         flytteDato: flyttedatoVerdi,
-        personIdent: brukerIkkeIdent ? undefined : ident,
+        personIdent: brukerIkkeIdent ? undefined : ident, // TODO: kan være vanskelig å forstå.
         brukerIkkeIdent,
         ...delvisData,
       };

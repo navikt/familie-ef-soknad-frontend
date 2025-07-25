@@ -1,6 +1,6 @@
 import { Stønadstype } from '../models/søknad/stønadstyper';
 
-export const hentBannertittel = (stønadstype: Stønadstype): string => {
+export const hentBannerKey = (stønadstype: Stønadstype): string => {
   switch (stønadstype) {
     case Stønadstype.overgangsstønad:
       return 'banner.tittel.overgangsstønad';

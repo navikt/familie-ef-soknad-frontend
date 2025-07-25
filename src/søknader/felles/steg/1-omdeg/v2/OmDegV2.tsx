@@ -10,7 +10,7 @@ import { SivilstatusV2 } from './sivilstatus/SivilstatusV2';
 import { skalViseMedlemskap, skalViseSivilstatus } from './typer/OmDegV2Helpers';
 
 export const OmDegV2: React.FC = () => {
-  const { søker, personopplysningerData, sivilstatusData } = useOmDegV2();
+  const { stønadstype, søker, personopplysningerData, sivilstatusData } = useOmDegV2();
 
   // TODO: Denne kan komme fra OmDegV2Provider.
   const søknadSteg: SøknadSteg = { id: 'omDeg', stegKey: 'stegtittel.omDeg' };
@@ -19,7 +19,7 @@ export const OmDegV2: React.FC = () => {
   const visMedlemskap = skalViseMedlemskap(sivilstatusData);
 
   return (
-    <StegSide søknadSteg={søknadSteg}>
+    <StegSide stønadstype={stønadstype} søknadSteg={søknadSteg}>
       <PersonopplysningerV2
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}

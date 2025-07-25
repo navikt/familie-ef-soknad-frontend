@@ -6,7 +6,7 @@ import { hentTekst } from '../../utils/søknad';
 import TilbakeNesteAvbrytKnapper from '../knapper/TilbakeNesteAvbrytKnapper';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import { hentBannertittel } from '../../utils/stønadstype';
+import { hentBannerKey } from '../../utils/stønadstype';
 import LocaleTekst from '../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
@@ -61,7 +61,7 @@ const Side: React.FC<ISide> = ({
 
   return (
     <div className={'søknadsdialog'}>
-      <Banner tekstid={hentBannertittel(stønadstype)} />
+      <Banner tekstid={hentBannerKey(stønadstype)} />
       <div className={'side'}>
         {skalViseStegindikator && (
           <Stegindikator stegListe={stegobjekter} aktivtSteg={aktivtSteg} />
