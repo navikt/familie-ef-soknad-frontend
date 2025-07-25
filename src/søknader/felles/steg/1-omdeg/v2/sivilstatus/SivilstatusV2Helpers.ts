@@ -26,18 +26,11 @@ const erSpørsmålOmUformeltSeparertEllerSkiltBesvartV2 = (
 const erSpørsmålOmSøktSeparasjonUtfyltV2 = (sivilstatusData: SivilstatusData): boolean => {
   const { søkerHarSøktSeperasjon, separasjonsDato } = sivilstatusData;
 
-  // Hvis har søkt separasjon er true, må vi også ha en gyldig dato
   if (søkerHarSøktSeperasjon === true) {
     return separasjonsDato !== undefined;
   }
 
-  // Hvis har søkt separasjon er false, er det OK
-  if (søkerHarSøktSeperasjon === false) {
-    return true;
-  }
-
-  // Hvis ikke besvart, returnerer false
-  return false;
+  return søkerHarSøktSeperasjon === false;
 };
 
 /**

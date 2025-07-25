@@ -70,18 +70,15 @@ export const erPeriodeUtfylt = (
 ): boolean => {
   const { fraDato, tilDato, land, begrunnelse, idNummer, harIkkeIdNummer, sisteAdresse } = periode;
 
-  // Grunnleggende krav
   if (!fraDato || !tilDato || !land || !begrunnelse.trim()) {
     return false;
   }
 
-  // Datovalidering
   const datoValidering = validerDatoperiode(fraDato, tilDato, {});
   if (!datoValidering.erGyldig) {
     return false;
   }
 
-  // EØS-spesifikke krav
   const erEøsLand = valgtLand?.erEøsland ?? false;
   if (erEøsLand) {
     if (harIkkeIdNummer) {

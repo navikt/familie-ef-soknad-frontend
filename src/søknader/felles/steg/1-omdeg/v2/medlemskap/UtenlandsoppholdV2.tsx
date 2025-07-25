@@ -32,7 +32,6 @@ export const UtenlandsoppholdV2: React.FC<Props> = ({ onPerioderOppdatert }) => 
     [perioder, landListe]
   );
 
-  // Notify parent when periods change
   useEffect(() => {
     onPerioderOppdatert(perioder);
   }, [perioder, onPerioderOppdatert]);

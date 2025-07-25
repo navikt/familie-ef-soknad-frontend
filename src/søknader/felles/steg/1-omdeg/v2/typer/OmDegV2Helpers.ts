@@ -81,7 +81,7 @@ const erSamlivsbruddAndreFerdigUtfylt = (sivilstatusData: SivilstatusData): bool
     return false;
   }
 
-  // Sjekk identifikasjon - enten gyldig ident eller checkbox for brukerIkkeIdent
+  // Sjekk ident - enten gyldig ident eller checkbox for brukerIkkeIdent
   if (samboer.brukerIkkeIdent) {
     return true;
   } else {

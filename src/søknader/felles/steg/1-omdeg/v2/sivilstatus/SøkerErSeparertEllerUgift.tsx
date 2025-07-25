@@ -22,7 +22,6 @@ export const SøkerErSeparertEllerUgift: React.FC = () => {
     spørsmålKey: 'sivilstatus.spm.erUformeltSeparertEllerSkilt',
   };
 
-  // Oppdater context når verdier endres
   useEffect(() => {
     oppdaterSivilstatus({
       søkerErGiftUtenRegistrering: søkerErGiftUtenRegistrering.value,

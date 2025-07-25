@@ -26,7 +26,6 @@ export const SøkerErGiftV2: React.FC = () => {
     spørsmålKey: 'sivilstatus.spm.søktSeparasjon',
   };
 
-  // Oppdater context når verdier endres
   useEffect(() => {
     oppdaterSivilstatus({
       søkerHarSøktSeperasjon: søkerHarSøktSeperasjon.value,
@@ -37,7 +36,6 @@ export const SøkerErGiftV2: React.FC = () => {
     søkerHarSøktSeperasjon.handleChange(svar);
 
     if (svar.id === 'NEI') {
-      // Nullstill dato hvis svaret er nei
       oppdaterSivilstatus({
         separasjonsDato: undefined,
       });
