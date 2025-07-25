@@ -1,6 +1,7 @@
 .innhold {
     margin: auto;
-    width: 50rem;
+    width: min(50rem, 100%);
+    max-width: 50rem;
 }
 
 .stegTittel {
@@ -8,6 +9,12 @@
 }
 
 .children {
-    padding-inline: 4rem;
+    padding-inline: min(4rem, 5vw);
     padding-bottom: 4rem;
+}
+
+@media all and (max-width: 420px) {
+    .children {
+        padding-inline: 1rem;
+    }
 }

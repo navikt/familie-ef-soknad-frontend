@@ -6,10 +6,17 @@
 }
 
 .stackHorizontal {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-auto-rows: min-content;
     gap: var(--a-spacing-4);
-    flex-wrap: nowrap;
+    width: 100%;
+}
+
+@media all and (max-width: 420px) {
+    .stackHorizontal {
+        grid-template-columns: 1fr;
+    }
 }
 
 .radioBox {
@@ -19,9 +26,10 @@
     border-width: 1px;
     border-style: solid;
     border-radius: var(--a-border-radius-medium);
-    flex-grow: 1;
     cursor: pointer;
     transition: border-color 0.2s, background-color 0.2s;
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 
 .radioBox:hover {
