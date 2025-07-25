@@ -16,6 +16,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { GjenbrukContext } from '../../context/GjenbrukContext';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const BarnetilsynApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -75,7 +76,7 @@ const BarnetilsynApp = () => {
     if (!error) {
       return (
         <>
-          <title>{intl.formatMessage({ id: 'banner.tittel.barnetilsyn' })}</title>
+          <title>{hentTekst('banner.tittel.barnetilsyn', intl)}</title>
 
           <SøknadsdialogBarnetilsyn />
         </>

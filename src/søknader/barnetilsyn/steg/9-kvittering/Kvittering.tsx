@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Feilside from '../../../../components/feil/Feilside';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { formatDateHour } from '../../../../utils/dato';
-import { hentTekst, oppdaterBarnMedLabel } from '../../../../utils/søknad';
+import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import SykSøker from '../../../felles/steg/9-kvittering/SykSøker';
 import DineSaker from '../../../felles/steg/9-kvittering/DineSaker';
@@ -22,6 +22,7 @@ import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { IBarn } from '../../../../models/steg/barn';
 import { Alert } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -54,7 +55,7 @@ const Kvittering: React.FC = () => {
   return søknad.innsendingsdato ? (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({ id: 'kvittering.takk' })}
+      stegtittel={hentTekst('kvittering.takk', intl)}
       skalViseKnapper={ESide.skjulKnapper}
       routesStønad={RoutesBarnetilsyn}
       skalViseStegindikator={false}

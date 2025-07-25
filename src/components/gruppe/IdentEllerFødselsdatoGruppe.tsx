@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import FeltGruppe from './FeltGruppe';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import KomponentGruppe from './KomponentGruppe';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';

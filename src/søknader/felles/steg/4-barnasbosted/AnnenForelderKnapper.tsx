@@ -9,6 +9,7 @@ import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   barn: IBarn;
@@ -114,9 +115,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
                 value={barn.id}
                 checked={barn.annenForelderId === barn.id}
                 onChange={(e) => leggTilSammeForelder(e, barn)}
-              >{`${intl.formatMessage({
-                id: 'barnasbosted.forelder.sammesom',
-              })} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioPanelCustom>
+              >{`${hentTekst('barnasbosted.forelder.sammesom', intl)} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioPanelCustom>
             );
           })}
           <RadioPanelCustom
@@ -126,7 +125,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
             checked={barn.annenForelderId === lagtTilAnnenForelderId}
             onChange={() => leggTilAnnenForelder()}
           >
-            {intl.formatMessage({ id: 'barnasbosted.forelder.annen' })}
+            {hentTekst('barnasbosted.forelder.annen', intl)}
           </RadioPanelCustom>
         </RadioGroup>
       </StyledAnnenForelderSpørsmål>

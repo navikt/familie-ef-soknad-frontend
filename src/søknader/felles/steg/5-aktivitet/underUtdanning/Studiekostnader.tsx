@@ -2,14 +2,12 @@ import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { EUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../../utils/teksthåndtering';
 import { IDetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import styled from 'styled-components';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import FormattedHtmlMessage from '../../../../../language/FormattedHtmlMessage';
 import { Alert, Heading } from '@navikt/ds-react';
 
 interface Props {
@@ -39,7 +37,7 @@ const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
   return (
     <KomponentGruppe>
       <StyledUndertittel size="small">
-        <LocaleTekst tekst={'utdanning.label.utgifter'} />
+        {hentTekst('utdanning.label.utgifter', intl)}
       </StyledUndertittel>
       <FeltGruppe>
         <InputLabelGruppe
@@ -81,7 +79,7 @@ const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
       </FeltGruppe>
       <FeltGruppe>
         <Alert size="small" variant="info" inline>
-          <FormattedHtmlMessage id={'utdanning.andreUtgifter.tekst'} />
+          {hentHTMLTekst('utdanning.andreUtgifter.tekst', intl)}
         </Alert>
       </FeltGruppe>
     </KomponentGruppe>

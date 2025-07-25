@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../../utils/søknad';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';

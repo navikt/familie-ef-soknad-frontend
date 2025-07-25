@@ -149,14 +149,14 @@ export default {
   'medlemskap.periodeBoddIUtlandet.utenlandsopphold': 'Utenlandsperiode',
   'medlemskap.periodeBoddIUtlandet.slett': 'Fjern utenlandsperiode',
   'medlemskap.periodeBoddIUtlandet': 'Når oppholdt du deg i utlandet?',
-  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'Hva er id-nummeret ditt i {0}?',
-  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'Jeg har ikke id-nummer i {0}',
+  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'Hva er id-nummeret ditt i [0]?',
+  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'Jeg har ikke id-nummer i [0]',
   'medlemskap.hjelpetekst-åpne.begrunnelse': 'Grunnen til at vi spør om dette',
   'medlemskap.hjelpetekst-innhold.begrunnelse':
     'Når du har oppholdt deg i et annet EØS-land i løpet av de siste 5 årene, må vi noen ganger innhente opplysninger fra dette landet. Det er fordi vi trenger opplysninger for å vurdere om du har rett til stønad.',
-  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'Hva er den siste adressen du bodde på i {0}?',
+  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'Hva er den siste adressen du bodde på i [0]?',
   'medlemskap.periodeBoddIUtlandet.land': 'I hvilket land oppholdt du deg i?',
-  'medlemskap.periodeBoddIUtlandet.begrunnelse': 'Hvorfor oppholdt du deg i {0}?',
+  'medlemskap.periodeBoddIUtlandet.begrunnelse': 'Hvorfor oppholdt du deg i [0]?',
   'medlemskap.periodeBoddIUtlandet.flereutenlandsopphold':
     'Har du hatt flere utenlandsopphold de siste 5 årene?',
   'medlemskap.periodeBoddIUtlandet.knapp': 'Legg til et utenlandsopphold',
@@ -315,7 +315,7 @@ export default {
   'barnasbosted.skalBliFolkeregistrert.knapp': 'Registrer adresse hos Folkeregisteret',
   'barnasbosted.kanGåVidere': 'Vi har opplysningene vi trenger. Du kan gå videre til neste steg.',
   'barnasbosted.feilmelding.adressebeskyttelse':
-    'Et eller flere av barna dine, eller annen forelder, er registrert med adressebeskyttelse og digital søknad er ikke tilgjengelig. Du må bruke dette <a href="https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/brev">skjemaet</a> for å søke.',
+    'Et eller flere av barna dine, eller annen forelder, er registrert med adressebeskyttelse og digital søknad er ikke tilgjengelig. Du må bruke dette <a href="https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/brev">skjemaet</a> for å søke.', //DENNE
   'barnasbosted.oppsummering.navn.label': 'Navn på annen forelder',
   'barnasbosted.medforelder.navn': 'Navn på den andre forelderen',
   'barnasbosted.medforelder.alder': 'Alder',
@@ -527,7 +527,7 @@ export default {
   'dinSituasjon.datovelger-alert.redusertStilling':
     'Har du redusert arbeidstiden uten rimelig grunn, kan du først ha rett til stønaden 6 måneder etter at du sa opp.',
   'dinSituasjon.legend.særligTilsyn': 'Hvilket av barna dine har behov for særlig tilsyn?',
-  'dinSituasjon.label.særligTilsyn': 'Om tilsynsbehovet til {barnetsNavn}',
+  'dinSituasjon.label.særligTilsyn': 'Om tilsynsbehovet til [0]',
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'Når sa du opp?',
   'sagtOppEllerRedusertStilling.datovelger.redusertStilling': 'Når reduserte du arbeidstiden?',
   'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp':

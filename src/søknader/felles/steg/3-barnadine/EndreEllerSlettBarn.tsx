@@ -5,6 +5,7 @@ import { Button } from '@navikt/ds-react';
 import { IBarn } from '../../../../models/steg/barn';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import LeggTilBarnModal from './LeggTilBarnModal';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   fjernBarnFraSøknad: (id: string) => void;
@@ -36,16 +37,16 @@ export const EndreEllerSlettBarn: React.FC<Props> = ({
     <>
       <LenkeContainer>
         <Button variant="secondary" onClick={() => settÅpenEndreModal(true)}>
-          {intl.formatMessage({ id: 'barnekort.lenke.endre' })}
+          {hentTekst('barnekort.lenke.endre', intl)}
         </Button>
         <Button variant="tertiary" onClick={() => fjernBarnFraSøknad(id)}>
-          {intl.formatMessage({ id: 'barnekort.fjern' })}
+          {hentTekst('barnekort.fjern', intl)}
         </Button>
       </LenkeContainer>
 
       {åpenEndreModal && (
         <LeggTilBarnModal
-          tittel={intl.formatMessage({ id: 'barnadine.endre' })}
+          tittel={hentTekst('barnadine.endre', intl)}
           lukkModal={() => settÅpenEndreModal(false)}
           id={id}
           barneListe={barneListe}

@@ -12,7 +12,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentPath } from '../../../../utils/routing';
 import Side, { ESide } from '../../../../components/side/Side';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -31,7 +31,7 @@ const Oppsummering: React.FC = () => {
     <>
       <Side
         stønadstype={Stønadstype.barnetilsyn}
-        stegtittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })}
+        stegtittel={hentTekst('oppsummering.sidetittel', intl)}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreBarnetilsyn}
         routesStønad={RoutesBarnetilsyn}
@@ -39,7 +39,7 @@ const Oppsummering: React.FC = () => {
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">
-            {intl.formatMessage({ id: 'oppsummering.normaltekst.lesgjennom' })}
+            {hentTekst('oppsummering.normaltekst.lesgjennom', intl)}
           </BodyShort>
 
           <KomponentGruppe>

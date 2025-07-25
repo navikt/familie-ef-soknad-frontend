@@ -26,7 +26,7 @@ const LokalIntlProvider: React.FC<{
     }
     if (parametre) {
       return Object.entries(parametre).reduce<string>((acc, cur) => {
-        return acc.replaceAll('{' + cur[0] + '}', cur[1]);
+        return acc.replaceAll('[' + cur[0] + ']', cur[1]);
       }, tekst);
     }
     return tekst;

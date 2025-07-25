@@ -2,12 +2,11 @@ import React from 'react';
 import Banner from '../Banner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SendBrevSVG from '../../assets/SendSøknadSVG';
-import { hentTekst } from '../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import TilbakeNesteAvbrytKnapper from '../knapper/TilbakeNesteAvbrytKnapper';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { hentBannertittel } from '../../utils/stønadstype';
-import LocaleTekst from '../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
 import Stegindikator from '../stegindikator/Stegindikator';
@@ -84,7 +83,7 @@ const Side: React.FC<ISide> = ({
 
         {informasjonstekstId && (
           <Alert size="small" variant="info" className="side__informasjon" inline>
-            <LocaleTekst tekst={informasjonstekstId} />
+            {hentHTMLTekst(informasjonstekstId, intl)}
           </Alert>
         )}
 
@@ -92,7 +91,7 @@ const Side: React.FC<ISide> = ({
           <>
             {!erSpørsmålBesvart && (
               <BodyShort size="small" className={'side__uu-tekst'}>
-                {intl.formatMessage({ id: 'knapp.uu-tekst' })}
+                {hentTekst('knapp.uu-tekst', intl)}
               </BodyShort>
             )}
             <TilbakeNesteAvbrytKnapper
@@ -106,7 +105,7 @@ const Side: React.FC<ISide> = ({
         ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
           erSpørsmålBesvart && (
             <>
-              <BodyShort size="small">{intl.formatMessage({ id: 'knapp.uu-tekst' })}</BodyShort>
+              <BodyShort size="small">{hentTekst('knapp.uu-tekst', intl)}</BodyShort>
               <Button
                 variant="primary"
                 className="tilbake-til-oppsummering"

@@ -4,7 +4,7 @@ import { privatEllerOffentligSpm } from './UtdanningConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {

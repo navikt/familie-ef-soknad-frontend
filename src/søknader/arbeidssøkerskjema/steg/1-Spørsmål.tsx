@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Side from '../side/Side';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst } from '../../../utils/teksthåndtering';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
 import {
@@ -11,7 +11,6 @@ import {
   ønskerHalvStilling,
   ønsketArbeidssted,
 } from '../../felles/steg/5-aktivitet/arbeidssøker/ArbeidssøkerConfig';
-import LocaleTekst from '../../../language/LocaleTekst';
 import FeltGruppe from '../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { ESvar, ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
@@ -73,15 +72,13 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
 
   return (
     <Side
-      tittel={intl.formatMessage({ id: 'skjema.tittel.omarbeidssøker' })}
+      tittel={hentTekst('skjema.tittel.omarbeidssøker', intl)}
       erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
       skalViseKnapper={!kommerFraOppsummering}
     >
       <SeksjonGruppe>
         <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst={'person.ident.visning'} />
-          </Label>
+          <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
           <BodyShort>{ident}</BodyShort>
         </FeltGruppe>
         <KomponentGruppe>
@@ -92,7 +89,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
           />
           {arbeidssøker.registrertSomArbeidssøkerNav?.verdi === false && (
             <Alert size="small" variant={'info'} inline>
-              <LocaleTekst tekst={'skjema.alert.registrert'} />
+              {hentTekst('skjema.alert.registrert', intl)}
             </Alert>
           )}
         </KomponentGruppe>
@@ -106,7 +103,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
             />
             {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid === ESvar.NEI && (
               <Alert size="small" variant={'warning'} inline>
-                <LocaleTekst tekst={'arbeidssøker.alert.villig'} />
+                {hentTekst('arbeidssøker.alert.villig', intl)}
               </Alert>
             )}
           </KomponentGruppe>

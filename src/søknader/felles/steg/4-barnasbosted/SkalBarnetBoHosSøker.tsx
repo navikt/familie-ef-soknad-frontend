@@ -1,7 +1,7 @@
 import React from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { skalBarnetBoHosSøker } from './ForeldreConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -11,7 +11,6 @@ import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiS
 import { hentBarnNavnEllerBarnet, hentSpørsmålTekstMedNavnEllerBarn } from '../../../../utils/barn';
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import FormattedHtmlMessage from '../../../../language/FormattedHtmlMessage';
 import { Alert } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 
@@ -70,9 +69,10 @@ const SkalBarnetBoHosSøker: React.FC<Props> = ({
       {forelder.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.jaMenSamarbeiderIkke && (
         <FeltGruppe>
           <AlertStripeDokumentasjon>
-            <FormattedHtmlMessage
-              id={hentBarnNavnEllerBarnet(barn, 'barnasbosted.alert.hvisFaktiskBor', intl)}
-            />
+            {hentHTMLTekst(
+              hentBarnNavnEllerBarnet(barn, 'barnasbosted.alert.hvisFaktiskBor', intl),
+              intl
+            )}
           </AlertStripeDokumentasjon>
         </FeltGruppe>
       )}

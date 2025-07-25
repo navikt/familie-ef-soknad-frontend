@@ -5,7 +5,7 @@ import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/Ak
 import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -19,7 +19,6 @@ import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
 import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
@@ -94,7 +93,7 @@ const Aktivitet: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.arbeidssituasjon' })}
+      stegtittel={hentTekst('stegtittel.arbeidssituasjon', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreOvergangsstønad}

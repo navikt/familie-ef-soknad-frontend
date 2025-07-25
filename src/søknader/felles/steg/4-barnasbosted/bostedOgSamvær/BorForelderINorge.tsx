@@ -3,7 +3,7 @@ import { EForelder, IForelder } from '../../../../../models/steg/forelder';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { borINorge } from '../ForeldreConfig';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';

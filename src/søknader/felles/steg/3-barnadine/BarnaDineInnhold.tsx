@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import Barnekort from './Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
@@ -82,7 +82,7 @@ export const BarnaDineInnhold: React.FC<Props> = ({
       </BarneKortWrapper>
       {åpenModal && (
         <LeggTilBarnModal
-          tittel={intl.formatMessage({ id: 'barnadine.leggtil' })}
+          tittel={hentTekst('barnadine.leggtil', intl)}
           lukkModal={() => settÅpenModal(false)}
           barneListe={barneliste}
           settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}

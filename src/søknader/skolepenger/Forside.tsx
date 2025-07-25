@@ -3,7 +3,6 @@ import { usePersonContext } from '../../context/PersonContext';
 import { useSkolepengerSøknad } from './SkolepengerContext';
 import Environment from '../../Environment';
 import FortsettSøknad from '../../components/forside/FortsettSøknad';
-import LocaleTekst from '../../language/LocaleTekst';
 import { logSidevisningSkolepenger } from '../../utils/amplitude';
 import { useMount, useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
@@ -14,6 +13,7 @@ import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/d
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
+import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 
 const StyledAlert = styled(Alert)`
   margin-bottom: 2rem;
@@ -66,18 +66,15 @@ const Forside: React.FC = () => {
           {alder < 18 && <AlertUnderAtten />}
 
           <Heading level="1" size="xlarge">
-            <LocaleTekst tekst={'skolepenger.overskrift'} />
+            {hentTekst('skolepenger.overskrift', intl)}
           </Heading>
 
           {erDagensDatoMellomMaiOgAugust && (
             <StyledAlert variant="info">
               <Heading spacing size="small" level="3">
-                <LocaleTekst
-                  tekst={'skolepenger.søkerFraAugustTittel'}
-                  replaceArgument0={`${nåværendeÅr}`}
-                />
+                {hentTekstMedEnVariabel('skolepenger.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>
-              <LocaleTekst tekst={'skolepenger.søkerFraAugustInnhold'} />
+              {hentTekst('skolepenger.søkerFraAugustInnhold', intl)}
             </StyledAlert>
           )}
 

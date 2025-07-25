@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { BodyShort, Link } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const RegistrerDegSomArbeidssøker: FC = () => {
+  const intl = useLokalIntlContext();
   return (
     <SeksjonGruppe>
       <FeltGruppe>
-        <BodyShort>
-          <LocaleTekst tekst={'kvittering.tekst.arbeidssøker'} />
-        </BodyShort>
+        <BodyShort>{hentTekst('kvittering.tekst.arbeidssøker', intl)}</BodyShort>
       </FeltGruppe>
       <Link href={'https://arbeidssokerregistrering.nav.no/'}>
-        <LocaleTekst tekst={'kvittering.knapp.arbeidssøker'} />
+        {hentTekst('kvittering.knapp.arbeidssøker', intl)}
       </Link>
     </SeksjonGruppe>
   );

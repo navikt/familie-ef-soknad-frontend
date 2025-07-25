@@ -8,13 +8,13 @@ import OppsummeringBosituasjonenDin from '../../../felles/steg/7-oppsummering/Op
 import { ERouteSkolepenger, RoutesSkolepenger } from '../../routing/routes';
 import { hentPath } from '../../../../utils/routing';
 import Side, { ESide } from '../../../../components/side/Side';
-import { hentTekst } from '../../../../utils/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import OppsummeringDetaljertUtdanning from '../../../felles/steg/7-oppsummering/OppsummeringDetaljertUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -26,7 +26,7 @@ const Oppsummering: React.FC = () => {
     <>
       <Side
         stønadstype={Stønadstype.skolepenger}
-        stegtittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })}
+        stegtittel={hentTekst('oppsummering.sidetittel', intl)}
         skalViseKnapper={ESide.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreSkolepenger}
@@ -34,7 +34,7 @@ const Oppsummering: React.FC = () => {
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">
-            {intl.formatMessage({ id: 'oppsummering.normaltekst.lesgjennom' })}
+            {hentTekst('oppsummering.normaltekst.lesgjennom', intl)}
           </BodyShort>
 
           <KomponentGruppe>

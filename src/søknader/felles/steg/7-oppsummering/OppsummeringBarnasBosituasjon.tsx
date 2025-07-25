@@ -6,7 +6,7 @@ import { VisLabelOgSvar } from '../../../../utils/visning';
 import BarneHeader from '../../../../components/BarneHeader';
 import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useNavigate } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';

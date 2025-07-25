@@ -1,14 +1,13 @@
 import React from 'react';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
@@ -78,7 +77,7 @@ const Personopplysninger: React.FC = () => {
               />
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
                 <AlertStripeDokumentasjon>
-                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+                  {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
                 </AlertStripeDokumentasjon>
               )}
               {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (

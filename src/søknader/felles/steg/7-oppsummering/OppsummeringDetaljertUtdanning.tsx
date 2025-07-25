@@ -1,6 +1,6 @@
 import React from 'react';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar, visListeAvLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';

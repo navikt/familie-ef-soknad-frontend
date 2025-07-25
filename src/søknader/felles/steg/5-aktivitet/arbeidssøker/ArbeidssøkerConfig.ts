@@ -3,6 +3,7 @@ import { EArbeidssted, EArbeidssøker } from '../../../../../models/steg/aktivit
 import { JaNeiSvar, JaSvar, NeiSvar } from '../../../../../helpers/svar';
 import { DokumentasjonIkkeVilligTilArbeid } from '../AktivitetConfig';
 import { LokalIntlShape } from '../../../../../language/typer';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 export const erSøkerArbeidssøker = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EArbeidssøker.registrertSomArbeidssøkerNav,
@@ -62,11 +63,11 @@ export const ønsketArbeidssted = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: EArbeidssted.nærme,
-      svar_tekst: intl.formatMessage({ id: 'arbeidssøker.svar.nærme' }),
+      svar_tekst: hentTekst('arbeidssøker.svar.nærme', intl),
     },
     {
       id: EArbeidssted.hvorSomHelst,
-      svar_tekst: intl.formatMessage({ id: 'arbeidssøker.svar.hvorSomHelst' }),
+      svar_tekst: hentTekst('arbeidssøker.svar.hvorSomHelst', intl),
     },
   ],
 });

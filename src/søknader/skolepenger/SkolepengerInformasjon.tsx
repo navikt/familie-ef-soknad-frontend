@@ -6,16 +6,18 @@ import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { Overskrift } from '../../components/forside/Overskrift';
 import { Seksjon } from '../../components/forside/Seksjon';
 import { Tekst } from '../../components/forside/Tekst';
-import LocaleTekst from '../../language/LocaleTekst';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
+import { hentHTMLTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
   person,
   harBekreftet,
   settBekreftelse,
 }) => {
+  const intl = useLokalIntlContext();
   const nesteSide = hentPath(RoutesSkolepenger, ERouteSkolepenger.OmDeg) || '';
 
   return (
@@ -24,7 +26,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
 
       <Seksjon>
         <Tekst tekst="forside.skolepenger.innledning" />
-        <LocaleTekst tekst="forside.skolepenger.merInfoLenke" />
+        {hentHTMLTekst('forside.skolepenger.merInfoLenke', intl)}
       </Seksjon>
 
       <Seksjon>
@@ -37,16 +39,16 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <Overskrift tekst="forside.skolepenger.overskrift.sendeDokumentasjon" />
         <Tekst tekst="forside.skolepenger.beskjedDokumentere" />
         <Tekst tekst="forside.skolepenger.merInformasjon" />
-        <LocaleTekst tekst="forside.skolepenger.dokumentasjonsOversiktLenke" />
+        {hentHTMLTekst('forside.skolepenger.dokumentasjonsOversiktLenke', intl)}
       </Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.skolepenger.overskrift.henteInformasjon" />
         <Tekst tekst="forside.skolepenger.henteInformasjon" />
         <Tekst tekst="forside.skolepenger.viHenter" />
-        <LocaleTekst tekst="forside.skolepenger.informasjonHentet" />
+        {hentHTMLTekst('forside.skolepenger.informasjonHentet', intl)}
         <Tekst tekst="forside.skolepenger.tidligereOpplysninger" />
-        <LocaleTekst tekst="forside.skolepenger.personopplysningeneDineLenke" />
+        {hentHTMLTekst('forside.skolepenger.personopplysningeneDineLenke', intl)}
       </Seksjon>
 
       <Seksjon>

@@ -4,6 +4,7 @@ import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
 import { JaSvar, NeiSvar } from '../../../../../helpers/svar';
 import { DokumentasjonsConfig } from '../../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../../language/typer';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 const ErklæringSamlivsbrudd: IDokumentasjon = DokumentasjonsConfig.ErklæringSamlivsbrudd;
 
@@ -69,31 +70,25 @@ export const begrunnelseSpørsmål = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: EBegrunnelse.samlivsbruddForeldre,
-      svar_tekst: intl.formatMessage({
-        id: 'sivilstatus.svar.samlivsbruddForeldre',
-      }),
+      svar_tekst: hentTekst('sivilstatus.svar.samlivsbruddForeldre', intl),
       alert_tekstid: 'sivilstatus.alert.samlivsbrudd',
       dokumentasjonsbehov: ErklæringSamlivsbrudd,
     },
     {
       id: EBegrunnelse.samlivsbruddAndre,
-      svar_tekst: intl.formatMessage({
-        id: 'sivilstatus.svar.samlivsbruddAndre',
-      }),
+      svar_tekst: hentTekst('sivilstatus.svar.samlivsbruddAndre', intl),
     },
     {
       id: EBegrunnelse.aleneFraFødsel,
-      svar_tekst: intl.formatMessage({ id: 'sivilstatus.svar.aleneFraFødsel' }),
+      svar_tekst: hentTekst('sivilstatus.svar.aleneFraFødsel', intl),
     },
     {
       id: EBegrunnelse.endringISamværsordning,
-      svar_tekst: intl.formatMessage({
-        id: 'sivilstatus.svar.endringISamværsordning',
-      }),
+      svar_tekst: hentTekst('sivilstatus.svar.endringISamværsordning', intl),
     },
     {
       id: EBegrunnelse.dødsfall,
-      svar_tekst: intl.formatMessage({ id: 'sivilstatus.svar.dødsfall' }),
+      svar_tekst: hentTekst('sivilstatus.svar.dødsfall', intl),
       alert_tekstid: 'sivilstatus.alert.dødsfall',
     },
   ],

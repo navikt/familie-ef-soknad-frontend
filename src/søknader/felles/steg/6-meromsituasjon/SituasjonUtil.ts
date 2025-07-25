@@ -9,7 +9,11 @@ import { fraStringTilTall } from '../../../../utils/søknad';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
-import { storeForbokstaver } from '../../../../utils/tekst';
+import {
+  hentTekst,
+  hentTekstMedEnVariabel,
+  storeForbokstaver,
+} from '../../../../utils/teksthåndtering';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
@@ -20,7 +24,7 @@ export const erSituasjonIAvhukedeSvar = (
   intl: LokalIntlShape
 ): boolean => {
   const tekstid: string = 'dinSituasjon.svar.' + situasjon;
-  const svarTekst: string = intl.formatMessage({ id: tekstid });
+  const svarTekst: string = hentTekst(tekstid, intl);
   return avhukedeSvar.some((svarHuketAvISøknad: string) => {
     return svarHuketAvISøknad === svarTekst;
   });
@@ -107,12 +111,7 @@ export const leggTilSærligeBehov = (barnMedSærligeBehov: IBarn, intl: LokalInt
     ...barnMedSærligeBehov,
     særligeTilsynsbehov: {
       verdi: '',
-      label: intl.formatMessage(
-        { id: 'dinSituasjon.label.særligTilsyn' },
-        {
-          barnetsNavn: formattertNavn,
-        }
-      ),
+      label: hentTekstMedEnVariabel('dinSituasjon.label.særligTilsyn', intl, formattertNavn),
     },
   };
   return oppdatertBarn;

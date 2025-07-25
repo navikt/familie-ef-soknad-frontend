@@ -1,6 +1,5 @@
 import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LocaleTekst from '../../language/LocaleTekst';
 import styled from 'styled-components';
 import LesMerTekst from '../LesMerTekst';
 import { logSpørsmålBesvart } from '../../utils/amplitude';
@@ -8,6 +7,7 @@ import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import CheckboxPanelCustom from '../panel/CheckboxPanel';
 import { CheckboxGroup } from '@navikt/ds-react';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const StyledCheckboxSpørsmål = styled.div`
   .navds-fieldset .navds-checkboxes {
@@ -48,12 +48,12 @@ const CheckboxSpørsmål: React.FC<Props> = ({
   const skjemanavn = urlTilSkjemanavn(url);
   const skjemaId = skjemanavnTilId(skjemanavn);
 
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
+  const legend = hentTekst(spørsmål.tekstid, intl);
 
   return (
     <StyledCheckboxSpørsmål key={spørsmål.søknadid}>
       <CheckboxGroup
-        legend={<LocaleTekst tekst={spørsmål.tekstid} />}
+        legend={hentTekst(spørsmål.tekstid, intl)}
         value={valgteSvar}
         description={
           spørsmål.lesmer && (

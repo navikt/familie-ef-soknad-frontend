@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../components/gruppe/InputLabelGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
@@ -42,15 +41,11 @@ const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt }) => {
       </FeltGruppe>
       {!erStrengGyldigTall(beløp) && barnepassOrdning.belop && (
         <FeltGruppe>
-          <Detail>
-            <LocaleTekst tekst={'feil.ugyldigTall.beløp'} />
-          </Detail>
+          <Detail>{hentTekst('feil.ugyldigTall.beløp', intl)}</Detail>
         </FeltGruppe>
       )}
       <FeltGruppe>
-        <AlertStripeDokumentasjon>
-          <LocaleTekst tekst={alertstripeTekst} />
-        </AlertStripeDokumentasjon>
+        <AlertStripeDokumentasjon>{hentHTMLTekst(alertstripeTekst, intl)}</AlertStripeDokumentasjon>
       </FeltGruppe>
     </KomponentGruppe>
   );

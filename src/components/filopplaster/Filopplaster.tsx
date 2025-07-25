@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { hentBeskjedMedNavn, hentBeskjedMedToParametre } from '../../utils/språk';
 import opplasting from '../../assets/opplasting.svg';
 import OpplastedeFiler from './OpplastedeFiler';
 import { formaterFilstørrelse } from './utils';
@@ -17,6 +16,11 @@ import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
 import styled from 'styled-components';
 import { ABlue500, ADeepblue50, AGray700 } from '@navikt/ds-tokens/dist/tokens';
+import {
+  hentTekst,
+  hentTekstMedEnVariabel,
+  hentTekstMedFlereVariabler,
+} from '../../utils/teksthåndtering';
 
 interface Props {
   oppdaterDokumentasjon: (
@@ -93,11 +97,10 @@ const Filopplaster: React.FC<Props> = ({
         if (maxFilstørrelse && fil.size > maxFilstørrelse) {
           const maks = formaterFilstørrelse(maxFilstørrelse);
 
-          const feilmelding = hentBeskjedMedToParametre(
-            intl.formatMessage({ id: 'filopplaster.feilmelding.maks' }),
-            fil.name,
-            maks
-          );
+          const feilmelding = hentTekstMedFlereVariabler('filopplaster.feilmelding.maks', intl, {
+            0: fil.name,
+            1: maks,
+          });
 
           feilmeldingsliste.push(feilmelding);
 
@@ -113,9 +116,10 @@ const Filopplaster: React.FC<Props> = ({
         }
 
         if (tillatteFiltyper && !tillatteFiltyper.includes(fil.type)) {
-          const feilmelding = hentBeskjedMedNavn(
-            fil.name,
-            intl.formatMessage({ id: 'filopplaster.feilmelding.filtype' })
+          const feilmelding = hentTekstMedEnVariabel(
+            'filopplaster.feilmelding.filtype',
+            intl,
+            fil.name
           );
           feilmeldingsliste.push(feilmelding);
           settFeilmeldinger(feilmeldingsliste);
@@ -223,9 +227,9 @@ const Filopplaster: React.FC<Props> = ({
           <IkonOgTekstWrapper>
             <img src={opplasting} alt="Opplastingsikon" />
             <BodyShort>
-              {intl.formatMessage({
-                id: isDragActive ? 'filopplaster.slipp' : 'filopplaster.dra',
-              })}
+              {isDragActive
+                ? hentTekst('filopplaster.slipp', intl)
+                : hentTekst('filopplaster.dra', intl)}
             </BodyShort>
           </IkonOgTekstWrapper>
         </div>

@@ -3,6 +3,7 @@ import { EAktivitet, EArbeidssituasjon } from '../../../../models/steg/aktivitet
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 // --- DOKUMENTASJON
 
@@ -33,60 +34,51 @@ export const hvaErDinArbeidssituasjonSpm = (intl: LokalIntlShape): ISpørsmål =
   svaralternativer: [
     {
       id: EAktivitet.erHjemmeMedBarnUnderEttÅr,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.erHjemmeMedBarnUnderEttÅr',
-      }),
+      svar_tekst: hentTekst('arbeidssituasjon.svar.erHjemmeMedBarnUnderEttÅr', intl),
     },
     {
       id: EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.erArbeidstakerOgEllerLønnsmottakerFrilanser',
-      }),
+      svar_tekst: hentTekst(
+        'arbeidssituasjon.svar.erArbeidstakerOgEllerLønnsmottakerFrilanser',
+        intl
+      ),
     },
     {
       id: EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.erSelvstendigNæringsdriveneEllerFrilanser',
-      }),
+      svar_tekst: hentTekst(
+        'arbeidssituasjon.svar.erSelvstendigNæringsdriveneEllerFrilanser',
+        intl
+      ),
     },
     {
       id: EAktivitet.erAnsattIEgetAS,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.erAnsattIEgetAS',
-      }),
+      svar_tekst: hentTekst('arbeidssituasjon.svar.erAnsattIEgetAS', intl),
     },
     {
       id: EAktivitet.harFåttJobbTilbud,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.harFåttJobbTilbud',
-      }),
+      svar_tekst: hentTekst('arbeidssituasjon.svar.harFåttJobbTilbud', intl),
       dokumentasjonsbehov: DokumentasjonArbeidskontrakt,
     },
     {
       id: EAktivitet.etablererEgenVirksomhet,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.etablererEgenVirksomhet',
-      }),
+      svar_tekst: hentTekst('arbeidssituasjon.svar.etablererEgenVirksomhet', intl),
       dokumentasjonsbehov: DokumentasjonOmVirksomhetenDuEtablerer,
     },
     {
       id: EAktivitet.erArbeidssøker,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.erArbeidssøker',
-      }),
+      svar_tekst: hentTekst('arbeidssituasjon.svar.erArbeidssøker', intl),
     },
     {
       id: EAktivitet.tarUtdanning,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.tarUtdanning',
-      }),
+      svar_tekst: hentTekst('arbeidssituasjon.svar.tarUtdanning', intl),
       dokumentasjonsbehov: DokumentasjonUtdanning,
     },
     {
       id: EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker,
-      svar_tekst: intl.formatMessage({
-        id: 'arbeidssituasjon.svar.erHverkenIArbeidUtdanningEllerArbeidssøker',
-      }),
+      svar_tekst: hentTekst(
+        'arbeidssituasjon.svar.erHverkenIArbeidUtdanningEllerArbeidssøker',
+        intl
+      ),
     },
   ],
 });

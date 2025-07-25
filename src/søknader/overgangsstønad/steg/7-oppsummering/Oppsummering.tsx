@@ -11,7 +11,7 @@ import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPath } from '../../../../utils/routing';
 import Side, { ESide } from '../../../../components/side/Side';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import {
   logBrowserBackOppsummering,
@@ -146,7 +146,7 @@ const Oppsummering: React.FC = () => {
     <>
       <Side
         stønadstype={Stønadstype.overgangsstønad}
-        stegtittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })}
+        stegtittel={hentTekst('oppsummering.sidetittel', intl)}
         skalViseKnapper={ESide.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreOvergangsstønad}
@@ -155,7 +155,7 @@ const Oppsummering: React.FC = () => {
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">
-            {intl.formatMessage({ id: 'oppsummering.normaltekst.lesgjennom' })}
+            {hentTekst('oppsummering.normaltekst.lesgjennom', intl)}
           </BodyShort>
 
           <KomponentGruppe>

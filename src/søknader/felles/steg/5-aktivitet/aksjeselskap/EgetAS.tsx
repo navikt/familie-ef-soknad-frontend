@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IAksjeselskap, IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
@@ -10,6 +9,8 @@ import Aksjeselskap from './Aksjeselskap';
 import { erAksjeselskapFerdigUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { Heading, Label } from '@navikt/ds-react';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
   arbeidssituasjon: IAktivitet;
@@ -34,6 +35,7 @@ const EgetAS: FC<Props> = ({
   settArbeidssituasjon,
   inkludertArbeidsmengde = true,
 }) => {
+  const intl = useLokalIntlContext();
   const [egetAS, settEgetAS] = useState<IAksjeselskap[]>(
     arbeidssituasjon.egetAS ? arbeidssituasjon.egetAS : [tomtAksjeselskap(inkludertArbeidsmengde)]
   );
@@ -54,7 +56,7 @@ const EgetAS: FC<Props> = ({
     <>
       <KomponentGruppe className={'sentrert'}>
         <Heading size="small" level="3">
-          <LocaleTekst tekst={'egetAS.tittel'} />
+          {hentTekst('egetAS.tittel', intl)}
         </Heading>
       </KomponentGruppe>
 
@@ -73,11 +75,9 @@ const EgetAS: FC<Props> = ({
       {erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde) && (
         <KomponentGruppe>
           <FeltGruppe>
-            <Label as="p">
-              <LocaleTekst tekst={'egetAS.label.flere'} />
-            </Label>
+            <Label as="p">{hentTekst('egetAS.label.flere', intl)}</Label>
             <LeggTilKnapp onClick={() => leggTilAksjeselskap()}>
-              <LocaleTekst tekst={'egetAS.knapp.leggtil'} />
+              {hentTekst('egetAS.knapp.leggtil', intl)}
             </LeggTilKnapp>
           </FeltGruppe>
         </KomponentGruppe>

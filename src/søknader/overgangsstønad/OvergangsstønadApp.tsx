@@ -15,6 +15,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { ESkjemanavn } from '../../utils/skjemanavn';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -60,7 +61,7 @@ export const OvergangsstønadApp = () => {
     if (!error) {
       return (
         <>
-          <title>{intl.formatMessage({ id: 'banner.tittel.overgangsstønad' })}</title>
+          <title>{hentTekst('banner.tittel.overgangsstønad', intl)}</title>
           <Søknadsdialog />
         </>
       );

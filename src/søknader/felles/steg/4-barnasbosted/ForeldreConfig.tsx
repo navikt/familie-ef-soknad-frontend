@@ -13,6 +13,7 @@ import { EForelder } from '../../../../models/steg/forelder';
 import { JaNeiSvar } from '../../../../helpers/svar';
 import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 // --- Dokumentasjon
 
@@ -46,11 +47,11 @@ export const hvorforIkkeOppgi = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: EHvorforIkkeOppgi.donorbarn,
-      svar_tekst: intl.formatMessage({ id: 'barnasbosted.spm.donorbarn' }),
+      svar_tekst: hentTekst('barnasbosted.spm.donorbarn', intl),
     },
     {
       id: EHvorforIkkeOppgi.annet,
-      svar_tekst: intl.formatMessage({ id: 'barnasbosted.spm.annet' }),
+      svar_tekst: hentTekst('barnasbosted.spm.annet', intl),
     },
   ],
 });
@@ -68,21 +69,17 @@ export const harAnnenForelderSamværMedBarn = (intl: LokalIntlShape, barn: IBarn
   svaralternativer: [
     {
       id: EHarSamværMedBarn.jaIkkeMerEnnVanlig,
-      svar_tekst: intl.formatMessage({
-        id: 'barnasbosted.spm.jaIkkeMerEnnVanlig',
-      }),
+      svar_tekst: hentTekst('barnasbosted.spm.jaIkkeMerEnnVanlig', intl),
     },
     {
       id: EHarSamværMedBarn.jaMerEnnVanlig,
-      svar_tekst: intl.formatMessage({ id: 'barnasbosted.spm.jaMerEnnVanlig' }),
+      svar_tekst: hentTekst('barnasbosted.spm.jaMerEnnVanlig', intl),
     },
     {
       id: EHarSamværMedBarn.nei,
-      svar_tekst: intl.formatMessage({
-        id: barn.født?.verdi
-          ? 'barnasbosted.spm.andreForelderenSamværNei'
-          : 'barnasbosted.spm.andreForelderenSamværNei.ufødt',
-      }),
+      svar_tekst: barn.født?.verdi
+        ? hentTekst('barnasbosted.spm.andreForelderenSamværNei', intl)
+        : hentTekst('barnasbosted.spm.andreForelderenSamværNei.ufødt', intl),
     },
   ],
 });
@@ -98,21 +95,17 @@ export const harDereSkriftligSamværsavtale = (intl: LokalIntlShape): ISpørsmå
   svaralternativer: [
     {
       id: EHarSkriftligSamværsavtale.jaKonkreteTidspunkter,
-      svar_tekst: intl.formatMessage({
-        id: 'barnasbosted.spm.jaKonkreteTidspunkt',
-      }),
+      svar_tekst: hentTekst('barnasbosted.spm.jaKonkreteTidspunkt', intl),
       dokumentasjonsbehov: SamværsavtaleMedKonkreteTidspunkter,
     },
     {
       id: EHarSkriftligSamværsavtale.jaIkkeKonkreteTidspunkter,
-      svar_tekst: intl.formatMessage({
-        id: 'barnasbosted.spm.jaIkkeKonkreteTidspunkt',
-      }),
+      svar_tekst: hentTekst('barnasbosted.spm.jaIkkeKonkreteTidspunkt', intl),
       dokumentasjonsbehov: SamværsavtaleUtenKonkreteTidspunkter,
     },
     {
       id: EHarSkriftligSamværsavtale.nei,
-      svar_tekst: intl.formatMessage({ id: ESvarTekstid.NEI }),
+      svar_tekst: hentTekst(ESvarTekstid.NEI, intl),
     },
   ],
 });
@@ -128,15 +121,15 @@ export const borAnnenForelderISammeHus = (intl: LokalIntlShape): ISpørsmål => 
   svaralternativer: [
     {
       id: EBorAnnenForelderISammeHus.ja,
-      svar_tekst: intl.formatMessage({ id: ESvarTekstid.JA }),
+      svar_tekst: hentTekst(ESvarTekstid.JA, intl),
     },
     {
       id: EBorAnnenForelderISammeHus.nei,
-      svar_tekst: intl.formatMessage({ id: ESvarTekstid.NEI }),
+      svar_tekst: hentTekst(ESvarTekstid.NEI, intl),
     },
     {
       id: EBorAnnenForelderISammeHus.vetikke,
-      svar_tekst: intl.formatMessage({ id: 'barnasbosted.spm.vetikke' }),
+      svar_tekst: hentTekst('barnasbosted.spm.vetikke', intl),
     },
   ],
 });
@@ -152,19 +145,19 @@ export const hvorMyeSammen = (intl: LokalIntlShape, barn: IBarn): ISpørsmål =>
   svaralternativer: [
     {
       id: EHvorMyeSammen.møtesIkke,
-      svar_tekst: intl.formatMessage({ id: 'barnasbosted.spm.møtesIkke' }),
+      svar_tekst: hentTekst('barnasbosted.spm.møtesIkke', intl),
     },
     {
       id: EHvorMyeSammen.kunNårLeveres,
       svar_tekst: barn.født?.verdi
-        ? intl.formatMessage({ id: 'barnasbosted.spm.kunNårLeveres' })
-        : intl.formatMessage({ id: 'barnasbosted.spm.kunNårLeveres.ufødt' }),
+        ? hentTekst('barnasbosted.spm.kunNårLeveres', intl)
+        : hentTekst('barnasbosted.spm.kunNårLeveres.ufødt', intl),
     },
     {
       id: EHvorMyeSammen.møtesUtenom,
       svar_tekst: barn.født?.verdi
-        ? intl.formatMessage({ id: 'barnasbosted.spm.møtesUtenom' })
-        : intl.formatMessage({ id: 'barnasbosted.spm.møtesUtenom.ufødt' }),
+        ? hentTekst('barnasbosted.spm.møtesUtenom', intl)
+        : hentTekst('barnasbosted.spm.møtesUtenom.ufødt', intl),
     },
   ],
 });
@@ -176,26 +169,20 @@ export const skalBarnetBoHosSøker = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: ESkalBarnetBoHosSøker.ja,
-      svar_tekst: intl.formatMessage({
-        id: 'barnasbosted.spm.jaFolkeregistrert',
-      }),
+      svar_tekst: hentTekst('barnasbosted.spm.jaFolkeregistrert', intl),
     },
     {
       id: ESkalBarnetBoHosSøker.jaMenSamarbeiderIkke,
-      svar_tekst: intl.formatMessage({
-        id: 'barnasbosted.spm.jaMenSamarbeiderIkke',
-      }),
+      svar_tekst: hentTekst('barnasbosted.spm.jaMenSamarbeiderIkke', intl),
       dokumentasjonsbehov: DokumentasjonBarnBorHosDeg,
     },
     {
       id: ESkalBarnetBoHosSøker.neiMenAvtaleDeltBosted,
-      svar_tekst: intl.formatMessage({
-        id: 'barnasbosted.spm.neiMenAvtaleDeltBosted',
-      }),
+      svar_tekst: hentTekst('barnasbosted.spm.neiMenAvtaleDeltBosted', intl),
     },
     {
       id: ESkalBarnetBoHosSøker.nei,
-      svar_tekst: intl.formatMessage({ id: ESvarTekstid.NEI }),
+      svar_tekst: hentTekst(ESvarTekstid.NEI, intl),
     },
   ],
 });
