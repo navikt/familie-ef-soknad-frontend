@@ -9,7 +9,7 @@
 }
 
 .children {
-    padding-inline: min(4rem, 5vw);
+    padding-inline: min(5rem, 5vw);
     padding-bottom: 4rem;
 }
 
