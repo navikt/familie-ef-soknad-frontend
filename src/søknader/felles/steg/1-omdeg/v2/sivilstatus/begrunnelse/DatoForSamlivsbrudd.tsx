@@ -24,7 +24,7 @@ export const DatoForSamlivsbrudd: React.FC = () => {
 
   return (
     <VStack gap={'6'}>
-      <DatePicker {...datepickerProps}>
+      <DatePicker dropdownCaption {...datepickerProps}>
         <DatePicker.Input
           {...inputProps}
           label={hentTekst('sivilstatus.datovelger.samlivsbrudd', intl)}

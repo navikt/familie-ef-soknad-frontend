@@ -42,7 +42,7 @@ export const UtenlandsoppholdV2: React.FC<Props> = ({ onPerioderOppdatert }) => 
 
   const slettPeriode = (periodeId: string) => {
     if (perioder.length > 1) {
-      settPerioder((gjeldende) => gjeldende.filter((p) => p.id !== periodeId));
+      settPerioder((gjeldende) => gjeldende.filter((periode) => periode.id !== periodeId));
     }
   };
 

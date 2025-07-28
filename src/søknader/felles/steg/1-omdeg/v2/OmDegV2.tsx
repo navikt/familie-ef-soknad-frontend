@@ -28,7 +28,6 @@ export const OmDegV2: React.FC = () => {
       />
 
       <Adresseopplysninger />
-
       {visSivilstatus && <SivilstatusV2 />}
       {visMedlemskap && <MedlemskapV2 />}
 
