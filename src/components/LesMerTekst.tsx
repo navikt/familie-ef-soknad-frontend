@@ -25,6 +25,7 @@ interface Props {
   innholdTekstid?: string;
   innholdTekst?: string | React.ReactNode;
   html?: boolean;
+  testID?: string;
 }
 
 const LesMerTekst: React.FC<Props> = ({
@@ -33,6 +34,7 @@ const LesMerTekst: React.FC<Props> = ({
   innholdTekstid,
   innholdTekst,
   html,
+  testID,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -53,7 +55,7 @@ const LesMerTekst: React.FC<Props> = ({
             <BodyShort>{hentTekst(halvåpenTekstid, intl)}</BodyShort>
           </StyledHalvåpenHjelpetekst>
         )}
-        <ReadMore header={hentTekst(åpneTekstid, intl)}>
+        <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
           <BodyShort>
             {innholdTekst && innholdTekst}
             {!innholdTekst && innholdTekstid && html && hentHTMLTekst(innholdTekstid, intl)}

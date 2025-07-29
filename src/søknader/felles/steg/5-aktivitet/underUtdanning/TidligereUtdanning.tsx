@@ -73,6 +73,7 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
           åpneTekstid={tidligereUtdanningHjelpetekst.headerTekstid}
           innholdTekstid={tidligereUtdanningHjelpetekst.innholdTekstid}
           html={true}
+          testID={'grunn-til-spørsmål-om-tidligere-utdanning'}
         />
       </KomponentGruppe>
 
@@ -92,6 +93,11 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
                 tidligereUtdanninger={tidligereUtdanning}
                 settTidligereUtdanninger={settTidligereUtdanning}
                 utdanningsnummer={index}
+                testIder={[
+                  'tidligereUtdanning-linje',
+                  'tidligereutdanning-fra',
+                  'tidligereutdanning-til',
+                ]}
               />
             );
           })}
