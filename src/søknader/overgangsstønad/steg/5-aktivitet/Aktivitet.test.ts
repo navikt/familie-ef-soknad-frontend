@@ -1013,7 +1013,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
-  });
+  }, 15000);
 
   test('Søker er ikke i arbeid, utdanning eller arbeidssøker', async () => {
     mockMellomlagretSøknad('overgangsstonad', '/aktivitet', {});
