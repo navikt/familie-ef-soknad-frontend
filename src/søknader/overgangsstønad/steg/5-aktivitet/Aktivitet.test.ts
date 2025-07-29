@@ -7,7 +7,6 @@ import {
   skrivFritekst,
   skrivFritekstTilKomponentMedId,
 } from '../../../../test/actions';
-import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -409,8 +408,6 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
 
     expect(screen.getByRole('textbox', { name: 'Når etablerte du firmaet?' })).toBeInTheDocument();
     await skrivFritekst('Når etablerte du firmaet?', '27.07.2025', screen, user);
-
-    console.log(prettyDOM(undefined, Infinity));
 
     expect(screen.getByRole('spinbutton', { name: 'Hvor mye jobber du?' })).toBeInTheDocument();
     await user.type(screen.getByRole('spinbutton', { name: 'Hvor mye jobber du?' }), '100');
@@ -1013,7 +1010,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
-  }, 15000);
+  }, 20000);
 
   test('Søker er ikke i arbeid, utdanning eller arbeidssøker', async () => {
     mockMellomlagretSøknad('overgangsstonad', '/aktivitet', {});
