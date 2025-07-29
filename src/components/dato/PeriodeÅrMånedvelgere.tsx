@@ -46,6 +46,7 @@ interface Props {
   settDato: (dato: Date | null, objektnøkkel: EPeriode) => void;
   datobegrensing: DatoBegrensning;
   onValidate?: (isValid: boolean) => void;
+  testIDer?: string[];
 }
 
 const PeriodeÅrMånedvelgere: FC<Props> = ({
@@ -57,6 +58,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
   tomTekstid,
   datobegrensing,
   onValidate,
+  testIDer,
 }) => {
   const [feilmelding, settFeilmelding] = useState('');
 
@@ -129,6 +131,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
             }
             tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
             datobegrensning={datobegrensing}
+            testID={testIDer ? testIDer[0] : ''}
           />
 
           <MånedÅrVelger
@@ -140,6 +143,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
             }
             tekstid={tomTekstid ? tomTekstid : 'periode.til'}
             datobegrensning={datobegrensing}
+            testID={testIDer ? testIDer[1] : ''}
           />
         </>
         {feilmelding && feilmelding !== '' && (

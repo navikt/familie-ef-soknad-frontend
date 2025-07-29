@@ -12,9 +12,16 @@ interface Props {
   tekstid: string;
   datobegrensning: DatoBegrensning;
   settDato: (date: Date | null) => void;
+  testID?: string;
 }
 
-const MånedÅrVelger: React.FC<Props> = ({ tekstid, datobegrensning, valgtDato, settDato }) => {
+const MånedÅrVelger: React.FC<Props> = ({
+  tekstid,
+  datobegrensning,
+  valgtDato,
+  settDato,
+  testID,
+}) => {
   const [locale] = useSpråkContext();
   const intl = useLokalIntlContext();
   const datolabelid = hentUid();
@@ -48,6 +55,7 @@ const MånedÅrVelger: React.FC<Props> = ({ tekstid, datobegrensning, valgtDato,
         {...inputProps}
         label={hentTekst(tekstid, intl)}
         placeholder={hentTekst('datovelger.månedÅrPlaceholder', intl)}
+        data-testid={testID}
       />
     </MonthPicker>
   );

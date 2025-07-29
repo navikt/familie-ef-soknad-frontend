@@ -106,6 +106,8 @@ const utledSøknad = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadOverg
       return søknadOvergangsstønadBarnaDine(søknad);
     case '/barnas-bosted':
       return søknadOvergangsstønadBarnasBosted(søknad);
+    case '/aktivitet':
+      return lagSøknadOvergangsstønad({ harBekreftet: true });
     default:
       return lagSøknadOvergangsstønad({ harBekreftet: true });
   }
