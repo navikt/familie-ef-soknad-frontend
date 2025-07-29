@@ -3,7 +3,7 @@ import { StegSide } from './komponenter/side/StegSide';
 import { SøknadSteg } from './komponenter/stegindikator/GenerelleSøknadSteg';
 import { PersonopplysningerV2 } from './personopplysninger/PersonopplysningerV2';
 import { useOmDegV2 } from './typer/OmDegContextV2';
-import { StegDebugKnapp } from './debug/StegDebugKnapp';
+import { StegNavigasjonKnapper } from './debug/StegNavigasjonKnapper';
 import { Adresseopplysninger } from './personopplysninger/Adresseopplysninger';
 import { MedlemskapV2 } from './medlemskap/MedlemskapV2';
 import { SivilstatusV2 } from './sivilstatus/SivilstatusV2';
@@ -31,7 +31,7 @@ export const OmDegV2: React.FC = () => {
       {visSivilstatus && <SivilstatusV2 />}
       {visMedlemskap && <MedlemskapV2 />}
 
-      <StegDebugKnapp />
+      <StegNavigasjonKnapper />
     </StegSide>
   );
 };

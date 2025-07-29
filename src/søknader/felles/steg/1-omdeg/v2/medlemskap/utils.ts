@@ -1,6 +1,7 @@
 import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { UtenlandsoppholdPeriode, PeriodeVisningsregler } from './typer';
+import { LokalIntlShape } from '../../../../../../language/typer';
 
 export const opprettTomPeriode = (): UtenlandsoppholdPeriode => ({
   id: crypto.randomUUID(), // TODO: Denne trengs muligens ikke, bare glem den.
@@ -46,7 +47,7 @@ export const validerDatoperiode = (
 export const utledVisningsregler = (
   periode: UtenlandsoppholdPeriode,
   valgtLand: ILandMedKode | undefined,
-  intl: any
+  intl: LokalIntlShape
 ): PeriodeVisningsregler => {
   const { fraDato, tilDato, begrunnelse, harIkkeIdNummer } = periode;
   const datoValidering = validerDatoperiode(fraDato, tilDato, intl);
