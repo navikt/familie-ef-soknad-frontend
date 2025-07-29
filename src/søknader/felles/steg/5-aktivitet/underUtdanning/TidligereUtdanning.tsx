@@ -94,7 +94,7 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
                 tidligereUtdanninger={tidligereUtdanning}
                 settTidligereUtdanninger={settTidligereUtdanning}
                 utdanningsnummer={index}
-                testIDer={[
+                testIder={[
                   'tidligereUtdanning-linje',
                   'tidligereutdanning-fra',
                   'tidligereutdanning-til',
