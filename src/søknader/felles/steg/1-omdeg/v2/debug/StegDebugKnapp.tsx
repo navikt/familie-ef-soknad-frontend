@@ -14,21 +14,26 @@ export const StegDebugKnapp: React.FC = () => {
     console.log('OmDegStegData er:', stegData);
   };
 
+  const skalViseUUTekst = true;
+  const skalViseNesteKnapp = true;
+
   return (
     <VStack gap={'4'} className={styles.container}>
-      <BodyShort>{hentTekst('knapp.uu-tekst', intl)}</BodyShort>
+      {skalViseUUTekst && <BodyShort>{hentTekst('knapp.uu-tekst', intl)}</BodyShort>}
 
       <HStack gap={'4'} justify={'center'}>
         <Button variant="secondary" size="medium">
           {hentTekst('knapp.tilbake', intl)}
         </Button>
-        <Button variant="primary" size="medium" onClick={onValiderKlikk}>
-          {hentTekst('knapp.neste', intl)}
-        </Button>
+        {skalViseNesteKnapp && (
+          <Button variant="primary" size="medium" onClick={onValiderKlikk}>
+            {hentTekst('knapp.neste', intl)}
+          </Button>
+        )}
       </HStack>
 
       <div className={styles.container}>
-        <Button variant="danger" size="medium">
+        <Button variant="tertiary" size="medium">
           {hentTekst('knapp.avbryt', intl)}
         </Button>
       </div>
