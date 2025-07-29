@@ -15,10 +15,10 @@ export const StegDebugKnapp: React.FC = () => {
   };
 
   return (
-    <VStack gap={'6'} className={styles.container}>
+    <VStack gap={'4'} className={styles.container}>
       <BodyShort>{hentTekst('knapp.uu-tekst', intl)}</BodyShort>
 
-      <HStack gap={'6'} justify={'center'}>
+      <HStack gap={'4'} justify={'center'}>
         <Button variant="secondary" size="medium">
           {hentTekst('knapp.tilbake', intl)}
         </Button>
@@ -28,7 +28,7 @@ export const StegDebugKnapp: React.FC = () => {
       </HStack>
 
       <div className={styles.container}>
-        <Button variant="danger" size="medium" className={styles.avbrytKnapp}>
+        <Button variant="danger" size="medium">
           {hentTekst('knapp.avbryt', intl)}
         </Button>
       </div>
