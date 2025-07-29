@@ -141,7 +141,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
       </Checkbox>
 
       {visFødselsdatoVelger && (
-        <DatePicker {...fødselsdato.datepickerProps}>
+        <DatePicker dropdownCaption {...fødselsdato.datepickerProps}>
           <DatePicker.Input
             {...fødselsdato.inputProps}
             label={hentTekst('datovelger.fødselsdato', intl)}
@@ -151,7 +151,7 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
       )}
 
       {visFlyttedatoVelger && (
-        <DatePicker {...flyttetFraDato.datepickerProps}>
+        <DatePicker dropdownCaption {...flyttetFraDato.datepickerProps}>
           <DatePicker.Input
             {...flyttetFraDato.inputProps}
             label={hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl)}
