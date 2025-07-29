@@ -29,6 +29,7 @@ type SøknadSteg =
   | '/barn'
   | '/barnas-bosted'
   | '/aktivitet'
+  | '/din-situasjon'
   | '/barnepass'
   | '/oppsummering'
   | '/dokumentasjon'
@@ -108,6 +109,8 @@ const utledSøknad = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadOverg
       return søknadOvergangsstønadBarnasBosted(søknad);
     case '/aktivitet':
       return lagSøknadOvergangsstønad({ harBekreftet: true });
+    case '/din-situasjon':
+      return søknadOvergangsstønadBarnasBosted(søknad);
     default:
       return lagSøknadOvergangsstønad({ harBekreftet: true });
   }
