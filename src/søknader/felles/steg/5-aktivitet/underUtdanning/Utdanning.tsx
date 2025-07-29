@@ -21,12 +21,14 @@ interface Props {
   tidligereUtdanninger: IUtdanning[];
   settTidligereUtdanninger: (tidligereUtdanninger: IUtdanning[]) => void;
   utdanningsnummer: number;
+  testIder?: string[];
 }
 
 const Utdanning: React.FC<Props> = ({
   tidligereUtdanninger,
   settTidligereUtdanninger,
   utdanningsnummer,
+  testIder,
 }) => {
   const intl = useLokalIntlContext();
   const utdanningFraSøknad = tidligereUtdanninger?.find(
@@ -105,6 +107,7 @@ const Utdanning: React.FC<Props> = ({
           value={utdanning.linjeKursGrad?.verdi}
           bredde={'XL'}
           onChange={(e) => settInputFelt(linjeKursGradLabel, e)}
+          data-testid={testIder ? testIder[0] : undefined}
         />
       </FeltGruppe>
       {harValgtSvar(utdanning.linjeKursGrad?.verdi) && (
@@ -115,6 +118,7 @@ const Utdanning: React.FC<Props> = ({
             settDato={settPeriode}
             aria-live="polite"
             datobegrensing={DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem}
+            testIder={testIder ? [testIder[1], testIder[2]] : undefined}
           />
         </KomponentGruppe>
       )}
