@@ -50,7 +50,6 @@ export const OmDenTidligereSamboerenDin: React.FC = () => {
     [navn, fødselsdatoVerdi, flyttedatoVerdi, ident, brukerIkkeIdent, oppdaterSivilstatus]
   );
 
-  // TODO: Husk å gjøre det mulig å velge år.
   const fødselsdato = useDatepicker({
     onDateChange: (dato: Date | undefined) => {
       settFødselsdatoVerdi(dato);
