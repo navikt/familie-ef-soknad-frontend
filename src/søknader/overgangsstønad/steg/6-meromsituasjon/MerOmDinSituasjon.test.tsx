@@ -256,8 +256,8 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('textbox', {
-        name: 'Om tilsynsbehovet til Gåen Pc Vi trenger opplysninger om: hvor mye og hvordan barnet ditt trenger tilsyn hvordan det påvirker muligheten din til å være i yrkesrettet aktivitet',
-      }) //Denne er rar pga. implementasjonen av labelen på BarnMedSærligeBehovBegrunnelse (som er BarnMedSærligeBehovLabelTekst)
+        name: 'Om tilsynsbehovet til Gåen Pc',
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByText((tekst) => tekst.includes('Vi trenger opplysninger om:'))
@@ -271,12 +271,7 @@ describe('Mer om din situasjon', () => {
       )
     ).toBeInTheDocument();
 
-    await skrivFritekst(
-      'Om tilsynsbehovet til Gåen Pc Vi trenger opplysninger om: hvor mye og hvordan barnet ditt trenger tilsyn hvordan det påvirker muligheten din til å være i yrkesrettet aktivitet',
-      'Trenger tilsyn',
-      screen,
-      user
-    );
+    await skrivFritekst('Om tilsynsbehovet til Gåen Pc', 'Trenger tilsyn', screen, user);
 
     expect(
       screen.getByRole('group', {
