@@ -5,6 +5,7 @@ import { Stønadstype } from '../../../../../../models/søknad/stønadstyper';
 import { DinTidligereSamboer } from '../sivilstatus/begrunnelse/OmDenTidligereSamboerenDin';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { UtenlandsoppholdPeriode } from '../medlemskap/typer';
+import { SøknadSteg } from '../komponenter/stegindikator/GenerelleSøknadSteg';
 
 export interface AdresseopplysningerData {
   søkerBorPåRegistrertAdresse?: boolean;
@@ -43,6 +44,8 @@ export interface Props<T extends Søknad> {
 export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }: Props<Søknad>) => {
   const søker = søknad.person.søker;
   const sivilstatus = useState(søknad.sivilstatus);
+
+  const søknadSteg: SøknadSteg = { id: 'omDeg', stegKey: 'stegtittel.omDeg' };
 
   const [personopplysningerData, settPersonopplysningerData] = useState<AdresseopplysningerData>(
     {}
@@ -86,6 +89,7 @@ export const [OmDegProviderV2, useOmDegV2] = constate(({ stønadstype, søknad }
     stønadstype,
     søker,
     sivilstatus,
+    søknadSteg,
     personopplysningerData,
     sivilstatusData,
     medlemskapData,

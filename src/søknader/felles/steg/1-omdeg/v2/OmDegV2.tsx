@@ -1,6 +1,5 @@
 import React from 'react';
 import { StegSide } from './komponenter/side/StegSide';
-import { SøknadSteg } from './komponenter/stegindikator/GenerelleSøknadSteg';
 import { PersonopplysningerV2 } from './personopplysninger/PersonopplysningerV2';
 import { useOmDegV2 } from './typer/OmDegContextV2';
 import { StegNavigasjonKnapper } from './debug/StegNavigasjonKnapper';
@@ -10,10 +9,7 @@ import { SivilstatusV2 } from './sivilstatus/SivilstatusV2';
 import { skalViseMedlemskap, skalViseSivilstatus } from './typer/OmDegV2Helpers';
 
 export const OmDegV2: React.FC = () => {
-  const { stønadstype, søker, personopplysningerData, sivilstatusData } = useOmDegV2();
-
-  // TODO: Denne kan komme fra OmDegV2Provider.
-  const søknadSteg: SøknadSteg = { id: 'omDeg', stegKey: 'stegtittel.omDeg' };
+  const { stønadstype, søker, søknadSteg, personopplysningerData, sivilstatusData } = useOmDegV2();
 
   const visSivilstatus = skalViseSivilstatus(personopplysningerData);
   const visMedlemskap = skalViseMedlemskap(sivilstatusData);
