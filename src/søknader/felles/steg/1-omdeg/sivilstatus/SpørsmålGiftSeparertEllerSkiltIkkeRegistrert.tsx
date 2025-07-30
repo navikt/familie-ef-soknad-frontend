@@ -3,13 +3,13 @@ import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmå
 import { erUformeltGiftSpørsmål, erUformeltSeparertEllerSkiltSpørsmål } from './SivilstatusConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
-import LocaleTekst from '../../../../../language/LocaleTekst';
-import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import React from 'react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentValgtSvar } from '../../../../../utils/sivilstatus';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -57,7 +57,7 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
         />
         {harSvartJaPåUformeltGift && (
           <AlertstripeDokumentasjon>
-            <LocaleTekst tekst={hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl))} />
+            {hentTekst(hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl)), intl)}
           </AlertstripeDokumentasjon>
         )}
       </KomponentGruppe>
@@ -70,12 +70,10 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
           />
           {harSvartJaUformeltSeparertEllerSkilt && (
             <AlertstripeDokumentasjon>
-              <LocaleTekst
-                tekst={hentSvarAlertFraSpørsmål(
-                  ESvar.JA,
-                  erUformeltSeparertEllerSkiltSpørsmål(intl)
-                )}
-              />
+              {hentTekst(
+                hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltSeparertEllerSkiltSpørsmål(intl)),
+                intl
+              )}
             </AlertstripeDokumentasjon>
           )}
         </KomponentGruppe>

@@ -3,7 +3,7 @@ import { useSpråkContext } from '../../context/SpråkContext';
 import { hentUid } from '../../utils/autentiseringogvalidering/uuid';
 import { DatoBegrensning } from './Datovelger';
 import { MonthPicker, useMonthpicker } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentDatobegrensninger } from '../../utils/dato';
 

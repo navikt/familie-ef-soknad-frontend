@@ -3,9 +3,8 @@ import {
   ESagtOppEllerRedusertStilling,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -88,7 +87,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
 
   const erSagtOppEllerRedusertStillingValgt = (valgtSvar: ESagtOppEllerRedusertStilling) => {
     const tekstid: string = 'dinSituasjon.svar.' + valgtSvar;
-    const svarTekst: string = intl.formatMessage({ id: tekstid });
+    const svarTekst: string = hentTekst(tekstid, intl);
     return sagtOppEllerRedusertStilling?.verdi === svarTekst;
   };
 
@@ -139,9 +138,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
       {(harSagtOpp || harRedusertStilling) && (
         <>
           <KomponentGruppe>
-            <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={alertLabel} />
-            </AlertStripeDokumentasjon>
+            <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabel, intl)}</AlertStripeDokumentasjon>
           </KomponentGruppe>
           <KomponentGruppe>
             <Textarea
@@ -166,7 +163,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
               />
               {erValgtDatoMindreEnn6mndSiden && (
                 <Alert size="small" variant="info" inline>
-                  <LocaleTekst tekst={valgtDatoMindreEnn6mndSidenAlert} />
+                  {hentTekst(valgtDatoMindreEnn6mndSidenAlert, intl)}
                 </Alert>
               )}
             </KomponentGruppe>

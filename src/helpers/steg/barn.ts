@@ -1,10 +1,11 @@
-import { hentFeltObjekt, hentTekst } from '../../utils/søknad';
+import { hentFeltObjekt } from '../../utils/søknad';
 import { differenceInYears } from 'date-fns';
 import { dagensDato, strengTilDato } from '../../utils/dato';
 import { hentUid } from '../../utils/autentiseringogvalidering/uuid';
 import { EBarn, IBarn } from '../../models/steg/barn';
 import { ESvar } from '../../models/felles/spørsmålogsvar';
 import { LokalIntlShape } from '../../language/typer';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 export const hentNyttBarn = (
   id: string | undefined,

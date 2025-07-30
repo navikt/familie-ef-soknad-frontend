@@ -6,6 +6,7 @@ import { BosituasjonSpørsmål } from '../../../felles/steg/2-bosituasjon/Bositu
 import Side, { ESide } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useBosituasjon } from './BosituasjonContext';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 export const Bosituasjon: FC = () => {
   const intl = useLokalIntlContext();
@@ -19,7 +20,7 @@ export const Bosituasjon: FC = () => {
   return (
     <Side
       stønadstype={stønadstype}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.bosituasjon' })}
+      stegtittel={hentTekst('stegtittel.bosituasjon', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
       routesStønad={routes}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';

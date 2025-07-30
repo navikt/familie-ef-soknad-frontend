@@ -8,9 +8,8 @@ import { hentPath } from '../../../../utils/routing';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { GjenbrukKnapp } from './GjenbrukKnapp';
 import styled from 'styled-components';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ESkjemanavn } from '../../../../utils/skjemanavn';
 
 const Gjenbruk: FC = () => {
@@ -46,10 +45,7 @@ const Gjenbruk: FC = () => {
           <GuidePanel poster>
             <BodyShortContainer>
               <BodyShort>
-                {hentBeskjedMedNavn(
-                  søknad.person.søker.forkortetNavn,
-                  intl.formatMessage({ id: 'skjema.hei' })
-                )}
+                {hentTekstMedEnVariabel('skjema.hei', intl, søknad.person.søker.forkortetNavn)}
               </BodyShort>
 
               <BodyShort>{hentTekst('tidligere.barnetilsyn.søknad.finnes', intl)}</BodyShort>

@@ -8,6 +8,7 @@ import { BodyShort, Box, Heading } from '@navikt/ds-react';
 import { KnappLocaleTekstOgNavigate } from '../../../components/knapper/KnappLocaleTekstOgNavigate';
 import Stegindikator from '../../../components/stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../../utils/stegindikator';
+import { hentTekst } from '../../../utils/teksthåndtering';
 
 interface ISide {
   tittel: string;
@@ -54,7 +55,7 @@ const Side: React.FC<ISide> = ({
           <>
             {!erSpørsmålBesvart && (
               <BodyShort size="small" className={'side__uu-tekst'}>
-                {intl.formatMessage({ id: 'knapp.uu-tekst' })}
+                {hentTekst('knapp.uu-tekst', intl)}
               </BodyShort>
             )}
             <div className={erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper'}>

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
-import { hentTekst, hentTekstMedVariabel } from '../../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/teksthåndtering';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
@@ -53,15 +53,15 @@ const Utenlandsopphold: FC<Props> = ({
     oppholdsnr,
     hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
   );
-  const begrunnelseTekst = hentTekstMedVariabel(
+  const begrunnelseTekst = hentTekstMedEnVariabel(
     'medlemskap.periodeBoddIUtlandet.begrunnelse',
     intl,
-    { 0: utenlandsopphold.land?.verdi || '' }
+    utenlandsopphold.land?.verdi || ''
   );
-  const sisteAdresseTekst = hentTekstMedVariabel(
+  const sisteAdresseTekst = hentTekstMedEnVariabel(
     'medlemskap.periodeBoddIUtlandet.sisteAdresse',
     intl,
-    { 0: utenlandsopphold.land?.verdi || '' }
+    utenlandsopphold.land?.verdi || ''
   );
 
   const landConfig = utenlandsoppholdLand(land);
@@ -97,7 +97,7 @@ const Utenlandsopphold: FC<Props> = ({
       land: {
         spørsmålid: spørsmål.søknadid,
         svarid: svar.id,
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar.svar_tekst,
       },
       erEøsLand: land.find((l) => l.id === svar.id)?.erEøsland || false,

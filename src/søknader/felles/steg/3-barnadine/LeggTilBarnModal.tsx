@@ -7,11 +7,11 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentNyttBarn } from '../../../../helpers/steg/barn';
 import { ESvar } from '../../../../models/felles/spørsmålogsvar';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { Button } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { styled } from 'styled-components';
 import { ModalWrapper } from '../../../../components/Modal/ModalWrapper';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   tittel: string;
@@ -111,7 +111,7 @@ const LeggTilBarnModal: React.FC<Props> = ({
             aria-live="polite"
             onClick={() => leggTilEllerEndreBarn(id)}
           >
-            <LocaleTekst tekst={'barnadine.leggtil'} />
+            {hentTekst('barnadine.leggtil', intl)}
           </Button>
         )}
       </StyledSeksjonsgruppe>

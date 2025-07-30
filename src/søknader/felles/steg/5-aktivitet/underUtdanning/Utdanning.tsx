@@ -3,7 +3,7 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { IUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { linjeKursGrad } from './UtdanningConfig';
@@ -84,7 +84,7 @@ const Utdanning: React.FC<Props> = ({
   const utdanningTittel = hentTittelMedNr(
     tidligereUtdanninger!,
     utdanningsnummer,
-    intl.formatMessage({ id: 'utdanning.undertittel' })
+    hentTekst('utdanning.undertittel', intl)
   );
 
   const skalViseSlettKnapp = tidligereUtdanninger?.length > 1;

@@ -15,7 +15,6 @@ import { nyttTekstFelt } from '../../helpers/tommeSøknadsfelter';
 import { SøknadSkolepenger } from './models/søknad';
 import {
   hentMellomlagretSøknadFraDokument,
-  hentTekst,
   mellomlagreSøknadTilDokument,
   nullstillMellomlagretSøknadTilDokument,
 } from '../../utils/søknad';
@@ -30,6 +29,7 @@ import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType, LokalIntlShape } from '../../language/typer';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../../utils/barn';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadSkolepenger => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormProgress } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType } from '../../language/typer';
 

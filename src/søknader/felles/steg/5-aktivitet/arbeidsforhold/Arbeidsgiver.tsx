@@ -7,7 +7,7 @@ import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarS
 import HarSøkerSluttdato from './HarSøkerSluttdato';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import {
   EArbeidsgiver,
   EStilling,
@@ -106,7 +106,7 @@ const Arbeidsgiver: React.FC<Props> = ({
   const arbeidsgiverTittel = hentTittelMedNr(
     arbeidsforhold!,
     arbeidsgivernummer,
-    intl.formatMessage({ id: 'arbeidsforhold.tittel.arbeidsgiver' })
+    hentTekst('arbeidsforhold.tittel.arbeidsgiver', intl)
   );
   const navnLabel: string = hentTekst('arbeidsforhold.label.navn', intl);
   const arbeidsmengdeLabel: string = hentTekst('arbeidsforhold.label.arbeidsmengde', intl);

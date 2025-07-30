@@ -1,10 +1,10 @@
 import React from 'react';
 import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
-import LocaleTekst from '../../../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 const DatoForSamlivsbrudd: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
@@ -16,7 +16,7 @@ const DatoForSamlivsbrudd: React.FC = () => {
     settSivilstatus({
       ...sivilstatus,
       datoForSamlivsbrudd: {
-        label: intl.formatMessage({ id: tekstid }),
+        label: hentTekst(tekstid, intl),
         verdi: date,
       },
     });
@@ -32,7 +32,7 @@ const DatoForSamlivsbrudd: React.FC = () => {
           datobegrensning={DatoBegrensning.TidligereDatoer}
         />
         <AlertStripeDokumentasjon>
-          <LocaleTekst tekst={'sivilstatus.alert.samlivsbrudd'} />
+          {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
     </>
