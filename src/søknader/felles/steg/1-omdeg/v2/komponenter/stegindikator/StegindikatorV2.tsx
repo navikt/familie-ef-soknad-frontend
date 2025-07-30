@@ -2,7 +2,7 @@ import React from 'react';
 import { FormProgress } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { SøknadSteg } from './GenerelleSøknadSteg';
-import { hentTekst } from '../../../../../../../utils/teksthåndtering';
+import { hentTekst, hentTekstMedFlereVariabler } from '../../../../../../../utils/teksthåndtering';
 
 interface Props {
   steg: SøknadSteg[];
@@ -15,7 +15,18 @@ export const StegindikatorV2: React.FC<Props> = ({ steg, aktivtSteg }) => {
   const antallSteg = steg.length;
   const aktivtStegIndex = steg.findIndex((steg) => steg.id === aktivtSteg.id) + 1;
 
-  // TODO: Husk å sette oversettelser.
+  const stepTekst = hentTekstMedFlereVariabler('stegindikator.nåværendeSteg', intl, {
+    0: aktivtStegIndex.toString(),
+    1: antallSteg.toString(),
+  });
+  const showAllStepsTekst = hentTekst('stegindikator.visAlleSteg', intl);
+  const hideAllStepsTekst = hentTekst('stegindikator.skjulAlleSteg', intl);
+
+  const oversettelse = {
+    step: stepTekst,
+    showAllSteps: showAllStepsTekst,
+    hideAllSteps: hideAllStepsTekst,
+  };
 
   return (
     <FormProgress
@@ -23,6 +34,7 @@ export const StegindikatorV2: React.FC<Props> = ({ steg, aktivtSteg }) => {
       activeStep={aktivtStegIndex}
       onStepChange={() => {}}
       interactiveSteps={false}
+      translations={oversettelse}
     >
       {steg.map((steg) => (
         <FormProgress.Step key={steg.id}>{hentTekst(steg.stegKey, intl)}</FormProgress.Step>
