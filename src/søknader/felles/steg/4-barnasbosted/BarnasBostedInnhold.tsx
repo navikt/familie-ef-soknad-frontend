@@ -1,5 +1,5 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import BarnetsBostedLagtTil from './BarnetsBostedLagtTil';
 import BarnetsBostedEndre from './BarnetsBostedEndre';

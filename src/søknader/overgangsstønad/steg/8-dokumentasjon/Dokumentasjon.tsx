@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
+import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import SendSøknadKnapper from './SendSøknad';
 import { useLocation } from 'react-router-dom';
@@ -18,6 +18,7 @@ import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { DokumentasjonBeskrivelse } from '../../../felles/steg/8-dokumentasjon/DokumentasjonBeskrivelse';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();

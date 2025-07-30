@@ -4,6 +4,7 @@ import { EBarnepass, ETypeBarnepassOrdning, EÅrsakBarnepass } from '../../model
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { DokumentasjonsConfig } from '../../../felles/DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 // ----- DOKUMENTASJON
 
@@ -27,23 +28,19 @@ export const årsakBarnepass = (intl: LokalIntlShape): ISpørsmål => ({
   svaralternativer: [
     {
       id: EÅrsakBarnepass.trengerMerPassEnnJevnaldrede,
-      svar_tekst: intl.formatMessage({
-        id: 'barnepass.svar.trengerMerPassEnnJevnaldrede',
-      }),
+      svar_tekst: hentTekst('barnepass.svar.trengerMerPassEnnJevnaldrede', intl),
       alert_tekstid: 'barnepass.dokumentasjon.trengerMerPassEnnJevnaldrede',
       dokumentasjonsbehov: DokumentasjonTrengerMerPassEnnJevnaldrede,
     },
     {
       id: EÅrsakBarnepass.myeBortePgaJobb,
-      svar_tekst: intl.formatMessage({ id: 'barnepass.svar.myeBortePgaJobb' }),
+      svar_tekst: hentTekst('barnepass.svar.myeBortePgaJobb', intl),
       alert_tekstid: 'barnepass.dokumentasjon.arbeidstid',
       dokumentasjonsbehov: DokumentasjonMyeBortePgaJobb,
     },
     {
       id: EÅrsakBarnepass.utenomVanligArbeidstid,
-      svar_tekst: intl.formatMessage({
-        id: 'barnepass.svar.utenomVanligArbeidstid',
-      }),
+      svar_tekst: hentTekst('barnepass.svar.utenomVanligArbeidstid', intl),
       alert_tekstid: 'barnepass.dokumentasjon.arbeidstid',
       dokumentasjonsbehov: DokumentasjonUtenomVanligArbeidstid,
     },
@@ -57,14 +54,12 @@ export const HvaSlagsBarnepassOrdningSpm = (intl: LokalIntlShape): ISpørsmål =
   svaralternativer: [
     {
       id: ETypeBarnepassOrdning.barnehageOgLiknende,
-      svar_tekst: intl.formatMessage({
-        id: 'hvaSlagsOrdning.svar.barnehageOgLiknende',
-      }),
+      svar_tekst: hentTekst('hvaSlagsOrdning.svar.barnehageOgLiknende', intl),
       dokumentasjonsbehov: FakturaFraBarnepassordning,
     },
     {
       id: ETypeBarnepassOrdning.privat,
-      svar_tekst: intl.formatMessage({ id: 'hvaSlagsOrdning.svar.privat' }),
+      svar_tekst: hentTekst('hvaSlagsOrdning.svar.privat', intl),
       dokumentasjonsbehov: AvtaleMedBarnepasser,
     },
   ],
@@ -81,13 +76,11 @@ export const SøkerDuStønadFraBestemtMndSpm = (intl: LokalIntlShape): ISpørsm�
   svaralternativer: [
     {
       id: ESøkerFraBestemtMåned.ja,
-      svar_tekst: intl.formatMessage({ id: 'svar.ja' }),
+      svar_tekst: hentTekst('svar.ja', intl),
     },
     {
       id: ESøkerFraBestemtMåned.neiNavKanVurdere,
-      svar_tekst: intl.formatMessage({
-        id: 'søkerFraBestemtMåned.svar.neiNavKanVurdere',
-      }),
+      svar_tekst: hentTekst('søkerFraBestemtMåned.svar.neiNavKanVurdere', intl),
     },
   ],
 });

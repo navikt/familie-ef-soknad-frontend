@@ -10,6 +10,7 @@ import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
 import { ForrigeSøknad } from '../søknader/barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
+import { hentTekst } from './teksthåndtering';
 
 const axiosConfig = {
   withCredentials: true,
@@ -64,18 +65,6 @@ export const nullstillMellomlagretSøknadTilDokument = (
   stønadstype: MellomlagredeStønadstyper
 ): Promise<string> => {
   return axios.delete(`${Environment().mellomlagerProxyUrl + stønadstype}`, axiosConfig);
-};
-
-export const hentTekst = (id: string, intl: LokalIntlShape) => {
-  return intl.formatMessage({ id: id });
-};
-
-export const hentTekstMedVariabel = (
-  id: string,
-  intl: LokalIntlShape,
-  variabel?: Record<string, string>
-) => {
-  return intl.formatMessage({ id: id }, variabel);
 };
 
 export const fraStringTilTall = (tallAvTypenStreng: string) => {

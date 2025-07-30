@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
@@ -11,6 +10,8 @@ import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { IFirma } from '../../../../../models/steg/aktivitet/firma';
 import OmFirmaetDitt from './OmFirmaetDitt';
 import { Heading, Label } from '@navikt/ds-react';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
   arbeidssituasjon: IAktivitet;
@@ -38,6 +39,7 @@ const OmFirmaeneDine: React.FC<Props> = ({
   inkludertArbeidsmengde = true,
   overskuddsår,
 }) => {
+  const intl = useLokalIntlContext();
   const [firmaer, settFirmaer] = useState<IFirma[]>(
     arbeidssituasjon.firmaer ? arbeidssituasjon.firmaer : [tomtFirma(inkludertArbeidsmengde)]
   );
@@ -60,7 +62,7 @@ const OmFirmaeneDine: React.FC<Props> = ({
     <>
       <KomponentGruppe className={'sentrert'}>
         <Heading size="small" level="3">
-          <LocaleTekst tekst={'firmaer.tittel'} />
+          {hentTekst('firmaer.tittel', intl)}
         </Heading>
       </KomponentGruppe>
       {firmaer?.map((firma, index) => {
@@ -80,11 +82,9 @@ const OmFirmaeneDine: React.FC<Props> = ({
       {erSisteFirmaUtfylt(firmaer) && (
         <KomponentGruppe>
           <FeltGruppe>
-            <Label as="p">
-              <LocaleTekst tekst={'firmaer.label.flereFirmaer'} />
-            </Label>
+            <Label as="p">{hentTekst('firmaer.label.flereFirmaer', intl)}</Label>
             <LeggTilKnapp onClick={() => leggTilFirma()}>
-              <LocaleTekst tekst={'firmaer.knapp.leggTilFirma'} />
+              {hentTekst('firmaer.knapp.leggTilFirma', intl)}
             </LeggTilKnapp>
           </FeltGruppe>
         </KomponentGruppe>

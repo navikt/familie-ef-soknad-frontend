@@ -17,7 +17,6 @@ import {
   hentFeltObjekt,
   hentMellomlagretSøknadFraDokument,
   hentPersonData,
-  hentTekst,
   mellomlagreSøknadTilDokument,
   nullstillMellomlagretSøknadTilDokument,
 } from '../../utils/søknad';
@@ -38,6 +37,7 @@ import {
   utfyltNødvendigSpørsmålUtenOppgiAnnenForelder,
 } from '../../helpers/steg/forelder';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const initialState = (intl: LokalIntlShape): SøknadBarnetilsyn => {
   return {

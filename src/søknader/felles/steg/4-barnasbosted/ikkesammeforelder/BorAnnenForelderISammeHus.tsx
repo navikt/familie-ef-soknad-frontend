@@ -3,7 +3,7 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { borAnnenForelderISammeHus } from '../ForeldreConfig';
 import { EBorAnnenForelderISammeHus } from '../../../../../models/steg/barnasbosted';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { IForelder } from '../../../../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { IBarn } from '../../../../../models/steg/barn';
@@ -80,9 +80,7 @@ const BorAnnenForelderISammeHus: FC<Props> = ({ forelder, settForelder, barn }) 
                   : ''
               }
               onChange={settBorAnnenForelderISammeHusBeskrivelse}
-              label={intl.formatMessage({
-                id: 'barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse',
-              })}
+              label={hentTekst('barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse', intl)}
             />
           </FeltGruppe>
         </>

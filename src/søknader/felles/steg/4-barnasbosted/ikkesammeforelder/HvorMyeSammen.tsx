@@ -2,7 +2,7 @@ import { IForelder } from '../../../../../models/steg/forelder';
 import React, { FC } from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { hvorMyeSammen } from '../ForeldreConfig';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { EHvorMyeSammen } from '../../../../../models/steg/barnasbosted';

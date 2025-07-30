@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import {
@@ -21,7 +21,6 @@ import {
 } from '../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
@@ -130,9 +129,7 @@ const Aktivitet: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({
-        id: 'stegtittel.arbeidssituasjon.barnetilsyn',
-      })}
+      stegtittel={hentTekst('stegtittel.arbeidssituasjon.barnetilsyn', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}
@@ -150,12 +147,10 @@ const Aktivitet: React.FC = () => {
         {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
           <>
             <Alert variant={'info'} inline>
-              <Label as="p">
-                <LocaleTekst tekst={'erDuIArbeid.alertsstripe-info'} />
-              </Label>
+              <Label as="p">{hentHTMLTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
             </Alert>
             <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={'erDuIArbeid.alertsstripe-dokumentasjon'} />
+              {hentHTMLTekst('erDuIArbeid.alertsstripe-dokumentasjon', intl)}
             </AlertStripeDokumentasjon>
           </>
         )}

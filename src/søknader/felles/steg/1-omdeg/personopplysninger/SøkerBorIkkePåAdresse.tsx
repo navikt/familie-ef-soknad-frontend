@@ -1,9 +1,14 @@
 import { FC } from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import { Alert, BodyShort, Label } from '@navikt/ds-react';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import {
+  hentHTMLTekst,
+  hentHTMLTekstMedEnVariabel,
+  hentTekst,
+} from '../../../../../utils/teksthåndtering';
 
 interface Props {
   stønadstype: Stønadstype;
@@ -19,25 +24,25 @@ const lenkerPDFSøknad = {
 };
 
 const SøkerBorIkkePåAdresse: FC<Props> = ({ stønadstype }) => {
+  const intl = useLokalIntlContext();
   return (
     <>
       <KomponentGruppe>
         <Alert size="small" variant="warning" inline>
-          <LocaleTekst tekst={'personopplysninger.alert.riktigAdresse'} />
+          {hentHTMLTekst('personopplysninger.alert.riktigAdresse', intl)}
         </Alert>
       </KomponentGruppe>
       <KomponentGruppe>
         <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst={'personopplysninger.info.endreAdresse'} />
-          </Label>
+          <Label as="p">{hentTekst('personopplysninger.info.endreAdresse', intl)}</Label>
         </FeltGruppe>
         <FeltGruppe>
           <BodyShort>
-            <LocaleTekst
-              tekst={'personopplysninger.lenke.pdfskjema'}
-              replaceArgument0={lenkerPDFSøknad[stønadstype]}
-            />
+            {hentHTMLTekstMedEnVariabel(
+              `personopplysninger.lenke.pdfskjema`,
+              intl,
+              lenkerPDFSøknad[stønadstype]
+            )}
           </BodyShort>
         </FeltGruppe>
       </KomponentGruppe>

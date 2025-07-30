@@ -1,6 +1,7 @@
-import LocaleTekst from '../../language/LocaleTekst';
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 const StyledFeilmelding = styled.span`
   color: #ba3a26;
@@ -22,11 +23,8 @@ interface Props {
   tekstid: string;
 }
 const Feilmelding: FC<Props> = ({ className, tekstid }) => {
-  return (
-    <StyledFeilmelding className={className}>
-      <LocaleTekst tekst={tekstid} />
-    </StyledFeilmelding>
-  );
+  const intl = useLokalIntlContext();
+  return <StyledFeilmelding className={className}>{hentTekst(tekstid, intl)}</StyledFeilmelding>;
 };
 
 export default Feilmelding;

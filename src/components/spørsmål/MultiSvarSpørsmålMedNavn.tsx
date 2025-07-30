@@ -7,6 +7,7 @@ import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -47,7 +48,7 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
   const skjemanavn = urlTilSkjemanavn(url);
   const skjemaId = skjemanavnTilId(skjemanavn);
 
-  const spørsmålstekstUtenNavn = intl.formatMessage({ id: spørsmål.tekstid });
+  const spørsmålstekstUtenNavn = hentTekst(spørsmål.tekstid, intl);
 
   return (
     <StyledMultisvarSpørsmål key={spørsmål.søknadid}>

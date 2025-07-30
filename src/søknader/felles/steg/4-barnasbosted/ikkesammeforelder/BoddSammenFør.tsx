@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { boddSammenFør } from '../ForeldreConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
@@ -55,9 +55,7 @@ const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
               settForelder({
                 ...forelder,
                 flyttetFra: {
-                  label: intl.formatMessage({
-                    id: 'barnasbosted.normaltekst.nårflyttetfra',
-                  }),
+                  label: hentTekst('barnasbosted.normaltekst.nårflyttetfra', intl),
                   verdi: dato,
                 },
               });

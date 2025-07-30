@@ -1,5 +1,4 @@
 import React from 'react';
-import LocaleTekst from '../../language/LocaleTekst';
 import {
   ERouteArbeidssøkerskjema,
   RoutesArbeidssokerskjema,
@@ -15,8 +14,11 @@ import { Seksjon } from '../../components/forside/Seksjon';
 import { Overskrift } from '../../components/forside/Overskrift';
 import { Tekst } from '../../components/forside/Tekst';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
+  const intl = useLokalIntlContext();
   const { skjema, settSkjema } = useSkjema();
 
   useMount(() => logSidevisningArbeidssokerskjema('Forside'));
@@ -41,20 +43,20 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
           <VeilederBoks navn={visningsnavn} />
 
           <Heading level="1" size="xlarge">
-            <LocaleTekst tekst={'skjema.sidetittel'} />
+            {hentTekst('skjema.sidetittel', intl)}
           </Heading>
 
           <Seksjon>
             <Tekst tekst="forside.arbeidssøker.info" />
             <Tekst tekst="forside.arbeidssøker.krav" />
-            <LocaleTekst tekst="forside.arbeidssøker.lerMer" />
+            {hentHTMLTekst('forside.arbeidssøker.lerMer', intl)}
           </Seksjon>
 
           <Seksjon>
             <Overskrift tekst="forside.arbeidssøker.overskrift.riktigeOpplysninger" />
             <Tekst tekst="forside.arbeidssøker.riktigeOpplysninger" />
             <Tekst tekst="forside.arbeidssøker.meldeEndringer" />
-            <LocaleTekst tekst={'forside.arbeidssøker.personopplysningeneDineLenke'} />
+            {hentHTMLTekst('forside.arbeidssøker.personopplysningeneDineLenke', intl)}
           </Seksjon>
 
           <DisclaimerBoks

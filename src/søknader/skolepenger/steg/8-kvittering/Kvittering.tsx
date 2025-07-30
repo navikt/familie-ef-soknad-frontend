@@ -4,7 +4,6 @@ import Feilside from '../../../../components/feil/Feilside';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import TilleggsstønaderUnderUtdanning from '../../../felles/steg/9-kvittering/TilleggsstønaderUnderUtdanning';
 import { formatDateHour } from '../../../../utils/dato';
-import { hentTekst, oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
@@ -18,6 +17,8 @@ import { usePersonContext } from '../../../../context/PersonContext';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { Alert } from '@navikt/ds-react';
+import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -45,7 +46,7 @@ const Kvittering: React.FC = () => {
   return søknad.innsendingsdato ? (
     <Side
       stønadstype={Stønadstype.skolepenger}
-      stegtittel={intl.formatMessage({ id: 'kvittering.takk' })}
+      stegtittel={hentTekst('kvittering.takk', intl)}
       skalViseKnapper={ESide.skjulKnapper}
       routesStønad={RoutesSkolepenger}
       skalViseStegindikator={false}

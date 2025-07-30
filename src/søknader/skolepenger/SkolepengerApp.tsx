@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Feilside from '../../components/feil/Feilside';
 import hentToggles from '../../toggles/api';
-import { hentTekst, oppdaterBarnMedLabel } from '../../utils/søknad';
+import { oppdaterBarnMedLabel } from '../../utils/søknad';
 import { usePersonContext } from '../../context/PersonContext';
 import {
   autentiseringsInterceptor,
@@ -15,6 +15,7 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const SkolepengerApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);

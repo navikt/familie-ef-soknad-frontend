@@ -14,6 +14,7 @@ import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const UtdanningSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -39,7 +40,7 @@ const UtdanningSituasjon: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.skolepenger}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.utdanning' })}
+      stegtittel={hentTekst('stegtittel.utdanning', intl)}
       skalViseKnapper={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreSkolepenger}

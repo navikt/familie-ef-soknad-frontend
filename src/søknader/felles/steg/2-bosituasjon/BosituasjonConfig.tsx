@@ -4,6 +4,7 @@ import { JaNeiSvar } from '../../../../helpers/svar';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { DokumentasjonsConfig } from '../../DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 // --- Dokumentasjon
 
@@ -19,44 +20,32 @@ export const delerSøkerBoligMedAndreVoksne = (intl: LokalIntlShape): ISpørsmå
   svaralternativer: [
     {
       id: ESøkerDelerBolig.borSammenOgVenterBarn,
-      svar_tekst: intl.formatMessage({
-        id: 'bosituasjon.svar.borSammenOgVenterBarn',
-      }),
+      svar_tekst: hentTekst('bosituasjon.svar.borSammenOgVenterBarn', intl),
       alert_tekstid: 'bosituasjon.alert.borSammenOgVenterBarn',
     },
     {
       id: ESøkerDelerBolig.borMidlertidigFraHverandre,
-      svar_tekst: intl.formatMessage({
-        id: 'bosituasjon.svar.borMidlertidigFraHverandre',
-      }),
+      svar_tekst: hentTekst('bosituasjon.svar.borMidlertidigFraHverandre', intl),
       alert_tekstid: 'bosituasjon.alert.borMidlertidigFraHverandre',
     },
     {
       id: ESøkerDelerBolig.harEkteskapsliknendeForhold,
-      svar_tekst: intl.formatMessage({
-        id: 'bosituasjon.svar.harEkteskapsliknendeForhold',
-      }),
+      svar_tekst: hentTekst('bosituasjon.svar.harEkteskapsliknendeForhold', intl),
       alert_tekstid: 'bosituasjon.alert.harEkteskapsliknendeForhold',
     },
     {
       id: ESøkerDelerBolig.delerBoligMedAndreVoksne,
-      svar_tekst: intl.formatMessage({
-        id: 'bosituasjon.svar.delerBoligMedAndreVoksne',
-      }),
+      svar_tekst: hentTekst('bosituasjon.svar.delerBoligMedAndreVoksne', intl),
     },
     {
       id: ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse,
-      svar_tekst: intl.formatMessage({
-        id: 'bosituasjon.svar.tidligereSamboerFortsattRegistrertPåAdresse',
-      }),
+      svar_tekst: hentTekst('bosituasjon.svar.tidligereSamboerFortsattRegistrertPåAdresse', intl),
       alert_tekstid: 'bosituasjon.alert.tidligereSamboerFortsattRegistrertPåAdresse',
       dokumentasjonsbehov: DokumentasjonBorPåUlikeAdresser,
     },
     {
       id: ESøkerDelerBolig.borAleneMedBarnEllerGravid,
-      svar_tekst: intl.formatMessage({
-        id: 'bosituasjon.svar.borAleneMedBarnEllerGravid',
-      }),
+      svar_tekst: hentTekst('bosituasjon.svar.borAleneMedBarnEllerGravid', intl),
     },
   ],
 });

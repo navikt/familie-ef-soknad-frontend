@@ -2,7 +2,7 @@ import React from 'react';
 import endre from '../../../../assets/endre.svg';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import OppsummeringBarn from './OppsummeringBarn';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';

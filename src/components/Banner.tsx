@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import LocaleTekst from '../language/LocaleTekst';
 import { Heading } from '@navikt/ds-react';
+import { useLokalIntlContext } from '../context/LokalIntlContext';
+import { hentTekst } from '../utils/teksthåndtering';
 
 const StyledBanner = styled.div`
   width: 100%;
@@ -15,11 +16,10 @@ const StyledBanner = styled.div`
 `;
 
 const Banner: React.FC<{ tekstid: string }> = ({ tekstid }) => {
+  const intl = useLokalIntlContext();
   return (
     <StyledBanner>
-      <Heading size="large">
-        <LocaleTekst tekst={tekstid} />
-      </Heading>
+      <Heading size="large">{hentTekst(tekstid, intl)}</Heading>
     </StyledBanner>
   );
 };

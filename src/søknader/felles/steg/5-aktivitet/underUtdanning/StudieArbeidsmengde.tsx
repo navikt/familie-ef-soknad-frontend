@@ -2,7 +2,7 @@ import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert } from '@navikt/ds-react';
 import styled from 'styled-components';

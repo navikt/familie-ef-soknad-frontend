@@ -16,6 +16,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { useOmDeg } from '../OmDegContext';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
 const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -45,7 +46,7 @@ const Medlemskap: React.FC = () => {
     settMedlemskap({
       ...medlemskap,
       søkerBosattINorgeSisteTreÅr: {
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar,
       },
     });
@@ -57,7 +58,7 @@ const Medlemskap: React.FC = () => {
     settMedlemskap({
       ...medlemskap,
       søkerOppholderSegINorge: {
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar,
       },
     });
@@ -69,7 +70,7 @@ const Medlemskap: React.FC = () => {
       oppholdsland: {
         spørsmålid: spørsmål.søknadid,
         svarid: valgtSvar.id,
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: valgtSvar.svar_tekst,
       },
     });

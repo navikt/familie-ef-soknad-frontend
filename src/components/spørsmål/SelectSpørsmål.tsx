@@ -5,7 +5,7 @@ import { logSpørsmålBesvart } from '../../utils/amplitude';
 import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Select } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -24,7 +24,7 @@ const SelectSpørsmål: FC<Props> = ({
   const url = window.location.href;
   const skjemanavn = urlTilSkjemanavn(url);
   const skjemaId = skjemanavnTilId(skjemanavn);
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
+  const legend = hentTekst(spørsmål.tekstid, intl);
 
   const håndterSelectChange = (valgtVerdi: string) => {
     const svar = spørsmål.svaralternativer.find((svar) => svar.id === valgtVerdi);

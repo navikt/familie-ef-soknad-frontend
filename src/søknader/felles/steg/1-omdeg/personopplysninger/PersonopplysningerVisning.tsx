@@ -1,6 +1,6 @@
 import React from 'react';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Adresse } from '../../../../../models/søknad/person';
 import { utledFormatertSivilstand } from '../../../../../utils/sivilstatus';

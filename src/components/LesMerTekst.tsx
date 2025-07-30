@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import LocaleTekst from '../language/LocaleTekst';
-import { hentTekst } from '../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../utils/teksthåndtering';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
-import FormattedHtmlMessage from '../language/FormattedHtmlMessage';
 import { BodyShort, ReadMore } from '@navikt/ds-react';
 
 const StyledÅpenHjelpetekst = styled.div`
@@ -27,6 +25,7 @@ interface Props {
   innholdTekstid?: string;
   innholdTekst?: string | React.ReactNode;
   html?: boolean;
+  testID?: string;
 }
 
 const LesMerTekst: React.FC<Props> = ({
@@ -35,6 +34,7 @@ const LesMerTekst: React.FC<Props> = ({
   innholdTekstid,
   innholdTekst,
   html,
+  testID,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -43,7 +43,7 @@ const LesMerTekst: React.FC<Props> = ({
       <StyledÅpenHjelpetekst>
         <BodyShort>
           {innholdTekst && innholdTekst}
-          {!innholdTekst && innholdTekstid && <LocaleTekst tekst={innholdTekstid} />}
+          {!innholdTekst && innholdTekstid && hentHTMLTekst(innholdTekstid, intl)}
         </BodyShort>
       </StyledÅpenHjelpetekst>
     );
@@ -52,18 +52,14 @@ const LesMerTekst: React.FC<Props> = ({
       <>
         {halvåpenTekstid && (
           <StyledHalvåpenHjelpetekst>
-            <BodyShort>
-              <LocaleTekst tekst={halvåpenTekstid} />
-            </BodyShort>
+            <BodyShort>{hentTekst(halvåpenTekstid, intl)}</BodyShort>
           </StyledHalvåpenHjelpetekst>
         )}
-        <ReadMore header={hentTekst(åpneTekstid, intl)}>
+        <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
           <BodyShort>
             {innholdTekst && innholdTekst}
-            {!innholdTekst && innholdTekstid && html && (
-              <FormattedHtmlMessage id={innholdTekstid} />
-            )}
-            {!innholdTekst && innholdTekstid && !html && <LocaleTekst tekst={innholdTekstid} />}
+            {!innholdTekst && innholdTekstid && html && hentHTMLTekst(innholdTekstid, intl)}
+            {!innholdTekst && innholdTekstid && !html && hentHTMLTekst(innholdTekstid, intl)}
           </BodyShort>
         </ReadMore>
       </>

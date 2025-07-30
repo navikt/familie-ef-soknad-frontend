@@ -1,5 +1,5 @@
 import React from 'react';
-import { hentFeltObjekt, hentTekst } from '../../../../utils/søknad';
+import { hentFeltObjekt } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import LesMerTekst from '../../../../components/LesMerTekst';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
@@ -11,7 +11,6 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import Side, { ESide } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
 import { Alert, Label } from '@navikt/ds-react';
@@ -20,6 +19,7 @@ import {
   BarneKortWrapper,
 } from '../../../felles/steg/3-barnadine/BarnaDineInnhold';
 import styled from 'styled-components';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 
 const AlertContainer = styled.div`
   & > *:not(:first-child) {
@@ -68,9 +68,7 @@ const BarnaDine: React.FC = () => {
     >
       <BarnaDineContainer>
         <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst="barnetilsyn.tekst.hvilke" />
-          </Label>
+          <Label as="p">{hentTekst('barnetilsyn.tekst.hvilke', intl)}</Label>
           <LesMerTekst
             åpneTekstid={'barnetilsyn.hjelpetekst-åpne.hvilke'}
             innholdTekstid={'barnetilsyn.hjelpetekst-innhold.hvilke'}
@@ -89,7 +87,7 @@ const BarnaDine: React.FC = () => {
           )}
 
           <Alert size="small" variant="info" inline>
-            <LocaleTekst tekst={'barnadine.barnetilsyn.info.brukpdf'} />
+            {hentHTMLTekst('barnadine.barnetilsyn.info.brukpdf', intl)}
           </Alert>
         </AlertContainer>
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { hentTekst, unikeDokumentasjonsbehov } from '../../../../utils/søknad';
+import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
 import { useMount, usePrevious } from '../../../../utils/hooks';
 import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg';
@@ -19,6 +19,7 @@ import * as Sentry from '@sentry/browser';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { DokumentasjonBeskrivelse } from '../../../felles/steg/8-dokumentasjon/DokumentasjonBeskrivelse';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();

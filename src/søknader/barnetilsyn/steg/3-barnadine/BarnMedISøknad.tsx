@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import styled from 'styled-components';
 import { Checkbox } from '@navikt/ds-react';
 

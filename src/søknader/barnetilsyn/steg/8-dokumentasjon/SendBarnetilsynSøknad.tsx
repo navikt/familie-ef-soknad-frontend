@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -24,6 +23,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { useSpråkContext } from '../../../../context/SpråkContext';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Innsending {
   status: string;
@@ -112,16 +112,16 @@ const SendSøknadKnapper: FC = () => {
       {!validerSøkerBosattINorgeSisteFemÅr(søknad) && (
         <KomponentGruppe>
           <Alert size="small" variant={'warning'} inline>
-            <LocaleTekst tekst="dokumentasjon.alert.gåTilbake" />{' '}
+            {hentTekst('dokumentasjon.alert.gåTilbake', intl)}{' '}
             <Link
               to={{
                 pathname: hentPath(RoutesSkolepenger, ERouteSkolepenger.OmDeg),
               }}
               state={{ kommerFraOppsummering: true }}
             >
-              <LocaleTekst tekst="dokumentasjon.alert.link.fylleInn" />
+              {hentTekst('dokumentasjon.alert.link.fylleInn', intl)}
             </Link>
-            <LocaleTekst tekst="dokumentasjon.alert.manglende" />
+            {hentTekst('dokumentasjon.alert.manglende', intl)}
           </Alert>
         </KomponentGruppe>
       )}
@@ -132,7 +132,7 @@ const SendSøknadKnapper: FC = () => {
             variant={'secondary'}
             onClick={() => navigate(forrigeRoute.path)}
           >
-            <LocaleTekst tekst={'knapp.tilbake'} />
+            {hentTekst('knapp.tilbake', intl)}
           </Button>
 
           {validerSøkerBosattINorgeSisteFemÅr(søknad) && (
@@ -142,7 +142,7 @@ const SendSøknadKnapper: FC = () => {
               className={'neste'}
               loading={innsendingState.venter}
             >
-              <LocaleTekst tekst={'knapp.sendSøknad'} />
+              {hentTekst('knapp.sendSøknad', intl)}
             </Button>
           )}
           <Button
@@ -150,7 +150,7 @@ const SendSøknadKnapper: FC = () => {
             variant={'tertiary'}
             onClick={() => navigate(RoutesBarnetilsyn[0].path)}
           >
-            <LocaleTekst tekst={'knapp.avbryt'} />
+            {hentTekst('knapp.avbryt', intl)}
           </Button>
         </StyledKnapper>
       </SeksjonGruppe>

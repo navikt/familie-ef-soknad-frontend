@@ -1,5 +1,5 @@
 import { BodyShort, Button } from '@navikt/ds-react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import styled from 'styled-components';
 import React from 'react';
