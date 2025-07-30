@@ -21,7 +21,7 @@ export const OmsorgEndringForBarn: React.FC = () => {
   });
 
   return (
-    <DatePicker {...omsorgEndringDatePicker.datepickerProps}>
+    <DatePicker dropdownCaption {...omsorgEndringDatePicker.datepickerProps}>
       <DatePicker.Input
         {...omsorgEndringDatePicker.inputProps}
         label={hentTekst('sivilstatus.datovelger.endring', intl)}
