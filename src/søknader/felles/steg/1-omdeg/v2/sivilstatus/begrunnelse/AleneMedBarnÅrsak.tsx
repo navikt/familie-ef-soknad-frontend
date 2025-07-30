@@ -11,6 +11,14 @@ import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
 import LocaleTekst from '../../../../../../../language/LocaleTekst';
 
+export enum ÅrsakAleneMedBarn {
+  samlivsbruddForeldre = 'samlivsbruddForeldre',
+  samlivsbruddAndre = 'samlivsbruddAndre',
+  endringISamværsordning = 'endringISamværsordning',
+  aleneFraFødsel = 'aleneFraFødsel',
+  dødsfall = 'dødsfall',
+}
+
 export const AleneMedBarnÅrsak: React.FC = () => {
   const intl = useLokalIntlContext();
 
@@ -26,11 +34,17 @@ export const AleneMedBarnÅrsak: React.FC = () => {
   };
 
   const hvorforAlenedMedBarnSvarAlternativer: SvarAlternativ[] = [
-    { id: 'samlivsbruddForeldre', svarKey: 'sivilstatus.svar.samlivsbruddForeldre' },
-    { id: 'samlivsbruddAndre', svarKey: 'sivilstatus.svar.samlivsbruddAndre' },
-    { id: 'endringISamværsordning', svarKey: 'sivilstatus.svar.endringISamværsordning' },
-    { id: 'aleneFraFødsel', svarKey: 'sivilstatus.svar.aleneFraFødsel' },
-    { id: 'dødsfall', svarKey: 'sivilstatus.svar.dødsfall' },
+    {
+      id: ÅrsakAleneMedBarn.samlivsbruddForeldre,
+      svarKey: 'sivilstatus.svar.samlivsbruddForeldre',
+    },
+    { id: ÅrsakAleneMedBarn.samlivsbruddAndre, svarKey: 'sivilstatus.svar.samlivsbruddAndre' },
+    {
+      id: ÅrsakAleneMedBarn.endringISamværsordning,
+      svarKey: 'sivilstatus.svar.endringISamværsordning',
+    },
+    { id: ÅrsakAleneMedBarn.aleneFraFødsel, svarKey: 'sivilstatus.svar.aleneFraFødsel' },
+    { id: ÅrsakAleneMedBarn.dødsfall, svarKey: 'sivilstatus.svar.dødsfall' },
   ];
 
   const onÅrsakSøkerErAleneMedBarn = (svar: SvarAlternativ) => {
@@ -41,10 +55,14 @@ export const AleneMedBarnÅrsak: React.FC = () => {
     });
   };
 
-  const visDatoForSamvlivsbruddSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddForeldre';
-  const visOmDenTidligereSamboerenDinSpørsmål = søkerAleneMedBarnÅrsak?.id === 'samlivsbruddAndre';
-  const visOmsorgEndringDatoSpørsmål = søkerAleneMedBarnÅrsak?.id === 'endringISamværsordning';
-  const visAleneMedBarnGrunnetDødsfallAlert = søkerAleneMedBarnÅrsak?.id === 'dødsfall';
+  const visDatoForSamvlivsbruddSpørsmål =
+    søkerAleneMedBarnÅrsak?.id === ÅrsakAleneMedBarn.samlivsbruddForeldre;
+  const visOmDenTidligereSamboerenDinSpørsmål =
+    søkerAleneMedBarnÅrsak?.id === ÅrsakAleneMedBarn.samlivsbruddAndre;
+  const visOmsorgEndringDatoSpørsmål =
+    søkerAleneMedBarnÅrsak?.id === ÅrsakAleneMedBarn.endringISamværsordning;
+  const visAleneMedBarnGrunnetDødsfallAlert =
+    søkerAleneMedBarnÅrsak?.id === ÅrsakAleneMedBarn.dødsfall;
 
   return (
     <VStack gap={'6'}>
