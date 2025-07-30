@@ -25,7 +25,7 @@ export const PersonopplysningerV2: React.FC<Props> = ({
 
   return (
     <VStack gap={'4'}>
-      <Alert variant="info" inline={true}>
+      <Alert variant="info" size={'small'} inline>
         {personopplysningerAlertTekst}
       </Alert>
 
