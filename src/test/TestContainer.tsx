@@ -13,6 +13,8 @@ export const TestContainer: React.FC<Props> = ({ children }) => {
       <ContextProviders>
         <Router basename={'/'}>
           <Routes>
+            <Route path={'/barnetilsyn/*'} element={children} />
+            <Route path={'/skolepenger/*'} element={children} />
             <Route path={'*'} element={children} />
           </Routes>
         </Router>

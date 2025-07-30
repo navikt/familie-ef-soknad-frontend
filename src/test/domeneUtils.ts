@@ -29,6 +29,12 @@ import { Stønadstype } from '../models/søknad/stønadstyper';
 import { IMedforelder } from '../models/steg/medforelder';
 import { datoEnMånedTilbake, isoDatoEnMånedTilbake } from './dato';
 import { IForelder } from '../models/steg/forelder';
+import { MellomlagretSøknadBarnetilsyn } from '../søknader/barnetilsyn/models/mellomlagretSøknad';
+import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
+import { MellomlagretSøknadSkolepenger } from '../søknader/skolepenger/models/mellomlagretSøknad';
+import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
+import { IDetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
+import { IUnderUtdanning, IUtdanning } from '../models/steg/aktivitet/utdanning';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -48,6 +54,43 @@ export const lagSøknadOvergangsstønad = (
     locale: '',
     skalBehandlesINySaksbehandling: true,
     datoPåbegyntSøknad: undefined,
+    ...søknad,
+  };
+};
+
+export const lagSøknadBarnetilsyn = (søknad?: Partial<SøknadBarnetilsyn>): SøknadBarnetilsyn => {
+  return {
+    innsendingsdato: undefined,
+    person: lagPerson(),
+    søkerBorPåRegistrertAdresse: undefined,
+    sivilstatus: lagSivilstatus(),
+    medlemskap: lagMedlemskap(),
+    bosituasjon: lagBosituasjon(),
+    aktivitet: lagAktivitet(),
+    søkerFraBestemtMåned: undefined,
+    adresseopplysninger: undefined,
+    søknadsdato: undefined,
+    dokumentasjonsbehov: [],
+    harBekreftet: false,
+    datoPåbegyntSøknad: undefined,
+    locale: '',
+    ...søknad,
+  };
+};
+
+export const lagSøknadSkolepenger = (søknad?: Partial<SøknadSkolepenger>): SøknadSkolepenger => {
+  return {
+    innsendingsdato: undefined,
+    person: lagPerson(),
+    søkerBorPåRegistrertAdresse: undefined,
+    adresseopplysninger: undefined,
+    sivilstatus: lagSivilstatus(),
+    medlemskap: lagMedlemskap(),
+    bosituasjon: lagBosituasjon(),
+    utdanning: lagDetaljertUtdanning(),
+    dokumentasjonsbehov: [],
+    harBekreftet: false,
+    locale: '',
     ...søknad,
   };
 };
@@ -322,6 +365,30 @@ export const lagMellomlagretSøknadOvergangsstønad = (
   };
 };
 
+export const lagMellomlagretSøknadBarnetilsyn = (
+  søknad?: Partial<MellomlagretSøknadBarnetilsyn>
+): MellomlagretSøknadBarnetilsyn => {
+  return {
+    søknad: lagSøknadBarnetilsyn(),
+    modellVersjon: 7,
+    gjeldendeSteg: '/',
+    locale: '',
+    ...søknad,
+  };
+};
+
+export const lagMellomlagretSøknadSkolepenger = (
+  søknad?: Partial<MellomlagretSøknadSkolepenger>
+): MellomlagretSøknadSkolepenger => {
+  return {
+    søknad: lagSøknadSkolepenger(),
+    modellVersjon: 7,
+    gjeldendeSteg: '/',
+    locale: '',
+    ...søknad,
+  };
+};
+
 export const lagSistInnsendteSøknad = (
   søknad?: Partial<SistInnsendteSøknad>
 ): SistInnsendteSøknad => {
@@ -329,5 +396,40 @@ export const lagSistInnsendteSøknad = (
     søknadsdato: isoDatoEnMånedTilbake,
     stønadType: Stønadstype.overgangsstønad,
     ...søknad,
+  };
+};
+
+export const lagDetaljertUtdanning = (
+  detaljertUtdanning?: Partial<IDetaljertUtdanning>
+): IDetaljertUtdanning => {
+  return {
+    semesteravgift: undefined,
+    studieavgift: undefined,
+    eksamensgebyr: undefined,
+    ...lagUnderUtdanning(),
+    ...detaljertUtdanning,
+  };
+};
+
+export const lagUnderUtdanning = (underUtdanning?: Partial<IUnderUtdanning>) => {
+  return {
+    skoleUtdanningssted: lagTekstfelt(),
+    offentligEllerPrivat: undefined,
+    heltidEllerDeltid: undefined,
+    arbeidsmengde: undefined,
+    målMedUtdanning: undefined,
+    harTattUtdanningEtterGrunnskolen: undefined,
+    tidligereUtdanning: undefined,
+    ...lagUtdanning(),
+    ...underUtdanning,
+  };
+};
+
+export const lagUtdanning = (utdanning?: Partial<IUtdanning>): IUtdanning => {
+  return {
+    id: '1',
+    linjeKursGrad: undefined,
+    periode: undefined,
+    ...utdanning,
   };
 };
