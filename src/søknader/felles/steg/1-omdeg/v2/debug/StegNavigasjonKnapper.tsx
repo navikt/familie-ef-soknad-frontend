@@ -36,7 +36,7 @@ export const StegNavigasjonKnapper: React.FC = () => {
         )}
       </HStack>
 
-      <div>
+      <div className={styles.container}>
         <Button variant="tertiary" size="medium">
           {hentTekst('knapp.avbryt', intl)}
         </Button>
