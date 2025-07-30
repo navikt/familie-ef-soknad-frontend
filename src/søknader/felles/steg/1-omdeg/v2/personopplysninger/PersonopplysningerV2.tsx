@@ -2,12 +2,13 @@ import React from 'react';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
+import { Adresse } from '../../../../../../models/søknad/person';
 
 interface Props {
   personIdent: string;
   statsborgerskap: string;
   sivilstatus: string;
-  adresse?: string;
+  adresse?: Adresse;
 }
 
 export const PersonopplysningerV2: React.FC<Props> = ({
@@ -20,7 +21,7 @@ export const PersonopplysningerV2: React.FC<Props> = ({
 
   const personopplysningerAlertTekst = hentTekst('personopplysninger.alert.infohentet', intl);
 
-  const visAdresseFelt = adresse !== undefined;
+  const visAdresseFelt = adresse !== undefined && adresse?.adresse.length !== 0;
 
   return (
     <VStack gap={'4'}>
@@ -53,7 +54,10 @@ export const PersonopplysningerV2: React.FC<Props> = ({
         <VStack align={'start'}>
           <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
           <BodyShort size="medium" weight="regular">
-            {adresse}
+            {adresse?.adresse}
+          </BodyShort>
+          <BodyShort size="medium" weight="regular">
+            {adresse.poststed ? `${adresse.postnummer} - ${adresse.poststed}` : adresse.postnummer}
           </BodyShort>
         </VStack>
       )}

@@ -24,7 +24,7 @@ export const OmDegV2: React.FC = () => {
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
         sivilstatus={søker.sivilstand}
-        adresse={søker.adresse.adresse} // TODO: Fix denne så adresse er formatert med post nummer og sted.
+        adresse={søker.adresse}
       />
 
       <Adresseopplysninger />
