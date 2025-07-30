@@ -29,6 +29,8 @@ import { Stønadstype } from '../models/søknad/stønadstyper';
 import { IMedforelder } from '../models/steg/medforelder';
 import { datoEnMånedTilbake, isoDatoEnMånedTilbake } from './dato';
 import { IForelder } from '../models/steg/forelder';
+import { MellomlagretSøknadBarnetilsyn } from '../søknader/barnetilsyn/models/mellomlagretSøknad';
+import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -48,6 +50,26 @@ export const lagSøknadOvergangsstønad = (
     locale: '',
     skalBehandlesINySaksbehandling: true,
     datoPåbegyntSøknad: undefined,
+    ...søknad,
+  };
+};
+
+export const lagSøknadBarnetilsyn = (søknad?: Partial<SøknadBarnetilsyn>): SøknadBarnetilsyn => {
+  return {
+    innsendingsdato: undefined,
+    person: lagPerson(),
+    søkerBorPåRegistrertAdresse: undefined,
+    sivilstatus: lagSivilstatus(),
+    medlemskap: lagMedlemskap(),
+    bosituasjon: lagBosituasjon(),
+    aktivitet: lagAktivitet(),
+    søkerFraBestemtMåned: undefined,
+    adresseopplysninger: undefined,
+    søknadsdato: undefined,
+    dokumentasjonsbehov: [],
+    harBekreftet: false,
+    datoPåbegyntSøknad: undefined,
+    locale: '',
     ...søknad,
   };
 };
@@ -315,6 +337,18 @@ export const lagMellomlagretSøknadOvergangsstønad = (
 ): MellomlagretSøknadOvergangsstønad => {
   return {
     søknad: lagSøknadOvergangsstønad(),
+    modellVersjon: 7,
+    gjeldendeSteg: '/',
+    locale: '',
+    ...søknad,
+  };
+};
+
+export const lagMellomlagretSøknadBarnetilsyn = (
+  søknad?: Partial<MellomlagretSøknadBarnetilsyn>
+): MellomlagretSøknadBarnetilsyn => {
+  return {
+    søknad: lagSøknadBarnetilsyn(),
     modellVersjon: 7,
     gjeldendeSteg: '/',
     locale: '',

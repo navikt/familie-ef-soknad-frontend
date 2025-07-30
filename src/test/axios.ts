@@ -4,6 +4,7 @@ import {
   lagDatoFelt,
   lagIBarn,
   lagIMedforelder,
+  lagMellomlagretSøknadBarnetilsyn,
   lagMellomlagretSøknadOvergangsstønad,
   lagPerson,
   lagPersonData,
@@ -48,7 +49,10 @@ export const mockGet = (url: string, stønadstype: StønadType) => {
   }
   if (url === `${Environment().mellomlagerProxyUrl + stønadstype}`) {
     return Promise.resolve({
-      data: lagMellomlagretSøknadOvergangsstønad(),
+      data:
+        stønadstype === 'overgangsstonad'
+          ? lagMellomlagretSøknadOvergangsstønad()
+          : lagMellomlagretSøknadBarnetilsyn(),
     });
   }
   if (url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`) {
