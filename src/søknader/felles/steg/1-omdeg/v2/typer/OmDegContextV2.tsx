@@ -26,7 +26,7 @@ export interface SivilstatusData {
 export interface MedlemskapData {
   søkerOgBarnOppholderSegINorge?: boolean;
   oppholdsland?: ILandMedKode;
-  søkerBosattINorgeSisteTreÅr?: boolean;
+  søkerBosattINorgeSiste5År?: boolean;
   perioderBoddIUtlandet?: UtenlandsoppholdPeriode[];
 }
 
