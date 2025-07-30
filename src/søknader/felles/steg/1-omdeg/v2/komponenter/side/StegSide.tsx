@@ -4,10 +4,10 @@ import { SøknadBanner } from './SøknadBanner';
 import { StegindikatorV2 } from '../stegindikator/StegindikatorV2';
 import { GenerelleSøknadSteg, SøknadSteg } from '../stegindikator/GenerelleSøknadSteg';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../../../utils/søknad';
 import styles from './StegSide.module.css';
 import { hentBannerKey } from '../../../../../../../utils/stønadstype';
 import { Stønadstype } from '../../../../../../../models/søknad/stønadstyper';
+import { hentTekst } from '../../../../../../../utils/teksthåndtering';
 
 interface Props {
   stønadstype: Stønadstype;

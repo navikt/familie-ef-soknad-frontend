@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 interface Props {
   personIdent: string;

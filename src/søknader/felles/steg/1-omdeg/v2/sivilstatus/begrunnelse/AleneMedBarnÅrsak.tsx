@@ -3,13 +3,12 @@ import { StegSpørsmål, SvarAlternativ } from '../../komponenter/SpørsmålSvar
 import { SpørsmålWrapper } from '../../komponenter/SpørsmålWrapper';
 import { Alert, VStack } from '@navikt/ds-react';
 import { RadioSpørsmål } from '../../komponenter/RadioSpørsmål';
-import { hentTekst } from '../../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { OmsorgEndringForBarn } from './OmsorgEndringForBarn';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
-import LocaleTekst from '../../../../../../../language/LocaleTekst';
+import { hentTekst } from '../../../../../../../utils/teksthåndtering';
 
 export enum ÅrsakAleneMedBarn {
   samlivsbruddForeldre = 'samlivsbruddForeldre',
@@ -83,7 +82,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
 
         {visAleneMedBarnGrunnetDødsfallAlert && (
           <Alert variant={'info'} size={'small'} inline>
-            <LocaleTekst tekst={hentTekst('sivilstatus.alert.dødsfall', intl)}></LocaleTekst>
+            {hentTekst('sivilstatus.alert.dødsfall', intl)}
           </Alert>
         )}
       </VStack>

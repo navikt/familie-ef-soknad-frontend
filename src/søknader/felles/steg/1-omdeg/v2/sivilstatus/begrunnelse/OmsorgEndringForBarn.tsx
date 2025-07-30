@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { DatePicker, useDatepicker } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../../../utils/søknad';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
+import { hentTekst } from '../../../../../../../utils/teksthåndtering';
 
 export const OmsorgEndringForBarn: React.FC = () => {
   const intl = useLokalIntlContext();

@@ -5,11 +5,11 @@ import { PlusCircleFillIcon } from '@navikt/aksel-icons';
 import { StegSpørsmål } from '../komponenter/SpørsmålSvarStruktur';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
-import { hentTekst } from '../../../../../../utils/søknad';
 import styles from '../komponenter/SpørsmålWrapper.module.css';
 import { UtenlandsoppholdSkjema } from './UtenlandsoppholdSkjema';
 import { opprettTomPeriode, kanLeggeTilNyPeriode } from './utils';
 import { UtenlandsoppholdPeriode } from './typer';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 interface Props {
   onPerioderOppdatert: (perioder: UtenlandsoppholdPeriode[]) => void;

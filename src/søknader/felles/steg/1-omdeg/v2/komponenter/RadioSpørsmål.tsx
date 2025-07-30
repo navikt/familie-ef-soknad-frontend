@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../../utils/søknad';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import styles from './RadioSpørsmål.module.css';
 import clsx from 'clsx';
 import { StegSpørsmål, SvarAlternativ } from './SpørsmålSvarStruktur';

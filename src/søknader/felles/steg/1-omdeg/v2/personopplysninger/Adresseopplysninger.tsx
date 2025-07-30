@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { Alert, Heading, VStack } from '@navikt/ds-react';
 import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
-import LocaleTekst from '../../../../../../language/LocaleTekst';
 import styles from './Adresseopplysninger.module.css';
-import { hentTekst } from '../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 export const Adresseopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -70,14 +69,14 @@ export const Adresseopplysninger: React.FC = () => {
           {visSøkerHarMeldtAdresseEndringAlert && (
             <Alert variant={'info'} size={'small'} inline>
               {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
-              <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
+              {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
             </Alert>
           )}
 
           {visSøkerMåMeldeAdresseEndringAlert && (
             <Alert variant={'warning'} size={'small'} inline>
               {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
-              <LocaleTekst tekst={'personopplysninger.alert.riktigAdresse'} />
+              {hentTekst('personopplysninger.alert.riktigAdresse', intl)}
             </Alert>
           )}
         </VStack>
@@ -89,7 +88,7 @@ export const Adresseopplysninger: React.FC = () => {
             {hentTekst('personopplysninger.info.endreAdresse', intl)}
           </Heading>
           {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
-          <LocaleTekst tekst={hentTekst('personopplysninger.lenke.pdfskjema', intl)} />
+          {hentTekst('personopplysninger.lenke.pdfskjema', intl)}
         </VStack>
       )}
     </VStack>

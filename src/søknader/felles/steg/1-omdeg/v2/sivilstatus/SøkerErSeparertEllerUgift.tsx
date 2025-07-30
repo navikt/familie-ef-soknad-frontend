@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { JaNeiSpørsmålV2, useJaNeiBoolean } from '../komponenter/JaNeiSpørsmålV2';
 import { Alert, VStack } from '@navikt/ds-react';
-import { hentTekst } from '../../../../../../utils/søknad';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
 

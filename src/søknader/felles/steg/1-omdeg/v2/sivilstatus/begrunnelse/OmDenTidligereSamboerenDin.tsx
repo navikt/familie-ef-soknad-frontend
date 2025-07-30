@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Checkbox, Heading, TextField, VStack, DatePicker, useDatepicker } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../../../../context/LokalIntlContext';
 import { identErGyldig } from '../../../../../../../utils/validering/validering';
-import { hentTekst } from '../../../../../../../utils/søknad';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
+import { hentTekst } from '../../../../../../../utils/teksthåndtering';
 
 export interface DinTidligereSamboer {
   navn: string;

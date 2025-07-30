@@ -2,8 +2,8 @@ import React from 'react';
 import { BodyShort, Button, HStack, VStack } from '@navikt/ds-react';
 import styles from './StegNavigasjonKnapper.module.css';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
-import { hentTekst } from '../../../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 export const StegNavigasjonKnapper: React.FC = () => {
   const intl = useLokalIntlContext();

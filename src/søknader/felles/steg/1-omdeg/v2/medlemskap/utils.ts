@@ -1,7 +1,7 @@
-import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { UtenlandsoppholdPeriode, PeriodeVisningsregler } from './typer';
 import { LokalIntlShape } from '../../../../../../language/typer';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 export const opprettTomPeriode = (): UtenlandsoppholdPeriode => ({
   id: crypto.randomUUID(), // TODO: Denne trengs muligens ikke, bare glem den.

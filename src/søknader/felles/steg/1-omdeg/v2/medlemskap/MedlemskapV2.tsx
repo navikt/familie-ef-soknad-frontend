@@ -5,11 +5,11 @@ import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStr
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { useSpråkContext } from '../../../../../../context/SpråkContext';
 import { hentLand } from '../../medlemskap/MedlemskapConfig';
-import { hentTekst } from '../../../../../../utils/søknad';
 import { ILandMedKode } from '../../../../../../models/steg/omDeg/medlemskap';
 import { UtenlandsoppholdV2 } from './UtenlandsoppholdV2';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
 import { UtenlandsoppholdPeriode } from './typer';
+import { hentTekst } from '../../../../../../utils/teksthåndtering';
 
 export const MedlemskapV2: React.FC = () => {
   const intl = useLokalIntlContext();

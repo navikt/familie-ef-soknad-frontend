@@ -14,11 +14,11 @@ import {
   VStack,
 } from '@navikt/ds-react';
 import { TrashIcon } from '@navikt/aksel-icons';
-import { hentTekst, hentTekstMedVariabel } from '../../../../../../utils/søknad';
 import { SpørsmålWrapper } from '../komponenter/SpørsmålWrapper';
 import styles from '../komponenter/SpørsmålWrapper.module.css';
 import { finnLand, utledVisningsregler } from './utils';
 import { SkjemaProps } from './typer';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../../../utils/teksthåndtering';
 
 export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
   periode,
@@ -52,10 +52,10 @@ export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
       ? hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
       : `${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${periodeNummer}`;
 
-  const begrunnelseTekst = hentTekstMedVariabel(
+  const begrunnelseTekst = hentTekstMedEnVariabel(
     'medlemskap.periodeBoddIUtlandet.begrunnelse',
     intl,
-    { 0: periode.land }
+    periode.land
   );
 
   const handleLandEndring = (nyttLand: string) => {
@@ -148,9 +148,11 @@ export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
         <VStack gap="6">
           <VStack gap="4">
             <Heading size="xsmall" className={styles.heading}>
-              {hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.utenlandskIDNummer', intl, {
-                0: periode.land,
-              })}
+              {hentTekstMedEnVariabel(
+                'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer',
+                intl,
+                periode.land
+              )}
             </Heading>
             <ReadMore header={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}>
               {hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
@@ -158,10 +160,10 @@ export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
           </VStack>
 
           <TextField
-            label={hentTekstMedVariabel(
+            label={hentTekstMedEnVariabel(
               'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer',
               intl,
-              { 0: periode.land }
+              periode.land
             )}
             hideLabel
             value={periode.idNummer}
@@ -173,18 +175,22 @@ export const UtenlandsoppholdSkjema: React.FC<SkjemaProps> = ({
             checked={periode.harIkkeIdNummer}
             onChange={(e) => handleIdNummerCheckbox(e.target.checked)}
           >
-            {hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.harIkkeIdNummer', intl, {
-              0: periode.land,
-            })}
+            {hentTekstMedEnVariabel(
+              'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer',
+              intl,
+              periode.land
+            )}
           </Checkbox>
         </VStack>
       )}
 
       {visningsregler.skalViseSisteAdresse && (
         <TextField
-          label={hentTekstMedVariabel('medlemskap.periodeBoddIUtlandet.sisteAdresse', intl, {
-            0: periode.land,
-          })}
+          label={hentTekstMedEnVariabel(
+            'medlemskap.periodeBoddIUtlandet.sisteAdresse',
+            intl,
+            periode.land
+          )}
           value={periode.sisteAdresse}
           onChange={(e) => onOppdater({ sisteAdresse: e.target.value })}
         />
