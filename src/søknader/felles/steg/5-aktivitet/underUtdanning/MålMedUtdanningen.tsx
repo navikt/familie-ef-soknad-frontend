@@ -1,10 +1,9 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { BodyShort, Label, Textarea } from '@navikt/ds-react';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
@@ -38,11 +37,9 @@ const MålMedUtdanningen: React.FC<Props> = ({ utdanning, oppdaterUtdanning, st�
 
       <FeltGruppe>
         <AlertStripeDokumentasjon>
-          <Label as="p">
-            <LocaleTekst tekst="utdanning.alert-tittel.mål" />
-          </Label>
+          <Label as="p"> {hentTekst('utdanning.alert-tittel.mål', intl)} </Label>
           <BodyShort>
-            <LocaleTekst tekst={`utdanning.alert-beskrivelse.mål.${stønadstype}`} />
+            {hentHTMLTekst(`utdanning.alert-beskrivelse.mål.${stønadstype}`, intl)}
           </BodyShort>
         </AlertStripeDokumentasjon>
       </FeltGruppe>

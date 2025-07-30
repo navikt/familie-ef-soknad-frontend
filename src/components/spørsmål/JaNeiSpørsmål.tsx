@@ -7,6 +7,7 @@ import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const StyledJaNeiSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -41,7 +42,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
   const skjemanavn = urlTilSkjemanavn(url);
   const skjemaId = skjemanavnTilId(skjemanavn);
 
-  const spørsmålTekst: string = intl.formatMessage({ id: spørsmål.tekstid });
+  const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
 
   const onClickHandle = (
     e: SyntheticEvent<EventTarget, Event>,

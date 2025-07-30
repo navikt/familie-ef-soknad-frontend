@@ -1,4 +1,4 @@
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import React from 'react';

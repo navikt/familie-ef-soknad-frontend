@@ -1,10 +1,11 @@
 import { FC } from 'react';
-import LocaleTekst from '../../language/LocaleTekst';
 import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { IRoute } from '../../models/routes';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 const StyledNavigeringsKnapper = styled.div`
   padding: 2rem;
@@ -74,6 +75,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   disableNesteKnapp,
   mellomlagreSteg,
 }) => {
+  const intl = useLokalIntlContext();
   const location = useLocation();
   const navigate = useNavigate();
   const nesteRoute = hentNesteRoute(routesStønad, location.pathname);
@@ -85,7 +87,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
       aria-live="polite"
     >
       <Button className={'tilbake'} variant="secondary" onClick={() => navigate(forrigeRoute.path)}>
-        <LocaleTekst tekst={'knapp.tilbake'} />
+        {hentTekst('knapp.tilbake', intl)}
       </Button>
       {erSpørsmålBesvart && (
         <Button
@@ -101,7 +103,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
           }}
           className={'neste'}
         >
-          <LocaleTekst tekst={'knapp.neste'} />
+          {hentTekst('knapp.neste', intl)}
         </Button>
       )}
       <Button
@@ -109,7 +111,7 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
         variant="tertiary"
         onClick={() => navigate(routesStønad[0].path)}
       >
-        <LocaleTekst tekst={'knapp.avbryt'} />
+        {hentTekst('knapp.avbryt', intl)}
       </Button>
     </StyledNavigeringsKnapper>
   );

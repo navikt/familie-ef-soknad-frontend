@@ -1,5 +1,5 @@
 import React from 'react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import Side, { ESide } from '../../../../components/side/Side';
 import { BarnaDineInnhold } from './BarnaDineInnhold';

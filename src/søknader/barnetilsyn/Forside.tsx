@@ -7,13 +7,13 @@ import FortsettSøknad from '../../components/forside/FortsettSøknad';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { usePersonContext } from '../../context/PersonContext';
-import LocaleTekst from '../../language/LocaleTekst';
 import { logSidevisningBarnetilsyn } from '../../utils/amplitude';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
 import { useMount, useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { BarnetilsynInformasjon } from './BarnetilsynInformasjon';
+import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 
 const StyledAlert = styled(Alert)`
   margin-bottom: 2rem;
@@ -67,18 +67,15 @@ const Forside: React.FC = () => {
           {alder < 18 && <AlertUnderAtten />}
 
           <Heading level="1" size="xlarge">
-            <LocaleTekst tekst={'barnetilsyn.sidetittel'} />
+            {hentTekst('barnetilsyn.sidetittel', intl)}
           </Heading>
 
           {erDagensDatoMellomMaiOgAugust && (
             <StyledAlert variant="info">
               <Heading spacing size="small" level="3">
-                <LocaleTekst
-                  tekst={'barnetilsyn.søkerFraAugustTittel'}
-                  replaceArgument0={`${nåværendeÅr}`}
-                />
+                {hentTekstMedEnVariabel('barnetilsyn.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>
-              <LocaleTekst tekst={'barnetilsyn.søkerFraAugustInnhold'} />
+              {hentTekst('barnetilsyn.søkerFraAugustInnhold', intl)}
             </StyledAlert>
           )}
 

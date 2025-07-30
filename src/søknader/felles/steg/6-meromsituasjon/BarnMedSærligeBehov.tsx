@@ -3,9 +3,9 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import BarnMedSærligeBehovBegrunnelse from './BarnMedSærligeBehovBegrunnelse';
 import HvilkeBarnHarSærligeBehov from './HvilkeBarnHarSærligeBehov';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort } from '@navikt/ds-react';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 
 const BarnMedSærligeBehov: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -14,11 +14,9 @@ const BarnMedSærligeBehov: React.FC = () => {
       <KomponentGruppe>
         <AlertStripeDokumentasjon>
           <BodyShort className="blokk-xs" style={{ fontWeight: 600 }}>
-            {intl.formatMessage({
-              id: 'dinSituasjon.dok.harBarnMedSærligeBehov.tittel',
-            })}
+            {hentTekst('dinSituasjon.dok.harBarnMedSærligeBehov.tittel', intl)}
           </BodyShort>
-          <LocaleTekst tekst="dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse" />
+          {hentHTMLTekst('dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse', intl)}
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
       <HvilkeBarnHarSærligeBehov />

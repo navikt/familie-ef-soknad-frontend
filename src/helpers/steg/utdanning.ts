@@ -1,5 +1,5 @@
 import { hentUid } from '../../utils/autentiseringogvalidering/uuid';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { linjeKursGrad } from '../../søknader/felles/steg/5-aktivitet/underUtdanning/UtdanningConfig';
 import { nyttTekstFelt, tomPeriode } from '../tommeSøknadsfelter';
 import { LokalIntlShape } from '../../language/typer';

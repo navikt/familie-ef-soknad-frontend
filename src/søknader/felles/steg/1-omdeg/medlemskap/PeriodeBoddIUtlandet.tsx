@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import Utenlandsopphold from './Utenlandsopphold';
 
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
@@ -75,10 +74,10 @@ const PeriodeBoddIUtlandet: FC<{
         <KomponentGruppe>
           <FeltGruppe>
             <Label as="p">
-              <LocaleTekst tekst={'medlemskap.periodeBoddIUtlandet.flereutenlandsopphold'} />
+              {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
             </Label>
             <LeggTilKnapp onClick={() => leggTilUtenlandsperiode()}>
-              <LocaleTekst tekst={'medlemskap.periodeBoddIUtlandet.knapp'} />
+              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
             </LeggTilKnapp>
           </FeltGruppe>
         </KomponentGruppe>

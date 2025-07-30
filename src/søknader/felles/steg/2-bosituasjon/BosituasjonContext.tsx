@@ -7,7 +7,7 @@ import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { sanerBosituasjonSteg } from './sanering';
 import { IBosituasjon } from '../../../../models/steg/bosituasjon';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { delerSøkerBoligMedAndreVoksne } from './BosituasjonConfig';
 

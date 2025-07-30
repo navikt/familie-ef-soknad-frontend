@@ -2,13 +2,12 @@ import React, { ChangeEvent } from 'react';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
-import { storeForbokstaver } from '../../../../utils/tekst';
 import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label, Textarea } from '@navikt/ds-react';
 import LesMerTekst from '../../../../components/LesMerTekst';
+import { hentTekstMedEnVariabel, storeForbokstaver } from '../../../../utils/teksthåndtering';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 
@@ -40,11 +39,10 @@ const BarnMedSærligeBehovBegrunnelse = () => {
         const onChange = settBarnSærligBehovBegrunnelse(barn);
         const barnetsNavn = hentBarnetsNavnEllerBeskrivelse(barn, intl);
         const navn = barn.navn.verdi ? storeForbokstaver(barnetsNavn) : barnetsNavn;
-        const omBarnetsTilsynsbehovLabel = hentBeskjedMedNavn(
-          navn,
-          intl.formatMessage({
-            id: 'dinSituasjon.alert.harBarnMedSærligeBehov.tittel',
-          })
+        const omBarnetsTilsynsbehovLabel = hentTekstMedEnVariabel(
+          'dinSituasjon.alert.harBarnMedSærligeBehov.tittel',
+          intl,
+          navn
         );
         return (
           <KomponentGruppe key={barn.id}>

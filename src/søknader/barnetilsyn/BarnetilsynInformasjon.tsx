@@ -1,4 +1,3 @@
-import LocaleTekst from '../../language/LocaleTekst';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { Tekst } from '../../components/forside/Tekst';
 import { Seksjon } from '../../components/forside/Seksjon';
@@ -6,7 +5,7 @@ import { Overskrift } from '../../components/forside/Overskrift';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
-import { hentDataFraForrigeBarnetilsynSøknad, hentTekst } from '../../utils/søknad';
+import { hentDataFraForrigeBarnetilsynSøknad } from '../../utils/søknad';
 import React, { useContext, useEffect, useState } from 'react';
 import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { useSpråkContext } from '../../context/SpråkContext';
@@ -15,6 +14,7 @@ import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -66,12 +66,10 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
       <Seksjon>
         <Tekst tekst="forside.barnetilsyn.info" />
         <Tekst tekst="forside.barnetilsyn.fåStønadSkoleår" />
-        <LocaleTekst tekst="forside.barnetilsyn.merOmStønad" />
+        {hentHTMLTekst('forside.barnetilsyn.merOmStønad', intl)}
       </Seksjon>
 
-      <Seksjon>
-        <LocaleTekst tekst="forside.barnetilsyn.arbeidssøkerUtdanning" />
-      </Seksjon>
+      <Seksjon>{hentHTMLTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.barnetilsyn.overskrift.riktigeOpplysninger" />
@@ -83,16 +81,16 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <Overskrift tekst="forside.barnetilsyn.overskrift.sendeDokumentasjon" />
         <Tekst tekst="forside.barnetilsyn.beskjedDokumentere" />
         <Tekst tekst="forside.barnetilsyn.merInformasjon" />
-        <LocaleTekst tekst="forside.barnetilsyn.oversiktDokumentasjon" />
+        {hentHTMLTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
       </Seksjon>
 
       <Seksjon>
         <Overskrift tekst="forside.barnetilsyn.overskrift.henteInformasjon" />
         <Tekst tekst="forside.barnetilsyn.henteInformasjon" />
         <Tekst tekst="forside.barnetilsyn.viHenter" />
-        <LocaleTekst tekst="forside.barnetilsyn.henterPunktliste" />
+        {hentHTMLTekst('forside.barnetilsyn.henterPunktliste', intl)}
         <Tekst tekst="forside.barnetilsyn.tidligereOpplysninger" />
-        <LocaleTekst tekst="forside.barnetilsyn.personopplysningeneDine" />
+        {hentHTMLTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
       </Seksjon>
 
       <Seksjon>

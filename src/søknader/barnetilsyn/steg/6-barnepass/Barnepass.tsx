@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { SøkerDuStønadFraBestemtMndSpm } from './BarnepassConfig';
@@ -31,7 +31,6 @@ import { IBarn } from '../../../../models/steg/barn';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { BodyShort } from '@navikt/ds-react';
 import styled from 'styled-components';
 
@@ -56,9 +55,10 @@ const Barnepass: FC = () => {
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
 
-  const hjelpetekstInnholdSøkerFraMndTekstDel1 = hentBeskjedMedNavn(
-    formatMånederTilbake(dagensDato, 3),
-    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.barnepass-del1', intl)
+  const hjelpetekstInnholdSøkerFraMndTekstDel1 = hentTekstMedEnVariabel(
+    'søkerFraBestemtMåned.hjelpetekst-innhold.barnepass-del1',
+    intl,
+    formatMånederTilbake(dagensDato, 3)
   );
 
   const hjelpetekstInnholdSøkerFraMndTekstDel2 = hentTekst(
@@ -126,7 +126,7 @@ const Barnepass: FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({ id: 'barnepass.sidetittel' })}
+      stegtittel={hentTekst('barnepass.sidetittel', intl)}
       skalViseKnapper={skalViseKnapper}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}

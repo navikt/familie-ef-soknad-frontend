@@ -1,10 +1,11 @@
-import LocaleTekst from '../../language/LocaleTekst';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@navikt/ds-react';
 import FeltGruppe from '../gruppe/FeltGruppe';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { EEventsnavn, logEvent } from '../../utils/amplitude';
 import React from 'react';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 export const KnappLocaleTekstOgNavigate: React.FC<{
   nesteSide: string;
@@ -28,6 +29,7 @@ export const KnappLocaleTekstOgNavigate: React.FC<{
   skjemanavn,
 }) => {
   const navigate = useNavigate();
+  const intl = useLokalIntlContext();
   return (
     <FeltGruppe classname={'sentrert'} aria-live="polite">
       <Button
@@ -40,7 +42,7 @@ export const KnappLocaleTekstOgNavigate: React.FC<{
         variant={variant}
         disabled={disabled}
       >
-        <LocaleTekst tekst={tekst} />
+        {hentTekst(tekst, intl)}
       </Button>
     </FeltGruppe>
   );

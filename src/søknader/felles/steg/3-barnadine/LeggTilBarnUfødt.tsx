@@ -1,11 +1,10 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { ESvar, ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import FormattedMessage from '../../../../language/FormattedMessage';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
@@ -48,7 +47,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
           datobegrensning={DatoBegrensning.FremtidigeDatoer}
         />
         <AlertStripeDokumentasjon>
-          <FormattedMessage id="barnadine.info.terminbekreftelse" />
+          {hentTekst('barnadine.info.terminbekreftelse', intl)}
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
       {barnDato &&
@@ -56,9 +55,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
           <KomponentGruppe>
             <RadiopanelWrapper>
               <RadioGroup
-                legend={intl.formatMessage({
-                  id: 'barnekort.spm.skalBarnetBoHosSøker',
-                })}
+                legend={hentTekst('barnekort.spm.skalBarnetBoHosSøker', intl)}
                 value={boHosDeg}
               >
                 <RadioPanelCustom
@@ -83,7 +80,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
             </RadiopanelWrapper>
             {boHosDeg === ESvar.NEI && (
               <Alert size="small" variant="warning" inline>
-                <FormattedMessage id="barnadine.advarsel.skalikkebo" />
+                {hentTekst('barnadine.advarsel.skalikkebo', intl)}
               </Alert>
             )}
           </KomponentGruppe>
