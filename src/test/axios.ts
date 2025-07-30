@@ -6,6 +6,7 @@ import {
   lagIMedforelder,
   lagMellomlagretSøknadBarnetilsyn,
   lagMellomlagretSøknadOvergangsstønad,
+  lagMellomlagretSøknadSkolepenger,
   lagPerson,
   lagPersonData,
   lagSpørsmålBooleanFelt,
@@ -36,7 +37,7 @@ type SøknadSteg =
   | '/dokumentasjon'
   | '/kvittering';
 
-export const mockGet = (url: string, stønadstype: StønadType) => {
+export const mockGet = (url: string, stønadType: StønadType) => {
   if (url === `${Environment().apiProxyUrl}/api/innlogget`) {
     return Promise.resolve({ status: 200 });
   }
@@ -47,12 +48,9 @@ export const mockGet = (url: string, stønadstype: StønadType) => {
       }),
     });
   }
-  if (url === `${Environment().mellomlagerProxyUrl + stønadstype}`) {
+  if (url === `${Environment().mellomlagerProxyUrl + stønadType}`) {
     return Promise.resolve({
-      data:
-        stønadstype === 'overgangsstonad'
-          ? lagMellomlagretSøknadOvergangsstønad()
-          : lagMellomlagretSøknadBarnetilsyn(),
+      data: utledMellomlagretSøknad(stønadType),
     });
   }
   if (url === `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`) {
@@ -61,6 +59,17 @@ export const mockGet = (url: string, stønadstype: StønadType) => {
     });
   }
   return Promise.resolve({ data: {} });
+};
+
+const utledMellomlagretSøknad = (stønadType: StønadType) => {
+  switch (stønadType) {
+    case 'overgangsstonad':
+      return lagMellomlagretSøknadOvergangsstønad();
+    case 'barnetilsyn':
+      return lagMellomlagretSøknadBarnetilsyn();
+    case 'skolepenger':
+      return lagMellomlagretSøknadSkolepenger();
+  }
 };
 
 export const mockPost = (url: string, stønadstype: StønadType) => {
