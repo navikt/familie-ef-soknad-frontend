@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
@@ -9,8 +9,8 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
-  utdanning: IUnderUtdanning;
-  settUtdanning: (utdanning: IUnderUtdanning) => void;
+  utdanning: UnderUtdanning;
+  settUtdanning: (utdanning: UnderUtdanning) => void;
 }
 
 const NårSkalDuVæreElevEllerStudent: React.FC<Props> = ({ utdanning, settUtdanning }) => {

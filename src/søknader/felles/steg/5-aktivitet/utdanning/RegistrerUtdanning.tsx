@@ -5,7 +5,7 @@ import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
-import { IUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { linjeKursGrad } from './UtdanningConfig';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { harValgtSvar } from '../../../../../utils/spørsmålogsvar';
@@ -18,13 +18,13 @@ import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 
 interface Props {
-  tidligereUtdanninger: IUtdanning[];
-  settTidligereUtdanninger: (tidligereUtdanninger: IUtdanning[]) => void;
+  tidligereUtdanninger: Utdanning[];
+  settTidligereUtdanninger: (tidligereUtdanninger: Utdanning[]) => void;
   utdanningsnummer: number;
   testIder?: string[];
 }
 
-const Utdanning: React.FC<Props> = ({
+const RegistrerUtdanning: React.FC<Props> = ({
   tidligereUtdanninger,
   settTidligereUtdanninger,
   utdanningsnummer,
@@ -35,7 +35,7 @@ const Utdanning: React.FC<Props> = ({
     (utdanning, index) => index === utdanningsnummer && utdanning
   );
 
-  const [utdanning, settUtdanning] = useState<IUtdanning>(utdanningFraSøknad!);
+  const [utdanning, settUtdanning] = useState<Utdanning>(utdanningFraSøknad!);
 
   useEffect(() => {
     const endretTidligereUtdanninger = tidligereUtdanninger?.map(
@@ -126,4 +126,4 @@ const Utdanning: React.FC<Props> = ({
   );
 };
 
-export default Utdanning;
+export default RegistrerUtdanning;

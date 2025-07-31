@@ -1,20 +1,32 @@
 import React from 'react';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
-import { privatEllerOffentligSpm } from './UtdanningConfig';
+import { heltidEllerDeltidSpm } from './UtdanningConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
-  utdanning: IUnderUtdanning;
-  settUtdanning: (utdanning: IUnderUtdanning) => void;
+  utdanning: UnderUtdanning;
+  settUtdanning: (utdanning: UnderUtdanning) => void;
 }
-const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtdanning }) => {
+const ErUtdanningenPåHeltidEllerDeltid: React.FC<Props> = ({ utdanning, settUtdanning }) => {
   const intl = useLokalIntlContext();
 
   const settMultiSpørsmål = (spørsmål: ISpørsmål, svar: ISvar) => {
+    const søkerVilStudereHeltid = spørsmål.svaralternativer.find(
+      (svarsalternativ) => svarsalternativ.svar_tekst === svar.svar_tekst
+    );
+    if (
+      (spørsmål.søknadid === EUtdanning.heltidEllerDeltid &&
+        søkerVilStudereHeltid &&
+        utdanning.målMedUtdanning) ||
+      utdanning.arbeidsmengde
+    ) {
+      delete utdanning.arbeidsmengde;
+      delete utdanning.målMedUtdanning;
+    }
     settUtdanning({
       ...utdanning,
       [spørsmål.søknadid]: {
@@ -28,13 +40,13 @@ const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtd
   return (
     <KomponentGruppe>
       <MultiSvarSpørsmål
-        spørsmål={privatEllerOffentligSpm(intl)}
+        spørsmål={heltidEllerDeltidSpm(intl)}
         settSpørsmålOgSvar={settMultiSpørsmål}
-        valgtSvar={utdanning.offentligEllerPrivat?.verdi}
+        valgtSvar={utdanning.heltidEllerDeltid?.verdi}
         className="toKorteSvar"
       />
     </KomponentGruppe>
   );
 };
 
-export default ErUtdanningenOffentligEllerPrivat;
+export default ErUtdanningenPåHeltidEllerDeltid;

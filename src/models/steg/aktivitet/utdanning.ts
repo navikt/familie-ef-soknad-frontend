@@ -1,25 +1,21 @@
 import { IBooleanFelt, ISpørsmålFelt, ITekstFelt } from '../../søknad/søknadsfelter';
 import { IPeriode } from '../../felles/periode';
 
-// --- INTERFACES
-
-export interface IUtdanning {
+export interface Utdanning {
   id: string;
   linjeKursGrad?: ITekstFelt;
   periode?: IPeriode;
 }
 
-export interface IUnderUtdanning extends IUtdanning {
+export interface UnderUtdanning extends Utdanning {
   skoleUtdanningssted: ITekstFelt;
   offentligEllerPrivat?: ISpørsmålFelt;
   heltidEllerDeltid?: ISpørsmålFelt;
   arbeidsmengde?: ITekstFelt;
   målMedUtdanning?: ITekstFelt;
   harTattUtdanningEtterGrunnskolen?: IBooleanFelt;
-  tidligereUtdanning?: IUtdanning[];
+  tidligereUtdanning?: Utdanning[];
 }
-
-// --- ENUMS
 
 export enum EUtdanning {
   linjeKursGrad = 'linjeKursGrad',
