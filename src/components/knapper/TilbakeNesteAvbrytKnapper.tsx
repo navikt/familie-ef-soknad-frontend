@@ -1,65 +1,11 @@
 import { FC } from 'react';
-import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
-import { IRoute } from '../../models/routes';
-import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@navikt/ds-react';
+import { Button, HStack, VStack } from '@navikt/ds-react';
+import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { IRoute } from '../../models/routes';
 
-const StyledNavigeringsKnapper = styled.div`
-  padding: 2rem;
-  grid-area: knapper;
-  display: flex;
-  justify-self: center;
-  flex-direction: column;
-
-  .avbryt {
-    margin-top: 1rem;
-  }
-
-  @media all and (max-width: 420px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, min-content);
-    grid-template-areas:
-      'tilbake'
-      'neste'
-      'avbryt';
-  }
-
-  .treKnapper {
-    display: grid;
-    grid-template-columns: repeat(2, max-content);
-    grid-template-rows: repeat(2, min-content);
-    grid-template-areas:
-      'tilbake neste'
-      'avbryt avbryt';
-
-    @supports (grid-gap: 1rem) {
-      grid-gap: 1rem;
-
-      .avbryt {
-        margin-top: 0;
-      }
-    }
-    .hideButton {
-      display: none;
-    }
-
-    .tilbake {
-      grid-area: tilbake;
-    }
-
-    .neste {
-      grid-area: neste;
-    }
-    .avbryt {
-      grid-area: avbryt;
-    }
-  }
-`;
-
-// TODO: Fjern nullable fra mellomlagreSteg
 interface Props {
   routesStønad: IRoute[];
   erSpørsmålBesvart?: boolean;
@@ -68,7 +14,7 @@ interface Props {
   mellomlagreSteg?: () => void;
 }
 
-const TilbakeNesteAvbrytKnapper: FC<Props> = ({
+export const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   routesStønad,
   erSpørsmålBesvart,
   mellomlagreStønad,
@@ -78,43 +24,53 @@ const TilbakeNesteAvbrytKnapper: FC<Props> = ({
   const intl = useLokalIntlContext();
   const location = useLocation();
   const navigate = useNavigate();
+
   const nesteRoute = hentNesteRoute(routesStønad, location.pathname);
   const forrigeRoute = hentForrigeRoute(routesStønad, location.pathname);
 
+  const onNesteClick = () => {
+    if (mellomlagreSteg) {
+      mellomlagreSteg();
+    } else if (mellomlagreStønad) {
+      mellomlagreStønad(location.pathname);
+    }
+    navigate(nesteRoute.path);
+  };
+
+  const onTilbakeClick = () => {
+    navigate(forrigeRoute.path);
+  };
+
+  const onAvbrytClick = () => {
+    navigate(routesStønad[0].path);
+  };
+
   return (
-    <StyledNavigeringsKnapper
-      className={erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper '}
-      aria-live="polite"
-    >
-      <Button className={'tilbake'} variant="secondary" onClick={() => navigate(forrigeRoute.path)}>
-        {hentTekst('knapp.tilbake', intl)}
-      </Button>
-      {erSpørsmålBesvart && (
-        <Button
-          variant="primary"
-          disabled={disableNesteKnapp}
-          onClick={() => {
-            if (mellomlagreSteg) {
-              mellomlagreSteg();
-            } else if (mellomlagreStønad) {
-              mellomlagreStønad(location.pathname);
-            }
-            navigate(nesteRoute.path);
-          }}
-          className={'neste'}
-        >
-          {hentTekst('knapp.neste', intl)}
-        </Button>
+    <VStack gap="4" align="center" aria-live="polite">
+      {erSpørsmålBesvart ? (
+        <>
+          <HStack gap="4">
+            <Button variant="secondary" onClick={onTilbakeClick}>
+              {hentTekst('knapp.tilbake', intl)}
+            </Button>
+            <Button variant="primary" disabled={disableNesteKnapp} onClick={onNesteClick}>
+              {hentTekst('knapp.neste', intl)}
+            </Button>
+          </HStack>
+          <Button variant="tertiary" onClick={onAvbrytClick}>
+            {hentTekst('knapp.avbryt', intl)}
+          </Button>
+        </>
+      ) : (
+        <VStack gap="4" align="center">
+          <Button variant="secondary" onClick={onTilbakeClick}>
+            {hentTekst('knapp.tilbake', intl)}
+          </Button>
+          <Button variant="tertiary" onClick={onAvbrytClick}>
+            {hentTekst('knapp.avbryt', intl)}
+          </Button>
+        </VStack>
       )}
-      <Button
-        className={'avbryt'}
-        variant="tertiary"
-        onClick={() => navigate(routesStønad[0].path)}
-      >
-        {hentTekst('knapp.avbryt', intl)}
-      </Button>
-    </StyledNavigeringsKnapper>
+    </VStack>
   );
 };
-
-export default TilbakeNesteAvbrytKnapper;
