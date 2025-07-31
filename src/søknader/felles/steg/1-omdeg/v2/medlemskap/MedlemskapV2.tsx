@@ -42,7 +42,7 @@ export const MedlemskapV2: React.FC = () => {
     oppdaterMedlemskap({
       søkerOgBarnOppholderSegINorge: søkerOppholderSegINorgeMedBarn.value,
       oppholdsland: valgtLandObjekt,
-      søkerBosattINorgeSisteTreÅr: søkerHarOppholdtSegINorgeSiste5År.value,
+      søkerBosattINorgeSiste5År: søkerHarOppholdtSegINorgeSiste5År.value,
       perioderBoddIUtlandet: perioderBoddIUtlandet,
     });
   }, [
