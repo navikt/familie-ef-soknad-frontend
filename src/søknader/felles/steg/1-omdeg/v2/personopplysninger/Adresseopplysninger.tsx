@@ -5,7 +5,7 @@ import styles from './Adresseopplysninger.module.css';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { StegSpørsmål, SvarAlternativ } from '../komponenter/SpørsmålSvarStruktur';
 import { useOmDegV2 } from '../typer/OmDegContextV2';
-import { hentTekst } from '../../../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../../../utils/teksthåndtering';
 
 export const Adresseopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -68,15 +68,13 @@ export const Adresseopplysninger: React.FC = () => {
 
           {visSøkerHarMeldtAdresseEndringAlert && (
             <Alert variant={'info'} size={'small'} inline>
-              {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
               {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
             </Alert>
           )}
 
           {visSøkerMåMeldeAdresseEndringAlert && (
             <Alert variant={'warning'} size={'small'} inline>
-              {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
-              {hentTekst('personopplysninger.alert.riktigAdresse', intl)}
+              {hentHTMLTekst('personopplysninger.alert.riktigAdresse', intl)}
             </Alert>
           )}
         </VStack>
@@ -87,8 +85,7 @@ export const Adresseopplysninger: React.FC = () => {
           <Heading size="xsmall" className={styles.heading}>
             {hentTekst('personopplysninger.info.endreAdresse', intl)}
           </Heading>
-          {/*TODO: Denne må fikses, er dessverre ødelagt.*/}
-          {hentTekst('personopplysninger.lenke.pdfskjema', intl)}
+          {hentHTMLTekst('personopplysninger.lenke.pdfskjema', intl)}
         </VStack>
       )}
     </VStack>
