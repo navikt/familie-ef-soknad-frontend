@@ -15,12 +15,31 @@ export const skalViseSivilstatus = (personopplysningerData: AdresseopplysningerD
 };
 
 /**
- * Sjekker om medlemskap skal vises basert på sivilstatus
+ * Sjekker om medlemskap skal vises basert på både personopplysninger og sivilstatus
+ * Medlemskap kan kun vises hvis:
+ * 1. Sivilstatus er synlig (basert på personopplysninger)
+ * 2. Sivilstatus er ferdig utfylt
  */
-export const skalViseMedlemskap = (sivilstatusData: SivilstatusData): boolean => {
+export const skalViseMedlemskap = (
+  personopplysningerData: AdresseopplysningerData,
+  sivilstatusData: SivilstatusData
+): boolean => {
+  // Først sjekk om sivilstatus i det hele tatt skal vises
+  if (!skalViseSivilstatus(personopplysningerData)) {
+    return false;
+  }
+
+  // Deretter sjekk om sivilstatus er ferdig utfylt
+  return erSivilstatusFerdigUtfylt(sivilstatusData);
+};
+
+/**
+ * Sjekker om sivilstatus er ferdig utfylt basert på valgt årsak
+ */
+const erSivilstatusFerdigUtfylt = (sivilstatusData: SivilstatusData): boolean => {
   const { årsakEnslig } = sivilstatusData;
 
-  // Om ingen årsak er valgt, så skal ikke medlemskap vises
+  // Om ingen årsak er valgt, så er ikke sivilstatus ferdig
   if (!årsakEnslig) {
     return false;
   }

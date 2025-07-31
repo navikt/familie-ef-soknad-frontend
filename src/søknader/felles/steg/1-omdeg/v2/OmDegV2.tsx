@@ -12,7 +12,7 @@ export const OmDegV2: React.FC = () => {
   const { stønadstype, søker, søknadSteg, personopplysningerData, sivilstatusData } = useOmDegV2();
 
   const visSivilstatus = skalViseSivilstatus(personopplysningerData);
-  const visMedlemskap = skalViseMedlemskap(sivilstatusData);
+  const visMedlemskap = skalViseMedlemskap(personopplysningerData, sivilstatusData);
 
   return (
     <StegSide stønadstype={stønadstype} søknadSteg={søknadSteg}>
