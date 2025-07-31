@@ -8,7 +8,7 @@ import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { OmsorgEndringForBarn } from './OmsorgEndringForBarn';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { useOmDegV2 } from '../../typer/OmDegContextV2';
-import { hentTekst } from '../../../../../../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../../../../../../utils/teksthåndtering';
 
 export enum ÅrsakAleneMedBarn {
   samlivsbruddForeldre = 'samlivsbruddForeldre',
@@ -82,7 +82,7 @@ export const AleneMedBarnÅrsak: React.FC = () => {
 
         {visAleneMedBarnGrunnetDødsfallAlert && (
           <Alert variant={'info'} size={'small'} inline>
-            {hentTekst('sivilstatus.alert.dødsfall', intl)}
+            {hentHTMLTekst('sivilstatus.alert.dødsfall', intl)}
           </Alert>
         )}
       </VStack>
