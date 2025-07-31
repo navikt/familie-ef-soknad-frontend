@@ -1,6 +1,6 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { hentHTMLTekst, hentTekst } from '../../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
@@ -9,7 +9,7 @@ import { BodyShort, Label, Textarea } from '@navikt/ds-react';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 
 interface Props {
-  utdanning: IUnderUtdanning;
+  utdanning: UnderUtdanning;
   oppdaterUtdanning: (nøkkel: EUtdanning, label: string, verdi: string) => void;
   stønadstype: Stønadstype;
 }

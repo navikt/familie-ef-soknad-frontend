@@ -5,9 +5,9 @@ import { erAllUtdanningFerdigUtfyltForSkolepenger } from '../../../../helpers/st
 import Side, { ESide } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
-import { IDetaljertUtdanning } from '../../models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../models/detaljertUtdanning';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import UnderUtdanning from '../../../felles/steg/5-aktivitet/underUtdanning/UnderUtdanning';
+import TarUtdanning from '../../../felles/steg/5-aktivitet/utdanning/TarUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
@@ -27,7 +27,7 @@ const UtdanningSituasjon: React.FC = () => {
 
   useMount(() => logSidevisningSkolepenger('Aktivitet'));
 
-  const oppdaterUnderUtdanning = (underUtdanning: IDetaljertUtdanning) => {
+  const oppdaterUnderUtdanning = (underUtdanning: DetaljertUtdanning) => {
     settSøknad((prevSøknad: SøknadSkolepenger) => {
       return { ...prevSøknad, utdanning: underUtdanning };
     });
@@ -47,7 +47,7 @@ const UtdanningSituasjon: React.FC = () => {
       routesStønad={RoutesSkolepenger}
       tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
     >
-      <UnderUtdanning
+      <TarUtdanning
         underUtdanning={søknad.utdanning}
         oppdaterUnderUtdanning={oppdaterUnderUtdanning}
         stønadstype={Stønadstype.skolepenger}

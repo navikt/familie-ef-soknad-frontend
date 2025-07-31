@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   EStudieandel,
   EUtdanning,
-  IUnderUtdanning,
+  UnderUtdanning,
 } from '../../../../../models/steg/aktivitet/utdanning';
 import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
@@ -21,7 +21,7 @@ import {
 } from '../../../../../helpers/steg/aktivitetvalidering';
 import { strengErMerEnnNull } from '../../../../../utils/spørsmålogsvar';
 import { lagTomUnderUtdanning } from '../../../../../helpers/steg/utdanning';
-import { IDetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
 import Studiekostnader from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
@@ -36,19 +36,15 @@ const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
 `;
 
 interface Props {
-  underUtdanning?: IUnderUtdanning | IDetaljertUtdanning;
-  oppdaterUnderUtdanning: (utdanning: IUnderUtdanning | IDetaljertUtdanning) => void;
+  underUtdanning?: UnderUtdanning | DetaljertUtdanning;
+  oppdaterUnderUtdanning: (utdanning: UnderUtdanning | DetaljertUtdanning) => void;
   stønadstype: Stønadstype;
 }
 
-const UnderUtdanning: React.FC<Props> = ({
-  underUtdanning,
-  oppdaterUnderUtdanning,
-  stønadstype,
-}) => {
+const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning, stønadstype }) => {
   const intl = useLokalIntlContext();
   const skalHaDetaljertUtdanning = stønadstype === Stønadstype.skolepenger;
-  const [utdanning, settUtdanning] = useState<IUnderUtdanning | IDetaljertUtdanning>(
+  const [utdanning, settUtdanning] = useState<UnderUtdanning | DetaljertUtdanning>(
     underUtdanning ? underUtdanning : lagTomUnderUtdanning()
   );
 
@@ -153,4 +149,4 @@ const UnderUtdanning: React.FC<Props> = ({
   );
 };
 
-export default UnderUtdanning;
+export default TarUtdanning;

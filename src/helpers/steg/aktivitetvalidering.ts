@@ -1,9 +1,9 @@
 import { EStilling, IArbeidsgiver } from '../../models/steg/aktivitet/arbeidsgiver';
 import { EAktivitet, IAksjeselskap, IAktivitet } from '../../models/steg/aktivitet/aktivitet';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { IUnderUtdanning, IUtdanning } from '../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning, Utdanning } from '../../models/steg/aktivitet/utdanning';
 import { IFirma } from '../../models/steg/aktivitet/firma';
-import { IDetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
 import {
   erDatoGyldigOgInnaforBegrensninger,
   erPeriodeGyldigOgInnaforBegrensninger,
@@ -46,7 +46,7 @@ export const erAksjeselskapFerdigUtfylt = (
     : egetAS?.every((aksjeselskap) => aksjeselskap.navn?.verdi);
 };
 
-export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: IUtdanning[]): boolean => {
+export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]): boolean => {
   return tidligereUtdanning.every(
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
@@ -55,7 +55,7 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: IUtdanning[
   );
 };
 
-export const erUnderUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning): boolean => {
+export const erUnderUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning): boolean => {
   if (underUtdanning.heltidEllerDeltid?.verdi === 'Deltid') {
     return erDeltidUtdanningOgSkalStudereUnderHundreProsent(underUtdanning);
   } else {
@@ -64,7 +64,7 @@ export const erUnderUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning): b
 };
 
 export const erDetaljertUtdanningFerdigUtfylt = (
-  detaljertUtdanning: IDetaljertUtdanning
+  detaljertUtdanning: DetaljertUtdanning
 ): boolean => {
   return (
     harValgtSvar(detaljertUtdanning.semesteravgift?.verdi) ||
@@ -74,7 +74,7 @@ export const erDetaljertUtdanningFerdigUtfylt = (
 };
 
 export const erDeltidUtdanningOgSkalStudereUnderHundreProsent = (
-  detaljertUtdanning: IDetaljertUtdanning
+  detaljertUtdanning: DetaljertUtdanning
 ): boolean => {
   return (
     detaljertUtdanning.heltidEllerDeltid?.verdi === 'Deltid' &&
@@ -84,14 +84,14 @@ export const erDeltidUtdanningOgSkalStudereUnderHundreProsent = (
 };
 
 export const erAllUtdanningFerdigUtfyltForSkolepenger = (
-  underUtdanning: IDetaljertUtdanning
+  underUtdanning: DetaljertUtdanning
 ): boolean => {
   if (!erDetaljertUtdanningFerdigUtfylt(underUtdanning)) return false;
 
   return erAllUtdanningFerdigUtfylt(underUtdanning);
 };
 
-export const erAllUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning) => {
+export const erAllUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning) => {
   if (underUtdanning?.harTattUtdanningEtterGrunnskolen?.verdi === false) {
     return underUtdanning && erUnderUtdanningFerdigUtfylt(underUtdanning);
   } else {

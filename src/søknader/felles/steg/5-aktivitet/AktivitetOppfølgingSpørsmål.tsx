@@ -4,12 +4,12 @@ import HjemmeMedBarnUnderEttÅr from './HjemmeMedBarnUnderEttÅr';
 import OmArbeidsforholdetDitt from './arbeidsforhold/OmArbeidsforholdetDitt';
 import EtablererEgenVirksomhet from './EtablererEgenVirksomhet';
 import Arbeidssøker from './arbeidssøker/Arbeidssøker';
-import UnderUtdanning from './underUtdanning/UnderUtdanning';
+import TarUtdanning from './utdanning/TarUtdanning';
 import EgetAS from './aksjeselskap/EgetAS';
 import FåttJobbTilbud from './FåttJobbTilbud';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import OmFirmaeneDine from './Firma/OmFirmaeneDine';
-import { IUnderUtdanning } from '../../../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning } from '../../../../models/steg/aktivitet/utdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 interface Props {
@@ -72,10 +72,10 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
 
     case EAktivitet.tarUtdanning:
       return (
-        <UnderUtdanning
+        <TarUtdanning
           stønadstype={Stønadstype.overgangsstønad}
           underUtdanning={arbeidssituasjon.underUtdanning}
-          oppdaterUnderUtdanning={(utdanning: IUnderUtdanning) =>
+          oppdaterUnderUtdanning={(utdanning: UnderUtdanning) =>
             settArbeidssituasjon({
               ...arbeidssituasjon,
               underUtdanning: utdanning,

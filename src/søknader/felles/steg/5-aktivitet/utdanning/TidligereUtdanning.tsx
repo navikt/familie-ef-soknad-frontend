@@ -1,11 +1,11 @@
 import React from 'react';
-import { IUnderUtdanning, IUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning, Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
-import Utdanning from './Utdanning';
+import RegistrerUtdanning from './RegistrerUtdanning';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { tidligereUtdanningHjelpetekst, utdanningEtterGrunnskolenSpm } from './UtdanningConfig';
@@ -17,17 +17,17 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, Label } from '@navikt/ds-react';
 
 interface Props {
-  underUtdanning: IUnderUtdanning;
-  settUnderUtdanning: (utdanning: IUnderUtdanning) => void;
+  underUtdanning: UnderUtdanning;
+  settUnderUtdanning: (utdanning: UnderUtdanning) => void;
 }
 
 const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdanning }) => {
   const intl = useLokalIntlContext();
-  const tidligereUtdanning: IUtdanning[] = underUtdanning.tidligereUtdanning
+  const tidligereUtdanning: Utdanning[] = underUtdanning.tidligereUtdanning
     ? underUtdanning.tidligereUtdanning
     : [];
 
-  const settTidligereUtdanning = (tidligereUtdanninger: IUtdanning[]) => {
+  const settTidligereUtdanning = (tidligereUtdanninger: Utdanning[]) => {
     settUnderUtdanning({
       ...underUtdanning,
       tidligereUtdanning: tidligereUtdanninger,
@@ -35,7 +35,7 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
   };
 
   const leggTilUtdanning = () => {
-    const allUtdanning: IUtdanning[] = [...tidligereUtdanning, lagTomUtdanning(intl)];
+    const allUtdanning: Utdanning[] = [...tidligereUtdanning, lagTomUtdanning(intl)];
     settUnderUtdanning({ ...underUtdanning, tidligereUtdanning: allUtdanning });
   };
 
@@ -88,7 +88,7 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
         <>
           {tidligereUtdanning?.map((utdanning, index) => {
             return (
-              <Utdanning
+              <RegistrerUtdanning
                 key={utdanning.id}
                 tidligereUtdanninger={tidligereUtdanning}
                 settTidligereUtdanninger={settTidligereUtdanning}
