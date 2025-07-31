@@ -187,7 +187,7 @@ const OmAndreForelder: React.FC<Props> = ({
       {forelder.navn && !forelder.kanIkkeOppgiAnnenForelderFar?.verdi && (
         <IdentEllerFødselsdatoGruppe
           identLabel={hentTekst('person.ident', intl)}
-          datoLabel={hentTekst('person.fødselsdato', intl)}
+          datoLabelId={'person.fødselsdato'}
           checkboxLabel={hentTekst('person.checkbox.ident', intl)}
           ident={identFelt && !kjennerIkkeIdent ? identFelt : ''}
           fødselsdato={forelder?.fødselsdato?.verdi || ''}

@@ -114,10 +114,8 @@ export const OmSamboerenDin: FC<Props> = ({
         {samboerDetaljer?.navn && (
           <IdentEllerFødselsdatoGruppe
             identLabel={hentTekst('person.ident', intl)}
-            datoLabel={
-              !erIdentEllerFødselsdatoObligatorisk
-                ? hentTekst('person.fødselsdato', intl)
-                : hentTekst('datovelger.fødselsdato', intl)
+            datoLabelId={
+              !erIdentEllerFødselsdatoObligatorisk ? 'person.fødselsdato' : 'datovelger.fødselsdato'
             }
             checkboxLabel={hentTekst('person.checkbox.ident', intl)}
             ident={ident && !samboerInfo.kjennerIkkeIdent ? ident : ''}

@@ -9,7 +9,7 @@ import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
 
 interface Props {
   identLabel: string;
-  datoLabel: string;
+  datoLabelId: string;
   checkboxLabel: string;
   ident: string | undefined;
   fødselsdato: string;
@@ -23,7 +23,7 @@ interface Props {
 
 const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   identLabel,
-  datoLabel,
+  datoLabelId,
   checkboxLabel,
   checked,
   ident,
@@ -71,7 +71,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
         <KomponentGruppe>
           <Datovelger
             valgtDato={fødselsdato}
-            tekstid={datoLabel}
+            tekstid={datoLabelId}
             datobegrensning={DatoBegrensning.TidligereDatoer}
             settDato={(e) => settFødselsdato(e)}
             testId={testIder && testIder[2]}
