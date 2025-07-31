@@ -157,6 +157,7 @@ export const erOmDegStegKomplettOgGyldig = (
 
 /**
  * Validerer personopplysninger-seksjonen
+ * OPPDATERT: Sjekker ikke bare om spørsmålene er besvart, men også om svarene kvalifiserer for å fortsette
  */
 const erPersonopplysningerGyldig = (data: AdresseopplysningerData): boolean => {
   const { søkerBorPåRegistrertAdresse, søkerHarMeldtAdresseEndring } = data;
@@ -166,12 +167,23 @@ const erPersonopplysningerGyldig = (data: AdresseopplysningerData): boolean => {
     return false;
   }
 
-  // Hvis nei på første, må andre spørsmål være besvart
-  if (søkerBorPåRegistrertAdresse === false && søkerHarMeldtAdresseEndring === undefined) {
+  // Hvis JA på første spørsmål, er det gyldig
+  if (søkerBorPåRegistrertAdresse) {
+    return true;
+  }
+
+  // Hvis NEI på første, må andre spørsmål være besvart
+  if (!søkerBorPåRegistrertAdresse && søkerHarMeldtAdresseEndring === undefined) {
     return false;
   }
 
-  return true;
+  // Hvis NEI på første og NEI på andre, er det ikke gyldig (kan ikke fortsette)
+  if (!søkerBorPåRegistrertAdresse && søkerHarMeldtAdresseEndring === false) {
+    return false;
+  }
+
+  // Hvis NEI på første og JA på andre, er det gyldig
+  return !søkerBorPåRegistrertAdresse && søkerHarMeldtAdresseEndring === true;
 };
 
 /**
@@ -204,7 +216,7 @@ const erGiftSeksjonGyldig = (data: SivilstatusData): boolean => {
     return false;
   }
 
-  // Hvis nei, er de ikke kvalifisert (men teknisk sett "gyldig" utfylt)
+  // Hvis nei, er de ikke kvalifiseret (men teknisk sett "gyldig" utfylt)
   return true;
 };
 
@@ -358,12 +370,8 @@ const erUtenlandsperiodeGyldig = (periode: any): boolean => {
     return false;
   }
 
-  if (
+  return !(
     periode.harIkkeIdNummer === true &&
     (!periode.sisteAdresse || periode.sisteAdresse.trim() === '')
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 };
