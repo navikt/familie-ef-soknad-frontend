@@ -90,7 +90,7 @@ const OmDenTidligereSamboerenDin: FC = () => {
         <KomponentGruppe>
           <Datovelger
             valgtDato={tidligereSamboerDetaljer?.fødselsdato?.verdi || ''}
-            tekstid={hentTekst('datovelger.fødselsdato', intl)}
+            tekstid={'datovelger.fødselsdato'}
             datobegrensning={DatoBegrensning.TidligereDatoer}
             settDato={(e) => settTidligereSamboersFødselsdato(e)}
           />

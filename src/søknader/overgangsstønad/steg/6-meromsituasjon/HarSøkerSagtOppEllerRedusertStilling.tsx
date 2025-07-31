@@ -74,7 +74,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     settDinSituasjon({
       ...dinSituasjon,
       datoSagtOppEllerRedusertStilling: {
-        label: datovelgerLabel,
+        label: hentTekst(datovelgerLabelId, intl),
         verdi: dato,
       },
     });
@@ -91,15 +91,6 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     return sagtOppEllerRedusertStilling?.verdi === svarTekst;
   };
 
-  const hentLabelForSagtOppEllerRedusertStilling = (
-    sagtOppLabel: string,
-    redusertStillingLabel: string
-  ) => {
-    if (harSagtOpp) return hentTekst(sagtOppLabel, intl);
-    else if (harRedusertStilling) return hentTekst(redusertStillingLabel, intl);
-    else return '';
-  };
-
   const harSagtOpp = erSagtOppEllerRedusertStillingValgt(ESagtOppEllerRedusertStilling.sagtOpp);
   const harRedusertStilling = erSagtOppEllerRedusertStillingValgt(
     ESagtOppEllerRedusertStilling.redusertStilling
@@ -110,23 +101,21 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     datoSagtOppEllerRedusertStilling &&
     valgtDatoMindreEnn6mndSiden(strengTilDato(datoSagtOppEllerRedusertStilling.verdi));
 
-  const alertLabel = hentLabelForSagtOppEllerRedusertStilling(
-    'dinSituasjon.alert.sagtOpp',
-    'dinSituasjon.alert.redusertStilling'
-  );
-  const begrunnelseLabel = hentLabelForSagtOppEllerRedusertStilling(
-    'dinSituasjon.fritekst.sagtOpp',
-    'dinSituasjon.fritekst.redusertStilling'
-  );
-  const datovelgerLabel = hentLabelForSagtOppEllerRedusertStilling(
-    'sagtOppEllerRedusertStilling.datovelger.sagtOpp',
-    'sagtOppEllerRedusertStilling.datovelger.redusertStilling'
-  );
+  const alertLabelId = harSagtOpp
+    ? 'dinSituasjon.alert.sagtOpp'
+    : 'dinSituasjon.alert.redusertStilling';
 
-  const valgtDatoMindreEnn6mndSidenAlert = hentLabelForSagtOppEllerRedusertStilling(
-    'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp',
-    'dinSituasjon.datovelger-alert.redusertStilling'
-  );
+  const begrunnelseLabel = harSagtOpp
+    ? hentTekst('dinSituasjon.fritekst.sagtOpp', intl)
+    : hentTekst('dinSituasjon.fritekst.redusertStilling', intl);
+
+  const datovelgerLabelId = harSagtOpp
+    ? 'sagtOppEllerRedusertStilling.datovelger.sagtOpp'
+    : 'sagtOppEllerRedusertStilling.datovelger.redusertStilling';
+
+  const valgtDatoMindreEnn6mndSidenAlertId = harSagtOpp
+    ? 'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp'
+    : 'dinSituasjon.datovelger-alert.redusertStilling';
 
   return (
     <>
@@ -138,7 +127,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
       {(harSagtOpp || harRedusertStilling) && (
         <>
           <KomponentGruppe>
-            <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabel, intl)}</AlertStripeDokumentasjon>
+            <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
           </KomponentGruppe>
           <KomponentGruppe>
             <Textarea
@@ -157,13 +146,13 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
             <KomponentGruppe>
               <Datovelger
                 valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
-                tekstid={datovelgerLabel}
+                tekstid={datovelgerLabelId}
                 datobegrensning={DatoBegrensning.TidligereDatoer}
                 settDato={settDato}
               />
               {erValgtDatoMindreEnn6mndSiden && (
                 <Alert size="small" variant="info" inline>
-                  {hentTekst(valgtDatoMindreEnn6mndSidenAlert, intl)}
+                  {hentTekst(valgtDatoMindreEnn6mndSidenAlertId, intl)}
                 </Alert>
               )}
             </KomponentGruppe>
