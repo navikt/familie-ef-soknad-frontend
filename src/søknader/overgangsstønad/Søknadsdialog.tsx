@@ -135,7 +135,16 @@ const Søknadsdialog: FC = () => {
           path={'/om-deg'}
           element={
             <RedirectTilStart>
-              <OmDegProviderV2 stønadstype={Stønadstype.overgangsstønad} søknad={søknad}>
+              <OmDegProviderV2
+                stønadstype={Stønadstype.overgangsstønad}
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagretSøknad={mellomlagretOvergangsstønad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                routes={RoutesOvergangsstonad}
+                pathOppsummering={pathOppsummeringOvergangsstønad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+              >
                 <OmDegV2 />
               </OmDegProviderV2>
             </RedirectTilStart>

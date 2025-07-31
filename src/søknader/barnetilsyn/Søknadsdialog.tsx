@@ -122,7 +122,16 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDegProviderV2 stønadstype={Stønadstype.barnetilsyn} søknad={søknad}>
+            <OmDegProviderV2
+              stønadstype={Stønadstype.barnetilsyn}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagretSøknad={mellomlagretBarnetilsyn}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
               <OmDegV2 />
             </OmDegProviderV2>
           </RedirectTilStart>

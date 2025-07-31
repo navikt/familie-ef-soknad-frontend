@@ -125,7 +125,16 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/om-deg'}
         element={
           <RedirectTilStart>
-            <OmDegProviderV2 stønadstype={Stønadstype.skolepenger} søknad={søknad}>
+            <OmDegProviderV2
+              stønadstype={Stønadstype.skolepenger}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              mellomlagretSøknad={mellomlagretSkolepenger}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              routes={RoutesSkolepenger}
+              pathOppsummering={pathOppsummeringSkolepenger}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
               <OmDegV2 />
             </OmDegProviderV2>
           </RedirectTilStart>
