@@ -296,7 +296,7 @@ const mapUtenlandsperiode = (periode: any, intl: LokalIntlShape): IUtenlandsopph
     },
     land: {
       spørsmålid: EMedlemskap.utenlandsoppholdLand,
-      svarid: periode.land, // Assuming land is stored as ID
+      svarid: periode.land,
       label: hentTekst('medlemskap.periodeBoddIUtlandet.land', intl),
       verdi: periode.land,
     },
