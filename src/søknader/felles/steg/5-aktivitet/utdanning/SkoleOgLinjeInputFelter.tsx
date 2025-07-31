@@ -1,5 +1,5 @@
 import React from 'react';
-import { EUtdanning, IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { linjeKursGrad, skoleUtdanningssted } from './UtdanningConfig';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
@@ -8,7 +8,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 
 interface Props {
-  utdanning: IUnderUtdanning;
+  utdanning: UnderUtdanning;
   oppdaterUtdanning: (nøkkel: EUtdanning, label: string, verdi: string) => void;
 }
 

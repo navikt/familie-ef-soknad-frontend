@@ -3,7 +3,7 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { EUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { hentHTMLTekst, hentTekst } from '../../../../../utils/teksthåndtering';
-import { IDetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import styled from 'styled-components';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
@@ -11,7 +11,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
 
 interface Props {
-  utdanning: IDetaljertUtdanning;
+  utdanning: DetaljertUtdanning;
   oppdaterUtdanning: (nøkkel: EUtdanning, label: string, verdi: string) => void;
 }
 

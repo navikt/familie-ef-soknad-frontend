@@ -33,8 +33,8 @@ import { MellomlagretSøknadBarnetilsyn } from '../søknader/barnetilsyn/models/
 import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
 import { MellomlagretSøknadSkolepenger } from '../søknader/skolepenger/models/mellomlagretSøknad';
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
-import { IDetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
-import { IUnderUtdanning, IUtdanning } from '../models/steg/aktivitet/utdanning';
+import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
+import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -400,8 +400,8 @@ export const lagSistInnsendteSøknad = (
 };
 
 export const lagDetaljertUtdanning = (
-  detaljertUtdanning?: Partial<IDetaljertUtdanning>
-): IDetaljertUtdanning => {
+  detaljertUtdanning?: Partial<DetaljertUtdanning>
+): DetaljertUtdanning => {
   return {
     semesteravgift: undefined,
     studieavgift: undefined,
@@ -411,7 +411,7 @@ export const lagDetaljertUtdanning = (
   };
 };
 
-export const lagUnderUtdanning = (underUtdanning?: Partial<IUnderUtdanning>) => {
+export const lagUnderUtdanning = (underUtdanning?: Partial<UnderUtdanning>) => {
   return {
     skoleUtdanningssted: lagTekstfelt(),
     offentligEllerPrivat: undefined,
@@ -425,7 +425,7 @@ export const lagUnderUtdanning = (underUtdanning?: Partial<IUnderUtdanning>) => 
   };
 };
 
-export const lagUtdanning = (utdanning?: Partial<IUtdanning>): IUtdanning => {
+export const lagUtdanning = (utdanning?: Partial<Utdanning>): Utdanning => {
   return {
     id: '1',
     linjeKursGrad: undefined,
