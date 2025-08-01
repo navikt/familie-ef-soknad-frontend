@@ -46,7 +46,7 @@ const BarnasBosted: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnasbosted.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}

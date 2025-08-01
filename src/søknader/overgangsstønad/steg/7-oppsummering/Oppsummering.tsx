@@ -147,7 +147,7 @@ const Oppsummering: React.FC = () => {
       <Side
         stønadstype={Stønadstype.overgangsstønad}
         stegtittel={hentTekst('oppsummering.sidetittel', intl)}
-        skalViseKnapper={NavigasjonState.visTilbakeNesteAvbrytKnapp}
+        navigasjonState={NavigasjonState.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreOvergangsstønad}
         routesStønad={RoutesOvergangsstonad}

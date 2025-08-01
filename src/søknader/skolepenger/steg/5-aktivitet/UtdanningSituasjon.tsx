@@ -41,7 +41,7 @@ const UtdanningSituasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={hentTekst('stegtittel.utdanning', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}

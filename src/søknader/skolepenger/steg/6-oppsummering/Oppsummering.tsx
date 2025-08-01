@@ -27,7 +27,7 @@ const Oppsummering: React.FC = () => {
       <Side
         stønadstype={Stønadstype.skolepenger}
         stegtittel={hentTekst('oppsummering.sidetittel', intl)}
-        skalViseKnapper={NavigasjonState.visTilbakeNesteAvbrytKnapp}
+        navigasjonState={NavigasjonState.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreSkolepenger}
         routesStønad={RoutesSkolepenger}

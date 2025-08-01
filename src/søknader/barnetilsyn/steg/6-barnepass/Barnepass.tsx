@@ -127,7 +127,7 @@ const Barnepass: FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnepass.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}
       routesStønad={RoutesBarnetilsyn}

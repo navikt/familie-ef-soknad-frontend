@@ -56,7 +56,7 @@ const OmDeg: FC = () => {
       stønadstype={stønadstype}
       stegtittel={hentTekst('stegtittel.omDeg', intl)}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       routesStønad={routes}
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}

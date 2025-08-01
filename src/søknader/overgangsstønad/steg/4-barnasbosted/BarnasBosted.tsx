@@ -44,7 +44,7 @@ const BarnasBosted: React.FC = () => {
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={hentTekst('barnasbosted.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesOvergangsstonad}
       mellomlagreStønad={mellomlagreOvergangsstønad}

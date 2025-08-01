@@ -60,7 +60,7 @@ const BarnaDine: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={harValgtMinstEttBarn}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}

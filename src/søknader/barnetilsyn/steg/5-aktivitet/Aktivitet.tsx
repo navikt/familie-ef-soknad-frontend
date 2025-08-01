@@ -130,7 +130,7 @@ const Aktivitet: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('stegtittel.arbeidssituasjon.barnetilsyn', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}

@@ -21,7 +21,7 @@ export const Bosituasjon: FC = () => {
     <Side
       stønadstype={stønadstype}
       stegtittel={hentTekst('stegtittel.bosituasjon', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
       routesStønad={routes}
       tilbakeTilOppsummeringPath={pathOppsummering}

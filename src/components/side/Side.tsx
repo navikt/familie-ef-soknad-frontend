@@ -24,7 +24,7 @@ interface Props {
   stønadstype: Stønadstype;
   stegtittel: string;
   routesStønad: IRoute[];
-  skalViseKnapper: NavigasjonState;
+  navigasjonState: NavigasjonState;
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   tilbakeTilOppsummeringPath?: string;
@@ -41,7 +41,7 @@ export const Side: React.FC<Props> = ({
   children,
   routesStønad,
   erSpørsmålBesvart,
-  skalViseKnapper,
+  navigasjonState,
   mellomlagreStønad,
   tilbakeTilOppsummeringPath,
   informasjonstekstId,
@@ -82,7 +82,7 @@ export const Side: React.FC<Props> = ({
           <Stegindikator stegListe={stegobjekter} aktivtSteg={aktivtSteg} />
         )}
 
-        {skalViseKnapper === NavigasjonState.skjulKnapper && (
+        {navigasjonState === NavigasjonState.skjulKnapper && (
           <div className={styles.brevIkon}>
             <SendBrevSVG />
           </div>
@@ -101,7 +101,7 @@ export const Side: React.FC<Props> = ({
             </Alert>
           )}
 
-          {skalViseKnapper === NavigasjonState.visTilbakeNesteAvbrytKnapp && (
+          {navigasjonState === NavigasjonState.visTilbakeNesteAvbrytKnapp && (
             <>
               {!erSpørsmålBesvart && (
                 <BodyShort size="small" className={styles.uuTekst}>
@@ -118,7 +118,7 @@ export const Side: React.FC<Props> = ({
             </>
           )}
 
-          {skalViseKnapper === NavigasjonState.visTilbakeTilOppsummeringKnapp &&
+          {navigasjonState === NavigasjonState.visTilbakeTilOppsummeringKnapp &&
             erSpørsmålBesvart && (
               <>
                 <BodyShort size="small" className={styles.uuTekst}>

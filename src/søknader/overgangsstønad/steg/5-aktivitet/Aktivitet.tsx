@@ -94,7 +94,7 @@ const Aktivitet: React.FC = () => {
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={hentTekst('stegtittel.arbeidssituasjon', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}

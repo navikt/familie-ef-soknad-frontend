@@ -84,7 +84,7 @@ const Dokumentasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={sidetittel}
-      skalViseKnapper={NavigasjonState.skjulKnapper}
+      navigasjonState={NavigasjonState.skjulKnapper}
       erSpørsmålBesvart={false}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}

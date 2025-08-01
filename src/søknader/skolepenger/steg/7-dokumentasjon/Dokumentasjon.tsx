@@ -85,7 +85,7 @@ const Dokumentasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={sidetittel}
-      skalViseKnapper={NavigasjonState.skjulKnapper}
+      navigasjonState={NavigasjonState.skjulKnapper}
       erSpørsmålBesvart={false}
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}

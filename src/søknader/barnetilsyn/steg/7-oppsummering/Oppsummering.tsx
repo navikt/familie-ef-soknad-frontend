@@ -35,7 +35,7 @@ const Oppsummering: React.FC = () => {
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreBarnetilsyn}
         routesStønad={RoutesBarnetilsyn}
-        skalViseKnapper={NavigasjonState.visTilbakeNesteAvbrytKnapp}
+        navigasjonState={NavigasjonState.visTilbakeNesteAvbrytKnapp}
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">

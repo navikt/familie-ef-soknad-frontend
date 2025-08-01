@@ -47,7 +47,7 @@ const Kvittering: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={hentTekst('kvittering.takk', intl)}
-      skalViseKnapper={NavigasjonState.skjulKnapper}
+      navigasjonState={NavigasjonState.skjulKnapper}
       routesStønad={RoutesSkolepenger}
       skalViseStegindikator={false}
     >
