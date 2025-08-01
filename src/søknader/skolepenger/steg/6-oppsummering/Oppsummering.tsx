@@ -7,7 +7,7 @@ import OppsummeringBarnaDine from '../../../felles/steg/7-oppsummering/Oppsummer
 import OppsummeringBosituasjonenDin from '../../../felles/steg/7-oppsummering/OppsummeringBosituasjon';
 import { ERouteSkolepenger, RoutesSkolepenger } from '../../routing/routes';
 import { hentPath } from '../../../../utils/routing';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import OppsummeringDetaljertUtdanning from '../../../felles/steg/7-oppsummering/OppsummeringDetaljertUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -27,7 +27,7 @@ const Oppsummering: React.FC = () => {
       <Side
         stønadstype={Stønadstype.skolepenger}
         stegtittel={hentTekst('oppsummering.sidetittel', intl)}
-        skalViseKnapper={ESide.visTilbakeNesteAvbrytKnapp}
+        navigasjonState={NavigasjonState.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreSkolepenger}
         routesStønad={RoutesSkolepenger}

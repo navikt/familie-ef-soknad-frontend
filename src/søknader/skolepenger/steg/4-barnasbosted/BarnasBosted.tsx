@@ -5,7 +5,7 @@ import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -19,8 +19,8 @@ const BarnasBosted: React.FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
+    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const {
     søknad,
     mellomlagreSkolepenger,
@@ -44,7 +44,7 @@ const BarnasBosted: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={hentTekst('barnasbosted.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={skalViseKnapper}
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesSkolepenger}
       mellomlagreStønad={mellomlagreSkolepenger}
