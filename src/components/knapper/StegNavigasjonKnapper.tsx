@@ -14,7 +14,7 @@ interface Props {
   mellomlagreSteg?: () => void;
 }
 
-export const SøknadStegNavigasjonKnapper: FC<Props> = ({
+export const StegNavigasjonKnapper: FC<Props> = ({
   routesStønad,
   erSpørsmålBesvart,
   mellomlagreStønad,
@@ -28,7 +28,7 @@ export const SøknadStegNavigasjonKnapper: FC<Props> = ({
   const nesteRoute = hentNesteRoute(routesStønad, location.pathname);
   const forrigeRoute = hentForrigeRoute(routesStønad, location.pathname);
 
-  const onNesteClick = () => {
+  const onNeste = () => {
     if (mellomlagreSteg) {
       mellomlagreSteg();
     } else if (mellomlagreStønad) {
@@ -37,11 +37,11 @@ export const SøknadStegNavigasjonKnapper: FC<Props> = ({
     navigate(nesteRoute.path);
   };
 
-  const onTilbakeClick = () => {
+  const onTilbake = () => {
     navigate(forrigeRoute.path);
   };
 
-  const onAvbrytClick = () => {
+  const onAvbryt = () => {
     navigate(routesStønad[0].path);
   };
 
@@ -50,23 +50,23 @@ export const SøknadStegNavigasjonKnapper: FC<Props> = ({
       {erSpørsmålBesvart ? (
         <>
           <HStack gap="4">
-            <Button variant="secondary" onClick={onTilbakeClick}>
+            <Button variant="secondary" onClick={onTilbake}>
               {hentTekst('knapp.tilbake', intl)}
             </Button>
-            <Button variant="primary" disabled={disableNesteKnapp} onClick={onNesteClick}>
+            <Button variant="primary" disabled={disableNesteKnapp} onClick={onNeste}>
               {hentTekst('knapp.neste', intl)}
             </Button>
           </HStack>
-          <Button variant="tertiary" onClick={onAvbrytClick}>
+          <Button variant="tertiary" onClick={onAvbryt}>
             {hentTekst('knapp.avbryt', intl)}
           </Button>
         </>
       ) : (
         <VStack gap="4" align="center">
-          <Button variant="secondary" onClick={onTilbakeClick}>
+          <Button variant="secondary" onClick={onTilbake}>
             {hentTekst('knapp.tilbake', intl)}
           </Button>
-          <Button variant="tertiary" onClick={onAvbrytClick}>
+          <Button variant="tertiary" onClick={onAvbryt}>
             {hentTekst('knapp.avbryt', intl)}
           </Button>
         </VStack>
