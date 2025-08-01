@@ -19,6 +19,7 @@ export enum StegNavigasjonState {
   skjulKnapper = 'skjulKnapper',
 }
 
+// TODO: Fjern nullable fra mellomlagreSteg
 interface ISide {
   stønadstype: Stønadstype;
   stegtittel: string;
