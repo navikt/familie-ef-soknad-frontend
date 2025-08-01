@@ -15,7 +15,7 @@ import {
 } from '../../../../helpers/steg/aktivitet';
 import AktivitetOppfølgingSpørsmål from '../../../felles/steg/5-aktivitet/AktivitetOppfølgingSpørsmål';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
-import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -31,8 +31,8 @@ const Aktivitet: React.FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp
-    : StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp;
+    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
+    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>({
     ...søknad.aktivitet,
     hvaErDinArbeidssituasjon: søknad.aktivitet.hvaErDinArbeidssituasjon,

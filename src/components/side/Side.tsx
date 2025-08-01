@@ -13,7 +13,7 @@ import styles from './Side.module.css';
 import { hentBannertittel } from '../../utils/stønadstype';
 import { StegNavigasjonKnapper } from '../knapper/StegNavigasjonKnapper';
 
-export enum StegNavigasjonKnappeState {
+export enum NavigasjonState {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',
   visTilbakeTilOppsummeringKnapp = 'visTilbakeTilOppsummeringKnapp',
   skjulKnapper = 'skjulKnapper',
@@ -24,7 +24,7 @@ interface Props {
   stønadstype: Stønadstype;
   stegtittel: string;
   routesStønad: IRoute[];
-  skalViseKnapper: StegNavigasjonKnappeState;
+  skalViseKnapper: NavigasjonState;
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   tilbakeTilOppsummeringPath?: string;
@@ -82,7 +82,7 @@ export const Side: React.FC<Props> = ({
           <Stegindikator stegListe={stegobjekter} aktivtSteg={aktivtSteg} />
         )}
 
-        {skalViseKnapper === StegNavigasjonKnappeState.skjulKnapper && (
+        {skalViseKnapper === NavigasjonState.skjulKnapper && (
           <div className={styles.brevIkon}>
             <SendBrevSVG />
           </div>
@@ -101,7 +101,7 @@ export const Side: React.FC<Props> = ({
             </Alert>
           )}
 
-          {skalViseKnapper === StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp && (
+          {skalViseKnapper === NavigasjonState.visTilbakeNesteAvbrytKnapp && (
             <>
               {!erSpørsmålBesvart && (
                 <BodyShort size="small" className={styles.uuTekst}>
@@ -118,7 +118,7 @@ export const Side: React.FC<Props> = ({
             </>
           )}
 
-          {skalViseKnapper === StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp &&
+          {skalViseKnapper === NavigasjonState.visTilbakeTilOppsummeringKnapp &&
             erSpørsmålBesvart && (
               <>
                 <BodyShort size="small" className={styles.uuTekst}>

@@ -19,7 +19,7 @@ import {
   harBarnAvsluttetFjerdeKlasse,
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
-import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router-dom';
@@ -44,8 +44,8 @@ const Barnepass: FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp
-    : StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp;
+    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
+    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
     useBarnetilsynSøknad();
   const { søknadsdato, søkerFraBestemtMåned } = søknad;

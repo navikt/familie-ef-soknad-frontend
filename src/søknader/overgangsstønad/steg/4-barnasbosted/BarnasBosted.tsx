@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { IBarn } from '../../../../models/steg/barn';
-import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -31,8 +31,8 @@ const BarnasBosted: React.FC = () => {
 
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp
-    : StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp;
+    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
+    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
 
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
     antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length

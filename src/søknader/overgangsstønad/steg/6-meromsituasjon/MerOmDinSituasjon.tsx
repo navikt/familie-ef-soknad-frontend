@@ -26,7 +26,7 @@ import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import SituasjonOppfølgingSpørsmål from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
-import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -57,8 +57,8 @@ const MerOmDinSituasjon: React.FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp
-    : StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp;
+    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
+    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
   const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);

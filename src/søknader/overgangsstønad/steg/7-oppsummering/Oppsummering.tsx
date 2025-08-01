@@ -10,7 +10,7 @@ import OppsummeringBosituasjonenDin from '../../../felles/steg/7-oppsummering/Op
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { hentPath } from '../../../../utils/routing';
-import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import {
@@ -147,7 +147,7 @@ const Oppsummering: React.FC = () => {
       <Side
         stønadstype={Stønadstype.overgangsstønad}
         stegtittel={hentTekst('oppsummering.sidetittel', intl)}
-        skalViseKnapper={StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp}
+        skalViseKnapper={NavigasjonState.visTilbakeNesteAvbrytKnapp}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreOvergangsstønad}
         routesStønad={RoutesOvergangsstonad}
