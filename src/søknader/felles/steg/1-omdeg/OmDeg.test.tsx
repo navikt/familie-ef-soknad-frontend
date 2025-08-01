@@ -24,7 +24,7 @@ describe('OmDegSteg, personopplysninger', () => {
     mockMellomlagretSøknad('overgangsstonad', '/om-deg');
     const { screen } = await navigerTilSteg();
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Om deg' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Om deg' })).toBeInTheDocument();
   });
 
   test('Rendre spørsmål om uformelt gift dersom bruker er ugift og borPåAdresse er ja', async () => {

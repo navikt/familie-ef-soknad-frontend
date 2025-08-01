@@ -89,7 +89,7 @@ export const Side: React.FC<ISide> = ({
         )}
 
         <VStack gap="8" className={styles.children}>
-          <Heading size="medium" className={styles.stegTittel}>
+          <Heading level="2" size="medium" className={styles.stegTittel}>
             {stegtittel}
           </Heading>
 
