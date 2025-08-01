@@ -2,7 +2,7 @@ import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useLocation } from 'react-router-dom';
 import { erAllUtdanningFerdigUtfyltForSkolepenger } from '../../../../helpers/steg/aktivitetvalidering';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
 import { DetaljertUtdanning } from '../../models/detaljertUtdanning';
@@ -22,8 +22,8 @@ const UtdanningSituasjon: React.FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+    ? StegNavigasjonState.visTilbakeNesteAvbrytKnapp
+    : StegNavigasjonState.visTilbakeTilOppsummeringKnapp;
 
   useMount(() => logSidevisningSkolepenger('Aktivitet'));
 

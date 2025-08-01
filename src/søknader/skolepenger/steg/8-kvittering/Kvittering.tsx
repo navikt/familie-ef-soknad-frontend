@@ -7,7 +7,7 @@ import { formatDateHour } from '../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
 import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
@@ -47,7 +47,7 @@ const Kvittering: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={hentTekst('kvittering.takk', intl)}
-      skalViseKnapper={ESide.skjulKnapper}
+      skalViseKnapper={StegNavigasjonState.skjulKnapper}
       routesStønad={RoutesSkolepenger}
       skalViseStegindikator={false}
     >

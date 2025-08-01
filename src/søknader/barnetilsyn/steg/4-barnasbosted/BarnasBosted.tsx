@@ -6,7 +6,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -35,8 +35,8 @@ const BarnasBosted: React.FC = () => {
 
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+    ? StegNavigasjonState.visTilbakeNesteAvbrytKnapp
+    : StegNavigasjonState.visTilbakeTilOppsummeringKnapp;
 
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
     antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length

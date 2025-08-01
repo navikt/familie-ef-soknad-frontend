@@ -6,7 +6,7 @@ import { useMount, usePrevious } from '../../../../utils/hooks';
 import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg';
 import SendSøknadKnapper from './SendBarnetilsynSøknad';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -85,7 +85,7 @@ const Dokumentasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={sidetittel}
-      skalViseKnapper={ESide.skjulKnapper}
+      skalViseKnapper={StegNavigasjonState.skjulKnapper}
       erSpørsmålBesvart={false}
       routesStønad={RoutesBarnetilsyn}
     >

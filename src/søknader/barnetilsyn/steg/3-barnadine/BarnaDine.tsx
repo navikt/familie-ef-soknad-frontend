@@ -9,7 +9,7 @@ import Barnekort from '../../../felles/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -32,7 +32,7 @@ const BarnaDine: React.FC = () => {
 
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
-  const skalViseKnapper = ESide.visTilbakeNesteAvbrytKnapp;
+  const skalViseKnapper = StegNavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const toggleSkalHaBarnepass = (id: string) => {
     const detteBarnet = søknad.person.barn.find((b: IBarn) => b.id === id);

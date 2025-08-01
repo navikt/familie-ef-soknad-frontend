@@ -10,7 +10,7 @@ import { ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
 import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
@@ -56,7 +56,7 @@ const Kvittering: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('kvittering.takk', intl)}
-      skalViseKnapper={ESide.skjulKnapper}
+      skalViseKnapper={StegNavigasjonState.skjulKnapper}
       routesStønad={RoutesBarnetilsyn}
       skalViseStegindikator={false}
     >

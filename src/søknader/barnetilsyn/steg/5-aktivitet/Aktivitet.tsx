@@ -24,7 +24,7 @@ import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpø
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
@@ -42,8 +42,8 @@ const Aktivitet: React.FC = () => {
   const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+    ? StegNavigasjonState.visTilbakeNesteAvbrytKnapp
+    : StegNavigasjonState.visTilbakeTilOppsummeringKnapp;
   useEffect(() => {
     settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
     // eslint-disable-next-line

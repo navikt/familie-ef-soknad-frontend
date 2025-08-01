@@ -11,7 +11,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentPath } from '../../../../utils/routing';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
@@ -35,7 +35,7 @@ const Oppsummering: React.FC = () => {
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreBarnetilsyn}
         routesStønad={RoutesBarnetilsyn}
-        skalViseKnapper={ESide.visTilbakeNesteAvbrytKnapp}
+        skalViseKnapper={StegNavigasjonState.visTilbakeNesteAvbrytKnapp}
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">

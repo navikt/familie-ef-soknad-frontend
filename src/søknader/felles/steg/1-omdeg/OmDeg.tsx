@@ -8,7 +8,7 @@ import {
 import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
 import Personopplysninger from '../../../felles/steg/1-omdeg/personopplysninger/Personopplysninger';
 import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
@@ -19,8 +19,8 @@ const OmDeg: FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+    ? StegNavigasjonState.visTilbakeNesteAvbrytKnapp
+    : StegNavigasjonState.visTilbakeTilOppsummeringKnapp;
 
   const {
     sivilstatus,

@@ -5,7 +5,7 @@ import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, StegNavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -19,8 +19,8 @@ const BarnasBosted: React.FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+    ? StegNavigasjonState.visTilbakeNesteAvbrytKnapp
+    : StegNavigasjonState.visTilbakeTilOppsummeringKnapp;
   const {
     søknad,
     mellomlagreSkolepenger,
