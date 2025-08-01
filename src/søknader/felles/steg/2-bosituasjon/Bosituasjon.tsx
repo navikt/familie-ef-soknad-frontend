@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
 import { BosituasjonSpørsmål } from './BosituasjonSpørsmål';
-import { Side, StegNavigasjonState } from '../../../../components/side/Side';
+import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useBosituasjon } from './BosituasjonContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -14,8 +14,8 @@ export const Bosituasjon: FC = () => {
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const skalViseKnapper = !kommerFraOppsummering
-    ? StegNavigasjonState.visTilbakeNesteAvbrytKnapp
-    : StegNavigasjonState.visTilbakeTilOppsummeringKnapp;
+    ? StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp
+    : StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp;
 
   return (
     <Side

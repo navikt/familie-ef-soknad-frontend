@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { useMount, usePrevious } from '../../../../utils/hooks';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
-import { Side, StegNavigasjonState } from '../../../../components/side/Side';
+import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
@@ -85,7 +85,7 @@ const Dokumentasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={sidetittel}
-      skalViseKnapper={StegNavigasjonState.skjulKnapper}
+      skalViseKnapper={StegNavigasjonKnappeState.skjulKnapper}
       erSpørsmålBesvart={false}
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}

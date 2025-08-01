@@ -16,7 +16,7 @@ import { DinSituasjonType } from '../../../../models/steg/dinsituasjon/meromsitu
 import SykSøker from '../../../felles/steg/9-kvittering/SykSøker';
 import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import { Side, StegNavigasjonState } from '../../../../components/side/Side';
+import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
 import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
@@ -68,7 +68,7 @@ const Kvittering: React.FC = () => {
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={hentTekst('kvittering.takk', intl)}
-      skalViseKnapper={StegNavigasjonState.skjulKnapper}
+      skalViseKnapper={StegNavigasjonKnappeState.skjulKnapper}
       routesStønad={RoutesOvergangsstonad}
       skalViseStegindikator={false}
     >

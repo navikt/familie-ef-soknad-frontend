@@ -13,18 +13,18 @@ import styles from './Side.module.css';
 import { hentBannertittel } from '../../utils/stønadstype';
 import { StegNavigasjonKnapper } from '../knapper/StegNavigasjonKnapper';
 
-export enum StegNavigasjonState {
+export enum StegNavigasjonKnappeState {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',
   visTilbakeTilOppsummeringKnapp = 'visTilbakeTilOppsummeringKnapp',
   skjulKnapper = 'skjulKnapper',
 }
 
 // TODO: Fjern nullable fra mellomlagreSteg
-interface ISide {
+interface Props {
   stønadstype: Stønadstype;
   stegtittel: string;
   routesStønad: IRoute[];
-  skalViseKnapper: StegNavigasjonState;
+  skalViseKnapper: StegNavigasjonKnappeState;
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   tilbakeTilOppsummeringPath?: string;
@@ -35,7 +35,7 @@ interface ISide {
   mellomlagreSteg?: () => void;
 }
 
-export const Side: React.FC<ISide> = ({
+export const Side: React.FC<Props> = ({
   stønadstype,
   stegtittel,
   children,
@@ -82,7 +82,7 @@ export const Side: React.FC<ISide> = ({
           <Stegindikator stegListe={stegobjekter} aktivtSteg={aktivtSteg} />
         )}
 
-        {skalViseKnapper === StegNavigasjonState.skjulKnapper && (
+        {skalViseKnapper === StegNavigasjonKnappeState.skjulKnapper && (
           <div className={styles.brevIkon}>
             <SendBrevSVG />
           </div>
@@ -101,7 +101,7 @@ export const Side: React.FC<ISide> = ({
             </Alert>
           )}
 
-          {skalViseKnapper === StegNavigasjonState.visTilbakeNesteAvbrytKnapp && (
+          {skalViseKnapper === StegNavigasjonKnappeState.visTilbakeNesteAvbrytKnapp && (
             <>
               {!erSpørsmålBesvart && (
                 <BodyShort size="small" className={styles.uuTekst}>
@@ -118,7 +118,7 @@ export const Side: React.FC<ISide> = ({
             </>
           )}
 
-          {skalViseKnapper === StegNavigasjonState.visTilbakeTilOppsummeringKnapp &&
+          {skalViseKnapper === StegNavigasjonKnappeState.visTilbakeTilOppsummeringKnapp &&
             erSpørsmålBesvart && (
               <>
                 <BodyShort size="small" className={styles.uuTekst}>

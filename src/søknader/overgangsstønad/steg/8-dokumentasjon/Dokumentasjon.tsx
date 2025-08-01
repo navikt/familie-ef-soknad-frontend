@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { useMount, usePrevious } from '../../../../utils/hooks';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
-import { Side, StegNavigasjonState } from '../../../../components/side/Side';
+import { Side, StegNavigasjonKnappeState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -84,7 +84,7 @@ const Dokumentasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={sidetittel}
-      skalViseKnapper={StegNavigasjonState.skjulKnapper}
+      skalViseKnapper={StegNavigasjonKnappeState.skjulKnapper}
       erSpørsmålBesvart={false}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}
