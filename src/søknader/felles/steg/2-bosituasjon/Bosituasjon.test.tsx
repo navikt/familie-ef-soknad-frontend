@@ -29,7 +29,7 @@ describe('BosituasjonSteg', () => {
     const { screen } = await navigerTilSteg();
 
     expect(
-      screen.getByRole('heading', { level: 2, name: 'Bosituasjonen din' })
+      screen.getByRole('heading', { level: 1, name: 'Bosituasjonen din' })
     ).toBeInTheDocument();
     expect(screen.getByText('Barna dine')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Tilbake' })).toBeInTheDocument();
@@ -59,9 +59,9 @@ describe('BosituasjonSteg', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Barna dine' })).toBeInTheDocument();
   });
 
   test('Bruker og den andre forelderen bor midlertidig fra hverandre', async () => {
@@ -86,9 +86,9 @@ describe('BosituasjonSteg', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Barna dine' })).toBeInTheDocument();
   });
 
   test('Bruker bor sammen med kjæresten sin', async () => {
@@ -157,9 +157,9 @@ describe('BosituasjonSteg', () => {
     );
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Barna dine' })).toBeInTheDocument();
   });
 
   test('Bruker deler bolig med andre voksne', async () => {
@@ -236,9 +236,9 @@ describe('BosituasjonSteg', () => {
     await skrivFritekst('Fødselsnummer / d-nummer (11 siffer)', '27909698168', screen, user);
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Barna dine' })).toBeInTheDocument();
   });
 
   test('Bruker har tidligere samboer registrert på adressen sin', async () => {
@@ -375,9 +375,9 @@ describe('BosituasjonSteg', () => {
     expect(screen.getByTestId('bosituasjon-tidligere-samboer-fødselsnummer')).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Barna dine' })).toBeInTheDocument();
   }, 10000);
 
   test('Bruker bor alene med barn eller er gravid og bor alene', async () => {
@@ -467,8 +467,8 @@ describe('BosituasjonSteg', () => {
     await skrivFritekst('Fødselsnummer / d-nummer (11 siffer)', '27909698168', screen, user);
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    expect(screen.queryByRole('heading', { level: 2, name: 'Barna dine' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 1, name: 'Barna dine' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Barna dine' })).toBeInTheDocument();
   });
 });
