@@ -19,6 +19,11 @@ app.use((_req, res, next) => {
 });
 
 const compiler = webpack(config);
+
+if (!compiler) {
+  throw new Error('Webpack compiler kunne ikke opprettes, mangler verdi.');
+}
+
 const middleware = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   writeToDisk: true,
