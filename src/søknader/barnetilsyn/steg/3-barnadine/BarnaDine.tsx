@@ -102,18 +102,22 @@ const BarnaDine: React.FC = () => {
               }
               return 0;
             })
-            .map((barn: IBarn) => (
-              <Barnekort
-                key={barn.id}
-                gjeldendeBarn={barn}
-                footer={
-                  <BarnMedISøknad
-                    id={barn.id ? barn.id : ''}
-                    toggleSkalHaBarnepass={toggleSkalHaBarnepass}
-                    skalHaBarnepass={!!barn.skalHaBarnepass?.verdi}
-                  />
-                }
-              />
+            .map((barn: IBarn, indeks: number) => (
+              <>
+                <p>{`hei, ${indeks}`}</p>
+                <Barnekort
+                  key={barn.id}
+                  gjeldendeBarn={barn}
+                  footer={
+                    <BarnMedISøknad
+                      id={barn.id ? barn.id : ''}
+                      toggleSkalHaBarnepass={toggleSkalHaBarnepass}
+                      skalHaBarnepass={!!barn.skalHaBarnepass?.verdi}
+                      testId={`avhuk-${indeks}`}
+                    />
+                  }
+                />
+              </>
             ))}
         </BarneKortWrapper>
       </BarnaDineContainer>
