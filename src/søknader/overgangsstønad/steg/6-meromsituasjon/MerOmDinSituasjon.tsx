@@ -56,7 +56,7 @@ const MerOmDinSituasjon: React.FC = () => {
   } = useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
+  const navigasjonState = !kommerFraOppsummering
     ? NavigasjonState.visTilbakeNesteAvbrytKnapp
     : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
@@ -160,7 +160,7 @@ const MerOmDinSituasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={hentTekst('stegtittel.dinSituasjon', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}

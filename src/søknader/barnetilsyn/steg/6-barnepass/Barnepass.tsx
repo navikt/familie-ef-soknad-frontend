@@ -43,7 +43,7 @@ const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
+  const navigasjonState = !kommerFraOppsummering
     ? NavigasjonState.visTilbakeNesteAvbrytKnapp
     : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
@@ -127,7 +127,7 @@ const Barnepass: FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnepass.sidetittel', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}
       routesStønad={RoutesBarnetilsyn}

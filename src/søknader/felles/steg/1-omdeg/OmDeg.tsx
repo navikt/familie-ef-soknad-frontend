@@ -18,7 +18,7 @@ const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
+  const navigasjonState = !kommerFraOppsummering
     ? NavigasjonState.visTilbakeNesteAvbrytKnapp
     : NavigasjonState.visTilbakeTilOppsummeringKnapp;
 
@@ -56,7 +56,7 @@ const OmDeg: FC = () => {
       stønadstype={stønadstype}
       stegtittel={hentTekst('stegtittel.omDeg', intl)}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       routesStønad={routes}
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}

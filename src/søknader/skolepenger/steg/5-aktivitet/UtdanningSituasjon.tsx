@@ -21,7 +21,7 @@ const UtdanningSituasjon: React.FC = () => {
   const { søknad, settSøknad, mellomlagreSkolepenger } = useSkolepengerSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
+  const navigasjonState = !kommerFraOppsummering
     ? NavigasjonState.visTilbakeNesteAvbrytKnapp
     : NavigasjonState.visTilbakeTilOppsummeringKnapp;
 
@@ -41,7 +41,7 @@ const UtdanningSituasjon: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={hentTekst('stegtittel.utdanning', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}

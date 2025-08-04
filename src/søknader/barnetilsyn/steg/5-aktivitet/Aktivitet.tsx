@@ -41,7 +41,7 @@ const Aktivitet: React.FC = () => {
   const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
   const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
+  const navigasjonState = !kommerFraOppsummering
     ? NavigasjonState.visTilbakeNesteAvbrytKnapp
     : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   useEffect(() => {
@@ -130,7 +130,7 @@ const Aktivitet: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('stegtittel.arbeidssituasjon.barnetilsyn', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}

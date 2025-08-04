@@ -18,7 +18,7 @@ const BarnasBosted: React.FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
+  const navigasjonState = !kommerFraOppsummering
     ? NavigasjonState.visTilbakeNesteAvbrytKnapp
     : NavigasjonState.visTilbakeTilOppsummeringKnapp;
   const {
@@ -44,7 +44,7 @@ const BarnasBosted: React.FC = () => {
     <Side
       stønadstype={Stønadstype.skolepenger}
       stegtittel={hentTekst('barnasbosted.sidetittel', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesSkolepenger}
       mellomlagreStønad={mellomlagreSkolepenger}

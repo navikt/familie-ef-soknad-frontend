@@ -32,7 +32,7 @@ const BarnaDine: React.FC = () => {
 
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
-  const skalViseKnapper = NavigasjonState.visTilbakeNesteAvbrytKnapp;
+  const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const toggleSkalHaBarnepass = (id: string) => {
     const detteBarnet = søknad.person.barn.find((b: IBarn) => b.id === id);
@@ -60,7 +60,7 @@ const BarnaDine: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={harValgtMinstEttBarn}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}

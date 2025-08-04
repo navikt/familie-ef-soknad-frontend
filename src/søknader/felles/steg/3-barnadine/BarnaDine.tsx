@@ -20,7 +20,7 @@ const BarnaDine: React.FC = () => {
     settDokumentasjonsbehovForBarn,
   } = useBarnaDine();
 
-  const skalViseKnapper = NavigasjonState.visTilbakeNesteAvbrytKnapp;
+  const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const harMinstEttBarn = barneliste.length > 0;
 
   const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
@@ -36,7 +36,7 @@ const BarnaDine: React.FC = () => {
     <Side
       stønadstype={stønadstype}
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
-      navigasjonState={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={harMinstEttBarn}
       routesStønad={routes}
       mellomlagreSteg={mellomlagreSteg}
