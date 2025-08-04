@@ -34,9 +34,9 @@ const BarnasBosted: React.FC = () => {
   });
 
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
     antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length

@@ -41,9 +41,9 @@ const Aktivitet: React.FC = () => {
   const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
   const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   useEffect(() => {
     settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
     // eslint-disable-next-line

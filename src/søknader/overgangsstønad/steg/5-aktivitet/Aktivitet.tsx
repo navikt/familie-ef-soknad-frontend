@@ -30,9 +30,9 @@ const Aktivitet: React.FC = () => {
     useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>({
     ...søknad.aktivitet,
     hvaErDinArbeidssituasjon: søknad.aktivitet.hvaErDinArbeidssituasjon,

@@ -13,9 +13,9 @@ export const Bosituasjon: FC = () => {
   const { bosituasjon, stønadstype, routes, mellomlagreSteg, pathOppsummering } = useBosituasjon();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   return (
     <Side

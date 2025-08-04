@@ -56,9 +56,9 @@ const MerOmDinSituasjon: React.FC = () => {
   } = useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
   const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);

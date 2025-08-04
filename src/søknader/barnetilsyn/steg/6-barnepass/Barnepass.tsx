@@ -43,9 +43,9 @@ const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
     useBarnetilsynSøknad();
   const { søknadsdato, søkerFraBestemtMåned } = søknad;

@@ -21,9 +21,9 @@ const UtdanningSituasjon: React.FC = () => {
   const { søknad, settSøknad, mellomlagreSkolepenger } = useSkolepengerSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const navigasjonState = !kommerFraOppsummering
-    ? NavigasjonState.visTilbakeNesteAvbrytKnapp
-    : NavigasjonState.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   useMount(() => logSidevisningSkolepenger('Aktivitet'));
 
