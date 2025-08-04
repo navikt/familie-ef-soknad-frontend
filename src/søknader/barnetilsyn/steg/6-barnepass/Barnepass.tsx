@@ -19,7 +19,7 @@ import {
   harBarnAvsluttetFjerdeKlasse,
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router-dom';
@@ -43,9 +43,9 @@ const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
     useBarnetilsynSøknad();
   const { søknadsdato, søkerFraBestemtMåned } = søknad;
@@ -127,7 +127,7 @@ const Barnepass: FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnepass.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={navigasjonState}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}
       routesStønad={RoutesBarnetilsyn}
