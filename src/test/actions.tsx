@@ -4,8 +4,9 @@ import { OvergangsstønadApp } from '../søknader/overgangsstønad/Overgangsstø
 import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
 import { UserEvent } from '@testing-library/user-event/index';
+import BarnetilsynApp from '../søknader/barnetilsyn/BarnetilsynApp';
 
-export const navigerTilSteg = async () => {
+export const navigerTilStegOvergangsstønad = async () => {
   const { screen, user } = render(
     <TestContainer>
       <OvergangsstønadApp />
@@ -17,6 +18,31 @@ export const navigerTilSteg = async () => {
       screen.getByRole('heading', {
         level: 1,
         name: 'Søknad om overgangsstønad',
+      })
+    ).toBeInTheDocument();
+  });
+
+  await user.click(
+    screen.getByRole('button', {
+      name: 'Fortsett på søknaden',
+    })
+  );
+
+  return { screen, user };
+};
+
+export const navigerTilStegBarnetilsyn = async () => {
+  const { screen, user } = render(
+    <TestContainer>
+      <BarnetilsynApp />
+    </TestContainer>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Søknad om barnetilsyn',
       })
     ).toBeInTheDocument();
   });

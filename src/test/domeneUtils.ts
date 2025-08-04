@@ -370,7 +370,7 @@ export const lagMellomlagretSøknadBarnetilsyn = (
 ): MellomlagretSøknadBarnetilsyn => {
   return {
     søknad: lagSøknadBarnetilsyn(),
-    modellVersjon: 7,
+    modellVersjon: 2,
     gjeldendeSteg: '/',
     locale: '',
     ...søknad,
@@ -382,7 +382,7 @@ export const lagMellomlagretSøknadSkolepenger = (
 ): MellomlagretSøknadSkolepenger => {
   return {
     søknad: lagSøknadSkolepenger(),
-    modellVersjon: 7,
+    modellVersjon: 2,
     gjeldendeSteg: '/',
     locale: '',
     ...søknad,
