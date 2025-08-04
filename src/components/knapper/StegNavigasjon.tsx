@@ -14,7 +14,7 @@ interface Props {
   mellomlagreSteg?: () => void;
 }
 
-export const StegNavigasjonKnapper: FC<Props> = ({
+export const StegNavigasjon: FC<Props> = ({
   routesStønad,
   erSpørsmålBesvart,
   mellomlagreStønad,

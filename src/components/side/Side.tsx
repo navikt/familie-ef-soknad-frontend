@@ -11,7 +11,7 @@ import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import styles from './Side.module.css';
 import { hentBannertittel } from '../../utils/stønadstype';
-import { StegNavigasjonKnapper } from '../knapper/StegNavigasjonKnapper';
+import { StegNavigasjon } from '../knapper/StegNavigasjon';
 
 export enum NavigasjonState {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',
@@ -108,7 +108,7 @@ export const Side: React.FC<Props> = ({
                   {hentTekst('knapp.uu-tekst', intl)}
                 </BodyShort>
               )}
-              <StegNavigasjonKnapper
+              <StegNavigasjon
                 routesStønad={routesStønad}
                 erSpørsmålBesvart={erSpørsmålBesvart}
                 mellomlagreStønad={mellomlagreStønad}
