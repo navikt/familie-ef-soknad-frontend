@@ -1,7 +1,7 @@
 import React from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { BarnaDineInnhold } from './BarnaDineInnhold';
 import { useBarnaDine } from './BarnaDineContext';
 import { IBarn } from '../../../../models/steg/barn';
@@ -20,7 +20,7 @@ const BarnaDine: React.FC = () => {
     settDokumentasjonsbehovForBarn,
   } = useBarnaDine();
 
-  const skalViseKnapper = ESide.visTilbakeNesteAvbrytKnapp;
+  const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const harMinstEttBarn = barneliste.length > 0;
 
   const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
@@ -36,7 +36,7 @@ const BarnaDine: React.FC = () => {
     <Side
       stønadstype={stønadstype}
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={harMinstEttBarn}
       routesStønad={routes}
       mellomlagreSteg={mellomlagreSteg}
