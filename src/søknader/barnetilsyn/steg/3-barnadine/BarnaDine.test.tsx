@@ -14,7 +14,6 @@ import {
   lagTekstfelt,
 } from '../../../../test/domeneUtils';
 import { dagensIsoDatoMinusMåneder } from '../../../../utils/dato';
-import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -256,8 +255,6 @@ describe('BarnaDine-Steg for barnetilsyn', () => {
       }
     );
     const { screen } = await navigerTilStegBarnetilsyn();
-
-    console.log(prettyDOM(undefined, Infinity));
 
     expect(
       screen.getByText((tekst) => tekst.includes('Du har ingen barn registrert i Folkeregisteret.'))
