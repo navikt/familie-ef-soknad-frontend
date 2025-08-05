@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormProgress } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentTekst } from '../../utils/teksthåndtering';
+import { hentTekst, hentTekstMedFlereVariabler } from '../../utils/teksthåndtering';
 import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType } from '../../language/typer';
 
@@ -18,30 +18,29 @@ interface Props {
 
 export const Stegindikator: React.FC<Props> = ({ steg, aktivtSteg }) => {
   const intl = useLokalIntlContext();
-  const [activeStep, setActiveStep] = useState(aktivtSteg + 1);
-  const [locale] = useSpråkContext();
-  const erEngelskSpråk = locale === LocaleType.en;
 
-  const translations = erEngelskSpråk
-    ? {
-        step: `Step ${activeStep} of ${steg.length}`,
-        showAllSteps: 'Show all steps',
-        hideAllSteps: 'Hide all steps',
-      }
-    : {
-        step: `Steg ${activeStep} av ${steg.length}`,
-        showAllSteps: 'Vis alle steg',
-        hideAllSteps: 'Skjul alle steg',
-      };
+  const antallSteg = steg.length;
+  const aktivtStegIndex = steg.findIndex((steg) => steg.index === aktivtSteg) + 1;
+
+  const stepTekst = hentTekstMedFlereVariabler('stegindikator.nåværendeSteg', intl, {
+    0: aktivtStegIndex.toString(),
+    1: antallSteg.toString(),
+  });
+  const showAllStepsTekst = hentTekst('stegindikator.visAlleSteg', intl);
+  const hideAllStepsTekst = hentTekst('stegindikator.skjulAlleSteg', intl);
+
+  const oversettelse = {
+    step: stepTekst,
+    showAllSteps: showAllStepsTekst,
+    hideAllSteps: hideAllStepsTekst,
+  };
 
   return (
     <FormProgress
-      className="stegindikator"
-      totalSteps={steg.length}
-      activeStep={activeStep}
-      onStepChange={setActiveStep}
+      totalSteps={antallSteg}
+      activeStep={aktivtStegIndex}
       interactiveSteps={false}
-      translations={translations}
+      translations={oversettelse}
     >
       {steg.map((steg) => (
         <FormProgress.Step key={steg.label}>
