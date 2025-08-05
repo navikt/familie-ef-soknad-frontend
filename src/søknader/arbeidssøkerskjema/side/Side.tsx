@@ -1,5 +1,5 @@
 import React from 'react';
-import Banner from '../../../components/Banner';
+import { SøknadBanner } from '../../../components/SøknadBanner';
 import { RoutesArbeidssokerskjema } from '../routes/routesArbeidssokerskjema';
 import { useLocation } from 'react-router-dom';
 import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
@@ -38,7 +38,7 @@ const Side: React.FC<ISide> = ({
 
   return (
     <div className={'skjema'}>
-      <Banner tekstid={'banner.tittel.arbeidssøker'} />
+      <SøknadBanner bannerKey={hentTekst('banner.tittel.arbeidssøker', intl)} />
       <div className={'side'}>
         {skalViseStegindikator && (
           <Stegindikator aktivtSteg={aktivtSteg} stegListe={stegobjekter} />
