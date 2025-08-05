@@ -5,18 +5,18 @@ import { hentTekst } from '../../utils/teksthåndtering';
 import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType } from '../../language/typer';
 
-export interface ISteg {
+export interface SøknadSteg {
   label: string;
   index: number;
   localeTeskt?: string;
 }
 
-interface IStegIndikatorProps {
-  stegListe: ISteg[];
+interface Props {
+  steg: SøknadSteg[];
   aktivtSteg: number;
 }
 
-const Stegindikator: React.FC<IStegIndikatorProps> = ({ stegListe, aktivtSteg }) => {
+export const Stegindikator: React.FC<Props> = ({ steg, aktivtSteg }) => {
   const intl = useLokalIntlContext();
   const [activeStep, setActiveStep] = useState(aktivtSteg + 1);
   const [locale] = useSpråkContext();
@@ -24,12 +24,12 @@ const Stegindikator: React.FC<IStegIndikatorProps> = ({ stegListe, aktivtSteg })
 
   const translations = erEngelskSpråk
     ? {
-        step: `Step ${activeStep} of ${stegListe.length}`,
+        step: `Step ${activeStep} of ${steg.length}`,
         showAllSteps: 'Show all steps',
         hideAllSteps: 'Hide all steps',
       }
     : {
-        step: `Steg ${activeStep} av ${stegListe.length}`,
+        step: `Steg ${activeStep} av ${steg.length}`,
         showAllSteps: 'Vis alle steg',
         hideAllSteps: 'Skjul alle steg',
       };
@@ -37,13 +37,13 @@ const Stegindikator: React.FC<IStegIndikatorProps> = ({ stegListe, aktivtSteg })
   return (
     <FormProgress
       className="stegindikator"
-      totalSteps={stegListe.length}
+      totalSteps={steg.length}
       activeStep={activeStep}
       onStepChange={setActiveStep}
       interactiveSteps={false}
       translations={translations}
     >
-      {stegListe.map((steg) => (
+      {steg.map((steg) => (
         <FormProgress.Step key={steg.label}>
           {steg?.localeTeskt ? hentTekst(steg?.localeTeskt, intl) : steg.label}
         </FormProgress.Step>
@@ -51,5 +51,3 @@ const Stegindikator: React.FC<IStegIndikatorProps> = ({ stegListe, aktivtSteg })
     </FormProgress>
   );
 };
-
-export default Stegindikator;
