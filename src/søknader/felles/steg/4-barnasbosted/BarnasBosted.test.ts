@@ -1,8 +1,8 @@
-import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
 import {
   klikkCheckbox,
   klikkRadioknapp,
-  navigerTilSteg,
+  navigerTilStegOvergangsstønad,
   skrivFritekst,
 } from '../../../../test/actions';
 import { describe, expect, test } from 'vitest';
@@ -31,8 +31,8 @@ vi.mock('axios', () => {
 
 describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   test('Skal navigere til BarnasBosted-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Den andre forelderen og samvær' })
@@ -40,8 +40,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Den andre forelderen og samvær' })
@@ -56,8 +56,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Medforelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
@@ -85,8 +85,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Medforelder bor i Norge', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
@@ -100,8 +100,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -151,8 +151,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -222,8 +222,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -255,8 +255,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -296,8 +296,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -354,8 +354,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -407,8 +407,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har ikke samvær', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
@@ -438,8 +438,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Ja', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -482,8 +482,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Nei', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -514,8 +514,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Vet ikke', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -546,8 +546,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Har foreldre bodd sammen før; Ja', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -609,8 +609,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Har foreldre bodd sammen før; Nei', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -662,8 +662,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes ikke', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -698,8 +698,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Kun når barnet hentes eller leveres', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -734,8 +734,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes utenom henting og levering', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -788,8 +788,8 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Neste-knapp tar deg til oversiktssiden, 1 barn', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barnas-bosted', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -855,7 +855,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
 
 describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn)', () => {
   test('Personalia-spm om medforelder dukker opp, (oppgir ikke den andre forelderen, annet)', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -871,7 +871,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
@@ -908,7 +908,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Personalia-spm om medforelder dukker opp, (oppgir ikke den andre forelderen, donor)', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -924,7 +924,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
@@ -954,7 +954,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Personalia-spm om medforelder dukker opp, (kjent andre forelder) ', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -970,7 +970,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
     expect(screen.getByText('Barnets andre forelder')).toBeInTheDocument();
@@ -1033,7 +1033,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Spm om barnets adresse terminbarn ikke skal bo hos søker', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -1049,7 +1049,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
     expect(
@@ -1111,7 +1111,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
 
 describe('2 barn, samme forelder', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -1158,7 +1158,7 @@ describe('2 barn, samme forelder', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -1242,7 +1242,7 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -1289,7 +1289,7 @@ describe('2 barn, samme forelder', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -1463,7 +1463,7 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -1510,7 +1510,7 @@ describe('2 barn, samme forelder', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -1608,7 +1608,7 @@ describe('2 barn, samme forelder', () => {
 
 describe('2 barn, forskjellige foreldre', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -1655,7 +1655,7 @@ describe('2 barn, forskjellige foreldre', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -1729,7 +1729,7 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -1776,7 +1776,7 @@ describe('2 barn, forskjellige foreldre', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2158,7 +2158,7 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2205,7 +2205,7 @@ describe('2 barn, forskjellige foreldre', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2325,7 +2325,7 @@ describe('2 barn, forskjellige foreldre', () => {
 
 describe('Oppsummeringssiden viser riktig informasjon', () => {
   test('Oversikten viser annen forelder bor i Norge', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2354,7 +2354,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2397,7 +2397,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Ja')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2426,7 +2426,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
 
@@ -2481,7 +2481,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Argentina')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mindre samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2510,7 +2510,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2558,7 +2558,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mer samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2587,7 +2587,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2640,7 +2640,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har ikke samvær', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2669,7 +2669,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2714,7 +2714,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2743,7 +2743,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2796,7 +2796,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2825,7 +2825,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2887,7 +2887,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke samværsavtale', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -2916,7 +2916,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -2971,7 +2971,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser foreldre bor nærme', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3000,7 +3000,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3052,7 +3052,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Ja')).toHaveLength(2);
   });
   test('Oversikten viser foreldre bor ikke nærme', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3081,7 +3081,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3128,7 +3128,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Nei')).toHaveLength(2);
   });
   test('Oversikten viser vet ikke hvor den andre forelderen bor', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3157,7 +3157,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3204,7 +3204,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
   });
   test('Oversikten viser har bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3233,7 +3233,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3288,7 +3288,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('02.06.2025')).toBeInTheDocument();
   });
   test('Oversikten viser har ikke bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3317,7 +3317,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3363,7 +3363,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Nei')).toBeInTheDocument();
   });
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3392,7 +3392,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3438,7 +3438,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
   });
   test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3467,7 +3467,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3515,7 +3515,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3544,7 +3544,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -3601,7 +3601,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
 
 describe('Endre informasjon', () => {
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknad(
+    mockMellomlagretSøknadOvergangsstønad(
       'overgangsstonad',
       '/barnas-bosted',
       {},
@@ -3630,7 +3630,7 @@ describe('Endre informasjon', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
     await klikkRadioknapp(

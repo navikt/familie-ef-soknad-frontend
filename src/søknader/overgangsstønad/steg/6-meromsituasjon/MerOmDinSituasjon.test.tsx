@@ -1,9 +1,9 @@
-import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
 import { describe, expect, test } from 'vitest';
 import {
   klikkCheckbox,
   klikkRadioknapp,
-  navigerTilSteg,
+  navigerTilStegOvergangsstønad,
   skrivFritekst,
 } from '../../../../test/actions';
 import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
@@ -22,8 +22,8 @@ vi.mock('axios', () => {
 
 describe('Mer om din situasjon', () => {
   test('Skal navigere til din situasjon-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Mer om situasjonen din' })
@@ -31,8 +31,8 @@ describe('Mer om din situasjon', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText('Gjelder noe av dette deg?')).toBeInTheDocument();
     expect(
@@ -66,8 +66,8 @@ describe('Mer om din situasjon', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
   });
   test('Søker er syk', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -128,8 +128,8 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søkers barn er sykt', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -178,8 +178,8 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har søkt om barnepass, men ikke fått plass enda', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -216,8 +216,8 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -280,8 +280,8 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har ingen av overnevnte alternativer', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -299,8 +299,8 @@ describe('Mer om din situasjon', () => {
   });
 
   test('Søker har sagt opp jobben eller tatt frivillig permisjon (ikke foreldrepermisjon)', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -374,8 +374,8 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har redusert arbeidstiden', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -443,8 +443,8 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har ikke sagt opp jobben eller redusert arbeidstiden de siste 6 månedene', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -477,8 +477,8 @@ describe('Mer om din situasjon', () => {
   });
 
   test('Søker søker overgangsstønad fra en bestemt måned', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Nei', screen, user);
     await klikkRadioknapp(
@@ -538,8 +538,8 @@ describe('Mer om din situasjon', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Nav kan vurdere fra hvilken måned søker har rett til stønad', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/din-situasjon', {});
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Nei', screen, user);
     await klikkRadioknapp(
