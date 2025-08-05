@@ -1,5 +1,9 @@
 import { mockGet, mockMellomlagretSøknadBarnetilsyn } from '../../../../test/axios';
-import { klikkCheckbox, navigerTilStegBarnetilsyn } from '../../../../test/actions';
+import {
+  klikkCheckbox,
+  klikkKomponentMedId,
+  navigerTilStegBarnetilsyn,
+} from '../../../../test/actions';
 import { expect } from 'vitest';
 import {
   lagBooleanFelt,
@@ -10,6 +14,7 @@ import {
   lagTekstfelt,
 } from '../../../../test/domeneUtils';
 import { dagensIsoDatoMinusMåneder } from '../../../../utils/dato';
+import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -186,5 +191,82 @@ describe('BarnaDine-Steg for barnetilsyn', () => {
     expect(
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).not.toBeInTheDocument();
+  });
+  test('Velge flere barn', async () => {
+    mockMellomlagretSøknadBarnetilsyn(
+      'barnetilsyn',
+      '/barn',
+      {},
+      {
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+              ident: lagTekstfelt({ verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+              },
+            }),
+            lagIBarn({
+              id: '123',
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'KJEMPEKUL SEKK' }),
+              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+              ident: lagTekstfelt({ verdi: '09521467514' }),
+              født: lagSpørsmålBooleanFelt({ verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
+              harSammeAdresse: lagBooleanFelt('', true),
+              medforelder: {
+                label: '',
+                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+              },
+            }),
+          ],
+        }),
+      }
+    );
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    expect(screen.getByTestId('avhuk-1')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Tilbake' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+
+    await klikkKomponentMedId('avhuk-0', screen, user);
+
+    await klikkKomponentMedId('avhuk-1', screen, user);
+
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).not.toBeInTheDocument();
+  });
+  test('Søker har ingen barn', async () => {
+    mockMellomlagretSøknadBarnetilsyn(
+      'barnetilsyn',
+      '/barn',
+      {},
+      {
+        person: lagPerson({
+          barn: [],
+        }),
+      }
+    );
+    const { screen } = await navigerTilStegBarnetilsyn();
+
+    console.log(prettyDOM(undefined, Infinity));
+
+    expect(
+      screen.getByText((tekst) => tekst.includes('Du har ingen barn registrert i Folkeregisteret.'))
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Tilbake' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
   });
 });
