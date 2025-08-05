@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
-import Banner from '../Banner';
+import { SøknadBanner } from '../SøknadBanner';
 import SendBrevSVG from '../../assets/SendSøknadSVG';
 import Stegindikator from '../stegindikator/Stegindikator';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
@@ -10,7 +10,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import styles from './Side.module.css';
-import { hentBannertittel } from '../../utils/stønadstype';
+import { hentBannerKeyForStønad } from '../../utils/stønadstype';
 import { StegNavigasjon } from '../knapper/StegNavigasjon';
 
 export enum NavigasjonState {
@@ -75,7 +75,7 @@ export const Side: React.FC<Props> = ({
 
   return (
     <VStack gap="6">
-      <Banner tekstid={hentBannertittel(stønadstype)} />
+      <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
 
       <VStack gap="6" className={styles.innhold}>
         {skalViseStegindikator && (
