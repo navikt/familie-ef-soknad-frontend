@@ -179,6 +179,8 @@ const utledSøknadBarnetilsyn = (gjeldendeSteg: SøknadSteg, søknad?: Partial<S
   switch (gjeldendeSteg) {
     case '/barn':
       return søknadBarnetilsyndBarnaDine(søknad);
+    case '/barnas-bosted':
+      return søknadBarnetilsynBarnasBosted(søknad);
     default:
       return lagSøknadBarnetilsyn({ harBekreftet: true });
   }
@@ -373,5 +375,77 @@ const søknadBarnetilsyndBarnaDine = (søknad?: Partial<SøknadBarnetilsyn>) =>
         verdi: false,
       }),
     },
+    ...søknad,
+  });
+
+const søknadBarnetilsynBarnasBosted = (søknad?: Partial<SøknadBarnetilsyn>) =>
+  lagSøknadBarnetilsyn({
+    harBekreftet: true,
+    søkerBorPåRegistrertAdresse: lagSpørsmålBooleanFelt({
+      spørsmålid: ESøknad.søkerBorPåRegistrertAdresse,
+      svarid: ESvar.JA,
+      label: 'Bor du på denne adressen?',
+      verdi: true,
+    }),
+    sivilstatus: {
+      harSøktSeparasjon: lagBooleanFelt(
+        'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
+        true
+      ),
+      datoSøktSeparasjon: lagDatoFelt(
+        'Når søkte dere eller reiste sak?',
+        dagensIsoDatoMinusMåneder(1)
+      ),
+      årsakEnslig: lagSpørsmålFelt({
+        spørsmålid: ESivilstatusSøknadid.årsakEnslig,
+        svarid: EBegrunnelse.samlivsbruddAndre,
+        label: 'Hvorfor er du alene med barn?',
+        verdi: 'Samlivsbrudd med den andre forelderen',
+      }),
+    },
+    medlemskap: {
+      søkerOppholderSegINorge: lagBooleanFelt('Oppholder du og barnet/barna dere i Norge?', true),
+      søkerBosattINorgeSisteTreÅr: lagBooleanFelt(
+        'Har du oppholdt deg i Norge de siste 5 årene?',
+        true
+      ),
+    },
+    bosituasjon: {
+      delerBoligMedAndreVoksne: lagSpørsmålFelt({
+        spørsmålid: EBosituasjon.delerBoligMedAndreVoksne,
+        svarid: ESøkerDelerBolig.borAleneMedBarnEllerGravid,
+        label: 'Deler du bolig med andre voksne?',
+        verdi: 'Nei, jeg bor alene med barn eller jeg er gravid og bor alene',
+      }),
+      skalGifteSegEllerBliSamboer: lagSpørsmålBooleanFelt({
+        spørsmålid: EBosituasjon.skalGifteSegEllerBliSamboer,
+        svarid: ESvar.NEI,
+        label: 'Har du konkrete planer om å gifte deg eller bli samboer?',
+        verdi: false,
+      }),
+    },
+    person: lagPerson({
+      barn: [
+        lagIBarn({
+          navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+          fødselsdato: lagTekstfelt({ label: '', verdi: dagensIsoDatoMinusMåneder(65) }),
+          ident: lagTekstfelt({ label: '', verdi: '18877598140' }),
+          født: lagSpørsmålBooleanFelt({ spørsmålid: '', svarid: '', label: '', verdi: true }),
+          alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+          harSammeAdresse: lagBooleanFelt('', true),
+          medforelder: {
+            label: '',
+            verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+          },
+          skalHaBarnepass: lagSpørsmålBooleanFelt({
+            spørsmålid: '',
+            svarid: '',
+            label: '',
+            verdi: true,
+          }),
+        }),
+      ],
+    }),
+
     ...søknad,
   });
