@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormProgress } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentTekst, hentTekstMedFlereVariabler } from '../../utils/teksthåndtering';
-import { useSpråkContext } from '../../context/SpråkContext';
-import { LocaleType } from '../../language/typer';
 
 export interface SøknadSteg {
   label: string;
