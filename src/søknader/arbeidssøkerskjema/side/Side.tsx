@@ -9,6 +9,7 @@ import { KnappLocaleTekstOgNavigate } from '../../../components/knapper/KnappLoc
 import { Stegindikator } from '../../../components/stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../../utils/stegindikator';
 import { hentTekst } from '../../../utils/teksthåndtering';
+import styles from './SideStegindikator.module.css';
 
 interface ISide {
   tittel: string;
@@ -40,7 +41,11 @@ const Side: React.FC<ISide> = ({
     <div className={'skjema'}>
       <Banner tekstid={'banner.tittel.arbeidssøker'} />
       <div className={'side'}>
-        {skalViseStegindikator && <Stegindikator aktivtSteg={aktivtSteg} steg={stegobjekter} />}
+        {skalViseStegindikator && (
+          <div className={styles.stegindikator}>
+            <Stegindikator aktivtSteg={aktivtSteg} steg={stegobjekter} />
+          </div>
+        )}
         <Box padding="4" className={'side__innhold'}>
           <div className={'innholdscontainer'}>
             <Heading size="medium" className="hoved">
