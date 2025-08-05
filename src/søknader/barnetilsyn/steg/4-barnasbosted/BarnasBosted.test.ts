@@ -14,7 +14,6 @@ import {
   lagTekstfelt,
 } from '../../../../test/domeneUtils';
 import { dagensIsoDatoMinusMåneder } from '../../../../utils/dato';
-import { prettyDOM } from '@testing-library/dom';
 import { mockGet, mockMellomlagretSøknadBarnetilsyn } from '../../../../test/axios';
 
 vi.mock('axios', () => {
@@ -117,8 +116,6 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   test('Initielle tekster er tilstede', async () => {
     mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
     const { screen } = await navigerTilStegBarnetilsyn();
-
-    console.log(prettyDOM(undefined, Infinity));
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Den andre forelderen og samvær' })
