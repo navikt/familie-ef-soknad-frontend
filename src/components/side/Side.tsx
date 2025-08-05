@@ -10,7 +10,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import styles from './Side.module.css';
-import { hentBannertittel } from '../../utils/stønadstype';
+import { hentBannerKeyForStønad } from '../../utils/stønadstype';
 import { StegNavigasjon } from '../knapper/StegNavigasjon';
 
 export enum NavigasjonState {
@@ -75,7 +75,7 @@ export const Side: React.FC<Props> = ({
 
   return (
     <VStack gap="6">
-      <SøknadBanner bannerKey={hentBannertittel(stønadstype)} />
+      <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
 
       <VStack gap="6" className={styles.innhold}>
         {skalViseStegindikator && (

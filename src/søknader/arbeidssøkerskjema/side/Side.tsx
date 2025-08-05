@@ -38,7 +38,7 @@ const Side: React.FC<ISide> = ({
 
   return (
     <div className={'skjema'}>
-      <SøknadBanner bannerKey={hentTekst('banner.tittel.arbeidssøker', intl)} />
+      <SøknadBanner bannerKey={'banner.tittel.arbeidssøker'} />
       <div className={'side'}>
         {skalViseStegindikator && (
           <Stegindikator aktivtSteg={aktivtSteg} stegListe={stegobjekter} />

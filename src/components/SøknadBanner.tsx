@@ -10,11 +10,12 @@ interface Props {
 
 export const SøknadBanner: React.FC<Props> = ({ bannerKey }) => {
   const intl = useLokalIntlContext();
+  const bannerTekst = hentTekst(bannerKey, intl);
 
   return (
     <VStack className={styles.banner} align="center">
       <Heading size="large" className={styles.heading}>
-        {hentTekst(bannerKey, intl)}
+        {bannerTekst}
       </Heading>
     </VStack>
   );
