@@ -12,6 +12,7 @@ import {
   lagSpørsmålBooleanFelt,
   lagSpørsmålFelt,
   lagSøker,
+  lagSøknadBarnetilsyn,
   lagSøknadOvergangsstønad,
   lagTekstfelt,
 } from './domeneUtils';
@@ -23,6 +24,7 @@ import { EBegrunnelse, ESivilstatusSøknadid } from '../models/steg/omDeg/sivils
 import { EBosituasjon, ESøkerDelerBolig } from '../models/steg/bosituasjon';
 import { isoDatoEnMånedTilbake } from './dato';
 import { dagensIsoDatoMinusMåneder } from '../utils/dato';
+import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
 
 type StønadType = 'overgangsstonad' | 'barnetilsyn' | 'skolepenger';
 type SøknadSteg =
@@ -80,7 +82,7 @@ export const mockPost = (url: string, stønadstype: StønadType) => {
   }
 };
 
-export const mockMellomlagretSøknad = (
+export const mockMellomlagretSøknadOvergangsstønad = (
   stønadstype: StønadType,
   gjeldendeSteg?: SøknadSteg,
   søker?: Partial<Søker>,
@@ -91,7 +93,7 @@ export const mockMellomlagretSøknad = (
       return gjeldendeSteg
         ? Promise.resolve({
             data: lagMellomlagretSøknadOvergangsstønad({
-              søknad: utledSøknad(gjeldendeSteg, søknad),
+              søknad: utledSøknadOvergangsstønad(gjeldendeSteg, søknad),
               gjeldendeSteg: gjeldendeSteg,
             }),
           })
@@ -110,7 +112,51 @@ export const mockMellomlagretSøknad = (
   });
 };
 
-const utledSøknad = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadOvergangsstønad>) => {
+export const mockMellomlagretSøknadBarnetilsyn = (
+  stønadstype: StønadType,
+  gjeldendeSteg?: SøknadSteg,
+  søker?: Partial<Søker>,
+  søknad?: Partial<SøknadBarnetilsyn>
+) => {
+  (axios.get as any).mockImplementation((url: string) => {
+    if (url === `${Environment().mellomlagerProxyUrl + stønadstype}`) {
+      return gjeldendeSteg
+        ? Promise.resolve({
+            data: lagMellomlagretSøknadBarnetilsyn({
+              søknad: utledSøknadBarnetilsyn(gjeldendeSteg, søknad),
+              gjeldendeSteg: gjeldendeSteg,
+            }),
+          })
+        : undefined;
+    }
+
+    if (url === `${Environment().apiProxyUrl + '/api/soknad/barnetilsyn/forrige'}`) {
+      return gjeldendeSteg
+        ? Promise.resolve({
+            data: lagMellomlagretSøknadBarnetilsyn({
+              søknad: utledSøknadBarnetilsyn(gjeldendeSteg, søknad),
+              gjeldendeSteg: gjeldendeSteg,
+            }),
+          })
+        : undefined;
+    }
+
+    if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
+      return Promise.resolve({
+        data: lagPersonData({
+          søker: lagSøker({ ...søker }),
+        }),
+      });
+    }
+
+    return mockGet(url, stønadstype);
+  });
+};
+
+const utledSøknadOvergangsstønad = (
+  gjeldendeSteg: SøknadSteg,
+  søknad?: Partial<SøknadOvergangsstønad>
+) => {
   switch (gjeldendeSteg) {
     case '/om-deg':
       return søknadOvergangsstønadOmDeg;
@@ -126,6 +172,15 @@ const utledSøknad = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadOverg
       return søknadOvergangsstønadBarnasBosted(søknad);
     default:
       return lagSøknadOvergangsstønad({ harBekreftet: true });
+  }
+};
+
+const utledSøknadBarnetilsyn = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadBarnetilsyn>) => {
+  switch (gjeldendeSteg) {
+    case '/barn':
+      return søknadBarnetilsyndBarnaDine(søknad);
+    default:
+      return lagSøknadBarnetilsyn({ harBekreftet: true });
   }
 };
 
@@ -272,5 +327,51 @@ const søknadOvergangsstønadBarnasBosted = (søknad?: Partial<SøknadOvergangss
       ],
     }),
 
+    ...søknad,
+  });
+
+const søknadBarnetilsyndBarnaDine = (søknad?: Partial<SøknadBarnetilsyn>) =>
+  lagSøknadBarnetilsyn({
+    harBekreftet: true,
+    søkerBorPåRegistrertAdresse: lagSpørsmålBooleanFelt({
+      spørsmålid: ESøknad.søkerBorPåRegistrertAdresse,
+      svarid: ESvar.JA,
+      label: 'Bor du på denne adressen?',
+      verdi: true,
+    }),
+    sivilstatus: {
+      harSøktSeparasjon: lagBooleanFelt(
+        'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
+        true
+      ),
+      datoSøktSeparasjon: lagDatoFelt('Når søkte dere eller reiste sak?', isoDatoEnMånedTilbake),
+      årsakEnslig: lagSpørsmålFelt({
+        spørsmålid: ESivilstatusSøknadid.årsakEnslig,
+        svarid: EBegrunnelse.samlivsbruddAndre,
+        label: 'Hvorfor er du alene med barn?',
+        verdi: 'Samlivsbrudd med den andre forelderen',
+      }),
+    },
+    medlemskap: {
+      søkerOppholderSegINorge: lagBooleanFelt('Oppholder du og barnet/barna dere i Norge?', true),
+      søkerBosattINorgeSisteTreÅr: lagBooleanFelt(
+        'Har du oppholdt deg i Norge de siste 5 årene?',
+        true
+      ),
+    },
+    bosituasjon: {
+      delerBoligMedAndreVoksne: lagSpørsmålFelt({
+        spørsmålid: EBosituasjon.delerBoligMedAndreVoksne,
+        svarid: ESøkerDelerBolig.borAleneMedBarnEllerGravid,
+        label: 'Deler du bolig med andre voksne?',
+        verdi: 'Nei, jeg bor alene med barn eller jeg er gravid og bor alene',
+      }),
+      skalGifteSegEllerBliSamboer: lagSpørsmålBooleanFelt({
+        spørsmålid: EBosituasjon.skalGifteSegEllerBliSamboer,
+        svarid: ESvar.NEI,
+        label: 'Har du konkrete planer om å gifte deg eller bli samboer?',
+        verdi: false,
+      }),
+    },
     ...søknad,
   });

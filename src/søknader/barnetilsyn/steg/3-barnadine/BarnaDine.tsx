@@ -9,7 +9,7 @@ import Barnekort from '../../../felles/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { useMount } from '../../../../utils/hooks';
@@ -102,7 +102,7 @@ const BarnaDine: React.FC = () => {
               }
               return 0;
             })
-            .map((barn: IBarn) => (
+            .map((barn: IBarn, indeks: number) => (
               <Barnekort
                 key={barn.id}
                 gjeldendeBarn={barn}
@@ -111,6 +111,7 @@ const BarnaDine: React.FC = () => {
                     id={barn.id ? barn.id : ''}
                     toggleSkalHaBarnepass={toggleSkalHaBarnepass}
                     skalHaBarnepass={!!barn.skalHaBarnepass?.verdi}
+                    testId={`avhuk-${indeks}`}
                   />
                 }
               />
