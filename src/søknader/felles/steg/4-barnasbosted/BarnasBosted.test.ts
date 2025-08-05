@@ -29,9 +29,84 @@ vi.mock('axios', () => {
   };
 });
 
+const barn = lagIBarn({
+  id: '1',
+  navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+  fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+  ident: lagTekstfelt({ verdi: '18877598140' }),
+  født: lagSpørsmålBooleanFelt({ verdi: true }),
+  alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+  harSammeAdresse: lagBooleanFelt('', true),
+  forelder: lagIForelder({
+    navn: lagTekstfelt({ verdi: 'SØKENDE FORELDER' }),
+    id: '1',
+    ident: lagTekstfelt({ verdi: '22891699941' }),
+  }),
+  medforelder: {
+    label: '',
+    verdi: lagIMedforelder({ navn: 'SPRUDLENDE MEDFORELDER', ident: '19872448961' }),
+  },
+  skalHaBarnepass: lagSpørsmålBooleanFelt({
+    spørsmålid: '',
+    svarid: '',
+    label: '',
+    verdi: true,
+  }),
+});
+
+const barnMedSammeMedforelder = lagIBarn({
+  id: '2',
+  navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+  fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+  ident: lagTekstfelt({ verdi: '09469425085' }),
+  født: lagSpørsmålBooleanFelt({ verdi: true }),
+  alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
+  harSammeAdresse: lagBooleanFelt('', true),
+  forelder: lagIForelder({
+    navn: lagTekstfelt({ verdi: 'SØKENDE FORELDER' }),
+    id: '1',
+    ident: lagTekstfelt({ verdi: '22891699941' }),
+  }),
+  medforelder: {
+    label: '',
+    verdi: lagIMedforelder({ navn: 'SPRUDLENDE MEDFORELDER', ident: '19872448961' }),
+  },
+  skalHaBarnepass: lagSpørsmålBooleanFelt({
+    spørsmålid: '',
+    svarid: '',
+    label: '',
+    verdi: true,
+  }),
+});
+
+const barnMedAnnenMedforelder = lagIBarn({
+  id: '2',
+  navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
+  fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
+  ident: lagTekstfelt({ verdi: '09469425085' }),
+  født: lagSpørsmålBooleanFelt({ verdi: true }),
+  alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
+  harSammeAdresse: lagBooleanFelt('', true),
+  forelder: lagIForelder({
+    navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
+    id: '1',
+    ident: lagTekstfelt({ verdi: '24520386773' }),
+  }),
+  medforelder: {
+    label: '',
+    verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
+  },
+  skalHaBarnepass: lagSpørsmålBooleanFelt({
+    spørsmålid: '',
+    svarid: '',
+    label: '',
+    verdi: true,
+  }),
+});
+
 describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   test('Skal navigere til BarnasBosted-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -40,7 +115,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -56,7 +131,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Medforelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -85,7 +160,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Medforelder bor i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -100,7 +175,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -151,7 +226,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -222,7 +297,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -255,7 +330,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -296,7 +371,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -354,7 +429,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -407,7 +482,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har ikke samvær', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -438,7 +513,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Ja', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -482,7 +557,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Nei', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -514,7 +589,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Vet ikke', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -546,7 +621,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Har foreldre bodd sammen før; Ja', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -609,7 +684,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Har foreldre bodd sammen før; Nei', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -662,7 +737,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes ikke', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -698,7 +773,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Kun når barnet hentes eller leveres', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -734,7 +809,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes utenom henting og levering', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -788,7 +863,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Neste-knapp tar deg til oversiktssiden, 1 barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', {});
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -855,22 +930,17 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
 
 describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn)', () => {
   test('Personalia-spm om medforelder dukker opp, (oppgir ikke den andre forelderen, annet)', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
-              født: lagSpørsmålBooleanFelt({ verdi: false }),
-              harSammeAdresse: lagBooleanFelt('', true),
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [
+          lagIBarn({
+            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+            født: lagSpørsmålBooleanFelt({ verdi: false }),
+            harSammeAdresse: lagBooleanFelt('', true),
+          }),
+        ],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
@@ -908,22 +978,17 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Personalia-spm om medforelder dukker opp, (oppgir ikke den andre forelderen, donor)', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
-              født: lagSpørsmålBooleanFelt({ verdi: false }),
-              harSammeAdresse: lagBooleanFelt('', true),
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [
+          lagIBarn({
+            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+            født: lagSpørsmålBooleanFelt({ verdi: false }),
+            harSammeAdresse: lagBooleanFelt('', true),
+          }),
+        ],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
@@ -954,22 +1019,17 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Personalia-spm om medforelder dukker opp, (kjent andre forelder) ', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
-              født: lagSpørsmålBooleanFelt({ verdi: false }),
-              harSammeAdresse: lagBooleanFelt('', true),
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [
+          lagIBarn({
+            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+            født: lagSpørsmålBooleanFelt({ verdi: false }),
+            harSammeAdresse: lagBooleanFelt('', true),
+          }),
+        ],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
@@ -1033,22 +1093,17 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Spm om barnets adresse terminbarn ikke skal bo hos søker', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
-              født: lagSpørsmålBooleanFelt({ verdi: false }),
-              harSammeAdresse: lagBooleanFelt('', false),
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [
+          lagIBarn({
+            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(0) }),
+            født: lagSpørsmålBooleanFelt({ verdi: false }),
+            harSammeAdresse: lagBooleanFelt('', false),
+          }),
+        ],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText(`Barn med termin ${formatDate(dagensDato)}`)).toBeInTheDocument();
@@ -1111,53 +1166,11 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
 
 describe('2 barn, samme forelder', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'Forelder' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-            lagIBarn({
-              id: '2',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
-              ident: lagTekstfelt({ verdi: '09469425085' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'Forelder' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [barn, barnMedSammeMedforelder],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -1196,7 +1209,7 @@ describe('2 barn, samme forelder', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
     expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
-    expect(screen.getByText('GÅEN MEDFORELDER')).toBeInTheDocument();
+    expect(screen.getByText('SPRUDLENDE MEDFORELDER')).toBeInTheDocument();
     expect(
       screen.getByText((tekst) => tekst.includes('Bor GÅEN PCs andre forelder i Norge?'))
     ).toBeInTheDocument();
@@ -1242,53 +1255,11 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'Forelder' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-            lagIBarn({
-              id: '2',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
-              ident: lagTekstfelt({ verdi: '09469425085' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'Forelder' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [barn, barnMedSammeMedforelder],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -1463,53 +1434,11 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'SØKENDE FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'SPRUDLENE MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-            lagIBarn({
-              id: '2',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
-              ident: lagTekstfelt({ verdi: '09469425085' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'SØKENDE FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'SPRUDLENE MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [barn, barnMedSammeMedforelder],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -1608,53 +1537,11 @@ describe('2 barn, samme forelder', () => {
 
 describe('2 barn, forskjellige foreldre', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-            lagIBarn({
-              id: '2',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
-              ident: lagTekstfelt({ verdi: '09469425085' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '24520386773' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [barn, barnMedAnnenMedforelder],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -1729,53 +1616,11 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-            lagIBarn({
-              id: '2',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
-              ident: lagTekstfelt({ verdi: '09469425085' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '24520386773' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [barn, barnMedAnnenMedforelder],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2158,53 +2003,11 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'SPRUDLENE MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-            lagIBarn({
-              id: '2',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GAMMEL TRUBADUR' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(45) }),
-              ident: lagTekstfelt({ verdi: '09469425085' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '3' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'UKJENT KJEKKAS' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '24520386773' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'SPRUDLENE MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({
+        barn: [barn, barnMedAnnenMedforelder],
+      }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2270,7 +2073,7 @@ describe('2 barn, forskjellige foreldre', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
     expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
-    expect(screen.getByText('ABSOLUTT FORELDER')).toBeInTheDocument();
+    expect(screen.getByText('SØKENDE FORELDER')).toBeInTheDocument();
     expect(
       screen.getByText((tekst) => tekst.includes('Bor GÅEN PCs andre forelder i Norge?'))
     ).toBeInTheDocument();
@@ -2325,35 +2128,9 @@ describe('2 barn, forskjellige foreldre', () => {
 
 describe('Oppsummeringssiden viser riktig informasjon', () => {
   test('Oversikten viser annen forelder bor i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2397,35 +2174,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Ja')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
@@ -2481,35 +2232,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Argentina')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mindre samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2558,35 +2283,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mer samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2640,35 +2339,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har ikke samvær', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2714,35 +2387,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2796,35 +2443,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2887,35 +2508,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -2971,35 +2566,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser foreldre bor nærme', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3052,35 +2621,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Ja')).toHaveLength(2);
   });
   test('Oversikten viser foreldre bor ikke nærme', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3128,35 +2671,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Nei')).toHaveLength(2);
   });
   test('Oversikten viser vet ikke hvor den andre forelderen bor', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3204,35 +2721,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
   });
   test('Oversikten viser har bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3288,35 +2779,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('02.06.2025')).toBeInTheDocument();
   });
   test('Oversikten viser har ikke bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3363,35 +2828,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Nei')).toBeInTheDocument();
   });
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3438,35 +2877,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
   });
   test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3514,36 +2927,10 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
       screen.getByText('Vi møtes kun når barnet skal hentes eller leveres')
     ).toBeInTheDocument();
   });
-  test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+  test('Oversikten viser møtes utenom henting og levering', async () => {
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3601,35 +2988,9 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
 
 describe('Endre informasjon', () => {
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
-      '/barnas-bosted',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              id: '1',
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              forelder: lagIForelder({
-                navn: lagTekstfelt({ verdi: 'ABSOLUTT FORELDER' }),
-                id: '1',
-                ident: lagTekstfelt({ verdi: '22891699941' }),
-              }),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN MEDFORELDER', ident: '19872448961' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+      person: lagPerson({ barn: [barn] }),
+    });
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -3671,7 +3032,7 @@ describe('Endre informasjon', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('GÅEN PC')).toBeInTheDocument();
     expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
-    expect(screen.getByText('ABSOLUTT FORELDER')).toBeInTheDocument();
+    expect(screen.getByText('SØKENDE FORELDER')).toBeInTheDocument();
     expect(screen.getByText('Bor GÅEN PCs andre forelder i Norge?')).toBeInTheDocument();
     expect(screen.getByText('Ja')).toBeInTheDocument();
     expect(screen.getByText('Har den andre forelderen samvær med GÅEN PC?')).toBeInTheDocument();
@@ -3704,7 +3065,7 @@ describe('Endre informasjon', () => {
       screen.getByRole('heading', { level: 4, name: 'Barnets andre forelder' })
     ).toBeInTheDocument();
     expect(screen.getByText('Navn')).toBeInTheDocument();
-    expect(screen.getByText('GÅEN MEDFORELDER')).toBeInTheDocument();
+    expect(screen.getByText('SPRUDLENDE MEDFORELDER')).toBeInTheDocument();
     expect(
       screen.getByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
     ).toBeInTheDocument();
@@ -3783,7 +3144,7 @@ describe('Endre informasjon', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('GÅEN PC')).toBeInTheDocument();
     expect(screen.getByText('GÅEN PCs andre forelder')).toBeInTheDocument();
-    expect(screen.getByText('ABSOLUTT FORELDER')).toBeInTheDocument();
+    expect(screen.getByText('SØKENDE FORELDER')).toBeInTheDocument();
     expect(screen.getByText('Bor GÅEN PCs andre forelder i Norge?')).toBeInTheDocument();
     expect(screen.getAllByText('Nei')).toHaveLength(2);
     expect(screen.getByText('Har den andre forelderen samvær med GÅEN PC?')).toBeInTheDocument();
