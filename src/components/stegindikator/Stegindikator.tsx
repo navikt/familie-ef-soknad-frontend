@@ -6,7 +6,7 @@ import { hentTekst, hentTekstMedFlereVariabler } from '../../utils/teksthåndter
 export interface SøknadSteg {
   label: string;
   index: number;
-  localeTeskt?: string;
+  localeTekst?: string;
 }
 
 interface Props {
@@ -42,7 +42,7 @@ export const Stegindikator: React.FC<Props> = ({ steg, aktivtSteg }) => {
     >
       {steg.map((steg) => (
         <FormProgress.Step key={steg.label}>
-          {steg?.localeTeskt ? hentTekst(steg?.localeTeskt, intl) : steg.label}
+          {steg?.localeTekst ? hentTekst(steg?.localeTekst, intl) : steg.label}
         </FormProgress.Step>
       ))}
     </FormProgress>
