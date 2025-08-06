@@ -15,7 +15,7 @@ import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext'
 import { Alert, Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { useOmDeg } from '../../OmDegContext';
-import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
+import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { hentHTMLTekst, hentTekst } from '../../../../../../utils/teksthåndtering';
 
 const ÅrsakEnslig: FC = () => {

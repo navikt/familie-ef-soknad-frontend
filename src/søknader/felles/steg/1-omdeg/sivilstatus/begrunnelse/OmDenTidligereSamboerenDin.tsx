@@ -9,7 +9,7 @@ import { Checkbox } from '@navikt/ds-react';
 import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
 
-const OmDenTidligereSamboerenDin: FC = () => {
+export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { tidligereSamboerDetaljer } = sivilstatus;
@@ -99,5 +99,3 @@ const OmDenTidligereSamboerenDin: FC = () => {
     </>
   );
 };
-
-export default OmDenTidligereSamboerenDin;
