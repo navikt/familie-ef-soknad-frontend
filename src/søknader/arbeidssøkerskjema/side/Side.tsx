@@ -6,7 +6,7 @@ import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { BodyShort, Box, Heading } from '@navikt/ds-react';
 import { KnappLocaleTekstOgNavigate } from '../../../components/knapper/KnappLocaleTekstOgNavigate';
-import Stegindikator from '../../../components/stegindikator/Stegindikator';
+import { Stegindikator } from '../../../components/stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../../utils/stegindikator';
 import { hentTekst } from '../../../utils/teksthåndtering';
 
@@ -40,9 +40,7 @@ const Side: React.FC<ISide> = ({
     <div className={'skjema'}>
       <SøknadBanner bannerKey={'banner.tittel.arbeidssøker'} />
       <div className={'side'}>
-        {skalViseStegindikator && (
-          <Stegindikator aktivtSteg={aktivtSteg} stegListe={stegobjekter} />
-        )}
+        {skalViseStegindikator && <Stegindikator aktivtSteg={aktivtSteg} steg={stegobjekter} />}
         <Box padding="4" className={'side__innhold'}>
           <div className={'innholdscontainer'}>
             <Heading size="medium" className="hoved">

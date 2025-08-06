@@ -938,4 +938,7 @@ export default {
     'Du har søkt om stønad til barnetilsyn tidligere. Hvis du ønsker, kan vi fylle ut den nye søknaden med opplysningene fra den forrige søknaden din. Noen av spørsmålene må du svare på hver gang.',
   'gjenbruk.tidligere.barnetilsyn.søknad':
     'Det er viktig at du leser gjennom opplysningene for å se om de fortsatt er riktige. Hvis noe er endret, må du oppdatere søknaden med de nye opplysningene.',
+  'stegindikator.nåværendeSteg': 'Steg [0] av [1]',
+  'stegindikator.visAlleSteg': 'Vis alle steg',
+  'stegindikator.skjulAlleSteg': 'Skjul alle steg',
 };

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { SøknadBanner } from '../SøknadBanner';
 import SendBrevSVG from '../../assets/SendSøknadSVG';
-import Stegindikator from '../stegindikator/Stegindikator';
+import { Stegindikator } from '../stegindikator/Stegindikator';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
@@ -78,9 +78,7 @@ export const Side: React.FC<Props> = ({
       <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
 
       <VStack gap="6" className={styles.innhold}>
-        {skalViseStegindikator && (
-          <Stegindikator stegListe={stegobjekter} aktivtSteg={aktivtSteg} />
-        )}
+        {skalViseStegindikator && <Stegindikator steg={stegobjekter} aktivtSteg={aktivtSteg} />}
 
         {navigasjonState === NavigasjonState.skjulKnapper && (
           <div className={styles.brevIkon}>
