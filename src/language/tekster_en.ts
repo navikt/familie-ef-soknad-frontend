@@ -958,4 +958,7 @@ export default {
     'You have previously applied for child care benefit. If you wish, we can fill in the new application with the information from the previous application. You must answer some of the questions each time.',
   'gjenbruk.tidligere.barnetilsyn.søknad':
     'It is important that you review the information to see if it is still correct. If anything has changed, you must update the application with the new information.',
+  'stegindikator.nåværendeSteg': 'Step [0] out of [1]',
+  'stegindikator.visAlleSteg': 'Show all steps',
+  'stegindikator.skjulAlleSteg': 'Hide all steps',
 };
