@@ -181,6 +181,8 @@ const utledSøknadBarnetilsyn = (gjeldendeSteg: SøknadSteg, søknad?: Partial<S
       return søknadBarnetilsyndBarnaDine(søknad);
     case '/barnas-bosted':
       return søknadBarnetilsynBarnasBosted(søknad);
+    case '/barnepass':
+      return søknadBarnetilsynBarnasBosted(søknad);
     default:
       return lagSøknadBarnetilsyn({ harBekreftet: true });
   }
