@@ -5,7 +5,7 @@ import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
 import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
-import { Checkbox } from '@navikt/ds-react';
+import { Checkbox, Heading } from '@navikt/ds-react';
 import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
 import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
@@ -94,6 +94,11 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   return (
     <>
       <KomponentGruppe>
+        <FeltGruppe>
+          <Heading size="small" level="3">
+            {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
+          </Heading>
+        </FeltGruppe>
         <FeltGruppe>
           <TextFieldMedBredde
             key={'navn'}

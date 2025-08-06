@@ -10,7 +10,7 @@ import { hentSvarAlertFraSpørsmål } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
 import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { hentHTMLTekst, hentTekst } from '../../../../../../utils/teksthåndtering';
@@ -53,11 +53,6 @@ const ÅrsakEnslig: FC = () => {
 
       {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddAndre && (
         <KomponentGruppe>
-          <FeltGruppe>
-            <Heading size="small" level="3">
-              {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
-            </Heading>
-          </FeltGruppe>
           <FeltGruppe>
             <OmDenTidligereSamboerenDin />
           </FeltGruppe>
