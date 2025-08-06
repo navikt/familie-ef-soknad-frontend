@@ -4,13 +4,11 @@ import DatoForSamlivsbrudd from './DatoForSamlivsbrudd';
 import EndringISamvær from './EndringISamvær';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
-import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
 import { hentSvarAlertFraSpørsmål } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
-import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
@@ -22,7 +20,7 @@ const ÅrsakEnslig: FC = () => {
   const spørsmål: ISpørsmål = begrunnelseSpørsmål(intl);
   const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
 
-  const { årsakEnslig, tidligereSamboerDetaljer } = sivilstatus;
+  const { årsakEnslig } = sivilstatus;
 
   const settÅrsakEnslig = (spørsmål: ISpørsmål, svar: ISvar) => {
     settSivilstatus({
@@ -39,11 +37,6 @@ const ÅrsakEnslig: FC = () => {
   };
 
   const alertTekstForDødsfall = hentSvarAlertFraSpørsmål(EBegrunnelse.dødsfall, spørsmål);
-
-  const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
-    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-    false
-  );
 
   return (
     <div aria-live="polite">
@@ -68,7 +61,6 @@ const ÅrsakEnslig: FC = () => {
           <FeltGruppe>
             <OmDenTidligereSamboerenDin />
           </FeltGruppe>
-          {harBrukerFyltUtSamboerDetaljer && <NårFlyttetDereFraHverandre />}
         </KomponentGruppe>
       )}
 

@@ -8,13 +8,20 @@ import { identErGyldig } from '../../../../../../utils/validering/validering';
 import { Checkbox } from '@navikt/ds-react';
 import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
+import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
-  const { tidligereSamboerDetaljer } = sivilstatus;
+  const { tidligereSamboerDetaljer, datoFlyttetFraHverandre } = sivilstatus;
   const ident = sivilstatus.tidligereSamboerDetaljer?.ident?.verdi;
   const checked = tidligereSamboerDetaljer?.kjennerIkkeIdent;
+
+  const datovelgerTekstid = 'sivilstatus.datovelger.flyttetFraHverandre';
+  const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
+    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
+    false
+  );
 
   const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
 
@@ -28,6 +35,16 @@ export const OmDenTidligereSamboerenDin: FC = () => {
           label: hentTekst('datovelger.fødselsdato', intl),
           verdi: date,
         },
+      },
+    });
+  };
+
+  const settDatoFlyttetFraHverandre = (date: string, tekstid: string): void => {
+    settSivilstatus({
+      ...sivilstatus,
+      datoFlyttetFraHverandre: {
+        label: hentTekst(tekstid, intl),
+        verdi: date,
       },
     });
   };
@@ -118,6 +135,17 @@ export const OmDenTidligereSamboerenDin: FC = () => {
             tekstid={'datovelger.fødselsdato'}
             datobegrensning={DatoBegrensning.TidligereDatoer}
             settDato={(e) => settTidligereSamboersFødselsdato(e)}
+          />
+        </KomponentGruppe>
+      )}
+
+      {harBrukerFyltUtSamboerDetaljer && (
+        <KomponentGruppe>
+          <Datovelger
+            settDato={(e) => settDatoFlyttetFraHverandre(e, datovelgerTekstid)}
+            valgtDato={datoFlyttetFraHverandre ? datoFlyttetFraHverandre.verdi : undefined}
+            tekstid={datovelgerTekstid}
+            datobegrensning={DatoBegrensning.AlleDatoer}
           />
         </KomponentGruppe>
       )}
