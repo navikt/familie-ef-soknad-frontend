@@ -42,6 +42,20 @@ export const OmDenTidligereSamboerenDin: FC = () => {
     });
   };
 
+  const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
+    settSivilstatus({
+      ...sivilstatus,
+      tidligereSamboerDetaljer: {
+        ...tidligereSamboerDetaljer,
+        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
+        navn: {
+          label: hentTekst('person.navn', intl),
+          verdi: e.currentTarget.value,
+        },
+      },
+    });
+  };
+
   const settIdent = (ident: string) => {
     settSivilstatus({
       ...sivilstatus,
@@ -59,9 +73,20 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const erGyldigIdent = (): boolean => {
     return identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '');
   };
+
   return (
     <>
       <KomponentGruppe>
+        <FeltGruppe>
+          <TextFieldMedBredde
+            key={'navn'}
+            label={hentTekst('person.navn', intl)}
+            type="text"
+            bredde={'L'}
+            onChange={(e) => settNavn(e)}
+            value={tidligereSamboerDetaljer?.navn?.verdi}
+          />
+        </FeltGruppe>
         <FeltGruppe>
           <TextFieldMedBredde
             key={'ident'}
