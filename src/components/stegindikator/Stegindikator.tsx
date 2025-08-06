@@ -35,6 +35,7 @@ export const Stegindikator: React.FC<Props> = ({ steg, aktivtSteg }) => {
 
   return (
     <FormProgress
+      className="stegindikator"
       totalSteps={antallSteg}
       activeStep={aktivtStegIndex}
       interactiveSteps={false}
