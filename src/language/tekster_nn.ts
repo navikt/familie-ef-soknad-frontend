@@ -1159,4 +1159,7 @@ export default {
   'kvittering.knapp.tilleggsstønader.aktivitetskrav': 'Apply for child care benefit',
   'overgangsstønad.feilsituasjon':
     'Sorry! We have technical issues, thus the form can not be submitted right now. Please try again later.',
+  'stegindikator.nåværendeSteg': 'Steg [0] av [1]',
+  'stegindikator.visAlleSteg': 'Vis alle steg',
+  'stegindikator.skjulAlleSteg': 'Gøym alle steg',
 };

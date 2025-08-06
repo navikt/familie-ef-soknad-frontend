@@ -20,13 +20,13 @@ export const RoutesArbeidssokerskjema: IRoute[] = [
     path: '/arbeidssoker/sporsmal',
     label: 'Spørsmål',
     route: ERouteArbeidssøkerskjema.Spørsmål,
-    localeTeskt: 'skjema.tittel.omarbeidssøker',
+    localeTekst: 'skjema.tittel.omarbeidssøker',
   },
   {
     path: '/arbeidssoker/oppsummering',
     label: 'Oppsummering',
     route: ERouteArbeidssøkerskjema.Oppsummering,
-    localeTeskt: 'oppsummering.sidetittel',
+    localeTekst: 'oppsummering.sidetittel',
   },
   {
     path: '/arbeidssoker/kvittering',
