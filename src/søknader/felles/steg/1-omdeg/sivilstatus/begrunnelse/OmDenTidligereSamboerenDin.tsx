@@ -9,18 +9,14 @@ import { formatISO } from 'date-fns';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
+
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { tidligereSamboerDetaljer } = sivilstatus;
+
   const ident = sivilstatus.tidligereSamboerDetaljer?.ident?.verdi;
-  const checked = tidligereSamboerDetaljer?.kjennerIkkeIdent;
+  const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
 
   const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
-
-  const datovelgerTekstid = 'sivilstatus.datovelger.flyttetFraHverandre';
-  const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
-    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-    false
-  );
 
   const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
 
@@ -102,10 +98,19 @@ export const OmDenTidligereSamboerenDin: FC = () => {
     toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
       if (dato) {
-        settDatoFlyttetFraHverandre(tilLocaleDateString(dato), datovelgerTekstid);
+        settDatoFlyttetFraHverandre(
+          tilLocaleDateString(dato),
+          'sivilstatus.datovelger.flyttetFraHverandre'
+        );
       }
     },
   });
+
+  const visFødseldatoVelger = brukerIkkeIdent;
+  const visFlyttedatoVelger = harFyltUtSamboerDetaljer(
+    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
+    false
+  );
 
   return (
     <VStack gap="6" align="start">
@@ -124,15 +129,15 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         onChange={(e) => {
           settIdent(e.target.value);
         }}
-        disabled={checked}
+        disabled={brukerIkkeIdent}
         error={ident && !erGyldigIdent() ? feilmelding : undefined}
       />
 
-      <Checkbox checked={checked} onChange={() => settKjennerIkkeIdent(!checked)}>
+      <Checkbox checked={brukerIkkeIdent} onChange={() => settKjennerIkkeIdent(!brukerIkkeIdent)}>
         {hentTekst('person.checkbox.ident', intl)}
       </Checkbox>
 
-      {checked && (
+      {visFødseldatoVelger && (
         <DatePicker dropdownCaption {...fødselsdato.datepickerProps}>
           <DatePicker.Input
             {...fødselsdato.inputProps}
@@ -142,7 +147,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         </DatePicker>
       )}
 
-      {harBrukerFyltUtSamboerDetaljer && (
+      {visFlyttedatoVelger && (
         <DatePicker dropdownCaption {...flyttetFraDato.datepickerProps}>
           <DatePicker.Input
             {...flyttetFraDato.inputProps}
