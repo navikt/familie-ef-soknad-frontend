@@ -9,100 +9,86 @@ import { formatISO } from 'date-fns';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
-
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { tidligereSamboerDetaljer } = sivilstatus;
 
-  const ident = sivilstatus.tidligereSamboerDetaljer?.ident?.verdi;
-  const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
-
-  const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
-
-  const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
-
-  const settTidligereSamboersFødselsdato = (date: string) => {
+  const oppdaterTidligereSamboerDetaljer = (
+    oppdateringer: Partial<typeof tidligereSamboerDetaljer>
+  ) => {
     settSivilstatus({
       ...sivilstatus,
       tidligereSamboerDetaljer: {
         ...tidligereSamboerDetaljer,
         kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        fødselsdato: {
-          label: hentTekst('datovelger.fødselsdato', intl),
-          verdi: date,
-        },
+        ...oppdateringer,
       },
     });
   };
 
-  const settDatoFlyttetFraHverandre = (date: string, tekstid: string): void => {
+  const oppdaterSivilstatus = (oppdateringer: Partial<typeof sivilstatus>) => {
     settSivilstatus({
       ...sivilstatus,
+      ...oppdateringer,
+    });
+  };
+
+  const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
+
+  const settTidligereSamboersFødselsdato = (date: string) => {
+    oppdaterTidligereSamboerDetaljer({
+      fødselsdato: {
+        label: hentTekst('datovelger.fødselsdato', intl),
+        verdi: date,
+      },
+    });
+  };
+
+  const settDatoFlyttetFraHverandre = (date: string) => {
+    oppdaterSivilstatus({
       datoFlyttetFraHverandre: {
-        label: hentTekst(tekstid, intl),
+        label: hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl),
         verdi: date,
       },
     });
   };
 
   const settKjennerIkkeIdent = (checked: boolean) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: checked,
-      },
-    });
+    oppdaterTidligereSamboerDetaljer({ kjennerIkkeIdent: checked });
   };
 
   const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        navn: {
-          label: hentTekst('person.navn', intl),
-          verdi: e.currentTarget.value,
-        },
+    oppdaterTidligereSamboerDetaljer({
+      navn: {
+        label: hentTekst('person.navn', intl),
+        verdi: e.currentTarget.value,
       },
     });
   };
 
   const settIdent = (ident: string) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        ident: {
-          label: hentTekst('person.ident', intl),
-          verdi: ident,
-        },
+    oppdaterTidligereSamboerDetaljer({
+      ident: {
+        label: hentTekst('person.ident', intl),
+        verdi: ident,
       },
     });
   };
 
-  const erGyldigIdent = (): boolean => {
-    return identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '');
-  };
+  const ident = tidligereSamboerDetaljer?.ident?.verdi;
+  const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
+  const erGyldigIdent = ident ? identErGyldig(ident) : true;
+  const feilmelding = hentTekst('person.feilmelding.ident', intl);
 
   const fødselsdato = useDatepicker({
     onDateChange: (dato: Date | undefined) => {
-      if (dato) {
-        settTidligereSamboersFødselsdato(tilLocaleDateString(dato));
-      }
+      if (dato) settTidligereSamboersFødselsdato(tilLocaleDateString(dato));
     },
   });
 
   const flyttetFraDato = useDatepicker({
     toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
-      if (dato) {
-        settDatoFlyttetFraHverandre(
-          tilLocaleDateString(dato),
-          'sivilstatus.datovelger.flyttetFraHverandre'
-        );
-      }
+      if (dato) settDatoFlyttetFraHverandre(tilLocaleDateString(dato));
     },
   });
 
@@ -118,7 +104,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
 
       <TextField
         label={hentTekst('person.navn', intl)}
-        onChange={(e) => settNavn(e)}
+        onChange={settNavn}
         value={tidligereSamboerDetaljer?.navn?.verdi}
       />
 
@@ -126,14 +112,12 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         label={hentTekst('person.ident', intl)}
         value={ident}
         maxLength={11}
-        onChange={(e) => {
-          settIdent(e.target.value);
-        }}
+        onChange={(e) => settIdent(e.target.value)}
         disabled={brukerIkkeIdent}
-        error={ident && !erGyldigIdent() ? feilmelding : undefined}
+        error={ident && !erGyldigIdent ? feilmelding : undefined}
       />
 
-      <Checkbox checked={brukerIkkeIdent} onChange={() => settKjennerIkkeIdent(!brukerIkkeIdent)}>
+      <Checkbox checked={brukerIkkeIdent} onChange={(e) => settKjennerIkkeIdent(e.target.checked)}>
         {hentTekst('person.checkbox.ident', intl)}
       </Checkbox>
 
@@ -142,7 +126,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
           <DatePicker.Input
             {...fødselsdato.inputProps}
             label={hentTekst('datovelger.fødselsdato', intl)}
-            placeholder={'DD.MM.YYYY'}
+            placeholder="DD.MM.YYYY"
           />
         </DatePicker>
       )}
@@ -152,7 +136,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
           <DatePicker.Input
             {...flyttetFraDato.inputProps}
             label={hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl)}
-            placeholder={'DD.MM.YYYY'}
+            placeholder="DD.MM.YYYY"
           />
         </DatePicker>
       )}
