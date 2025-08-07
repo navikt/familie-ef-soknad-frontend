@@ -5,7 +5,7 @@ import { identErGyldig } from '../../../../../../utils/validering/validering';
 import { Checkbox, DatePicker, Heading, TextField, useDatepicker, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
 import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
-import { formatISO } from 'date-fns';
+import { formatIsoDate } from '../../../../../../utils/dato';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
@@ -23,14 +23,14 @@ export const OmDenTidligereSamboerenDin: FC = () => {
 
   const fødselsdato = useDatepicker({
     onDateChange: (dato: Date | undefined) => {
-      if (dato) settTidligereSamboersFødselsdato(tilLocaleDateString(dato));
+      if (dato) settTidligereSamboersFødselsdato(formatIsoDate(dato));
     },
   });
 
   const flyttetFraDato = useDatepicker({
     toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
-      if (dato) settDatoFlyttetFraHverandre(tilLocaleDateString(dato));
+      if (dato) settDatoFlyttetFraHverandre(formatIsoDate(dato));
     },
   });
 
@@ -59,8 +59,6 @@ export const OmDenTidligereSamboerenDin: FC = () => {
       ...oppdateringer,
     });
   };
-
-  const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
 
   const settTidligereSamboersFødselsdato = (date: string) => {
     oppdaterTidligereSamboerDetaljer({
