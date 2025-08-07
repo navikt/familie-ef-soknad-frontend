@@ -12,6 +12,34 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { tidligereSamboerDetaljer } = sivilstatus;
 
+  const navn = tidligereSamboerDetaljer?.navn?.verdi;
+  const ident = tidligereSamboerDetaljer?.ident?.verdi;
+  const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
+  const erGyldigIdent = ident ? identErGyldig(ident) : false;
+  const feilmelding = hentTekst('person.feilmelding.ident', intl);
+
+  const harNavnInput = Boolean(navn?.trim());
+  const harGyldigIdent = Boolean(ident) && erGyldigIdent;
+
+  const fødselsdato = useDatepicker({
+    onDateChange: (dato: Date | undefined) => {
+      if (dato) settTidligereSamboersFødselsdato(tilLocaleDateString(dato));
+    },
+  });
+
+  const flyttetFraDato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: (dato: Date | undefined) => {
+      if (dato) settDatoFlyttetFraHverandre(tilLocaleDateString(dato));
+    },
+  });
+
+  const visFødseldatoVelger = harNavnInput && (harGyldigIdent || brukerIkkeIdent);
+  const visFlyttedatoVelger = harFyltUtSamboerDetaljer(
+    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
+    false
+  );
+
   const oppdaterTidligereSamboerDetaljer = (
     oppdateringer: Partial<typeof tidligereSamboerDetaljer>
   ) => {
@@ -73,30 +101,6 @@ export const OmDenTidligereSamboerenDin: FC = () => {
       },
     });
   };
-
-  const ident = tidligereSamboerDetaljer?.ident?.verdi;
-  const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
-  const erGyldigIdent = ident ? identErGyldig(ident) : true;
-  const feilmelding = hentTekst('person.feilmelding.ident', intl);
-
-  const fødselsdato = useDatepicker({
-    onDateChange: (dato: Date | undefined) => {
-      if (dato) settTidligereSamboersFødselsdato(tilLocaleDateString(dato));
-    },
-  });
-
-  const flyttetFraDato = useDatepicker({
-    toDate: new Date(),
-    onDateChange: (dato: Date | undefined) => {
-      if (dato) settDatoFlyttetFraHverandre(tilLocaleDateString(dato));
-    },
-  });
-
-  const visFødseldatoVelger = brukerIkkeIdent;
-  const visFlyttedatoVelger = harFyltUtSamboerDetaljer(
-    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-    false
-  );
 
   return (
     <VStack gap="6" align="start">
