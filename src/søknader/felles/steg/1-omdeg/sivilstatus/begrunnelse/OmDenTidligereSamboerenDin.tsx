@@ -84,11 +84,11 @@ export const OmDenTidligereSamboerenDin: FC = () => {
     oppdaterTidligereSamboerDetaljer({ kjennerIkkeIdent: checked });
   };
 
-  const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
+  const settNavn = (samboerNavn: string) => {
     oppdaterTidligereSamboerDetaljer({
       navn: {
         label: hentTekst('person.navn', intl),
-        verdi: e.currentTarget.value,
+        verdi: samboerNavn,
       },
     });
   };
@@ -108,7 +108,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
 
       <TextField
         label={hentTekst('person.navn', intl)}
-        onChange={settNavn}
+        onChange={(event) => settNavn(event.target.value)}
         value={tidligereSamboerDetaljer?.navn?.verdi}
       />
 
@@ -116,7 +116,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         label={hentTekst('person.ident', intl)}
         value={ident}
         maxLength={11}
-        onChange={(e) => settIdent(e.target.value)}
+        onChange={(event) => settIdent(event.target.value)}
         disabled={brukerIkkeIdent}
         error={ident && !erGyldigIdent ? feilmelding : undefined}
       />
