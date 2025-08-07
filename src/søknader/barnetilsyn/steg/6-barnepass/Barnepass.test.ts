@@ -5,8 +5,18 @@ import {
   navigerTilStegBarnetilsyn,
   skrivFritekst,
 } from '../../../../test/actions';
-import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
-import { prettyDOM } from '@testing-library/dom';
+import {
+  dagensDato,
+  dagensIsoDatoMinusMåneder,
+  formatMånederTilbake,
+} from '../../../../utils/dato';
+import {
+  lagIBarn,
+  lagPerson,
+  lagSpørsmålBooleanFelt,
+  lagSøknadBarnetilsyn,
+  lagTekstfelt,
+} from '../../../../test/domeneUtils';
 
 vi.mock('axios', () => {
   return {
@@ -361,6 +371,118 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
 
+  test('Barn er eldre enn 4.klasse', async () => {
+    mockMellomlagretSøknadBarnetilsyn(
+      'barnetilsyn',
+      '/barnetilsyn/barnepass',
+      undefined,
+      lagSøknadBarnetilsyn({
+        harBekreftet: true,
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ label: '', verdi: dagensIsoDatoMinusMåneder(144) }),
+              ident: lagTekstfelt({ label: '', verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ spørsmålid: '', svarid: '', label: '', verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              skalHaBarnepass: lagSpørsmålBooleanFelt({
+                spørsmålid: '',
+                svarid: '',
+                label: '',
+                verdi: true,
+              }),
+            }),
+          ],
+        }),
+      })
+    );
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Om barnepassordningen' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt har fullført 4. skoleår.'
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'På dette alderstrinnet er barn normalt blitt tilstrekkelig selvhjulpne og modne slik at de klarer seg utenfor skoletiden både i hjemmet og i sitt vanlige nærmiljø i den tiden du er fraværende på grunn av arbeid.'
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('group', { name: 'Hvorfor trenger GÅEN PC pass?' })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(
+        'Du må dokumentere behovet med uttalelse fra lege, spesialist eller annet helsepersonell.'
+      )
+    ).not.toBeInTheDocument();
+    await klikkRadioknapp(
+      'Hvorfor trenger GÅEN PC pass?',
+      'Barnet har behov for vesentlig mer pass enn det som er vanlig for jevnaldrende',
+      screen,
+      user
+    );
+    expect(
+      screen.getByText(
+        'Du må dokumentere behovet med uttalelse fra lege, spesialist eller annet helsepersonell.'
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Hvorfor trenger GÅEN PC pass?',
+      'Jeg må være borte fra hjemmet i lengre perioder på grunn av jobb',
+      screen,
+      user
+    );
+    expect(
+      screen.queryByText(
+        'Du må dokumentere behovet med uttalelse fra lege, spesialist eller annet helsepersonell.'
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'For at fraværet skal anses som mer langvarig enn vanlig, må det overstige 10 timer per dag'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText('Du må dokumentere arbeidstiden din')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Hvorfor trenger GÅEN PC pass?',
+      'Jeg jobber turnus eller skift, og jobber på tider utenom vanlig arbeidstid',
+      screen,
+      user
+    );
+    expect(
+      screen.queryByText(
+        'For at fraværet skal anses som mer langvarig enn vanlig, må det overstige 10 timer per dag'
+      )
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('Du må dokumentere arbeidstiden din')).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Tilbake' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Avbryt' })).toBeInTheDocument();
+  });
+
   test('Kan navigere seg til neste', async () => {
     mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -382,8 +504,6 @@ describe('Barnepass-Steg', () => {
       user
     );
     await user.click(screen.getByRole('button', { name: 'Neste' }));
-
-    console.log(prettyDOM(undefined, Infinity));
 
     expect(screen.getByRole('heading', { level: 2, name: 'Oppsummering' })).toBeInTheDocument();
   });
