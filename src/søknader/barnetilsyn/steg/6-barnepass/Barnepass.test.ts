@@ -508,5 +508,3 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Oppsummering' })).toBeInTheDocument();
   });
 });
-
-//Barn som er over 4.klassetrinn-test trengs. Se gift, 2 barn for eksempeltekst. Er både ekstra hjelpetekst og et ekstra spørsmål
