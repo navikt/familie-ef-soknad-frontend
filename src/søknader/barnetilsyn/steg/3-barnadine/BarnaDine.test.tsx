@@ -29,14 +29,14 @@ vi.mock('axios', () => {
 
 describe('BarnaDine-Steg for barnetilsyn', () => {
   test('Skal navigere til BarnaDine-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barn', {});
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barn', {});
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
   });
 
   test('Initielle tekster er til stede', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barn', {});
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barn', {});
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(screen.getByText('Hvilke barn skal være med i søknaden?')).toBeInTheDocument();
@@ -111,7 +111,7 @@ describe('BarnaDine-Steg for barnetilsyn', () => {
   test('Skal rendre riktig data fra barn', async () => {
     mockMellomlagretSøknadBarnetilsyn(
       'barnetilsyn',
-      '/barn',
+      '/barnetilsyn/barn',
       {},
       {
         person: lagPerson({
@@ -155,7 +155,7 @@ describe('BarnaDine-Steg for barnetilsyn', () => {
   test('Velge barn', async () => {
     mockMellomlagretSøknadBarnetilsyn(
       'barnetilsyn',
-      '/barn',
+      '/barnetilsyn/barn',
       {},
       {
         person: lagPerson({
@@ -194,7 +194,7 @@ describe('BarnaDine-Steg for barnetilsyn', () => {
   test('Velge flere barn', async () => {
     mockMellomlagretSøknadBarnetilsyn(
       'barnetilsyn',
-      '/barn',
+      '/barnetilsyn/barn',
       {},
       {
         person: lagPerson({
@@ -246,7 +246,7 @@ describe('BarnaDine-Steg for barnetilsyn', () => {
   test('Søker har ingen barn', async () => {
     mockMellomlagretSøknadBarnetilsyn(
       'barnetilsyn',
-      '/barn',
+      '/barnetilsyn/barn',
       {},
       {
         person: lagPerson({

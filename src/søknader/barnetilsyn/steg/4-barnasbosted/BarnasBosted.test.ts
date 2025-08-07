@@ -105,7 +105,7 @@ const barnMedAnnenMedforelder = lagIBarn({
 
 describe('BarnasBosted-Steg for barnetilsyn', () => {
   test('Skal navigere til BarnasBosted-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -114,7 +114,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -130,7 +130,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Medforelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -159,7 +159,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Medforelder bor i Norge', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -174,7 +174,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -225,7 +225,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -296,7 +296,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -329,7 +329,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -370,7 +370,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -428,7 +428,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -481,7 +481,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Andre forelder har ikke samvær', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -512,7 +512,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Ja', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -556,7 +556,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Nei', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -588,7 +588,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Vet ikke', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -620,7 +620,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Har foreldre bodd sammen før; Ja', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -683,7 +683,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Har foreldre bodd sammen før; Nei', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -736,7 +736,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes ikke', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -772,7 +772,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Kun når barnet hentes eller leveres', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -808,7 +808,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes utenom henting og levering', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -862,7 +862,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
   });
 
   test('Neste-knapp tar deg til oversiktssiden, 1 barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -929,7 +929,7 @@ describe('BarnasBosted-Steg for barnetilsyn', () => {
 
 describe('2 barn, samme forelder', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn, barnMedSammeMedforelder] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1016,7 +1016,7 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn, barnMedSammeMedforelder] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1193,7 +1193,7 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn, barnMedSammeMedforelder] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1294,7 +1294,7 @@ describe('2 barn, samme forelder', () => {
 
 describe('2 barn, forskjellige foreldre', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn, barnMedAnnenMedforelder] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1371,7 +1371,7 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn, barnMedAnnenMedforelder] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1756,7 +1756,7 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn, barnMedAnnenMedforelder] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1879,7 +1879,7 @@ describe('2 barn, forskjellige foreldre', () => {
 
 describe('Oppsummeringssiden viser riktig informasjon', () => {
   test('Oversikten viser annen forelder bor i Norge', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1925,7 +1925,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Ja')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -1983,7 +1983,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Argentina')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mindre samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2034,7 +2034,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mer samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2090,7 +2090,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har ikke samvær', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2138,7 +2138,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2194,7 +2194,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2259,7 +2259,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke samværsavtale', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2317,7 +2317,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser foreldre bor nærme', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2372,7 +2372,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Ja')).toHaveLength(2);
   });
   test('Oversikten viser foreldre bor ikke nærme', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2422,7 +2422,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Nei')).toHaveLength(2);
   });
   test('Oversikten viser vet ikke hvor den andre forelderen bor', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2472,7 +2472,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
   });
   test('Oversikten viser har bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2530,7 +2530,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('02.06.2025')).toBeInTheDocument();
   });
   test('Oversikten viser har ikke bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2579,7 +2579,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Nei')).toBeInTheDocument();
   });
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2628,7 +2628,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
   });
   test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2679,7 +2679,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
@@ -2739,7 +2739,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
 
 describe('Endre informasjon', () => {
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegBarnetilsyn();
