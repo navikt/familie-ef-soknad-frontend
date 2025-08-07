@@ -37,6 +37,19 @@ type SøknadSteg =
   | '/barnepass'
   | '/oppsummering'
   | '/dokumentasjon'
+  | '/kvittering'
+  | '/barnetilsyn/barnepass';
+
+type SøknadBarnetilsynSteg =
+  | '/om-deg'
+  | '/bosituasjon'
+  | '/barn'
+  | '/barnas-bosted'
+  | '/aktivitet'
+  | '/din-situasjon'
+  | '/barnetilsyn/barnepass'
+  | '/oppsummering'
+  | '/dokumentasjon'
   | '/kvittering';
 
 export const mockGet = (url: string, stønadType: StønadType) => {
@@ -76,9 +89,16 @@ const utledMellomlagretSøknad = (stønadType: StønadType) => {
 
 export const mockPost = (url: string, stønadstype: StønadType) => {
   if (url === `${Environment().mellomlagerProxyUrl + stønadstype}`) {
-    return Promise.resolve({
-      data: lagSøknadOvergangsstønad(),
-    });
+    switch (stønadstype) {
+      case 'overgangsstonad':
+        return Promise.resolve({
+          data: lagSøknadOvergangsstønad(),
+        });
+      case 'barnetilsyn':
+        return Promise.resolve({
+          data: lagSøknadBarnetilsyn(lagSøknadBarnetilsyn({ harBekreftet: true })),
+        });
+    }
   }
 };
 
@@ -114,7 +134,7 @@ export const mockMellomlagretSøknadOvergangsstønad = (
 
 export const mockMellomlagretSøknadBarnetilsyn = (
   stønadstype: StønadType,
-  gjeldendeSteg?: SøknadSteg,
+  gjeldendeSteg?: SøknadBarnetilsynSteg,
   søker?: Partial<Søker>,
   søknad?: Partial<SøknadBarnetilsyn>
 ) => {
@@ -175,13 +195,16 @@ const utledSøknadOvergangsstønad = (
   }
 };
 
-const utledSøknadBarnetilsyn = (gjeldendeSteg: SøknadSteg, søknad?: Partial<SøknadBarnetilsyn>) => {
+const utledSøknadBarnetilsyn = (
+  gjeldendeSteg: SøknadBarnetilsynSteg,
+  søknad?: Partial<SøknadBarnetilsyn>
+) => {
   switch (gjeldendeSteg) {
     case '/barn':
       return søknadBarnetilsyndBarnaDine(søknad);
     case '/barnas-bosted':
       return søknadBarnetilsynBarnasBosted(søknad);
-    case '/barnepass':
+    case '/barnetilsyn/barnepass':
       return søknadBarnetilsynBarnasBosted(søknad);
     default:
       return lagSøknadBarnetilsyn({ harBekreftet: true });

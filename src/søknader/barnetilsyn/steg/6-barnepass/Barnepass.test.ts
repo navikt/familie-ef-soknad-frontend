@@ -1,15 +1,18 @@
-import { describe, expect, test } from 'vitest';
-import { mockGet, mockMellomlagretSøknadBarnetilsyn } from '../../../../test/axios';
+import { describe, expect, test, vi } from 'vitest';
+import { mockGet, mockMellomlagretSøknadBarnetilsyn, mockPost } from '../../../../test/axios';
 import {
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
   skrivFritekst,
 } from '../../../../test/actions';
+import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
+import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
     default: {
       get: vi.fn((url: string) => mockGet(url, 'barnetilsyn')),
+      post: vi.fn((url: string) => mockPost(url, 'barnetilsyn')),
       interceptors: {
         request: { use: vi.fn() },
         response: { use: vi.fn() },
@@ -20,7 +23,7 @@ vi.mock('axios', () => {
 
 describe('Barnepass-Steg', () => {
   test('Skal navigere til barnepass-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -28,7 +31,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
   });
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -48,7 +51,7 @@ describe('Barnepass-Steg', () => {
   });
 
   test('Barnet er i barnehage, SFO eller lignende', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -137,7 +140,7 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('button', { name: 'Avbryt' })).toBeInTheDocument();
   });
   test('Dagmamma eller annen privat ordning', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -265,6 +268,124 @@ describe('Barnepass-Steg', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Tilbake' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Avbryt' })).toBeInTheDocument();
+  });
+
+  test('Nav kan vurdere hva hvilken måned søker har rett til stønad', async () => {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    await klikkRadioknapp(
+      'Hva slags barnepassordning har GÅEN PC?',
+      'Barnehage, SFO eller liknende',
+      screen,
+      user
+    );
+    await skrivFritekst('Navn på barnepassordningen', 'Barnehage', screen, user);
+    await skrivFritekst('Startdato', '01.06.2025', screen, user);
+    await skrivFritekst('Sluttdato', '01.12.2025', screen, user);
+    await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
+
+    expect(
+      screen.getByText((tekst) =>
+        tekst.includes(
+          `Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 3)}.`
+        )
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText((tekst) =>
+        tekst.includes(
+          'Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.'
+        )
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+
+    await klikkRadioknapp(
+      'Søker du om stønad til barnetilsyn fra en bestemt måned?',
+      'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
+      screen,
+      user
+    );
+
+    expect(
+      screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+  });
+  test('Søker fra bestemt måned', async () => {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    await klikkRadioknapp(
+      'Hva slags barnepassordning har GÅEN PC?',
+      'Barnehage, SFO eller liknende',
+      screen,
+      user
+    );
+    await skrivFritekst('Navn på barnepassordningen', 'Barnehage', screen, user);
+    await skrivFritekst('Startdato', '01.06.2025', screen, user);
+    await skrivFritekst('Sluttdato', '01.12.2025', screen, user);
+    await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
+
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+
+    expect(screen.queryByText('Når søker du stønad fra?')).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('textbox', { name: 'Jeg søker stønad til barnetilsyn fra og med' })
+    ).not.toBeInTheDocument();
+    await klikkRadioknapp(
+      'Søker du om stønad til barnetilsyn fra en bestemt måned?',
+      'Ja',
+      screen,
+      user
+    );
+    expect(screen.getByText('Når søker du stønad fra?')).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Jeg søker stønad til barnetilsyn fra og med' })
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Åpne månedsvelger' }));
+    await user.click(screen.getByRole('button', { name: 'august' }));
+
+    expect(
+      screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+  });
+
+  test('Kan navigere seg til neste', async () => {
+    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    await klikkRadioknapp(
+      'Hva slags barnepassordning har GÅEN PC?',
+      'Barnehage, SFO eller liknende',
+      screen,
+      user
+    );
+    await skrivFritekst('Navn på barnepassordningen', 'Barnehage', screen, user);
+    await skrivFritekst('Startdato', '01.06.2025', screen, user);
+    await skrivFritekst('Sluttdato', '01.12.2025', screen, user);
+    await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
+    await klikkRadioknapp(
+      'Søker du om stønad til barnetilsyn fra en bestemt måned?',
+      'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
+      screen,
+      user
+    );
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    console.log(prettyDOM(undefined, Infinity));
+
+    expect(screen.getByRole('heading', { level: 2, name: 'Oppsummering' })).toBeInTheDocument();
   });
 });
 
