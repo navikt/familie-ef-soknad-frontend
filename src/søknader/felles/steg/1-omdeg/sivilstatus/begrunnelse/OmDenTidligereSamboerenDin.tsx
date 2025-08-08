@@ -16,9 +16,11 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
   const erGyldigIdent = ident ? identErGyldig(ident) : false;
   const feilmelding = hentTekst('person.feilmelding.ident', intl);
+  const fødselsdatoVerdi = tidligereSamboerDetaljer?.fødselsdato?.verdi;
 
   const harNavnInput = Boolean(navn?.trim());
   const harGyldigIdent = Boolean(ident) && erGyldigIdent;
+  const harFødselsdato = Boolean(fødselsdatoVerdi);
 
   const fødselsdato = useDatepicker({
     toDate: new Date(),
@@ -35,7 +37,8 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   });
 
   const visFødseldatoVelger = brukerIkkeIdent;
-  const visFlyttedatoVelger = harNavnInput && (harGyldigIdent || brukerIkkeIdent);
+  const visFlyttedatoVelger =
+    (harNavnInput && harGyldigIdent) || (harNavnInput && brukerIkkeIdent && harFødselsdato);
 
   const oppdaterTidligereSamboerDetaljer = (data: Partial<typeof tidligereSamboerDetaljer>) => {
     settSivilstatus({
