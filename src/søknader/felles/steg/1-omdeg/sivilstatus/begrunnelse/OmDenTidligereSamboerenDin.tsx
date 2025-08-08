@@ -36,7 +36,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   });
 
   const visFødseldatoVelger = harNavnInput && (harGyldigIdent || brukerIkkeIdent);
-  const visFlyttedatoVelger = harFødselsdato;
+  const visFlyttedatoVelger = harFødselsdato && (harGyldigIdent || brukerIkkeIdent);
 
   const oppdaterTidligereSamboerDetaljer = (
     oppdateringer: Partial<typeof tidligereSamboerDetaljer>
