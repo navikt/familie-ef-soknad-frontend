@@ -38,23 +38,21 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const visFødseldatoVelger = harNavnInput && (harGyldigIdent || brukerIkkeIdent);
   const visFlyttedatoVelger = harFødselsdato && (harGyldigIdent || brukerIkkeIdent);
 
-  const oppdaterTidligereSamboerDetaljer = (
-    oppdateringer: Partial<typeof tidligereSamboerDetaljer>
-  ) => {
+  const oppdaterTidligereSamboerDetaljer = (data: Partial<typeof tidligereSamboerDetaljer>) => {
     settSivilstatus({
       ...sivilstatus,
       tidligereSamboerDetaljer: {
         ...tidligereSamboerDetaljer,
         kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        ...oppdateringer,
+        ...data,
       },
     });
   };
 
-  const oppdaterSivilstatus = (oppdateringer: Partial<typeof sivilstatus>) => {
+  const oppdaterSivilstatus = (data: Partial<typeof sivilstatus>) => {
     settSivilstatus({
       ...sivilstatus,
-      ...oppdateringer,
+      ...data,
     });
   };
 
