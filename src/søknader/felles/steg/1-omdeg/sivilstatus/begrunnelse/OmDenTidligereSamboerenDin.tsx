@@ -4,7 +4,6 @@ import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
 import { Checkbox, DatePicker, Heading, TextField, useDatepicker, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
-import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { formatIsoDate } from '../../../../../../utils/dato';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
@@ -17,9 +16,11 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
   const erGyldigIdent = ident ? identErGyldig(ident) : false;
   const feilmelding = hentTekst('person.feilmelding.ident', intl);
+  const fødselsdatoVerdi = tidligereSamboerDetaljer?.fødselsdato?.verdi;
 
   const harNavnInput = Boolean(navn?.trim());
   const harGyldigIdent = Boolean(ident) && erGyldigIdent;
+  const harFødselsdato = Boolean(fødselsdatoVerdi);
 
   const fødselsdato = useDatepicker({
     onDateChange: (dato: Date | undefined) => {
@@ -35,10 +36,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   });
 
   const visFødseldatoVelger = harNavnInput && (harGyldigIdent || brukerIkkeIdent);
-  const visFlyttedatoVelger = harFyltUtSamboerDetaljer(
-    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-    false
-  );
+  const visFlyttedatoVelger = harFødselsdato;
 
   const oppdaterTidligereSamboerDetaljer = (
     oppdateringer: Partial<typeof tidligereSamboerDetaljer>
@@ -112,7 +110,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
 
       <TextField
         label={hentTekst('person.ident', intl)}
-        value={ident}
+        value={brukerIkkeIdent ? '' : ident}
         maxLength={11}
         onChange={(event) => settIdent(event.target.value)}
         disabled={brukerIkkeIdent}
