@@ -4,18 +4,15 @@ import DatoForSamlivsbrudd from './DatoForSamlivsbrudd';
 import EndringISamvær from './EndringISamvær';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
-import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
 import { hentSvarAlertFraSpørsmål } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
-import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { Alert, Heading } from '@navikt/ds-react';
-import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
+import { Alert } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
-import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
+import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
 import { hentHTMLTekst, hentTekst } from '../../../../../../utils/teksthåndtering';
 
 const ÅrsakEnslig: FC = () => {
@@ -23,21 +20,7 @@ const ÅrsakEnslig: FC = () => {
   const spørsmål: ISpørsmål = begrunnelseSpørsmål(intl);
   const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
 
-  const { årsakEnslig, tidligereSamboerDetaljer } = sivilstatus;
-
-  const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        navn: {
-          label: hentTekst('person.navn', intl),
-          verdi: e.currentTarget.value,
-        },
-      },
-    });
-  };
+  const { årsakEnslig } = sivilstatus;
 
   const settÅrsakEnslig = (spørsmål: ISpørsmål, svar: ISvar) => {
     settSivilstatus({
@@ -55,11 +38,6 @@ const ÅrsakEnslig: FC = () => {
 
   const alertTekstForDødsfall = hentSvarAlertFraSpørsmål(EBegrunnelse.dødsfall, spørsmål);
 
-  const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
-    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-    false
-  );
-
   return (
     <div aria-live="polite">
       <KomponentGruppe>
@@ -76,24 +54,8 @@ const ÅrsakEnslig: FC = () => {
       {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddAndre && (
         <KomponentGruppe>
           <FeltGruppe>
-            <Heading size="small" level="3">
-              {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
-            </Heading>
-          </FeltGruppe>
-          <FeltGruppe>
-            <TextFieldMedBredde
-              key={'navn'}
-              label={hentTekst('person.navn', intl)}
-              type="text"
-              bredde={'L'}
-              onChange={(e) => settNavn(e)}
-              value={tidligereSamboerDetaljer?.navn?.verdi}
-            />
-          </FeltGruppe>
-          <FeltGruppe>
             <OmDenTidligereSamboerenDin />
           </FeltGruppe>
-          {harBrukerFyltUtSamboerDetaljer && <NårFlyttetDereFraHverandre />}
         </KomponentGruppe>
       )}
 

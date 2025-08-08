@@ -1,103 +1,145 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
-import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
-import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
-import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
-import { Checkbox } from '@navikt/ds-react';
-import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { Checkbox, DatePicker, Heading, TextField, useDatepicker, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
+import { formatIsoDate } from '../../../../../../utils/dato';
 
-const OmDenTidligereSamboerenDin: FC = () => {
+export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { tidligereSamboerDetaljer } = sivilstatus;
-  const ident = sivilstatus.tidligereSamboerDetaljer?.ident?.verdi;
-  const checked = tidligereSamboerDetaljer?.kjennerIkkeIdent;
 
-  const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
+  const navn = tidligereSamboerDetaljer?.navn?.verdi;
+  const ident = tidligereSamboerDetaljer?.ident?.verdi;
+  const brukerIkkeIdent = tidligereSamboerDetaljer?.kjennerIkkeIdent;
+  const erGyldigIdent = ident ? identErGyldig(ident) : false;
+  const feilmelding = hentTekst('person.feilmelding.ident', intl);
+  const fødselsdatoVerdi = tidligereSamboerDetaljer?.fødselsdato?.verdi;
 
-  const settTidligereSamboersFødselsdato = (date: string) => {
+  const harNavnInput = Boolean(navn?.trim());
+  const harGyldigIdent = Boolean(ident) && erGyldigIdent;
+  const harFødselsdato = Boolean(fødselsdatoVerdi);
+
+  const fødselsdato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: (dato: Date | undefined) => {
+      if (dato) settTidligereSamboersFødselsdato(formatIsoDate(dato));
+    },
+  });
+
+  const flyttetFraDato = useDatepicker({
+    toDate: new Date(),
+    onDateChange: (dato: Date | undefined) => {
+      if (dato) settDatoFlyttetFraHverandre(formatIsoDate(dato));
+    },
+  });
+
+  const visFødseldatoVelger = brukerIkkeIdent;
+  const visFlyttedatoVelger =
+    (harNavnInput && harGyldigIdent) || (harNavnInput && brukerIkkeIdent && harFødselsdato);
+
+  const oppdaterTidligereSamboerDetaljer = (data: Partial<typeof tidligereSamboerDetaljer>) => {
     settSivilstatus({
       ...sivilstatus,
       tidligereSamboerDetaljer: {
         ...tidligereSamboerDetaljer,
         kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        fødselsdato: {
-          label: hentTekst('datovelger.fødselsdato', intl),
-          verdi: date,
-        },
+        ...data,
+      },
+    });
+  };
+
+  const oppdaterSivilstatus = (data: Partial<typeof sivilstatus>) => {
+    settSivilstatus({
+      ...sivilstatus,
+      ...data,
+    });
+  };
+
+  const settTidligereSamboersFødselsdato = (date: string) => {
+    oppdaterTidligereSamboerDetaljer({
+      fødselsdato: {
+        label: hentTekst('datovelger.fødselsdato', intl),
+        verdi: date,
+      },
+    });
+  };
+
+  const settDatoFlyttetFraHverandre = (date: string) => {
+    oppdaterSivilstatus({
+      datoFlyttetFraHverandre: {
+        label: hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl),
+        verdi: date,
       },
     });
   };
 
   const settKjennerIkkeIdent = (checked: boolean) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: checked,
+    oppdaterTidligereSamboerDetaljer({ kjennerIkkeIdent: checked });
+  };
+
+  const settNavn = (samboerNavn: string) => {
+    oppdaterTidligereSamboerDetaljer({
+      navn: {
+        label: hentTekst('person.navn', intl),
+        verdi: samboerNavn,
       },
     });
   };
 
   const settIdent = (ident: string) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        ident: {
-          label: hentTekst('person.ident', intl),
-          verdi: ident,
-        },
+    oppdaterTidligereSamboerDetaljer({
+      ident: {
+        label: hentTekst('person.ident', intl),
+        verdi: ident,
       },
     });
   };
 
-  const erGyldigIdent = (): boolean => {
-    return identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '');
-  };
   return (
-    <>
-      <KomponentGruppe>
-        <FeltGruppe>
-          <TextFieldMedBredde
-            key={'ident'}
-            label={hentTekst('person.ident', intl)}
-            disabled={checked}
-            bredde={'L'}
-            pattern="[0-9]*"
-            value={ident}
-            error={ident && !erGyldigIdent() ? feilmelding : undefined}
-            onChange={(e) => {
-              settIdent(e.target.value);
-            }}
+    <VStack gap="6" align="start">
+      <Heading size="small">{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Heading>
+
+      <TextField
+        label={hentTekst('person.navn', intl)}
+        onChange={(event) => settNavn(event.target.value)}
+        value={tidligereSamboerDetaljer?.navn?.verdi}
+      />
+
+      <TextField
+        label={hentTekst('person.ident', intl)}
+        value={brukerIkkeIdent ? '' : ident}
+        maxLength={11}
+        onChange={(event) => settIdent(event.target.value)}
+        disabled={brukerIkkeIdent}
+        error={ident && !erGyldigIdent ? feilmelding : undefined}
+      />
+
+      <Checkbox checked={brukerIkkeIdent} onChange={(e) => settKjennerIkkeIdent(e.target.checked)}>
+        {hentTekst('person.checkbox.ident', intl)}
+      </Checkbox>
+
+      {visFødseldatoVelger && (
+        <DatePicker dropdownCaption {...fødselsdato.datepickerProps}>
+          <DatePicker.Input
+            {...fødselsdato.inputProps}
+            label={hentTekst('datovelger.fødselsdato', intl)}
+            placeholder="DD.MM.YYYY"
           />
-        </FeltGruppe>
-        <FeltGruppe>
-          <Checkbox
-            className={'checkbox'}
-            checked={checked}
-            onChange={() => settKjennerIkkeIdent(!checked)}
-          >
-            {hentTekst('person.checkbox.ident', intl)}
-          </Checkbox>
-        </FeltGruppe>
-      </KomponentGruppe>
-      {checked && (
-        <KomponentGruppe>
-          <Datovelger
-            valgtDato={tidligereSamboerDetaljer?.fødselsdato?.verdi || ''}
-            tekstid={'datovelger.fødselsdato'}
-            datobegrensning={DatoBegrensning.TidligereDatoer}
-            settDato={(e) => settTidligereSamboersFødselsdato(e)}
-          />
-        </KomponentGruppe>
+        </DatePicker>
       )}
-    </>
+
+      {visFlyttedatoVelger && (
+        <DatePicker dropdownCaption {...flyttetFraDato.datepickerProps}>
+          <DatePicker.Input
+            {...flyttetFraDato.inputProps}
+            label={hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl)}
+            placeholder="DD.MM.YYYY"
+          />
+        </DatePicker>
+      )}
+    </VStack>
   );
 };
-
-export default OmDenTidligereSamboerenDin;
