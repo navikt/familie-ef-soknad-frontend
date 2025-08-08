@@ -56,4 +56,21 @@ describe('OmDenTidligereSamboerenDin', () => {
       screen.getByRole('checkbox', { name: 'Jeg kjenner ikke fødselsnummer / d-nummer' })
     ).toBeInTheDocument();
   });
+
+  test('Skal vise feilmelding ved ugyldig fødselsnummer', async () => {
+    vi.mocked(useOmDeg).mockReturnValue({
+      sivilstatus: {
+        ...defaultSivilstatus,
+        tidligereSamboerDetaljer: {
+          ...defaultSivilstatus.tidligereSamboerDetaljer,
+          ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: '12345' },
+        },
+      },
+      settSivilstatus: mockSettSivilstatus,
+    } as any);
+
+    render(<OmDenTidligereSamboerenDin />);
+
+    expect(screen.getByText('Ugyldig fødselsnummer eller d-nummer')).toBeInTheDocument();
+  });
 });
