@@ -21,6 +21,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const harGyldigIdent = Boolean(ident) && erGyldigIdent;
 
   const fødselsdato = useDatepicker({
+    toDate: new Date(),
     onDateChange: (dato: Date | undefined) => {
       if (dato) settTidligereSamboersFødselsdato(formatIsoDate(dato));
     },
