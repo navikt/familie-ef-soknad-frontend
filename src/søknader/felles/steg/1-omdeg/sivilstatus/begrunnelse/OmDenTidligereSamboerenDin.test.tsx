@@ -73,4 +73,46 @@ describe('OmDenTidligereSamboerenDin', () => {
 
     expect(screen.getByText('Ugyldig fødselsnummer eller d-nummer')).toBeInTheDocument();
   });
+
+  test('Skal ikke vise fødselsdato velger før navn har verdi', () => {
+    render(<OmDenTidligereSamboerenDin />);
+
+    expect(screen.queryByRole('textbox', { name: 'Fødselsdato' })).not.toBeInTheDocument();
+  });
+
+  test('Skal vise fødselsdato velger når navn har verdi og gyldig ident er satt', () => {
+    vi.mocked(useOmDeg).mockReturnValue({
+      sivilstatus: {
+        ...defaultSivilstatus,
+        tidligereSamboerDetaljer: {
+          ...defaultSivilstatus.tidligereSamboerDetaljer,
+          navn: { label: 'Navn', verdi: 'Kari Nordmann' },
+          ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: '09469425085' },
+        },
+      },
+      settSivilstatus: mockSettSivilstatus,
+    } as any);
+
+    render(<OmDenTidligereSamboerenDin />);
+
+    expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toBeInTheDocument();
+  });
+
+  test('Skal vise fødselsdato velger navn har verdi og brukerIkkeIdent er true', () => {
+    vi.mocked(useOmDeg).mockReturnValue({
+      sivilstatus: {
+        ...defaultSivilstatus,
+        tidligereSamboerDetaljer: {
+          ...defaultSivilstatus.tidligereSamboerDetaljer,
+          navn: { label: 'Navn', verdi: 'Kari Nordmann' },
+          kjennerIkkeIdent: true,
+        },
+      },
+      settSivilstatus: mockSettSivilstatus,
+    } as any);
+
+    render(<OmDenTidligereSamboerenDin />);
+
+    expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toBeInTheDocument();
+  });
 });
