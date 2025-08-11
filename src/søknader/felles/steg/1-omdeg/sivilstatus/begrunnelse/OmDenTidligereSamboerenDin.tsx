@@ -19,12 +19,12 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const fødselsdatoVerdi = tidligereSamboerDetaljer?.fødselsdato?.verdi;
 
   const harNavnInput = Boolean(navn?.trim());
-  const harGyldigIdent = Boolean(ident) && erGyldigIdent;
+  const harIdentInput = Boolean(ident?.trim());
   const harFødselsdato = Boolean(fødselsdatoVerdi);
 
   const visFødseldatoVelger = brukerIkkeIdent;
   const visFlyttedatoVelger =
-    (harNavnInput && harGyldigIdent) || (harNavnInput && brukerIkkeIdent && harFødselsdato);
+    (harNavnInput && harIdentInput) || (harNavnInput && brukerIkkeIdent && harFødselsdato);
 
   const oppdaterTidligereSamboerDetaljer = (data: Partial<typeof tidligereSamboerDetaljer>) => {
     settSivilstatus({
