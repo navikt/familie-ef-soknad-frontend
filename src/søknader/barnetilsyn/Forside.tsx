@@ -7,9 +7,8 @@ import FortsettSøknad from '../../components/forside/FortsettSøknad';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { usePersonContext } from '../../context/PersonContext';
-import { logSidevisningBarnetilsyn } from '../../utils/amplitude';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
-import { useMount, useSpråkValg } from '../../utils/hooks';
+import { useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { BarnetilsynInformasjon } from './BarnetilsynInformasjon';
@@ -22,14 +21,6 @@ const StyledAlert = styled(Alert)`
 const Forside: React.FC = () => {
   const intl = useLokalIntlContext();
   const erDagensDatoMellomMaiOgAugust = erNåværendeMånedMellomMåneder(5, 8);
-
-  useMount(() => {
-    if (!(kanBrukeMellomlagretSøknad && mellomlagretBarnetilsyn))
-      logSidevisningBarnetilsyn('Forside');
-    else {
-      logSidevisningBarnetilsyn('FortsettMedMellomlagret');
-    }
-  });
 
   const { person } = usePersonContext();
   const {

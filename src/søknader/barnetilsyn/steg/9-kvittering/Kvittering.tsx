@@ -18,8 +18,6 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { usePersonContext } from '../../../../context/PersonContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { IBarn } from '../../../../models/steg/barn';
 import { Alert } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -33,8 +31,6 @@ const Kvittering: React.FC = () => {
   const barnSomSkalHaBarnepass = søknad.person.barn.filter(
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
   );
-
-  useMount(() => logSidevisningBarnetilsyn('Kvittering'));
 
   useEffect(() => {
     nullstillMellomlagretBarnetilsyn();

@@ -3,8 +3,7 @@ import { usePersonContext } from '../../context/PersonContext';
 import { useSkolepengerSøknad } from './SkolepengerContext';
 import Environment from '../../Environment';
 import FortsettSøknad from '../../components/forside/FortsettSøknad';
-import { logSidevisningSkolepenger } from '../../utils/amplitude';
-import { useMount, useSpråkValg } from '../../utils/hooks';
+import { useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, Box, Heading } from '@navikt/ds-react';
@@ -30,14 +29,6 @@ const Forside: React.FC = () => {
     settSøknad,
   } = useSkolepengerSøknad();
   const erDagensDatoMellomMaiOgAugust = erNåværendeMånedMellomMåneder(5, 8);
-
-  useMount(() => {
-    if (!(kanBrukeMellomlagretSøknad && mellomlagretSkolepenger))
-      logSidevisningSkolepenger('Forside');
-    else {
-      logSidevisningSkolepenger('FortsettMedMellomlagret');
-    }
-  });
 
   const settBekreftelse = (bekreftelse: boolean) => {
     settSøknad({

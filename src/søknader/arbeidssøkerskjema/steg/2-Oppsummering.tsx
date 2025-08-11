@@ -19,8 +19,6 @@ import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
-import { logSidevisningArbeidssokerskjema } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react';
 
@@ -43,8 +41,6 @@ const Oppsummering: React.FC = () => {
   const forrigeRoute = hentForrigeRoute(RoutesArbeidssokerskjema, location.pathname);
   const nesteRoute = hentNesteRoute(RoutesArbeidssokerskjema, location.pathname);
   const spørsmålOgSvar = VisLabelOgSvar(skjema.arbeidssøker);
-
-  useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
   const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (mappetSkjema: Record<string, object>) => {
     try {

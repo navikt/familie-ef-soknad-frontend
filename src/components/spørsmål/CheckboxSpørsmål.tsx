@@ -2,8 +2,6 @@ import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import LesMerTekst from '../LesMerTekst';
-import { logSpørsmålBesvart } from '../../utils/amplitude';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import CheckboxPanelCustom from '../panel/CheckboxPanel';
 import { CheckboxGroup } from '@navikt/ds-react';
@@ -38,17 +36,9 @@ const CheckboxSpørsmål: React.FC<Props> = ({
   spørsmål,
   settValgteSvar,
   valgteSvar,
-  skalLogges,
   brukSvarIdSomVerdi,
 }) => {
   const intl = useLokalIntlContext();
-
-  const url = window.location.href;
-
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
-
-  const legend = hentTekst(spørsmål.tekstid, intl);
 
   return (
     <StyledCheckboxSpørsmål key={spørsmål.søknadid}>
@@ -75,10 +65,6 @@ const CheckboxSpørsmål: React.FC<Props> = ({
               value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
               checked={alleredeHuketAvISøknad}
               onChange={() => {
-                if (!alleredeHuketAvISøknad) {
-                  logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
-                }
-
                 settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
               }}
             >

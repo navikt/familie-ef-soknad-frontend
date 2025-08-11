@@ -4,7 +4,7 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import SendSøknadKnapper from './SendSkolepengerSøknad';
 import { useLocation } from 'react-router-dom';
-import { useMount, usePrevious } from '../../../../utils/hooks';
+import { usePrevious } from '../../../../utils/hooks';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
 import { Side, NavigasjonState } from '../../../../components/side/Side';
@@ -13,7 +13,6 @@ import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { useDebouncedCallback } from 'use-debounce';
@@ -28,8 +27,6 @@ const Dokumentasjon: React.FC = () => {
   const { dokumentasjonsbehov } = søknad;
   const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
   const forrigeDokumentasjonsbehov = usePrevious(søknad.dokumentasjonsbehov);
-
-  useMount(() => logSidevisningSkolepenger('Dokumentasjon'));
 
   const oppdaterDokumentasjon = (
     dokumentasjonsid: string,

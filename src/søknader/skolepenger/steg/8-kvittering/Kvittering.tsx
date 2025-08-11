@@ -14,8 +14,6 @@ import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendD
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { usePersonContext } from '../../../../context/PersonContext';
-import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { Alert } from '@navikt/ds-react';
 import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -25,8 +23,6 @@ const Kvittering: React.FC = () => {
   const { søknad, nullstillMellomlagretSkolepenger, nullstillSøknadSkolepenger } =
     useSkolepengerSøknad();
   const { person } = usePersonContext();
-
-  useMount(() => logSidevisningSkolepenger('Kvittering'));
 
   useEffect(() => {
     nullstillMellomlagretSkolepenger();

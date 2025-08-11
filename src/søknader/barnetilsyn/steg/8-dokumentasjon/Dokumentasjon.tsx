@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useLocation } from 'react-router-dom';
-import { useMount, usePrevious } from '../../../../utils/hooks';
+import { usePrevious } from '../../../../utils/hooks';
 import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg';
 import SendSøknadKnapper from './SendBarnetilsynSøknad';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
@@ -10,8 +10,6 @@ import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
@@ -28,8 +26,6 @@ const Dokumentasjon: React.FC = () => {
   const { dokumentasjonsbehov } = søknad;
   const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
   const forrigeDokumentasjonsbehov = usePrevious(søknad.dokumentasjonsbehov);
-
-  useMount(() => logSidevisningBarnetilsyn('Dokumentasjon'));
 
   const oppdaterDokumentasjon = (
     dokumentasjonsid: string,

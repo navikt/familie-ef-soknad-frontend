@@ -22,8 +22,6 @@ import {
   RoutesArbeidssokerskjema,
 } from '../routes/routesArbeidssokerskjema';
 import { hentPath } from '../../../utils/routing';
-import { logSidevisningArbeidssokerskjema } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
@@ -34,8 +32,6 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
   const intl = useLokalIntlContext();
   const { skjema, settSkjema } = useSkjema();
   const [arbeidssøker, settArbeidssøker] = React.useState(skjema.arbeidssøker);
-
-  useMount(() => logSidevisningArbeidssokerskjema('OmArbeidssoker'));
 
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
 

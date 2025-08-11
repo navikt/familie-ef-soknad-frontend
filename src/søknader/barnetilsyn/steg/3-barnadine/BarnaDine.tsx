@@ -11,8 +11,6 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { Alert, Label } from '@navikt/ds-react';
 import {
   BarnaDineContainer,
@@ -28,8 +26,6 @@ const AlertContainer = styled.div`
 `;
 
 const BarnaDine: React.FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('BarnaDine'));
-
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
   const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;

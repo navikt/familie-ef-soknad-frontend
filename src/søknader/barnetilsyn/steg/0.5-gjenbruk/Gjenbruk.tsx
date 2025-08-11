@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { EEventsnavn, logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Box, GuidePanel } from '@navikt/ds-react';
 import { hentPath } from '../../../../utils/routing';
@@ -10,10 +8,8 @@ import { GjenbrukKnapp } from './GjenbrukKnapp';
 import styled from 'styled-components';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
-import { ESkjemanavn } from '../../../../utils/skjemanavn';
 
 const Gjenbruk: FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('Gjenbruk'));
   const intl = useLokalIntlContext();
   const { søknad } = useBarnetilsynSøknad();
 
@@ -59,8 +55,6 @@ const Gjenbruk: FC = () => {
                   nesteSide={nesteSide}
                   tekst="knapp.startTom"
                   variant="secondary"
-                  logEventNavn={EEventsnavn.TomSøknad}
-                  skjemanavn={ESkjemanavn.Barnetilsyn}
                 />
               </KnappContainer>
             </SenterContainer>
