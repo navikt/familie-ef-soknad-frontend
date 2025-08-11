@@ -26,9 +26,6 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { Alert, Label } from '@navikt/ds-react';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
@@ -48,8 +45,6 @@ const Aktivitet: React.FC = () => {
     settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
     // eslint-disable-next-line
   }, [arbeidssituasjon]);
-
-  useMount(() => logSidevisningBarnetilsyn('Aktivitet'));
 
   const oppdaterArbeidssituasjon = (nyArbeidssituasjon: IAktivitet) => {
     settArbeidssituasjon({ ...arbeidssituasjon, ...nyArbeidssituasjon });

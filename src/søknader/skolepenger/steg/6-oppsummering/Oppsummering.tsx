@@ -11,16 +11,12 @@ import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import OppsummeringDetaljertUtdanning from '../../../felles/steg/7-oppsummering/OppsummeringDetaljertUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { mellomlagreSkolepenger, søknad } = useSkolepengerSøknad();
-
-  useMount(() => logSidevisningSkolepenger('Oppsummering'));
 
   return (
     <>

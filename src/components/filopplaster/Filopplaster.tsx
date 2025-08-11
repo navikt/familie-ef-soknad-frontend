@@ -9,7 +9,6 @@ import axios from 'axios';
 import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { IDokumentasjon } from '../../models/steg/dokumentasjon';
 import { dagensDatoMedTidspunktStreng } from '../../utils/dato';
-import { logFeilFilopplasting } from '../../utils/amplitude';
 import { getFeilmelding } from '../../utils/feil';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort } from '@navikt/ds-react';
@@ -104,12 +103,6 @@ const Filopplaster: React.FC<Props> = ({
 
           feilmeldingsliste.push(feilmelding);
 
-          logFeilFilopplasting(skjemanavn, skjemaId, {
-            type_feil: 'For stor fil',
-            feilmelding: feilmelding,
-            filstørrelse: fil.size,
-          });
-
           settFeilmeldinger(feilmeldingsliste);
           settÅpenModal(true);
           return;
@@ -124,12 +117,6 @@ const Filopplaster: React.FC<Props> = ({
           feilmeldingsliste.push(feilmelding);
           settFeilmeldinger(feilmeldingsliste);
           settÅpenModal(true);
-
-          logFeilFilopplasting(skjemanavn, skjemaId, {
-            type_feil: 'Feil filtype',
-            feilmelding: feilmelding,
-            filtype: fil.type,
-          });
 
           return;
         }
@@ -176,13 +163,6 @@ const Filopplaster: React.FC<Props> = ({
               error?.response?.data?.melding
             );
             feilmeldingsliste.push(feilmelding);
-
-            logFeilFilopplasting(skjemanavn, skjemaId, {
-              type_feil: 'Generisk feil',
-              feilmelding: feilmelding,
-              filtype: fil.type,
-              filstørrelse: fil.size,
-            });
 
             settFeilmeldinger(feilmeldingsliste);
             settÅpenModal(true);

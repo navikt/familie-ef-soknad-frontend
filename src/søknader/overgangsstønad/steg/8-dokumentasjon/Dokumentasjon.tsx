@@ -13,7 +13,6 @@ import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
-import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -27,8 +26,6 @@ const Dokumentasjon: React.FC = () => {
   const { dokumentasjonsbehov } = søknad;
   const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
   const forrigeDokumentasjonsbehov = usePrevious(søknad.dokumentasjonsbehov);
-
-  useMount(() => logSidevisningOvergangsstonad('Dokumentasjon'));
 
   const oppdaterDokumentasjon = (
     dokumentasjonsid: string,

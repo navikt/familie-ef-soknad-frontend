@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
-import { logSpørsmålBesvart } from '../../utils/amplitude';
 import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup } from '@navikt/ds-react';
@@ -73,13 +72,6 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
               value={svar.svar_tekst}
               checked={svarISøknad ? svarISøknad : false}
               onChange={() => {
-                logSpørsmålBesvart(
-                  skjemanavn,
-                  skjemaId,
-                  spørsmålstekstUtenNavn,
-                  svar.svar_tekst,
-                  skalLogges
-                );
                 settSpørsmålOgSvar(spørsmål, svar);
               }}
             >

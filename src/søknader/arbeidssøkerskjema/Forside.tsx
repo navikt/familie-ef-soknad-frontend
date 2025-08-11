@@ -6,7 +6,6 @@ import {
 import { useSkjema } from './SkjemaContext';
 import { useMount, useSpråkValg } from '../../utils/hooks';
 import { hentPath } from '../../utils/routing';
-import { logSidevisningArbeidssokerskjema } from '../../utils/amplitude';
 import { Box, Heading } from '@navikt/ds-react';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
@@ -20,8 +19,6 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
   const intl = useLokalIntlContext();
   const { skjema, settSkjema } = useSkjema();
-
-  useMount(() => logSidevisningArbeidssokerskjema('Forside'));
 
   const settBekreftelse = (bekreftelse: boolean) => {
     settSkjema({

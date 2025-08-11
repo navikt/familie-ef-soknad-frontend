@@ -16,7 +16,6 @@ import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/amplitude';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
@@ -68,8 +67,6 @@ const SendSøknadKnapper: FC = () => {
         melding: `Noe gikk galt: ${e}`,
         venter: false,
       });
-
-      logInnsendingFeilet(ESkjemanavn.Skolepenger, skjemaId, e);
     }
   };
 
@@ -79,8 +76,6 @@ const SendSøknadKnapper: FC = () => {
     );
     const barnMedOppdaterteLabels = oppdaterBarnLabels(barnMedEntenIdentEllerFødselsdato, intl);
     const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(unikeDokumentasjonsbehov);
-
-    logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Skolepenger);
 
     const søknadMedFiltrerteBarn: SøknadSkolepenger = {
       ...søknad,
