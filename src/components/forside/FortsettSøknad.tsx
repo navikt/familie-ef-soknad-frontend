@@ -1,7 +1,6 @@
 import React from 'react';
 import SeksjonGruppe from '../gruppe/SeksjonGruppe';
 import { FortsettSøknadKnappWrapper } from './FortsettSøknadKnapper';
-import { EEventsnavn, logEvent } from '../../utils/amplitude';
 import { useNavigate } from 'react-router-dom';
 import { LokalIntlShape } from '../../language/typer';
 import { BodyShort, Button } from '@navikt/ds-react';
@@ -20,7 +19,6 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
   gjeldendeSteg,
   brukMellomlagretSøknad,
   nullstillMellomlagretSøknad,
-  skjemanavn,
 }) => {
   const navigate = useNavigate();
 
@@ -33,11 +31,6 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
         <FortsettSøknadKnappWrapper>
           <Button
             onClick={() => {
-              logEvent(EEventsnavn.Mellomlagret, {
-                type: 'fortsett',
-                skjemanavn,
-                gjeldendeSteg,
-              });
               brukMellomlagretSøknad();
               navigate(gjeldendeSteg);
             }}
@@ -48,11 +41,6 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
           </Button>
           <Button
             onClick={() => {
-              logEvent(EEventsnavn.Mellomlagret, {
-                type: 'nullstill',
-                skjemanavn,
-                gjeldendeSteg,
-              });
               nullstillMellomlagretSøknad().then(() => {
                 window.location.reload();
               });

@@ -8,8 +8,6 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
@@ -24,8 +22,6 @@ const BarnasBosted: React.FC = () => {
     oppdaterBarnISøknaden,
     oppdaterFlereBarnISøknaden,
   } = useBarnetilsynSøknad();
-
-  useMount(() => logSidevisningBarnetilsyn('BarnasBosted'));
 
   const aktuelleBarn = søknad.person.barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
