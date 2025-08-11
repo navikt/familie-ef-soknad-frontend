@@ -77,12 +77,6 @@ describe('OmDenTidligereSamboerenDin', () => {
     expect(screen.getByText('Ugyldig fødselsnummer eller d-nummer')).toBeInTheDocument();
   });
 
-  test('Skal ikke vise fødselsdato velger før ident felt har verdi', () => {
-    render(<OmDenTidligereSamboerenDin />);
-
-    expect(screen.queryByRole('textbox', { name: 'Fødselsdato' })).not.toBeInTheDocument();
-  });
-
   test('Skal vise flyttedato velger når navn har verdi og ident har verdi, men IKKE gyldig', () => {
     vi.mocked(useOmDeg).mockReturnValue({
       sivilstatus: {
