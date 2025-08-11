@@ -2,14 +2,14 @@ import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
-import { Checkbox, DatePicker, Heading, TextField, useDatepicker, VStack } from '@navikt/ds-react';
+import { Checkbox, Heading, TextField, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
-import { formatIsoDate } from '../../../../../../utils/dato';
+import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
-  const { tidligereSamboerDetaljer } = sivilstatus;
+  const { tidligereSamboerDetaljer, datoFlyttetFraHverandre } = sivilstatus;
 
   const navn = tidligereSamboerDetaljer?.navn?.verdi;
   const ident = tidligereSamboerDetaljer?.ident?.verdi;
@@ -21,20 +21,6 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   const harNavnInput = Boolean(navn?.trim());
   const harGyldigIdent = Boolean(ident) && erGyldigIdent;
   const harFødselsdato = Boolean(fødselsdatoVerdi);
-
-  const fødselsdato = useDatepicker({
-    toDate: new Date(),
-    onDateChange: (dato: Date | undefined) => {
-      if (dato) settTidligereSamboersFødselsdato(formatIsoDate(dato));
-    },
-  });
-
-  const flyttetFraDato = useDatepicker({
-    toDate: new Date(),
-    onDateChange: (dato: Date | undefined) => {
-      if (dato) settDatoFlyttetFraHverandre(formatIsoDate(dato));
-    },
-  });
 
   const visFødseldatoVelger = brukerIkkeIdent;
   const visFlyttedatoVelger =
@@ -58,20 +44,20 @@ export const OmDenTidligereSamboerenDin: FC = () => {
     });
   };
 
-  const settTidligereSamboersFødselsdato = (date: string) => {
+  const settTidligereSamboersFødselsdato = (dato: string) => {
     oppdaterTidligereSamboerDetaljer({
       fødselsdato: {
         label: hentTekst('datovelger.fødselsdato', intl),
-        verdi: date,
+        verdi: dato,
       },
     });
   };
 
-  const settDatoFlyttetFraHverandre = (date: string) => {
+  const settDatoFlyttetFraHverandre = (dato: string) => {
     oppdaterSivilstatus({
       datoFlyttetFraHverandre: {
         label: hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl),
-        verdi: date,
+        verdi: dato,
       },
     });
   };
@@ -122,23 +108,21 @@ export const OmDenTidligereSamboerenDin: FC = () => {
       </Checkbox>
 
       {visFødseldatoVelger && (
-        <DatePicker dropdownCaption {...fødselsdato.datepickerProps}>
-          <DatePicker.Input
-            {...fødselsdato.inputProps}
-            label={hentTekst('datovelger.fødselsdato', intl)}
-            placeholder="DD.MM.YYYY"
-          />
-        </DatePicker>
+        <Datovelger
+          valgtDato={tidligereSamboerDetaljer?.fødselsdato?.verdi || ''}
+          tekstid={'datovelger.fødselsdato'}
+          datobegrensning={DatoBegrensning.TidligereDatoer}
+          settDato={(dato) => settTidligereSamboersFødselsdato(dato)}
+        />
       )}
 
       {visFlyttedatoVelger && (
-        <DatePicker dropdownCaption {...flyttetFraDato.datepickerProps}>
-          <DatePicker.Input
-            {...flyttetFraDato.inputProps}
-            label={hentTekst('sivilstatus.datovelger.flyttetFraHverandre', intl)}
-            placeholder="DD.MM.YYYY"
-          />
-        </DatePicker>
+        <Datovelger
+          settDato={(dato) => settDatoFlyttetFraHverandre(dato)}
+          valgtDato={datoFlyttetFraHverandre ? datoFlyttetFraHverandre.verdi : undefined}
+          tekstid={'sivilstatus.datovelger.flyttetFraHverandre'}
+          datobegrensning={DatoBegrensning.AlleDatoer}
+        />
       )}
     </VStack>
   );
