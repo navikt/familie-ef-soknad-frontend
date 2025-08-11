@@ -1,56 +1,54 @@
-import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import { render, screen } from '@testing-library/react';
-import { useOmDeg } from '../../OmDegContext';
-import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
-import userEvent from '@testing-library/user-event';
+import { describe, expect, test, vi } from 'vitest';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../../../test/axios';
+import {
+  klikkCheckbox,
+  klikkRadioknapp,
+  navigerTilStegOvergangsstønad,
+} from '../../../../../../test/actions';
 
-vi.mock('../../OmDegContext');
-vi.mock('../../../../../../context/LokalIntlContext');
-vi.mock('../../../../../../utils/teksthåndtering', () => ({
-  hentTekst: (key: string) => {
-    const tekstMap: Record<string, string> = {
-      'sivilstatus.tittel.samlivsbruddAndre': 'Om den tidligere samboeren din',
-      'person.navn': 'Navn',
-      'person.ident': 'Fødselsnummer / d-nummer (11 siffer)',
-      'person.checkbox.ident': 'Jeg kjenner ikke fødselsnummer / d-nummer',
-      'person.feilmelding.ident': 'Ugyldig fødselsnummer eller d-nummer',
-      'datovelger.fødselsdato': 'Fødselsdato',
-      'sivilstatus.datovelger.flyttetFraHverandre': 'Når flyttet dere fra hverandre?',
-    };
-    return tekstMap[key] || key;
-  },
-}));
+vi.mock('axios', () => {
+  return {
+    default: {
+      get: vi.fn((url: string) => mockGet(url, 'overgangsstonad')),
+      interceptors: {
+        request: { use: vi.fn() },
+        response: { use: vi.fn() },
+      },
+    },
+  };
+});
 
 describe('OmDenTidligereSamboerenDin', () => {
-  const mockSettSivilstatus = vi.fn();
-  const defaultSivilstatus = {
-    tidligereSamboerDetaljer: {
-      navn: { label: 'Navn', verdi: '' },
-      ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: '' },
-      kjennerIkkeIdent: false,
-      fødselsdato: { label: 'Fødselsdato', verdi: '' },
-    },
-    datoFlyttetFraHverandre: { label: 'Når flyttet dere fra hverandre?', verdi: '' },
+  const gåTilSamlivsbruddMedNoenAndre = async () => {
+    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Samlivsbrudd med noen andre',
+      screen,
+      user
+    );
+
+    return { screen, user };
   };
 
-  const testIdent = '17499019114'; // Dette er en test ident fra Dolly.
+  test('Rendrer initiale felt når årsak er "Samlivsbrudd med noen andre"', async () => {
+    const { screen } = await gåTilSamlivsbruddMedNoenAndre();
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-
-    vi.mocked(useLokalIntlContext).mockReturnValue({} as any);
-    vi.mocked(useOmDeg).mockReturnValue({
-      sivilstatus: defaultSivilstatus,
-      settSivilstatus: mockSettSivilstatus,
-    } as any);
-  });
-
-  test('Skal vise alle initielle inputfelt og tekster', () => {
-    render(<OmDenTidligereSamboerenDin />);
-
-    expect(
-      screen.getByRole('heading', { name: 'Om den tidligere samboeren din' })
-    ).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Navn' })).toBeInTheDocument();
     expect(
       screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' })
@@ -60,122 +58,45 @@ describe('OmDenTidligereSamboerenDin', () => {
     ).toBeInTheDocument();
   });
 
-  test('Skal vise feilmelding ved ugyldig ident', async () => {
-    vi.mocked(useOmDeg).mockReturnValue({
-      sivilstatus: {
-        ...defaultSivilstatus,
-        tidligereSamboerDetaljer: {
-          ...defaultSivilstatus.tidligereSamboerDetaljer,
-          ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: '12345' },
-        },
-      },
-      settSivilstatus: mockSettSivilstatus,
-    } as any);
+  test('Viser feilmelding for ugyldig ident og viser flyttedato-velger ved navn + ugyldig ident', async () => {
+    const { screen, user } = await gåTilSamlivsbruddMedNoenAndre();
 
-    render(<OmDenTidligereSamboerenDin />);
+    await user.type(screen.getByRole('textbox', { name: 'Navn' }), 'Bink Bonk');
+    await user.type(
+      screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' }),
+      '1234'
+    );
 
     expect(screen.getByText('Ugyldig fødselsnummer eller d-nummer')).toBeInTheDocument();
-  });
-
-  test('Skal vise flyttedato velger når navn har verdi og ident har verdi, men IKKE gyldig', () => {
-    vi.mocked(useOmDeg).mockReturnValue({
-      sivilstatus: {
-        ...defaultSivilstatus,
-        tidligereSamboerDetaljer: {
-          ...defaultSivilstatus.tidligereSamboerDetaljer,
-          navn: { label: 'Navn', verdi: 'Bink Bonk' },
-          ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: '1234' },
-        },
-      },
-      settSivilstatus: mockSettSivilstatus,
-    } as any);
-
-    render(<OmDenTidligereSamboerenDin />);
-
     expect(
       screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
     ).toBeInTheDocument();
   });
 
-  test('Skal vise fødselsdato velger navn har verdi og brukerIkkeIdent er true', () => {
-    vi.mocked(useOmDeg).mockReturnValue({
-      sivilstatus: {
-        ...defaultSivilstatus,
-        tidligereSamboerDetaljer: {
-          ...defaultSivilstatus.tidligereSamboerDetaljer,
-          navn: { label: 'Navn', verdi: 'Bink Bonk' },
-          kjennerIkkeIdent: true,
-        },
-      },
-      settSivilstatus: mockSettSivilstatus,
-    } as any);
+  test('Vis fødseldato velger når brukerIkkeIdent er satt og disabler ident-felt', async () => {
+    const { screen, user } = await gåTilSamlivsbruddMedNoenAndre();
 
-    render(<OmDenTidligereSamboerenDin />);
+    await user.type(screen.getByRole('textbox', { name: 'Navn' }), 'Bink Bonk');
+
+    await klikkCheckbox('Jeg kjenner ikke fødselsnummer / d-nummer', screen, user);
+
+    const identFelt = screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' });
+    expect(identFelt).toHaveValue('');
+    expect(identFelt).toBeDisabled();
 
     expect(screen.getByRole('textbox', { name: 'Fødselsdato' })).toBeInTheDocument();
   });
 
-  test('Skal disable ident felt når brukerIkkeIdent er true', async () => {
-    const user = userEvent.setup();
-    render(<OmDenTidligereSamboerenDin />);
+  test('Viser flyttedato velger når navn og ident har gyldig verdi', async () => {
+    const { screen, user } = await gåTilSamlivsbruddMedNoenAndre();
 
-    const checkbox = screen.getByRole('checkbox', {
-      name: 'Jeg kjenner ikke fødselsnummer / d-nummer',
-    });
-    const identFelt = screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' });
+    await user.type(screen.getByRole('textbox', { name: 'Navn' }), 'Bink Bonk');
+    await klikkCheckbox('Jeg kjenner ikke fødselsnummer / d-nummer', screen, user);
 
-    expect(identFelt).not.toBeDisabled();
-
-    await user.click(checkbox);
-
-    expect(mockSettSivilstatus).toHaveBeenCalledWith(
-      expect.objectContaining({
-        tidligereSamboerDetaljer: expect.objectContaining({
-          kjennerIkkeIdent: true,
-        }),
-      })
-    );
-  });
-
-  test('Skal vise flyttedato velger når fødselsdato er satt', () => {
-    vi.mocked(useOmDeg).mockReturnValue({
-      sivilstatus: {
-        ...defaultSivilstatus,
-        tidligereSamboerDetaljer: {
-          ...defaultSivilstatus.tidligereSamboerDetaljer,
-          navn: { label: 'Navn', verdi: 'Bink Bonk' },
-          ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: testIdent },
-          fødselsdato: { label: 'Fødselsdato', verdi: '1990-01-01' },
-        },
-      },
-      settSivilstatus: mockSettSivilstatus,
-    } as any);
-
-    render(<OmDenTidligereSamboerenDin />);
+    await user.type(screen.getByRole('textbox', { name: 'Fødselsdato' }), '02.06.1990');
 
     expect(
       screen.getByRole('textbox', { name: 'Når flyttet dere fra hverandre?' })
     ).toBeInTheDocument();
-  });
-
-  test('Skal cleare ident felt når brukerIkkeIdent er true', () => {
-    vi.mocked(useOmDeg).mockReturnValue({
-      sivilstatus: {
-        ...defaultSivilstatus,
-        tidligereSamboerDetaljer: {
-          ...defaultSivilstatus.tidligereSamboerDetaljer,
-          ident: { label: 'Fødselsnummer / d-nummer (11 siffer)', verdi: '12345' },
-          kjennerIkkeIdent: true,
-        },
-      },
-      settSivilstatus: mockSettSivilstatus,
-    } as any);
-
-    render(<OmDenTidligereSamboerenDin />);
-
-    const identFelt = screen.getByRole('textbox', { name: 'Fødselsnummer / d-nummer (11 siffer)' });
-
-    expect(identFelt).toHaveValue('');
-    expect(identFelt).toBeDisabled();
   });
 });
