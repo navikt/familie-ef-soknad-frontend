@@ -7,7 +7,6 @@ import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
 import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { useMount } from '../../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';

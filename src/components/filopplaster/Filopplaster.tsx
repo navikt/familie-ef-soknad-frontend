@@ -6,7 +6,6 @@ import { formaterFilstørrelse } from './utils';
 import { IVedlegg } from '../../models/steg/vedlegg';
 import Environment from '../../Environment';
 import axios from 'axios';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { IDokumentasjon } from '../../models/steg/dokumentasjon';
 import { dagensDatoMedTidspunktStreng } from '../../utils/dato';
 import { getFeilmelding } from '../../utils/feil';
@@ -82,10 +81,6 @@ const Filopplaster: React.FC<Props> = ({
   const lukkModal = () => {
     settÅpenModal(false);
   };
-
-  const url = window.location.href;
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
 
   const onDrop = useCallback(
     (filer: File[]) => {

@@ -2,7 +2,6 @@ import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
@@ -33,13 +32,6 @@ interface Props {
 
 const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) => {
   const intl = useLokalIntlContext();
-
-  const skalLogges = true;
-
-  const url = window.location.href;
-
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
 
   const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
 

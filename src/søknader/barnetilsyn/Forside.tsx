@@ -8,7 +8,7 @@ import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { usePersonContext } from '../../context/PersonContext';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
-import { useMount, useSpråkValg } from '../../utils/hooks';
+import { useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { BarnetilsynInformasjon } from './BarnetilsynInformasjon';

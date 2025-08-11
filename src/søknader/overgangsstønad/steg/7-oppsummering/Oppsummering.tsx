@@ -14,7 +14,6 @@ import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IBarn } from '../../../../models/steg/barn';
-import { useNavigationType } from 'react-router-dom';
 import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import {
   aktivitetSchema,
@@ -34,7 +33,6 @@ const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { mellomlagreOvergangsstønad, søknad } = useOvergangsstønadSøknad();
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
-  const action = useNavigationType();
 
   const [manglendeFelter, settManglendeFelter] = useState<string[]>([]);
 
@@ -81,7 +79,7 @@ const Oppsummering: React.FC = () => {
     aktivitetSchema
       .validate(søknad.aktivitet)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (!manglendeFelter.includes(manglendeFelterTilTekst[ManglendeFelter.AKTIVITET])) {
           oppdaterManglendeFelter(ManglendeFelter.AKTIVITET);
         }
@@ -90,7 +88,7 @@ const Oppsummering: React.FC = () => {
     sivilstatusSchema
       .validate(søknad.sivilstatus)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (feilIkkeRegistrertFor(ManglendeFelter.OM_DEG)) {
           oppdaterManglendeFelter(ManglendeFelter.OM_DEG);
         }
@@ -99,7 +97,7 @@ const Oppsummering: React.FC = () => {
     merOmDinSituasjonSchema
       .validate(søknad.merOmDinSituasjon)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (feilIkkeRegistrertFor(ManglendeFelter.MER_OM_DIN_SITUASJON)) {
           oppdaterManglendeFelter(ManglendeFelter.MER_OM_DIN_SITUASJON);
         }
@@ -108,7 +106,7 @@ const Oppsummering: React.FC = () => {
     medlemskapSchema
       .validate(søknad.medlemskap)
       .then()
-      .catch((e) => {
+      .catch(() => {
         if (feilIkkeRegistrertFor(ManglendeFelter.OM_DEG)) {
           oppdaterManglendeFelter(ManglendeFelter.OM_DEG);
         }

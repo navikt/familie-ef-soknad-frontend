@@ -4,7 +4,7 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import SendSøknadKnapper from './SendSkolepengerSøknad';
 import { useLocation } from 'react-router-dom';
-import { useMount, usePrevious } from '../../../../utils/hooks';
+import { usePrevious } from '../../../../utils/hooks';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
 import { Side, NavigasjonState } from '../../../../components/side/Side';

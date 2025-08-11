@@ -4,7 +4,7 @@ import {
   RoutesArbeidssokerskjema,
 } from './routes/routesArbeidssokerskjema';
 import { useSkjema } from './SkjemaContext';
-import { useMount, useSpråkValg } from '../../utils/hooks';
+import { useSpråkValg } from '../../utils/hooks';
 import { hentPath } from '../../utils/routing';
 import { Box, Heading } from '@navikt/ds-react';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';

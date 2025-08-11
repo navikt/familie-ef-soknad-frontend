@@ -9,7 +9,6 @@ import { DetaljertUtdanning } from '../../models/detaljertUtdanning';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import TarUtdanning from '../../../felles/steg/5-aktivitet/utdanning/TarUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { useMount } from '../../../../utils/hooks';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { hentTekst } from '../../../../utils/teksthåndtering';

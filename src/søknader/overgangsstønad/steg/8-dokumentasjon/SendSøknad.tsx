@@ -18,7 +18,6 @@ import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
-import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -35,7 +34,6 @@ const SendSøknadKnapper: FC = () => {
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
   const nesteRoute = hentNesteRoute(RoutesOvergangsstonad, location.pathname);
-  const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
   const intl = useLokalIntlContext();
   const forrigeRoute = hentForrigeRoute(RoutesOvergangsstonad, location.pathname);
 
