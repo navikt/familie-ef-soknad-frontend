@@ -6,8 +6,6 @@ import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { useSkjema } from '../SkjemaContext';
 import Feilside from '../../../components/feil/Feilside';
 import FeltGruppe from '../../../components/gruppe/FeltGruppe';
-import { logSidevisningArbeidssokerskjema } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Link } from '@navikt/ds-react';
 import { StyledBeskrivelse } from '../../../components/StyledBeskrivelse';
@@ -15,8 +13,6 @@ import { StyledBeskrivelse } from '../../../components/StyledBeskrivelse';
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { skjema } = useSkjema();
-
-  useMount(() => logSidevisningArbeidssokerskjema('Kvittering'));
 
   const mottattAlert: string =
     hentTekst('skjema.alert.mottatt', intl) +

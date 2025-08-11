@@ -16,9 +16,7 @@ import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import { logDokumetasjonsbehov, logInnsendingFeilet } from '../../../../utils/amplitude';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { ESkjemanavn, skjemanavnIdMapping } from '../../../../utils/skjemanavn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { useSpråkContext } from '../../../../context/SpråkContext';
@@ -36,7 +34,6 @@ const SendSøknadKnapper: FC = () => {
   const navigate = useNavigate();
   const nesteRoute = hentNesteRoute(RoutesSkolepenger, location.pathname);
   const forrigeRoute = hentForrigeRoute(RoutesSkolepenger, location.pathname);
-  const skjemaId = skjemanavnIdMapping[ESkjemanavn.Skolepenger];
   const intl = useLokalIntlContext();
   const [locale] = useSpråkContext();
 
@@ -68,8 +65,6 @@ const SendSøknadKnapper: FC = () => {
         melding: `Noe gikk galt: ${e}`,
         venter: false,
       });
-
-      logInnsendingFeilet(ESkjemanavn.Skolepenger, skjemaId, e);
     }
   };
 
@@ -79,8 +74,6 @@ const SendSøknadKnapper: FC = () => {
     );
     const barnMedOppdaterteLabels = oppdaterBarnLabels(barnMedEntenIdentEllerFødselsdato, intl);
     const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(unikeDokumentasjonsbehov);
-
-    logDokumetasjonsbehov(dokumentasjonsbehov, ESkjemanavn.Skolepenger);
 
     const søknadMedFiltrerteBarn: SøknadSkolepenger = {
       ...søknad,

@@ -3,8 +3,6 @@ import { Button } from '@navikt/ds-react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import React, { useContext } from 'react';
 import { GjenbrukContext } from '../../../../context/GjenbrukContext';
-import { EEventsnavn, logEvent } from '../../../../utils/amplitude';
-import { ESkjemanavn } from '../../../../utils/skjemanavn';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
@@ -16,10 +14,6 @@ export const GjenbrukKnapp: React.FC<{
   const { settSkalGjenbrukeSøknad } = useContext(GjenbrukContext);
 
   const handleButtonClick = () => {
-    logEvent(EEventsnavn.GjenbrukSøknad, {
-      skjemanavn: ESkjemanavn.Barnetilsyn,
-    });
-
     settSkalGjenbrukeSøknad(true);
     navigate(nesteSide);
   };

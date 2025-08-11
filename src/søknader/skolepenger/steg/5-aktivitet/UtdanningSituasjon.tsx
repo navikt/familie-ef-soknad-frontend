@@ -9,9 +9,6 @@ import { DetaljertUtdanning } from '../../models/detaljertUtdanning';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import TarUtdanning from '../../../felles/steg/5-aktivitet/utdanning/TarUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -24,8 +21,6 @@ const UtdanningSituasjon: React.FC = () => {
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-
-  useMount(() => logSidevisningSkolepenger('Aktivitet'));
 
   const oppdaterUnderUtdanning = (underUtdanning: DetaljertUtdanning) => {
     settSøknad((prevSøknad: SøknadSkolepenger) => {
