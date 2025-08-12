@@ -5,14 +5,20 @@ import { hentTekst } from '../../utils/teksthåndtering';
 
 interface Props {
   tekstKey: string;
+
   lesMerTittelKey?: string;
   lesMerBeskrivelseKey?: string;
+
+  fraPeriodeVelgerKey?: string;
+  tilPeriodeVelgerKey?: string;
 }
 
 export const PeriodeDatovelgerV2: React.FC<Props> = ({
   tekstKey,
   lesMerTittelKey,
   lesMerBeskrivelseKey,
+  fraPeriodeVelgerKey,
+  tilPeriodeVelgerKey,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -40,7 +46,7 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
         <DatePicker dropdownCaption {...fraPeriodeDato.datepickerProps}>
           <DatePicker.Input
             {...fraPeriodeDato.inputProps}
-            label="Fra og med periode velger"
+            label={fraPeriodeVelgerKey ? hentTekst(fraPeriodeVelgerKey, intl) : undefined}
             placeholder={'DD.MM.YYYY'}
           />
         </DatePicker>
@@ -48,7 +54,7 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
         <DatePicker dropdownCaption {...tilPeriodeDato.datepickerProps}>
           <DatePicker.Input
             {...tilPeriodeDato.inputProps}
-            label="Til og med periode velger"
+            label={tilPeriodeVelgerKey ? hentTekst(tilPeriodeVelgerKey, intl) : undefined}
             placeholder={'DD.MM.YYYY'}
           />
         </DatePicker>

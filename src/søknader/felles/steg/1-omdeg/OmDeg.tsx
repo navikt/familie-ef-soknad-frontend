@@ -67,6 +67,8 @@ const OmDeg: FC = () => {
         tekstKey={'Jeg er en tittel'}
         lesMerTittelKey={'Les mer tittel'}
         lesMerBeskrivelseKey={'Les mer beskrivelse'}
+        fraPeriodeVelgerKey={'Fra'}
+        tilPeriodeVelgerKey={'Til'}
       />
 
       <Personopplysninger />
