@@ -13,6 +13,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { PeriodeDatovelgerV2 } from '../../../../components/dato/PeriodeDatovelgerV2';
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -61,6 +62,13 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
+      {/*TODO: Kun for testing, husk å fjerne meg!*/}
+      <PeriodeDatovelgerV2
+        tekstKey={'Jeg er en tittel'}
+        lesMerTittelKey={'Les mer tittel'}
+        lesMerBeskrivelseKey={'Les mer beskrivelse'}
+      />
+
       <Personopplysninger />
       {SkalViseSivilstatusdialog && <Sivilstatus />}
       {skalViseMedlemskapsdialog && <Medlemskap />}
