@@ -22,6 +22,14 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
 }) => {
   const intl = useLokalIntlContext();
 
+  const fraPeriodeVelgerLabel = fraPeriodeVelgerKey
+    ? hentTekst(fraPeriodeVelgerKey, intl)
+    : hentTekst('periode.fra', intl);
+
+  const tilPeriodeVelgerLabel = tilPeriodeVelgerKey
+    ? hentTekst(tilPeriodeVelgerKey, intl)
+    : hentTekst('periode.til', intl);
+
   const fraPeriodeDato = useDatepicker({
     onDateChange: (dato: Date | undefined) => {},
   });
@@ -46,7 +54,7 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
         <DatePicker dropdownCaption {...fraPeriodeDato.datepickerProps}>
           <DatePicker.Input
             {...fraPeriodeDato.inputProps}
-            label={fraPeriodeVelgerKey ? hentTekst(fraPeriodeVelgerKey, intl) : undefined}
+            label={fraPeriodeVelgerLabel}
             placeholder={'DD.MM.YYYY'}
           />
         </DatePicker>
@@ -54,7 +62,7 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
         <DatePicker dropdownCaption {...tilPeriodeDato.datepickerProps}>
           <DatePicker.Input
             {...tilPeriodeDato.inputProps}
-            label={tilPeriodeVelgerKey ? hentTekst(tilPeriodeVelgerKey, intl) : undefined}
+            label={tilPeriodeVelgerLabel}
             placeholder={'DD.MM.YYYY'}
           />
         </DatePicker>
