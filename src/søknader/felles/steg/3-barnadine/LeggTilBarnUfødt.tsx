@@ -3,13 +3,13 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { ESvar, ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 import { DatoBegrensning } from '../../../../components/dato/DatoBegrensning';
+import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../../../components/dato/utils';
 
 interface Props {
   settBo: (nyttBo: string) => void;
@@ -52,7 +52,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
       {barnDato &&
-        erDatoGyldigOgInnaforBegrensninger(barnDato, DatoBegrensning.FremtidigeDatoer) && (
+        erDatoGyldigOgInnenforDatoBegrensninger(barnDato, DatoBegrensning.FremtidigeDatoer) && (
           <KomponentGruppe>
             <RadiopanelWrapper>
               <RadioGroup

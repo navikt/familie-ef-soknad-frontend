@@ -8,8 +8,8 @@ import FeltGruppe from '../gruppe/FeltGruppe';
 import KomponentGruppe from '../gruppe/KomponentGruppe';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
-  erFraDatoSenereEnnTilDato,
+  erDatoInnenforDatoBegrensning,
+  erFraDatoFørTilDato,
   hentStartOgSluttDato,
 } from './utils';
 import { erGyldigDato } from '../../utils/dato';
@@ -69,9 +69,9 @@ const PeriodeDatovelgere: FC<Props> = ({
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforDatoBegrensning(fra.verdi, datobegrensning);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforDatoBegrensning(til.verdi, datobegrensning);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -90,7 +90,8 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
       return 'datovelger.periode.likeDatoer';
-    else if (startDato && sluttDato && !erFraDatoSenereEnnTilDato(startDato, sluttDato))
+    else if (startDato && sluttDato && erFraDatoFørTilDato(startDato, sluttDato))
+      // TODO: Sjekk denne.
       return 'datovelger.periode.startFørSlutt';
     else return '';
   };

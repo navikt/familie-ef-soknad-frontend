@@ -7,7 +7,6 @@ import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDe
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, HStack, Textarea } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
@@ -18,6 +17,7 @@ import EøsIdent from '../../../../../components/EøsIdent';
 import { stringHarVerdiOgErIkkeTom } from '../../../../../utils/typer';
 import { PeriodeDatovelgerV2 } from '../../../../../components/dato/PeriodeDatovelgerV2';
 import { DatoBegrensning } from '../../../../../components/dato/DatoBegrensning';
+import { erPeriodeGyldigOgInnenforDatoBegrensning } from '../../../../../components/dato/utils';
 
 const StyledTextarea = styled(Textarea)`
   width: 100%;
@@ -184,7 +184,7 @@ const Utenlandsopphold: FC<Props> = ({
         skalLogges={false}
       />
       {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnaforBegrensninger(
+        erPeriodeGyldigOgInnenforDatoBegrensning(
           utenlandsopphold.periode,
           DatoBegrensning.TidligereDatoer
         ) &&
