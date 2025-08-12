@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { addMonths, addYears, formatISO, subYears } from 'date-fns';
 import { useSpråkContext } from '../../context/SpråkContext';
-import FeltGruppe from '../gruppe/FeltGruppe';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
 import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
@@ -108,16 +107,14 @@ export const Datovelger: React.FC<Props> = ({
   });
 
   return (
-    <FeltGruppe>
-      <DatePicker {...datepickerProps} dropdownCaption>
-        <DatePicker.Input
-          {...inputProps}
-          label={label}
-          error={feilmelding && hentTekst(feilmelding, intl)}
-          placeholder="DD.MM.YYYY"
-          data-testid={testId}
-        />
-      </DatePicker>
-    </FeltGruppe>
+    <DatePicker {...datepickerProps} dropdownCaption>
+      <DatePicker.Input
+        {...inputProps}
+        label={label}
+        error={feilmelding && hentTekst(feilmelding, intl)}
+        placeholder="DD.MM.YYYY"
+        data-testid={testId}
+      />
+    </DatePicker>
   );
 };
