@@ -7,8 +7,9 @@ import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
+import { DatoBegrensning } from '../../../../components/dato/DatoBegrensning';
 
 interface Props {
   settBo: (nyttBo: string) => void;

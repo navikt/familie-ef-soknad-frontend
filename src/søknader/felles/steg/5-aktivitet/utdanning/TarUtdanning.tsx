@@ -26,10 +26,10 @@ import Studiekostnader from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
 import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
 import { Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { DatoBegrensning } from '../../../../../components/dato/DatoBegrensning';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
   margin-top: -2rem;

@@ -1,7 +1,7 @@
-import { DatoBegrensning } from './Datovelger';
 import { addMonths, addYears, compareAsc, isEqual, subYears } from 'date-fns';
 import { dagensDato, erGyldigDato, strengTilDato } from '../../utils/dato';
 import { IPeriode } from '../../models/felles/periode';
+import { DatoBegrensning } from './DatoBegrensning';
 
 // Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
 export const erDatoGyldigOgInnaforBegrensninger = (

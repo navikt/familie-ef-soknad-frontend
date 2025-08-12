@@ -17,11 +17,11 @@ import { erÅrsakBarnepassSpmBesvart } from './hjelper';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
-import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { Heading, TextField } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
+import { DatoBegrensning } from '../../../../components/dato/DatoBegrensning';
 
 interface Props {
   barn: IBarn;

@@ -2,7 +2,6 @@ import { EBegrunnelse, ESivilstand, ISivilstatus } from '../../models/steg/omDeg
 import { IPeriode } from '../../models/felles/periode';
 import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/utils';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../utils/sivilstatus';
@@ -11,6 +10,7 @@ import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 import { identErGyldig } from '../../utils/validering/validering';
+import { DatoBegrensning } from '../../components/dato/DatoBegrensning';
 
 export const hentSivilstatus = (statuskode?: string) => {
   switch (statuskode) {

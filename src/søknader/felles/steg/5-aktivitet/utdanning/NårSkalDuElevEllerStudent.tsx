@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
+import { DatoBegrensning } from '../../../../../components/dato/DatoBegrensning';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EPeriode } from '../../../../../models/felles/periode';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';

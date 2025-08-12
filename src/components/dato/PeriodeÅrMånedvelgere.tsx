@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { DatoBegrensning } from './Datovelger';
 import Feilmelding from '../feil/Feilmelding';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
@@ -15,6 +14,7 @@ import {
   hentStartOgSluttDato,
 } from './utils';
 import { Label } from '@navikt/ds-react';
+import { DatoBegrensning } from './DatoBegrensning';
 
 const PeriodeGruppe = styled.div`
   display: grid;

@@ -16,7 +16,7 @@ import {
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { IPeriode } from '../models/felles/periode';
-import { DatoBegrensning } from '../components/dato/Datovelger';
+import { DatoBegrensning } from '../components/dato/DatoBegrensning';
 
 export const STANDARD_DATOFORMAT = 'dd.MM.yyyy';
 export const FØDSELSNUMMER_DATOFORMAT = 'ddMMyy';

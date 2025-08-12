@@ -9,7 +9,8 @@ import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSp
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../components/dato/Datovelger';
+import { DatoBegrensning } from '../../../../../components/dato/DatoBegrensning';
 
 interface Props {
   forelder: IForelder;
