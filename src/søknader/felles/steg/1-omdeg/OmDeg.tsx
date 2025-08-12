@@ -62,15 +62,6 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
-      {/*TODO: Kun for testing, husk å fjerne meg!*/}
-      <PeriodeDatovelgerV2
-        headerKey={'Jeg er en tittel'}
-        lesMerTittelKey={'Les mer tittel'}
-        lesMerBeskrivelseKey={'Les mer beskrivelse'}
-        fraPeriodeVelgerKey={'Fra'}
-        tilPeriodeVelgerKey={'Til'}
-      />
-
       <Personopplysninger />
       {SkalViseSivilstatusdialog && <Sivilstatus />}
       {skalViseMedlemskapsdialog && <Medlemskap />}

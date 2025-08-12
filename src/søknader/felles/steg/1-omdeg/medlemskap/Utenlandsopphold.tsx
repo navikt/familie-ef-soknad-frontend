@@ -17,6 +17,7 @@ import { utenlandsoppholdLand } from './MedlemskapConfig';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import EøsIdent from '../../../../../components/EøsIdent';
 import { stringHarVerdiOgErIkkeTom } from '../../../../../utils/typer';
+import { PeriodeDatovelgerV2 } from '../../../../../components/dato/PeriodeDatovelgerV2';
 
 const StyledTextarea = styled(Textarea)`
   width: 100%;
@@ -159,6 +160,15 @@ const Utenlandsopphold: FC<Props> = ({
           />
         )}
       </HStack>
+
+      {/*TODO: Kun for testing, husk å fjerne meg!*/}
+      <PeriodeDatovelgerV2
+        headerKey={'Jeg er en tittel'}
+        lesMerTittelKey={'Les mer tittel'}
+        lesMerBeskrivelseKey={'Les mer beskrivelse'}
+        fraPeriodeVelgerKey={'Fra'}
+        tilPeriodeVelgerKey={'Til'}
+      />
 
       <StyledPeriodeDatovelgere
         className={'periodegruppe'}
