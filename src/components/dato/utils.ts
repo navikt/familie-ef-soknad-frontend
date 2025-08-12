@@ -3,6 +3,40 @@ import { dagensDato, erGyldigDato, strengTilDato } from '../../utils/dato';
 import { IPeriode } from '../../models/felles/periode';
 import { DatoBegrensning } from './DatoBegrensning';
 
+type DatoGrenser = {
+  min: Date;
+  maks: Date;
+};
+
+const DATO_GRENSER: Record<DatoBegrensning, () => DatoGrenser | null> = {
+  [DatoBegrensning.AlleDatoer]: () => null,
+
+  [DatoBegrensning.FremtidigeDatoer]: () => ({
+    min: dagensDato,
+    maks: addYears(dagensDato, 100),
+  }),
+
+  [DatoBegrensning.TidligereDatoer]: () => ({
+    min: subYears(dagensDato, 100),
+    maks: dagensDato,
+  }),
+
+  [DatoBegrensning.TidligereDatoerOgSeksMånederFrem]: () => ({
+    min: subYears(dagensDato, 100),
+    maks: addMonths(dagensDato, 6),
+  }),
+
+  [DatoBegrensning.FemÅrTidligereOgSeksMånederFrem]: () => ({
+    min: subYears(dagensDato, 5),
+    maks: addMonths(dagensDato, 6),
+  }),
+
+  [DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem]: () => ({
+    min: subYears(dagensDato, 50),
+    maks: addMonths(dagensDato, 6),
+  }),
+};
+
 // Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
 export const erDatoGyldigOgInnaforBegrensninger = (
   dato: string,
