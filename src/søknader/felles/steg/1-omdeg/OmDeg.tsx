@@ -64,7 +64,7 @@ const OmDeg: FC = () => {
     >
       {/*TODO: Kun for testing, husk å fjerne meg!*/}
       <PeriodeDatovelgerV2
-        tekstKey={'Jeg er en tittel'}
+        headerKey={'Jeg er en tittel'}
         lesMerTittelKey={'Les mer tittel'}
         lesMerBeskrivelseKey={'Les mer beskrivelse'}
         fraPeriodeVelgerKey={'Fra'}

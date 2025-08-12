@@ -4,7 +4,7 @@ import { DatePicker, Heading, HStack, ReadMore, useDatepicker, VStack } from '@n
 import { hentTekst } from '../../utils/teksthåndtering';
 
 interface Props {
-  tekstKey: string;
+  headerKey?: string;
 
   lesMerTittelKey?: string;
   lesMerBeskrivelseKey?: string;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const PeriodeDatovelgerV2: React.FC<Props> = ({
-  tekstKey,
+  headerKey,
   lesMerTittelKey,
   lesMerBeskrivelseKey,
   fraPeriodeVelgerKey,
@@ -30,6 +30,9 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
     ? hentTekst(tilPeriodeVelgerKey, intl)
     : hentTekst('periode.til', intl);
 
+  const fraPeriodeErrorTekst = 'Jeg er en feil!';
+  const tilPeriodeErrorTekst = 'Jeg er også feil!';
+
   const fraPeriodeDato = useDatepicker({
     onDateChange: (dato: Date | undefined) => {},
   });
@@ -38,11 +41,12 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
     onDateChange: (dato: Date | undefined) => {},
   });
 
+  const visHeader = headerKey;
   const visLesMer = lesMerTittelKey && lesMerBeskrivelseKey;
 
   return (
     <VStack gap={'6'}>
-      <Heading size={'xsmall'}>{hentTekst(tekstKey, intl)}</Heading>
+      {visHeader && <Heading size={'xsmall'}>{hentTekst(headerKey, intl)}</Heading>}
 
       {visLesMer && (
         <ReadMore header={hentTekst(lesMerTittelKey, intl)}>
@@ -56,6 +60,7 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
             {...fraPeriodeDato.inputProps}
             label={fraPeriodeVelgerLabel}
             placeholder={'DD.MM.YYYY'}
+            error={fraPeriodeErrorTekst}
           />
         </DatePicker>
 
@@ -64,6 +69,7 @@ export const PeriodeDatovelgerV2: React.FC<Props> = ({
             {...tilPeriodeDato.inputProps}
             label={tilPeriodeVelgerLabel}
             placeholder={'DD.MM.YYYY'}
+            error={tilPeriodeErrorTekst}
           />
         </DatePicker>
       </HStack>
