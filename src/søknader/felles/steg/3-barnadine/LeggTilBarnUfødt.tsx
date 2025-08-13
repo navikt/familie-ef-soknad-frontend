@@ -3,7 +3,7 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { ESvar, ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/datoBegrensningUtils';
+import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';

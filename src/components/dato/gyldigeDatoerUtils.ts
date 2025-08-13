@@ -6,16 +6,13 @@ import { IPeriode } from '../../models/felles/periode';
 // Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
 export const erDatoGyldigOgInnaforBegrensninger = (
   dato: string,
-  datobegrensning: GyldigeDatoer
+  gyldigeDatoer: GyldigeDatoer
 ): boolean => {
-  return erGyldigDato(dato) && erDatoInnaforBegrensinger(dato, datobegrensning);
+  return erGyldigDato(dato) && erDatoInnaforBegrensinger(dato, gyldigeDatoer);
 };
 
-export const erDatoInnaforBegrensinger = (
-  dato: string,
-  datobegrensning: GyldigeDatoer
-): boolean => {
-  switch (datobegrensning) {
+export const erDatoInnaforBegrensinger = (dato: string, gyldigeDatoer: GyldigeDatoer): boolean => {
+  switch (gyldigeDatoer) {
     case GyldigeDatoer.alle:
       return dato !== '';
 
@@ -58,17 +55,17 @@ export const erDatoInnaforBegrensinger = (
 
 export const erPeriodeInnaforBegrensninger = (
   periode: IPeriode,
-  datobegrensning: GyldigeDatoer
+  gyldigeDatoer: GyldigeDatoer
 ): boolean => {
-  const erFraDatoInnafor = erDatoInnaforBegrensinger(periode.fra.verdi, datobegrensning);
-  const erTilDatoInnafor = erDatoInnaforBegrensinger(periode.til.verdi, datobegrensning);
+  const erFraDatoInnafor = erDatoInnaforBegrensinger(periode.fra.verdi, gyldigeDatoer);
+  const erTilDatoInnafor = erDatoInnaforBegrensinger(periode.til.verdi, gyldigeDatoer);
 
   return erFraDatoInnafor && erTilDatoInnafor;
 };
 
 export const erPeriodeGyldigOgInnaforBegrensninger = (
   periode: IPeriode,
-  datobegrensning: GyldigeDatoer
+  gyldigeDatoer: GyldigeDatoer
 ): boolean => {
   const { fra, til } = periode;
 
@@ -85,7 +82,7 @@ export const erPeriodeGyldigOgInnaforBegrensninger = (
   return (
     erFraDatoSenereEnnTilDato &&
     !erDatoerLike &&
-    erPeriodeInnaforBegrensninger(periode, datobegrensning)
+    erPeriodeInnaforBegrensninger(periode, gyldigeDatoer)
   );
 };
 

@@ -25,7 +25,7 @@ import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtda
 import Studiekostnader from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/datoBegrensningUtils';
+import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../../../../../components/dato/Datovelger';
 import { Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
