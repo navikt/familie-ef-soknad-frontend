@@ -4,18 +4,18 @@ import { harValgtSvar } from '../../utils/spørsmålogsvar';
 import { UnderUtdanning, Utdanning } from '../../models/steg/aktivitet/utdanning';
 import { IFirma } from '../../models/steg/aktivitet/firma';
 import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
-import {
-  erDatoGyldigOgInnaforBegrensninger,
-  erPeriodeGyldigOgInnaforBegrensninger,
-} from '../../components/dato/utils';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
+import {
+  erDatoGyldigOgInnenforDatoBegrensninger,
+  erPeriodeGyldigOgInnenforDatoBegrensning,
+} from '../../components/dato/utils';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
   return arbeidsforhold?.every((arbeidsgiver) =>
     arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
       ? arbeidsgiver.harSluttDato?.verdi === false ||
         (arbeidsgiver?.sluttdato?.verdi &&
-          erDatoGyldigOgInnaforBegrensninger(
+          erDatoGyldigOgInnenforDatoBegrensninger(
             arbeidsgiver?.sluttdato?.verdi,
             DatoBegrensning.FremtidigeDatoer
           ))
@@ -27,7 +27,7 @@ export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
   return firmaer?.every((firma) => {
     return (
       firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnaforBegrensninger(
+      erDatoGyldigOgInnenforDatoBegrensninger(
         firma?.etableringsdato?.verdi,
         DatoBegrensning.TidligereDatoer
       ) &&
@@ -51,7 +51,7 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer)
+      erPeriodeGyldigOgInnenforDatoBegrensning(utdanning?.periode, DatoBegrensning.AlleDatoer)
   );
 };
 
@@ -150,7 +150,10 @@ export const erAktivitetSeksjonFerdigUtfylt = (
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(datoOppstartJobb.verdi, DatoBegrensning.FremtidigeDatoer)
+        erDatoGyldigOgInnenforDatoBegrensninger(
+          datoOppstartJobb.verdi,
+          DatoBegrensning.FremtidigeDatoer
+        )
       );
 
     case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:

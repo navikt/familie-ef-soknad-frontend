@@ -14,9 +14,9 @@ import {
   hentTekstMedEnVariabel,
   storeForbokstaver,
 } from '../../../../utils/teksthåndtering';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/utils';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
+import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../../../components/dato/utils';
 
 export const erSituasjonIAvhukedeSvar = (
   situasjon: DinSituasjonType,
@@ -73,7 +73,7 @@ export const harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål = (
   const harSkrevetBegrunnelse = harValgtSvar(begrunnelseSagtOppEllerRedusertStilling?.verdi);
   const harValgtDato =
     datoSagtOppEllerRedusertStilling?.verdi !== undefined &&
-    erDatoGyldigOgInnaforBegrensninger(
+    erDatoGyldigOgInnenforDatoBegrensninger(
       datoSagtOppEllerRedusertStilling?.verdi,
       DatoBegrensning.TidligereDatoer
     );

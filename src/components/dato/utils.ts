@@ -1,92 +1,95 @@
-import { DatoBegrensning } from './Datovelger';
-import { addMonths, addYears, compareAsc, isEqual, subYears } from 'date-fns';
+import { addMonths, addYears, isAfter, isBefore, isEqual, subYears } from 'date-fns';
 import { dagensDato, erGyldigDato, strengTilDato } from '../../utils/dato';
 import { IPeriode } from '../../models/felles/periode';
+import { DatoBegrensning } from './Datovelger';
 
-// Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
-export const erDatoGyldigOgInnaforBegrensninger = (
+type DatoGrenser = {
+  min: Date;
+  maks: Date;
+};
+
+const DATO_GRENSER: Record<DatoBegrensning, () => DatoGrenser | null> = {
+  [DatoBegrensning.AlleDatoer]: () => null,
+
+  [DatoBegrensning.FremtidigeDatoer]: () => ({
+    min: dagensDato,
+    maks: addYears(dagensDato, 100),
+  }),
+
+  [DatoBegrensning.TidligereDatoer]: () => ({
+    min: subYears(dagensDato, 100),
+    maks: dagensDato,
+  }),
+
+  [DatoBegrensning.TidligereDatoerOgSeksMånederFrem]: () => ({
+    min: subYears(dagensDato, 100),
+    maks: addMonths(dagensDato, 6),
+  }),
+
+  [DatoBegrensning.FemÅrTidligereOgSeksMånederFrem]: () => ({
+    min: subYears(dagensDato, 5),
+    maks: addMonths(dagensDato, 6),
+  }),
+
+  [DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem]: () => ({
+    min: subYears(dagensDato, 50),
+    maks: addMonths(dagensDato, 6),
+  }),
+};
+
+const erDatoInnenforDatoGrense = (dato: Date, datoGrense: DatoGrenser): boolean => {
+  return !isBefore(dato, datoGrense.min) && !isAfter(dato, datoGrense.maks);
+};
+
+export const erDatoInnenforDatoBegrensning = (
   dato: string,
   datobegrensning: DatoBegrensning
 ): boolean => {
-  return erGyldigDato(dato) && erDatoInnaforBegrensinger(dato, datobegrensning);
+  if (!dato) return false;
+
+  const grenser = DATO_GRENSER[datobegrensning]();
+  if (!grenser) return true;
+
+  return erDatoInnenforDatoGrense(strengTilDato(dato), grenser);
 };
 
-export const erDatoInnaforBegrensinger = (
+export const erDatoGyldigOgInnenforDatoBegrensninger = (
   dato: string,
   datobegrensning: DatoBegrensning
 ): boolean => {
-  switch (datobegrensning) {
-    case DatoBegrensning.AlleDatoer:
-      return dato !== '';
-
-    case DatoBegrensning.FremtidigeDatoer:
-      return (
-        dato !== '' &&
-        strengTilDato(dato) <= addYears(dagensDato, 100) &&
-        strengTilDato(dato) >= dagensDato
-      );
-
-    case DatoBegrensning.TidligereDatoer:
-      return (
-        dato !== '' &&
-        strengTilDato(dato) >= subYears(dagensDato, 100) &&
-        strengTilDato(dato) <= dagensDato
-      );
-
-    case DatoBegrensning.TidligereDatoerOgSeksMånederFrem:
-      return (
-        dato !== '' &&
-        strengTilDato(dato) >= subYears(dagensDato, 100) &&
-        strengTilDato(dato) <= addMonths(dagensDato, 6)
-      );
-
-    case DatoBegrensning.FemÅrTidligereOgSeksMånederFrem:
-      return (
-        dato !== '' &&
-        strengTilDato(dato) >= subYears(dagensDato, 5) &&
-        strengTilDato(dato) <= addMonths(dagensDato, 6)
-      );
-
-    case DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem:
-      return (
-        dato !== '' &&
-        strengTilDato(dato) >= subYears(dagensDato, 50) &&
-        strengTilDato(dato) <= addMonths(dagensDato, 6)
-      );
-  }
+  return erGyldigDato(dato) && erDatoInnenforDatoBegrensning(dato, datobegrensning);
 };
 
-export const erPeriodeInnaforBegrensninger = (
+export const erPeriodeInnenforDatoBegrensning = (
   periode: IPeriode,
   datobegrensning: DatoBegrensning
 ): boolean => {
-  const erFraDatoInnafor = erDatoInnaforBegrensinger(periode.fra.verdi, datobegrensning);
-  const erTilDatoInnafor = erDatoInnaforBegrensinger(periode.til.verdi, datobegrensning);
-
-  return erFraDatoInnafor && erTilDatoInnafor;
+  return (
+    erDatoInnenforDatoBegrensning(periode.fra.verdi, datobegrensning) &&
+    erDatoInnenforDatoBegrensning(periode.til.verdi, datobegrensning)
+  );
 };
 
-export const erPeriodeGyldigOgInnaforBegrensninger = (
+export const erPeriodeGyldigOgInnenforDatoBegrensning = (
   periode: IPeriode,
   datobegrensning: DatoBegrensning
 ): boolean => {
   const { fra, til } = periode;
 
-  if (!(erGyldigDato(fra.verdi) && erGyldigDato(til.verdi))) {
+  if (!erGyldigDato(fra.verdi) || !erGyldigDato(til.verdi)) {
     return false;
   }
 
-  const fom: Date | undefined = periode.fra.verdi !== '' ? strengTilDato(fra.verdi) : undefined;
-  const tom: Date | undefined = periode.til.verdi !== '' ? strengTilDato(til.verdi) : undefined;
+  const fraDato = fra.verdi ? strengTilDato(fra.verdi) : undefined;
+  const tilDato = til.verdi ? strengTilDato(til.verdi) : undefined;
 
-  const erFraDatoSenereEnnTilDato: boolean = fom && tom ? compareAsc(fom, tom) === -1 : true;
-  const erDatoerLike = fom && tom ? isEqual(fom, tom) : false;
+  if (!fraDato || !tilDato) {
+    return false;
+  }
 
-  return (
-    erFraDatoSenereEnnTilDato &&
-    !erDatoerLike &&
-    erPeriodeInnaforBegrensninger(periode, datobegrensning)
-  );
+  const erGyldigPeriode = isBefore(fraDato, tilDato);
+
+  return erGyldigPeriode && erPeriodeInnenforDatoBegrensning(periode, datobegrensning);
 };
 
 export const hentStartOgSluttDato = (
@@ -95,18 +98,21 @@ export const hentStartOgSluttDato = (
   startDato: Date | undefined;
   sluttDato: Date | undefined;
 } => {
-  const { til, fra } = periode;
-  const sluttDato: Date | undefined = til.verdi !== '' ? strengTilDato(til.verdi) : undefined;
-  const startDato: Date | undefined = fra.verdi !== '' ? strengTilDato(fra.verdi) : undefined;
+  const startDato = periode.fra.verdi ? strengTilDato(periode.fra.verdi) : undefined;
+  const sluttDato = periode.til.verdi ? strengTilDato(periode.til.verdi) : undefined;
+
   return { startDato, sluttDato };
 };
 
-export const erFraDatoSenereEnnTilDato = (
-  startDato: Date | undefined,
-  sluttDato: Date | undefined
-): boolean | undefined => startDato && sluttDato && compareAsc(startDato, sluttDato) === -1;
+export const erFraDatoFørTilDato = (
+  fraDato: Date | undefined,
+  tilDato: Date | undefined
+): boolean => {
+  if (!fraDato || !tilDato) return false;
+  return isBefore(fraDato, tilDato);
+};
 
-export const erDatoerLike = (
-  startDato: Date | undefined,
-  sluttDato: Date | undefined
-): boolean | undefined => startDato && sluttDato && isEqual(startDato, sluttDato);
+export const erDatoerLike = (dato1: Date | undefined, dato2: Date | undefined): boolean => {
+  if (!dato1 || !dato2) return false;
+  return isEqual(dato1, dato2);
+};

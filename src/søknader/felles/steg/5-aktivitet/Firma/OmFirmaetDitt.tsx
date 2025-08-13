@@ -8,12 +8,12 @@ import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import styled from 'styled-components';
 import { erStrengGyldigOrganisasjonsnummer } from '../../../../../utils/autentiseringogvalidering/feltvalidering';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import LesMerTekst from '../../../../../components/LesMerTekst';
+import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../../../../components/dato/utils';
 
 const StyledFirma = styled.div`
   display: flex;
@@ -159,7 +159,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
       )}
 
       {firma.etableringsdato?.verdi &&
-        erDatoGyldigOgInnaforBegrensninger(
+        erDatoGyldigOgInnenforDatoBegrensninger(
           firma.etableringsdato?.verdi,
           DatoBegrensning.TidligereDatoer
         ) &&

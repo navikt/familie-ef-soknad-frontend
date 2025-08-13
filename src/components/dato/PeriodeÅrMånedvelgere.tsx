@@ -8,13 +8,13 @@ import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
+import { Label } from '@navikt/ds-react';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
-  erFraDatoSenereEnnTilDato,
+  erDatoInnenforDatoBegrensning,
+  erFraDatoFørTilDato,
   hentStartOgSluttDato,
 } from './utils';
-import { Label } from '@navikt/ds-react';
 
 const PeriodeGruppe = styled.div`
   display: grid;
@@ -70,9 +70,9 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
     const { fra, til } = periode;
 
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforDatoBegrensning(fra.verdi, datobegrensning);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforDatoBegrensning(til.verdi, datobegrensning);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -91,7 +91,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
       return 'datovelger.periode.likMndÅr';
-    else if (startDato && sluttDato && !erFraDatoSenereEnnTilDato(startDato, sluttDato))
+    else if (startDato && sluttDato && !erFraDatoFørTilDato(startDato, sluttDato))
       return 'datovelger.periode.startMndÅrFørSluttMndÅr';
     else return '';
   };

@@ -6,15 +6,15 @@ import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import FeltGruppe from '../gruppe/FeltGruppe';
 import KomponentGruppe from '../gruppe/KomponentGruppe';
-import {
-  erDatoerLike,
-  erDatoInnaforBegrensinger,
-  erFraDatoSenereEnnTilDato,
-  hentStartOgSluttDato,
-} from './utils';
 import { erGyldigDato } from '../../utils/dato';
 import { Label } from '@navikt/ds-react';
 import { DatoBegrensning, Datovelger } from './Datovelger';
+import {
+  erDatoerLike,
+  erDatoInnenforDatoBegrensning,
+  erFraDatoFørTilDato,
+  hentStartOgSluttDato,
+} from './utils';
 
 const PeriodeGruppe = styled.div`
   display: grid;
@@ -68,9 +68,9 @@ const PeriodeDatovelgere: FC<Props> = ({
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforDatoBegrensning(fra.verdi, datobegrensning);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforDatoBegrensning(til.verdi, datobegrensning);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -89,7 +89,8 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
       return 'datovelger.periode.likeDatoer';
-    else if (startDato && sluttDato && !erFraDatoSenereEnnTilDato(startDato, sluttDato))
+    // TODO: Dobbelt sjekk denne
+    else if (startDato && sluttDato && !erFraDatoFørTilDato(startDato, sluttDato))
       return 'datovelger.periode.startFørSlutt';
     else return '';
   };
