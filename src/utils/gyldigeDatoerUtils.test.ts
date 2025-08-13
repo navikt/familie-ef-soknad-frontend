@@ -9,9 +9,9 @@ import {
   erDatoerLike,
 } from './gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../components/dato/GyldigeDatoer';
-import { IPeriode } from '../models/felles/periode';
 import { dagensDato, formatIsoDate, strengTilDato } from './dato';
 import { isoDatoEnMånedFrem } from '../test/dato';
+import { lagPeriode } from '../test/domeneUtils';
 
 describe('gyldigeDatoerUtils', () => {
   const testDato = formatIsoDate(dagensDato);
@@ -26,12 +26,6 @@ describe('gyldigeDatoerUtils', () => {
   const seksÅrTilbake = formatIsoDate(subYears(testDato, 6));
   const femtiÅrTilbake = formatIsoDate(subYears(testDato, 50));
   const femtiEttÅrTilbake = formatIsoDate(subYears(testDato, 51));
-
-  const lagPeriode = (fra: string, til: string): IPeriode => ({
-    label: 'Mock periode',
-    fra: { label: 'Fra', verdi: fra },
-    til: { label: 'Til', verdi: til },
-  });
 
   describe('erDatoGyldigOgInnenforBegrensning', () => {
     it('skal returnere false for ugyldig datoformat', () => {

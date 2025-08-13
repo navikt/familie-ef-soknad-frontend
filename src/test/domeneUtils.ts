@@ -35,6 +35,7 @@ import { MellomlagretSøknadSkolepenger } from '../søknader/skolepenger/models/
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
 import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
+import { IPeriode } from '../models/felles/periode';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -433,3 +434,9 @@ export const lagUtdanning = (utdanning?: Partial<Utdanning>): Utdanning => {
     ...utdanning,
   };
 };
+
+export const lagPeriode = (fra: string, til: string): IPeriode => ({
+  label: 'Mock periode',
+  fra: { label: 'Fra', verdi: fra },
+  til: { label: 'Til', verdi: til },
+});
