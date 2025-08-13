@@ -8,7 +8,7 @@ import {
 import { EForelder, IForelder } from '../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/utils';
+import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/datoBegrensningUtils';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
 import {
   erFødselsdatoUtfyltOgGyldigEllerTomtFelt,

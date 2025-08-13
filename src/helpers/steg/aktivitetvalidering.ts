@@ -7,7 +7,7 @@ import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljert
 import {
   erDatoGyldigOgInnaforBegrensninger,
   erPeriodeGyldigOgInnaforBegrensninger,
-} from '../../components/dato/utils';
+} from '../../components/dato/datoBegrensningUtils';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {

@@ -13,7 +13,7 @@ import {
   erDatoInnaforBegrensinger,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
-} from './utils';
+} from './datoBegrensningUtils';
 import { Label } from '@navikt/ds-react';
 
 const PeriodeGruppe = styled.div`

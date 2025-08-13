@@ -3,7 +3,7 @@ import { IPeriode } from '../../models/felles/periode';
 import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/utils';
+import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/datoBegrensningUtils';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../utils/sivilstatus';
 import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';

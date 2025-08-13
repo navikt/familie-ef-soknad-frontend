@@ -8,7 +8,7 @@ import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
 import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
+import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/datoBegrensningUtils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, HStack, Textarea } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
