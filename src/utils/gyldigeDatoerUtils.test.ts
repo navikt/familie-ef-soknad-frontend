@@ -193,7 +193,7 @@ describe('gyldigeDatoerUtils', () => {
     });
   });
 
-  describe('erPeriodeGyldigOgInnenforforBegrensning', () => {
+  describe('erPeriodeGyldigOgInnenforBegrensning', () => {
     it('skal returnere false for ugyldige datoformater', () => {
       const periode = lagPeriode('ikke-en-dato', testDato);
       expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
