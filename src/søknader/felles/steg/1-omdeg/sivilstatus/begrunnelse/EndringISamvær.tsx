@@ -1,6 +1,6 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
-import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
@@ -27,7 +27,7 @@ const EndringISamvær: React.FC = () => {
         settDato={(e) => settDatoEndretSamvær(e, datovelgerTekstid)}
         valgtDato={datoEndretSamvær ? datoEndretSamvær.verdi : undefined}
         tekstid={datovelgerTekstid}
-        datobegrensning={DatoBegrensning.AlleDatoer}
+        datobegrensning={GyldigeDatoer.alle}
       />
     </KomponentGruppe>
   );

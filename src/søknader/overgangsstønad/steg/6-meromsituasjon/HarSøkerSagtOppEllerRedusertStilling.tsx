@@ -14,7 +14,7 @@ import { dagensDato, strengTilDato } from '../../../../utils/dato';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
 
 interface Props {
   dinSituasjon: IDinSituasjon;
@@ -147,7 +147,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
               <Datovelger
                 valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
                 tekstid={datovelgerLabelId}
-                datobegrensning={DatoBegrensning.TidligereDatoer}
+                datobegrensning={GyldigeDatoer.tidligere}
                 settDato={settDato}
               />
               {erValgtDatoMindreEnn6mndSiden && (

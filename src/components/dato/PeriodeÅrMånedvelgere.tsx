@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { DatoBegrensning } from './Datovelger';
+import { GyldigeDatoer } from './Datovelger';
 import Feilmelding from '../feil/Feilmelding';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
@@ -44,7 +44,7 @@ interface Props {
   fomTekstid?: string;
   tomTekstid?: string;
   settDato: (dato: Date | null, objektnøkkel: EPeriode) => void;
-  datobegrensing: DatoBegrensning;
+  datobegrensing: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
   testIder?: string[];
 }
@@ -64,7 +64,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
-    datobegrensning: DatoBegrensning
+    datobegrensning: GyldigeDatoer
   ): string => {
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
@@ -81,12 +81,12 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
       return 'datovelger.periode.feilFormatMndÅr';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.TidligereDatoer
+      datobegrensning === GyldigeDatoer.tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.FremtidigeDatoer
+      datobegrensning === GyldigeDatoer.fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))

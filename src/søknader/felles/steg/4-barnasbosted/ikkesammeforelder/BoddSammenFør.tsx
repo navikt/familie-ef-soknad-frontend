@@ -9,7 +9,7 @@ import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSp
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../../components/dato/Datovelger';
 
 interface Props {
   forelder: IForelder;
@@ -66,7 +66,7 @@ const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
                 : undefined
             }
             tekstid={'barnasbosted.normaltekst.nårflyttetfra'}
-            datobegrensning={DatoBegrensning.AlleDatoer}
+            datobegrensning={GyldigeDatoer.alle}
           />
         </KomponentGruppe>
       )}

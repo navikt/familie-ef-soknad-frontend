@@ -8,7 +8,7 @@ import {
   erDatoGyldigOgInnaforBegrensninger,
   erPeriodeGyldigOgInnaforBegrensninger,
 } from '../../components/dato/datoBegrensningUtils';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../components/dato/Datovelger';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
   return arbeidsforhold?.every((arbeidsgiver) =>
@@ -17,7 +17,7 @@ export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[])
         (arbeidsgiver?.sluttdato?.verdi &&
           erDatoGyldigOgInnaforBegrensninger(
             arbeidsgiver?.sluttdato?.verdi,
-            DatoBegrensning.FremtidigeDatoer
+            GyldigeDatoer.fremtidige
           ))
       : arbeidsgiver.ansettelsesforhold?.verdi
   );
@@ -27,10 +27,7 @@ export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
   return firmaer?.every((firma) => {
     return (
       firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnaforBegrensninger(
-        firma?.etableringsdato?.verdi,
-        DatoBegrensning.TidligereDatoer
-      ) &&
+      erDatoGyldigOgInnaforBegrensninger(firma?.etableringsdato?.verdi, GyldigeDatoer.tidligere) &&
       firma.arbeidsuke?.verdi &&
       firma.overskudd?.verdi
     );
@@ -51,7 +48,7 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer)
+      erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, GyldigeDatoer.alle)
   );
 };
 
@@ -150,7 +147,7 @@ export const erAktivitetSeksjonFerdigUtfylt = (
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(datoOppstartJobb.verdi, DatoBegrensning.FremtidigeDatoer)
+        erDatoGyldigOgInnaforBegrensninger(datoOppstartJobb.verdi, GyldigeDatoer.fremtidige)
       );
 
     case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:

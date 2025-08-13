@@ -5,7 +5,7 @@ import KomponentGruppe from './KomponentGruppe';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
-import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../dato/Datovelger';
 
 interface Props {
   identLabel: string;
@@ -72,7 +72,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
           <Datovelger
             valgtDato={fødselsdato}
             tekstid={datoLabelId}
-            datobegrensning={DatoBegrensning.TidligereDatoer}
+            datobegrensning={GyldigeDatoer.tidligere}
             settDato={(e) => settFødselsdato(e)}
             testId={testIder && testIder[2]}
           />

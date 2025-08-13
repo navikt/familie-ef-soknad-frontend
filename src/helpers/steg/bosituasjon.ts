@@ -3,7 +3,7 @@ import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { IPersonDetaljer } from '../../models/søknad/person';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/datoBegrensningUtils';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../components/dato/Datovelger';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
 
@@ -15,7 +15,7 @@ const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => 
 
 const harSattFødselsdato = (fødselsdato?: string): boolean =>
   stringHarVerdiOgErIkkeTom(fødselsdato) &&
-  erDatoGyldigOgInnaforBegrensninger(fødselsdato, DatoBegrensning.TidligereDatoer);
+  erDatoGyldigOgInnaforBegrensninger(fødselsdato, GyldigeDatoer.tidligere);
 
 const harSattIdent = (ident?: string): boolean => stringHarVerdiOgErIkkeTom(ident);
 
@@ -39,11 +39,11 @@ export const erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid = (
   return (
     erDatoGyldigOgInnaforBegrensninger(
       datoSkalGifteSegEllerBliSamboer.verdi,
-      DatoBegrensning.FremtidigeDatoer
+      GyldigeDatoer.fremtidige
     ) ||
     erDatoGyldigOgInnaforBegrensninger(
       datoSkalGifteSegEllerBliSamboer.verdi,
-      DatoBegrensning.TidligereDatoer
+      GyldigeDatoer.tidligere
     )
   );
 };
@@ -67,7 +67,7 @@ const harSattDatoFlyttetFraHverandre = (bosituasjon: IBosituasjon) => {
   const { datoFlyttetFraHverandre } = bosituasjon;
   return (
     stringHarVerdiOgErIkkeTom(datoFlyttetFraHverandre) &&
-    erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, DatoBegrensning.AlleDatoer)
+    erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, GyldigeDatoer.alle)
   );
 };
 
@@ -89,7 +89,7 @@ export const erFerdigUtfylt = (bosituasjon: IBosituasjon) => {
         datoFlyttetSammenMedSamboer &&
         erDatoGyldigOgInnaforBegrensninger(
           datoFlyttetSammenMedSamboer.verdi,
-          DatoBegrensning.TidligereDatoer
+          GyldigeDatoer.tidligere
         ) &&
         samboerDetaljer &&
         harFyltUtSamboerDetaljer(samboerDetaljer, false)

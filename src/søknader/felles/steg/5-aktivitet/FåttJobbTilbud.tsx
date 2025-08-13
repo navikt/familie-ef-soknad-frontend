@@ -1,6 +1,6 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
@@ -33,7 +33,7 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}
         tekstid={'dinSituasjon.datovelger.jobb'}
-        datobegrensning={DatoBegrensning.FremtidigeDatoer}
+        datobegrensning={GyldigeDatoer.fremtidige}
         settDato={settDato}
       />
     </KomponentGruppe>

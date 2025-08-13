@@ -8,7 +8,7 @@ import { EBosituasjon, ESøkerDelerBolig, IBosituasjon } from '../../../../model
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
 import { useBosituasjon } from './BosituasjonContext';
 
@@ -86,7 +86,7 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
             <Datovelger
               valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
               tekstid={'datovelger.nårSkalDetteSkje'}
-              datobegrensning={DatoBegrensning.FremtidigeDatoer}
+              datobegrensning={GyldigeDatoer.fremtidige}
               settDato={(e) => {
                 settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
               }}

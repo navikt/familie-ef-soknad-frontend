@@ -14,7 +14,7 @@ import {
 } from './datoBegrensningUtils';
 import { erGyldigDato } from '../../utils/dato';
 import { Label } from '@navikt/ds-react';
-import { DatoBegrensning, Datovelger } from './Datovelger';
+import { GyldigeDatoer, Datovelger } from './Datovelger';
 
 const PeriodeGruppe = styled.div`
   display: grid;
@@ -44,7 +44,7 @@ interface Props {
   fomTekstid?: string;
   tomTekstid?: string;
   settDato: (objektnøkkel: EPeriode, dato?: string) => void;
-  datobegrensning: DatoBegrensning;
+  datobegrensning: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
 }
 
@@ -63,7 +63,7 @@ const PeriodeDatovelgere: FC<Props> = ({
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
-    datobegrensning: DatoBegrensning
+    datobegrensning: GyldigeDatoer
   ): string => {
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
@@ -79,12 +79,12 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.periode.ugyldigDato';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.TidligereDatoer
+      datobegrensning === GyldigeDatoer.tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.FremtidigeDatoer
+      datobegrensning === GyldigeDatoer.fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))

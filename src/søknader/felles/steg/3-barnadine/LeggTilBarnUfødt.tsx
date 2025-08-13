@@ -7,7 +7,7 @@ import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 
 interface Props {
@@ -44,47 +44,46 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
           settDato={(e) => settDato(e)}
           valgtDato={barnDato}
           tekstid={'barnadine.termindato'}
-          datobegrensning={DatoBegrensning.FremtidigeDatoer}
+          datobegrensning={GyldigeDatoer.fremtidige}
         />
         <AlertStripeDokumentasjon>
           {hentTekst('barnadine.info.terminbekreftelse', intl)}
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
-      {barnDato &&
-        erDatoGyldigOgInnaforBegrensninger(barnDato, DatoBegrensning.FremtidigeDatoer) && (
-          <KomponentGruppe>
-            <RadiopanelWrapper>
-              <RadioGroup
-                legend={hentTekst('barnekort.spm.skalBarnetBoHosSøker', intl)}
-                value={boHosDeg}
+      {barnDato && erDatoGyldigOgInnaforBegrensninger(barnDato, GyldigeDatoer.fremtidige) && (
+        <KomponentGruppe>
+          <RadiopanelWrapper>
+            <RadioGroup
+              legend={hentTekst('barnekort.spm.skalBarnetBoHosSøker', intl)}
+              value={boHosDeg}
+            >
+              <RadioPanelCustom
+                key={ESvar.JA}
+                name={'radio-bosted'}
+                value={ESvar.JA}
+                checked={boHosDeg === ESvar.JA}
+                onChange={(e) => settBo(e.target.value)}
               >
-                <RadioPanelCustom
-                  key={ESvar.JA}
-                  name={'radio-bosted'}
-                  value={ESvar.JA}
-                  checked={boHosDeg === ESvar.JA}
-                  onChange={(e) => settBo(e.target.value)}
-                >
-                  {hentTekst(ESvarTekstid.JA, intl)}
-                </RadioPanelCustom>
-                <RadioPanelCustom
-                  key={ESvar.NEI}
-                  name={'radio-bosted'}
-                  value={ESvar.NEI}
-                  checked={boHosDeg === ESvar.NEI}
-                  onChange={(e) => settBo(e.target.value)}
-                >
-                  {hentTekst(ESvarTekstid.NEI, intl)}
-                </RadioPanelCustom>
-              </RadioGroup>
-            </RadiopanelWrapper>
-            {boHosDeg === ESvar.NEI && (
-              <Alert size="small" variant="warning" inline>
-                {hentTekst('barnadine.advarsel.skalikkebo', intl)}
-              </Alert>
-            )}
-          </KomponentGruppe>
-        )}
+                {hentTekst(ESvarTekstid.JA, intl)}
+              </RadioPanelCustom>
+              <RadioPanelCustom
+                key={ESvar.NEI}
+                name={'radio-bosted'}
+                value={ESvar.NEI}
+                checked={boHosDeg === ESvar.NEI}
+                onChange={(e) => settBo(e.target.value)}
+              >
+                {hentTekst(ESvarTekstid.NEI, intl)}
+              </RadioPanelCustom>
+            </RadioGroup>
+          </RadiopanelWrapper>
+          {boHosDeg === ESvar.NEI && (
+            <Alert size="small" variant="warning" inline>
+              {hentTekst('barnadine.advarsel.skalikkebo', intl)}
+            </Alert>
+          )}
+        </KomponentGruppe>
+      )}
     </>
   );
 };

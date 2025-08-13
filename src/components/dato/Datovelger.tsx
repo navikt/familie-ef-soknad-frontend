@@ -6,19 +6,19 @@ import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
-export enum DatoBegrensning {
-  AlleDatoer = 'AlleDatoer',
-  FremtidigeDatoer = 'FremtidigeDatoer',
-  TidligereDatoer = 'TidligereDatoer',
-  TidligereDatoerOgSeksMånederFrem = 'TidligereDatoerOgSeksMånederFrem',
-  FemÅrTidligereOgSeksMånederFrem = 'FemÅrTidligereOgSeksMånederFrem',
-  FemtiÅrTidligereOgSeksMånederFrem = 'FemtiÅrTidligereOgSeksMånederFrem',
+export enum GyldigeDatoer {
+  alle = 'alle',
+  fremtidige = 'fremtidige',
+  tidligere = 'tidligere',
+  tidligereOgSeksMånederFrem = 'tidligereOgSeksMånederFrem',
+  femÅrTidligereOgSeksMånederFrem = 'femÅrTidligereOgSeksMånederFrem',
+  femtiÅrTidligereOgSeksMånederFrem = 'femtiÅrTidligereOgSeksMånederFrem',
 }
 
 interface Props {
   valgtDato: string | undefined;
   tekstid: string;
-  datobegrensning: DatoBegrensning;
+  datobegrensning: GyldigeDatoer;
   settDato: (dato: string) => void;
   testId?: string;
 }
@@ -44,13 +44,13 @@ export const Datovelger: React.FC<Props> = ({
   const label = hentTekst(tekstid, intl);
 
   const settFeilmeldingBasertPåValidering = (
-    datobegrensning: DatoBegrensning,
+    datobegrensning: GyldigeDatoer,
     validate: { isBefore: boolean; isAfter: boolean; isValidDate: boolean },
     settFeilmelding: React.Dispatch<React.SetStateAction<string>>
   ) => {
-    if (datobegrensning === DatoBegrensning.FremtidigeDatoer && validate.isBefore) {
+    if (datobegrensning === GyldigeDatoer.fremtidige && validate.isBefore) {
       settFeilmelding('datovelger.ugyldigDato.kunFremtidigeDatoer');
-    } else if (datobegrensning === DatoBegrensning.TidligereDatoer && validate.isAfter) {
+    } else if (datobegrensning === GyldigeDatoer.tidligere && validate.isAfter) {
       settFeilmelding('datovelger.ugyldigDato.kunTidligereDatoer');
     } else if (!validate.isValidDate) {
       settFeilmelding('datovelger.ugyldigDato');
@@ -59,34 +59,34 @@ export const Datovelger: React.FC<Props> = ({
     }
   };
 
-  const hentDatobegrensninger = (datobegrensning: DatoBegrensning) => {
+  const hentDatobegrensninger = (datobegrensning: GyldigeDatoer) => {
     switch (datobegrensning) {
-      case DatoBegrensning.AlleDatoer:
+      case GyldigeDatoer.alle:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
           maksDato: formatIsoDate(addYears(dagensDato, 100)),
         };
-      case DatoBegrensning.FremtidigeDatoer:
+      case GyldigeDatoer.fremtidige:
         return {
           minDato: formatIsoDate(dagensDato),
           maksDato: formatIsoDate(addYears(dagensDato, 100)),
         };
-      case DatoBegrensning.TidligereDatoer:
+      case GyldigeDatoer.tidligere:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
           maksDato: formatIsoDate(dagensDato),
         };
-      case DatoBegrensning.TidligereDatoerOgSeksMånederFrem:
+      case GyldigeDatoer.tidligereOgSeksMånederFrem:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
           maksDato: formatIsoDate(addMonths(dagensDato, 6)),
         };
-      case DatoBegrensning.FemÅrTidligereOgSeksMånederFrem:
+      case GyldigeDatoer.femÅrTidligereOgSeksMånederFrem:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 5)),
           maksDato: formatIsoDate(addMonths(dagensDato, 6)),
         };
-      case DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem:
+      case GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 50)),
           maksDato: formatIsoDate(addMonths(dagensDato, 6)),

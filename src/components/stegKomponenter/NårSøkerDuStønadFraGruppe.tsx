@@ -9,7 +9,7 @@ import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Label, RadioGroup } from '@navikt/ds-react';
-import { DatoBegrensning } from '../dato/Datovelger';
+import { GyldigeDatoer } from '../dato/Datovelger';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
 
@@ -96,7 +96,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
             <MånedÅrVelger
               valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}
               tekstid={datovelgerLabel}
-              datobegrensning={DatoBegrensning.FemÅrTidligereOgSeksMånederFrem}
+              datobegrensning={GyldigeDatoer.femÅrTidligereOgSeksMånederFrem}
               settDato={settDato}
             />
           </StyledDatovelger>

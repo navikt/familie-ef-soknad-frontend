@@ -15,7 +15,7 @@ import {
   storeForbokstaver,
 } from '../../../../utils/teksthåndtering';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/datoBegrensningUtils';
-import { DatoBegrensning } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
 
 export const erSituasjonIAvhukedeSvar = (
@@ -75,7 +75,7 @@ export const harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål = (
     datoSagtOppEllerRedusertStilling?.verdi !== undefined &&
     erDatoGyldigOgInnaforBegrensninger(
       datoSagtOppEllerRedusertStilling?.verdi,
-      DatoBegrensning.TidligereDatoer
+      GyldigeDatoer.tidligere
     );
 
   return (

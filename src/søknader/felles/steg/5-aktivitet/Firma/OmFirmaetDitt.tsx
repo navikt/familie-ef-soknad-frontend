@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../../components/dato/Datovelger';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
@@ -152,17 +152,14 @@ const OmFirmaetDitt: React.FC<Props> = ({
           <Datovelger
             valgtDato={firma?.etableringsdato?.verdi}
             tekstid={'firma.datovelger.etablering'}
-            datobegrensning={DatoBegrensning.TidligereDatoer}
+            datobegrensning={GyldigeDatoer.tidligere}
             settDato={(e) => settDatoFelt(e)}
           />
         </FeltGruppe>
       )}
 
       {firma.etableringsdato?.verdi &&
-        erDatoGyldigOgInnaforBegrensninger(
-          firma.etableringsdato?.verdi,
-          DatoBegrensning.TidligereDatoer
-        ) &&
+        erDatoGyldigOgInnaforBegrensninger(firma.etableringsdato?.verdi, GyldigeDatoer.tidligere) &&
         inkludertArbeidsmengde && (
           <FeltGruppe>
             <InputLabelGruppe

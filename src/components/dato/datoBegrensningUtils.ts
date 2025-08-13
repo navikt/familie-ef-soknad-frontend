@@ -1,4 +1,4 @@
-import { DatoBegrensning } from './Datovelger';
+import { GyldigeDatoer } from './Datovelger';
 import { addMonths, addYears, compareAsc, isEqual, subYears } from 'date-fns';
 import { dagensDato, erGyldigDato, strengTilDato } from '../../utils/dato';
 import { IPeriode } from '../../models/felles/periode';
@@ -6,48 +6,48 @@ import { IPeriode } from '../../models/felles/periode';
 // Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
 export const erDatoGyldigOgInnaforBegrensninger = (
   dato: string,
-  datobegrensning: DatoBegrensning
+  datobegrensning: GyldigeDatoer
 ): boolean => {
   return erGyldigDato(dato) && erDatoInnaforBegrensinger(dato, datobegrensning);
 };
 
 export const erDatoInnaforBegrensinger = (
   dato: string,
-  datobegrensning: DatoBegrensning
+  datobegrensning: GyldigeDatoer
 ): boolean => {
   switch (datobegrensning) {
-    case DatoBegrensning.AlleDatoer:
+    case GyldigeDatoer.alle:
       return dato !== '';
 
-    case DatoBegrensning.FremtidigeDatoer:
+    case GyldigeDatoer.fremtidige:
       return (
         dato !== '' &&
         strengTilDato(dato) <= addYears(dagensDato, 100) &&
         strengTilDato(dato) >= dagensDato
       );
 
-    case DatoBegrensning.TidligereDatoer:
+    case GyldigeDatoer.tidligere:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 100) &&
         strengTilDato(dato) <= dagensDato
       );
 
-    case DatoBegrensning.TidligereDatoerOgSeksMånederFrem:
+    case GyldigeDatoer.tidligereOgSeksMånederFrem:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 100) &&
         strengTilDato(dato) <= addMonths(dagensDato, 6)
       );
 
-    case DatoBegrensning.FemÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.femÅrTidligereOgSeksMånederFrem:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 5) &&
         strengTilDato(dato) <= addMonths(dagensDato, 6)
       );
 
-    case DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 50) &&
@@ -58,7 +58,7 @@ export const erDatoInnaforBegrensinger = (
 
 export const erPeriodeInnaforBegrensninger = (
   periode: IPeriode,
-  datobegrensning: DatoBegrensning
+  datobegrensning: GyldigeDatoer
 ): boolean => {
   const erFraDatoInnafor = erDatoInnaforBegrensinger(periode.fra.verdi, datobegrensning);
   const erTilDatoInnafor = erDatoInnaforBegrensinger(periode.til.verdi, datobegrensning);
@@ -68,7 +68,7 @@ export const erPeriodeInnaforBegrensninger = (
 
 export const erPeriodeGyldigOgInnaforBegrensninger = (
   periode: IPeriode,
-  datobegrensning: DatoBegrensning
+  datobegrensning: GyldigeDatoer
 ): boolean => {
   const { fra, til } = periode;
 

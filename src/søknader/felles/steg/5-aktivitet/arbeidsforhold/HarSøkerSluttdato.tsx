@@ -3,7 +3,7 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { harDuSluttdato } from './ArbeidsgiverConfig';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../../components/dato/Datovelger';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
@@ -69,7 +69,7 @@ const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver })
             <Datovelger
               valgtDato={arbeidsgiver.sluttdato?.verdi}
               tekstid={sluttdatoTekstid}
-              datobegrensning={DatoBegrensning.FremtidigeDatoer}
+              datobegrensning={GyldigeDatoer.fremtidige}
               settDato={(e) => settDato(e)}
             />
           </FeltGruppe>

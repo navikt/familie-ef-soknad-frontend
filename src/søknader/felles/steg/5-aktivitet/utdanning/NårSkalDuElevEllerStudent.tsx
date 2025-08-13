@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../../components/dato/Datovelger';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EPeriode } from '../../../../../models/felles/periode';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
@@ -44,7 +44,7 @@ const NårSkalDuVæreElevEllerStudent: React.FC<Props> = ({ utdanning, settUtdan
         tekst={hentTekst('utdanning.datovelger.studieperiode.fremtidig', intl)}
         periode={utdanning.periode ? utdanning.periode : tomPeriode}
         settDato={settPeriode}
-        datobegrensning={DatoBegrensning.AlleDatoer}
+        datobegrensning={GyldigeDatoer.alle}
       />
     </KomponentGruppe>
   );

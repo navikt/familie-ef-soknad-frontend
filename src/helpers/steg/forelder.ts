@@ -9,7 +9,7 @@ import { EForelder, IForelder } from '../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
 import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/datoBegrensningUtils';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../components/dato/Datovelger';
 import {
   erFødselsdatoUtfyltOgGyldigEllerTomtFelt,
   erIdentUtfyltOgGyldig,
@@ -118,7 +118,7 @@ export const utfyltNødvendigBostedSpørsmål = (forelder: IForelder) => {
 
   const harFlyttetFraDato: boolean =
     forelder?.flyttetFra?.verdi &&
-    erDatoGyldigOgInnaforBegrensninger(forelder.flyttetFra?.verdi, DatoBegrensning.AlleDatoer)
+    erDatoGyldigOgInnaforBegrensninger(forelder.flyttetFra?.verdi, GyldigeDatoer.alle)
       ? true
       : false;
 

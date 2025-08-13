@@ -6,7 +6,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harFyltUtSamboerDetaljer } from '../../../../utils/person';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
 import { useBosituasjon } from './BosituasjonContext';
 
 export const OmTidligereSamboer: FC = () => {
@@ -48,7 +48,7 @@ export const OmTidligereSamboer: FC = () => {
                   : undefined
               }
               tekstid={'bosituasjon.datovelger.nårFlyttetDereFraHverandre'}
-              datobegrensning={DatoBegrensning.AlleDatoer}
+              datobegrensning={GyldigeDatoer.alle}
               settDato={settDatoFlyttetFraHverandre}
             />
           </FeltGruppe>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { GyldigeDatoer, Datovelger } from '../../../../../../components/dato/Datovelger';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';
 import { useOmDeg } from '../../OmDegContext';
@@ -29,7 +29,7 @@ const DatoForSamlivsbrudd: React.FC = () => {
           settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
           valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}
           tekstid={datovelgerLabel}
-          datobegrensning={DatoBegrensning.TidligereDatoer}
+          datobegrensning={GyldigeDatoer.tidligere}
         />
         <AlertStripeDokumentasjon>
           {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
