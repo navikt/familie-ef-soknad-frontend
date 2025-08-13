@@ -51,8 +51,8 @@ export const Datovelger: React.FC<Props> = ({
     }
   };
 
-  const hentDatobegrensninger = (datobegrensning: GyldigeDatoer) => {
-    switch (datobegrensning) {
+  const hentGyldigDatoer = (gyldigeDatoer: GyldigeDatoer) => {
+    switch (gyldigeDatoer) {
       case GyldigeDatoer.alle:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
@@ -89,8 +89,8 @@ export const Datovelger: React.FC<Props> = ({
   const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
 
   const { datepickerProps, inputProps } = useDatepicker({
-    fromDate: new Date(hentDatobegrensninger(gyldigeDatoer).minDato),
-    toDate: new Date(hentDatobegrensninger(gyldigeDatoer).maksDato),
+    fromDate: new Date(hentGyldigDatoer(gyldigeDatoer).minDato),
+    toDate: new Date(hentGyldigDatoer(gyldigeDatoer).maksDato),
     onDateChange: (dato) => _settDato(dato ? tilLocaleDateString(dato) : ''),
     onValidate: (validate) =>
       settFeilmeldingBasertPåValidering(gyldigeDatoer, validate, settFeilmelding),
