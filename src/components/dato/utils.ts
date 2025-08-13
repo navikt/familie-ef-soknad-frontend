@@ -8,8 +8,8 @@ type DatoGrenser = {
   maks: Date;
 };
 
-const DATO_GRENSER: Record<DatoBegrensning, () => DatoGrenser | null> = {
-  [DatoBegrensning.AlleDatoer]: () => null,
+const DATO_GRENSER: Record<DatoBegrensning, () => DatoGrenser | undefined> = {
+  [DatoBegrensning.AlleDatoer]: () => undefined,
 
   [DatoBegrensning.FremtidigeDatoer]: () => ({
     min: dagensDato,
@@ -43,11 +43,11 @@ const erDatoInnenforDatoGrense = (dato: Date, datoGrense: DatoGrenser): boolean 
 
 export const erDatoInnenforDatoBegrensning = (
   dato: string,
-  datobegrensning: DatoBegrensning
+  datoBegrensning: DatoBegrensning
 ): boolean => {
   if (!dato) return false;
 
-  const grenser = DATO_GRENSER[datobegrensning]();
+  const grenser = DATO_GRENSER[datoBegrensning]();
   if (!grenser) return true;
 
   return erDatoInnenforDatoGrense(strengTilDato(dato), grenser);
