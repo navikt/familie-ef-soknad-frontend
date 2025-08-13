@@ -17,7 +17,7 @@ import {
 import { stringErNullEllerTom, stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { erGyldigDato } from '../../utils/dato';
 import { IBooleanFelt } from '../../models/søknad/søknadsfelter';
-import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../components/dato/utils';
+import { erDatoGyldigOgInnenforDatoBegrensning } from '../../components/dato/utils';
 
 export const utfyltBorINorge = (forelder: IForelder) => {
   const { borINorge, land } = forelder;
@@ -118,7 +118,7 @@ export const utfyltNødvendigBostedSpørsmål = (forelder: IForelder) => {
 
   const harFlyttetFraDato: boolean =
     forelder?.flyttetFra?.verdi &&
-    erDatoGyldigOgInnenforDatoBegrensninger(forelder.flyttetFra?.verdi, DatoBegrensning.AlleDatoer)
+    erDatoGyldigOgInnenforDatoBegrensning(forelder.flyttetFra?.verdi, DatoBegrensning.AlleDatoer)
       ? true
       : false;
 

@@ -10,7 +10,7 @@ import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 import { identErGyldig } from '../../utils/validering/validering';
-import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../components/dato/utils';
+import { erDatoGyldigOgInnenforDatoBegrensning } from '../../components/dato/utils';
 
 export const hentSivilstatus = (statuskode?: string) => {
   switch (statuskode) {
@@ -57,7 +57,7 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
     case EBegrunnelse.samlivsbruddForeldre:
       return (
         datoForSamlivsbrudd?.verdi !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensninger(
+        erDatoGyldigOgInnenforDatoBegrensning(
           datoForSamlivsbrudd.verdi,
           DatoBegrensning.TidligereDatoer
         )
@@ -67,7 +67,7 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
         tidligereSamboerDetaljer &&
         harFyltUtSamboerDetaljer(tidligereSamboerDetaljer, false) &&
         datoFlyttetFraHverandre?.verdi !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensninger(
+        erDatoGyldigOgInnenforDatoBegrensning(
           datoFlyttetFraHverandre.verdi,
           DatoBegrensning.AlleDatoer
         ) &&
@@ -77,7 +77,7 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
     case EBegrunnelse.endringISamværsordning:
       return (
         datoEndretSamvær?.verdi !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensninger(datoEndretSamvær?.verdi, DatoBegrensning.AlleDatoer)
+        erDatoGyldigOgInnenforDatoBegrensning(datoEndretSamvær?.verdi, DatoBegrensning.AlleDatoer)
       );
     case EBegrunnelse.aleneFraFødsel:
       return true;
@@ -133,7 +133,7 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
 const erDatoSøktSeparasjonGyldig = (datoSøktSeparasjon: IDatoFelt | undefined): boolean => {
   return !!(
     datoSøktSeparasjon?.verdi &&
-    erDatoGyldigOgInnenforDatoBegrensninger(
+    erDatoGyldigOgInnenforDatoBegrensning(
       datoSøktSeparasjon?.verdi,
       DatoBegrensning.TidligereDatoer
     )

@@ -8,7 +8,7 @@ import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
-import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../../../components/dato/utils';
+import { erDatoGyldigOgInnenforDatoBegrensning } from '../../../../components/dato/utils';
 
 interface Props {
   settBo: (nyttBo: string) => void;
@@ -51,7 +51,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
       {barnDato &&
-        erDatoGyldigOgInnenforDatoBegrensninger(barnDato, DatoBegrensning.FremtidigeDatoer) && (
+        erDatoGyldigOgInnenforDatoBegrensning(barnDato, DatoBegrensning.FremtidigeDatoer) && (
           <KomponentGruppe>
             <RadiopanelWrapper>
               <RadioGroup

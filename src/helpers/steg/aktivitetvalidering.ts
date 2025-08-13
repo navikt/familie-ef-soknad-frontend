@@ -6,7 +6,7 @@ import { IFirma } from '../../models/steg/aktivitet/firma';
 import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
 import { DatoBegrensning } from '../../components/dato/Datovelger';
 import {
-  erDatoGyldigOgInnenforDatoBegrensninger,
+  erDatoGyldigOgInnenforDatoBegrensning,
   erPeriodeGyldigOgInnenforDatoBegrensning,
 } from '../../components/dato/utils';
 
@@ -15,7 +15,7 @@ export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[])
     arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
       ? arbeidsgiver.harSluttDato?.verdi === false ||
         (arbeidsgiver?.sluttdato?.verdi &&
-          erDatoGyldigOgInnenforDatoBegrensninger(
+          erDatoGyldigOgInnenforDatoBegrensning(
             arbeidsgiver?.sluttdato?.verdi,
             DatoBegrensning.FremtidigeDatoer
           ))
@@ -27,7 +27,7 @@ export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
   return firmaer?.every((firma) => {
     return (
       firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnenforDatoBegrensninger(
+      erDatoGyldigOgInnenforDatoBegrensning(
         firma?.etableringsdato?.verdi,
         DatoBegrensning.TidligereDatoer
       ) &&
@@ -150,7 +150,7 @@ export const erAktivitetSeksjonFerdigUtfylt = (
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensninger(
+        erDatoGyldigOgInnenforDatoBegrensning(
           datoOppstartJobb.verdi,
           DatoBegrensning.FremtidigeDatoer
         )

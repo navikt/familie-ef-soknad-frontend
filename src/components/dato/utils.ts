@@ -53,7 +53,7 @@ export const erDatoInnenforDatoBegrensning = (
   return erDatoInnenforDatoGrense(strengTilDato(dato), grenser);
 };
 
-export const erDatoGyldigOgInnenforDatoBegrensninger = (
+export const erDatoGyldigOgInnenforDatoBegrensning = (
   dato: string,
   datobegrensning: DatoBegrensning
 ): boolean => {

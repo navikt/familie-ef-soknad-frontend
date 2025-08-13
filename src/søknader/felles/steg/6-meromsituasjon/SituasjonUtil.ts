@@ -16,7 +16,7 @@ import {
 } from '../../../../utils/teksthåndtering';
 import { DatoBegrensning } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
-import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../../../components/dato/utils';
+import { erDatoGyldigOgInnenforDatoBegrensning } from '../../../../components/dato/utils';
 
 export const erSituasjonIAvhukedeSvar = (
   situasjon: DinSituasjonType,
@@ -73,7 +73,7 @@ export const harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål = (
   const harSkrevetBegrunnelse = harValgtSvar(begrunnelseSagtOppEllerRedusertStilling?.verdi);
   const harValgtDato =
     datoSagtOppEllerRedusertStilling?.verdi !== undefined &&
-    erDatoGyldigOgInnenforDatoBegrensninger(
+    erDatoGyldigOgInnenforDatoBegrensning(
       datoSagtOppEllerRedusertStilling?.verdi,
       DatoBegrensning.TidligereDatoer
     );

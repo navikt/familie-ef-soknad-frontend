@@ -13,7 +13,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import LesMerTekst from '../../../../../components/LesMerTekst';
-import { erDatoGyldigOgInnenforDatoBegrensninger } from '../../../../../components/dato/utils';
+import { erDatoGyldigOgInnenforDatoBegrensning } from '../../../../../components/dato/utils';
 
 const StyledFirma = styled.div`
   display: flex;
@@ -159,7 +159,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
       )}
 
       {firma.etableringsdato?.verdi &&
-        erDatoGyldigOgInnenforDatoBegrensninger(
+        erDatoGyldigOgInnenforDatoBegrensning(
           firma.etableringsdato?.verdi,
           DatoBegrensning.TidligereDatoer
         ) &&
