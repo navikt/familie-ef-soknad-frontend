@@ -3,12 +3,13 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { harDuSluttdato } from './ArbeidsgiverConfig';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { GyldigeDatoer, Datovelger } from '../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../components/dato/Datovelger';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   arbeidsgiver: IArbeidsgiver;

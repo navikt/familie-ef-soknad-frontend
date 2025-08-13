@@ -9,7 +9,6 @@ import { EForelder, IForelder } from '../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
 import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
-import { GyldigeDatoer } from '../../components/dato/Datovelger';
 import {
   erFødselsdatoUtfyltOgGyldigEllerTomtFelt,
   erIdentUtfyltOgGyldig,
@@ -18,6 +17,7 @@ import {
 import { stringErNullEllerTom, stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { erGyldigDato } from '../../utils/dato';
 import { IBooleanFelt } from '../../models/søknad/søknadsfelter';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const utfyltBorINorge = (forelder: IForelder) => {
   const { borINorge, land } = forelder;

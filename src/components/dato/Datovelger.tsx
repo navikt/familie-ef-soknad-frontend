@@ -5,15 +5,7 @@ import { dagensDato, formatIsoDate } from '../../utils/dato';
 import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-
-export enum GyldigeDatoer {
-  alle = 'alle',
-  fremtidige = 'fremtidige',
-  tidligere = 'tidligere',
-  tidligereOgSeksMånederFrem = 'tidligereOgSeksMånederFrem',
-  femÅrTidligereOgSeksMånederFrem = 'femÅrTidligereOgSeksMånederFrem',
-  femtiÅrTidligereOgSeksMånederFrem = 'femtiÅrTidligereOgSeksMånederFrem',
-}
+import { GyldigeDatoer } from './GyldigeDatoer';
 
 interface Props {
   valgtDato: string | undefined;

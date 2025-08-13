@@ -14,7 +14,8 @@ import {
 } from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
 import { Label } from '@navikt/ds-react';
-import { GyldigeDatoer, Datovelger } from './Datovelger';
+import { Datovelger } from './Datovelger';
+import { GyldigeDatoer } from './GyldigeDatoer';
 
 const PeriodeGruppe = styled.div`
   display: grid;

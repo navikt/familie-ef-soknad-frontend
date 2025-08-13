@@ -1,9 +1,10 @@
 import React from 'react';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
-import { GyldigeDatoer, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
+import { GyldigeDatoer } from '../../../../../../components/dato/GyldigeDatoer';
 
 const EndringISamvær: React.FC = () => {
   const intl = useLokalIntlContext();

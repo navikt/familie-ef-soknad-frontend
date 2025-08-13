@@ -8,9 +8,10 @@ import { EBosituasjon, ESøkerDelerBolig, IBosituasjon } from '../../../../model
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
 import { useBosituasjon } from './BosituasjonContext';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
   const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();

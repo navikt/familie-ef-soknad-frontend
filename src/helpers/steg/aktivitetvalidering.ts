@@ -8,7 +8,8 @@ import {
   erDatoGyldigOgInnenforBegrensning,
   erPeriodeGyldigOgInnenforforBegrensning,
 } from '../../utils/gyldigeDatoerUtils';
-import { GyldigeDatoer } from '../../components/dato/Datovelger';
+
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
   return arbeidsforhold?.every((arbeidsgiver) =>

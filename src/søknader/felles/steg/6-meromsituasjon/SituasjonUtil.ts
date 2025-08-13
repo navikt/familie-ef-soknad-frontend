@@ -15,8 +15,8 @@ import {
   storeForbokstaver,
 } from '../../../../utils/teksthåndtering';
 import { erDatoGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
-import { GyldigeDatoer } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 export const erSituasjonIAvhukedeSvar = (
   situasjon: DinSituasjonType,

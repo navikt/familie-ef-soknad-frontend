@@ -5,7 +5,8 @@ import KomponentGruppe from './KomponentGruppe';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
-import { GyldigeDatoer, Datovelger } from '../dato/Datovelger';
+import { Datovelger } from '../dato/Datovelger';
+import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 
 interface Props {
   identLabel: string;

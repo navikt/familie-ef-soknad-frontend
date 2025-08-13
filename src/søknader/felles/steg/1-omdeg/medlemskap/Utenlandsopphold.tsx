@@ -7,7 +7,6 @@ import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDe
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
-import { GyldigeDatoer } from '../../../../../components/dato/Datovelger';
 import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, HStack, Textarea } from '@navikt/ds-react';
@@ -17,6 +16,7 @@ import { utenlandsoppholdLand } from './MedlemskapConfig';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import EøsIdent from '../../../../../components/EøsIdent';
 import { stringHarVerdiOgErIkkeTom } from '../../../../../utils/typer';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const StyledTextarea = styled(Textarea)`
   width: 100%;

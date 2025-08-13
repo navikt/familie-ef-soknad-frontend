@@ -14,7 +14,8 @@ import { dagensDato, strengTilDato } from '../../../../utils/dato';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
-import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   dinSituasjon: IDinSituasjon;

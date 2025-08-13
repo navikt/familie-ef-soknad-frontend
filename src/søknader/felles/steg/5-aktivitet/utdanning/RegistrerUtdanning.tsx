@@ -11,11 +11,11 @@ import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { harValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { EPeriode } from '../../../../../models/felles/periode';
 import PeriodeÅrMånedvelgere from '../../../../../components/dato/PeriodeÅrMånedvelgere';
-import { GyldigeDatoer } from '../../../../../components/dato/Datovelger';
 import { formatIsoDate } from '../../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   tidligereUtdanninger: Utdanning[];

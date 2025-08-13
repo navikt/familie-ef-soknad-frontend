@@ -1,11 +1,12 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort, Label } from '@navikt/ds-react';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

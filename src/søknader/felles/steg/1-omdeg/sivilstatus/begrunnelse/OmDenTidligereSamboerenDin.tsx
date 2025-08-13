@@ -4,7 +4,8 @@ import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
 import { Checkbox, Heading, TextField, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
-import { GyldigeDatoer, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../../../components/dato/GyldigeDatoer';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();

@@ -1,10 +1,11 @@
 import React from 'react';
-import { GyldigeDatoer, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../../components/dato/Datovelger';
 import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
+import { GyldigeDatoer } from '../../../../../../components/dato/GyldigeDatoer';
 
 const DatoForSamlivsbrudd: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();

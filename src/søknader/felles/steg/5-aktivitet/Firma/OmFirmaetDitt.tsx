@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GyldigeDatoer, Datovelger } from '../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../components/dato/Datovelger';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
@@ -14,6 +14,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import LesMerTekst from '../../../../../components/LesMerTekst';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const StyledFirma = styled.div`
   display: flex;

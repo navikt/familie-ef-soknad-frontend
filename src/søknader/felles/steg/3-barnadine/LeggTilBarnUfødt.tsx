@@ -7,8 +7,9 @@ import { erDatoGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDato
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
-import { GyldigeDatoer, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import RadioPanelCustom from '../../../../components/panel/RadioPanel';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   settBo: (nyttBo: string) => void;

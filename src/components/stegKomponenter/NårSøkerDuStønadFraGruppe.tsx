@@ -9,9 +9,9 @@ import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Label, RadioGroup } from '@navikt/ds-react';
-import { GyldigeDatoer } from '../dato/Datovelger';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {

@@ -16,7 +16,8 @@ import {
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { IPeriode } from '../models/felles/periode';
-import { GyldigeDatoer } from '../components/dato/Datovelger';
+
+import { GyldigeDatoer } from '../components/dato/GyldigeDatoer';
 
 export const STANDARD_DATOFORMAT = 'dd.MM.yyyy';
 export const FØDSELSNUMMER_DATOFORMAT = 'ddMMyy';

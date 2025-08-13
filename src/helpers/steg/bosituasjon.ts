@@ -3,9 +3,9 @@ import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { IPersonDetaljer } from '../../models/søknad/person';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
 import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
-import { GyldigeDatoer } from '../../components/dato/Datovelger';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => {
   const { skalGifteSegEllerBliSamboer } = bosituasjon;
