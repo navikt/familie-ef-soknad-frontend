@@ -14,7 +14,7 @@ import {
   hentTekstMedEnVariabel,
   storeForbokstaver,
 } from '../../../../utils/teksthåndtering';
-import { erDatoGyldigOgInnenforBegrensning } from '../../../../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
 

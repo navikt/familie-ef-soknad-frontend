@@ -11,7 +11,7 @@ import {
   erDatoInnenforBegrensing,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
-} from './gyldigeDatoerUtils';
+} from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
 import { Label } from '@navikt/ds-react';
 import { GyldigeDatoer, Datovelger } from './Datovelger';

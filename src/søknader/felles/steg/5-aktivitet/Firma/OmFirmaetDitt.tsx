@@ -8,7 +8,7 @@ import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import styled from 'styled-components';
 import { erStrengGyldigOrganisasjonsnummer } from '../../../../../utils/autentiseringogvalidering/feltvalidering';
-import { erDatoGyldigOgInnenforBegrensning } from '../../../../../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';

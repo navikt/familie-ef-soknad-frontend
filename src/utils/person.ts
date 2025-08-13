@@ -1,5 +1,5 @@
 import { IPersonDetaljer } from '../models/søknad/person';
-import { erDatoGyldigOgInnenforBegrensning } from '../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from './gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../components/dato/Datovelger';
 
 export const harFyltUtSamboerDetaljer = (

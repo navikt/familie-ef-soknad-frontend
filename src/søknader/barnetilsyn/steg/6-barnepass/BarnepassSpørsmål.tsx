@@ -18,7 +18,7 @@ import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
 import { GyldigeDatoer } from '../../../../components/dato/Datovelger';
-import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../components/dato/gyldigeDatoerUtils';
+import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
 import { Heading, TextField } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';

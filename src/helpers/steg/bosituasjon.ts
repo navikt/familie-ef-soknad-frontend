@@ -2,7 +2,7 @@ import { ESøkerDelerBolig, IBosituasjon } from '../../models/steg/bosituasjon';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { IPersonDetaljer } from '../../models/søknad/person';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { erDatoGyldigOgInnenforBegrensning } from '../../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../../components/dato/Datovelger';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
