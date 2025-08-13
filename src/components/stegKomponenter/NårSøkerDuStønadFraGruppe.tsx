@@ -96,7 +96,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
             <MånedÅrVelger
               valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}
               tekstid={datovelgerLabel}
-              datobegrensning={GyldigeDatoer.femÅrTidligereOgSeksMånederFrem}
+              gyldigeDatoer={GyldigeDatoer.femÅrTidligereOgSeksMånederFrem}
               settDato={settDato}
             />
           </StyledDatovelger>

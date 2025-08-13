@@ -148,7 +148,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
               <Datovelger
                 valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
                 tekstid={datovelgerLabelId}
-                datobegrensning={GyldigeDatoer.tidligere}
+                gyldigeDatoer={GyldigeDatoer.tidligere}
                 settDato={settDato}
               />
               {erValgtDatoMindreEnn6mndSiden && (

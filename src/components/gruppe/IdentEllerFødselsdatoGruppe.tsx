@@ -73,7 +73,7 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
           <Datovelger
             valgtDato={fødselsdato}
             tekstid={datoLabelId}
-            datobegrensning={GyldigeDatoer.tidligere}
+            gyldigeDatoer={GyldigeDatoer.tidligere}
             settDato={(e) => settFødselsdato(e)}
             testId={testIder && testIder[2]}
           />

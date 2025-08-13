@@ -44,7 +44,7 @@ interface Props {
   fomTekstid?: string;
   tomTekstid?: string;
   settDato: (dato: Date | null, objektnøkkel: EPeriode) => void;
-  datobegrensing: GyldigeDatoer;
+  gyldigeDatoer: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
   testIder?: string[];
 }
@@ -56,7 +56,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
   tekst,
   fomTekstid,
   tomTekstid,
-  datobegrensing,
+  gyldigeDatoer,
   onValidate,
   testIder,
 }) => {
@@ -64,15 +64,15 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
-    datobegrensning: GyldigeDatoer
+    gyldigeDatoer: GyldigeDatoer
   ): string => {
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
 
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, gyldigeDatoer);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, gyldigeDatoer);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -81,12 +81,12 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
       return 'datovelger.periode.feilFormatMndÅr';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === GyldigeDatoer.tidligere
+      gyldigeDatoer === GyldigeDatoer.tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === GyldigeDatoer.fremtidige
+      gyldigeDatoer === GyldigeDatoer.fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
@@ -100,10 +100,10 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
     const harStartEllerSluttDato = periode.fra.verdi !== '' || periode.til.verdi !== '';
 
     harStartEllerSluttDato &&
-      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, datobegrensing));
+      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, gyldigeDatoer));
     if (onValidate && feilmelding !== '') onValidate(true);
     if (onValidate && feilmelding === '') onValidate(false);
-  }, [feilmelding, periode, datobegrensing, onValidate]);
+  }, [feilmelding, periode, gyldigeDatoer, onValidate]);
 
   const settPeriode = (dato: Date | null, objektnøkkel: EPeriode) => {
     settDato(dato, objektnøkkel);
@@ -130,7 +130,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
                 : undefined
             }
             tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
-            datobegrensning={datobegrensing}
+            gyldigeDatoer={gyldigeDatoer}
             testId={testIder ? testIder[0] : ''}
           />
 
@@ -142,7 +142,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
                 : undefined
             }
             tekstid={tomTekstid ? tomTekstid : 'periode.til'}
-            datobegrensning={datobegrensing}
+            gyldigeDatoer={gyldigeDatoer}
             testId={testIder ? testIder[1] : ''}
           />
         </>

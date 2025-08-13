@@ -10,14 +10,14 @@ import { GyldigeDatoer } from './GyldigeDatoer';
 interface Props {
   valgtDato: string | undefined;
   tekstid: string;
-  datobegrensning: GyldigeDatoer;
+  gyldigeDatoer: GyldigeDatoer;
   settDato: (dato: string) => void;
   testId?: string;
 }
 
 export const Datovelger: React.FC<Props> = ({
   tekstid,
-  datobegrensning,
+  gyldigeDatoer,
   valgtDato,
   settDato,
   testId,
@@ -36,13 +36,13 @@ export const Datovelger: React.FC<Props> = ({
   const label = hentTekst(tekstid, intl);
 
   const settFeilmeldingBasertPåValidering = (
-    datobegrensning: GyldigeDatoer,
+    gyldigeDatoer: GyldigeDatoer,
     validate: { isBefore: boolean; isAfter: boolean; isValidDate: boolean },
     settFeilmelding: React.Dispatch<React.SetStateAction<string>>
   ) => {
-    if (datobegrensning === GyldigeDatoer.fremtidige && validate.isBefore) {
+    if (gyldigeDatoer === GyldigeDatoer.fremtidige && validate.isBefore) {
       settFeilmelding('datovelger.ugyldigDato.kunFremtidigeDatoer');
-    } else if (datobegrensning === GyldigeDatoer.tidligere && validate.isAfter) {
+    } else if (gyldigeDatoer === GyldigeDatoer.tidligere && validate.isAfter) {
       settFeilmelding('datovelger.ugyldigDato.kunTidligereDatoer');
     } else if (!validate.isValidDate) {
       settFeilmelding('datovelger.ugyldigDato');
@@ -89,11 +89,11 @@ export const Datovelger: React.FC<Props> = ({
   const tilLocaleDateString = (dato: Date) => formatISO(dato, { representation: 'date' });
 
   const { datepickerProps, inputProps } = useDatepicker({
-    fromDate: new Date(hentDatobegrensninger(datobegrensning).minDato),
-    toDate: new Date(hentDatobegrensninger(datobegrensning).maksDato),
+    fromDate: new Date(hentDatobegrensninger(gyldigeDatoer).minDato),
+    toDate: new Date(hentDatobegrensninger(gyldigeDatoer).maksDato),
     onDateChange: (dato) => _settDato(dato ? tilLocaleDateString(dato) : ''),
     onValidate: (validate) =>
-      settFeilmeldingBasertPåValidering(datobegrensning, validate, settFeilmelding),
+      settFeilmeldingBasertPåValidering(gyldigeDatoer, validate, settFeilmelding),
     locale: locale,
     defaultSelected: datoVisningsverdi,
   });

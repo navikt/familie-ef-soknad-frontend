@@ -28,7 +28,7 @@ const EndringISamvær: React.FC = () => {
         settDato={(e) => settDatoEndretSamvær(e, datovelgerTekstid)}
         valgtDato={datoEndretSamvær ? datoEndretSamvær.verdi : undefined}
         tekstid={datovelgerTekstid}
-        datobegrensning={GyldigeDatoer.alle}
+        gyldigeDatoer={GyldigeDatoer.alle}
       />
     </KomponentGruppe>
   );

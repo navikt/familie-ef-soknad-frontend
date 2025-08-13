@@ -42,7 +42,7 @@ export const EkteskapsliknendeForhold: FC = () => {
                 : undefined
             }
             tekstid={'bosituasjon.datovelger.nårFlyttetDereSammen'}
-            datobegrensning={GyldigeDatoer.tidligere}
+            gyldigeDatoer={GyldigeDatoer.tidligere}
             settDato={(e) =>
               settDatoFlyttetSammen(
                 e,

@@ -165,7 +165,7 @@ const Utenlandsopphold: FC<Props> = ({
         settDato={settPeriode}
         periode={utenlandsopphold.periode}
         tekst={hentTekst('medlemskap.periodeBoddIUtlandet', intl)}
-        datobegrensning={GyldigeDatoer.tidligere}
+        gyldigeDatoer={GyldigeDatoer.tidligere}
       />
       <SelectSpørsmål
         spørsmål={landConfig}

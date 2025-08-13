@@ -10,14 +10,14 @@ import { GyldigeDatoer } from './GyldigeDatoer';
 interface Props {
   valgtDato: Date | undefined;
   tekstid: string;
-  datobegrensning: GyldigeDatoer;
+  gyldigeDatoer: GyldigeDatoer;
   settDato: (date: Date | null) => void;
   testId?: string;
 }
 
 const MånedÅrVelger: React.FC<Props> = ({
   tekstid,
-  datobegrensning,
+  gyldigeDatoer,
   valgtDato,
   settDato,
   testId,
@@ -25,7 +25,7 @@ const MånedÅrVelger: React.FC<Props> = ({
   const [locale] = useSpråkContext();
   const intl = useLokalIntlContext();
   const datolabelid = hentUid();
-  const begrensninger = hentDatobegrensninger(datobegrensning);
+  const begrensninger = hentDatobegrensninger(gyldigeDatoer);
 
   const handleSettDato = (dato: Date | undefined): void => {
     if (dato) {

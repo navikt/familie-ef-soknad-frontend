@@ -87,7 +87,7 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
             <Datovelger
               valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
               tekstid={'datovelger.nårSkalDetteSkje'}
-              datobegrensning={GyldigeDatoer.fremtidige}
+              gyldigeDatoer={GyldigeDatoer.fremtidige}
               settDato={(e) => {
                 settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
               }}

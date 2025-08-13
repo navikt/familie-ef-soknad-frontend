@@ -153,7 +153,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
           <Datovelger
             valgtDato={firma?.etableringsdato?.verdi}
             tekstid={'firma.datovelger.etablering'}
-            datobegrensning={GyldigeDatoer.tidligere}
+            gyldigeDatoer={GyldigeDatoer.tidligere}
             settDato={(e) => settDatoFelt(e)}
           />
         </FeltGruppe>

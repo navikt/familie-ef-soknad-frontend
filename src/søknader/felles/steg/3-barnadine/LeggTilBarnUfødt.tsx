@@ -45,7 +45,7 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
           settDato={(e) => settDato(e)}
           valgtDato={barnDato}
           tekstid={'barnadine.termindato'}
-          datobegrensning={GyldigeDatoer.fremtidige}
+          gyldigeDatoer={GyldigeDatoer.fremtidige}
         />
         <AlertStripeDokumentasjon>
           {hentTekst('barnadine.info.terminbekreftelse', intl)}
