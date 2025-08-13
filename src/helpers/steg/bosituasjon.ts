@@ -2,7 +2,7 @@ import { ESøkerDelerBolig, IBosituasjon } from '../../models/steg/bosituasjon';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { IPersonDetaljer } from '../../models/søknad/person';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from '../../components/dato/gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../../components/dato/Datovelger';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
@@ -15,7 +15,7 @@ const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => 
 
 const harSattFødselsdato = (fødselsdato?: string): boolean =>
   stringHarVerdiOgErIkkeTom(fødselsdato) &&
-  erDatoGyldigOgInnaforBegrensninger(fødselsdato, GyldigeDatoer.tidligere);
+  erDatoGyldigOgInnenforBegrensning(fødselsdato, GyldigeDatoer.tidligere);
 
 const harSattIdent = (ident?: string): boolean => stringHarVerdiOgErIkkeTom(ident);
 
@@ -37,11 +37,11 @@ export const erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid = (
   }
 
   return (
-    erDatoGyldigOgInnaforBegrensninger(
+    erDatoGyldigOgInnenforBegrensning(
       datoSkalGifteSegEllerBliSamboer.verdi,
       GyldigeDatoer.fremtidige
     ) ||
-    erDatoGyldigOgInnaforBegrensninger(
+    erDatoGyldigOgInnenforBegrensning(
       datoSkalGifteSegEllerBliSamboer.verdi,
       GyldigeDatoer.tidligere
     )
@@ -67,7 +67,7 @@ const harSattDatoFlyttetFraHverandre = (bosituasjon: IBosituasjon) => {
   const { datoFlyttetFraHverandre } = bosituasjon;
   return (
     stringHarVerdiOgErIkkeTom(datoFlyttetFraHverandre) &&
-    erDatoGyldigOgInnaforBegrensninger(datoFlyttetFraHverandre?.verdi, GyldigeDatoer.alle)
+    erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre?.verdi, GyldigeDatoer.alle)
   );
 };
 
@@ -87,7 +87,7 @@ export const erFerdigUtfylt = (bosituasjon: IBosituasjon) => {
     case ESøkerDelerBolig.harEkteskapsliknendeForhold:
       return !!(
         datoFlyttetSammenMedSamboer &&
-        erDatoGyldigOgInnaforBegrensninger(
+        erDatoGyldigOgInnenforBegrensning(
           datoFlyttetSammenMedSamboer.verdi,
           GyldigeDatoer.tidligere
         ) &&

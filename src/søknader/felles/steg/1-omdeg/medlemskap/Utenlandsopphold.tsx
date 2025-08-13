@@ -8,7 +8,7 @@ import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
 import { GyldigeDatoer } from '../../../../../components/dato/Datovelger';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/gyldigeDatoerUtils';
+import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../../components/dato/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, HStack, Textarea } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
@@ -174,7 +174,10 @@ const Utenlandsopphold: FC<Props> = ({
         skalLogges={false}
       />
       {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnaforBegrensninger(utenlandsopphold.periode, GyldigeDatoer.tidligere) &&
+        erPeriodeGyldigOgInnenforforBegrensning(
+          utenlandsopphold.periode,
+          GyldigeDatoer.tidligere
+        ) &&
         // eslint-disable-next-line no-prototype-builtins
         utenlandsopphold.land?.hasOwnProperty('verdi') && (
           <StyledTextarea

@@ -4,14 +4,14 @@ import { dagensDato, erGyldigDato, strengTilDato } from '../../utils/dato';
 import { IPeriode } from '../../models/felles/periode';
 
 // Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
-export const erDatoGyldigOgInnaforBegrensninger = (
+export const erDatoGyldigOgInnenforBegrensning = (
   dato: string,
   gyldigeDatoer: GyldigeDatoer
 ): boolean => {
-  return erGyldigDato(dato) && erDatoInnaforBegrensinger(dato, gyldigeDatoer);
+  return erGyldigDato(dato) && erDatoInnenforBegrensing(dato, gyldigeDatoer);
 };
 
-export const erDatoInnaforBegrensinger = (dato: string, gyldigeDatoer: GyldigeDatoer): boolean => {
+export const erDatoInnenforBegrensing = (dato: string, gyldigeDatoer: GyldigeDatoer): boolean => {
   switch (gyldigeDatoer) {
     case GyldigeDatoer.alle:
       return dato !== '';
@@ -53,17 +53,17 @@ export const erDatoInnaforBegrensinger = (dato: string, gyldigeDatoer: GyldigeDa
   }
 };
 
-export const erPeriodeInnaforBegrensninger = (
+export const erPeriodeInnenforBegrensning = (
   periode: IPeriode,
   gyldigeDatoer: GyldigeDatoer
 ): boolean => {
-  const erFraDatoInnafor = erDatoInnaforBegrensinger(periode.fra.verdi, gyldigeDatoer);
-  const erTilDatoInnafor = erDatoInnaforBegrensinger(periode.til.verdi, gyldigeDatoer);
+  const erFraDatoInnenfor = erDatoInnenforBegrensing(periode.fra.verdi, gyldigeDatoer);
+  const erTilDatoInnenfor = erDatoInnenforBegrensing(periode.til.verdi, gyldigeDatoer);
 
-  return erFraDatoInnafor && erTilDatoInnafor;
+  return erFraDatoInnenfor && erTilDatoInnenfor;
 };
 
-export const erPeriodeGyldigOgInnaforBegrensninger = (
+export const erPeriodeGyldigOgInnenforforBegrensning = (
   periode: IPeriode,
   gyldigeDatoer: GyldigeDatoer
 ): boolean => {
@@ -82,7 +82,7 @@ export const erPeriodeGyldigOgInnaforBegrensninger = (
   return (
     erFraDatoSenereEnnTilDato &&
     !erDatoerLike &&
-    erPeriodeInnaforBegrensninger(periode, gyldigeDatoer)
+    erPeriodeInnenforBegrensning(periode, gyldigeDatoer)
   );
 };
 

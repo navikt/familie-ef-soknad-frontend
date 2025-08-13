@@ -8,7 +8,7 @@ import FeltGruppe from '../gruppe/FeltGruppe';
 import KomponentGruppe from '../gruppe/KomponentGruppe';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
+  erDatoInnenforBegrensing,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
 } from './gyldigeDatoerUtils';
@@ -68,9 +68,9 @@ const PeriodeDatovelgere: FC<Props> = ({
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, datobegrensning);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, datobegrensning);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||

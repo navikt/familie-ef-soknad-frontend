@@ -18,7 +18,7 @@ import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
 import { GyldigeDatoer } from '../../../../components/dato/Datovelger';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../components/dato/gyldigeDatoerUtils';
+import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../components/dato/gyldigeDatoerUtils';
 import { Heading, TextField } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
@@ -167,7 +167,7 @@ const BarnepassSpørsmål: FC<Props> = ({
           />
         </KomponentGruppe>
       )}
-      {periode && erPeriodeGyldigOgInnaforBegrensninger(periode, GyldigeDatoer.alle) && (
+      {periode && erPeriodeGyldigOgInnenforforBegrensning(periode, GyldigeDatoer.alle) && (
         <BarnepassBeløp barnepassOrdning={barnepassOrdning} settInputFelt={settInputFelt} />
       )}
     </SeksjonGruppe>

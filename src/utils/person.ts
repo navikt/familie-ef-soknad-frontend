@@ -1,5 +1,5 @@
 import { IPersonDetaljer } from '../models/søknad/person';
-import { erDatoGyldigOgInnaforBegrensninger } from '../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from '../components/dato/gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../components/dato/Datovelger';
 
 export const harFyltUtSamboerDetaljer = (
@@ -14,7 +14,7 @@ export const harFyltUtSamboerDetaljer = (
 
   const harFyltUtFødselsdatoEllerIdent = samboerDetaljer.kjennerIkkeIdent
     ? samboerDetaljer.fødselsdato?.verdi !== undefined &&
-      erDatoGyldigOgInnaforBegrensninger(samboerDetaljer.fødselsdato.verdi, GyldigeDatoer.tidligere)
+      erDatoGyldigOgInnenforBegrensning(samboerDetaljer.fødselsdato.verdi, GyldigeDatoer.tidligere)
     : harFyltUtIdent;
 
   return valgfriIdentEllerFødselsdato
@@ -31,5 +31,5 @@ const erFødselsdatoUtfyltOgGyldigEllerTomtFelt = (
   dato: string | undefined,
   begrensning: GyldigeDatoer
 ) => {
-  return dato ? erDatoGyldigOgInnaforBegrensninger(dato, begrensning) : true;
+  return dato ? erDatoGyldigOgInnenforBegrensning(dato, begrensning) : true;
 };

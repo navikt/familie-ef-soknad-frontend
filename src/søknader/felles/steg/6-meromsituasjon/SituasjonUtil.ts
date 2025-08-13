@@ -14,7 +14,7 @@ import {
   hentTekstMedEnVariabel,
   storeForbokstaver,
 } from '../../../../utils/teksthåndtering';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../../../components/dato/gyldigeDatoerUtils';
+import { erDatoGyldigOgInnenforBegrensning } from '../../../../components/dato/gyldigeDatoerUtils';
 import { GyldigeDatoer } from '../../../../components/dato/Datovelger';
 import { LokalIntlShape } from '../../../../language/typer';
 
@@ -73,7 +73,7 @@ export const harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål = (
   const harSkrevetBegrunnelse = harValgtSvar(begrunnelseSagtOppEllerRedusertStilling?.verdi);
   const harValgtDato =
     datoSagtOppEllerRedusertStilling?.verdi !== undefined &&
-    erDatoGyldigOgInnaforBegrensninger(
+    erDatoGyldigOgInnenforBegrensning(
       datoSagtOppEllerRedusertStilling?.verdi,
       GyldigeDatoer.tidligere
     );

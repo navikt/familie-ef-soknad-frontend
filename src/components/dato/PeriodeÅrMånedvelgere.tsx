@@ -10,7 +10,7 @@ import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
+  erDatoInnenforBegrensing,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
 } from './gyldigeDatoerUtils';
@@ -70,9 +70,9 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
     const { fra, til } = periode;
 
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, datobegrensning);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, datobegrensning);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
