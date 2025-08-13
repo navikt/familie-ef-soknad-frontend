@@ -249,25 +249,25 @@ describe('gyldigeDatoerUtils', () => {
   });
 
   describe('erFraDatoSenereEnnTilDato', () => {
-    it('skal returnere false når startDato er senere enn sluttDato', () => {
+    it('skal returnere false når fraDato er senere enn tilDato', () => {
       const fraDato = new Date(enMånedFrem);
       const tilDato = new Date(testDato);
 
       expect(erFraDatoSenereEnnTilDato(fraDato, tilDato)).toBe(false);
     });
 
-    it('skal returnere true når startDato er før sluttDato', () => {
-      const startDato = new Date(testDato);
-      const sluttDato = new Date(enMånedFrem);
+    it('skal returnere true når fraDato er før tilDato', () => {
+      const fraDato = new Date(testDato);
+      const tilDato = new Date(enMånedFrem);
 
-      expect(erFraDatoSenereEnnTilDato(startDato, sluttDato)).toBe(true);
+      expect(erFraDatoSenereEnnTilDato(fraDato, tilDato)).toBe(true);
     });
 
     it('skal returnere false når datoene er like', () => {
-      const startDato = new Date(testDato);
-      const sluttDato = new Date(testDato);
+      const fraDato = new Date(testDato);
+      const tilDato = new Date(testDato);
 
-      expect(erFraDatoSenereEnnTilDato(startDato, sluttDato)).toBe(false);
+      expect(erFraDatoSenereEnnTilDato(fraDato, tilDato)).toBe(false);
     });
 
     it('skal returnere undefined når en av datoene er undefined', () => {
