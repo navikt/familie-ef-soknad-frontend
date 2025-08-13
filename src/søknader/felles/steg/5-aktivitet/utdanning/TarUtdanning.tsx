@@ -25,7 +25,7 @@ import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtda
 import Studiekostnader from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
-import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
+import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -56,7 +56,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
   useEffect(() => {
     if (
       utdanning.periode &&
-      !erPeriodeGyldigOgInnenforforBegrensning(utdanning?.periode, GyldigeDatoer.alle)
+      !erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.alle)
     ) {
       delete utdanning.heltidEllerDeltid;
     }
@@ -113,7 +113,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
           <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
         )}
         {utdanning?.periode &&
-          erPeriodeGyldigOgInnenforforBegrensning(utdanning?.periode, GyldigeDatoer.alle) && (
+          erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.alle) && (
             <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
           )}
         {søkerSkalStudereHeltid && (

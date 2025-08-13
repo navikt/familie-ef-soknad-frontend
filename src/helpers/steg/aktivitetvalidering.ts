@@ -6,7 +6,7 @@ import { IFirma } from '../../models/steg/aktivitet/firma';
 import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
 import {
   erDatoGyldigOgInnenforBegrensning,
-  erPeriodeGyldigOgInnenforforBegrensning,
+  erPeriodeGyldigOgInnenforBegrensning,
 } from '../../utils/gyldigeDatoerUtils';
 
 import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
@@ -49,7 +49,7 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnenforforBegrensning(utdanning?.periode, GyldigeDatoer.alle)
+      erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.alle)
   );
 };
 

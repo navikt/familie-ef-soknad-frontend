@@ -63,7 +63,7 @@ export const erPeriodeInnenforBegrensning = (
   return erFraDatoInnenfor && erTilDatoInnenfor;
 };
 
-export const erPeriodeGyldigOgInnenforforBegrensning = (
+export const erPeriodeGyldigOgInnenforBegrensning = (
   periode: IPeriode,
   gyldigeDatoer: GyldigeDatoer
 ): boolean => {

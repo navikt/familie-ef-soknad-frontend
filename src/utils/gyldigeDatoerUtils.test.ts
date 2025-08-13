@@ -3,7 +3,7 @@ import {
   erDatoGyldigOgInnenforBegrensning,
   erDatoInnenforBegrensing,
   erPeriodeInnenforBegrensning,
-  erPeriodeGyldigOgInnenforforBegrensning,
+  erPeriodeGyldigOgInnenforBegrensning,
   hentStartOgSluttDato,
   erFraDatoSenereEnnTilDato,
   erDatoerLike,
@@ -196,37 +196,34 @@ describe('gyldigeDatoerUtils', () => {
   describe('erPeriodeGyldigOgInnenforforBegrensning', () => {
     it('skal returnere false for ugyldige datoformater', () => {
       const periode = lagPeriode('ikke-en-dato', testDato);
-      expect(erPeriodeGyldigOgInnenforforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
     });
 
     it('skal returnere false når fra-dato er senere enn til-dato', () => {
       const periode = lagPeriode(enMånedFrem, testDato);
-      expect(erPeriodeGyldigOgInnenforforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
     });
 
     it('skal returnere false når datoene er like', () => {
       const periode = lagPeriode(testDato, testDato);
-      expect(erPeriodeGyldigOgInnenforforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
     });
 
     it('skal returnere true for gyldig periode med fra før til', () => {
       const periode = lagPeriode(testDato, enMånedFrem);
-      expect(erPeriodeGyldigOgInnenforforBegrensning(periode, GyldigeDatoer.fremtidige)).toBe(true);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.fremtidige)).toBe(true);
     });
 
     it('skal returnere false når periode er utenfor begrensning', () => {
       const periode = lagPeriode(seksÅrTilbake, femÅrTilbake);
       expect(
-        erPeriodeGyldigOgInnenforforBegrensning(
-          periode,
-          GyldigeDatoer.femÅrTidligereOgSeksMånederFrem
-        )
+        erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
       ).toBe(false);
     });
 
     it('skal håndtere tomme verdier', () => {
       const periode = lagPeriode('', '');
-      expect(erPeriodeGyldigOgInnenforforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
     });
   });
 

@@ -7,7 +7,7 @@ import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDe
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
-import { erPeriodeGyldigOgInnenforforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
+import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, HStack, Textarea } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
@@ -174,10 +174,7 @@ const Utenlandsopphold: FC<Props> = ({
         skalLogges={false}
       />
       {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnenforforBegrensning(
-          utenlandsopphold.periode,
-          GyldigeDatoer.tidligere
-        ) &&
+        erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.tidligere) &&
         // eslint-disable-next-line no-prototype-builtins
         utenlandsopphold.land?.hasOwnProperty('verdi') && (
           <StyledTextarea
