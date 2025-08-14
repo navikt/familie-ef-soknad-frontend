@@ -17,11 +17,11 @@ import { erÅrsakBarnepassSpmBesvart } from './hjelper';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
-import { DatoBegrensning } from '../../../../components/dato/Datovelger';
+import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
 import { Heading, TextField } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
-import { erPeriodeGyldigOgInnenforDatoBegrensning } from '../../../../components/dato/utils';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   barn: IBarn;
@@ -162,12 +162,12 @@ const BarnepassSpørsmål: FC<Props> = ({
             fomTekstid={'periode.startdato'}
             tomTekstid={'periode.sluttdato'}
             periode={barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode}
-            datobegrensning={DatoBegrensning.AlleDatoer}
+            gyldigeDatoer={GyldigeDatoer.Alle}
             settDato={settPeriode}
           />
         </KomponentGruppe>
       )}
-      {periode && erPeriodeGyldigOgInnenforDatoBegrensning(periode, DatoBegrensning.AlleDatoer) && (
+      {periode && erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle) && (
         <BarnepassBeløp barnepassOrdning={barnepassOrdning} settInputFelt={settInputFelt} />
       )}
     </SeksjonGruppe>

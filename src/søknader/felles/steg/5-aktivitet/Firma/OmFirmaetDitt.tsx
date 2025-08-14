@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../components/dato/Datovelger';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
@@ -8,12 +8,13 @@ import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import styled from 'styled-components';
 import { erStrengGyldigOrganisasjonsnummer } from '../../../../../utils/autentiseringogvalidering/feltvalidering';
+import { erDatoGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import LesMerTekst from '../../../../../components/LesMerTekst';
-import { erDatoGyldigOgInnenforDatoBegrensning } from '../../../../../components/dato/utils';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const StyledFirma = styled.div`
   display: flex;
@@ -152,17 +153,14 @@ const OmFirmaetDitt: React.FC<Props> = ({
           <Datovelger
             valgtDato={firma?.etableringsdato?.verdi}
             tekstid={'firma.datovelger.etablering'}
-            datobegrensning={DatoBegrensning.TidligereDatoer}
+            gyldigeDatoer={GyldigeDatoer.Tidligere}
             settDato={(e) => settDatoFelt(e)}
           />
         </FeltGruppe>
       )}
 
       {firma.etableringsdato?.verdi &&
-        erDatoGyldigOgInnenforDatoBegrensning(
-          firma.etableringsdato?.verdi,
-          DatoBegrensning.TidligereDatoer
-        ) &&
+        erDatoGyldigOgInnenforBegrensning(firma.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
         inkludertArbeidsmengde && (
           <FeltGruppe>
             <InputLabelGruppe

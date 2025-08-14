@@ -2,10 +2,10 @@ import { ESøkerDelerBolig, IBosituasjon } from '../../models/steg/bosituasjon';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { IPersonDetaljer } from '../../models/søknad/person';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
-import { erDatoGyldigOgInnenforDatoBegrensning } from '../../components/dato/utils';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => {
   const { skalGifteSegEllerBliSamboer } = bosituasjon;
@@ -15,7 +15,7 @@ const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => 
 
 const harSattFødselsdato = (fødselsdato?: string): boolean =>
   stringHarVerdiOgErIkkeTom(fødselsdato) &&
-  erDatoGyldigOgInnenforDatoBegrensning(fødselsdato, DatoBegrensning.TidligereDatoer);
+  erDatoGyldigOgInnenforBegrensning(fødselsdato, GyldigeDatoer.Tidligere);
 
 const harSattIdent = (ident?: string): boolean => stringHarVerdiOgErIkkeTom(ident);
 
@@ -37,13 +37,13 @@ export const erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid = (
   }
 
   return (
-    erDatoGyldigOgInnenforDatoBegrensning(
+    erDatoGyldigOgInnenforBegrensning(
       datoSkalGifteSegEllerBliSamboer.verdi,
-      DatoBegrensning.FremtidigeDatoer
+      GyldigeDatoer.Fremtidige
     ) ||
-    erDatoGyldigOgInnenforDatoBegrensning(
+    erDatoGyldigOgInnenforBegrensning(
       datoSkalGifteSegEllerBliSamboer.verdi,
-      DatoBegrensning.TidligereDatoer
+      GyldigeDatoer.Tidligere
     )
   );
 };
@@ -67,10 +67,7 @@ const harSattDatoFlyttetFraHverandre = (bosituasjon: IBosituasjon) => {
   const { datoFlyttetFraHverandre } = bosituasjon;
   return (
     stringHarVerdiOgErIkkeTom(datoFlyttetFraHverandre) &&
-    erDatoGyldigOgInnenforDatoBegrensning(
-      datoFlyttetFraHverandre?.verdi,
-      DatoBegrensning.AlleDatoer
-    )
+    erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre?.verdi, GyldigeDatoer.Alle)
   );
 };
 
@@ -90,9 +87,9 @@ export const erFerdigUtfylt = (bosituasjon: IBosituasjon) => {
     case ESøkerDelerBolig.harEkteskapsliknendeForhold:
       return !!(
         datoFlyttetSammenMedSamboer &&
-        erDatoGyldigOgInnenforDatoBegrensning(
+        erDatoGyldigOgInnenforBegrensning(
           datoFlyttetSammenMedSamboer.verdi,
-          DatoBegrensning.TidligereDatoer
+          GyldigeDatoer.Tidligere
         ) &&
         samboerDetaljer &&
         harFyltUtSamboerDetaljer(samboerDetaljer, false)

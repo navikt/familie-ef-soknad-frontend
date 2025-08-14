@@ -4,20 +4,21 @@ import { harValgtSvar } from '../../utils/spørsmålogsvar';
 import { UnderUtdanning, Utdanning } from '../../models/steg/aktivitet/utdanning';
 import { IFirma } from '../../models/steg/aktivitet/firma';
 import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
 import {
-  erDatoGyldigOgInnenforDatoBegrensning,
-  erPeriodeGyldigOgInnenforDatoBegrensning,
-} from '../../components/dato/utils';
+  erDatoGyldigOgInnenforBegrensning,
+  erPeriodeGyldigOgInnenforBegrensning,
+} from '../../utils/gyldigeDatoerUtils';
+
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
   return arbeidsforhold?.every((arbeidsgiver) =>
     arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
       ? arbeidsgiver.harSluttDato?.verdi === false ||
         (arbeidsgiver?.sluttdato?.verdi &&
-          erDatoGyldigOgInnenforDatoBegrensning(
+          erDatoGyldigOgInnenforBegrensning(
             arbeidsgiver?.sluttdato?.verdi,
-            DatoBegrensning.FremtidigeDatoer
+            GyldigeDatoer.Fremtidige
           ))
       : arbeidsgiver.ansettelsesforhold?.verdi
   );
@@ -27,10 +28,7 @@ export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
   return firmaer?.every((firma) => {
     return (
       firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnenforDatoBegrensning(
-        firma?.etableringsdato?.verdi,
-        DatoBegrensning.TidligereDatoer
-      ) &&
+      erDatoGyldigOgInnenforBegrensning(firma?.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
       firma.arbeidsuke?.verdi &&
       firma.overskudd?.verdi
     );
@@ -51,7 +49,7 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnenforDatoBegrensning(utdanning?.periode, DatoBegrensning.AlleDatoer)
+      erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
   );
 };
 
@@ -150,10 +148,7 @@ export const erAktivitetSeksjonFerdigUtfylt = (
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensning(
-          datoOppstartJobb.verdi,
-          DatoBegrensning.FremtidigeDatoer
-        )
+        erDatoGyldigOgInnenforBegrensning(datoOppstartJobb.verdi, GyldigeDatoer.Fremtidige)
       );
 
     case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:

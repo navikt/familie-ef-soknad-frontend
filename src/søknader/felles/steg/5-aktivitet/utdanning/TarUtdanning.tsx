@@ -25,11 +25,11 @@ import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtda
 import Studiekostnader from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
+import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { erPeriodeGyldigOgInnenforDatoBegrensning } from '../../../../../components/dato/utils';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
   margin-top: -2rem;
@@ -56,7 +56,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
   useEffect(() => {
     if (
       utdanning.periode &&
-      !erPeriodeGyldigOgInnenforDatoBegrensning(utdanning?.periode, DatoBegrensning.AlleDatoer)
+      !erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
     ) {
       delete utdanning.heltidEllerDeltid;
     }
@@ -113,10 +113,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
           <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
         )}
         {utdanning?.periode &&
-          erPeriodeGyldigOgInnenforDatoBegrensning(
-            utdanning?.periode,
-            DatoBegrensning.AlleDatoer
-          ) && (
+          erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle) && (
             <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
           )}
         {søkerSkalStudereHeltid && (

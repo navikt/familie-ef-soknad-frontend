@@ -2,7 +2,7 @@ import { EBegrunnelse, ESivilstand, ISivilstatus } from '../../models/steg/omDeg
 import { IPeriode } from '../../models/felles/periode';
 import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../utils/sivilstatus';
 import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';
@@ -10,7 +10,7 @@ import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 import { identErGyldig } from '../../utils/validering/validering';
-import { erDatoGyldigOgInnenforDatoBegrensning } from '../../components/dato/utils';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const hentSivilstatus = (statuskode?: string) => {
   switch (statuskode) {
@@ -57,27 +57,21 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
     case EBegrunnelse.samlivsbruddForeldre:
       return (
         datoForSamlivsbrudd?.verdi !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensning(
-          datoForSamlivsbrudd.verdi,
-          DatoBegrensning.TidligereDatoer
-        )
+        erDatoGyldigOgInnenforBegrensning(datoForSamlivsbrudd.verdi, GyldigeDatoer.Tidligere)
       );
     case EBegrunnelse.samlivsbruddAndre:
       return (
         tidligereSamboerDetaljer &&
         harFyltUtSamboerDetaljer(tidligereSamboerDetaljer, false) &&
         datoFlyttetFraHverandre?.verdi !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensning(
-          datoFlyttetFraHverandre.verdi,
-          DatoBegrensning.AlleDatoer
-        ) &&
+        erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre.verdi, GyldigeDatoer.Alle) &&
         (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
           sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
       );
     case EBegrunnelse.endringISamværsordning:
       return (
         datoEndretSamvær?.verdi !== undefined &&
-        erDatoGyldigOgInnenforDatoBegrensning(datoEndretSamvær?.verdi, DatoBegrensning.AlleDatoer)
+        erDatoGyldigOgInnenforBegrensning(datoEndretSamvær?.verdi, GyldigeDatoer.Alle)
       );
     case EBegrunnelse.aleneFraFødsel:
       return true;
@@ -133,10 +127,7 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
 const erDatoSøktSeparasjonGyldig = (datoSøktSeparasjon: IDatoFelt | undefined): boolean => {
   return !!(
     datoSøktSeparasjon?.verdi &&
-    erDatoGyldigOgInnenforDatoBegrensning(
-      datoSøktSeparasjon?.verdi,
-      DatoBegrensning.TidligereDatoer
-    )
+    erDatoGyldigOgInnenforBegrensning(datoSøktSeparasjon?.verdi, GyldigeDatoer.Tidligere)
   );
 };
 

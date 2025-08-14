@@ -8,7 +8,7 @@ import {
 import { EForelder, IForelder } from '../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
 import {
   erFødselsdatoUtfyltOgGyldigEllerTomtFelt,
   erIdentUtfyltOgGyldig,
@@ -17,7 +17,7 @@ import {
 import { stringErNullEllerTom, stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { erGyldigDato } from '../../utils/dato';
 import { IBooleanFelt } from '../../models/søknad/søknadsfelter';
-import { erDatoGyldigOgInnenforDatoBegrensning } from '../../components/dato/utils';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const utfyltBorINorge = (forelder: IForelder) => {
   const { borINorge, land } = forelder;
@@ -118,7 +118,7 @@ export const utfyltNødvendigBostedSpørsmål = (forelder: IForelder) => {
 
   const harFlyttetFraDato: boolean =
     forelder?.flyttetFra?.verdi &&
-    erDatoGyldigOgInnenforDatoBegrensning(forelder.flyttetFra?.verdi, DatoBegrensning.AlleDatoer)
+    erDatoGyldigOgInnenforBegrensning(forelder.flyttetFra?.verdi, GyldigeDatoer.Alle)
       ? true
       : false;
 
