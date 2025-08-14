@@ -1,14 +1,14 @@
-import { addMonths, addYears, compareAsc, isEqual, subYears } from 'date-fns';
+import { addMonths, addYears, compareAsc, isEqual, isWithinInterval, subYears } from 'date-fns';
 import { dagensDato, erGyldigDato, strengTilDato } from './dato';
 import { IPeriode } from '../models/felles/periode';
 import { GyldigeDatoer } from '../components/dato/GyldigeDatoer';
 
-type DatoGrenser = {
+type DatoGrense = {
   min: Date;
   maks: Date;
 };
 
-const DATO_GRENSER: Record<GyldigeDatoer, () => DatoGrenser | undefined> = {
+const DATO_GRENSER: Record<GyldigeDatoer, () => DatoGrense | undefined> = {
   [GyldigeDatoer.Alle]: () => undefined,
 
   [GyldigeDatoer.Fremtidige]: () => ({
@@ -35,6 +35,10 @@ const DATO_GRENSER: Record<GyldigeDatoer, () => DatoGrenser | undefined> = {
     min: subYears(dagensDato, 50),
     maks: addMonths(dagensDato, 6),
   }),
+};
+
+const erDatoInnenforDatoGrense = (dato: Date, datoGrense: DatoGrense): boolean => {
+  return isWithinInterval(dato, { start: datoGrense.min, end: datoGrense.maks });
 };
 
 // Brukes for å ikke vise nesteknapp vis dato er ugyldig format eller utenfor begrensninger
