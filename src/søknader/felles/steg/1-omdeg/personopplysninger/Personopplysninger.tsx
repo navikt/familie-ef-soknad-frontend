@@ -1,6 +1,5 @@
 import React from 'react';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
@@ -62,33 +61,29 @@ export const Personopplysninger: React.FC = () => {
       />
 
       {visAdresseSpørsmål && (
-        <>
-          <KomponentGruppe aria-live="polite">
-            <JaNeiSpørsmål
-              spørsmål={borDuPåDenneAdressen(intl)}
-              valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settSøkerBorPåRegistrertAdr}
-            />
-          </KomponentGruppe>
+        <VStack gap={'8'}>
+          <JaNeiSpørsmål
+            spørsmål={borDuPåDenneAdressen(intl)}
+            valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
+            onChange={settSøkerBorPåRegistrertAdr}
+          />
 
           {visMeldtAdresseEndringSpørsmål && (
-            <KomponentGruppe>
-              <JaNeiSpørsmål
-                spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-                valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
-                onChange={settMeldtAdresseendring}
-              />
-
-              {visMeldtAdresseEndringAlert && (
-                <AlertStripeDokumentasjon>
-                  {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
-                </AlertStripeDokumentasjon>
-              )}
-
-              {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
-            </KomponentGruppe>
+            <JaNeiSpørsmål
+              spørsmål={harMeldtAdresseendringSpørsmål(intl)}
+              valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
+              onChange={settMeldtAdresseendring}
+            />
           )}
-        </>
+
+          {visMeldtAdresseEndringAlert && (
+            <AlertStripeDokumentasjon>
+              {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
+            </AlertStripeDokumentasjon>
+          )}
+
+          {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
+        </VStack>
       )}
     </VStack>
   );
