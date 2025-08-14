@@ -12,7 +12,7 @@ import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 
-const Personopplysninger: React.FC = () => {
+export const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
   const {
     søknad,
@@ -93,5 +93,3 @@ const Personopplysninger: React.FC = () => {
     </VStack>
   );
 };
-
-export default Personopplysninger;
