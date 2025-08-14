@@ -1,11 +1,12 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { BodyShort, Label } from '@navikt/ds-react';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   arbeidssituasjon: IAktivitet;
@@ -33,7 +34,7 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}
         tekstid={'dinSituasjon.datovelger.jobb'}
-        datobegrensning={DatoBegrensning.FremtidigeDatoer}
+        gyldigeDatoer={GyldigeDatoer.Fremtidige}
         settDato={settDato}
       />
     </KomponentGruppe>

@@ -7,8 +7,7 @@ import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDe
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
 import styled from 'styled-components';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
+import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, HStack, Textarea } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
@@ -17,6 +16,7 @@ import { utenlandsoppholdLand } from './MedlemskapConfig';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import EøsIdent from '../../../../../components/EøsIdent';
 import { stringHarVerdiOgErIkkeTom } from '../../../../../utils/typer';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const StyledTextarea = styled(Textarea)`
   width: 100%;
@@ -165,7 +165,7 @@ const Utenlandsopphold: FC<Props> = ({
         settDato={settPeriode}
         periode={utenlandsopphold.periode}
         tekst={hentTekst('medlemskap.periodeBoddIUtlandet', intl)}
-        datobegrensning={DatoBegrensning.TidligereDatoer}
+        gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
       <SelectSpørsmål
         spørsmål={landConfig}
@@ -174,10 +174,7 @@ const Utenlandsopphold: FC<Props> = ({
         skalLogges={false}
       />
       {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnaforBegrensninger(
-          utenlandsopphold.periode,
-          DatoBegrensning.TidligereDatoer
-        ) &&
+        erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
         // eslint-disable-next-line no-prototype-builtins
         utenlandsopphold.land?.hasOwnProperty('verdi') && (
           <StyledTextarea

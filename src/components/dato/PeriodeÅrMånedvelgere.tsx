@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { DatoBegrensning } from './Datovelger';
 import Feilmelding from '../feil/Feilmelding';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
@@ -10,11 +9,12 @@ import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
+  erDatoInnenforBegrensing,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
-} from './utils';
+} from '../../utils/gyldigeDatoerUtils';
 import { Label } from '@navikt/ds-react';
+import { GyldigeDatoer } from './GyldigeDatoer';
 
 const PeriodeGruppe = styled.div`
   display: grid;
@@ -44,7 +44,7 @@ interface Props {
   fomTekstid?: string;
   tomTekstid?: string;
   settDato: (dato: Date | null, objektnøkkel: EPeriode) => void;
-  datobegrensing: DatoBegrensning;
+  gyldigeDatoer: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
   testIder?: string[];
 }
@@ -56,7 +56,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
   tekst,
   fomTekstid,
   tomTekstid,
-  datobegrensing,
+  gyldigeDatoer,
   onValidate,
   testIder,
 }) => {
@@ -64,15 +64,15 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
-    datobegrensning: DatoBegrensning
+    gyldigeDatoer: GyldigeDatoer
   ): string => {
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
 
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, gyldigeDatoer);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, gyldigeDatoer);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -81,12 +81,12 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
       return 'datovelger.periode.feilFormatMndÅr';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.TidligereDatoer
+      gyldigeDatoer === GyldigeDatoer.Tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.FremtidigeDatoer
+      gyldigeDatoer === GyldigeDatoer.Fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
@@ -100,10 +100,10 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
     const harStartEllerSluttDato = periode.fra.verdi !== '' || periode.til.verdi !== '';
 
     harStartEllerSluttDato &&
-      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, datobegrensing));
+      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, gyldigeDatoer));
     if (onValidate && feilmelding !== '') onValidate(true);
     if (onValidate && feilmelding === '') onValidate(false);
-  }, [feilmelding, periode, datobegrensing, onValidate]);
+  }, [feilmelding, periode, gyldigeDatoer, onValidate]);
 
   const settPeriode = (dato: Date | null, objektnøkkel: EPeriode) => {
     settDato(dato, objektnøkkel);
@@ -130,7 +130,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
                 : undefined
             }
             tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
-            datobegrensning={datobegrensing}
+            gyldigeDatoer={gyldigeDatoer}
             testId={testIder ? testIder[0] : ''}
           />
 
@@ -142,7 +142,7 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
                 : undefined
             }
             tekstid={tomTekstid ? tomTekstid : 'periode.til'}
-            datobegrensning={datobegrensing}
+            gyldigeDatoer={gyldigeDatoer}
             testId={testIder ? testIder[1] : ''}
           />
         </>

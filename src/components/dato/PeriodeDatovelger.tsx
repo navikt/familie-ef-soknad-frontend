@@ -8,13 +8,14 @@ import FeltGruppe from '../gruppe/FeltGruppe';
 import KomponentGruppe from '../gruppe/KomponentGruppe';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
+  erDatoInnenforBegrensing,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
-} from './utils';
+} from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
 import { Label } from '@navikt/ds-react';
-import { DatoBegrensning, Datovelger } from './Datovelger';
+import { Datovelger } from './Datovelger';
+import { GyldigeDatoer } from './GyldigeDatoer';
 
 const PeriodeGruppe = styled.div`
   display: grid;
@@ -44,7 +45,7 @@ interface Props {
   fomTekstid?: string;
   tomTekstid?: string;
   settDato: (objektnøkkel: EPeriode, dato?: string) => void;
-  datobegrensning: DatoBegrensning;
+  gyldigeDatoer: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
 }
 
@@ -56,21 +57,21 @@ const PeriodeDatovelgere: FC<Props> = ({
   tekst,
   fomTekstid,
   tomTekstid,
-  datobegrensning,
+  gyldigeDatoer,
   onValidate,
 }) => {
   const [feilmelding, settFeilmelding] = useState<string>('');
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
-    datobegrensning: DatoBegrensning
+    gyldigeDatoer: GyldigeDatoer
   ): string => {
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, gyldigeDatoer);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, gyldigeDatoer);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -79,12 +80,12 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.periode.ugyldigDato';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.TidligereDatoer
+      gyldigeDatoer === GyldigeDatoer.Tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.FremtidigeDatoer
+      gyldigeDatoer === GyldigeDatoer.Fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
@@ -98,11 +99,11 @@ const PeriodeDatovelgere: FC<Props> = ({
     const harStartEllerSluttDato = periode.fra.verdi !== '' || periode.til.verdi !== '';
 
     harStartEllerSluttDato &&
-      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, datobegrensning));
+      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, gyldigeDatoer));
 
     if (onValidate && feilmelding !== '') onValidate(true);
     if (onValidate && feilmelding === '') onValidate(false);
-  }, [feilmelding, onValidate, periode, datobegrensning]);
+  }, [feilmelding, onValidate, periode, gyldigeDatoer]);
 
   const settPeriode = (objektnøkkel: EPeriode, dato?: string) => {
     settDato(objektnøkkel, dato);
@@ -124,14 +125,14 @@ const PeriodeDatovelgere: FC<Props> = ({
           settDato={(e) => settPeriode(EPeriode.fra, e)}
           valgtDato={periode.fra.verdi}
           tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
-          datobegrensning={datobegrensning}
+          gyldigeDatoer={gyldigeDatoer}
         />
 
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.til, e)}
           valgtDato={periode.til.verdi}
           tekstid={tomTekstid ? tomTekstid : 'periode.til'}
-          datobegrensning={datobegrensning}
+          gyldigeDatoer={gyldigeDatoer}
         />
         {feilmelding && feilmelding !== '' && (
           <Feilmelding className={'feilmelding'} tekstid={feilmelding} />

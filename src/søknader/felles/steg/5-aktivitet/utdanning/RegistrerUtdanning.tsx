@@ -11,11 +11,11 @@ import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { harValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { EPeriode } from '../../../../../models/felles/periode';
 import PeriodeÅrMånedvelgere from '../../../../../components/dato/PeriodeÅrMånedvelgere';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
 import { formatIsoDate } from '../../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   tidligereUtdanninger: Utdanning[];
@@ -117,7 +117,7 @@ const RegistrerUtdanning: React.FC<Props> = ({
             periode={utdanning.periode ? utdanning.periode : tomPeriode}
             settDato={settPeriode}
             aria-live="polite"
-            datobegrensing={DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem}
+            gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
             testIder={testIder ? [testIder[1], testIder[2]] : undefined}
           />
         </KomponentGruppe>

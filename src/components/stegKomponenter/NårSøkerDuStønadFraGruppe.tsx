@@ -9,9 +9,9 @@ import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Label, RadioGroup } from '@navikt/ds-react';
-import { DatoBegrensning } from '../dato/Datovelger';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -96,7 +96,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
             <MånedÅrVelger
               valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}
               tekstid={datovelgerLabel}
-              datobegrensning={DatoBegrensning.FemÅrTidligereOgSeksMånederFrem}
+              gyldigeDatoer={GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem}
               settDato={settDato}
             />
           </StyledDatovelger>
