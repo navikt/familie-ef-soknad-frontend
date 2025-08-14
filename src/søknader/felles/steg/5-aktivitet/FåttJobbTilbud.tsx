@@ -34,7 +34,7 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}
         tekstid={'dinSituasjon.datovelger.jobb'}
-        gyldigeDatoer={GyldigeDatoer.fremtidige}
+        gyldigeDatoer={GyldigeDatoer.Fremtidige}
         settDato={settDato}
       />
     </KomponentGruppe>

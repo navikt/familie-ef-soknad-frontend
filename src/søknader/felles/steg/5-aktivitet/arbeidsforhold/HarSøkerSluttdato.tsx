@@ -70,7 +70,7 @@ const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver })
             <Datovelger
               valgtDato={arbeidsgiver.sluttdato?.verdi}
               tekstid={sluttdatoTekstid}
-              gyldigeDatoer={GyldigeDatoer.fremtidige}
+              gyldigeDatoer={GyldigeDatoer.Fremtidige}
               settDato={(e) => settDato(e)}
             />
           </FeltGruppe>

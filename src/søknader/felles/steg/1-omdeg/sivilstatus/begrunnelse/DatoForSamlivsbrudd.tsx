@@ -30,7 +30,7 @@ const DatoForSamlivsbrudd: React.FC = () => {
           settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
           valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}
           tekstid={datovelgerLabel}
-          gyldigeDatoer={GyldigeDatoer.tidligere}
+          gyldigeDatoer={GyldigeDatoer.Tidligere}
         />
         <AlertStripeDokumentasjon>
           {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}

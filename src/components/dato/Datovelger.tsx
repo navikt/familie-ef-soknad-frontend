@@ -40,9 +40,9 @@ export const Datovelger: React.FC<Props> = ({
     validate: { isBefore: boolean; isAfter: boolean; isValidDate: boolean },
     settFeilmelding: React.Dispatch<React.SetStateAction<string>>
   ) => {
-    if (gyldigeDatoer === GyldigeDatoer.fremtidige && validate.isBefore) {
+    if (gyldigeDatoer === GyldigeDatoer.Fremtidige && validate.isBefore) {
       settFeilmelding('datovelger.ugyldigDato.kunFremtidigeDatoer');
-    } else if (gyldigeDatoer === GyldigeDatoer.tidligere && validate.isAfter) {
+    } else if (gyldigeDatoer === GyldigeDatoer.Tidligere && validate.isAfter) {
       settFeilmelding('datovelger.ugyldigDato.kunTidligereDatoer');
     } else if (!validate.isValidDate) {
       settFeilmelding('datovelger.ugyldigDato');
@@ -53,32 +53,32 @@ export const Datovelger: React.FC<Props> = ({
 
   const hentGyldigeDatoer = (gyldigeDatoer: GyldigeDatoer) => {
     switch (gyldigeDatoer) {
-      case GyldigeDatoer.alle:
+      case GyldigeDatoer.Alle:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
           maksDato: formatIsoDate(addYears(dagensDato, 100)),
         };
-      case GyldigeDatoer.fremtidige:
+      case GyldigeDatoer.Fremtidige:
         return {
           minDato: formatIsoDate(dagensDato),
           maksDato: formatIsoDate(addYears(dagensDato, 100)),
         };
-      case GyldigeDatoer.tidligere:
+      case GyldigeDatoer.Tidligere:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
           maksDato: formatIsoDate(dagensDato),
         };
-      case GyldigeDatoer.tidligereOgSeksMånederFrem:
+      case GyldigeDatoer.TidligereOgSeksMånederFrem:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 100)),
           maksDato: formatIsoDate(addMonths(dagensDato, 6)),
         };
-      case GyldigeDatoer.femÅrTidligereOgSeksMånederFrem:
+      case GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 5)),
           maksDato: formatIsoDate(addMonths(dagensDato, 6)),
         };
-      case GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem:
+      case GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem:
         return {
           minDato: formatIsoDate(subYears(dagensDato, 50)),
           maksDato: formatIsoDate(addMonths(dagensDato, 6)),

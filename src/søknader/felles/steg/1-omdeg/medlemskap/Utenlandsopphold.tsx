@@ -165,7 +165,7 @@ const Utenlandsopphold: FC<Props> = ({
         settDato={settPeriode}
         periode={utenlandsopphold.periode}
         tekst={hentTekst('medlemskap.periodeBoddIUtlandet', intl)}
-        gyldigeDatoer={GyldigeDatoer.tidligere}
+        gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
       <SelectSpørsmål
         spørsmål={landConfig}
@@ -174,7 +174,7 @@ const Utenlandsopphold: FC<Props> = ({
         skalLogges={false}
       />
       {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.tidligere) &&
+        erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
         // eslint-disable-next-line no-prototype-builtins
         utenlandsopphold.land?.hasOwnProperty('verdi') && (
           <StyledTextarea

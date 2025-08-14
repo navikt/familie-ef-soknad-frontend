@@ -126,31 +126,31 @@ export const erNåværendeMånedMellomMåneder = (startMåned: number, sluttMån
 
 export const hentDatobegrensninger = (datobegrensning: GyldigeDatoer) => {
   switch (datobegrensning) {
-    case GyldigeDatoer.alle:
+    case GyldigeDatoer.Alle:
       return {};
-    case GyldigeDatoer.fremtidige:
+    case GyldigeDatoer.Fremtidige:
       return {
         minDate: new Date(),
         maxDate: addYears(new Date(), 100),
       };
-    case GyldigeDatoer.tidligere:
+    case GyldigeDatoer.Tidligere:
       return {
         minDate: subYears(new Date(), 100),
         maxDate: new Date(),
       };
-    case GyldigeDatoer.tidligereOgSeksMånederFrem:
+    case GyldigeDatoer.TidligereOgSeksMånederFrem:
       return {
         minDate: subYears(new Date(), 100),
         maxDate: addMonths(new Date(), 6),
       };
 
-    case GyldigeDatoer.femÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem:
       return {
         minDate: subYears(new Date(), 5),
         maxDate: addMonths(new Date(), 6),
       };
 
-    case GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem:
       return {
         minDate: subYears(new Date(), 50),
         maxDate: addMonths(new Date(), 6),

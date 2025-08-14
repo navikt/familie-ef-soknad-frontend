@@ -112,7 +112,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         <Datovelger
           valgtDato={tidligereSamboerDetaljer?.fødselsdato?.verdi || ''}
           tekstid={'datovelger.fødselsdato'}
-          gyldigeDatoer={GyldigeDatoer.tidligere}
+          gyldigeDatoer={GyldigeDatoer.Tidligere}
           settDato={(dato) => settTidligereSamboersFødselsdato(dato)}
         />
       )}
@@ -122,7 +122,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
           settDato={(dato) => settDatoFlyttetFraHverandre(dato)}
           valgtDato={datoFlyttetFraHverandre ? datoFlyttetFraHverandre.verdi : undefined}
           tekstid={'sivilstatus.datovelger.flyttetFraHverandre'}
-          gyldigeDatoer={GyldigeDatoer.alle}
+          gyldigeDatoer={GyldigeDatoer.Alle}
         />
       )}
     </VStack>

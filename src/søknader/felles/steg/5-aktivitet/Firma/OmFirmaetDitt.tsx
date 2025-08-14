@@ -153,14 +153,14 @@ const OmFirmaetDitt: React.FC<Props> = ({
           <Datovelger
             valgtDato={firma?.etableringsdato?.verdi}
             tekstid={'firma.datovelger.etablering'}
-            gyldigeDatoer={GyldigeDatoer.tidligere}
+            gyldigeDatoer={GyldigeDatoer.Tidligere}
             settDato={(e) => settDatoFelt(e)}
           />
         </FeltGruppe>
       )}
 
       {firma.etableringsdato?.verdi &&
-        erDatoGyldigOgInnenforBegrensning(firma.etableringsdato?.verdi, GyldigeDatoer.tidligere) &&
+        erDatoGyldigOgInnenforBegrensning(firma.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
         inkludertArbeidsmengde && (
           <FeltGruppe>
             <InputLabelGruppe

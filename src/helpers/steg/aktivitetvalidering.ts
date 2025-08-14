@@ -18,7 +18,7 @@ export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[])
         (arbeidsgiver?.sluttdato?.verdi &&
           erDatoGyldigOgInnenforBegrensning(
             arbeidsgiver?.sluttdato?.verdi,
-            GyldigeDatoer.fremtidige
+            GyldigeDatoer.Fremtidige
           ))
       : arbeidsgiver.ansettelsesforhold?.verdi
   );
@@ -28,7 +28,7 @@ export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
   return firmaer?.every((firma) => {
     return (
       firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnenforBegrensning(firma?.etableringsdato?.verdi, GyldigeDatoer.tidligere) &&
+      erDatoGyldigOgInnenforBegrensning(firma?.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
       firma.arbeidsuke?.verdi &&
       firma.overskudd?.verdi
     );
@@ -49,7 +49,7 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.alle)
+      erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
   );
 };
 
@@ -148,7 +148,7 @@ export const erAktivitetSeksjonFerdigUtfylt = (
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoOppstartJobb.verdi, GyldigeDatoer.fremtidige)
+        erDatoGyldigOgInnenforBegrensning(datoOppstartJobb.verdi, GyldigeDatoer.Fremtidige)
       );
 
     case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:

@@ -75,7 +75,7 @@ export const harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål = (
     datoSagtOppEllerRedusertStilling?.verdi !== undefined &&
     erDatoGyldigOgInnenforBegrensning(
       datoSagtOppEllerRedusertStilling?.verdi,
-      GyldigeDatoer.tidligere
+      GyldigeDatoer.Tidligere
     );
 
   return (

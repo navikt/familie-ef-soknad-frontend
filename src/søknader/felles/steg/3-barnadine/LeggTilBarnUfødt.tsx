@@ -45,13 +45,13 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
           settDato={(e) => settDato(e)}
           valgtDato={barnDato}
           tekstid={'barnadine.termindato'}
-          gyldigeDatoer={GyldigeDatoer.fremtidige}
+          gyldigeDatoer={GyldigeDatoer.Fremtidige}
         />
         <AlertStripeDokumentasjon>
           {hentTekst('barnadine.info.terminbekreftelse', intl)}
         </AlertStripeDokumentasjon>
       </KomponentGruppe>
-      {barnDato && erDatoGyldigOgInnenforBegrensning(barnDato, GyldigeDatoer.fremtidige) && (
+      {barnDato && erDatoGyldigOgInnenforBegrensning(barnDato, GyldigeDatoer.Fremtidige) && (
         <KomponentGruppe>
           <RadiopanelWrapper>
             <RadioGroup

@@ -118,7 +118,7 @@ export const utfyltNødvendigBostedSpørsmål = (forelder: IForelder) => {
 
   const harFlyttetFraDato: boolean =
     forelder?.flyttetFra?.verdi &&
-    erDatoGyldigOgInnenforBegrensning(forelder.flyttetFra?.verdi, GyldigeDatoer.alle)
+    erDatoGyldigOgInnenforBegrensning(forelder.flyttetFra?.verdi, GyldigeDatoer.Alle)
       ? true
       : false;
 

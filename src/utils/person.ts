@@ -15,7 +15,7 @@ export const harFyltUtSamboerDetaljer = (
 
   const harFyltUtFødselsdatoEllerIdent = samboerDetaljer.kjennerIkkeIdent
     ? samboerDetaljer.fødselsdato?.verdi !== undefined &&
-      erDatoGyldigOgInnenforBegrensning(samboerDetaljer.fødselsdato.verdi, GyldigeDatoer.tidligere)
+      erDatoGyldigOgInnenforBegrensning(samboerDetaljer.fødselsdato.verdi, GyldigeDatoer.Tidligere)
     : harFyltUtIdent;
 
   return valgfriIdentEllerFødselsdato
@@ -23,7 +23,7 @@ export const harFyltUtSamboerDetaljer = (
         harFyltUtIdentEllerKjennerIkkeIdent &&
         erFødselsdatoUtfyltOgGyldigEllerTomtFelt(
           samboerDetaljer.fødselsdato?.verdi,
-          GyldigeDatoer.tidligere
+          GyldigeDatoer.Tidligere
         )
     : harFyltUtNavn && harFyltUtFødselsdatoEllerIdent;
 };

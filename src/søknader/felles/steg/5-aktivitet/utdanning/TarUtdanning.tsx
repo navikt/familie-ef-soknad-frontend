@@ -56,7 +56,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
   useEffect(() => {
     if (
       utdanning.periode &&
-      !erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.alle)
+      !erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
     ) {
       delete utdanning.heltidEllerDeltid;
     }
@@ -113,7 +113,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
           <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
         )}
         {utdanning?.periode &&
-          erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.alle) && (
+          erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle) && (
             <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
           )}
         {søkerSkalStudereHeltid && (

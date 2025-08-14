@@ -49,7 +49,7 @@ export const OmTidligereSamboer: FC = () => {
                   : undefined
               }
               tekstid={'bosituasjon.datovelger.nårFlyttetDereFraHverandre'}
-              gyldigeDatoer={GyldigeDatoer.alle}
+              gyldigeDatoer={GyldigeDatoer.Alle}
               settDato={settDatoFlyttetFraHverandre}
             />
           </FeltGruppe>

@@ -7,10 +7,10 @@
  */
 
 export enum GyldigeDatoer {
-  alle = 'alle',
-  fremtidige = 'fremtidige',
-  tidligere = 'tidligere',
-  tidligereOgSeksMånederFrem = 'tidligereOgSeksMånederFrem',
-  femÅrTidligereOgSeksMånederFrem = 'femÅrTidligereOgSeksMånederFrem',
-  femtiÅrTidligereOgSeksMånederFrem = 'femtiÅrTidligereOgSeksMånederFrem',
+  Alle = 'Alle',
+  Fremtidige = 'Fremtidige',
+  Tidligere = 'Tidligere',
+  TidligereOgSeksMånederFrem = 'TidligereOgSeksMånederFrem',
+  FemÅrTidligereOgSeksMånederFrem = 'FemÅrTidligereOgSeksMånederFrem',
+  FemtiÅrTidligereOgSeksMånederFrem = 'FemtiÅrTidligereOgSeksMånederFrem',
 }

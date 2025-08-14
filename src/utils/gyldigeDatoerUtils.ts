@@ -13,38 +13,38 @@ export const erDatoGyldigOgInnenforBegrensning = (
 
 export const erDatoInnenforBegrensing = (dato: string, gyldigeDatoer: GyldigeDatoer): boolean => {
   switch (gyldigeDatoer) {
-    case GyldigeDatoer.alle:
+    case GyldigeDatoer.Alle:
       return dato !== '';
 
-    case GyldigeDatoer.fremtidige:
+    case GyldigeDatoer.Fremtidige:
       return (
         dato !== '' &&
         strengTilDato(dato) <= addYears(dagensDato, 100) &&
         strengTilDato(dato) >= dagensDato
       );
 
-    case GyldigeDatoer.tidligere:
+    case GyldigeDatoer.Tidligere:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 100) &&
         strengTilDato(dato) <= dagensDato
       );
 
-    case GyldigeDatoer.tidligereOgSeksMånederFrem:
+    case GyldigeDatoer.TidligereOgSeksMånederFrem:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 100) &&
         strengTilDato(dato) <= addMonths(dagensDato, 6)
       );
 
-    case GyldigeDatoer.femÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 5) &&
         strengTilDato(dato) <= addMonths(dagensDato, 6)
       );
 
-    case GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem:
       return (
         dato !== '' &&
         strengTilDato(dato) >= subYears(dagensDato, 50) &&

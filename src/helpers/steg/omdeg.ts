@@ -57,21 +57,21 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
     case EBegrunnelse.samlivsbruddForeldre:
       return (
         datoForSamlivsbrudd?.verdi !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoForSamlivsbrudd.verdi, GyldigeDatoer.tidligere)
+        erDatoGyldigOgInnenforBegrensning(datoForSamlivsbrudd.verdi, GyldigeDatoer.Tidligere)
       );
     case EBegrunnelse.samlivsbruddAndre:
       return (
         tidligereSamboerDetaljer &&
         harFyltUtSamboerDetaljer(tidligereSamboerDetaljer, false) &&
         datoFlyttetFraHverandre?.verdi !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre.verdi, GyldigeDatoer.alle) &&
+        erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre.verdi, GyldigeDatoer.Alle) &&
         (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
           sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
       );
     case EBegrunnelse.endringISamværsordning:
       return (
         datoEndretSamvær?.verdi !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoEndretSamvær?.verdi, GyldigeDatoer.alle)
+        erDatoGyldigOgInnenforBegrensning(datoEndretSamvær?.verdi, GyldigeDatoer.Alle)
       );
     case EBegrunnelse.aleneFraFødsel:
       return true;
@@ -127,7 +127,7 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
 const erDatoSøktSeparasjonGyldig = (datoSøktSeparasjon: IDatoFelt | undefined): boolean => {
   return !!(
     datoSøktSeparasjon?.verdi &&
-    erDatoGyldigOgInnenforBegrensning(datoSøktSeparasjon?.verdi, GyldigeDatoer.tidligere)
+    erDatoGyldigOgInnenforBegrensning(datoSøktSeparasjon?.verdi, GyldigeDatoer.Tidligere)
   );
 };
 

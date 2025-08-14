@@ -162,12 +162,12 @@ const BarnepassSpørsmål: FC<Props> = ({
             fomTekstid={'periode.startdato'}
             tomTekstid={'periode.sluttdato'}
             periode={barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode}
-            gyldigeDatoer={GyldigeDatoer.alle}
+            gyldigeDatoer={GyldigeDatoer.Alle}
             settDato={settPeriode}
           />
         </KomponentGruppe>
       )}
-      {periode && erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle) && (
+      {periode && erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle) && (
         <BarnepassBeløp barnepassOrdning={barnepassOrdning} settInputFelt={settInputFelt} />
       )}
     </SeksjonGruppe>

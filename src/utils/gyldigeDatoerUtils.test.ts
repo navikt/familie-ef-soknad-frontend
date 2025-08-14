@@ -29,84 +29,84 @@ describe('gyldigeDatoerUtils', () => {
 
   describe('erDatoGyldigOgInnenforBegrensning', () => {
     it('skal returnere false for ugyldig datoformat', () => {
-      expect(erDatoGyldigOgInnenforBegrensning('BINK BONK', GyldigeDatoer.alle)).toBe(false);
-      expect(erDatoGyldigOgInnenforBegrensning('31.12.2025', GyldigeDatoer.alle)).toBe(false);
+      expect(erDatoGyldigOgInnenforBegrensning('BINK BONK', GyldigeDatoer.Alle)).toBe(false);
+      expect(erDatoGyldigOgInnenforBegrensning('31.12.2025', GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere true for gyldig dato innenfor begrensning', () => {
-      expect(erDatoGyldigOgInnenforBegrensning(testDato, GyldigeDatoer.alle)).toBe(true);
-      expect(erDatoGyldigOgInnenforBegrensning(enMånedFrem, GyldigeDatoer.fremtidige)).toBe(true);
+      expect(erDatoGyldigOgInnenforBegrensning(testDato, GyldigeDatoer.Alle)).toBe(true);
+      expect(erDatoGyldigOgInnenforBegrensning(enMånedFrem, GyldigeDatoer.Fremtidige)).toBe(true);
     });
 
     it('skal returnere false for gyldig dato utenfor begrensning', () => {
-      expect(erDatoGyldigOgInnenforBegrensning(ettÅrTilbake, GyldigeDatoer.fremtidige)).toBe(false);
-      expect(erDatoGyldigOgInnenforBegrensning(enMånedFrem, GyldigeDatoer.tidligere)).toBe(false);
+      expect(erDatoGyldigOgInnenforBegrensning(ettÅrTilbake, GyldigeDatoer.Fremtidige)).toBe(false);
+      expect(erDatoGyldigOgInnenforBegrensning(enMånedFrem, GyldigeDatoer.Tidligere)).toBe(false);
     });
   });
 
   describe('erDatoInnenforBegrensing', () => {
     describe('GyldigeDatoer.alle', () => {
       it('skal godta alle ikke-tomme datoer', () => {
-        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.alle)).toBe(true);
-        expect(erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.alle)).toBe(true);
-        expect(erDatoInnenforBegrensing(enMånedFrem, GyldigeDatoer.alle)).toBe(true);
+        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.Alle)).toBe(true);
+        expect(erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.Alle)).toBe(true);
+        expect(erDatoInnenforBegrensing(enMånedFrem, GyldigeDatoer.Alle)).toBe(true);
       });
 
       it('skal ikke godta tom streng', () => {
-        expect(erDatoInnenforBegrensing('', GyldigeDatoer.alle)).toBe(false);
+        expect(erDatoInnenforBegrensing('', GyldigeDatoer.Alle)).toBe(false);
       });
     });
 
     describe('GyldigeDatoer.fremtidige', () => {
       it('skal godta dagens dato og fremtidige datoer', () => {
-        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.fremtidige)).toBe(true);
-        expect(erDatoInnenforBegrensing(enMånedFrem, GyldigeDatoer.fremtidige)).toBe(true);
-        expect(erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.fremtidige)).toBe(true);
+        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.Fremtidige)).toBe(true);
+        expect(erDatoInnenforBegrensing(enMånedFrem, GyldigeDatoer.Fremtidige)).toBe(true);
+        expect(erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.Fremtidige)).toBe(true);
       });
 
       it('skal ikke godta tidligere datoer', () => {
-        expect(erDatoInnenforBegrensing(ettÅrTilbake, GyldigeDatoer.fremtidige)).toBe(false);
+        expect(erDatoInnenforBegrensing(ettÅrTilbake, GyldigeDatoer.Fremtidige)).toBe(false);
       });
 
       it('skal ikke godta datoer mer enn 100 år frem', () => {
         const hundreEttÅrFrem = formatIsoDate(addYears(testDato, 101));
-        expect(erDatoInnenforBegrensing(hundreEttÅrFrem, GyldigeDatoer.fremtidige)).toBe(false);
+        expect(erDatoInnenforBegrensing(hundreEttÅrFrem, GyldigeDatoer.Fremtidige)).toBe(false);
       });
     });
 
     describe('GyldigeDatoer.tidligere', () => {
       it('skal godta dagens dato og tidligere datoer', () => {
-        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.tidligere)).toBe(true);
-        expect(erDatoInnenforBegrensing(ettÅrTilbake, GyldigeDatoer.tidligere)).toBe(true);
-        expect(erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.tidligere)).toBe(true);
+        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.Tidligere)).toBe(true);
+        expect(erDatoInnenforBegrensing(ettÅrTilbake, GyldigeDatoer.Tidligere)).toBe(true);
+        expect(erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.Tidligere)).toBe(true);
       });
 
       it('skal ikke godta fremtidige datoer', () => {
-        expect(erDatoInnenforBegrensing(enMånedFrem, GyldigeDatoer.tidligere)).toBe(false);
+        expect(erDatoInnenforBegrensing(enMånedFrem, GyldigeDatoer.Tidligere)).toBe(false);
       });
 
       it('skal ikke godta datoer mer enn 100 år tilbake', () => {
         const hundreEttÅrTilbake = formatIsoDate(subYears(testDato, 101));
-        expect(erDatoInnenforBegrensing(hundreEttÅrTilbake, GyldigeDatoer.tidligere)).toBe(false);
+        expect(erDatoInnenforBegrensing(hundreEttÅrTilbake, GyldigeDatoer.Tidligere)).toBe(false);
       });
     });
 
     describe('GyldigeDatoer.tidligereOgSeksMånederFrem', () => {
       it('skal godta datoer fra 100 år tilbake til 6 måneder frem', () => {
         expect(
-          erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.tidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.TidligereOgSeksMånederFrem)
         ).toBe(true);
-        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.tidligereOgSeksMånederFrem)).toBe(
+        expect(erDatoInnenforBegrensing(testDato, GyldigeDatoer.TidligereOgSeksMånederFrem)).toBe(
           true
         );
         expect(
-          erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.tidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.TidligereOgSeksMånederFrem)
         ).toBe(true);
       });
 
       it('skal ikke godta datoer mer enn 6 måneder frem', () => {
         expect(
-          erDatoInnenforBegrensing(syvMånederFrem, GyldigeDatoer.tidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(syvMånederFrem, GyldigeDatoer.TidligereOgSeksMånederFrem)
         ).toBe(false);
       });
     });
@@ -114,25 +114,25 @@ describe('gyldigeDatoerUtils', () => {
     describe('GyldigeDatoer.femÅrTidligereOgSeksMånederFrem', () => {
       it('skal godta datoer fra 5 år tilbake til 6 måneder frem', () => {
         expect(
-          erDatoInnenforBegrensing(femÅrTilbake, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(femÅrTilbake, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
         ).toBe(true);
         expect(
-          erDatoInnenforBegrensing(testDato, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(testDato, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
         ).toBe(true);
         expect(
-          erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
         ).toBe(true);
       });
 
       it('skal ikke godta datoer mer enn 5 år tilbake', () => {
         expect(
-          erDatoInnenforBegrensing(seksÅrTilbake, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(seksÅrTilbake, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
         ).toBe(false);
       });
 
       it('skal ikke godta datoer mer enn 6 måneder frem', () => {
         expect(
-          erDatoInnenforBegrensing(syvMånederFrem, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(syvMånederFrem, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
         ).toBe(false);
       });
     });
@@ -140,13 +140,13 @@ describe('gyldigeDatoerUtils', () => {
     describe('GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem', () => {
       it('skal godta datoer fra 50 år tilbake til 6 måneder frem', () => {
         expect(
-          erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(femtiÅrTilbake, GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem)
         ).toBe(true);
         expect(
-          erDatoInnenforBegrensing(testDato, GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(testDato, GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem)
         ).toBe(true);
         expect(
-          erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(seksMånederFrem, GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem)
         ).toBe(true);
       });
 
@@ -154,14 +154,14 @@ describe('gyldigeDatoerUtils', () => {
         expect(
           erDatoInnenforBegrensing(
             femtiEttÅrTilbake,
-            GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem
+            GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem
           )
         ).toBe(false);
       });
 
       it('skal ikke godta datoer mer enn 6 måneder frem', () => {
         expect(
-          erDatoInnenforBegrensing(syvMånederFrem, GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem)
+          erDatoInnenforBegrensing(syvMånederFrem, GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem)
         ).toBe(false);
       });
     });
@@ -170,17 +170,17 @@ describe('gyldigeDatoerUtils', () => {
   describe('erPeriodeInnenforBegrensning', () => {
     it('skal returnere true når både fra og til er innenfor begrensning', () => {
       const periode = lagPeriode(ettÅrTilbake, testDato);
-      expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.tidligere)).toBe(true);
+      expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.Tidligere)).toBe(true);
     });
 
     it('skal returnere false når fra-dato er utenfor begrensning', () => {
       const periode = lagPeriode(ettÅrTilbake, enMånedFrem);
-      expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.fremtidige)).toBe(false);
+      expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.Fremtidige)).toBe(false);
     });
 
     it('skal returnere false når til-dato er utenfor begrensning', () => {
       const periode = lagPeriode(testDato, syvMånederFrem);
-      expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.tidligereOgSeksMånederFrem)).toBe(
+      expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.TidligereOgSeksMånederFrem)).toBe(
         false
       );
     });
@@ -188,7 +188,7 @@ describe('gyldigeDatoerUtils', () => {
     it('skal returnere true for periode innenfor femÅrTidligereOgSeksMånederFrem', () => {
       const periode = lagPeriode(femÅrTilbake, seksMånederFrem);
       expect(
-        erPeriodeInnenforBegrensning(periode, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+        erPeriodeInnenforBegrensning(periode, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
       ).toBe(true);
     });
   });
@@ -196,34 +196,34 @@ describe('gyldigeDatoerUtils', () => {
   describe('erPeriodeGyldigOgInnenforBegrensning', () => {
     it('skal returnere false for ugyldige datoformater', () => {
       const periode = lagPeriode('ikke-en-dato', testDato);
-      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere false når fra-dato er senere enn til-dato', () => {
       const periode = lagPeriode(enMånedFrem, testDato);
-      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere false når datoene er like', () => {
       const periode = lagPeriode(testDato, testDato);
-      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere true for gyldig periode med fra før til', () => {
       const periode = lagPeriode(testDato, enMånedFrem);
-      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.fremtidige)).toBe(true);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Fremtidige)).toBe(true);
     });
 
     it('skal returnere false når periode er utenfor begrensning', () => {
       const periode = lagPeriode(seksÅrTilbake, femÅrTilbake);
       expect(
-        erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.femÅrTidligereOgSeksMånederFrem)
+        erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
       ).toBe(false);
     });
 
     it('skal håndtere tomme verdier', () => {
       const periode = lagPeriode('', '');
-      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.alle)).toBe(false);
+      expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
   });
 

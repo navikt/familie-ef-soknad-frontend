@@ -80,12 +80,12 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.periode.ugyldigDato';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      gyldigeDatoer === GyldigeDatoer.tidligere
+      gyldigeDatoer === GyldigeDatoer.Tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      gyldigeDatoer === GyldigeDatoer.fremtidige
+      gyldigeDatoer === GyldigeDatoer.Fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))

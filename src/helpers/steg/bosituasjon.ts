@@ -15,7 +15,7 @@ const harPlanerOmÅBliSamboerEllerSkalGifteSeg = (bosituasjon: IBosituasjon) => 
 
 const harSattFødselsdato = (fødselsdato?: string): boolean =>
   stringHarVerdiOgErIkkeTom(fødselsdato) &&
-  erDatoGyldigOgInnenforBegrensning(fødselsdato, GyldigeDatoer.tidligere);
+  erDatoGyldigOgInnenforBegrensning(fødselsdato, GyldigeDatoer.Tidligere);
 
 const harSattIdent = (ident?: string): boolean => stringHarVerdiOgErIkkeTom(ident);
 
@@ -39,11 +39,11 @@ export const erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid = (
   return (
     erDatoGyldigOgInnenforBegrensning(
       datoSkalGifteSegEllerBliSamboer.verdi,
-      GyldigeDatoer.fremtidige
+      GyldigeDatoer.Fremtidige
     ) ||
     erDatoGyldigOgInnenforBegrensning(
       datoSkalGifteSegEllerBliSamboer.verdi,
-      GyldigeDatoer.tidligere
+      GyldigeDatoer.Tidligere
     )
   );
 };
@@ -67,7 +67,7 @@ const harSattDatoFlyttetFraHverandre = (bosituasjon: IBosituasjon) => {
   const { datoFlyttetFraHverandre } = bosituasjon;
   return (
     stringHarVerdiOgErIkkeTom(datoFlyttetFraHverandre) &&
-    erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre?.verdi, GyldigeDatoer.alle)
+    erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre?.verdi, GyldigeDatoer.Alle)
   );
 };
 
@@ -89,7 +89,7 @@ export const erFerdigUtfylt = (bosituasjon: IBosituasjon) => {
         datoFlyttetSammenMedSamboer &&
         erDatoGyldigOgInnenforBegrensning(
           datoFlyttetSammenMedSamboer.verdi,
-          GyldigeDatoer.tidligere
+          GyldigeDatoer.Tidligere
         ) &&
         samboerDetaljer &&
         harFyltUtSamboerDetaljer(samboerDetaljer, false)

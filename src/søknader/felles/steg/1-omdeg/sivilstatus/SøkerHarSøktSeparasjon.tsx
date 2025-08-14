@@ -31,7 +31,7 @@ const SøkerHarSøktSeparasjon: React.FC = () => {
           settDato={(e) => settDatoSøktSeparasjon(e, datovelgerTekstid)}
           valgtDato={datoSøktSeparasjon ? datoSøktSeparasjon.verdi : undefined}
           tekstid={datovelgerTekstid}
-          gyldigeDatoer={GyldigeDatoer.tidligere}
+          gyldigeDatoer={GyldigeDatoer.Tidligere}
         />
       </FeltGruppe>
       <FeltGruppe>

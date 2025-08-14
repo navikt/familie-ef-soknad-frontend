@@ -117,7 +117,7 @@ const RegistrerUtdanning: React.FC<Props> = ({
             periode={utdanning.periode ? utdanning.periode : tomPeriode}
             settDato={settPeriode}
             aria-live="polite"
-            gyldigeDatoer={GyldigeDatoer.femtiÅrTidligereOgSeksMånederFrem}
+            gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
             testIder={testIder ? [testIder[1], testIder[2]] : undefined}
           />
         </KomponentGruppe>
