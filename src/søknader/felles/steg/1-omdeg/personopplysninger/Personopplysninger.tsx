@@ -5,10 +5,9 @@ import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './Perso
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
-import { VStack } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 
 export const Personopplysninger: React.FC = () => {
@@ -77,9 +76,9 @@ export const Personopplysninger: React.FC = () => {
           )}
 
           {visMeldtAdresseEndringAlert && (
-            <AlertStripeDokumentasjon>
+            <Alert variant={'warning'} size={'small'} inline>
               {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
-            </AlertStripeDokumentasjon>
+            </Alert>
           )}
 
           {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
