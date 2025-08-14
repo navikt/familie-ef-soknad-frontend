@@ -58,9 +58,7 @@ type SøknadStegSkolepenger =
   | '/skolepenger/bosituasjon'
   | '/skolepenger/barn'
   | '/skolepenger/barnas-bosted'
-  | '/skolepenger/aktivitet'
-  | '/skolepenger/din-situasjon'
-  | '/skolepenger/barnepass'
+  | '/skolepenger/utdanning'
   | '/skolepenger/oppsummering'
   | '/skolepenger/dokumentasjon'
   | '/skolepenger/kvittering';
@@ -256,7 +254,7 @@ const utledSøknadSkolepenger = (
   søknad?: Partial<SøknadSkolepenger>
 ) => {
   switch (gjeldendeSteg) {
-    case '/skolepenger/aktivitet':
+    case '/skolepenger/utdanning':
       return søknadSkolepengerBarnasBosted(søknad);
     default:
       return lagSøknadSkolepenger({ harBekreftet: true });
