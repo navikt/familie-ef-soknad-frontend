@@ -435,8 +435,8 @@ export const lagUtdanning = (utdanning?: Partial<Utdanning>): Utdanning => {
   };
 };
 
-export const lagPeriode = (fra: string, til: string): IPeriode => ({
-  label: 'Mock periode',
-  fra: { label: 'Fra', verdi: fra },
-  til: { label: 'Til', verdi: til },
+export const lagPeriode = (label: string, fra: IDatoFelt, til: IDatoFelt): IPeriode => ({
+  label: label,
+  fra: fra,
+  til: til,
 });
