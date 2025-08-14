@@ -438,8 +438,8 @@ export const lagUtdanning = (utdanning?: Partial<Utdanning>): Utdanning => {
 export const lagPeriode = (periode?: Partial<IPeriode>): IPeriode => {
   return {
     label: 'Periode',
-    fra: lagDatoFelt('Fra', isoDatoEnMånedFrem),
-    til: lagDatoFelt('Til', isoDatoEnMånedTilbake),
+    fra: lagDatoFelt('Fra', isoDatoEnMånedTilbake),
+    til: lagDatoFelt('Til', isoDatoEnMånedFrem),
     ...periode,
   };
 };
