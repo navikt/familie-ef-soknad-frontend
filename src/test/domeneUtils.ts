@@ -36,7 +36,6 @@ import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
 import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
 import { IPeriode } from '../models/felles/periode';
-import { dagensDato } from '../utils/dato';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
