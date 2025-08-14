@@ -77,14 +77,9 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
   });
 
-  test('Søker tar eller skal ta utdanning', async () => {
+  test('Spørsmål om linje/kurs/grad dukker opp etter spørsmål om skole/sted', async () => {
     mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
     const { screen, user } = await navigerTilStegSkolepenger();
-
-    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
-    expect(
-      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
-    ).toBeInTheDocument();
 
     expect(screen.getByRole('textbox', { name: 'Skole / utdanningssted' })).toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: 'Linje / kurs / grad' })).not.toBeInTheDocument();
@@ -92,6 +87,18 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
 
     expect(screen.getByRole('textbox', { name: 'Linje / kurs / grad' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om offentlig/privat dukker opp etter spørsmål om linje/kurs/grad', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+
     expect(
       screen.queryByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
     ).not.toBeInTheDocument();
@@ -101,10 +108,6 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     expect(
       screen.getByRole('button', { name: 'Om godkjenning av privat utdanning' })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
-    ).toBeInTheDocument();
-
     await user.click(screen.getByRole('button', { name: 'Om godkjenning av privat utdanning' }));
     expect(
       screen.getByText((tekst) =>
@@ -120,6 +123,21 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
         )
       )
     );
+    expect(
+      screen.getByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om fom/tom dukker opp etter spørsmål om offentlig/privat', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
 
     expect(screen.queryByText('Når skal du være elev/student?')).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: 'Fra' })).not.toBeInTheDocument();
@@ -133,6 +151,19 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     expect(screen.getByText('Når skal du være elev/student?')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om heltid/deltid dukker opp etter spørsmål om fom/tom', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
 
     expect(
       screen.queryByRole('group', { name: 'Er utdanningen på heltid eller deltid?' })
@@ -145,6 +176,22 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
       screen.getByRole('group', { name: 'Er utdanningen på heltid eller deltid?' })
     ).toBeInTheDocument();
 
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om hvor mye søker skal studere dukker opp etter valgt svar:deltid', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+
     expect(
       screen.queryByRole('spinbutton', { name: 'Hvor mye skal du studere?' })
     ).not.toBeInTheDocument();
@@ -153,6 +200,24 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     expect(
       screen.getByRole('spinbutton', { name: 'Hvor mye skal du studere?' })
     ).toBeInTheDocument();
+
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om målet med utdanningen dukker opp etter spørsmål om hvor mye søker skal studere', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+    await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Deltid', screen, user);
+
     expect(
       screen.queryByRole('textbox', { name: 'Hva er målet med utdanningen?' })
     ).not.toBeInTheDocument();
@@ -161,6 +226,26 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     expect(
       screen.getByRole('textbox', { name: 'Hva er målet med utdanningen?' })
     ).toBeInTheDocument();
+
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om hvor målet med utdanningen og hjelpetekst dukker opp etter valgt svar:heltid', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+
+    expect(
+      screen.queryByRole('textbox', { name: 'Hva er målet med utdanningen?' })
+    ).not.toBeInTheDocument();
 
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
     expect(
@@ -186,6 +271,23 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
         tekst.includes('Dokumentasjonen må vise tydelig hvem det gjelder.')
       )
     ).toBeInTheDocument();
+
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om utgifter til skolepenger og hjelpetekst dukker opp etter spørsmål om måled med utdanningen', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+    await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
 
     expect(
       screen.queryByRole('heading', { level: 3, name: 'Utgifter til skolepenger' })
@@ -271,23 +373,101 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
       )
     ).toBeInTheDocument();
 
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om tidligere utdanning dukker opp etter spørsmål om utgifter til skolepenger, semesteravgift', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+    await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
+    await skrivFritekst('Hva er målet med utdanningen?', 'Å bli utdannet', screen, user);
+
+    expect(
+      screen.queryByText((tekst) => tekst.includes('Tidligere utdanning'))
+    ).not.toBeInTheDocument();
     await user.type(screen.getByRole('spinbutton', { name: 'Semesteravgift' }), '200');
     expect(screen.getByText((tekst) => tekst.includes('Tidligere utdanning'))).toBeInTheDocument();
-    await user.clear(screen.getByRole('spinbutton', { name: 'Semesteravgift' }));
+
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om tidligere utdanning dukker opp etter spørsmål om utgifter til skolepenger, studieavgift', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+    await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
+    await skrivFritekst('Hva er målet med utdanningen?', 'Å bli utdannet', screen, user);
+
     expect(
       screen.queryByText((tekst) => tekst.includes('Tidligere utdanning'))
     ).not.toBeInTheDocument();
-
     await user.type(screen.getByRole('spinbutton', { name: 'Studieavgift' }), '200');
     expect(screen.getByText((tekst) => tekst.includes('Tidligere utdanning'))).toBeInTheDocument();
-    await user.clear(screen.getByRole('spinbutton', { name: 'Studieavgift' }));
+
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Spørsmål om tidligere utdanning dukker opp etter spørsmål om utgifter til skolepenger, eksamensgebyr', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+    await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
+    await skrivFritekst('Hva er målet med utdanningen?', 'Å bli utdannet', screen, user);
+
     expect(
       screen.queryByText((tekst) => tekst.includes('Tidligere utdanning'))
     ).not.toBeInTheDocument();
+    await user.type(screen.getByRole('spinbutton', { name: 'Eksamensgebyr' }), '200');
+    expect(screen.getByText((tekst) => tekst.includes('Tidligere utdanning'))).toBeInTheDocument();
 
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
+  });
+
+  test('Neste-knappen dukker opp etter tidligere-utdanning bolk er besvart', async () => {
+    mockMellomlagretSøknadSkolepenger('/skolepenger/utdanning', {});
+    const { screen, user } = await navigerTilStegSkolepenger();
+
+    await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
+    await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
+    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await skrivFritekst('Fra', '01.08.2019', screen, user);
+    await skrivFritekst('Til', '01.08.2024', screen, user);
+    await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
+    await skrivFritekst('Hva er målet med utdanningen?', 'Å bli utdannet', screen, user);
     await user.type(screen.getByRole('spinbutton', { name: 'Eksamensgebyr' }), '200');
 
-    //Tidligere utdanning
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+    ).toBeInTheDocument();
 
     expect(screen.getByText((tekst) => tekst.includes('Tidligere utdanning'))).toBeInTheDocument();
     expect(screen.getByTestId('grunn-til-spørsmål-om-tidligere-utdanning')).toBeInTheDocument();
@@ -372,5 +552,5 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
-  }, 20000);
+  });
 });
