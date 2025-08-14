@@ -2,10 +2,11 @@ import React from 'react';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../OmDegContext';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const SøkerHarSøktSeparasjon: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
@@ -30,7 +31,7 @@ const SøkerHarSøktSeparasjon: React.FC = () => {
           settDato={(e) => settDatoSøktSeparasjon(e, datovelgerTekstid)}
           valgtDato={datoSøktSeparasjon ? datoSøktSeparasjon.verdi : undefined}
           tekstid={datovelgerTekstid}
-          datobegrensning={DatoBegrensning.TidligereDatoer}
+          gyldigeDatoer={GyldigeDatoer.Tidligere}
         />
       </FeltGruppe>
       <FeltGruppe>

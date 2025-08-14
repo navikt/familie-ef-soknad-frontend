@@ -27,7 +27,7 @@ import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstøn
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
 import { IMedforelder } from '../models/steg/medforelder';
-import { datoEnMånedTilbake, isoDatoEnMånedTilbake } from './dato';
+import { datoEnMånedTilbake, isoDatoEnMånedFrem, isoDatoEnMånedTilbake } from './dato';
 import { IForelder } from '../models/steg/forelder';
 import { MellomlagretSøknadBarnetilsyn } from '../søknader/barnetilsyn/models/mellomlagretSøknad';
 import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
@@ -35,6 +35,7 @@ import { MellomlagretSøknadSkolepenger } from '../søknader/skolepenger/models/
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
 import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
+import { IPeriode } from '../models/felles/periode';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -431,5 +432,14 @@ export const lagUtdanning = (utdanning?: Partial<Utdanning>): Utdanning => {
     linjeKursGrad: undefined,
     periode: undefined,
     ...utdanning,
+  };
+};
+
+export const lagPeriode = (periode?: Partial<IPeriode>): IPeriode => {
+  return {
+    label: 'Periode',
+    fra: lagDatoFelt('Fra', isoDatoEnMånedTilbake),
+    til: lagDatoFelt('Til', isoDatoEnMånedFrem),
+    ...periode,
   };
 };

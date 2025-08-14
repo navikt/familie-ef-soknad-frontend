@@ -4,7 +4,8 @@ import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { identErGyldig } from '../../../../../../utils/validering/validering';
 import { Checkbox, Heading, TextField, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
-import { DatoBegrensning, Datovelger } from '../../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../../../components/dato/GyldigeDatoer';
 
 export const OmDenTidligereSamboerenDin: FC = () => {
   const intl = useLokalIntlContext();
@@ -111,7 +112,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         <Datovelger
           valgtDato={tidligereSamboerDetaljer?.fødselsdato?.verdi || ''}
           tekstid={'datovelger.fødselsdato'}
-          datobegrensning={DatoBegrensning.TidligereDatoer}
+          gyldigeDatoer={GyldigeDatoer.Tidligere}
           settDato={(dato) => settTidligereSamboersFødselsdato(dato)}
         />
       )}
@@ -121,7 +122,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
           settDato={(dato) => settDatoFlyttetFraHverandre(dato)}
           valgtDato={datoFlyttetFraHverandre ? datoFlyttetFraHverandre.verdi : undefined}
           tekstid={'sivilstatus.datovelger.flyttetFraHverandre'}
-          datobegrensning={DatoBegrensning.AlleDatoer}
+          gyldigeDatoer={GyldigeDatoer.Alle}
         />
       )}
     </VStack>
