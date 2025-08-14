@@ -48,6 +48,9 @@ const Personopplysninger: React.FC = () => {
   };
 
   const visAdresseSpørsmål = !søker?.erStrengtFortrolig;
+  const visMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse?.verdi === false;
+  const visMeldtAdresseEndringAlert = adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
+  const visSøkerBorIkkePåAdresse = adresseopplysninger?.harMeldtAdresseendring?.verdi === false;
 
   return (
     <VStack gap={'8'}>
@@ -68,21 +71,21 @@ const Personopplysninger: React.FC = () => {
             />
           </KomponentGruppe>
 
-          {søkerBorPåRegistrertAdresse?.verdi === false && (
+          {visMeldtAdresseEndringSpørsmål && (
             <KomponentGruppe>
               <JaNeiSpørsmål
                 spørsmål={harMeldtAdresseendringSpørsmål(intl)}
                 valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
                 onChange={settMeldtAdresseendring}
               />
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
+
+              {visMeldtAdresseEndringAlert && (
                 <AlertStripeDokumentasjon>
                   {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
                 </AlertStripeDokumentasjon>
               )}
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
-                <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-              )}
+
+              {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
             </KomponentGruppe>
           )}
         </>
