@@ -24,7 +24,7 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
 
   return (
     <VStack gap={'4'}>
-      <Alert variant="info" inline={true}>
+      <Alert variant="info" inline>
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
 
