@@ -47,6 +47,8 @@ const Personopplysninger: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
+  const visAdresseSpørsmål = !søker?.erStrengtFortrolig;
+
   return (
     <VStack gap={'8'}>
       <Alert variant="info" inline={true}>
@@ -58,7 +60,8 @@ const Personopplysninger: React.FC = () => {
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-      {!søker?.erStrengtFortrolig && (
+
+      {visAdresseSpørsmål && (
         <>
           <KomponentGruppe aria-live="polite">
             <JaNeiSpørsmål
