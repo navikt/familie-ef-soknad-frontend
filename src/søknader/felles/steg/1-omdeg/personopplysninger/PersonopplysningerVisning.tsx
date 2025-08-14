@@ -28,28 +28,28 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
 
-      <VStack align={'start'}>
+      <VStack>
         <Heading size="xsmall">{hentTekst('person.ident.visning', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {personIdent}
         </BodyShort>
       </VStack>
 
-      <VStack align={'start'}>
+      <VStack>
         <Heading size="xsmall">{hentTekst('person.statsborgerskap', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {statsborgerskap}
         </BodyShort>
       </VStack>
 
-      <VStack align={'start'}>
+      <VStack>
         <Heading size="xsmall">{hentTekst('sivilstatus.tittel', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {formatertSivilstand}
         </BodyShort>
       </VStack>
 
-      <VStack align={'start'}>
+      <VStack>
         <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {adresse.adresse}
