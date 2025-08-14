@@ -21,7 +21,7 @@ vi.mock('axios', () => {
 
 describe('Aktivitet-Steg for barnetilsyn', () => {
   test('Skal navigere til Aktivitet-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -30,7 +30,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -60,7 +60,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Søker er ikke i arbeid fordi hen er syk', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp(
@@ -122,7 +122,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Søker er i arbeid', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
@@ -159,7 +159,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Søker er i arbeid (og/eller lønnsmottaker som frilanser), Fast stilling', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -202,7 +202,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Midlertidig stilling', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -275,7 +275,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Lærling', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -319,7 +319,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Tilkallingsvikar eller liknende', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -368,7 +368,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Søker er selvstendig næringsdrivende eller frilanser med enkeltpersonforetak', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -451,7 +451,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Søker er selvstendig næringsdrivende og ansatt i mitt eget aksjeselskap (AS)', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -493,7 +493,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
   });
 
   test('Søker etablerer egen virksomhet', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/aktivitet', {});
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();

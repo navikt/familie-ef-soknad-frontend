@@ -22,7 +22,7 @@ vi.mock('axios', () => {
 
 describe('Mer om din situasjon', () => {
   test('Skal navigere til din situasjon-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -31,7 +31,7 @@ describe('Mer om din situasjon', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText('Gjelder noe av dette deg?')).toBeInTheDocument();
@@ -66,7 +66,7 @@ describe('Mer om din situasjon', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
   });
   test('Søker er syk', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -128,7 +128,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søkers barn er sykt', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -178,7 +178,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har søkt om barnepass, men ikke fått plass enda', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -216,7 +216,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -280,7 +280,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har ingen av overnevnte alternativer', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -299,7 +299,7 @@ describe('Mer om din situasjon', () => {
   });
 
   test('Søker har sagt opp jobben eller tatt frivillig permisjon (ikke foreldrepermisjon)', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -374,7 +374,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har redusert arbeidstiden', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -443,7 +443,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
   });
   test('Søker har ikke sagt opp jobben eller redusert arbeidstiden de siste 6 månedene', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -477,7 +477,7 @@ describe('Mer om din situasjon', () => {
   });
 
   test('Søker søker overgangsstønad fra en bestemt måned', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Nei', screen, user);
@@ -538,7 +538,7 @@ describe('Mer om din situasjon', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Nav kan vurdere fra hvilken måned søker har rett til stønad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/din-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Nei', screen, user);

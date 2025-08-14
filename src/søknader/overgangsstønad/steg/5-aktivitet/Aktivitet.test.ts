@@ -22,7 +22,7 @@ vi.mock('axios', () => {
 
 describe('Aktivitet-Steg for overgangsstønad', () => {
   test('Skal navigere til Aktivitet-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -31,7 +31,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText('Hvordan er situasjonen din?')).toBeInTheDocument();
@@ -97,7 +97,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Fast stilling', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -156,7 +156,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Midlertidig stilling', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -245,7 +245,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Lærling', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -305,7 +305,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker er arbeidstaker (og/eller lønnsmottaker som frilanser), Tilkallingsvikar eller liknende', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -370,7 +370,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker er selvstendig næringsdrivende eller frilanser med enkeltpersonforetak', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -454,7 +454,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker er selvstendig næringsdrivende og ansatt i mitt eget aksjeselskap (AS)', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -497,7 +497,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker har fått tilbud om jobb', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -526,7 +526,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker etablerer egen virksomhet', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -567,7 +567,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker er arbeidssøker', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -768,7 +768,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   });
 
   test('Søker tar eller skal ta utdanning', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -1013,7 +1013,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
   }, 20000);
 
   test('Søker er ikke i arbeid, utdanning eller arbeidssøker', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/aktivitet', {});
+    mockMellomlagretSøknadOvergangsstønad('/aktivitet', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
