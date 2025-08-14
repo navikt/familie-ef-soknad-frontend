@@ -21,6 +21,7 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
   const intl = useLokalIntlContext();
 
   const formatertSivilstand = utledFormatertSivilstand(sivilstand, intl);
+  const visAdresse = adresse.adresse.trim() !== '';
 
   return (
     <VStack gap={'4'}>
@@ -49,15 +50,17 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
         </BodyShort>
       </VStack>
 
-      <VStack>
-        <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
-        <BodyShort size="medium" weight="regular">
-          {adresse.adresse}
-        </BodyShort>
-        <BodyShort size="medium" weight="regular">
-          {adresse.poststed ? `${adresse.postnummer} - ${adresse.poststed}` : adresse.postnummer}
-        </BodyShort>
-      </VStack>
+      {visAdresse && (
+        <VStack>
+          <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>
+          <BodyShort size="medium" weight="regular">
+            {adresse.adresse}
+          </BodyShort>
+          <BodyShort size="medium" weight="regular">
+            {adresse.poststed ? `${adresse.postnummer} - ${adresse.poststed}` : adresse.postnummer}
+          </BodyShort>
+        </VStack>
+      )}
     </VStack>
   );
 };
