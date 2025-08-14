@@ -11,7 +11,7 @@ import {
 import { GyldigeDatoer } from '../components/dato/GyldigeDatoer';
 import { dagensDato, formatIsoDate, strengTilDato } from './dato';
 import { isoDatoEnMånedFrem } from '../test/dato';
-import { lagPeriode } from '../test/domeneUtils';
+import { lagDatoFelt, lagPeriode } from '../test/domeneUtils';
 
 describe('gyldigeDatoerUtils', () => {
   const testDato = formatIsoDate(dagensDato);
@@ -169,40 +169,36 @@ describe('gyldigeDatoerUtils', () => {
 
   describe('erPeriodeInnenforBegrensning', () => {
     it('skal returnere true når både fra og til er innenfor begrensning', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: ettÅrTilbake, verdi: ettÅrTilbake },
-        { label: testDato, verdi: testDato }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(ettÅrTilbake, ettÅrTilbake),
+        til: lagDatoFelt(testDato, testDato),
+      });
       expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.Tidligere)).toBe(true);
     });
 
     it('skal returnere false når fra-dato er utenfor begrensning', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: ettÅrTilbake, verdi: ettÅrTilbake },
-        { label: enMånedFrem, verdi: enMånedFrem }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(ettÅrTilbake, ettÅrTilbake),
+        til: lagDatoFelt(enMånedFrem, enMånedFrem),
+      });
       expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.Fremtidige)).toBe(false);
     });
 
     it('skal returnere false når til-dato er utenfor begrensning', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: testDato, verdi: testDato },
-        { label: syvMånederFrem, verdi: syvMånederFrem }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(testDato, testDato),
+        til: lagDatoFelt(syvMånederFrem, syvMånederFrem),
+      });
       expect(erPeriodeInnenforBegrensning(periode, GyldigeDatoer.TidligereOgSeksMånederFrem)).toBe(
         false
       );
     });
 
     it('skal returnere true for periode innenfor femÅrTidligereOgSeksMånederFrem', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: femÅrTilbake, verdi: femÅrTilbake },
-        { label: seksMånederFrem, verdi: seksMånederFrem }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(femÅrTilbake, femÅrTilbake),
+        til: lagDatoFelt(seksMånederFrem, seksMånederFrem),
+      });
       expect(
         erPeriodeInnenforBegrensning(periode, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
       ).toBe(true);
@@ -211,65 +207,62 @@ describe('gyldigeDatoerUtils', () => {
 
   describe('erPeriodeGyldigOgInnenforBegrensning', () => {
     it('skal returnere false for ugyldige datoformater', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: 'ikke-en-dato', verdi: 'ikke-en-dato' },
-        { label: testDato, verdi: testDato }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt('ikke-en-dato', 'ikke-en-dato'),
+        til: lagDatoFelt(testDato, testDato),
+      });
       expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere false når fra-dato er senere enn til-dato', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: enMånedFrem, verdi: enMånedFrem },
-        { label: testDato, verdi: testDato }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(enMånedFrem, enMånedFrem),
+        til: lagDatoFelt(testDato, testDato),
+      });
       expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere false når datoene er like', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: testDato, verdi: testDato },
-        { label: testDato, verdi: testDato }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(testDato, testDato),
+        til: lagDatoFelt(testDato, testDato),
+      });
       expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
 
     it('skal returnere true for gyldig periode med fra før til', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: testDato, verdi: testDato },
-        { label: enMånedFrem, verdi: enMånedFrem }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(testDato, testDato),
+        til: lagDatoFelt(enMånedFrem, enMånedFrem),
+      });
       expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Fremtidige)).toBe(true);
     });
 
     it('skal returnere false når periode er utenfor begrensning', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: seksÅrTilbake, verdi: seksÅrTilbake },
-        { label: femÅrTilbake, verdi: femÅrTilbake }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(seksÅrTilbake, seksÅrTilbake),
+        til: lagDatoFelt(femÅrTilbake, femÅrTilbake),
+      });
       expect(
         erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem)
       ).toBe(false);
     });
 
     it('skal håndtere tomme verdier', () => {
-      const periode = lagPeriode('mock', { label: '', verdi: '' }, { label: '', verdi: '' });
+      const periode = lagPeriode({
+        fra: lagDatoFelt('', ''),
+        til: lagDatoFelt('', ''),
+      });
       expect(erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle)).toBe(false);
     });
   });
 
   describe('hentStartOgSluttDato', () => {
     it('skal returnere riktige datoer for gyldig periode', () => {
-      const periode = lagPeriode(
-        'mock',
-        { label: ettÅrTilbake, verdi: ettÅrTilbake },
-        { label: testDato, verdi: testDato }
-      );
+      const periode = lagPeriode({
+        fra: lagDatoFelt(ettÅrTilbake, ettÅrTilbake),
+        til: lagDatoFelt(testDato, testDato),
+      });
       const { startDato, sluttDato } = hentStartOgSluttDato(periode);
 
       expect(startDato).toEqual(strengTilDato(ettÅrTilbake));
@@ -277,7 +270,10 @@ describe('gyldigeDatoerUtils', () => {
     });
 
     it('skal returnere undefined for tomme verdier', () => {
-      const periode = lagPeriode('mock', { label: '', verdi: '' }, { label: '', verdi: '' });
+      const periode = lagPeriode({
+        fra: lagDatoFelt('', ''),
+        til: lagDatoFelt('', ''),
+      });
       const { startDato, sluttDato } = hentStartOgSluttDato(periode);
 
       expect(startDato).toBeUndefined();

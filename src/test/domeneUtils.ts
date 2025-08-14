@@ -27,7 +27,7 @@ import { MellomlagretSøknadOvergangsstønad } from '../søknader/overgangsstøn
 import { SistInnsendteSøknad } from '../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../models/søknad/stønadstyper';
 import { IMedforelder } from '../models/steg/medforelder';
-import { datoEnMånedTilbake, isoDatoEnMånedTilbake } from './dato';
+import { datoEnMånedTilbake, isoDatoEnMånedFrem, isoDatoEnMånedTilbake } from './dato';
 import { IForelder } from '../models/steg/forelder';
 import { MellomlagretSøknadBarnetilsyn } from '../søknader/barnetilsyn/models/mellomlagretSøknad';
 import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
@@ -36,6 +36,7 @@ import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
 import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
 import { IPeriode } from '../models/felles/periode';
+import { dagensDato } from '../utils/dato';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -435,8 +436,11 @@ export const lagUtdanning = (utdanning?: Partial<Utdanning>): Utdanning => {
   };
 };
 
-export const lagPeriode = (label: string, fra: IDatoFelt, til: IDatoFelt): IPeriode => ({
-  label: label,
-  fra: fra,
-  til: til,
-});
+export const lagPeriode = (periode?: Partial<IPeriode>): IPeriode => {
+  return {
+    label: 'Periode',
+    fra: lagDatoFelt('Fra', isoDatoEnMånedFrem),
+    til: lagDatoFelt('Til', isoDatoEnMånedTilbake),
+    ...periode,
+  };
+};
