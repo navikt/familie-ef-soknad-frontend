@@ -1,5 +1,5 @@
 import React from 'react';
-import SøkerErGift from './SøkerErGift';
+import { SøkerErGift } from './SøkerErGift';
 import { usePersonContext } from '../../../../../context/PersonContext';
 import SpørsmålGiftSeparertEllerSkiltIkkeRegistrert from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../../../../utils/sivilstatus';
