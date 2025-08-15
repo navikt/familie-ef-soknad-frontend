@@ -2,7 +2,7 @@ import React from 'react';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
-import SøkerHarSøktSeparasjon from './SøkerHarSøktSeparasjon';
+import { SøkerHarSøktSeparasjon } from './SøkerHarSøktSeparasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';

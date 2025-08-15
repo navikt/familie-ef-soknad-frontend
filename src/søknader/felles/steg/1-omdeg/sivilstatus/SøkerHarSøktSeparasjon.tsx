@@ -1,14 +1,12 @@
 import React from 'react';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { Datovelger } from '../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../OmDegContext';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
+import { Alert, VStack } from '@navikt/ds-react';
 
-const SøkerHarSøktSeparasjon: React.FC = () => {
+export const SøkerHarSøktSeparasjon: React.FC = () => {
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { datoSøktSeparasjon } = sivilstatus;
   const datovelgerTekstid = 'sivilstatus.datovelger.søktSeparasjon';
@@ -25,22 +23,17 @@ const SøkerHarSøktSeparasjon: React.FC = () => {
   };
 
   return (
-    <KomponentGruppe>
-      <FeltGruppe>
-        <Datovelger
-          settDato={(e) => settDatoSøktSeparasjon(e, datovelgerTekstid)}
-          valgtDato={datoSøktSeparasjon ? datoSøktSeparasjon.verdi : undefined}
-          tekstid={datovelgerTekstid}
-          gyldigeDatoer={GyldigeDatoer.Tidligere}
-        />
-      </FeltGruppe>
-      <FeltGruppe>
-        <AlertStripeDokumentasjon>
-          {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
-        </AlertStripeDokumentasjon>
-      </FeltGruppe>
-    </KomponentGruppe>
+    <VStack gap={'6'}>
+      <Datovelger
+        settDato={(e) => settDatoSøktSeparasjon(e, datovelgerTekstid)}
+        valgtDato={datoSøktSeparasjon ? datoSøktSeparasjon.verdi : undefined}
+        tekstid={datovelgerTekstid}
+        gyldigeDatoer={GyldigeDatoer.Tidligere}
+      />
+
+      <Alert variant={'info'} inline>
+        {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
+      </Alert>
+    </VStack>
   );
 };
-
-export default SøkerHarSøktSeparasjon;
