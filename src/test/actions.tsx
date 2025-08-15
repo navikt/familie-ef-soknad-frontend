@@ -5,6 +5,7 @@ import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
 import { UserEvent } from '@testing-library/user-event/index';
 import BarnetilsynApp from '../søknader/barnetilsyn/BarnetilsynApp';
+import SkolepengerApp from '../søknader/skolepenger/SkolepengerApp';
 
 export const navigerTilStegOvergangsstønad = async () => {
   const { screen, user } = render(
@@ -43,6 +44,31 @@ export const navigerTilStegBarnetilsyn = async () => {
       screen.getByRole('heading', {
         level: 1,
         name: 'Søknad om barnetilsyn',
+      })
+    ).toBeInTheDocument();
+  });
+
+  await user.click(
+    screen.getByRole('button', {
+      name: 'Fortsett på søknaden',
+    })
+  );
+
+  return { screen, user };
+};
+
+export const navigerTilStegSkolepenger = async () => {
+  const { screen, user } = render(
+    <TestContainer>
+      <SkolepengerApp />
+    </TestContainer>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Søknad om stønad til skolepenger',
       })
     ).toBeInTheDocument();
   });

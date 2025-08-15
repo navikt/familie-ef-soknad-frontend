@@ -25,7 +25,7 @@ vi.mock('axios', () => {
 
 describe('BosituasjonSteg', () => {
   test('Skal navigere til bosituasjonsteg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -38,7 +38,7 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker bor sammen med en hen har eller venter barn med', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -65,7 +65,7 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker og den andre forelderen bor midlertidig fra hverandre', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -92,7 +92,7 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker bor sammen med kjæresten sin', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -163,7 +163,7 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker deler bolig med andre voksne', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -242,7 +242,7 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker har tidligere samboer registrert på adressen sin', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -381,7 +381,7 @@ describe('BosituasjonSteg', () => {
   }, 10000);
 
   test('Bruker bor alene med barn eller er gravid og bor alene', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/bosituasjon');
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
