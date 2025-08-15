@@ -79,12 +79,12 @@ export const begrunnelseSpørsmål = (intl: LokalIntlShape): ISpørsmål => ({
       svar_tekst: hentTekst('sivilstatus.svar.samlivsbruddAndre', intl),
     },
     {
-      id: EBegrunnelse.aleneFraFødsel,
-      svar_tekst: hentTekst('sivilstatus.svar.aleneFraFødsel', intl),
-    },
-    {
       id: EBegrunnelse.endringISamværsordning,
       svar_tekst: hentTekst('sivilstatus.svar.endringISamværsordning', intl),
+    },
+    {
+      id: EBegrunnelse.aleneFraFødsel,
+      svar_tekst: hentTekst('sivilstatus.svar.aleneFraFødsel', intl),
     },
     {
       id: EBegrunnelse.dødsfall,

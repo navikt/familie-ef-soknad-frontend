@@ -1,8 +1,6 @@
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { erUformeltGiftSpørsmål, erUformeltSeparertEllerSkiltSpørsmål } from './SivilstatusConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import AlertstripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import React from 'react';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -10,18 +8,12 @@ import { hentValgtSvar } from '../../../../../utils/sivilstatus';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { Alert, VStack } from '@navikt/ds-react';
 
-const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
+export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   const intl = useLokalIntlContext();
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { erUformeltGift } = sivilstatus;
-
-  const harSvartJaPåUformeltGift = sivilstatus.erUformeltGift?.svarid === ESvar.JA;
-
-  const harSvartJaUformeltSeparertEllerSkilt =
-    sivilstatus.erUformeltSeparertEllerSkilt?.svarid === ESvar.JA;
-
-  const harSvartPåUformeltGiftSpørsmålet = erUformeltGift?.verdi !== undefined;
 
   const settErUformeltGift = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     settSivilstatus({
@@ -47,39 +39,41 @@ const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
     });
   };
 
+  const visUformeltGiftAlert = sivilstatus.erUformeltGift?.svarid === ESvar.JA;
+  const visUformeltSeperertEllerSkiltSpørsmål = erUformeltGift?.verdi !== undefined;
+  const visUformeltSeperertEllerSkiltAlert =
+    sivilstatus.erUformeltSeparertEllerSkilt?.svarid === ESvar.JA;
+
   return (
-    <>
-      <KomponentGruppe>
-        <JaNeiSpørsmål
-          spørsmål={erUformeltGiftSpørsmål(intl)}
-          onChange={settErUformeltGift}
-          valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
-        />
-        {harSvartJaPåUformeltGift && (
-          <AlertstripeDokumentasjon>
-            {hentTekst(hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl)), intl)}
-          </AlertstripeDokumentasjon>
-        )}
-      </KomponentGruppe>
-      {harSvartPåUformeltGiftSpørsmålet && (
-        <KomponentGruppe>
-          <JaNeiSpørsmål
-            spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
-            onChange={settErUformeltSeparertEllerSkilt}
-            valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
-          />
-          {harSvartJaUformeltSeparertEllerSkilt && (
-            <AlertstripeDokumentasjon>
-              {hentTekst(
-                hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltSeparertEllerSkiltSpørsmål(intl)),
-                intl
-              )}
-            </AlertstripeDokumentasjon>
-          )}
-        </KomponentGruppe>
+    <VStack gap={'6'}>
+      <JaNeiSpørsmål
+        spørsmål={erUformeltGiftSpørsmål(intl)}
+        onChange={settErUformeltGift}
+        valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
+      />
+
+      {visUformeltGiftAlert && (
+        <Alert variant={'info'} size={'small'} inline>
+          {hentTekst(hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl)), intl)}
+        </Alert>
       )}
-    </>
+
+      {visUformeltSeperertEllerSkiltSpørsmål && (
+        <JaNeiSpørsmål
+          spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
+          onChange={settErUformeltSeparertEllerSkilt}
+          valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
+        />
+      )}
+
+      {visUformeltSeperertEllerSkiltAlert && (
+        <Alert variant={'info'} size={'small'} inline>
+          {hentTekst(
+            hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltSeparertEllerSkiltSpørsmål(intl)),
+            intl
+          )}
+        </Alert>
+      )}
+    </VStack>
   );
 };
-
-export default SpørsmålGiftSeparertEllerSkiltIkkeRegistrert;

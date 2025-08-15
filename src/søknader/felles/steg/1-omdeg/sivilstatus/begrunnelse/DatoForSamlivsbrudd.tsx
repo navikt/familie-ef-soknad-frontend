@@ -1,17 +1,17 @@
 import React from 'react';
 import { Datovelger } from '../../../../../../components/dato/Datovelger';
-import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
-import AlertStripeDokumentasjon from '../../../../../../components/AlertstripeDokumentasjon';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../../../../../../components/dato/GyldigeDatoer';
+import { Alert, VStack } from '@navikt/ds-react';
 
-const DatoForSamlivsbrudd: React.FC = () => {
+export const DatoForSamlivsbrudd: React.FC = () => {
+  const intl = useLokalIntlContext();
+
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { datoForSamlivsbrudd } = sivilstatus;
   const datovelgerLabel = 'sivilstatus.datovelger.samlivsbrudd';
-  const intl = useLokalIntlContext();
 
   const settDatoForSamlivsbrudd = (date: string, tekstid: string): void => {
     settSivilstatus({
@@ -24,20 +24,17 @@ const DatoForSamlivsbrudd: React.FC = () => {
   };
 
   return (
-    <>
-      <KomponentGruppe>
-        <Datovelger
-          settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
-          valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}
-          tekstid={datovelgerLabel}
-          gyldigeDatoer={GyldigeDatoer.Tidligere}
-        />
-        <AlertStripeDokumentasjon>
-          {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
-        </AlertStripeDokumentasjon>
-      </KomponentGruppe>
-    </>
+    <VStack gap={'6'}>
+      <Datovelger
+        settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
+        valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}
+        tekstid={datovelgerLabel}
+        gyldigeDatoer={GyldigeDatoer.Tidligere}
+      />
+
+      <Alert variant={'info'} size={'small'} inline>
+        {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
+      </Alert>
+    </VStack>
   );
 };
-
-export default DatoForSamlivsbrudd;

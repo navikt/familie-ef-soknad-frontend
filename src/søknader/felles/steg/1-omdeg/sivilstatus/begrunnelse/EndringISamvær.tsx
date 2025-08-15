@@ -1,13 +1,13 @@
 import React from 'react';
-import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
 import { Datovelger } from '../../../../../../components/dato/Datovelger';
 import { useOmDeg } from '../../OmDegContext';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../../../../../../components/dato/GyldigeDatoer';
 
-const EndringISamvær: React.FC = () => {
+export const EndringISamvær: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const { sivilstatus, settSivilstatus } = useOmDeg();
   const { datoEndretSamvær } = sivilstatus;
   const datovelgerTekstid = 'sivilstatus.datovelger.endring';
@@ -23,15 +23,11 @@ const EndringISamvær: React.FC = () => {
   };
 
   return (
-    <KomponentGruppe>
-      <Datovelger
-        settDato={(e) => settDatoEndretSamvær(e, datovelgerTekstid)}
-        valgtDato={datoEndretSamvær ? datoEndretSamvær.verdi : undefined}
-        tekstid={datovelgerTekstid}
-        gyldigeDatoer={GyldigeDatoer.Alle}
-      />
-    </KomponentGruppe>
+    <Datovelger
+      settDato={(e) => settDatoEndretSamvær(e, datovelgerTekstid)}
+      valgtDato={datoEndretSamvær ? datoEndretSamvær.verdi : undefined}
+      tekstid={datovelgerTekstid}
+      gyldigeDatoer={GyldigeDatoer.Alle}
+    />
   );
 };
-
-export default EndringISamvær;
