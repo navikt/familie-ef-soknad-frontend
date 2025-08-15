@@ -12,7 +12,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 
-const PeriodeBoddIUtlandet: FC<{
+export const PeriodeBoddIUtlandet: FC<{
   land: ILandMedKode[];
 }> = ({ land }) => {
   const intl = useLokalIntlContext();
@@ -85,4 +85,3 @@ const PeriodeBoddIUtlandet: FC<{
     </>
   );
 };
-export default PeriodeBoddIUtlandet;

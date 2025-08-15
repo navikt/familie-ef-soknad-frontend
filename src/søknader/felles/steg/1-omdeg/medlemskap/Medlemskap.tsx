@@ -6,10 +6,8 @@ import {
   oppholderSegINorge,
   søkersOppholdsland,
 } from './MedlemskapConfig';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import PeriodeBoddIUtlandet from './PeriodeBoddIUtlandet';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
+import { PeriodeBoddIUtlandet } from './PeriodeBoddIUtlandet';
 import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
