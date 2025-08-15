@@ -1,15 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import Utenlandsopphold from './Utenlandsopphold';
-
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Label } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 
 export const PeriodeBoddIUtlandet: FC<{
@@ -55,33 +52,28 @@ export const PeriodeBoddIUtlandet: FC<{
   };
 
   return (
-    <>
-      {perioderBoddIUtlandet?.map((periode, index) => {
-        return (
-          <KomponentGruppe key={periode.id}>
-            <Utenlandsopphold
-              settPeriodeBoddIUtlandet={settPerioderBoddIUtlandet}
-              perioderBoddIUtlandet={perioderBoddIUtlandet}
-              utenlandsopphold={periode}
-              oppholdsnr={index}
-              land={land}
-            />
-          </KomponentGruppe>
-        );
-      })}
+    <VStack gap="6">
+      {perioderBoddIUtlandet.map((periode, index) => (
+        <Utenlandsopphold
+          key={periode.id}
+          settPeriodeBoddIUtlandet={settPerioderBoddIUtlandet}
+          perioderBoddIUtlandet={perioderBoddIUtlandet}
+          utenlandsopphold={periode}
+          oppholdsnr={index}
+          land={land}
+        />
+      ))}
 
       {erForrigePeriodeFyltUt && (
-        <KomponentGruppe>
-          <FeltGruppe>
-            <Label as="p">
-              {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
-            </Label>
-            <LeggTilKnapp onClick={() => leggTilUtenlandsperiode()}>
-              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
-            </LeggTilKnapp>
-          </FeltGruppe>
-        </KomponentGruppe>
+        <VStack gap="6">
+          <Heading size={'xsmall'}>
+            {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
+          </Heading>
+          <LeggTilKnapp onClick={leggTilUtenlandsperiode}>
+            {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+          </LeggTilKnapp>
+        </VStack>
       )}
-    </>
+    </VStack>
   );
 };
