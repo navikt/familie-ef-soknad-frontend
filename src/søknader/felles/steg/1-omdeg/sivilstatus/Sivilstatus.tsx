@@ -13,15 +13,17 @@ export const Sivilstatus: React.FC = () => {
   const { person } = usePersonContext();
   const sivilstand = person.søker.sivilstand;
 
+  const visSøkerErGift = erSøkerGift(sivilstand);
+  const visGiftSeparertEllerSkiltIkkeRegistrert = erSøkerUGiftSkiltSeparertEllerEnke(sivilstand);
+  const visÅrsakEnslig = erSivilstandSpørsmålBesvart(sivilstand, sivilstatus);
+
   return (
     <VStack gap={'6'}>
-      {erSøkerGift(sivilstand) && <SøkerErGift />}
+      {visSøkerErGift && <SøkerErGift />}
 
-      {erSøkerUGiftSkiltSeparertEllerEnke(sivilstand) && (
-        <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert />
-      )}
+      {visGiftSeparertEllerSkiltIkkeRegistrert && <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert />}
 
-      {erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) && <ÅrsakEnslig />}
+      {visÅrsakEnslig && <ÅrsakEnslig />}
     </VStack>
   );
 };
