@@ -57,7 +57,7 @@ export const ÅrsakEnslig: FC = () => {
       {visEndringISamvær && <EndringISamvær />}
 
       {visDødsfallAlert && (
-        <Alert size="small" variant="info" inline>
+        <Alert variant="info" size="small" inline>
           {hentHTMLTekst(alertTekstForDødsfall, intl)}
         </Alert>
       )}

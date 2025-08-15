@@ -53,7 +53,7 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
       />
 
       {visUformeltGiftAlert && (
-        <Alert variant={'info'} inline>
+        <Alert variant={'info'} size={'small'} inline>
           {hentTekst(hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl)), intl)}
         </Alert>
       )}
@@ -67,7 +67,7 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
       )}
 
       {visUformeltSeperertEllerSkiltAlert && (
-        <Alert variant={'info'} inline>
+        <Alert variant={'info'} size={'small'} inline>
           {hentTekst(
             hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltSeparertEllerSkiltSpørsmål(intl)),
             intl

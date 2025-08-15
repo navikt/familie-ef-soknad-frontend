@@ -39,7 +39,7 @@ export const SøkerErGift: React.FC = () => {
       {visSøkerHarSøktSeperasjonSpørsmål && <SøkerHarSøktSeparasjon />}
 
       {visSøktSeperasjonAlert && (
-        <Alert variant={'warning'} inline>
+        <Alert variant={'warning'} size={'small'} inline>
           {hentTekst('sivilstatus.alert-advarsel.søktSeparasjon', intl)}
         </Alert>
       )}

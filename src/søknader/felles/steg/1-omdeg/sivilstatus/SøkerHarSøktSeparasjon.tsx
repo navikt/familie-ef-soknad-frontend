@@ -31,7 +31,7 @@ export const SøkerHarSøktSeparasjon: React.FC = () => {
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
 
-      <Alert variant={'info'} inline>
+      <Alert variant={'info'} size={'small'} inline>
         {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
       </Alert>
     </VStack>
