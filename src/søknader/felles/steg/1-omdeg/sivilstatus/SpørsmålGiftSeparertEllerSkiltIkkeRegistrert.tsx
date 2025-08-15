@@ -40,9 +40,9 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   };
 
   const visUformeltGiftAlert = sivilstatus.erUformeltGift?.svarid === ESvar.JA;
-  const visUformeltSeperertEllerSkiltSpørsmål =
+  const visUformeltSeperertEllerSkiltSpørsmål = erUformeltGift?.verdi !== undefined;
+  const visUformeltSeperertEllerSkiltAlert =
     sivilstatus.erUformeltSeparertEllerSkilt?.svarid === ESvar.JA;
-  const visUformeltSeperertEllerSkiltAlert = erUformeltGift?.verdi !== undefined;
 
   return (
     <VStack gap={'6'}>
