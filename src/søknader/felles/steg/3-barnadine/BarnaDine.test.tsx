@@ -26,7 +26,7 @@ vi.mock('axios', () => {
 
 describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
   test('Skal navigere til BarnaDine-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barn', {});
+    mockMellomlagretSøknadOvergangsstønad('/barn', {});
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
@@ -34,7 +34,6 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
   test('Skal rendre riktig data fra barn', async () => {
     mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
       '/barn',
       {},
       {
@@ -77,7 +76,6 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
   test('Legge til nytt barn lager nytt barnekort', async () => {
     mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
       '/barn',
       {},
       {
@@ -134,7 +132,6 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
   test('Endre terminbarn', async () => {
     mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
       '/barn',
       {},
       {
@@ -193,7 +190,6 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
   test('Fjerne terminbarn', async () => {
     mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
       '/barn',
       {},
       {
@@ -239,7 +235,6 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
   test('Ikke vise neste-knapp dersom bruker ikke har barn, vise den dersom de har terminbarn', async () => {
     mockMellomlagretSøknadOvergangsstønad(
-      'overgangsstonad',
       '/barn',
       {},
       {

@@ -20,7 +20,7 @@ vi.mock('axios', () => {
 
 describe('OmDenTidligereSamboerenDin', () => {
   const gåTilSamlivsbruddMedNoenAndre = async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/om-deg');
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);

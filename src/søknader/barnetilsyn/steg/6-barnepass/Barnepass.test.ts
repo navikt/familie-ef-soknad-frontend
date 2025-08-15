@@ -33,7 +33,7 @@ vi.mock('axios', () => {
 
 describe('Barnepass-Steg', () => {
   test('Skal navigere til barnepass-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -41,7 +41,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
   });
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -61,7 +61,7 @@ describe('Barnepass-Steg', () => {
   });
 
   test('Barnet er i barnehage, SFO eller lignende', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -150,7 +150,7 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('button', { name: 'Avbryt' })).toBeInTheDocument();
   });
   test('Dagmamma eller annen privat ordning', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(
@@ -281,7 +281,7 @@ describe('Barnepass-Steg', () => {
   });
 
   test('Nav kan vurdere hva hvilken måned søker har rett til stønad', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp(
@@ -328,7 +328,7 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
   test('Søker fra bestemt måned', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp(
@@ -373,7 +373,6 @@ describe('Barnepass-Steg', () => {
 
   test('Barn er eldre enn 4.klasse', async () => {
     mockMellomlagretSøknadBarnetilsyn(
-      'barnetilsyn',
       '/barnetilsyn/barnepass',
       undefined,
       lagSøknadBarnetilsyn({
@@ -484,7 +483,7 @@ describe('Barnepass-Steg', () => {
   });
 
   test('Kan navigere seg til neste', async () => {
-    mockMellomlagretSøknadBarnetilsyn('barnetilsyn', '/barnetilsyn/barnepass');
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/barnepass');
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp(

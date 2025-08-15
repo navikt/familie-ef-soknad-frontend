@@ -106,7 +106,7 @@ const barnMedAnnenMedforelder = lagIBarn({
 
 describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   test('Skal navigere til BarnasBosted-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -115,7 +115,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Initielle tekster er tilstede', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -131,7 +131,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Medforelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -160,7 +160,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Medforelder bor i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
@@ -175,7 +175,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -226,7 +226,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -297,7 +297,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mindre samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -330,7 +330,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -371,7 +371,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -429,7 +429,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har mer samvær enn en ettermiddag og annenhver helg, har ikke samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -482,7 +482,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Andre forelder har ikke samvær', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -513,7 +513,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Ja', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -557,7 +557,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Nei', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -589,7 +589,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Bor foreldre i nærheten av hverandre; Vet ikke', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -621,7 +621,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Har foreldre bodd sammen før; Ja', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -684,7 +684,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Har foreldre bodd sammen før; Nei', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -737,7 +737,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes ikke', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -773,7 +773,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Kun når barnet hentes eller leveres', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -809,7 +809,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Hvor mye er foreldrene sammen; Møtes utenom henting og levering', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -863,7 +863,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Neste-knapp tar deg til oversiktssiden, 1 barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted');
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
@@ -930,7 +930,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger', () => {
 
 describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn)', () => {
   test('Personalia-spm om medforelder dukker opp, (oppgir ikke den andre forelderen, annet)', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [
           lagIBarn({
@@ -978,7 +978,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Personalia-spm om medforelder dukker opp, (oppgir ikke den andre forelderen, donor)', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [
           lagIBarn({
@@ -1019,7 +1019,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Personalia-spm om medforelder dukker opp, (kjent andre forelder) ', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [
           lagIBarn({
@@ -1093,7 +1093,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
   });
 
   test('Spm om barnets adresse terminbarn ikke skal bo hos søker', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [
           lagIBarn({
@@ -1166,7 +1166,7 @@ describe('BarnasBosted-Steg for overgangsstønad og skolepenger, (kun terminbarn
 
 describe('2 barn, samme forelder', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [barn, barnMedSammeMedforelder],
       }),
@@ -1255,7 +1255,7 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [barn, barnMedSammeMedforelder],
       }),
@@ -1434,7 +1434,7 @@ describe('2 barn, samme forelder', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [barn, barnMedSammeMedforelder],
       }),
@@ -1537,7 +1537,7 @@ describe('2 barn, samme forelder', () => {
 
 describe('2 barn, forskjellige foreldre', () => {
   test('Oversikten over første barn, første spørsmål andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [barn, barnMedAnnenMedforelder],
       }),
@@ -1616,7 +1616,7 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over første barn, spørsmålflyt for andre barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [barn, barnMedAnnenMedforelder],
       }),
@@ -2003,7 +2003,7 @@ describe('2 barn, forskjellige foreldre', () => {
   });
 
   test('Oversikten over begge barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({
         barn: [barn, barnMedAnnenMedforelder],
       }),
@@ -2128,7 +2128,7 @@ describe('2 barn, forskjellige foreldre', () => {
 
 describe('Oppsummeringssiden viser riktig informasjon', () => {
   test('Oversikten viser annen forelder bor i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2174,7 +2174,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Ja')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder bor ikke i Norge', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2232,7 +2232,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Argentina')).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mindre samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2283,7 +2283,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har mer samvær enn en ettermiddag + annenhver helg', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2339,7 +2339,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser annen forelder har ikke samvær', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2387,7 +2387,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2443,7 +2443,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke-beskrivende samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2508,7 +2508,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser har ukjent samvær, ikke samværsavtale', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2566,7 +2566,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('En beskrivelse av samværet')).toBeInTheDocument();
   });
   test('Oversikten viser foreldre bor nærme', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2621,7 +2621,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Ja')).toHaveLength(2);
   });
   test('Oversikten viser foreldre bor ikke nærme', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2671,7 +2671,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getAllByText('Nei')).toHaveLength(2);
   });
   test('Oversikten viser vet ikke hvor den andre forelderen bor', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2721,7 +2721,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Jeg vet ikke hvor den andre forelderen bor')).toBeInTheDocument();
   });
   test('Oversikten viser har bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2779,7 +2779,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('02.06.2025')).toBeInTheDocument();
   });
   test('Oversikten viser har ikke bodd med den andre forelderen før', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2828,7 +2828,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Nei')).toBeInTheDocument();
   });
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2877,7 +2877,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
   });
   test('Oversikten viser møtes ved henting og levering', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2928,7 +2928,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
     ).toBeInTheDocument();
   });
   test('Oversikten viser møtes utenom henting og levering', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
@@ -2988,7 +2988,7 @@ describe('Oppsummeringssiden viser riktig informasjon', () => {
 
 describe('Endre informasjon', () => {
   test('Oversikten viser møter ikke andre forelder', async () => {
-    mockMellomlagretSøknadOvergangsstønad('overgangsstonad', '/barnas-bosted', undefined, {
+    mockMellomlagretSøknadOvergangsstønad('/barnas-bosted', undefined, {
       person: lagPerson({ barn: [barn] }),
     });
     const { screen, user } = await navigerTilStegOvergangsstønad();
