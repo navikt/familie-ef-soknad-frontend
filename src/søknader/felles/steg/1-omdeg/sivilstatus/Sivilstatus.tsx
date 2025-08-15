@@ -1,7 +1,7 @@
 import React from 'react';
 import { SøkerErGift } from './SøkerErGift';
 import { usePersonContext } from '../../../../../context/PersonContext';
-import SpørsmålGiftSeparertEllerSkiltIkkeRegistrert from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
+import { SpørsmålGiftSeparertEllerSkiltIkkeRegistrert } from './SpørsmålGiftSeparertEllerSkiltIkkeRegistrert';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../../../../utils/sivilstatus';
 import ÅrsakEnslig from './begrunnelse/ÅrsakEnslig';
 import { erSivilstandSpørsmålBesvart } from '../../../../../helpers/steg/omdeg';
