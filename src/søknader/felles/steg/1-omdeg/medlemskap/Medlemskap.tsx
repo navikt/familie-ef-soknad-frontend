@@ -18,7 +18,7 @@ import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { useOmDeg } from '../OmDegContext';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 
-const Medlemskap: React.FC = () => {
+export const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
   const { medlemskap, settMedlemskap } = useOmDeg();
 
@@ -123,5 +123,3 @@ const Medlemskap: React.FC = () => {
     </SeksjonGruppe>
   );
 };
-
-export default Medlemskap;
