@@ -36,6 +36,7 @@ import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtdanning';
 import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
 import { IPeriode } from '../models/felles/periode';
+import { IDokumentasjon } from '../models/steg/dokumentasjon';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -440,6 +441,22 @@ export const lagPeriode = (periode?: Partial<IPeriode>): IPeriode => {
     label: 'Periode',
     fra: lagDatoFelt('Fra', isoDatoEnMånedTilbake),
     til: lagDatoFelt('Til', isoDatoEnMånedFrem),
+    ...periode,
+  };
+};
+
+export const lagDokumentasjon = (periode?: Partial<IDokumentasjon>): IDokumentasjon => {
+  return {
+    id: '',
+    spørsmålid: '',
+    svarid: '',
+    tittel: '',
+    label: 'Periode',
+    barnepassid: undefined,
+    barneid: undefined,
+    beskrivelse: undefined,
+    harSendtInn: false,
+    opplastedeVedlegg: undefined,
     ...periode,
   };
 };
