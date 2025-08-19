@@ -7,7 +7,7 @@ import {
 } from '../../../../helpers/steg/omdeg';
 import { Medlemskap } from './medlemskap/Medlemskap';
 import { Personopplysninger } from './personopplysninger/Personopplysninger';
-import Sivilstatus from '../../../felles/steg/1-omdeg/sivilstatus/Sivilstatus';
+import { Sivilstatus } from './sivilstatus/Sivilstatus';
 import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
