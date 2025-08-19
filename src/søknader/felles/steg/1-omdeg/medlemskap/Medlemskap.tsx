@@ -35,6 +35,7 @@ export const Medlemskap: React.FC = () => {
 
   const land = hentLand(locale);
   const oppholdslandConfig = søkersOppholdsland(land);
+  const harValgtOppholdsland = oppholdsland?.verdi !== undefined;
 
   const bosattINorgeDeSisteFemÅrConfig = bosattINorgeDeSisteFemÅr(intl);
 
@@ -86,8 +87,7 @@ export const Medlemskap: React.FC = () => {
   const visOppholdsLandSpørsmål = søkerOppholderSegINorge?.verdi === false;
   const visBosattINorgeSiste5ÅrSpørsmål =
     søkerOppholderSegINorge?.verdi === true ||
-    // eslint-disable-next-line no-prototype-builtins
-    (søkerOppholderSegINorge?.verdi === false && oppholdsland?.hasOwnProperty('verdi'));
+    (søkerOppholderSegINorge?.verdi === false && harValgtOppholdsland);
   const visPeriodeBoddIUtland = søkerBosattINorgeSisteTreÅr?.verdi === false;
 
   return (
