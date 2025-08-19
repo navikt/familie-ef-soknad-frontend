@@ -5,7 +5,7 @@ import {
   erStegFerdigUtfylt,
   erÅrsakEnsligBesvart,
 } from '../../../../helpers/steg/omdeg';
-import Medlemskap from '../../../felles/steg/1-omdeg/medlemskap/Medlemskap';
+import { Medlemskap } from './medlemskap/Medlemskap';
 import { Personopplysninger } from './personopplysninger/Personopplysninger';
 import { Sivilstatus } from './sivilstatus/Sivilstatus';
 import { Side, NavigasjonState } from '../../../../components/side/Side';
