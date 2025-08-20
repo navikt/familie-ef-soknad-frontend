@@ -53,10 +53,10 @@ export const EøsIdent: React.FC<Props> = ({
 
   return (
     <VStack gap={'6'}>
-      <Label>{utenlandskIDNummerTekst}</Label>
-      <ReadMore size={'small'} header={halvåpenTekstid}>
-        {åpneTekstid}
-      </ReadMore>
+      <VStack>
+        <Label>{utenlandskIDNummerTekst}</Label>
+        <ReadMore header={halvåpenTekstid}>{åpneTekstid}</ReadMore>
+      </VStack>
 
       <TextField
         key={'navn'}
