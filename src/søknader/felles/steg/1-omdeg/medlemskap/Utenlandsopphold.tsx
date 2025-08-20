@@ -131,7 +131,15 @@ export const Utenlandsopphold: FC<Props> = ({
     );
   };
 
-  const skalViseSlettKnapp = perioderBoddIUtlandet?.length > 1;
+  const visSlettKnapp = perioderBoddIUtlandet?.length > 1;
+  const visBegrunnelseTextArea =
+    erPeriodeDatoerValgt(utenlandsopphold.periode) &&
+    erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
+    // eslint-disable-next-line no-prototype-builtins
+    utenlandsopphold.land?.hasOwnProperty('verdi');
+  const visEøsIdent = utenlandsopphold.land && skalVisePersonidentTekstfelt(utenlandsopphold);
+  const visSisteAdressTextField =
+    utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold);
 
   return (
     <VStack gap={'6'}>
@@ -140,7 +148,7 @@ export const Utenlandsopphold: FC<Props> = ({
           {periodeTittel}
         </Heading>
 
-        {skalViseSlettKnapp && (
+        {visSlettKnapp && (
           <SlettKnapp
             onClick={() => fjernUtenlandsperiode()}
             tekstid={'medlemskap.periodeBoddIUtlandet.slett'}
@@ -162,25 +170,22 @@ export const Utenlandsopphold: FC<Props> = ({
         skalLogges={false}
       />
 
-      {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
-        // eslint-disable-next-line no-prototype-builtins
-        utenlandsopphold.land?.hasOwnProperty('verdi') && (
-          <Textarea
-            label={begrunnelseTekst}
-            placeholder={'...'}
-            value={begrunnelse.verdi}
-            maxLength={1000}
-            autoComplete={'off'}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              if (e.target.value.length <= 1000) {
-                settFeltNavn(e, 'begrunnelse', begrunnelseTekst);
-              }
-            }}
-          />
-        )}
+      {visBegrunnelseTextArea && (
+        <Textarea
+          label={begrunnelseTekst}
+          placeholder={'...'}
+          value={begrunnelse.verdi}
+          maxLength={1000}
+          autoComplete={'off'}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            if (e.target.value.length <= 1000) {
+              settFeltNavn(e, 'begrunnelse', begrunnelseTekst);
+            }
+          }}
+        />
+      )}
 
-      {utenlandsopphold.land && skalVisePersonidentTekstfelt(utenlandsopphold) && (
+      {visEøsIdent && (
         <EøsIdent
           halvåpenTekstid={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}
           åpneTekstid={hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
@@ -191,7 +196,7 @@ export const Utenlandsopphold: FC<Props> = ({
         />
       )}
 
-      {utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold) && (
+      {visSisteAdressTextField && (
         <TextField
           key={'navn'}
           label={sisteAdresseTekst}
