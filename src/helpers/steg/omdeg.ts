@@ -87,7 +87,18 @@ export const erPeriodeDatoerValgt = (periode: IPeriode) => {
 };
 
 const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
-  const { søkerBosattINorgeSisteTreÅr, perioderBoddIUtlandet } = medlemskap;
+  const {
+    søkerBosattINorgeSisteTreÅr,
+    perioderBoddIUtlandet,
+    søkerOppholderSegINorge,
+    oppholdsland,
+  } = medlemskap;
+
+  if (søkerOppholderSegINorge?.verdi === false) {
+    if (!oppholdsland?.verdi || stringErNullEllerTom(oppholdsland.verdi)) {
+      return false;
+    }
+  }
 
   if (perioderBoddIUtlandet !== null) {
     const finnesUtenlandsperiodeUtenBegrunnelseEllerDato = perioderBoddIUtlandet?.some(
@@ -100,6 +111,7 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
           erEøsLand,
           adresseEøsLand,
         } = utenlandsopphold;
+
         const manglendeBegrunnelse = stringErNullEllerTom(begrunnelse.verdi);
         const manglerPeriode =
           stringErNullEllerTom(periode.fra.verdi) || stringErNullEllerTom(periode.til.verdi);
@@ -115,12 +127,8 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
     );
 
     return søkerBosattINorgeSisteTreÅr?.verdi === false
-      ? finnesUtenlandsperiodeUtenBegrunnelseEllerDato
-        ? false
-        : true
-      : søkerBosattINorgeSisteTreÅr?.verdi
-        ? true
-        : false;
+      ? !finnesUtenlandsperiodeUtenBegrunnelseEllerDato
+      : !!søkerBosattINorgeSisteTreÅr?.verdi;
   } else return false;
 };
 
