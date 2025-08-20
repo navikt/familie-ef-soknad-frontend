@@ -39,7 +39,8 @@ interface Props {
   oppholdsnr: number;
   land: ILandMedKode[];
 }
-const Utenlandsopphold: FC<Props> = ({
+
+export const Utenlandsopphold: FC<Props> = ({
   perioderBoddIUtlandet,
   settPeriodeBoddIUtlandet,
   oppholdsnr,
@@ -215,5 +216,3 @@ const Utenlandsopphold: FC<Props> = ({
     </Container>
   );
 };
-
-export default Utenlandsopphold;

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import Utenlandsopphold from './Utenlandsopphold';
+import { Utenlandsopphold } from './Utenlandsopphold';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
