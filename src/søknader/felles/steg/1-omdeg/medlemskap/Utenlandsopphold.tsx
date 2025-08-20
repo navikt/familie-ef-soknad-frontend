@@ -12,7 +12,7 @@ import { Heading, HStack, Textarea, TextField, VStack } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { utenlandsoppholdLand } from './MedlemskapConfig';
-import EøsIdent from '../../../../../components/EøsIdent';
+import { EøsIdent } from '../../../../../components/EøsIdent';
 import { stringHarVerdiOgErIkkeTom } from '../../../../../utils/typer';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 

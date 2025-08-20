@@ -12,7 +12,7 @@ interface Props {
   settUtenlandsopphold: (utenlandsopphold: IUtenlandsopphold) => void;
 }
 
-const EøsIdent: React.FC<Props> = ({
+export const EøsIdent: React.FC<Props> = ({
   halvåpenTekstid,
   åpneTekstid,
   utenlandsopphold,
@@ -83,5 +83,3 @@ const EøsIdent: React.FC<Props> = ({
     </div>
   );
 };
-
-export default EøsIdent;
