@@ -228,6 +228,8 @@ const utledSøknadOvergangsstønad = (
       return lagSøknadOvergangsstønad({ harBekreftet: true });
     case '/din-situasjon':
       return søknadOvergangsstønadBarnasBosted(søknad);
+    case '/dokumentasjon':
+      return søknadOvergangsstønadBarnasBosted(søknad);
     default:
       return lagSøknadOvergangsstønad({ harBekreftet: true });
   }
