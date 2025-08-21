@@ -1,11 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import Feilmelding from '../feil/Feilmelding';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import LesMerTekst from '../LesMerTekst';
-import styled from 'styled-components';
-import FeltGruppe from '../gruppe/FeltGruppe';
-import KomponentGruppe from '../gruppe/KomponentGruppe';
 import {
   erDatoerLike,
   erDatoInnenforBegrensing,
@@ -13,29 +9,11 @@ import {
   hentStartOgSluttDato,
 } from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
-import { Label } from '@navikt/ds-react';
+import { Alert, Heading, HStack, VStack } from '@navikt/ds-react';
 import { Datovelger } from './Datovelger';
 import { GyldigeDatoer } from './GyldigeDatoer';
-
-const PeriodeGruppe = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, min-content);
-  grid-gap: 2rem;
-
-  .feilmelding {
-    grid-column: 1/3;
-  }
-
-  @media (max-width: 420px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 2rem;
-
-    .feilmelding {
-      grid-column: 1/2;
-    }
-  }
-`;
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 interface Props {
   className?: string;
@@ -49,8 +27,7 @@ interface Props {
   onValidate?: (isValid: boolean) => void;
 }
 
-const PeriodeDatovelgere: FC<Props> = ({
-  className,
+export const PeriodeDatovelgere: FC<Props> = ({
   periode,
   hjelpetekst,
   settDato,
@@ -60,6 +37,8 @@ const PeriodeDatovelgere: FC<Props> = ({
   gyldigeDatoer,
   onValidate,
 }) => {
+  const intl = useLokalIntlContext();
+
   const [feilmelding, settFeilmelding] = useState<string>('');
 
   const sammenlignDatoerOgHentFeilmelding = (
@@ -109,18 +88,22 @@ const PeriodeDatovelgere: FC<Props> = ({
     settDato(objektnøkkel, dato);
   };
 
+  const visLesMer = hjelpetekst;
+  const visDatoFeilmelding = feilmelding && feilmelding !== '';
+
   return (
-    <KomponentGruppe className={className}>
-      <FeltGruppe>
-        <Label as="p">{tekst}</Label>
-        {hjelpetekst && (
+    <VStack gap={'6'}>
+      <VStack>
+        <Heading size={'xsmall'}>{tekst}</Heading>
+        {visLesMer && (
           <LesMerTekst
             åpneTekstid={hjelpetekst.headerTekstid}
             innholdTekstid={hjelpetekst.innholdTekstid}
           />
         )}
-      </FeltGruppe>
-      <PeriodeGruppe className="periodegruppe" aria-live="polite">
+      </VStack>
+
+      <HStack gap={'6'}>
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.fra, e)}
           valgtDato={periode.fra.verdi}
@@ -134,12 +117,13 @@ const PeriodeDatovelgere: FC<Props> = ({
           tekstid={tomTekstid ? tomTekstid : 'periode.til'}
           gyldigeDatoer={gyldigeDatoer}
         />
-        {feilmelding && feilmelding !== '' && (
-          <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
-        )}
-      </PeriodeGruppe>
-    </KomponentGruppe>
+      </HStack>
+
+      {visDatoFeilmelding && (
+        <Alert variant={'error'} size={'small'}>
+          {hentTekst(feilmelding, intl)}
+        </Alert>
+      )}
+    </VStack>
   );
 };
-
-export default PeriodeDatovelgere;
