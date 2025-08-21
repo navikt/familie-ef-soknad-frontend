@@ -2,14 +2,14 @@ import React from 'react';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { privatEllerOffentligSpm } from './UtdanningConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import { IUnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
-  utdanning: IUnderUtdanning;
-  settUtdanning: (utdanning: IUnderUtdanning) => void;
+  utdanning: UnderUtdanning;
+  settUtdanning: (utdanning: UnderUtdanning) => void;
 }
 const ErUtdanningenOffentligEllerPrivat: React.FC<Props> = ({ utdanning, settUtdanning }) => {
   const intl = useLokalIntlContext();

@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { hentTekst } from '../utils/søknad';
 import { formatDate, strengTilDato } from '../utils/dato';
 import { useLocation } from 'react-router-dom';
 import { isValidISODateString } from 'iso-datestring-validator';
-import { hentBeskjedMedNavn } from '../utils/språk';
 import {
   ISpørsmålBooleanFelt,
   ISpørsmålFelt,
@@ -14,6 +12,7 @@ import { harValgtSvar } from './spørsmålogsvar';
 import { LokalIntlShape } from '../language/typer';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { BodyShort, Ingress, Label } from '@navikt/ds-react';
+import { hentTekst } from './teksthåndtering';
 
 export const visListeAvLabelOgSvar = (liste: object[] | undefined, overskrift: string) => {
   if (!liste) return null;
@@ -119,8 +118,8 @@ export const VisLabelOgSvar = (objekt: object | undefined, navn?: string) => {
       return VisPeriode(spørsmål);
     }
 
-    const label =
-      navn && spørsmål.label ? hentBeskjedMedNavn(navn, spørsmål.label) : spørsmål.label;
+    const label = navn && spørsmål.label ? spørsmål.label.replace('[0]', navn) : spørsmål.label;
+
     return (
       harValgtSvar(spørsmål.verdi) &&
       label && (

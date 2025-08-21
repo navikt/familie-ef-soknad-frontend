@@ -4,7 +4,7 @@ import {
   ITekstFelt,
   IDatoFelt,
 } from '../../søknad/søknadsfelter';
-import { IUnderUtdanning } from './utdanning';
+import { UnderUtdanning } from './utdanning';
 import { IArbeidsgiver } from './arbeidsgiver';
 import { IArbeidssøker } from './arbeidssøker';
 import { IFirma } from './firma';
@@ -19,7 +19,7 @@ export interface IAktivitet {
   egetAS?: IAksjeselskap[];
   firma?: IFirma;
   firmaer?: IFirma[];
-  underUtdanning?: IUnderUtdanning;
+  underUtdanning?: UnderUtdanning;
 }
 
 export interface IAksjeselskap {

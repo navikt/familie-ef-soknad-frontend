@@ -4,8 +4,10 @@ import { OvergangsstønadApp } from '../søknader/overgangsstønad/Overgangsstø
 import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
 import { UserEvent } from '@testing-library/user-event/index';
+import BarnetilsynApp from '../søknader/barnetilsyn/BarnetilsynApp';
+import SkolepengerApp from '../søknader/skolepenger/SkolepengerApp';
 
-export const navigerTilSteg = async () => {
+export const navigerTilStegOvergangsstønad = async () => {
   const { screen, user } = render(
     <TestContainer>
       <OvergangsstønadApp />
@@ -17,6 +19,56 @@ export const navigerTilSteg = async () => {
       screen.getByRole('heading', {
         level: 1,
         name: 'Søknad om overgangsstønad',
+      })
+    ).toBeInTheDocument();
+  });
+
+  await user.click(
+    screen.getByRole('button', {
+      name: 'Fortsett på søknaden',
+    })
+  );
+
+  return { screen, user };
+};
+
+export const navigerTilStegBarnetilsyn = async () => {
+  const { screen, user } = render(
+    <TestContainer>
+      <BarnetilsynApp />
+    </TestContainer>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Søknad om barnetilsyn',
+      })
+    ).toBeInTheDocument();
+  });
+
+  await user.click(
+    screen.getByRole('button', {
+      name: 'Fortsett på søknaden',
+    })
+  );
+
+  return { screen, user };
+};
+
+export const navigerTilStegSkolepenger = async () => {
+  const { screen, user } = render(
+    <TestContainer>
+      <SkolepengerApp />
+    </TestContainer>
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Søknad om stønad til skolepenger',
       })
     ).toBeInTheDocument();
   });
@@ -45,6 +97,19 @@ export const klikkCheckbox = async (name: string, screen: Screen, user: UserEven
   await user.click(screen.getByRole('checkbox', { name: name }));
 };
 
+export const klikkButton = async (name: string, screen: Screen, user: UserEvent) => {
+  await user.click(screen.getByRole('button', { name: name }));
+};
+
+export const klikkButtonIListe = async (
+  name: string,
+  index: number,
+  screen: Screen,
+  user: UserEvent
+) => {
+  await user.click(screen.getAllByRole('button', { name: name })[index]);
+};
+
 export const klikkKomponentMedId = async (id: string, screen: Screen, user: UserEvent) => {
   await user.click(screen.getByTestId(id));
 };
@@ -66,3 +131,10 @@ export const skrivFritekstTilKomponentMedId = async (
 ) => {
   await user.type(screen.getByTestId(id), fritekst);
 };
+
+export const velgAlternativCombobox = async (
+  name: string,
+  value: string,
+  screen: Screen,
+  user: UserEvent
+) => await user.selectOptions(screen.getByRole('combobox', { name: name }), value);

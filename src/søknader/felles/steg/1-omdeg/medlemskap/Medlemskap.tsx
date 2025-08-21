@@ -6,18 +6,18 @@ import {
   oppholderSegINorge,
   søkersOppholdsland,
 } from './MedlemskapConfig';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import PeriodeBoddIUtlandet from './PeriodeBoddIUtlandet';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
+import { PeriodeBoddIUtlandet } from './PeriodeBoddIUtlandet';
 import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { useOmDeg } from '../OmDegContext';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { VStack } from '@navikt/ds-react';
 
-const Medlemskap: React.FC = () => {
+export const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
   const { medlemskap, settMedlemskap } = useOmDeg();
 
@@ -35,19 +35,23 @@ const Medlemskap: React.FC = () => {
 
   const land = hentLand(locale);
   const oppholdslandConfig = søkersOppholdsland(land);
+  const harValgtOppholdsland = oppholdsland?.verdi !== undefined;
 
   const bosattINorgeDeSisteFemÅrConfig = bosattINorgeDeSisteFemÅr(intl);
 
   //TODO: Feltet heter søkerBosattINorgeSisteTreÅr men vi spør om fem år nå
   const settBosattSisteFemÅr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+    const tilbakestillOppholdsland = søkerOppholderSegINorge?.verdi;
 
     settMedlemskap({
       ...medlemskap,
       søkerBosattINorgeSisteTreÅr: {
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar,
       },
+      oppholdsland: tilbakestillOppholdsland ? undefined : medlemskap.oppholdsland,
+      perioderBoddIUtlandet: undefined,
     });
   };
 
@@ -57,7 +61,7 @@ const Medlemskap: React.FC = () => {
     settMedlemskap({
       ...medlemskap,
       søkerOppholderSegINorge: {
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar,
       },
     });
@@ -69,7 +73,7 @@ const Medlemskap: React.FC = () => {
       oppholdsland: {
         spørsmålid: spørsmål.søknadid,
         svarid: valgtSvar.id,
-        label: intl.formatMessage({ id: spørsmål.tekstid }),
+        label: hentTekst(spørsmål.tekstid, intl),
         verdi: valgtSvar.svar_tekst,
       },
     });
@@ -83,44 +87,37 @@ const Medlemskap: React.FC = () => {
     }
   };
 
+  const visOppholdsLandSpørsmål = søkerOppholderSegINorge?.verdi === false;
+  const visBosattINorgeSiste5ÅrSpørsmål =
+    søkerOppholderSegINorge?.verdi === true ||
+    (søkerOppholderSegINorge?.verdi === false && harValgtOppholdsland);
+  const visPeriodeBoddIUtland = søkerBosattINorgeSisteTreÅr?.verdi === false;
+
   return (
-    <SeksjonGruppe aria-live="polite">
-      <KomponentGruppe key={oppholderSegINorgeConfig.søknadid}>
-        <JaNeiSpørsmål
-          spørsmål={oppholderSegINorgeConfig}
-          valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap)}
-          onChange={settMedlemskapBooleanFelt}
+    <VStack gap={'6'}>
+      <JaNeiSpørsmål
+        spørsmål={oppholderSegINorgeConfig}
+        valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap)}
+        onChange={settMedlemskapBooleanFelt}
+      />
+
+      {visOppholdsLandSpørsmål && (
+        <SelectSpørsmål
+          spørsmål={oppholdslandConfig}
+          valgtSvarId={medlemskap.oppholdsland?.svarid}
+          settSpørsmålOgSvar={settOppholdsland}
         />
-      </KomponentGruppe>
-
-      {søkerOppholderSegINorge?.verdi === false && (
-        <KomponentGruppe>
-          <SelectSpørsmål
-            spørsmål={oppholdslandConfig}
-            valgtSvarId={medlemskap.oppholdsland?.svarid}
-            settSpørsmålOgSvar={settOppholdsland}
-          />
-        </KomponentGruppe>
       )}
 
-      {(søkerOppholderSegINorge?.verdi === true ||
-        (søkerOppholderSegINorge?.verdi === false &&
-          // eslint-disable-next-line no-prototype-builtins
-          oppholdsland?.hasOwnProperty('verdi'))) && (
-        <>
-          <KomponentGruppe key={bosattINorgeDeSisteFemÅrConfig.søknadid}>
-            <JaNeiSpørsmål
-              spørsmål={bosattINorgeDeSisteFemÅrConfig}
-              valgtSvar={hentValgtSvar(bosattINorgeDeSisteFemÅrConfig, medlemskap)}
-              onChange={settBosattSisteFemÅr}
-            />
-          </KomponentGruppe>
-
-          {søkerBosattINorgeSisteTreÅr?.verdi === false && <PeriodeBoddIUtlandet land={land} />}
-        </>
+      {visBosattINorgeSiste5ÅrSpørsmål && (
+        <JaNeiSpørsmål
+          spørsmål={bosattINorgeDeSisteFemÅrConfig}
+          valgtSvar={hentValgtSvar(bosattINorgeDeSisteFemÅrConfig, medlemskap)}
+          onChange={settBosattSisteFemÅr}
+        />
       )}
-    </SeksjonGruppe>
+
+      {visPeriodeBoddIUtland && <PeriodeBoddIUtlandet land={land} />}
+    </VStack>
   );
 };
-
-export default Medlemskap;

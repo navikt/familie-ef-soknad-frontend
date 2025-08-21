@@ -16,7 +16,8 @@ import {
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { IPeriode } from '../models/felles/periode';
-import { DatoBegrensning } from '../components/dato/Datovelger';
+
+import { GyldigeDatoer } from '../components/dato/GyldigeDatoer';
 
 export const STANDARD_DATOFORMAT = 'dd.MM.yyyy';
 export const FØDSELSNUMMER_DATOFORMAT = 'ddMMyy';
@@ -123,33 +124,33 @@ export const erNåværendeMånedMellomMåneder = (startMåned: number, sluttMån
   }
 };
 
-export const hentDatobegrensninger = (datobegrensning: DatoBegrensning) => {
+export const hentDatobegrensninger = (datobegrensning: GyldigeDatoer) => {
   switch (datobegrensning) {
-    case DatoBegrensning.AlleDatoer:
+    case GyldigeDatoer.Alle:
       return {};
-    case DatoBegrensning.FremtidigeDatoer:
+    case GyldigeDatoer.Fremtidige:
       return {
         minDate: new Date(),
         maxDate: addYears(new Date(), 100),
       };
-    case DatoBegrensning.TidligereDatoer:
+    case GyldigeDatoer.Tidligere:
       return {
         minDate: subYears(new Date(), 100),
         maxDate: new Date(),
       };
-    case DatoBegrensning.TidligereDatoerOgSeksMånederFrem:
+    case GyldigeDatoer.TidligereOgSeksMånederFrem:
       return {
         minDate: subYears(new Date(), 100),
         maxDate: addMonths(new Date(), 6),
       };
 
-    case DatoBegrensning.FemÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem:
       return {
         minDate: subYears(new Date(), 5),
         maxDate: addMonths(new Date(), 6),
       };
 
-    case DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem:
+    case GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem:
       return {
         minDate: subYears(new Date(), 50),
         maxDate: addMonths(new Date(), 6),

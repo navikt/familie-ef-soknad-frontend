@@ -789,7 +789,7 @@ export default {
     'If you have reduced your working hours for no reasonable reason, you will not be entitled to benefit until six months after you handed in your notice.',
 
   'dinSituasjon.legend.særligTilsyn': 'Which of your children needs special supervision?',
-  'dinSituasjon.label.særligTilsyn': 'About {barnetsNavn}’s need for special supervision',
+  'dinSituasjon.label.særligTilsyn': 'About [0]’s need for special supervision',
 
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'Når sa du opp?',
   'sagtOppEllerRedusertStilling.datovelger.redusertStilling': 'Når reduserte du arbeidstiden?',
@@ -1159,4 +1159,7 @@ export default {
   'kvittering.knapp.tilleggsstønader.aktivitetskrav': 'Apply for child care benefit',
   'overgangsstønad.feilsituasjon':
     'Sorry! We have technical issues, thus the form can not be submitted right now. Please try again later.',
+  'stegindikator.nåværendeSteg': 'Steg [0] av [1]',
+  'stegindikator.visAlleSteg': 'Vis alle steg',
+  'stegindikator.skjulAlleSteg': 'Gøym alle steg',
 };

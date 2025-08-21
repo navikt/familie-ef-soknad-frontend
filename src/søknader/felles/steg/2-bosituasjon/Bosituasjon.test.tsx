@@ -1,13 +1,13 @@
 import { describe, expect, vi } from 'vitest';
-import { mockGet, mockMellomlagretSøknad, mockPost } from '../../../../test/axios';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad, mockPost } from '../../../../test/axios';
 import {
   klikkCheckbox,
   klikkKomponentMedId,
   klikkRadioknapp,
-  navigerTilSteg,
+  navigerTilStegOvergangsstønad,
   skrivFritekst,
   skrivFritekstTilKomponentMedId,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 import { datoEnMånedFrem, datoEnMånedTilbake } from '../../../../test/dato';
 
 vi.mock('axios', () => {
@@ -25,8 +25,8 @@ vi.mock('axios', () => {
 
 describe('BosituasjonSteg', () => {
   test('Skal navigere til bosituasjonsteg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Bosituasjonen din' })
@@ -38,8 +38,8 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker bor sammen med en hen har eller venter barn med', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByText(
@@ -65,8 +65,8 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker og den andre forelderen bor midlertidig fra hverandre', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByText(
@@ -92,8 +92,8 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker bor sammen med kjæresten sin', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByText('Når du har samboer, har du ikke rett til stønad til enslig mor eller far')
@@ -163,8 +163,8 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker deler bolig med andre voksne', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {
@@ -242,8 +242,8 @@ describe('BosituasjonSteg', () => {
   });
 
   test('Bruker har tidligere samboer registrert på adressen sin', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByText(
@@ -381,8 +381,8 @@ describe('BosituasjonSteg', () => {
   }, 10000);
 
   test('Bruker bor alene med barn eller er gravid og bor alene', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/bosituasjon');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/bosituasjon');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.queryByRole('group', {

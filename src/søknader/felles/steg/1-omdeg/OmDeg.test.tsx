@@ -1,11 +1,15 @@
 import { describe, expect, test, vi } from 'vitest';
-import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
 import {
+  klikkButton,
+  klikkButtonIListe,
   klikkCheckbox,
   klikkRadioknapp,
-  navigerTilSteg,
+  navigerTilStegOvergangsstønad,
   skrivFritekst,
-} from '../../../../test/actions';
+  velgAlternativCombobox,
+} from '../../../../test/aksjoner';
+import { dagensDato, datoEnMånedTilbake } from '../../../../test/dato';
 
 vi.mock('axios', () => {
   return {
@@ -21,15 +25,15 @@ vi.mock('axios', () => {
 
 describe('OmDegSteg, personopplysninger', () => {
   test('Skal navigere til om-deg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByRole('heading', { level: 2, name: 'Om deg' })).toBeInTheDocument();
   });
 
   test('Rendre spørsmål om uformelt gift dersom bruker er ugift og borPåAdresse er ja', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -41,10 +45,10 @@ describe('OmDegSteg, personopplysninger', () => {
   });
 
   test('Rendrer spørsmål om separasjon dersom bruker er gift og borPåAdresse er ja', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg', {
+    mockMellomlagretSøknadOvergangsstønad('/om-deg', {
       sivilstand: 'GIFT',
     });
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -56,8 +60,8 @@ describe('OmDegSteg, personopplysninger', () => {
   });
 
   test('Rendre spørsmål og info om adresseendring dersom borPåAdresse er nei', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
@@ -87,8 +91,8 @@ describe('OmDegSteg, personopplysninger', () => {
 
 describe('OmDegSteg, sivilstatus', () => {
   test('Rendrer spørsmål om uregistrert gift/skilt/separert dersom bruker er ugift', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -134,8 +138,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer spørsmål om uregistrert gift/skilt/separert dersom bruker er gift', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg', { sivilstand: 'GIFT' });
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg', { sivilstand: 'GIFT' });
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -194,8 +198,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer felt for årsak:samlivsbrudd med den andre forelderen, samt nestehovedspørsmål', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -230,8 +234,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer felt for årsak:samlivsbrudd med noen andre, samt neste nestehovedspørsmål', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -307,8 +311,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Navn, avhuket kjennerIkkeIdent og fødselsdato skal rendre neste hovedspørsmål', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -376,8 +380,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer neste hovedspørsmål etter årsak:alene med barn fra fødsel', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -410,8 +414,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer felt for årsak:endring i omsorg for barn, samnt neste hovedspørsmål', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -451,8 +455,8 @@ describe('OmDegSteg, sivilstatus', () => {
   });
 
   test('Rendrer infoboks årsak:alene pga. dødsfall, samnt neste hovedspørsmål', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
@@ -505,9 +509,9 @@ describe('OmDegSteg, sivilstatus', () => {
 });
 
 describe('OmDegSteg, medlemskap', () => {
-  test('Rendrer neste spm dersom bruker oppholder seg i Norge', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+  test('Skal kunne navigere til neste steg ved ferdige utfylte verdier for medlemskap', async () => {
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -530,17 +534,103 @@ describe('OmDegSteg, medlemskap', () => {
     );
 
     await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
-
     expect(
       screen.getByRole('group', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).toBeInTheDocument();
+
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'Utenlandsperiode' })).toBeInTheDocument();
+    expect(screen.getByText('Når oppholdt du deg i utlandet?')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('combobox', {
+        name: 'I hvilket land oppholdt du deg i?',
+      })
+    ).toBeInTheDocument();
+
+    await skrivFritekst('Fra', datoEnMånedTilbake, screen, user);
+    await skrivFritekst('Til', dagensDato, screen, user);
+    await velgAlternativCombobox('I hvilket land oppholdt du deg i?', 'Brasil', screen, user);
+    expect(
+      screen.getByRole('textbox', { name: 'Hvorfor oppholdt du deg i Brasil?' })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+
+    await skrivFritekst('Hvorfor oppholdt du deg i Brasil?', 'På grunn av familien', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Legg til et utenlandsopphold' })
+    ).toBeInTheDocument();
+
+    await klikkButton('Legg til et utenlandsopphold', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Fjern utenlandsperiode' }).length).toBe(2);
+
+    await klikkButtonIListe('Fjern utenlandsperiode', 1, screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Fjern utenlandsperiode' })
+    ).not.toBeInTheDocument();
+
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Nei', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Hvor oppholder du og barnet/barna dere?',
+      })
+    ).toBeInTheDocument();
+
+    await velgAlternativCombobox(
+      'Hvor oppholder du og barnet/barna dere?',
+      'Algerie',
+      screen,
+      user
+    );
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await velgAlternativCombobox('I hvilket land oppholdt du deg i?', 'Danmark', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hvorfor oppholdt du deg i Danmark?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hva er id-nummeret ditt i Danmark?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: 'Jeg har ikke id-nummer i Danmark' })
+    ).toBeInTheDocument();
+
+    await skrivFritekst('Hva er id-nummeret ditt i Danmark?', '27909698168', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hva er den siste adressen du bodde på i Danmark?' })
+    ).toBeInTheDocument();
+
+    await skrivFritekst(
+      'Hva er den siste adressen du bodde på i Danmark?',
+      'Galtvort',
+      screen,
+      user
+    );
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkCheckbox('Jeg har ikke id-nummer i Danmark', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hva er id-nummeret ditt i Danmark?' })
+    ).toBeDisabled();
   });
 
   test('Rendrer felt og neste spm, dersom bruker ikke oppholder seg i Norge', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -585,8 +675,8 @@ describe('OmDegSteg, medlemskap', () => {
   });
 
   test('Rendrer neste-steg knapp, dersom bruker har oppholdt seg i Norge siste 5 år', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -616,8 +706,8 @@ describe('OmDegSteg, medlemskap', () => {
   });
 
   test('Rendrer felter og neste-steg knapp, dersom bruker ikke har oppholdt seg i Norge siste 5 år (IKKE EØS)', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
@@ -669,8 +759,8 @@ describe('OmDegSteg, medlemskap', () => {
   });
 
   test('Rendrer felter og neste-steg knapp, dersom bruker ikke har oppholdt seg i Norge siste 5 år (EØS)', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/om-deg');
-    const { screen, user } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(

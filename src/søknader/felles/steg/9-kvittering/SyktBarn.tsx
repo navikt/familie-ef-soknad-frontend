@@ -3,12 +3,12 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import download from '../../../../assets/download.svg';
 import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
 import styled from 'styled-components';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const StyledLenke = styled.div`
   margin-top: 1rem;
@@ -40,16 +40,14 @@ const SyktBarn: FC = () => {
   return (
     <SeksjonGruppe>
       <StyledUndertittel size="small">
-        <LocaleTekst tekst={'kvittering.tittel.huskeliste.syktBarn'} />
+        {hentTekst('kvittering.tittel.huskeliste.syktBarn', intl)}
       </StyledUndertittel>
-      <BodyShort>
-        <LocaleTekst tekst={'kvittering.beskrivelse.huskeliste.syktBarn'} />
-      </BodyShort>
+      <BodyShort>{hentTekst('kvittering.beskrivelse.huskeliste.syktBarn', intl)}</BodyShort>
       <StyledLenke>
         <Link href={hentSøknadBasertPåBrukerSpråk()} download>
           <img alt="Nedlastingsikon" src={download} />
           <Label as="p">
-            {intl.formatMessage({ id: 'kvittering.knapp.huskeliste.syktBarn' })}
+            {hentTekst('kvittering.knapp.huskeliste.syktBarn', intl)}
             {filInformasjon}
           </Label>
         </Link>

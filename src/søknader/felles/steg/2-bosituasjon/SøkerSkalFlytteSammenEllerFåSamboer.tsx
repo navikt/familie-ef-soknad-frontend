@@ -7,10 +7,11 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { EBosituasjon, ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { hentTekst } from '../../../../utils/teksthåndtering';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
 import { useBosituasjon } from './BosituasjonContext';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
   const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();
@@ -66,9 +67,7 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
     });
   };
 
-  const datovelgerTekst = intl.formatMessage({
-    id: 'datovelger.nårSkalDetteSkje',
-  });
+  const datovelgerTekst = hentTekst('datovelger.nårSkalDetteSkje', intl);
 
   const erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid =
     erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(datoSkalGifteSegEllerBliSamboer);
@@ -88,7 +87,7 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
             <Datovelger
               valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
               tekstid={'datovelger.nårSkalDetteSkje'}
-              datobegrensning={DatoBegrensning.FremtidigeDatoer}
+              gyldigeDatoer={GyldigeDatoer.Fremtidige}
               settDato={(e) => {
                 settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
               }}

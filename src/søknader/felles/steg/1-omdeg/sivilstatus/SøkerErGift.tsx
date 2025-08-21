@@ -1,22 +1,15 @@
 import React from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
-import SøkerHarSøktSeparasjon from './SøkerHarSøktSeparasjon';
-import styled from 'styled-components';
+import { SøkerHarSøktSeparasjon } from './SøkerHarSøktSeparasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Alert } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 
-const SøktSeparasjonAlert = styled(Alert)`
-  margin-bottom: 3rem;
-`;
-
-const SøkerErGift: React.FC = () => {
+export const SøkerErGift: React.FC = () => {
   const intl = useLokalIntlContext();
   const separasjonsSpørsmål: ISpørsmål = harSøktSeparasjonSpørsmål(intl);
   const { sivilstatus, settSivilstatus } = useOmDeg();
@@ -32,26 +25,24 @@ const SøkerErGift: React.FC = () => {
     });
   };
 
+  const visSøkerHarSøktSeperasjonSpørsmål = harSøktSeparasjon?.verdi;
+  const visSøktSeperasjonAlert = harSøktSeparasjon?.verdi === false;
+
   return (
-    <>
-      <KomponentGruppe>
-        <JaNeiSpørsmål
-          spørsmål={separasjonsSpørsmål}
-          onChange={settHarSøktSeparasjon}
-          valgtSvar={harSøktSeparasjon ? harSøktSeparasjon.verdi : undefined}
-        />
-      </KomponentGruppe>
-      {harSøktSeparasjon?.verdi ? (
-        <SøkerHarSøktSeparasjon />
-      ) : (
-        harSøktSeparasjon?.verdi === false && (
-          <SøktSeparasjonAlert variant="warning" inline>
-            <LocaleTekst tekst={'sivilstatus.alert-advarsel.søktSeparasjon'} />
-          </SøktSeparasjonAlert>
-        )
+    <VStack gap={'6'}>
+      <JaNeiSpørsmål
+        spørsmål={separasjonsSpørsmål}
+        onChange={settHarSøktSeparasjon}
+        valgtSvar={harSøktSeparasjon ? harSøktSeparasjon.verdi : undefined}
+      />
+
+      {visSøkerHarSøktSeperasjonSpørsmål && <SøkerHarSøktSeparasjon />}
+
+      {visSøktSeperasjonAlert && (
+        <Alert variant={'warning'} size={'small'} inline>
+          {hentTekst('sivilstatus.alert-advarsel.søktSeparasjon', intl)}
+        </Alert>
       )}
-    </>
+    </VStack>
   );
 };
-
-export default SøkerErGift;

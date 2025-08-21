@@ -1,11 +1,10 @@
 import React from 'react';
-import LocaleTekst from '../../language/LocaleTekst';
 import SeksjonGruppe from '../gruppe/SeksjonGruppe';
 import { FortsettSøknadKnappWrapper } from './FortsettSøknadKnapper';
-import { EEventsnavn, logEvent } from '../../utils/amplitude';
 import { useNavigate } from 'react-router-dom';
 import { LokalIntlShape } from '../../language/typer';
 import { BodyShort, Button } from '@navikt/ds-react';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 interface FortsettSøknadProps {
   intl: LokalIntlShape;
@@ -20,39 +19,28 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
   gjeldendeSteg,
   brukMellomlagretSøknad,
   nullstillMellomlagretSøknad,
-  skjemanavn,
 }) => {
   const navigate = useNavigate();
 
   return (
     <>
       <div className="seksjon">
-        <BodyShort>{intl.formatMessage({ id: 'side.fortsettSøknad.påbegyntSøknad' })}</BodyShort>
+        <BodyShort>{hentTekst('side.fortsettSøknad.påbegyntSøknad', intl)}</BodyShort>
       </div>
       <SeksjonGruppe className={'sentrert'}>
         <FortsettSøknadKnappWrapper>
           <Button
             onClick={() => {
-              logEvent(EEventsnavn.Mellomlagret, {
-                type: 'fortsett',
-                skjemanavn,
-                gjeldendeSteg,
-              });
               brukMellomlagretSøknad();
               navigate(gjeldendeSteg);
             }}
             variant="primary"
             className={'fortsett'}
           >
-            <LocaleTekst tekst={'side.fortsettSøknad.knapp.fortsett'} />
+            {hentTekst('side.fortsettSøknad.knapp.fortsett', intl)}
           </Button>
           <Button
             onClick={() => {
-              logEvent(EEventsnavn.Mellomlagret, {
-                type: 'nullstill',
-                skjemanavn,
-                gjeldendeSteg,
-              });
               nullstillMellomlagretSøknad().then(() => {
                 window.location.reload();
               });
@@ -60,7 +48,7 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
             variant="secondary"
             className={'start-ny'}
           >
-            <LocaleTekst tekst={'side.fortsettSøknad.knapp.startPåNytt'} />
+            {hentTekst('side.fortsettSøknad.knapp.startPåNytt', intl)}
           </Button>
         </FortsettSøknadKnappWrapper>
       </SeksjonGruppe>

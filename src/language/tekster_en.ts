@@ -152,12 +152,12 @@ export default {
   'medlemskap.spm.oppholdsland': 'Where are you and your child/children currently present?',
   'medlemskap.spm.bosatt': 'Have you lived in Norway for the past five years?',
   'medlemskap.periodeBoddIUtlandet.utenlandsopphold': 'Period spent abroad ',
-  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'What is your ID number in {0}?',
-  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'I do not have an ID number in {0}',
+  'medlemskap.periodeBoddIUtlandet.utenlandskIDNummer': 'What is your ID number in [0]?',
+  'medlemskap.periodeBoddIUtlandet.harIkkeIdNummer': 'I do not have an ID number in [0]',
   'medlemskap.hjelpetekst-åpne.begrunnelse': 'The reason we ask about this',
   'medlemskap.hjelpetekst-innhold.begrunnelse':
     'When you have stayed in another EEA country during the last 5 years, we sometimes need to obtain information from that country. This is because we need information to assess whether you are entitled to benefits.',
-  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'What is the last address you lived at in {0}?',
+  'medlemskap.periodeBoddIUtlandet.sisteAdresse': 'What is the last address you lived at in [0]?',
   'medlemskap.periodeBoddIUtlandet.land': 'In what country were you staying?',
   'medlemskap.periodeBoddIUtlandet.slett': 'Remove period spent abroad',
   'medlemskap.periodeBoddIUtlandet': 'When did you live overseas?',
@@ -543,7 +543,7 @@ export default {
   'dinSituasjon.datovelger-alert.redusertStilling':
     'If you have reduced your working hours for no reasonable reason, you will not be entitled to benefit until six months after you handed in your notice.',
   'dinSituasjon.legend.særligTilsyn': 'Which of your children needs special supervision?',
-  'dinSituasjon.label.særligTilsyn': 'About {barnetsNavn}’s need for special supervision',
+  'dinSituasjon.label.særligTilsyn': 'About [0]’s need for special supervision',
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'When did you resign?',
   'sagtOppEllerRedusertStilling.datovelger.redusertStilling':
     'When did you reduce your working hours?',
@@ -958,4 +958,7 @@ export default {
     'You have previously applied for child care benefit. If you wish, we can fill in the new application with the information from the previous application. You must answer some of the questions each time.',
   'gjenbruk.tidligere.barnetilsyn.søknad':
     'It is important that you review the information to see if it is still correct. If anything has changed, you must update the application with the new information.',
+  'stegindikator.nåværendeSteg': 'Step [0] out of [1]',
+  'stegindikator.visAlleSteg': 'Show all steps',
+  'stegindikator.skjulAlleSteg': 'Hide all steps',
 };

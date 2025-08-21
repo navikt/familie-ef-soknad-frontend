@@ -1,44 +1,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { FC } from 'react';
-import DatoForSamlivsbrudd from './DatoForSamlivsbrudd';
-import EndringISamvær from './EndringISamvær';
-import KomponentGruppe from '../../../../../../components/gruppe/KomponentGruppe';
+import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
+import { EndringISamvær } from './EndringISamvær';
 import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
-import NårFlyttetDereFraHverandre from './NårFlyttetDereFraHverandre';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
-import FeltGruppe from '../../../../../../components/gruppe/FeltGruppe';
-import { hentSvarAlertFraSpørsmål, hentTekst } from '../../../../../../utils/søknad';
+import { hentSvarAlertFraSpørsmål } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';
 import { ISpørsmål, ISvar } from '../../../../../../models/felles/spørsmålogsvar';
-import LocaleTekst from '../../../../../../language/LocaleTekst';
-import { harFyltUtSamboerDetaljer } from '../../../../../../utils/person';
 import { useLokalIntlContext } from '../../../../../../context/LokalIntlContext';
-import FormattedHtmlMessage from '../../../../../../language/FormattedHtmlMessage';
-import { Alert, Heading } from '@navikt/ds-react';
-import { TextFieldMedBredde } from '../../../../../../components/TextFieldMedBredde';
+import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../../OmDegContext';
-import OmDenTidligereSamboerenDin from './OmDenTidligereSamboerenDin';
+import { OmDenTidligereSamboerenDin } from './OmDenTidligereSamboerenDin';
+import { hentHTMLTekst, hentTekst } from '../../../../../../utils/teksthåndtering';
 
-const ÅrsakEnslig: FC = () => {
+export const ÅrsakEnslig: FC = () => {
   const intl = useLokalIntlContext();
   const spørsmål: ISpørsmål = begrunnelseSpørsmål(intl);
   const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
 
-  const { årsakEnslig, tidligereSamboerDetaljer } = sivilstatus;
-
-  const settNavn = (e: React.FormEvent<HTMLInputElement>) => {
-    settSivilstatus({
-      ...sivilstatus,
-      tidligereSamboerDetaljer: {
-        ...tidligereSamboerDetaljer,
-        kjennerIkkeIdent: tidligereSamboerDetaljer?.kjennerIkkeIdent ?? false,
-        navn: {
-          label: hentTekst('person.navn', intl),
-          verdi: e.currentTarget.value,
-        },
-      },
-    });
-  };
+  const { årsakEnslig } = sivilstatus;
 
   const settÅrsakEnslig = (spørsmål: ISpørsmål, svar: ISvar) => {
     settSivilstatus({
@@ -56,59 +36,31 @@ const ÅrsakEnslig: FC = () => {
 
   const alertTekstForDødsfall = hentSvarAlertFraSpørsmål(EBegrunnelse.dødsfall, spørsmål);
 
-  const harBrukerFyltUtSamboerDetaljer = harFyltUtSamboerDetaljer(
-    tidligereSamboerDetaljer ?? { kjennerIkkeIdent: false },
-    false
-  );
+  const visDatoForSamlivsbrudd = årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre;
+  const visOmDenTidligereSamboerenDin = årsakEnslig?.svarid === EBegrunnelse.samlivsbruddAndre;
+  const visEndringISamvær = årsakEnslig?.svarid === EBegrunnelse.endringISamværsordning;
+  const visDødsfallAlert = årsakEnslig?.svarid === EBegrunnelse.dødsfall;
 
   return (
-    <div aria-live="polite">
-      <KomponentGruppe>
-        <MultiSvarSpørsmål
-          key={spørsmål.tekstid}
-          spørsmål={spørsmål}
-          valgtSvar={sivilstatus.årsakEnslig?.verdi}
-          settSpørsmålOgSvar={settÅrsakEnslig}
-        />
-      </KomponentGruppe>
+    <VStack gap={'6'}>
+      <MultiSvarSpørsmål
+        key={spørsmål.tekstid}
+        spørsmål={spørsmål}
+        valgtSvar={sivilstatus.årsakEnslig?.verdi}
+        settSpørsmålOgSvar={settÅrsakEnslig}
+      />
 
-      {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre && <DatoForSamlivsbrudd />}
+      {visDatoForSamlivsbrudd && <DatoForSamlivsbrudd />}
 
-      {årsakEnslig?.svarid === EBegrunnelse.samlivsbruddAndre && (
-        <KomponentGruppe>
-          <FeltGruppe>
-            <Heading size="small" level="3">
-              <LocaleTekst tekst={'sivilstatus.tittel.samlivsbruddAndre'} />
-            </Heading>
-          </FeltGruppe>
-          <FeltGruppe>
-            <TextFieldMedBredde
-              key={'navn'}
-              label={hentTekst('person.navn', intl)}
-              type="text"
-              bredde={'L'}
-              onChange={(e) => settNavn(e)}
-              value={tidligereSamboerDetaljer?.navn?.verdi}
-            />
-          </FeltGruppe>
-          <FeltGruppe>
-            <OmDenTidligereSamboerenDin />
-          </FeltGruppe>
-          {harBrukerFyltUtSamboerDetaljer && <NårFlyttetDereFraHverandre />}
-        </KomponentGruppe>
+      {visOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
+
+      {visEndringISamvær && <EndringISamvær />}
+
+      {visDødsfallAlert && (
+        <Alert variant="info" size="small" inline>
+          {hentHTMLTekst(alertTekstForDødsfall, intl)}
+        </Alert>
       )}
-
-      {årsakEnslig?.svarid === EBegrunnelse.endringISamværsordning && <EndringISamvær />}
-
-      {årsakEnslig?.svarid === EBegrunnelse.dødsfall && (
-        <KomponentGruppe>
-          <Alert size="small" variant="info" inline>
-            <FormattedHtmlMessage id={alertTekstForDødsfall} />
-          </Alert>
-        </KomponentGruppe>
-      )}
-    </div>
+    </VStack>
   );
 };
-
-export default ÅrsakEnslig;

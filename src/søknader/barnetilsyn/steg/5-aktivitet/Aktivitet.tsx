@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import {
@@ -21,15 +21,11 @@ import {
 } from '../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { Alert, Label } from '@navikt/ds-react';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
@@ -42,15 +38,13 @@ const Aktivitet: React.FC = () => {
   const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
   const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   useEffect(() => {
     settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
     // eslint-disable-next-line
   }, [arbeidssituasjon]);
-
-  useMount(() => logSidevisningBarnetilsyn('Aktivitet'));
 
   const oppdaterArbeidssituasjon = (nyArbeidssituasjon: IAktivitet) => {
     settArbeidssituasjon({ ...arbeidssituasjon, ...nyArbeidssituasjon });
@@ -130,10 +124,8 @@ const Aktivitet: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({
-        id: 'stegtittel.arbeidssituasjon.barnetilsyn',
-      })}
-      skalViseKnapper={skalViseKnapper}
+      stegtittel={hentTekst('stegtittel.arbeidssituasjon.barnetilsyn', intl)}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}
@@ -150,12 +142,10 @@ const Aktivitet: React.FC = () => {
         {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
           <>
             <Alert variant={'info'} inline>
-              <Label as="p">
-                <LocaleTekst tekst={'erDuIArbeid.alertsstripe-info'} />
-              </Label>
+              <Label as="p">{hentHTMLTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
             </Alert>
             <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={'erDuIArbeid.alertsstripe-dokumentasjon'} />
+              {hentHTMLTekst('erDuIArbeid.alertsstripe-dokumentasjon', intl)}
             </AlertStripeDokumentasjon>
           </>
         )}

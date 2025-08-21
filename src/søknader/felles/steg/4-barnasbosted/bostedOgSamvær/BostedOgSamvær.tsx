@@ -3,7 +3,7 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { harAnnenForelderSamværMedBarn } from '../ForeldreConfig';
 import HvordanPraktiseresSamværet from '../HvordanPraktiseresSamværet';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EForelder, IForelder } from '../../../../../models/steg/forelder';
 import { erJaNeiSvar, hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import HarForelderSkriftligSamværsavtale from './HarForelderSkriftligSamværsavtale';

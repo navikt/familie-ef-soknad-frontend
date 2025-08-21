@@ -1,12 +1,12 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { BodyShort, Label } from '@navikt/ds-react';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   arbeidssituasjon: IAktivitet;
@@ -27,18 +27,14 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
   return (
     <KomponentGruppe>
       <AlertStripeDokumentasjon>
-        <Label as="p">
-          <LocaleTekst tekst={'dokumentasjon.arbeidskontrakt.tittel'} />
-        </Label>
+        <Label as="p">{hentTekst('dokumentasjon.arbeidskontrakt.tittel', intl)}</Label>
         <br />
-        <BodyShort>
-          <LocaleTekst tekst={'dokumentasjon.arbeidskontrakt.beskrivelse'} />
-        </BodyShort>
+        <BodyShort>{hentHTMLTekst('dokumentasjon.arbeidskontrakt.beskrivelse', intl)}</BodyShort>
       </AlertStripeDokumentasjon>
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}
         tekstid={'dinSituasjon.datovelger.jobb'}
-        datobegrensning={DatoBegrensning.FremtidigeDatoer}
+        gyldigeDatoer={GyldigeDatoer.Fremtidige}
         settDato={settDato}
       />
     </KomponentGruppe>

@@ -3,7 +3,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { EHvorforIkkeOppgi } from '../../../../models/steg/barnasbosted';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { hvorforIkkeOppgi } from './ForeldreConfig';
 import { IForelder } from '../../../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -167,7 +167,7 @@ const OmAndreForelder: React.FC<Props> = ({
           />
           {feilmeldingNavn && (
             <ErrorMessage className={'skjemaelement__feilmelding'}>
-              {intl.formatMessage({ id: 'person.feilmelding.navn' })}
+              {hentTekst('person.feilmelding.navn', intl)}
             </ErrorMessage>
           )}
         </FeltGruppe>
@@ -187,7 +187,7 @@ const OmAndreForelder: React.FC<Props> = ({
       {forelder.navn && !forelder.kanIkkeOppgiAnnenForelderFar?.verdi && (
         <IdentEllerFødselsdatoGruppe
           identLabel={hentTekst('person.ident', intl)}
-          datoLabel={hentTekst('person.fødselsdato', intl)}
+          datoLabelId={'person.fødselsdato'}
           checkboxLabel={hentTekst('person.checkbox.ident', intl)}
           ident={identFelt && !kjennerIkkeIdent ? identFelt : ''}
           fødselsdato={forelder?.fødselsdato?.verdi || ''}

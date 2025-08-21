@@ -8,7 +8,7 @@ import {
   gjelderNoeAvDetteDeg,
   SøkerFraBestemtMånedSpm,
 } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -26,17 +26,12 @@ import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import SituasjonOppfølgingSpørsmål from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
-import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
-import {
-  useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov,
-  useMount,
-} from '../../../../utils/hooks';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
+import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
@@ -57,24 +52,24 @@ const MerOmDinSituasjon: React.FC = () => {
   } = useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
   const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);
 
-  useMount(() => logSidevisningOvergangsstonad('MerOmDinSituasjon'));
-
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
 
-  const hjelpetekstFørsteAvsnitt = hentBeskjedMedNavn(
-    formatMånederTilbake(dagensDato, 3),
-    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1', intl)
+  const hjelpetekstFørsteAvsnitt = hentTekstMedEnVariabel(
+    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
+    intl,
+    formatMånederTilbake(dagensDato, 3)
   );
-  const hjelpetekstAndreAvsnitt = hentBeskjedMedNavn(
-    formatMånederTilbake(dagensDato, 5),
-    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2', intl)
+  const hjelpetekstAndreAvsnitt = hentTekstMedEnVariabel(
+    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2',
+    intl,
+    formatMånederTilbake(dagensDato, 5)
   );
   const hjelpetekstTredjeAvsnitt = hentTekst(
     'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del3',
@@ -158,8 +153,8 @@ const MerOmDinSituasjon: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.dinSituasjon' })}
-      skalViseKnapper={skalViseKnapper}
+      stegtittel={hentTekst('stegtittel.dinSituasjon', intl)}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}

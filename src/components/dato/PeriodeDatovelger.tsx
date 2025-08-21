@@ -1,40 +1,19 @@
 import { FC, useEffect, useState } from 'react';
-import Feilmelding from '../feil/Feilmelding';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import LesMerTekst from '../LesMerTekst';
-import styled from 'styled-components';
-import FeltGruppe from '../gruppe/FeltGruppe';
-import KomponentGruppe from '../gruppe/KomponentGruppe';
 import {
   erDatoerLike,
-  erDatoInnaforBegrensinger,
+  erDatoInnenforBegrensing,
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
-} from './utils';
+} from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
-import { Label } from '@navikt/ds-react';
-import { DatoBegrensning, Datovelger } from './Datovelger';
-
-const PeriodeGruppe = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, min-content);
-  grid-gap: 2rem;
-
-  .feilmelding {
-    grid-column: 1/3;
-  }
-
-  @media (max-width: 420px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 2rem;
-
-    .feilmelding {
-      grid-column: 1/2;
-    }
-  }
-`;
+import { Alert, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Datovelger } from './Datovelger';
+import { GyldigeDatoer } from './GyldigeDatoer';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 interface Props {
   className?: string;
@@ -44,33 +23,34 @@ interface Props {
   fomTekstid?: string;
   tomTekstid?: string;
   settDato: (objektnøkkel: EPeriode, dato?: string) => void;
-  datobegrensning: DatoBegrensning;
+  gyldigeDatoer: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
 }
 
-const PeriodeDatovelgere: FC<Props> = ({
-  className,
+export const PeriodeDatovelgere: FC<Props> = ({
   periode,
   hjelpetekst,
   settDato,
   tekst,
   fomTekstid,
   tomTekstid,
-  datobegrensning,
+  gyldigeDatoer,
   onValidate,
 }) => {
+  const intl = useLokalIntlContext();
+
   const [feilmelding, settFeilmelding] = useState<string>('');
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
-    datobegrensning: DatoBegrensning
+    gyldigeDatoer: GyldigeDatoer
   ): string => {
     const { startDato, sluttDato } = hentStartOgSluttDato(periode);
     const { fra, til } = periode;
     const erStartDatoUtenforBegrensninger: boolean =
-      fra.verdi !== '' && !erDatoInnaforBegrensinger(fra.verdi, datobegrensning);
+      fra.verdi !== '' && !erDatoInnenforBegrensing(fra.verdi, gyldigeDatoer);
     const erSluttUtenforBegrensninger: boolean =
-      til.verdi !== '' && !erDatoInnaforBegrensinger(til.verdi, datobegrensning);
+      til.verdi !== '' && !erDatoInnenforBegrensing(til.verdi, gyldigeDatoer);
 
     if (
       (fra.verdi !== '' && !erGyldigDato(fra.verdi)) ||
@@ -79,12 +59,12 @@ const PeriodeDatovelgere: FC<Props> = ({
       return 'datovelger.periode.ugyldigDato';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.TidligereDatoer
+      gyldigeDatoer === GyldigeDatoer.Tidligere
     )
       return 'datovelger.ugyldigDato.kunTidligereDatoer';
     else if (
       (erStartDatoUtenforBegrensninger || erSluttUtenforBegrensninger) &&
-      datobegrensning === DatoBegrensning.FremtidigeDatoer
+      gyldigeDatoer === GyldigeDatoer.Fremtidige
     )
       return 'datovelger.ugyldigDato.kunFremtidigeDatoer';
     else if (startDato && sluttDato && erDatoerLike(startDato, sluttDato))
@@ -98,47 +78,52 @@ const PeriodeDatovelgere: FC<Props> = ({
     const harStartEllerSluttDato = periode.fra.verdi !== '' || periode.til.verdi !== '';
 
     harStartEllerSluttDato &&
-      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, datobegrensning));
+      settFeilmelding(sammenlignDatoerOgHentFeilmelding(periode, gyldigeDatoer));
 
     if (onValidate && feilmelding !== '') onValidate(true);
     if (onValidate && feilmelding === '') onValidate(false);
-  }, [feilmelding, onValidate, periode, datobegrensning]);
+  }, [feilmelding, onValidate, periode, gyldigeDatoer]);
 
   const settPeriode = (objektnøkkel: EPeriode, dato?: string) => {
     settDato(objektnøkkel, dato);
   };
 
+  const visLesMer = hjelpetekst;
+  const visDatoFeilmelding = feilmelding && feilmelding !== '';
+
   return (
-    <KomponentGruppe className={className}>
-      <FeltGruppe>
-        <Label as="p">{tekst}</Label>
-        {hjelpetekst && (
+    <VStack gap={'6'}>
+      <VStack>
+        <Heading size={'xsmall'}>{tekst}</Heading>
+        {visLesMer && (
           <LesMerTekst
             åpneTekstid={hjelpetekst.headerTekstid}
             innholdTekstid={hjelpetekst.innholdTekstid}
           />
         )}
-      </FeltGruppe>
-      <PeriodeGruppe className="periodegruppe" aria-live="polite">
+      </VStack>
+
+      <HStack gap={'6'}>
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.fra, e)}
           valgtDato={periode.fra.verdi}
           tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
-          datobegrensning={datobegrensning}
+          gyldigeDatoer={gyldigeDatoer}
         />
 
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.til, e)}
           valgtDato={periode.til.verdi}
           tekstid={tomTekstid ? tomTekstid : 'periode.til'}
-          datobegrensning={datobegrensning}
+          gyldigeDatoer={gyldigeDatoer}
         />
-        {feilmelding && feilmelding !== '' && (
-          <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
-        )}
-      </PeriodeGruppe>
-    </KomponentGruppe>
+      </HStack>
+
+      {visDatoFeilmelding && (
+        <Alert variant={'error'} size={'small'}>
+          {hentTekst(feilmelding, intl)}
+        </Alert>
+      )}
+    </VStack>
   );
 };
-
-export default PeriodeDatovelgere;

@@ -1,10 +1,10 @@
 import React from 'react';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar, visListeAvLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
-import { IDetaljertUtdanning } from '../../../skolepenger/models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../../skolepenger/models/detaljertUtdanning';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import {
   SeksjonSpacingTop,
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { Ingress } from '@navikt/ds-react';
 
 interface Props {
-  utdanning: IDetaljertUtdanning;
+  utdanning: DetaljertUtdanning;
   endreInformasjonPath?: string;
 }
 

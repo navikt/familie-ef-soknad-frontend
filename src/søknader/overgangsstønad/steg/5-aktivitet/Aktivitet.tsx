@@ -5,7 +5,7 @@ import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/Ak
 import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -15,13 +15,10 @@ import {
 } from '../../../../helpers/steg/aktivitet';
 import AktivitetOppfølgingSpørsmål from '../../../felles/steg/5-aktivitet/AktivitetOppfølgingSpørsmål';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 
@@ -31,9 +28,9 @@ const Aktivitet: React.FC = () => {
     useOvergangsstønadSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>({
     ...søknad.aktivitet,
     hvaErDinArbeidssituasjon: søknad.aktivitet.hvaErDinArbeidssituasjon,
@@ -43,8 +40,6 @@ const Aktivitet: React.FC = () => {
     settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
     // eslint-disable-next-line
   }, [arbeidssituasjon]);
-
-  useMount(() => logSidevisningOvergangsstonad('Aktivitet'));
 
   const oppdaterArbeidssituasjon = (nyArbeidssituasjon: IAktivitet) => {
     settArbeidssituasjon({ ...arbeidssituasjon, ...nyArbeidssituasjon });
@@ -94,8 +89,8 @@ const Aktivitet: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.arbeidssituasjon' })}
-      skalViseKnapper={skalViseKnapper}
+      stegtittel={hentTekst('stegtittel.arbeidssituasjon', intl)}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreOvergangsstønad}
       routesStønad={RoutesOvergangsstonad}

@@ -3,9 +3,8 @@ import {
   ESagtOppEllerRedusertStilling,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -15,7 +14,8 @@ import { dagensDato, strengTilDato } from '../../../../utils/dato';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
-import { DatoBegrensning, Datovelger } from '../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   dinSituasjon: IDinSituasjon;
@@ -75,7 +75,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     settDinSituasjon({
       ...dinSituasjon,
       datoSagtOppEllerRedusertStilling: {
-        label: datovelgerLabel,
+        label: hentTekst(datovelgerLabelId, intl),
         verdi: dato,
       },
     });
@@ -88,17 +88,8 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
 
   const erSagtOppEllerRedusertStillingValgt = (valgtSvar: ESagtOppEllerRedusertStilling) => {
     const tekstid: string = 'dinSituasjon.svar.' + valgtSvar;
-    const svarTekst: string = intl.formatMessage({ id: tekstid });
+    const svarTekst: string = hentTekst(tekstid, intl);
     return sagtOppEllerRedusertStilling?.verdi === svarTekst;
-  };
-
-  const hentLabelForSagtOppEllerRedusertStilling = (
-    sagtOppLabel: string,
-    redusertStillingLabel: string
-  ) => {
-    if (harSagtOpp) return hentTekst(sagtOppLabel, intl);
-    else if (harRedusertStilling) return hentTekst(redusertStillingLabel, intl);
-    else return '';
   };
 
   const harSagtOpp = erSagtOppEllerRedusertStillingValgt(ESagtOppEllerRedusertStilling.sagtOpp);
@@ -111,23 +102,21 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     datoSagtOppEllerRedusertStilling &&
     valgtDatoMindreEnn6mndSiden(strengTilDato(datoSagtOppEllerRedusertStilling.verdi));
 
-  const alertLabel = hentLabelForSagtOppEllerRedusertStilling(
-    'dinSituasjon.alert.sagtOpp',
-    'dinSituasjon.alert.redusertStilling'
-  );
-  const begrunnelseLabel = hentLabelForSagtOppEllerRedusertStilling(
-    'dinSituasjon.fritekst.sagtOpp',
-    'dinSituasjon.fritekst.redusertStilling'
-  );
-  const datovelgerLabel = hentLabelForSagtOppEllerRedusertStilling(
-    'sagtOppEllerRedusertStilling.datovelger.sagtOpp',
-    'sagtOppEllerRedusertStilling.datovelger.redusertStilling'
-  );
+  const alertLabelId = harSagtOpp
+    ? 'dinSituasjon.alert.sagtOpp'
+    : 'dinSituasjon.alert.redusertStilling';
 
-  const valgtDatoMindreEnn6mndSidenAlert = hentLabelForSagtOppEllerRedusertStilling(
-    'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp',
-    'dinSituasjon.datovelger-alert.redusertStilling'
-  );
+  const begrunnelseLabel = harSagtOpp
+    ? hentTekst('dinSituasjon.fritekst.sagtOpp', intl)
+    : hentTekst('dinSituasjon.fritekst.redusertStilling', intl);
+
+  const datovelgerLabelId = harSagtOpp
+    ? 'sagtOppEllerRedusertStilling.datovelger.sagtOpp'
+    : 'sagtOppEllerRedusertStilling.datovelger.redusertStilling';
+
+  const valgtDatoMindreEnn6mndSidenAlertId = harSagtOpp
+    ? 'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp'
+    : 'dinSituasjon.datovelger-alert.redusertStilling';
 
   return (
     <>
@@ -139,9 +128,7 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
       {(harSagtOpp || harRedusertStilling) && (
         <>
           <KomponentGruppe>
-            <AlertStripeDokumentasjon>
-              <LocaleTekst tekst={alertLabel} />
-            </AlertStripeDokumentasjon>
+            <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
           </KomponentGruppe>
           <KomponentGruppe>
             <Textarea
@@ -160,13 +147,13 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
             <KomponentGruppe>
               <Datovelger
                 valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
-                tekstid={datovelgerLabel}
-                datobegrensning={DatoBegrensning.TidligereDatoer}
+                tekstid={datovelgerLabelId}
+                gyldigeDatoer={GyldigeDatoer.Tidligere}
                 settDato={settDato}
               />
               {erValgtDatoMindreEnn6mndSiden && (
                 <Alert size="small" variant="info" inline>
-                  <LocaleTekst tekst={valgtDatoMindreEnn6mndSidenAlert} />
+                  {hentTekst(valgtDatoMindreEnn6mndSidenAlertId, intl)}
                 </Alert>
               )}
             </KomponentGruppe>

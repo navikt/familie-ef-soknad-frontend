@@ -4,6 +4,7 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { IForelder } from '../../../../models/steg/forelder';
 import { BodyShort, Label, Textarea } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
   forelder: IForelder;
@@ -16,22 +17,14 @@ const HvordanPraktiseresSamværet: React.FC<Props> = ({ forelder, settForelder }
   return (
     <KomponentGruppe className="hvordan-praktiseres-samværet">
       <FeltGruppe>
-        <Label as="p">{intl.formatMessage({ id: 'barnasbosted.element.samvær' })}</Label>
-        <BodyShort>{intl.formatMessage({ id: 'barnasbosted.normaltekst.opplysninger' })}</BodyShort>
+        <Label as="p">{hentTekst('barnasbosted.element.samvær', intl)}</Label>
+        <BodyShort>{hentTekst('barnasbosted.normaltekst.opplysninger', intl)}</BodyShort>
         <ul>
           <li>
-            <BodyShort>
-              {intl.formatMessage({
-                id: 'barnasbosted.normaltekst.hvormangedager',
-              })}
-            </BodyShort>
+            <BodyShort>{hentTekst('barnasbosted.normaltekst.hvormangedager', intl)}</BodyShort>
           </li>
           <li>
-            <BodyShort>
-              {intl.formatMessage({
-                id: 'barnasbosted.normaltekst.nårreiserbarnet',
-              })}
-            </BodyShort>
+            <BodyShort>{hentTekst('barnasbosted.normaltekst.nårreiserbarnet', intl)}</BodyShort>
           </li>
         </ul>
       </FeltGruppe>
@@ -48,9 +41,7 @@ const HvordanPraktiseresSamværet: React.FC<Props> = ({ forelder, settForelder }
             settForelder({
               ...forelder,
               hvordanPraktiseresSamværet: {
-                label: intl.formatMessage({
-                  id: 'barnasbosted.element.samvær',
-                }),
+                label: hentTekst('barnasbosted.element.samvær', intl),
                 verdi: e.target.value,
               },
             })

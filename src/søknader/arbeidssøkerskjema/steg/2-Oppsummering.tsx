@@ -7,21 +7,18 @@ import {
 } from '../routes/routesArbeidssokerskjema';
 import { mapDataTilLabelOgVerdiTyper } from '../utils/innsending';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { hentTekst } from '../../../utils/søknad';
+import { hentTekst } from '../../../utils/teksthåndtering';
 import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../../utils/visning';
 import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
-import LocaleTekst from '../../../language/LocaleTekst';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
-import { logSidevisningArbeidssokerskjema } from '../../../utils/amplitude';
-import { useMount } from '../../../utils/hooks';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react';
 
@@ -44,8 +41,6 @@ const Oppsummering: React.FC = () => {
   const forrigeRoute = hentForrigeRoute(RoutesArbeidssokerskjema, location.pathname);
   const nesteRoute = hentNesteRoute(RoutesArbeidssokerskjema, location.pathname);
   const spørsmålOgSvar = VisLabelOgSvar(skjema.arbeidssøker);
-
-  useMount(() => logSidevisningArbeidssokerskjema('Oppsummering'));
 
   const sendInnArbeidssøkerSkjemaOgNavigerVidere = async (mappetSkjema: Record<string, object>) => {
     try {
@@ -79,7 +74,7 @@ const Oppsummering: React.FC = () => {
   };
 
   return (
-    <Side tittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })} skalViseKnapper={false}>
+    <Side tittel={hentTekst('oppsummering.sidetittel', intl)} skalViseKnapper={false}>
       <SeksjonGruppe>
         <div className="oppsummering-arbeidssøker">
           <p className="navds-body-short navds-body-long disclaimer">
@@ -118,7 +113,7 @@ const Oppsummering: React.FC = () => {
             variant={'secondary'}
             onClick={() => navigate(forrigeRoute.path)}
           >
-            <LocaleTekst tekst={'knapp.tilbake'} />
+            {hentTekst('knapp.tilbake', intl)}
           </Button>
 
           <Button
@@ -127,7 +122,7 @@ const Oppsummering: React.FC = () => {
             className={'neste'}
             loading={innsendingState.venter}
           >
-            <LocaleTekst tekst={'skjema.send'} />
+            {hentTekst('skjema.send', intl)}
           </Button>
 
           <Button
@@ -135,7 +130,7 @@ const Oppsummering: React.FC = () => {
             variant={'tertiary'}
             onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}
           >
-            <LocaleTekst tekst={'knapp.avbryt'} />
+            {hentTekst('knapp.avbryt', intl)}
           </Button>
         </StyledKnapper>
       </SeksjonGruppe>

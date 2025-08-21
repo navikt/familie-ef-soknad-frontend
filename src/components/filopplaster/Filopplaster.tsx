@@ -1,22 +1,24 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { hentBeskjedMedNavn, hentBeskjedMedToParametre } from '../../utils/språk';
 import opplasting from '../../assets/opplasting.svg';
 import OpplastedeFiler from './OpplastedeFiler';
 import { formaterFilstørrelse } from './utils';
 import { IVedlegg } from '../../models/steg/vedlegg';
 import Environment from '../../Environment';
 import axios from 'axios';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { IDokumentasjon } from '../../models/steg/dokumentasjon';
 import { dagensDatoMedTidspunktStreng } from '../../utils/dato';
-import { logFeilFilopplasting } from '../../utils/amplitude';
 import { getFeilmelding } from '../../utils/feil';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
 import styled from 'styled-components';
 import { ABlue500, ADeepblue50, AGray700 } from '@navikt/ds-tokens/dist/tokens';
+import {
+  hentTekst,
+  hentTekstMedEnVariabel,
+  hentTekstMedFlereVariabler,
+} from '../../utils/teksthåndtering';
 
 interface Props {
   oppdaterDokumentasjon: (
@@ -80,10 +82,6 @@ const Filopplaster: React.FC<Props> = ({
     settÅpenModal(false);
   };
 
-  const url = window.location.href;
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
-
   const onDrop = useCallback(
     (filer: File[]) => {
       const feilmeldingsliste: string[] = [];
@@ -93,19 +91,12 @@ const Filopplaster: React.FC<Props> = ({
         if (maxFilstørrelse && fil.size > maxFilstørrelse) {
           const maks = formaterFilstørrelse(maxFilstørrelse);
 
-          const feilmelding = hentBeskjedMedToParametre(
-            intl.formatMessage({ id: 'filopplaster.feilmelding.maks' }),
-            fil.name,
-            maks
-          );
+          const feilmelding = hentTekstMedFlereVariabler('filopplaster.feilmelding.maks', intl, {
+            0: fil.name,
+            1: maks,
+          });
 
           feilmeldingsliste.push(feilmelding);
-
-          logFeilFilopplasting(skjemanavn, skjemaId, {
-            type_feil: 'For stor fil',
-            feilmelding: feilmelding,
-            filstørrelse: fil.size,
-          });
 
           settFeilmeldinger(feilmeldingsliste);
           settÅpenModal(true);
@@ -113,19 +104,14 @@ const Filopplaster: React.FC<Props> = ({
         }
 
         if (tillatteFiltyper && !tillatteFiltyper.includes(fil.type)) {
-          const feilmelding = hentBeskjedMedNavn(
-            fil.name,
-            intl.formatMessage({ id: 'filopplaster.feilmelding.filtype' })
+          const feilmelding = hentTekstMedEnVariabel(
+            'filopplaster.feilmelding.filtype',
+            intl,
+            fil.name
           );
           feilmeldingsliste.push(feilmelding);
           settFeilmeldinger(feilmeldingsliste);
           settÅpenModal(true);
-
-          logFeilFilopplasting(skjemanavn, skjemaId, {
-            type_feil: 'Feil filtype',
-            feilmelding: feilmelding,
-            filtype: fil.type,
-          });
 
           return;
         }
@@ -173,13 +159,6 @@ const Filopplaster: React.FC<Props> = ({
             );
             feilmeldingsliste.push(feilmelding);
 
-            logFeilFilopplasting(skjemanavn, skjemaId, {
-              type_feil: 'Generisk feil',
-              feilmelding: feilmelding,
-              filtype: fil.type,
-              filstørrelse: fil.size,
-            });
-
             settFeilmeldinger(feilmeldingsliste);
             settÅpenModal(true);
           });
@@ -223,9 +202,9 @@ const Filopplaster: React.FC<Props> = ({
           <IkonOgTekstWrapper>
             <img src={opplasting} alt="Opplastingsikon" />
             <BodyShort>
-              {intl.formatMessage({
-                id: isDragActive ? 'filopplaster.slipp' : 'filopplaster.dra',
-              })}
+              {isDragActive
+                ? hentTekst('filopplaster.slipp', intl)
+                : hentTekst('filopplaster.dra', intl)}
             </BodyShort>
           </IkonOgTekstWrapper>
         </div>
