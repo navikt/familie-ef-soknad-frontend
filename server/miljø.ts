@@ -7,7 +7,7 @@ const erMockLokalt = process.env.BRUK_MOCK_LOKALT === 'true';
 const lokaltMockMiljø = {
   dokumentUrl: 'http://localhost:8092',
   apiUrl: 'http://localhost:8092',
-  oauthCallbackUri: 'https://localhost:8080/familie/alene-med-barn/soknad/oauth2/callback',
+  oauthCallbackUri: 'https://localhost:3000/familie/alene-med-barn/soknad/oauth2/callback',
 };
 const lokaltMiljø = {
   dokumentUrl: brukDevApi
@@ -16,7 +16,7 @@ const lokaltMiljø = {
   apiUrl: brukDevApi
     ? 'https://familie-ef-soknad-api.intern.dev.nav.no/familie/alene-med-barn/soknad-api'
     : 'http://localhost:8091',
-  oauthCallbackUri: 'https://localhost:8080/familie/alene-med-barn/soknad/oauth2/callback',
+  oauthCallbackUri: 'https://localhost:3000/familie/alene-med-barn/soknad/oauth2/callback',
 };
 
 const devMiljø = {

@@ -42,6 +42,7 @@
     "@navikt/fnrvalidator": "^2.1.5",
     "@navikt/land-verktoy": "9.1.9",
     "@navikt/nav-dekoratoren-moduler": "^3.4.0",
+    "@navikt/oasis": "^3.8.0",
     "@sentry/browser": "^9.40.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

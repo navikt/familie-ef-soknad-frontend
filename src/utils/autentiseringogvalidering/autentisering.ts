@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import Environment from '../../Environment';
 import {
   arbeidssøkerSkjemaForsideUrl,
@@ -30,6 +30,20 @@ const getRedirectUrl = () => {
 };
 
 export const autentiseringsInterceptor = () => {
+  axios.interceptors.request.use(
+    (config) => {
+      const token = sessionStorage.getItem('access_token');
+
+      if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+
   axios.interceptors.response.use(
     (response) => {
       return response;
@@ -37,6 +51,7 @@ export const autentiseringsInterceptor = () => {
     (error: AxiosError) => {
       if (er401Feil(error) && loggInn()) {
         window.location.href = getLoginUrl();
+        return new Promise(() => {});
       } else {
         throw error;
       }
@@ -44,6 +59,7 @@ export const autentiseringsInterceptor = () => {
   );
 };
 
+// skal forbedre logginn logikk
 export const verifiserAtBrukerErAutentisert = (
   settAutentisering: (autentisering: boolean) => void
 ) => {
