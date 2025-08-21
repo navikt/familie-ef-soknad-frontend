@@ -88,13 +88,14 @@ export const PeriodeDatovelgere: FC<Props> = ({
     settDato(objektnøkkel, dato);
   };
 
+  const visLesMer = hjelpetekst;
   const visDatoFeilmelding = feilmelding && feilmelding !== '';
 
   return (
     <VStack gap={'6'}>
       <VStack>
         <Heading size={'xsmall'}>{tekst}</Heading>
-        {hjelpetekst && (
+        {visLesMer && (
           <LesMerTekst
             åpneTekstid={hjelpetekst.headerTekstid}
             innholdTekstid={hjelpetekst.innholdTekstid}
