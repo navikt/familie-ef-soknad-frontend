@@ -3,7 +3,6 @@ import Feilmelding from '../feil/Feilmelding';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import LesMerTekst from '../LesMerTekst';
-import styled from 'styled-components';
 import {
   erDatoerLike,
   erDatoInnenforBegrensing,
@@ -11,29 +10,9 @@ import {
   hentStartOgSluttDato,
 } from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
-import { Heading, HStack, Label, VStack } from '@navikt/ds-react';
+import { Heading, HStack, VStack } from '@navikt/ds-react';
 import { Datovelger } from './Datovelger';
 import { GyldigeDatoer } from './GyldigeDatoer';
-
-const PeriodeGruppe = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, min-content);
-  grid-gap: 2rem;
-
-  .feilmelding {
-    grid-column: 1/3;
-  }
-
-  @media (max-width: 420px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 2rem;
-
-    .feilmelding {
-      grid-column: 1/2;
-    }
-  }
-`;
 
 interface Props {
   className?: string;
@@ -48,7 +27,6 @@ interface Props {
 }
 
 export const PeriodeDatovelgere: FC<Props> = ({
-  className,
   periode,
   hjelpetekst,
   settDato,
