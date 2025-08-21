@@ -3,7 +3,7 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { IBarn } from '../../../../models/steg/barn';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
-import PeriodeDatovelgere from '../../../../components/dato/PeriodeDatovelger';
+import { PeriodeDatovelgere } from '../../../../components/dato/PeriodeDatovelger';
 import { SlettKnapp } from '../../../../components/knapper/SlettKnapp';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { hentTittelMedNr } from '../../../../language/utils';

@@ -49,7 +49,7 @@ interface Props {
   onValidate?: (isValid: boolean) => void;
 }
 
-const PeriodeDatovelgere: FC<Props> = ({
+export const PeriodeDatovelgere: FC<Props> = ({
   className,
   periode,
   hjelpetekst,
@@ -141,5 +141,3 @@ const PeriodeDatovelgere: FC<Props> = ({
     </KomponentGruppe>
   );
 };
-
-export default PeriodeDatovelgere;
