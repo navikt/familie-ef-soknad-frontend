@@ -4,7 +4,7 @@ import {
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
   skrivFritekst,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 import {
   dagensDato,
   dagensIsoDatoMinusMåneder,

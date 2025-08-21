@@ -5,7 +5,7 @@ import {
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
   skrivFritekst,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 
 vi.mock('axios', () => {
   return {

@@ -2,7 +2,7 @@ import {
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
   skrivFritekst,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 import { describe, expect, test } from 'vitest';
 import {
   lagBooleanFelt,

@@ -5,7 +5,7 @@ import {
   klikkRadioknapp,
   navigerTilStegOvergangsstønad,
   skrivFritekst,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
 
 vi.mock('axios', () => {
