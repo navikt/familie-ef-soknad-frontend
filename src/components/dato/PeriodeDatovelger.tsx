@@ -4,8 +4,6 @@ import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
-import FeltGruppe from '../gruppe/FeltGruppe';
-import KomponentGruppe from '../gruppe/KomponentGruppe';
 import {
   erDatoerLike,
   erDatoInnenforBegrensing,
@@ -13,7 +11,7 @@ import {
   hentStartOgSluttDato,
 } from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
-import { Label } from '@navikt/ds-react';
+import { Heading, HStack, Label, VStack } from '@navikt/ds-react';
 import { Datovelger } from './Datovelger';
 import { GyldigeDatoer } from './GyldigeDatoer';
 
@@ -110,17 +108,18 @@ export const PeriodeDatovelgere: FC<Props> = ({
   };
 
   return (
-    <KomponentGruppe className={className}>
-      <FeltGruppe>
-        <Label as="p">{tekst}</Label>
+    <VStack gap={'6'}>
+      <VStack>
+        <Heading size={'xsmall'}>{tekst}</Heading>
         {hjelpetekst && (
           <LesMerTekst
             åpneTekstid={hjelpetekst.headerTekstid}
             innholdTekstid={hjelpetekst.innholdTekstid}
           />
         )}
-      </FeltGruppe>
-      <PeriodeGruppe className="periodegruppe" aria-live="polite">
+      </VStack>
+
+      <HStack gap={'6'}>
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.fra, e)}
           valgtDato={periode.fra.verdi}
@@ -134,10 +133,11 @@ export const PeriodeDatovelgere: FC<Props> = ({
           tekstid={tomTekstid ? tomTekstid : 'periode.til'}
           gyldigeDatoer={gyldigeDatoer}
         />
-        {feilmelding && feilmelding !== '' && (
-          <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
-        )}
-      </PeriodeGruppe>
-    </KomponentGruppe>
+      </HStack>
+
+      {feilmelding && feilmelding !== '' && (
+        <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
+      )}
+    </VStack>
   );
 };
