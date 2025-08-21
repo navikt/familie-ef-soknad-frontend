@@ -5,7 +5,7 @@ import { IPersonDetaljer } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
 
-const validerOmDeg = <T extends Søknad>(
+export const sanering = <T extends Søknad>(
   søknad: T,
   sivilstatus: ISivilstatus,
   medlemskap: IMedlemskap,
@@ -14,17 +14,17 @@ const validerOmDeg = <T extends Søknad>(
 ): T => {
   return {
     ...søknad,
-    sivilstatus: validerSivilstatus(sivilstatus),
-    medlemskap: validerMedlemskap(medlemskap),
+    sivilstatus: sanerSivilstatus(sivilstatus),
+    medlemskap: sanerMedlemskap(medlemskap),
     søkerBorPåRegistrertAdresse: søkerBorPåRegistrertAdresse,
-    adresseopplysninger: validerAdresseopplysninger(
+    adresseopplysninger: sanerAdresseopplysninger(
       harMeldtAdresseendring,
       søkerBorPåRegistrertAdresse
     ),
   };
 };
 
-const validerSivilstatus = (sivilstatus: ISivilstatus) => {
+const sanerSivilstatus = (sivilstatus: ISivilstatus) => {
   const skalFjerneDatoSøktSeparasjon = sivilstatus.harSøktSeparasjon?.verdi === false;
 
   const skalFjerneDatoForSamlivsbrudd =
@@ -77,7 +77,7 @@ const utledTidligereSamboerDetaljer = (
   return tidligereSamboerDetaljer;
 };
 
-const validerMedlemskap = (medlemskap: IMedlemskap) => {
+const sanerMedlemskap = (medlemskap: IMedlemskap) => {
   const skalFjernePerioderBoddIUtlandet = medlemskap.søkerBosattINorgeSisteTreÅr?.verdi === true;
 
   const skalFjerneOppholdsland = medlemskap.søkerOppholderSegINorge?.verdi === true;
@@ -91,7 +91,7 @@ const validerMedlemskap = (medlemskap: IMedlemskap) => {
   };
 };
 
-const validerAdresseopplysninger = (
+const sanerAdresseopplysninger = (
   harMeldtAdresseendring?: IAdresseopplysninger,
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt
 ) => {
@@ -100,5 +100,3 @@ const validerAdresseopplysninger = (
   }
   return harMeldtAdresseendring;
 };
-
-export { validerOmDeg };

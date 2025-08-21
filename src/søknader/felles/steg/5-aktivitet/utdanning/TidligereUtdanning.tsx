@@ -1,13 +1,12 @@
 import React from 'react';
-import { IUnderUtdanning, IUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning, Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
-import Utdanning from './Utdanning';
-import { hentTekst } from '../../../../../utils/søknad';
+import RegistrerUtdanning from './RegistrerUtdanning';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { tidligereUtdanningHjelpetekst, utdanningEtterGrunnskolenSpm } from './UtdanningConfig';
 import { lagTomUtdanning } from '../../../../../helpers/steg/utdanning';
@@ -18,17 +17,17 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, Label } from '@navikt/ds-react';
 
 interface Props {
-  underUtdanning: IUnderUtdanning;
-  settUnderUtdanning: (utdanning: IUnderUtdanning) => void;
+  underUtdanning: UnderUtdanning;
+  settUnderUtdanning: (utdanning: UnderUtdanning) => void;
 }
 
 const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdanning }) => {
   const intl = useLokalIntlContext();
-  const tidligereUtdanning: IUtdanning[] = underUtdanning.tidligereUtdanning
+  const tidligereUtdanning: Utdanning[] = underUtdanning.tidligereUtdanning
     ? underUtdanning.tidligereUtdanning
     : [];
 
-  const settTidligereUtdanning = (tidligereUtdanninger: IUtdanning[]) => {
+  const settTidligereUtdanning = (tidligereUtdanninger: Utdanning[]) => {
     settUnderUtdanning({
       ...underUtdanning,
       tidligereUtdanning: tidligereUtdanninger,
@@ -36,7 +35,7 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
   };
 
   const leggTilUtdanning = () => {
-    const allUtdanning: IUtdanning[] = [...tidligereUtdanning, lagTomUtdanning(intl)];
+    const allUtdanning: Utdanning[] = [...tidligereUtdanning, lagTomUtdanning(intl)];
     settUnderUtdanning({ ...underUtdanning, tidligereUtdanning: allUtdanning });
   };
 
@@ -68,12 +67,13 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
     <SeksjonGruppe>
       <KomponentGruppe>
         <Heading size="small" level="3" className={'sentrert'}>
-          <LocaleTekst tekst={'utdanning.tittel.tidligere'} />
+          {hentTekst('utdanning.tittel.tidligere', intl)}
         </Heading>
         <LesMerTekst
           åpneTekstid={tidligereUtdanningHjelpetekst.headerTekstid}
           innholdTekstid={tidligereUtdanningHjelpetekst.innholdTekstid}
           html={true}
+          testID={'grunn-til-spørsmål-om-tidligere-utdanning'}
         />
       </KomponentGruppe>
 
@@ -88,22 +88,25 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
         <>
           {tidligereUtdanning?.map((utdanning, index) => {
             return (
-              <Utdanning
+              <RegistrerUtdanning
                 key={utdanning.id}
                 tidligereUtdanninger={tidligereUtdanning}
                 settTidligereUtdanninger={settTidligereUtdanning}
                 utdanningsnummer={index}
+                testIder={[
+                  'tidligereUtdanning-linje',
+                  'tidligereutdanning-fra',
+                  'tidligereutdanning-til',
+                ]}
               />
             );
           })}
           {erTidligereUtdanningFerdigUtfylt(tidligereUtdanning ? tidligereUtdanning : []) && (
             <KomponentGruppe>
               <FeltGruppe>
-                <Label as="p">
-                  <LocaleTekst tekst={'utdanning.label.leggtil'} />
-                </Label>
+                <Label as="p">{hentTekst('utdanning.label.leggtil', intl)}</Label>
                 <LeggTilKnapp onClick={() => leggTilUtdanning()}>
-                  <LocaleTekst tekst={'utdanning.knapp.leggtil'} />
+                  {hentTekst('utdanning.knapp.leggtil', intl)}
                 </LeggTilKnapp>
               </FeltGruppe>
             </KomponentGruppe>

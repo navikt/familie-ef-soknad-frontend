@@ -8,7 +8,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import {
   erForelderUtfylt,
   utfyltBorINorge,
@@ -23,7 +23,6 @@ import { erGyldigDato } from '../../../../utils/dato';
 import { TypeBarn } from '../../../../models/steg/barnasbosted';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
 import {
   SettDokumentasjonsbehovBarn,
@@ -280,7 +279,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
             onClick={leggTilForelder}
             data-testid={'leggTilForelderKnapp'}
           >
-            <LocaleTekst tekst={'knapp.neste'} />
+            {hentTekst('knapp.neste', intl)}
           </Button>
         )}
       </div>

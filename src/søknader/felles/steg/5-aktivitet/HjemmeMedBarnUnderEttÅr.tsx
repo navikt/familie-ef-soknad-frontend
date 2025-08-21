@@ -1,14 +1,16 @@
 import React from 'react';
-import LocaleTekst from '../../../../language/LocaleTekst';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { Alert } from '@navikt/ds-react';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 const HjemmeMedBarnUnderEttÅr: React.FC = () => {
+  const intl = useLokalIntlContext();
   return (
     <>
       <KomponentGruppe>
         <Alert size="small" variant="info" inline>
-          <LocaleTekst tekst={'arbeidssituasjon.alert.aktivitetspliktFraEttÅr'} />
+          {hentHTMLTekst('arbeidssituasjon.alert.aktivitetspliktFraEttÅr', intl)}
         </Alert>
       </KomponentGruppe>
     </>

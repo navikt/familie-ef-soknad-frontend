@@ -1,9 +1,8 @@
 import { EBegrunnelse, ESivilstand, ISivilstatus } from '../../models/steg/omDeg/sivilstatus';
 import { IPeriode } from '../../models/felles/periode';
-import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
+import { IMedlemskap, IUtenlandsopphold } from '../../models/steg/omDeg/medlemskap';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
-import { erDatoGyldigOgInnaforBegrensninger } from '../../components/dato/utils';
+import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../utils/sivilstatus';
 import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';
@@ -11,6 +10,7 @@ import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 import { identErGyldig } from '../../utils/validering/validering';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const hentSivilstatus = (statuskode?: string) => {
   switch (statuskode) {
@@ -57,27 +57,21 @@ export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
     case EBegrunnelse.samlivsbruddForeldre:
       return (
         datoForSamlivsbrudd?.verdi !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(
-          datoForSamlivsbrudd.verdi,
-          DatoBegrensning.TidligereDatoer
-        )
+        erDatoGyldigOgInnenforBegrensning(datoForSamlivsbrudd.verdi, GyldigeDatoer.Tidligere)
       );
     case EBegrunnelse.samlivsbruddAndre:
       return (
         tidligereSamboerDetaljer &&
         harFyltUtSamboerDetaljer(tidligereSamboerDetaljer, false) &&
         datoFlyttetFraHverandre?.verdi !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(
-          datoFlyttetFraHverandre.verdi,
-          DatoBegrensning.AlleDatoer
-        ) &&
+        erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre.verdi, GyldigeDatoer.Alle) &&
         (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
           sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
       );
     case EBegrunnelse.endringISamværsordning:
       return (
         datoEndretSamvær?.verdi !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(datoEndretSamvær?.verdi, DatoBegrensning.AlleDatoer)
+        erDatoGyldigOgInnenforBegrensning(datoEndretSamvær?.verdi, GyldigeDatoer.Alle)
       );
     case EBegrunnelse.aleneFraFødsel:
       return true;
@@ -93,11 +87,29 @@ export const erPeriodeDatoerValgt = (periode: IPeriode) => {
 };
 
 const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
-  const { søkerBosattINorgeSisteTreÅr, perioderBoddIUtlandet } = medlemskap;
+  const {
+    søkerBosattINorgeSisteTreÅr,
+    perioderBoddIUtlandet,
+    søkerOppholderSegINorge,
+    oppholdsland,
+  } = medlemskap;
 
-  if (perioderBoddIUtlandet !== null) {
-    const finnesUtenlandsperiodeUtenBegrunnelseEllerDato = perioderBoddIUtlandet?.some(
-      (utenlandsopphold) => {
+  if (søkerOppholderSegINorge?.verdi === false) {
+    if (!oppholdsland?.verdi || stringErNullEllerTom(oppholdsland.verdi)) {
+      return false;
+    }
+  }
+
+  if (søkerBosattINorgeSisteTreÅr?.verdi === false) {
+    return harGyldigeUtfylteUtenlandsperioder(perioderBoddIUtlandet);
+  }
+
+  return !!søkerBosattINorgeSisteTreÅr?.verdi;
+};
+
+const harGyldigeUtfylteUtenlandsperioder = (utenlandsperioder: IUtenlandsopphold[] | undefined) =>
+  utenlandsperioder !== undefined
+    ? utenlandsperioder?.every((utenlandsopphold) => {
         const {
           begrunnelse,
           periode,
@@ -106,34 +118,26 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
           erEøsLand,
           adresseEøsLand,
         } = utenlandsopphold;
-        const manglendeBegrunnelse = stringErNullEllerTom(begrunnelse.verdi);
-        const manglerPeriode =
-          stringErNullEllerTom(periode.fra.verdi) || stringErNullEllerTom(periode.til.verdi);
-        const manglerAdresseEøsLand = stringErNullEllerTom(adresseEøsLand?.verdi);
-        const manglerPersonidentEøsLand =
-          stringErNullEllerTom(personidentEøsLand?.verdi) && !kanIkkeOppgiPersonident;
-        return (
-          manglendeBegrunnelse ||
-          manglerPeriode ||
-          (erEøsLand && (manglerAdresseEøsLand || manglerPersonidentEøsLand))
-        );
-      }
-    );
 
-    return søkerBosattINorgeSisteTreÅr?.verdi === false
-      ? finnesUtenlandsperiodeUtenBegrunnelseEllerDato
-        ? false
-        : true
-      : søkerBosattINorgeSisteTreÅr?.verdi
-        ? true
-        : false;
-  } else return false;
-};
+        const harBegrunnelse = !stringErNullEllerTom(begrunnelse.verdi);
+        const harPeriode =
+          !stringErNullEllerTom(periode.fra.verdi) && !stringErNullEllerTom(periode.til.verdi);
+        const harAdresseEøsLand = !stringErNullEllerTom(adresseEøsLand?.verdi);
+        const harPersonidentEøsLand =
+          !stringErNullEllerTom(personidentEøsLand?.verdi) || !!kanIkkeOppgiPersonident;
+
+        return (
+          harBegrunnelse &&
+          harPeriode &&
+          (!erEøsLand || (harAdresseEøsLand && harPersonidentEøsLand))
+        );
+      })
+    : false;
 
 const erDatoSøktSeparasjonGyldig = (datoSøktSeparasjon: IDatoFelt | undefined): boolean => {
   return !!(
     datoSøktSeparasjon?.verdi &&
-    erDatoGyldigOgInnaforBegrensninger(datoSøktSeparasjon?.verdi, DatoBegrensning.TidligereDatoer)
+    erDatoGyldigOgInnenforBegrensning(datoSøktSeparasjon?.verdi, GyldigeDatoer.Tidligere)
   );
 };
 

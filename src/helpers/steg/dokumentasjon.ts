@@ -1,6 +1,6 @@
 import { IDokumentasjon } from '../../models/steg/dokumentasjon';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import { LokalIntlShape } from '../../language/typer';
 
 export const hentDokumentasjonTilFlersvarSpørsmål = (

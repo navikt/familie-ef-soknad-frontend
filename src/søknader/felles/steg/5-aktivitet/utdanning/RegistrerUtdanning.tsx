@@ -3,37 +3,39 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
-import { IUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
+import { Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { linjeKursGrad } from './UtdanningConfig';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { harValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { EPeriode } from '../../../../../models/felles/periode';
 import PeriodeÅrMånedvelgere from '../../../../../components/dato/PeriodeÅrMånedvelgere';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
 import { formatIsoDate } from '../../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 interface Props {
-  tidligereUtdanninger: IUtdanning[];
-  settTidligereUtdanninger: (tidligereUtdanninger: IUtdanning[]) => void;
+  tidligereUtdanninger: Utdanning[];
+  settTidligereUtdanninger: (tidligereUtdanninger: Utdanning[]) => void;
   utdanningsnummer: number;
+  testIder?: string[];
 }
 
-const Utdanning: React.FC<Props> = ({
+const RegistrerUtdanning: React.FC<Props> = ({
   tidligereUtdanninger,
   settTidligereUtdanninger,
   utdanningsnummer,
+  testIder,
 }) => {
   const intl = useLokalIntlContext();
   const utdanningFraSøknad = tidligereUtdanninger?.find(
     (utdanning, index) => index === utdanningsnummer && utdanning
   );
 
-  const [utdanning, settUtdanning] = useState<IUtdanning>(utdanningFraSøknad!);
+  const [utdanning, settUtdanning] = useState<Utdanning>(utdanningFraSøknad!);
 
   useEffect(() => {
     const endretTidligereUtdanninger = tidligereUtdanninger?.map(
@@ -82,7 +84,7 @@ const Utdanning: React.FC<Props> = ({
   const utdanningTittel = hentTittelMedNr(
     tidligereUtdanninger!,
     utdanningsnummer,
-    intl.formatMessage({ id: 'utdanning.undertittel' })
+    hentTekst('utdanning.undertittel', intl)
   );
 
   const skalViseSlettKnapp = tidligereUtdanninger?.length > 1;
@@ -105,6 +107,7 @@ const Utdanning: React.FC<Props> = ({
           value={utdanning.linjeKursGrad?.verdi}
           bredde={'XL'}
           onChange={(e) => settInputFelt(linjeKursGradLabel, e)}
+          data-testid={testIder ? testIder[0] : undefined}
         />
       </FeltGruppe>
       {harValgtSvar(utdanning.linjeKursGrad?.verdi) && (
@@ -114,7 +117,8 @@ const Utdanning: React.FC<Props> = ({
             periode={utdanning.periode ? utdanning.periode : tomPeriode}
             settDato={settPeriode}
             aria-live="polite"
-            datobegrensing={DatoBegrensning.FemtiÅrTidligereOgSeksMånederFrem}
+            gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
+            testIder={testIder ? [testIder[1], testIder[2]] : undefined}
           />
         </KomponentGruppe>
       )}
@@ -122,4 +126,4 @@ const Utdanning: React.FC<Props> = ({
   );
 };
 
-export default Utdanning;
+export default RegistrerUtdanning;

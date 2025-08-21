@@ -1,30 +1,30 @@
 import React from 'react';
-import Banner from '../Banner';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
+import { SøknadBanner } from '../SøknadBanner';
 import SendBrevSVG from '../../assets/SendSøknadSVG';
-import { hentTekst } from '../../utils/søknad';
-import TilbakeNesteAvbrytKnapper from '../knapper/TilbakeNesteAvbrytKnapper';
+import { Stegindikator } from '../stegindikator/Stegindikator';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
+import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { IRoute } from '../../models/routes';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import { hentBannertittel } from '../../utils/stønadstype';
-import LocaleTekst from '../../language/LocaleTekst';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Alert, BodyShort, Box, Button, Heading } from '@navikt/ds-react';
-import Stegindikator from '../stegindikator/Stegindikator';
-import { stegSomSkalVisesPåStegindikator } from '../../utils/stegindikator';
+import styles from './Side.module.css';
+import { hentBannerKeyForStønad } from '../../utils/stønadstype';
+import { StegNavigasjon } from '../knapper/StegNavigasjon';
 
-export enum ESide {
+export enum NavigasjonState {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',
   visTilbakeTilOppsummeringKnapp = 'visTilbakeTilOppsummeringKnapp',
   skjulKnapper = 'skjulKnapper',
 }
 
 // TODO: Fjern nullable fra mellomlagreSteg
-interface ISide {
+interface Props {
   stønadstype: Stønadstype;
   stegtittel: string;
   routesStønad: IRoute[];
-  skalViseKnapper: ESide;
+  navigasjonState: NavigasjonState;
   erSpørsmålBesvart?: boolean;
   mellomlagreStønad?: (steg: string) => void;
   tilbakeTilOppsummeringPath?: string;
@@ -35,13 +35,13 @@ interface ISide {
   mellomlagreSteg?: () => void;
 }
 
-const Side: React.FC<ISide> = ({
+export const Side: React.FC<Props> = ({
   stønadstype,
   stegtittel,
   children,
   routesStønad,
   erSpørsmålBesvart,
-  skalViseKnapper,
+  navigasjonState,
   mellomlagreStønad,
   tilbakeTilOppsummeringPath,
   informasjonstekstId,
@@ -59,77 +59,80 @@ const Side: React.FC<ISide> = ({
   const stegobjekter = stegSomSkalVisesPåStegindikator(routes);
   const aktivtSteg = stegobjekter.findIndex((steg) => steg.path === location.pathname);
 
-  return (
-    <div className={'søknadsdialog'}>
-      <Banner tekstid={hentBannertittel(stønadstype)} />
-      <div className={'side'}>
-        {skalViseStegindikator && (
-          <Stegindikator stegListe={stegobjekter} aktivtSteg={aktivtSteg} />
-        )}
+  const onTilbakeFraOppsummering = () => {
+    if (mellomlagreSteg) {
+      mellomlagreSteg();
+    }
 
-        {!skalViseKnapper && (
-          <div className={'brev_ikon'}>
+    if (mellomlagreStønad) {
+      mellomlagreStønad(location.pathname);
+    }
+
+    navigate({
+      pathname: tilbakeTilOppsummeringPath,
+    });
+  };
+
+  return (
+    <VStack gap="6">
+      <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
+
+      <VStack gap="6" className={styles.innhold}>
+        {skalViseStegindikator && <Stegindikator steg={stegobjekter} aktivtSteg={aktivtSteg} />}
+
+        {navigasjonState === NavigasjonState.skjulKnapper && (
+          <div className={styles.brevIkon}>
             <SendBrevSVG />
           </div>
         )}
 
-        <Box padding="4" className={'side__innhold'}>
-          <div className={'innholdscontainer'}>
-            <Heading size="medium" className="hoved" level={'2'}>
-              {stegtittel}
-            </Heading>
-            {children}
-          </div>
-        </Box>
+        <VStack gap="8" className={styles.children}>
+          <Heading level="2" size="medium" className={styles.stegTittel}>
+            {stegtittel}
+          </Heading>
 
-        {informasjonstekstId && (
-          <Alert size="small" variant="info" className="side__informasjon" inline>
-            <LocaleTekst tekst={informasjonstekstId} />
-          </Alert>
-        )}
+          {children}
 
-        {skalViseKnapper === ESide.visTilbakeNesteAvbrytKnapp ? (
-          <>
-            {!erSpørsmålBesvart && (
-              <BodyShort size="small" className={'side__uu-tekst'}>
-                {intl.formatMessage({ id: 'knapp.uu-tekst' })}
-              </BodyShort>
-            )}
-            <TilbakeNesteAvbrytKnapper
-              routesStønad={routesStønad}
-              erSpørsmålBesvart={erSpørsmålBesvart}
-              mellomlagreStønad={mellomlagreStønad}
-              disableNesteKnapp={disableNesteKnapp}
-              mellomlagreSteg={mellomlagreSteg}
-            />
-          </>
-        ) : skalViseKnapper === ESide.visTilbakeTilOppsummeringKnapp ? (
-          erSpørsmålBesvart && (
+          {informasjonstekstId && (
+            <Alert size="small" variant="info" inline>
+              {hentHTMLTekst(informasjonstekstId, intl)}
+            </Alert>
+          )}
+
+          {navigasjonState === NavigasjonState.visTilbakeNesteAvbrytKnapp && (
             <>
-              <BodyShort size="small">{intl.formatMessage({ id: 'knapp.uu-tekst' })}</BodyShort>
-              <Button
-                variant="primary"
-                className="tilbake-til-oppsummering"
-                onClick={() => {
-                  if (mellomlagreSteg) {
-                    mellomlagreSteg();
-                  }
-                  if (mellomlagreStønad) {
-                    mellomlagreStønad(location.pathname);
-                  }
-                  navigate({
-                    pathname: tilbakeTilOppsummeringPath,
-                  });
-                }}
-              >
-                {hentTekst('oppsummering.tilbake', intl)}
-              </Button>
+              {!erSpørsmålBesvart && (
+                <BodyShort size="small" className={styles.uuTekst}>
+                  {hentTekst('knapp.uu-tekst', intl)}
+                </BodyShort>
+              )}
+              <StegNavigasjon
+                routesStønad={routesStønad}
+                erSpørsmålBesvart={erSpørsmålBesvart}
+                mellomlagreStønad={mellomlagreStønad}
+                disableNesteKnapp={disableNesteKnapp}
+                mellomlagreSteg={mellomlagreSteg}
+              />
             </>
-          )
-        ) : null}
-      </div>
-    </div>
+          )}
+
+          {navigasjonState === NavigasjonState.visTilbakeTilOppsummeringKnapp &&
+            erSpørsmålBesvart && (
+              <>
+                <BodyShort size="small" className={styles.uuTekst}>
+                  {hentTekst('knapp.uu-tekst', intl)}
+                </BodyShort>
+                <Button
+                  variant="primary"
+                  className={styles.tilbakeTilOppsummering}
+                  onClick={onTilbakeFraOppsummering}
+                >
+                  {hentTekst('oppsummering.tilbake', intl)}
+                </Button>
+              </>
+            )}
+        </VStack>
+      </VStack>
+    </VStack>
   );
 };
-
-export default Side;

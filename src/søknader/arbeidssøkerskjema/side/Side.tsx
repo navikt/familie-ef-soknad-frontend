@@ -1,13 +1,14 @@
 import React from 'react';
-import Banner from '../../../components/Banner';
+import { SøknadBanner } from '../../../components/SøknadBanner';
 import { RoutesArbeidssokerskjema } from '../routes/routesArbeidssokerskjema';
 import { useLocation } from 'react-router-dom';
 import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { BodyShort, Box, Heading } from '@navikt/ds-react';
 import { KnappLocaleTekstOgNavigate } from '../../../components/knapper/KnappLocaleTekstOgNavigate';
-import Stegindikator from '../../../components/stegindikator/Stegindikator';
+import { Stegindikator } from '../../../components/stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../../utils/stegindikator';
+import { hentTekst } from '../../../utils/teksthåndtering';
 
 interface ISide {
   tittel: string;
@@ -37,11 +38,9 @@ const Side: React.FC<ISide> = ({
 
   return (
     <div className={'skjema'}>
-      <Banner tekstid={'banner.tittel.arbeidssøker'} />
+      <SøknadBanner bannerKey={'banner.tittel.arbeidssøker'} />
       <div className={'side'}>
-        {skalViseStegindikator && (
-          <Stegindikator aktivtSteg={aktivtSteg} stegListe={stegobjekter} />
-        )}
+        {skalViseStegindikator && <Stegindikator aktivtSteg={aktivtSteg} steg={stegobjekter} />}
         <Box padding="4" className={'side__innhold'}>
           <div className={'innholdscontainer'}>
             <Heading size="medium" className="hoved">
@@ -54,7 +53,7 @@ const Side: React.FC<ISide> = ({
           <>
             {!erSpørsmålBesvart && (
               <BodyShort size="small" className={'side__uu-tekst'}>
-                {intl.formatMessage({ id: 'knapp.uu-tekst' })}
+                {hentTekst('knapp.uu-tekst', intl)}
               </BodyShort>
             )}
             <div className={erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper'}>

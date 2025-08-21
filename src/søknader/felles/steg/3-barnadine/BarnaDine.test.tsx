@@ -1,5 +1,5 @@
-import { mockGet, mockMellomlagretSøknad } from '../../../../test/axios';
-import { klikkRadioknapp, navigerTilSteg } from '../../../../test/actions';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
+import { klikkRadioknapp, navigerTilStegOvergangsstønad } from '../../../../test/aksjoner';
 import { expect } from 'vitest';
 import {
   lagBooleanFelt,
@@ -26,15 +26,14 @@ vi.mock('axios', () => {
 
 describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
   test('Skal navigere til BarnaDine-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknad('overgangsstonad', '/barn', {});
-    const { screen } = await navigerTilSteg();
+    mockMellomlagretSøknadOvergangsstønad('/barn', {});
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
   });
 
   test('Skal rendre riktig data fra barn', async () => {
-    mockMellomlagretSøknad(
-      'overgangsstonad',
+    mockMellomlagretSøknadOvergangsstønad(
       '/barn',
       {},
       {
@@ -56,7 +55,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         }),
       }
     );
-    const { screen } = await navigerTilSteg();
+    const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
 
@@ -76,8 +75,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Legge til nytt barn lager nytt barnekort', async () => {
-    mockMellomlagretSøknad(
-      'overgangsstonad',
+    mockMellomlagretSøknadOvergangsstønad(
       '/barn',
       {},
       {
@@ -99,7 +97,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
     expect(screen.getByRole('textbox', { name: 'Termindato' })).toBeInTheDocument();
@@ -133,8 +131,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Endre terminbarn', async () => {
-    mockMellomlagretSøknad(
-      'overgangsstonad',
+    mockMellomlagretSøknadOvergangsstønad(
       '/barn',
       {},
       {
@@ -156,7 +153,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
@@ -192,8 +189,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Fjerne terminbarn', async () => {
-    mockMellomlagretSøknad(
-      'overgangsstonad',
+    mockMellomlagretSøknadOvergangsstønad(
       '/barn',
       {},
       {
@@ -215,7 +211,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
@@ -238,8 +234,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
   });
 
   test('Ikke vise neste-knapp dersom bruker ikke har barn, vise den dersom de har terminbarn', async () => {
-    mockMellomlagretSøknad(
-      'overgangsstonad',
+    mockMellomlagretSøknadOvergangsstønad(
       '/barn',
       {},
       {
@@ -248,7 +243,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
         }),
       }
     );
-    const { screen, user } = await navigerTilSteg();
+    const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')

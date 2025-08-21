@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import FeltGruppe from './FeltGruppe';
-import { hentTekst } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
 import KomponentGruppe from './KomponentGruppe';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
-import { DatoBegrensning, Datovelger } from '../dato/Datovelger';
+import { Datovelger } from '../dato/Datovelger';
+import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 
 interface Props {
   identLabel: string;
-  datoLabel: string;
+  datoLabelId: string;
   checkboxLabel: string;
   ident: string | undefined;
   fødselsdato: string;
@@ -23,7 +24,7 @@ interface Props {
 
 const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   identLabel,
-  datoLabel,
+  datoLabelId,
   checkboxLabel,
   checked,
   ident,
@@ -71,8 +72,8 @@ const IdentEllerFødselsdatoGruppe: FC<Props> = ({
         <KomponentGruppe>
           <Datovelger
             valgtDato={fødselsdato}
-            tekstid={datoLabel}
-            datobegrensning={DatoBegrensning.TidligereDatoer}
+            tekstid={datoLabelId}
+            gyldigeDatoer={GyldigeDatoer.Tidligere}
             settDato={(e) => settFødselsdato(e)}
             testId={testIder && testIder[2]}
           />

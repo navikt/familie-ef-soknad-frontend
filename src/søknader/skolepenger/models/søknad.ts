@@ -4,7 +4,7 @@ import { ISivilstatus } from '../../../models/steg/omDeg/sivilstatus';
 import { IMedlemskap } from '../../../models/steg/omDeg/medlemskap';
 import { IDokumentasjon } from '../../../models/steg/dokumentasjon';
 import { IPerson } from '../../../models/søknad/person';
-import { IDetaljertUtdanning } from './detaljertUtdanning';
+import { DetaljertUtdanning } from './detaljertUtdanning';
 import { IAdresseopplysninger } from '../../../models/steg/adresseopplysninger';
 
 export interface SøknadSkolepenger {
@@ -15,7 +15,7 @@ export interface SøknadSkolepenger {
   sivilstatus: ISivilstatus;
   medlemskap: IMedlemskap;
   bosituasjon: IBosituasjon;
-  utdanning: IDetaljertUtdanning;
+  utdanning: DetaljertUtdanning;
   dokumentasjonsbehov: IDokumentasjon[];
   harBekreftet: boolean;
   locale: string;

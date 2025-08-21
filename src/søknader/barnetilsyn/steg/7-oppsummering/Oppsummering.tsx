@@ -11,11 +11,9 @@ import { IBarn } from '../../../../models/steg/barn';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentPath } from '../../../../utils/routing';
-import Side, { ESide } from '../../../../components/side/Side';
-import { hentTekst } from '../../../../utils/søknad';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { Accordion, BodyShort } from '@navikt/ds-react';
 
 const Oppsummering: React.FC = () => {
@@ -25,21 +23,19 @@ const Oppsummering: React.FC = () => {
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
   );
 
-  useMount(() => logSidevisningBarnetilsyn('Oppsummering'));
-
   return (
     <>
       <Side
         stønadstype={Stønadstype.barnetilsyn}
-        stegtittel={intl.formatMessage({ id: 'oppsummering.sidetittel' })}
+        stegtittel={hentTekst('oppsummering.sidetittel', intl)}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreBarnetilsyn}
         routesStønad={RoutesBarnetilsyn}
-        skalViseKnapper={ESide.visTilbakeNesteAvbrytKnapp}
+        navigasjonState={NavigasjonState.visTilbakeNesteAvbrytKnapp}
       >
         <div className="oppsummering">
           <BodyShort className="disclaimer">
-            {intl.formatMessage({ id: 'oppsummering.normaltekst.lesgjennom' })}
+            {hentTekst('oppsummering.normaltekst.lesgjennom', intl)}
           </BodyShort>
 
           <KomponentGruppe>

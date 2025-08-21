@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FC } from 'react';
 import { førsteBokstavStor } from '../../../../utils/språk';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { IBarn } from '../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';

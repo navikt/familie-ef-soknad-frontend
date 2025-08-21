@@ -2,11 +2,10 @@ import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
-import { logSpørsmålBesvart } from '../../utils/amplitude';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -43,14 +42,7 @@ interface Props {
 const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålOgSvar, valgtSvar }) => {
   const intl = useLokalIntlContext();
 
-  const skalLogges = true;
-
-  const url = window.location.href;
-
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
-
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
+  const legend = hentTekst(spørsmål.tekstid, intl);
 
   return (
     <StyledMultisvarSpørsmål key={spørsmål.søknadid}>
@@ -76,7 +68,6 @@ const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålO
               value={svar.svar_tekst}
               checked={svarISøknad ? svarISøknad : false}
               onChange={() => {
-                logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
                 settSpørsmålOgSvar(spørsmål, svar);
               }}
             >

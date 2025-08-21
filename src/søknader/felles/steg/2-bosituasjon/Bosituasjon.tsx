@@ -2,25 +2,26 @@ import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useLocation } from 'react-router-dom';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
-import { BosituasjonSpørsmål } from '../../../felles/steg/2-bosituasjon/BosituasjonSpørsmål';
-import Side, { ESide } from '../../../../components/side/Side';
+import { BosituasjonSpørsmål } from './BosituasjonSpørsmål';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useBosituasjon } from './BosituasjonContext';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 export const Bosituasjon: FC = () => {
   const intl = useLokalIntlContext();
   const { bosituasjon, stønadstype, routes, mellomlagreSteg, pathOppsummering } = useBosituasjon();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   return (
     <Side
       stønadstype={stønadstype}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.bosituasjon' })}
-      skalViseKnapper={skalViseKnapper}
+      stegtittel={hentTekst('stegtittel.bosituasjon', intl)}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erFerdigUtfylt(bosituasjon)}
       routesStønad={routes}
       tilbakeTilOppsummeringPath={pathOppsummering}

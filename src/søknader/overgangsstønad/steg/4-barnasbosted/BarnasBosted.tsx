@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { IBarn } from '../../../../models/steg/barn';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { antallBarnMedForeldreUtfylt } from '../../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
@@ -30,21 +28,19 @@ const BarnasBosted: React.FC = () => {
   });
 
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
     antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length
   );
 
-  useMount(() => logSidevisningOvergangsstonad('BarnasBosted'));
-
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
       stegtittel={hentTekst('barnasbosted.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={sisteBarnUtfylt}
       routesStønad={RoutesOvergangsstonad}
       mellomlagreStønad={mellomlagreOvergangsstønad}

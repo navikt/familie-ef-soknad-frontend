@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
-import { hentTekst } from '../../../../utils/søknad';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { SøkerDuStønadFraBestemtMndSpm } from './BarnepassConfig';
@@ -19,19 +19,15 @@ import {
   harBarnAvsluttetFjerdeKlasse,
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { IBarn } from '../../../../models/steg/barn';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { BodyShort } from '@navikt/ds-react';
 import styled from 'styled-components';
 
@@ -44,9 +40,9 @@ const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
     useBarnetilsynSøknad();
   const { søknadsdato, søkerFraBestemtMåned } = søknad;
@@ -56,17 +52,16 @@ const Barnepass: FC = () => {
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
 
-  const hjelpetekstInnholdSøkerFraMndTekstDel1 = hentBeskjedMedNavn(
-    formatMånederTilbake(dagensDato, 3),
-    hentTekst('søkerFraBestemtMåned.hjelpetekst-innhold.barnepass-del1', intl)
+  const hjelpetekstInnholdSøkerFraMndTekstDel1 = hentTekstMedEnVariabel(
+    'søkerFraBestemtMåned.hjelpetekst-innhold.barnepass-del1',
+    intl,
+    formatMånederTilbake(dagensDato, 3)
   );
 
   const hjelpetekstInnholdSøkerFraMndTekstDel2 = hentTekst(
     'søkerFraBestemtMåned.hjelpetekst-innhold.barnepass-del2',
     intl
   );
-
-  useMount(() => logSidevisningBarnetilsyn('Barnepass'));
 
   const settBarnepass = (barnepass: IBarnepass, barnid: string) => {
     const endretBarn = søknad.person.barn.map((barn: IBarn) => {
@@ -126,8 +121,8 @@ const Barnepass: FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={intl.formatMessage({ id: 'barnepass.sidetittel' })}
-      skalViseKnapper={skalViseKnapper}
+      stegtittel={hentTekst('barnepass.sidetittel', intl)}
+      navigasjonState={navigasjonState}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}
       routesStønad={RoutesBarnetilsyn}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { hentFeltObjekt, hentTekst } from '../../../../utils/søknad';
+import { hentFeltObjekt } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import LesMerTekst from '../../../../components/LesMerTekst';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
@@ -9,17 +9,15 @@ import Barnekort from '../../../felles/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import Side, { ESide } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import LocaleTekst from '../../../../language/LocaleTekst';
-import { logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { Alert, Label } from '@navikt/ds-react';
 import {
   BarnaDineContainer,
   BarneKortWrapper,
 } from '../../../felles/steg/3-barnadine/BarnaDineInnhold';
 import styled from 'styled-components';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 
 const AlertContainer = styled.div`
   & > *:not(:first-child) {
@@ -28,11 +26,9 @@ const AlertContainer = styled.div`
 `;
 
 const BarnaDine: React.FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('BarnaDine'));
-
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
-  const skalViseKnapper = ESide.visTilbakeNesteAvbrytKnapp;
+  const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const toggleSkalHaBarnepass = (id: string) => {
     const detteBarnet = søknad.person.barn.find((b: IBarn) => b.id === id);
@@ -60,7 +56,7 @@ const BarnaDine: React.FC = () => {
     <Side
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
-      skalViseKnapper={skalViseKnapper}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={harValgtMinstEttBarn}
       routesStønad={RoutesBarnetilsyn}
       mellomlagreStønad={mellomlagreBarnetilsyn}
@@ -68,9 +64,7 @@ const BarnaDine: React.FC = () => {
     >
       <BarnaDineContainer>
         <FeltGruppe>
-          <Label as="p">
-            <LocaleTekst tekst="barnetilsyn.tekst.hvilke" />
-          </Label>
+          <Label as="p">{hentTekst('barnetilsyn.tekst.hvilke', intl)}</Label>
           <LesMerTekst
             åpneTekstid={'barnetilsyn.hjelpetekst-åpne.hvilke'}
             innholdTekstid={'barnetilsyn.hjelpetekst-innhold.hvilke'}
@@ -89,7 +83,7 @@ const BarnaDine: React.FC = () => {
           )}
 
           <Alert size="small" variant="info" inline>
-            <LocaleTekst tekst={'barnadine.barnetilsyn.info.brukpdf'} />
+            {hentHTMLTekst('barnadine.barnetilsyn.info.brukpdf', intl)}
           </Alert>
         </AlertContainer>
 
@@ -104,7 +98,7 @@ const BarnaDine: React.FC = () => {
               }
               return 0;
             })
-            .map((barn: IBarn) => (
+            .map((barn: IBarn, indeks: number) => (
               <Barnekort
                 key={barn.id}
                 gjeldendeBarn={barn}
@@ -113,6 +107,7 @@ const BarnaDine: React.FC = () => {
                     id={barn.id ? barn.id : ''}
                     toggleSkalHaBarnepass={toggleSkalHaBarnepass}
                     skalHaBarnepass={!!barn.skalHaBarnepass?.verdi}
+                    testId={`avhuk-${indeks}`}
                   />
                 }
               />

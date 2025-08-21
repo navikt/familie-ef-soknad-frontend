@@ -8,3 +8,11 @@ expect.extend(matchers);
 afterEach(() => {
   cleanup();
 });
+
+vi.mock('@navikt/nav-dekoratoren-moduler', () => ({
+  setAvailableLanguages: vi.fn().mockImplementation(() => {
+    return Promise.resolve();
+  }),
+  onLanguageSelect: vi.fn(),
+  getCurrentConsent: vi.fn(),
+}));

@@ -8,7 +8,7 @@ import TilleggsstønaderHarAktivitet from '../../../felles/steg/9-kvittering/Til
 import TilleggsstønaderUnderUtdanning from '../../../felles/steg/9-kvittering/TilleggsstønaderUnderUtdanning';
 import { ESvar } from '../../../../models/felles/spørsmålogsvar';
 import { formatDateHour } from '../../../../utils/dato';
-import { hentTekst, oppdaterBarnMedLabel } from '../../../../utils/søknad';
+import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import SyktBarn from '../../../felles/steg/9-kvittering/SyktBarn';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -16,24 +16,21 @@ import { DinSituasjonType } from '../../../../models/steg/dinsituasjon/meromsitu
 import SykSøker from '../../../felles/steg/9-kvittering/SykSøker';
 import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
 import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { usePersonContext } from '../../../../context/PersonContext';
-import { logSidevisningOvergangsstonad } from '../../../../utils/amplitude';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentFilePath } from '../../../../utils/språk';
-import { useMount } from '../../../../utils/hooks';
 import { Alert } from '@navikt/ds-react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, nullstillMellomlagretOvergangsstønad, nullstillSøknadOvergangsstønad } =
     useOvergangsstønadSøknad();
-
-  useMount(() => logSidevisningOvergangsstonad('Kvittering'));
 
   const { person } = usePersonContext();
   const [locale] = useSpråkContext();
@@ -66,8 +63,8 @@ const Kvittering: React.FC = () => {
   return søknad.innsendingsdato ? (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={intl.formatMessage({ id: 'kvittering.takk' })}
-      skalViseKnapper={ESide.skjulKnapper}
+      stegtittel={hentTekst('kvittering.takk', intl)}
+      navigasjonState={NavigasjonState.skjulKnapper}
       routesStønad={RoutesOvergangsstonad}
       skalViseStegindikator={false}
     >

@@ -1,20 +1,15 @@
 import React, { FC } from 'react';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { EEventsnavn, logSidevisningBarnetilsyn } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Box, GuidePanel } from '@navikt/ds-react';
 import { hentPath } from '../../../../utils/routing';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { GjenbrukKnapp } from './GjenbrukKnapp';
 import styled from 'styled-components';
-import { hentBeskjedMedNavn } from '../../../../utils/språk';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
-import { hentTekst } from '../../../../utils/søknad';
-import { ESkjemanavn } from '../../../../utils/skjemanavn';
+import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 
 const Gjenbruk: FC = () => {
-  useMount(() => logSidevisningBarnetilsyn('Gjenbruk'));
   const intl = useLokalIntlContext();
   const { søknad } = useBarnetilsynSøknad();
 
@@ -46,10 +41,7 @@ const Gjenbruk: FC = () => {
           <GuidePanel poster>
             <BodyShortContainer>
               <BodyShort>
-                {hentBeskjedMedNavn(
-                  søknad.person.søker.forkortetNavn,
-                  intl.formatMessage({ id: 'skjema.hei' })
-                )}
+                {hentTekstMedEnVariabel('skjema.hei', intl, søknad.person.søker.forkortetNavn)}
               </BodyShort>
 
               <BodyShort>{hentTekst('tidligere.barnetilsyn.søknad.finnes', intl)}</BodyShort>
@@ -63,8 +55,6 @@ const Gjenbruk: FC = () => {
                   nesteSide={nesteSide}
                   tekst="knapp.startTom"
                   variant="secondary"
-                  logEventNavn={EEventsnavn.TomSøknad}
-                  skjemanavn={ESkjemanavn.Barnetilsyn}
                 />
               </KnappContainer>
             </SenterContainer>

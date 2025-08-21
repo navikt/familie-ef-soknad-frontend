@@ -1,55 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormProgress } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { hentTekst } from '../../utils/søknad';
-import { useSpråkContext } from '../../context/SpråkContext';
-import { LocaleType } from '../../language/typer';
+import { hentTekst, hentTekstMedFlereVariabler } from '../../utils/teksthåndtering';
 
-export interface ISteg {
+export interface SøknadSteg {
   label: string;
   index: number;
-  localeTeskt?: string;
+  localeTekst?: string;
 }
 
-interface IStegIndikatorProps {
-  stegListe: ISteg[];
+interface Props {
+  steg: SøknadSteg[];
   aktivtSteg: number;
 }
 
-const Stegindikator: React.FC<IStegIndikatorProps> = ({ stegListe, aktivtSteg }) => {
+export const Stegindikator: React.FC<Props> = ({ steg, aktivtSteg }) => {
   const intl = useLokalIntlContext();
-  const [activeStep, setActiveStep] = useState(aktivtSteg + 1);
-  const [locale] = useSpråkContext();
-  const erEngelskSpråk = locale === LocaleType.en;
 
-  const translations = erEngelskSpråk
-    ? {
-        step: `Step ${activeStep} of ${stegListe.length}`,
-        showAllSteps: 'Show all steps',
-        hideAllSteps: 'Hide all steps',
-      }
-    : {
-        step: `Steg ${activeStep} av ${stegListe.length}`,
-        showAllSteps: 'Vis alle steg',
-        hideAllSteps: 'Skjul alle steg',
-      };
+  const antallSteg = steg.length;
+  const aktivtStegIndex = steg.findIndex((steg) => steg.index === aktivtSteg) + 1;
+
+  const stepTekst = hentTekstMedFlereVariabler('stegindikator.nåværendeSteg', intl, {
+    0: aktivtStegIndex.toString(),
+    1: antallSteg.toString(),
+  });
+  const showAllStepsTekst = hentTekst('stegindikator.visAlleSteg', intl);
+  const hideAllStepsTekst = hentTekst('stegindikator.skjulAlleSteg', intl);
+
+  const oversettelse = {
+    step: stepTekst,
+    showAllSteps: showAllStepsTekst,
+    hideAllSteps: hideAllStepsTekst,
+  };
 
   return (
     <FormProgress
       className="stegindikator"
-      totalSteps={stegListe.length}
-      activeStep={activeStep}
-      onStepChange={setActiveStep}
+      totalSteps={antallSteg}
+      activeStep={aktivtStegIndex}
       interactiveSteps={false}
-      translations={translations}
+      translations={oversettelse}
     >
-      {stegListe.map((steg) => (
+      {steg.map((steg) => (
         <FormProgress.Step key={steg.label}>
-          {steg?.localeTeskt ? hentTekst(steg?.localeTeskt, intl) : steg.label}
+          {steg?.localeTekst ? hentTekst(steg?.localeTekst, intl) : steg.label}
         </FormProgress.Step>
       ))}
     </FormProgress>
   );
 };
-
-export default Stegindikator;

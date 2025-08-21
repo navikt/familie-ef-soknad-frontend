@@ -2,31 +2,27 @@ import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useLocation } from 'react-router-dom';
 import { erAllUtdanningFerdigUtfyltForSkolepenger } from '../../../../helpers/steg/aktivitetvalidering';
-import Side, { ESide } from '../../../../components/side/Side';
+import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
-import { IDetaljertUtdanning } from '../../models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../models/detaljertUtdanning';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
-import UnderUtdanning from '../../../felles/steg/5-aktivitet/underUtdanning/UnderUtdanning';
+import TarUtdanning from '../../../felles/steg/5-aktivitet/utdanning/TarUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-
-import { logSidevisningSkolepenger } from '../../../../utils/amplitude';
-import { useMount } from '../../../../utils/hooks';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const UtdanningSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, settSøknad, mellomlagreSkolepenger } = useSkolepengerSøknad();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
-  const skalViseKnapper = !kommerFraOppsummering
-    ? ESide.visTilbakeNesteAvbrytKnapp
-    : ESide.visTilbakeTilOppsummeringKnapp;
+  const navigasjonState = kommerFraOppsummering
+    ? NavigasjonState.visTilbakeTilOppsummeringKnapp
+    : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
-  useMount(() => logSidevisningSkolepenger('Aktivitet'));
-
-  const oppdaterUnderUtdanning = (underUtdanning: IDetaljertUtdanning) => {
+  const oppdaterUnderUtdanning = (underUtdanning: DetaljertUtdanning) => {
     settSøknad((prevSøknad: SøknadSkolepenger) => {
       return { ...prevSøknad, utdanning: underUtdanning };
     });
@@ -39,14 +35,14 @@ const UtdanningSituasjon: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.skolepenger}
-      stegtittel={intl.formatMessage({ id: 'stegtittel.utdanning' })}
-      skalViseKnapper={skalViseKnapper}
+      stegtittel={hentTekst('stegtittel.utdanning', intl)}
+      navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       mellomlagreStønad={mellomlagreSkolepenger}
       routesStønad={RoutesSkolepenger}
       tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
     >
-      <UnderUtdanning
+      <TarUtdanning
         underUtdanning={søknad.utdanning}
         oppdaterUnderUtdanning={oppdaterUnderUtdanning}
         stønadstype={Stønadstype.skolepenger}

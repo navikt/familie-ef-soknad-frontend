@@ -1,13 +1,11 @@
 import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LocaleTekst from '../../language/LocaleTekst';
 import styled from 'styled-components';
 import LesMerTekst from '../LesMerTekst';
-import { logSpørsmålBesvart } from '../../utils/amplitude';
-import { skjemanavnTilId, urlTilSkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import CheckboxPanelCustom from '../panel/CheckboxPanel';
 import { CheckboxGroup } from '@navikt/ds-react';
+import { hentTekst } from '../../utils/teksthåndtering';
 
 const StyledCheckboxSpørsmål = styled.div`
   .navds-fieldset .navds-checkboxes {
@@ -38,22 +36,14 @@ const CheckboxSpørsmål: React.FC<Props> = ({
   spørsmål,
   settValgteSvar,
   valgteSvar,
-  skalLogges,
   brukSvarIdSomVerdi,
 }) => {
   const intl = useLokalIntlContext();
 
-  const url = window.location.href;
-
-  const skjemanavn = urlTilSkjemanavn(url);
-  const skjemaId = skjemanavnTilId(skjemanavn);
-
-  const legend = intl.formatMessage({ id: spørsmål.tekstid });
-
   return (
     <StyledCheckboxSpørsmål key={spørsmål.søknadid}>
       <CheckboxGroup
-        legend={<LocaleTekst tekst={spørsmål.tekstid} />}
+        legend={hentTekst(spørsmål.tekstid, intl)}
         value={valgteSvar}
         description={
           spørsmål.lesmer && (
@@ -75,10 +65,6 @@ const CheckboxSpørsmål: React.FC<Props> = ({
               value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
               checked={alleredeHuketAvISøknad}
               onChange={() => {
-                if (!alleredeHuketAvISøknad) {
-                  logSpørsmålBesvart(skjemanavn, skjemaId, legend, svar.svar_tekst, skalLogges);
-                }
-
                 settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
               }}
             >

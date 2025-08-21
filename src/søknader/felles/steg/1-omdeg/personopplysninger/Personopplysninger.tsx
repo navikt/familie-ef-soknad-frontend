@@ -1,19 +1,16 @@
 import React from 'react';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
-import SøkerBorIkkePåAdresse from './SøkerBorIkkePåAdresse';
+import { SøkerBorIkkePåAdresse } from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
 
-const Personopplysninger: React.FC = () => {
+export const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
   const {
     søknad,
@@ -48,48 +45,45 @@ const Personopplysninger: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
+  const visAdresseSpørsmål = !søker?.erStrengtFortrolig;
+  const visMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse?.verdi === false;
+  const visMeldtAdresseEndringAlert = adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
+  const visSøkerBorIkkePåAdresse = adresseopplysninger?.harMeldtAdresseendring?.verdi === false;
+
   return (
     <VStack gap={'8'}>
-      <Alert variant="info" inline={true}>
-        {hentTekst('personopplysninger.alert.infohentet', intl)}
-      </Alert>
       <PersonopplysningerVisning
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-      {!søker?.erStrengtFortrolig && (
-        <>
-          <KomponentGruppe aria-live="polite">
-            <JaNeiSpørsmål
-              spørsmål={borDuPåDenneAdressen(intl)}
-              valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-              onChange={settSøkerBorPåRegistrertAdr}
-            />
-          </KomponentGruppe>
 
-          {søkerBorPåRegistrertAdresse?.verdi === false && (
-            <KomponentGruppe>
-              <JaNeiSpørsmål
-                spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-                valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
-                onChange={settMeldtAdresseendring}
-              />
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === true && (
-                <AlertStripeDokumentasjon>
-                  <LocaleTekst tekst={'personopplysninger.alert.meldtAdresseendring'} />
-                </AlertStripeDokumentasjon>
-              )}
-              {adresseopplysninger?.harMeldtAdresseendring?.verdi === false && (
-                <SøkerBorIkkePåAdresse stønadstype={stønadstype} />
-              )}
-            </KomponentGruppe>
+      {visAdresseSpørsmål && (
+        <VStack gap={'8'}>
+          <JaNeiSpørsmål
+            spørsmål={borDuPåDenneAdressen(intl)}
+            valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
+            onChange={settSøkerBorPåRegistrertAdr}
+          />
+
+          {visMeldtAdresseEndringSpørsmål && (
+            <JaNeiSpørsmål
+              spørsmål={harMeldtAdresseendringSpørsmål(intl)}
+              valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
+              onChange={settMeldtAdresseendring}
+            />
           )}
-        </>
+
+          {visMeldtAdresseEndringAlert && (
+            <Alert variant={'warning'} size={'small'} inline>
+              {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
+            </Alert>
+          )}
+
+          {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
+        </VStack>
       )}
     </VStack>
   );
 };
-
-export default Personopplysninger;

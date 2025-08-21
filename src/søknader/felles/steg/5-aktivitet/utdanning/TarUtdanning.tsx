@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {
   EStudieandel,
   EUtdanning,
-  IUnderUtdanning,
+  UnderUtdanning,
 } from '../../../../../models/steg/aktivitet/utdanning';
 import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import LocaleTekst from '../../../../../language/LocaleTekst';
 import NårSkalDuVæreElevEllerStudent from './NårSkalDuElevEllerStudent';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import SkoleOgLinje from './SkoleOgLinjeInputFelter';
@@ -22,31 +21,30 @@ import {
 } from '../../../../../helpers/steg/aktivitetvalidering';
 import { strengErMerEnnNull } from '../../../../../utils/spørsmålogsvar';
 import { lagTomUnderUtdanning } from '../../../../../helpers/steg/utdanning';
-import { IDetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
 import Studiekostnader from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
-import { erPeriodeGyldigOgInnaforBegrensninger } from '../../../../../components/dato/utils';
-import { DatoBegrensning } from '../../../../../components/dato/Datovelger';
+import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { Heading } from '@navikt/ds-react';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
   margin-top: -2rem;
 `;
 
 interface Props {
-  underUtdanning?: IUnderUtdanning | IDetaljertUtdanning;
-  oppdaterUnderUtdanning: (utdanning: IUnderUtdanning | IDetaljertUtdanning) => void;
+  underUtdanning?: UnderUtdanning | DetaljertUtdanning;
+  oppdaterUnderUtdanning: (utdanning: UnderUtdanning | DetaljertUtdanning) => void;
   stønadstype: Stønadstype;
 }
 
-const UnderUtdanning: React.FC<Props> = ({
-  underUtdanning,
-  oppdaterUnderUtdanning,
-  stønadstype,
-}) => {
+const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning, stønadstype }) => {
+  const intl = useLokalIntlContext();
   const skalHaDetaljertUtdanning = stønadstype === Stønadstype.skolepenger;
-  const [utdanning, settUtdanning] = useState<IUnderUtdanning | IDetaljertUtdanning>(
+  const [utdanning, settUtdanning] = useState<UnderUtdanning | DetaljertUtdanning>(
     underUtdanning ? underUtdanning : lagTomUnderUtdanning()
   );
 
@@ -58,7 +56,7 @@ const UnderUtdanning: React.FC<Props> = ({
   useEffect(() => {
     if (
       utdanning.periode &&
-      !erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer)
+      !erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
     ) {
       delete utdanning.heltidEllerDeltid;
     }
@@ -86,7 +84,7 @@ const UnderUtdanning: React.FC<Props> = ({
           {stønadstype === Stønadstype.overgangsstønad && (
             <>
               <Heading size="small" level="3" className={'sentrert'}>
-                <LocaleTekst tekst={'utdanning.tittel'} />
+                {hentTekst('utdanning.tittel', intl)}
               </Heading>
               <LesMerTekst
                 åpneTekstid={utdanningDuKanFåStønadTil.headerTekstid}
@@ -115,7 +113,7 @@ const UnderUtdanning: React.FC<Props> = ({
           <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
         )}
         {utdanning?.periode &&
-          erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer) && (
+          erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle) && (
             <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
           )}
         {søkerSkalStudereHeltid && (
@@ -151,4 +149,4 @@ const UnderUtdanning: React.FC<Props> = ({
   );
 };
 
-export default UnderUtdanning;
+export default TarUtdanning;

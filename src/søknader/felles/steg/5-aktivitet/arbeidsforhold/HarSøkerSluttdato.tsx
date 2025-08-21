@@ -3,12 +3,13 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { harDuSluttdato } from './ArbeidsgiverConfig';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { DatoBegrensning, Datovelger } from '../../../../../components/dato/Datovelger';
+import { Datovelger } from '../../../../../components/dato/Datovelger';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { hentTekst } from '../../../../../utils/søknad';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   arbeidsgiver: IArbeidsgiver;
@@ -69,7 +70,7 @@ const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver })
             <Datovelger
               valgtDato={arbeidsgiver.sluttdato?.verdi}
               tekstid={sluttdatoTekstid}
-              datobegrensning={DatoBegrensning.FremtidigeDatoer}
+              gyldigeDatoer={GyldigeDatoer.Fremtidige}
               settDato={(e) => settDato(e)}
             />
           </FeltGruppe>

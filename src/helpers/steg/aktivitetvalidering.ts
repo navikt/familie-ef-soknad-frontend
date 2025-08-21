@@ -1,23 +1,24 @@
 import { EStilling, IArbeidsgiver } from '../../models/steg/aktivitet/arbeidsgiver';
 import { EAktivitet, IAksjeselskap, IAktivitet } from '../../models/steg/aktivitet/aktivitet';
 import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { IUnderUtdanning, IUtdanning } from '../../models/steg/aktivitet/utdanning';
+import { UnderUtdanning, Utdanning } from '../../models/steg/aktivitet/utdanning';
 import { IFirma } from '../../models/steg/aktivitet/firma';
-import { IDetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
+import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
 import {
-  erDatoGyldigOgInnaforBegrensninger,
-  erPeriodeGyldigOgInnaforBegrensninger,
-} from '../../components/dato/utils';
-import { DatoBegrensning } from '../../components/dato/Datovelger';
+  erDatoGyldigOgInnenforBegrensning,
+  erPeriodeGyldigOgInnenforBegrensning,
+} from '../../utils/gyldigeDatoerUtils';
+
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
   return arbeidsforhold?.every((arbeidsgiver) =>
     arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
       ? arbeidsgiver.harSluttDato?.verdi === false ||
         (arbeidsgiver?.sluttdato?.verdi &&
-          erDatoGyldigOgInnaforBegrensninger(
+          erDatoGyldigOgInnenforBegrensning(
             arbeidsgiver?.sluttdato?.verdi,
-            DatoBegrensning.FremtidigeDatoer
+            GyldigeDatoer.Fremtidige
           ))
       : arbeidsgiver.ansettelsesforhold?.verdi
   );
@@ -27,10 +28,7 @@ export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
   return firmaer?.every((firma) => {
     return (
       firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnaforBegrensninger(
-        firma?.etableringsdato?.verdi,
-        DatoBegrensning.TidligereDatoer
-      ) &&
+      erDatoGyldigOgInnenforBegrensning(firma?.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
       firma.arbeidsuke?.verdi &&
       firma.overskudd?.verdi
     );
@@ -46,16 +44,16 @@ export const erAksjeselskapFerdigUtfylt = (
     : egetAS?.every((aksjeselskap) => aksjeselskap.navn?.verdi);
 };
 
-export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: IUtdanning[]): boolean => {
+export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]): boolean => {
   return tidligereUtdanning.every(
     (utdanning) =>
       utdanning.linjeKursGrad?.verdi !== '' &&
       utdanning?.periode &&
-      erPeriodeGyldigOgInnaforBegrensninger(utdanning?.periode, DatoBegrensning.AlleDatoer)
+      erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
   );
 };
 
-export const erUnderUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning): boolean => {
+export const erUnderUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning): boolean => {
   if (underUtdanning.heltidEllerDeltid?.verdi === 'Deltid') {
     return erDeltidUtdanningOgSkalStudereUnderHundreProsent(underUtdanning);
   } else {
@@ -64,7 +62,7 @@ export const erUnderUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning): b
 };
 
 export const erDetaljertUtdanningFerdigUtfylt = (
-  detaljertUtdanning: IDetaljertUtdanning
+  detaljertUtdanning: DetaljertUtdanning
 ): boolean => {
   return (
     harValgtSvar(detaljertUtdanning.semesteravgift?.verdi) ||
@@ -74,7 +72,7 @@ export const erDetaljertUtdanningFerdigUtfylt = (
 };
 
 export const erDeltidUtdanningOgSkalStudereUnderHundreProsent = (
-  detaljertUtdanning: IDetaljertUtdanning
+  detaljertUtdanning: DetaljertUtdanning
 ): boolean => {
   return (
     detaljertUtdanning.heltidEllerDeltid?.verdi === 'Deltid' &&
@@ -84,14 +82,14 @@ export const erDeltidUtdanningOgSkalStudereUnderHundreProsent = (
 };
 
 export const erAllUtdanningFerdigUtfyltForSkolepenger = (
-  underUtdanning: IDetaljertUtdanning
+  underUtdanning: DetaljertUtdanning
 ): boolean => {
   if (!erDetaljertUtdanningFerdigUtfylt(underUtdanning)) return false;
 
   return erAllUtdanningFerdigUtfylt(underUtdanning);
 };
 
-export const erAllUtdanningFerdigUtfylt = (underUtdanning: IUnderUtdanning) => {
+export const erAllUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning) => {
   if (underUtdanning?.harTattUtdanningEtterGrunnskolen?.verdi === false) {
     return underUtdanning && erUnderUtdanningFerdigUtfylt(underUtdanning);
   } else {
@@ -150,7 +148,7 @@ export const erAktivitetSeksjonFerdigUtfylt = (
     case EAktivitet.harFåttJobbTilbud:
       return (
         datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnaforBegrensninger(datoOppstartJobb.verdi, DatoBegrensning.FremtidigeDatoer)
+        erDatoGyldigOgInnenforBegrensning(datoOppstartJobb.verdi, GyldigeDatoer.Fremtidige)
       );
 
     case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:
