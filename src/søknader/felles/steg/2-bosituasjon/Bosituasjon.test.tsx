@@ -7,7 +7,7 @@ import {
   navigerTilStegOvergangsstønad,
   skrivFritekst,
   skrivFritekstTilKomponentMedId,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 import { datoEnMånedFrem, datoEnMånedTilbake } from '../../../../test/dato';
 
 vi.mock('axios', () => {

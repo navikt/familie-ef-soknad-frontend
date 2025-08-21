@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
-import { navigerTilStegOvergangsstønad } from '../../../../test/actions';
+import { navigerTilStegOvergangsstønad } from '../../../../test/aksjoner';
 import { lagDokumentasjon } from '../../../../test/domeneUtils';
 import {
   AdresseopplysningerDokumentasjon,

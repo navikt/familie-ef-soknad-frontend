@@ -97,6 +97,19 @@ export const klikkCheckbox = async (name: string, screen: Screen, user: UserEven
   await user.click(screen.getByRole('checkbox', { name: name }));
 };
 
+export const klikkButton = async (name: string, screen: Screen, user: UserEvent) => {
+  await user.click(screen.getByRole('button', { name: name }));
+};
+
+export const klikkButtonIListe = async (
+  name: string,
+  index: number,
+  screen: Screen,
+  user: UserEvent
+) => {
+  await user.click(screen.getAllByRole('button', { name: name })[index]);
+};
+
 export const klikkKomponentMedId = async (id: string, screen: Screen, user: UserEvent) => {
   await user.click(screen.getByTestId(id));
 };
@@ -118,3 +131,10 @@ export const skrivFritekstTilKomponentMedId = async (
 ) => {
   await user.type(screen.getByTestId(id), fritekst);
 };
+
+export const velgAlternativCombobox = async (
+  name: string,
+  value: string,
+  screen: Screen,
+  user: UserEvent
+) => await user.selectOptions(screen.getByRole('combobox', { name: name }), value);

@@ -3,7 +3,7 @@ import {
   klikkCheckbox,
   klikkKomponentMedId,
   navigerTilStegBarnetilsyn,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 import { expect } from 'vitest';
 import {
   lagBooleanFelt,

@@ -1,5 +1,5 @@
 import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
-import { klikkRadioknapp, navigerTilStegOvergangsstønad } from '../../../../test/actions';
+import { klikkRadioknapp, navigerTilStegOvergangsstønad } from '../../../../test/aksjoner';
 import { expect } from 'vitest';
 import {
   lagBooleanFelt,

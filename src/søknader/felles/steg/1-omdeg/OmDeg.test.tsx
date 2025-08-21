@@ -1,11 +1,15 @@
 import { describe, expect, test, vi } from 'vitest';
 import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
 import {
+  klikkButton,
+  klikkButtonIListe,
   klikkCheckbox,
   klikkRadioknapp,
   navigerTilStegOvergangsstønad,
   skrivFritekst,
-} from '../../../../test/actions';
+  velgAlternativCombobox,
+} from '../../../../test/aksjoner';
+import { dagensDato, datoEnMånedTilbake } from '../../../../test/dato';
 
 vi.mock('axios', () => {
   return {
@@ -505,7 +509,7 @@ describe('OmDegSteg, sivilstatus', () => {
 });
 
 describe('OmDegSteg, medlemskap', () => {
-  test('Rendrer neste spm dersom bruker oppholder seg i Norge', async () => {
+  test('Skal kunne navigere til neste steg ved ferdige utfylte verdier for medlemskap', async () => {
     mockMellomlagretSøknadOvergangsstønad('/om-deg');
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
@@ -530,12 +534,98 @@ describe('OmDegSteg, medlemskap', () => {
     );
 
     await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
-
     expect(
       screen.getByRole('group', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).toBeInTheDocument();
+
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Nei', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'Utenlandsperiode' })).toBeInTheDocument();
+    expect(screen.getByText('Når oppholdt du deg i utlandet?')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('combobox', {
+        name: 'I hvilket land oppholdt du deg i?',
+      })
+    ).toBeInTheDocument();
+
+    await skrivFritekst('Fra', datoEnMånedTilbake, screen, user);
+    await skrivFritekst('Til', dagensDato, screen, user);
+    await velgAlternativCombobox('I hvilket land oppholdt du deg i?', 'Brasil', screen, user);
+    expect(
+      screen.getByRole('textbox', { name: 'Hvorfor oppholdt du deg i Brasil?' })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+
+    await skrivFritekst('Hvorfor oppholdt du deg i Brasil?', 'På grunn av familien', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Legg til et utenlandsopphold' })
+    ).toBeInTheDocument();
+
+    await klikkButton('Legg til et utenlandsopphold', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Fjern utenlandsperiode' }).length).toBe(2);
+
+    await klikkButtonIListe('Fjern utenlandsperiode', 1, screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Fjern utenlandsperiode' })
+    ).not.toBeInTheDocument();
+
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Nei', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Hvor oppholder du og barnet/barna dere?',
+      })
+    ).toBeInTheDocument();
+
+    await velgAlternativCombobox(
+      'Hvor oppholder du og barnet/barna dere?',
+      'Algerie',
+      screen,
+      user
+    );
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await velgAlternativCombobox('I hvilket land oppholdt du deg i?', 'Danmark', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hvorfor oppholdt du deg i Danmark?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hva er id-nummeret ditt i Danmark?' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('checkbox', { name: 'Jeg har ikke id-nummer i Danmark' })
+    ).toBeInTheDocument();
+
+    await skrivFritekst('Hva er id-nummeret ditt i Danmark?', '27909698168', screen, user);
+    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hva er den siste adressen du bodde på i Danmark?' })
+    ).toBeInTheDocument();
+
+    await skrivFritekst(
+      'Hva er den siste adressen du bodde på i Danmark?',
+      'Galtvort',
+      screen,
+      user
+    );
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+
+    await klikkCheckbox('Jeg har ikke id-nummer i Danmark', screen, user);
+    expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: 'Hva er id-nummeret ditt i Danmark?' })
+    ).toBeDisabled();
   });
 
   test('Rendrer felt og neste spm, dersom bruker ikke oppholder seg i Norge', async () => {

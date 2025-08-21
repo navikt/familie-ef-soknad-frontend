@@ -2,7 +2,7 @@ import constate from 'constate';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { validerOmDeg } from './OmDegValidering';
+import { sanering } from './sanering';
 import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
 import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -38,7 +38,7 @@ export const [OmDegProvider, useOmDeg] = constate(
     const [adresseopplysninger, settAdresseopplysninger] = useState(søknad.adresseopplysninger);
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = validerOmDeg(
+      const oppdatertSøknad = sanering(
         søknad,
         sivilstatus,
         medlemskap,
