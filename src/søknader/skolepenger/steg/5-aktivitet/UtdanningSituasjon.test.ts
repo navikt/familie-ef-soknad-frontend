@@ -5,7 +5,7 @@ import {
   navigerTilStegSkolepenger,
   skrivFritekst,
   skrivFritekstTilKomponentMedId,
-} from '../../../../test/actions';
+} from '../../../../test/aksjoner';
 
 vi.mock('axios', () => {
   return {

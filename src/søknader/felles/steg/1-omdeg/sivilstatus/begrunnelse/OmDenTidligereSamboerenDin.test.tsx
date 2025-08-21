@@ -4,7 +4,7 @@ import {
   klikkCheckbox,
   klikkRadioknapp,
   navigerTilStegOvergangsstønad,
-} from '../../../../../../test/actions';
+} from '../../../../../../test/aksjoner';
 
 vi.mock('axios', () => {
   return {

@@ -1,6 +1,6 @@
 import { EBegrunnelse, ESivilstand, ISivilstatus } from '../../models/steg/omDeg/sivilstatus';
 import { IPeriode } from '../../models/felles/periode';
-import { IMedlemskap } from '../../models/steg/omDeg/medlemskap';
+import { IMedlemskap, IUtenlandsopphold } from '../../models/steg/omDeg/medlemskap';
 import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
 import { IDatoFelt } from '../../models/søknad/søknadsfelter';
@@ -100,9 +100,16 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
     }
   }
 
-  if (perioderBoddIUtlandet !== null) {
-    const finnesUtenlandsperiodeUtenBegrunnelseEllerDato = perioderBoddIUtlandet?.some(
-      (utenlandsopphold) => {
+  if (søkerBosattINorgeSisteTreÅr?.verdi === false) {
+    return harGyldigeUtfylteUtenlandsperioder(perioderBoddIUtlandet);
+  }
+
+  return !!søkerBosattINorgeSisteTreÅr?.verdi;
+};
+
+const harGyldigeUtfylteUtenlandsperioder = (utenlandsperioder: IUtenlandsopphold[] | undefined) =>
+  utenlandsperioder !== undefined
+    ? utenlandsperioder?.every((utenlandsopphold) => {
         const {
           begrunnelse,
           periode,
@@ -112,25 +119,20 @@ const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
           adresseEøsLand,
         } = utenlandsopphold;
 
-        const manglendeBegrunnelse = stringErNullEllerTom(begrunnelse.verdi);
-        const manglerPeriode =
-          stringErNullEllerTom(periode.fra.verdi) || stringErNullEllerTom(periode.til.verdi);
-        const manglerAdresseEøsLand = stringErNullEllerTom(adresseEøsLand?.verdi);
-        const manglerPersonidentEøsLand =
-          stringErNullEllerTom(personidentEøsLand?.verdi) && !kanIkkeOppgiPersonident;
-        return (
-          manglendeBegrunnelse ||
-          manglerPeriode ||
-          (erEøsLand && (manglerAdresseEøsLand || manglerPersonidentEøsLand))
-        );
-      }
-    );
+        const harBegrunnelse = !stringErNullEllerTom(begrunnelse.verdi);
+        const harPeriode =
+          !stringErNullEllerTom(periode.fra.verdi) && !stringErNullEllerTom(periode.til.verdi);
+        const harAdresseEøsLand = !stringErNullEllerTom(adresseEøsLand?.verdi);
+        const harPersonidentEøsLand =
+          !stringErNullEllerTom(personidentEøsLand?.verdi) || !!kanIkkeOppgiPersonident;
 
-    return søkerBosattINorgeSisteTreÅr?.verdi === false
-      ? !finnesUtenlandsperiodeUtenBegrunnelseEllerDato
-      : !!søkerBosattINorgeSisteTreÅr?.verdi;
-  } else return false;
-};
+        return (
+          harBegrunnelse &&
+          harPeriode &&
+          (!erEøsLand || (harAdresseEøsLand && harPersonidentEøsLand))
+        );
+      })
+    : false;
 
 const erDatoSøktSeparasjonGyldig = (datoSøktSeparasjon: IDatoFelt | undefined): boolean => {
   return !!(

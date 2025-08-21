@@ -42,6 +42,7 @@ export const Medlemskap: React.FC = () => {
   //TODO: Feltet heter søkerBosattINorgeSisteTreÅr men vi spør om fem år nå
   const settBosattSisteFemÅr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+    const tilbakestillOppholdsland = søkerOppholderSegINorge?.verdi;
 
     settMedlemskap({
       ...medlemskap,
@@ -49,6 +50,8 @@ export const Medlemskap: React.FC = () => {
         label: hentTekst(spørsmål.tekstid, intl),
         verdi: svar,
       },
+      oppholdsland: tilbakestillOppholdsland ? undefined : medlemskap.oppholdsland,
+      perioderBoddIUtlandet: undefined,
     });
   };
 
