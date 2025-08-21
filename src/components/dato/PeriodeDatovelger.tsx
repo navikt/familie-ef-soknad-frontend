@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import Feilmelding from '../feil/Feilmelding';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import LesMerTekst from '../LesMerTekst';
