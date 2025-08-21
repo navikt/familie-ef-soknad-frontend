@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError } from 'axios';
 import Environment from '../../Environment';
 import {
   arbeidssøkerSkjemaForsideUrl,
@@ -30,20 +30,6 @@ const getRedirectUrl = () => {
 };
 
 export const autentiseringsInterceptor = () => {
-  axios.interceptors.request.use(
-    (config) => {
-      const token = sessionStorage.getItem('access_token');
-
-      if (token) {
-        config.headers = config.headers || {};
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-
-      return config;
-    },
-    (error) => Promise.reject(error)
-  );
-
   axios.interceptors.response.use(
     (response) => {
       return response;
