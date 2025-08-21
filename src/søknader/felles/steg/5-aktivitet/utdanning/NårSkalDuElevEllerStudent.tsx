@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import PeriodeDatovelgere from '../../../../../components/dato/PeriodeDatovelger';
+import { PeriodeDatovelgere } from '../../../../../components/dato/PeriodeDatovelger';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EPeriode } from '../../../../../models/felles/periode';
