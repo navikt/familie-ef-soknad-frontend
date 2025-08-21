@@ -10,9 +10,11 @@ import {
   hentStartOgSluttDato,
 } from '../../utils/gyldigeDatoerUtils';
 import { erGyldigDato } from '../../utils/dato';
-import { Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, Heading, HStack, VStack } from '@navikt/ds-react';
 import { Datovelger } from './Datovelger';
 import { GyldigeDatoer } from './GyldigeDatoer';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 interface Props {
   className?: string;
@@ -36,6 +38,8 @@ export const PeriodeDatovelgere: FC<Props> = ({
   gyldigeDatoer,
   onValidate,
 }) => {
+  const intl = useLokalIntlContext();
+
   const [feilmelding, settFeilmelding] = useState<string>('');
 
   const sammenlignDatoerOgHentFeilmelding = (
@@ -114,7 +118,9 @@ export const PeriodeDatovelgere: FC<Props> = ({
       </HStack>
 
       {feilmelding && feilmelding !== '' && (
-        <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
+        <Alert variant={'error'} size={'small'}>
+          {hentTekst(feilmelding, intl)}
+        </Alert>
       )}
     </VStack>
   );
