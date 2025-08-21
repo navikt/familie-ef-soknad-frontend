@@ -89,6 +89,8 @@ export const PeriodeDatovelgere: FC<Props> = ({
     settDato(objektnøkkel, dato);
   };
 
+  const visDatoFeilmelding = feilmelding && feilmelding !== '';
+
   return (
     <VStack gap={'6'}>
       <VStack>
@@ -117,7 +119,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
         />
       </HStack>
 
-      {feilmelding && feilmelding !== '' && (
+      {visDatoFeilmelding && (
         <Alert variant={'error'} size={'small'}>
           {hentTekst(feilmelding, intl)}
         </Alert>
