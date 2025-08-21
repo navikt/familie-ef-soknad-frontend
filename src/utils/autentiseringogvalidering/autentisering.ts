@@ -45,7 +45,6 @@ export const autentiseringsInterceptor = () => {
   );
 };
 
-// skal forbedre logginn logikk
 export const verifiserAtBrukerErAutentisert = (
   settAutentisering: (autentisering: boolean) => void
 ) => {
