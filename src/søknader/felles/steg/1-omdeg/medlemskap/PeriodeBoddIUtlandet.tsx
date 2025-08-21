@@ -8,6 +8,7 @@ import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, VStack } from '@navikt/ds-react';
 import { useOmDeg } from '../OmDegContext';
+import styles from './PeriodeBoddIUtlandet.module.css';
 
 export const PeriodeBoddIUtlandet: FC<{
   land: ILandMedKode[];
@@ -69,9 +70,11 @@ export const PeriodeBoddIUtlandet: FC<{
           <Heading size={'xsmall'}>
             {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
           </Heading>
-          <LeggTilKnapp onClick={leggTilUtenlandsperiode}>
-            {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
-          </LeggTilKnapp>
+          <div className={styles.leggTilKnapp}>
+            <LeggTilKnapp onClick={leggTilUtenlandsperiode}>
+              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+            </LeggTilKnapp>
+          </div>
         </VStack>
       )}
     </VStack>
