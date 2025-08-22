@@ -52,6 +52,7 @@ export const Utenlandsopphold: FC<Props> = ({
   );
 
   const landConfig = utenlandsoppholdLand(land);
+  const harValgUtenlandsOppholdLand = utenlandsopphold.land?.verdi !== undefined;
 
   const fjernUtenlandsperiode = () => {
     if (perioderBoddIUtlandet && perioderBoddIUtlandet.length > 1) {
@@ -135,8 +136,7 @@ export const Utenlandsopphold: FC<Props> = ({
   const visBegrunnelseTextArea =
     erPeriodeDatoerValgt(utenlandsopphold.periode) &&
     erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
-    // eslint-disable-next-line no-prototype-builtins
-    utenlandsopphold.land?.hasOwnProperty('verdi');
+    harValgUtenlandsOppholdLand;
   const visEøsIdent = utenlandsopphold.land && skalVisePersonidentTekstfelt(utenlandsopphold);
   const visSisteAdressTextField =
     utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold);
