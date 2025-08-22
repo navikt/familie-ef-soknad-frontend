@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import Utenlandsopphold from './Utenlandsopphold';
+import { Utenlandsopphold } from './Utenlandsopphold';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
@@ -69,9 +69,11 @@ export const PeriodeBoddIUtlandet: FC<{
           <Heading size={'xsmall'}>
             {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
           </Heading>
-          <LeggTilKnapp onClick={leggTilUtenlandsperiode}>
-            {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
-          </LeggTilKnapp>
+          <div>
+            <LeggTilKnapp onClick={leggTilUtenlandsperiode}>
+              {hentTekst('medlemskap.periodeBoddIUtlandet.knapp', intl)}
+            </LeggTilKnapp>
+          </div>
         </VStack>
       )}
     </VStack>

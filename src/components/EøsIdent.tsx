@@ -1,6 +1,5 @@
 import React from 'react';
-import { Checkbox, Label, ReadMore } from '@navikt/ds-react';
-import { TextFieldMedBredde } from './TextFieldMedBredde';
+import { Checkbox, Label, ReadMore, TextField, VStack } from '@navikt/ds-react';
 import { hentTekstMedEnVariabel } from '../utils/teksthåndtering';
 import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { IUtenlandsopphold } from '../models/steg/omDeg/medlemskap';
@@ -12,7 +11,7 @@ interface Props {
   settUtenlandsopphold: (utenlandsopphold: IUtenlandsopphold) => void;
 }
 
-const EøsIdent: React.FC<Props> = ({
+export const EøsIdent: React.FC<Props> = ({
   halvåpenTekstid,
   åpneTekstid,
   utenlandsopphold,
@@ -53,23 +52,23 @@ const EøsIdent: React.FC<Props> = ({
   };
 
   return (
-    <div>
-      <Label>{utenlandskIDNummerTekst}</Label>
-      <ReadMore size={'small'} header={halvåpenTekstid}>
-        {åpneTekstid}
-      </ReadMore>
-      <TextFieldMedBredde
-        className={'inputfelt-tekst'}
+    <VStack gap={'6'}>
+      <VStack>
+        <Label>{utenlandskIDNummerTekst}</Label>
+        <ReadMore header={halvåpenTekstid}>{åpneTekstid}</ReadMore>
+      </VStack>
+
+      <TextField
         key={'navn'}
         label={utenlandskIDNummerTekst}
         hideLabel={true}
         type="text"
-        bredde={'L'}
         onChange={(e) => settUtenlandskPersonId(e)}
         value={utenlandsopphold.personidentEøsLand?.verdi}
         disabled={utenlandsopphold.kanIkkeOppgiPersonident}
         maxLength={32}
       />
+
       <Checkbox
         checked={utenlandsopphold.kanIkkeOppgiPersonident}
         onChange={() => toggleHarUtenlandskPersonId(!utenlandsopphold.kanIkkeOppgiPersonident)}
@@ -80,8 +79,6 @@ const EøsIdent: React.FC<Props> = ({
           utenlandsopphold.land.verdi
         )}
       </Checkbox>
-    </div>
+    </VStack>
   );
 };
-
-export default EøsIdent;
