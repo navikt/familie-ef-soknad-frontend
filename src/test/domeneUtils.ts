@@ -236,7 +236,7 @@ export const lagSivilstatus = (sivilstatus?: Partial<ISivilstatus>): ISivilstatu
 
 export const lagPerson = (person?: Partial<IPerson>): IPerson => {
   return {
-    hash: 'hash',
+    hash: '1234',
     søker: lagSøker(),
     barn: [lagIBarn()],
     ...person,
