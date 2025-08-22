@@ -31,17 +31,19 @@ const App = () => {
 
   autentiseringsInterceptor();
 
-  const fetchToggles = () => {
-    return hentToggles(settToggles).catch(() => {
-      settError(true);
-    });
-  };
-
   useEffect(() => {
     verifiserAtBrukerErAutentisert(settAutentisering);
-  }, [autentisert]);
+  }, []);
 
   useEffect(() => {
+    const fetchToggles = async () => {
+      try {
+        return await hentToggles(settToggles);
+      } catch {
+        settError(true);
+      }
+    };
+
     const fetchData = () => {
       const fetchPersonData = () => {
         hentPersonDataArbeidssoker()
@@ -64,7 +66,7 @@ const App = () => {
       settFetching(false);
     };
     fetchData();
-  }, []);
+  }, [settToggles]);
 
   if (!fetching && autentisert) {
     if (!error) {
