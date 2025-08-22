@@ -246,6 +246,8 @@ const utledSøknadBarnetilsyn = (
       return søknadBarnetilsynBarnasBosted(søknad);
     case '/barnetilsyn/barnepass':
       return søknadBarnetilsynBarnasBosted(søknad);
+    case '/barnetilsyn/oppsummering':
+      return lagSøknadBarnetilsyn({ harBekreftet: true, ...søknad });
     default:
       return lagSøknadBarnetilsyn({ harBekreftet: true });
   }
