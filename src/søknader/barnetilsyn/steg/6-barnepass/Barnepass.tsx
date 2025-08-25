@@ -19,7 +19,7 @@ import {
   harBarnAvsluttetFjerdeKlasse,
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router-dom';

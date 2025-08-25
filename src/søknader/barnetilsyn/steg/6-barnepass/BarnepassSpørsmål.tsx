@@ -15,7 +15,7 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import BarnepassBeløp from './BarnepassBeløp';
 import { erÅrsakBarnepassSpmBesvart } from './hjelper';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
-import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
+import { BarnepassOrdning, EBarnepass, ETypeBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
 import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
 import { Heading, TextField } from '@navikt/ds-react';
@@ -25,9 +25,9 @@ import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
   barn: IBarn;
-  barnepassOrdning: IBarnepassOrdning;
-  settBarnepassOrdning: (barnepassOrdning: IBarnepassOrdning) => void;
-  fjernBarnepassOrdning: (barnepassordning: IBarnepassOrdning) => void;
+  barnepassOrdning: BarnepassOrdning;
+  settBarnepassOrdning: (barnepassOrdning: BarnepassOrdning) => void;
+  fjernBarnepassOrdning: (barnepassordning: BarnepassOrdning) => void;
   settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 

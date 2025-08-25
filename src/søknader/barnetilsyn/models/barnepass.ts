@@ -3,10 +3,10 @@ import { IPeriode } from '../../../models/felles/periode';
 
 export interface IBarnepass {
   årsakBarnepass?: ISpørsmålFelt;
-  barnepassordninger: IBarnepassOrdning[];
+  barnepassordninger: BarnepassOrdning[];
 }
 
-export interface IBarnepassOrdning {
+export interface BarnepassOrdning {
   id: string;
   hvaSlagsBarnepassOrdning?: ISpørsmålFelt;
   navn?: ITekstFelt;

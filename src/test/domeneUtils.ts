@@ -17,7 +17,7 @@ import {
 } from '../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../models/steg/adresseopplysninger';
 import { ISivilstatus } from '../models/steg/omDeg/sivilstatus';
-import { IMedlemskap } from '../models/steg/omDeg/medlemskap';
+import { IMedlemskap, IUtenlandsopphold } from '../models/steg/omDeg/medlemskap';
 import { IBosituasjon } from '../models/steg/bosituasjon';
 import { IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
@@ -37,6 +37,7 @@ import { DetaljertUtdanning } from '../søknader/skolepenger/models/detaljertUtd
 import { UnderUtdanning, Utdanning } from '../models/steg/aktivitet/utdanning';
 import { IPeriode } from '../models/felles/periode';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
+import { BarnepassOrdning, IBarnepass } from '../søknader/barnetilsyn/models/barnepass';
 
 export const lagSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
@@ -235,7 +236,7 @@ export const lagSivilstatus = (sivilstatus?: Partial<ISivilstatus>): ISivilstatu
 
 export const lagPerson = (person?: Partial<IPerson>): IPerson => {
   return {
-    hash: 'hash',
+    hash: '1234',
     søker: lagSøker(),
     barn: [lagIBarn()],
     ...person,
@@ -313,7 +314,7 @@ export const lagPersonData = (personData?: Partial<PersonData>): PersonData => {
   return {
     søker: lagSøker(),
     barn: [lagBarn()],
-    hash: 'hash',
+    hash: '1234',
     ...personData,
   };
 };
@@ -458,5 +459,40 @@ export const lagDokumentasjon = (periode?: Partial<IDokumentasjon>): IDokumentas
     harSendtInn: false,
     opplastedeVedlegg: undefined,
     ...periode,
+  };
+};
+
+export const lagBarnepass = (barnepass?: Partial<IBarnepass>): IBarnepass => {
+  return { årsakBarnepass: undefined, barnepassordninger: lagBarnepassOrdning(), ...barnepass };
+};
+
+export const lagBarnepassOrdning = (
+  barnepassOrdning?: Partial<BarnepassOrdning>
+): BarnepassOrdning[] => {
+  return [
+    {
+      id: '1',
+      hvaSlagsBarnepassOrdning: undefined,
+      navn: undefined,
+      periode: undefined,
+      belop: undefined,
+      ...barnepassOrdning,
+    },
+  ];
+};
+
+export const lagUtlandsopphold = (
+  utlandsopphold?: Partial<IUtenlandsopphold>
+): IUtenlandsopphold => {
+  return {
+    id: '',
+    periode: lagPeriode(),
+    land: undefined,
+    erEøsLand: true,
+    begrunnelse: lagTekstfelt(),
+    personidentEøsLand: undefined,
+    kanIkkeOppgiPersonident: undefined,
+    adresseEøsLand: undefined,
+    ...utlandsopphold,
   };
 };

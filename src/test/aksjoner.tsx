@@ -83,22 +83,22 @@ export const navigerTilStegSkolepenger = async () => {
 };
 
 export const klikkRadioknapp = async (
-  groupName: string,
-  radioLabel: string,
+  spørsmålstekst: string,
+  valgtAlternativ: string,
   screen: Screen,
   user: UserEvent
 ) => {
-  const radioGroup = screen.getByRole('group', { name: groupName });
-  const radio = within(radioGroup).getByRole('radio', { name: radioLabel });
+  const radioGroup = screen.getByRole('group', { name: spørsmålstekst });
+  const radio = within(radioGroup).getByRole('radio', { name: valgtAlternativ });
   await user.click(radio);
 };
 
-export const klikkCheckbox = async (name: string, screen: Screen, user: UserEvent) => {
-  await user.click(screen.getByRole('checkbox', { name: name }));
+export const klikkCheckbox = async (valgtAlternativ: string, screen: Screen, user: UserEvent) => {
+  await user.click(screen.getByRole('checkbox', { name: valgtAlternativ }));
 };
 
-export const klikkButton = async (name: string, screen: Screen, user: UserEvent) => {
-  await user.click(screen.getByRole('button', { name: name }));
+export const klikkButton = async (knappTekst: string, screen: Screen, user: UserEvent) => {
+  await user.click(screen.getByRole('button', { name: knappTekst }));
 };
 
 export const klikkButtonIListe = async (
@@ -115,12 +115,12 @@ export const klikkKomponentMedId = async (id: string, screen: Screen, user: User
 };
 
 export const skrivFritekst = async (
-  name: string,
+  spørsmålstekst: string,
   fritekst: string,
   screen: Screen,
   user: UserEvent
 ) => {
-  await user.type(screen.getByRole('textbox', { name: name }), fritekst);
+  await user.type(screen.getByRole('textbox', { name: spørsmålstekst }), fritekst);
 };
 
 export const skrivFritekstTilKomponentMedId = async (

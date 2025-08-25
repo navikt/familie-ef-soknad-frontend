@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../components/gruppe/InputLabelGruppe';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
-import { EBarnepass, ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
+import { BarnepassOrdning, EBarnepass, ETypeBarnepassOrdning } from '../../models/barnepass';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -10,7 +10,7 @@ import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/
 import { Detail } from '@navikt/ds-react';
 
 interface Props {
-  barnepassOrdning: IBarnepassOrdning;
+  barnepassOrdning: BarnepassOrdning;
   settInputFelt: (e: React.FormEvent<HTMLInputElement>, nøkkel: string, label: string) => void;
 }
 const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt }) => {
