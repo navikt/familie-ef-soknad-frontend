@@ -17,7 +17,7 @@ import {
 } from '../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../models/steg/adresseopplysninger';
 import { ISivilstatus } from '../models/steg/omDeg/sivilstatus';
-import { IMedlemskap } from '../models/steg/omDeg/medlemskap';
+import { IMedlemskap, IUtenlandsopphold } from '../models/steg/omDeg/medlemskap';
 import { IBosituasjon } from '../models/steg/bosituasjon';
 import { IAktivitet } from '../models/steg/aktivitet/aktivitet';
 import { IDinSituasjon } from '../models/steg/dinsituasjon/meromsituasjon';
@@ -479,4 +479,20 @@ export const lagBarnepassOrdning = (
       ...barnepassOrdning,
     },
   ];
+};
+
+export const lagUtlandsopphold = (
+  utlandsopphold?: Partial<IUtenlandsopphold>
+): IUtenlandsopphold => {
+  return {
+    id: '',
+    periode: lagPeriode(),
+    land: undefined,
+    erEøsLand: true,
+    begrunnelse: lagTekstfelt(),
+    personidentEøsLand: undefined,
+    kanIkkeOppgiPersonident: undefined,
+    adresseEøsLand: undefined,
+    ...utlandsopphold,
+  };
 };
