@@ -42,6 +42,14 @@ const getAccessToken = async (
   try {
     logInfo('PrepareSecuredRequest', req);
 
+    if (miljø.erLokalt) {
+      const lokalToken =
+        applicationName === 'familie-ef-soknad-api'
+          ? miljø.lokaltTokenxApi
+          : miljø.lokaltTokenxDokument;
+      return `Bearer ${lokalToken}`;
+    }
+
     const cluster = erProd() ? 'prod-gcp' : 'dev-gcp';
     const audience = `${cluster}:teamfamilie:${applicationName}`;
     const { authorization } = req.headers;
