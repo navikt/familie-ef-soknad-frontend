@@ -32,7 +32,11 @@ const App = () => {
   autentiseringsInterceptor();
 
   useEffect(() => {
-    verifiserAtBrukerErAutentisert(settAutentisering);
+    const authPromise = verifiserAtBrukerErAutentisert(settAutentisering);
+
+    authPromise?.catch(() => {
+      settError(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -45,24 +49,25 @@ const App = () => {
     };
 
     const fetchData = () => {
-      const fetchPersonData = () => {
-        hentPersonDataArbeidssoker()
-          .then((response) => {
-            settIdent(response.ident);
-            settVisningsnavn(response.visningsnavn);
-          })
-          .then(() => {
-            fetchToggles();
+      const fetchPersonData = async () => {
+        try {
+          const response = await hentPersonDataArbeidssoker();
+          settIdent(response.ident);
+          settVisningsnavn(response.visningsnavn);
 
-            settError(false);
-            settFeilmelding('');
-          })
-          .catch(() => {
-            settError(true);
-            settFeilmelding('skjema.feilmelding.uthenting');
-          });
+          await fetchToggles();
+
+          settError(false);
+          settFeilmelding('');
+        } catch {
+          settError(true);
+          settFeilmelding('skjema.feilmelding.uthenting');
+        }
       };
-      fetchPersonData();
+      fetchPersonData().catch(() => {
+        settError(true);
+        settFeilmelding('skjema.feilmelding.uthenting');
+      });
       settFetching(false);
     };
     fetchData();
