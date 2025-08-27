@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import { SøkerSkalFlytteSammenEllerFåSamboer } from './SøkerSkalFlytteSammenEllerFåSamboer';
-import { EkteskapsliknendeForhold } from './EkteskapsliknendeForhold';
+import { EkteskapslignendeForhold } from './EkteskapslignendeForhold';
 import { OmTidligereSamboer } from './OmTidligereSamboer';
 import { ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { erValgtSvarLiktSomSvar, harValgtSvar } from '../../../../utils/spørsmålogsvar';
@@ -71,7 +71,7 @@ export const BosituasjonSpørsmål: FC = () => {
 
       {visPlanerOmÅFlytteSammenEllerFåSamboer && <SøkerSkalFlytteSammenEllerFåSamboer />}
 
-      {visEkteskapLignendeForhold && <EkteskapsliknendeForhold />}
+      {visEkteskapLignendeForhold && <EkteskapslignendeForhold />}
     </VStack>
   );
 };
