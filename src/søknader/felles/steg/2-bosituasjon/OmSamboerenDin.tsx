@@ -4,7 +4,7 @@ import { EBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IdentEllerFødselsdatoGruppe } from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
-import { Label, TextField, VStack } from '@navikt/ds-react';
+import { Heading, Label, TextField, VStack } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
 import { identErGyldig } from '../../../../utils/validering/validering';
 
@@ -94,7 +94,7 @@ export const OmSamboerenDin: FC<Props> = ({
   const visIdentEllerFødseldatoGruppe = samboerDetaljer?.navn;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'6'} align={'start'}>
       <Label as="p">{hentTekst(tittel, intl)}</Label>
 
       <TextField
