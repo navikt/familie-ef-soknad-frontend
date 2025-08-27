@@ -32,42 +32,31 @@ const App = () => {
   autentiseringsInterceptor();
 
   useEffect(() => {
-    const authPromise = verifiserAtBrukerErAutentisert(settAutentisering);
-
-    authPromise?.catch(() => {
-      settError(true);
-    });
-  }, []);
+    verifiserAtBrukerErAutentisert(settAutentisering);
+  }, [autentisert]);
 
   useEffect(() => {
-    const fetchToggles = async () => {
-      try {
-        return await hentToggles(settToggles);
-      } catch {
-        settError(true);
-      }
-    };
-
     const fetchData = () => {
-      const fetchPersonData = async () => {
-        try {
-          const response = await hentPersonDataArbeidssoker();
-          settIdent(response.ident);
-          settVisningsnavn(response.visningsnavn);
+      const fetchPersonData = () => {
+        hentPersonDataArbeidssoker()
+          .then((response) => {
+            settIdent(response.ident);
+            settVisningsnavn(response.visningsnavn);
+          })
+          .then(() => {
+            hentToggles(settToggles).catch(() => {
+              settError(true);
+            });
 
-          await fetchToggles();
-
-          settError(false);
-          settFeilmelding('');
-        } catch {
-          settError(true);
-          settFeilmelding('skjema.feilmelding.uthenting');
-        }
+            settError(false);
+            settFeilmelding('');
+          })
+          .catch(() => {
+            settError(true);
+            settFeilmelding('skjema.feilmelding.uthenting');
+          });
       };
-      fetchPersonData().catch(() => {
-        settError(true);
-        settFeilmelding('skjema.feilmelding.uthenting');
-      });
+      fetchPersonData();
       settFetching(false);
     };
     fetchData();
