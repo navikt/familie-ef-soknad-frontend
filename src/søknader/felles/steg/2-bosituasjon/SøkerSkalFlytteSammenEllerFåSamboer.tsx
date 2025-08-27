@@ -75,14 +75,14 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
     skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi;
 
   return (
-    <VStack gap={'6'} align={'start'}>
+    <VStack gap={'6'}>
       <JaNeiSpørsmål
         spørsmål={spørsmål}
         onChange={settSøkerSkalGifteSegEllerBliSamboer}
         valgtSvar={skalGifteSegEllerBliSamboer?.verdi}
       />
 
-      <VStack gap={'6'}>
+      <VStack gap={'6'} align={'start'}>
         {visDatoSkalGifteSegEllerBliSamboer && (
           <Datovelger
             valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
