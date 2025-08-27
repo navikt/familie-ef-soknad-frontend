@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { EBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
+import { IdentEllerFødselsdatoGruppe } from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
 import { Label, TextField, VStack } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
