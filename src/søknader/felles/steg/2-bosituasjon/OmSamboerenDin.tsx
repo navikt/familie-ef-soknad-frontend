@@ -4,7 +4,7 @@ import { EBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IdentEllerFødselsdatoGruppe } from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
-import { Heading, Label, TextField, VStack } from '@navikt/ds-react';
+import { Label, TextField, VStack } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
 import { identErGyldig } from '../../../../utils/validering/validering';
 
