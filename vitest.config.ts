@@ -8,8 +8,5 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     environment: 'jsdom',
     testTimeout: 30000,
-    env: {
-      TZ: 'UTC',
-    },
   },
 });

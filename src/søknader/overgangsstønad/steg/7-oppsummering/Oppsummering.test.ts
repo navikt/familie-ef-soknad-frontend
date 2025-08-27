@@ -11,7 +11,6 @@ import {
   lagTekstfelt,
   lagUtlandsopphold,
 } from '../../../../test/domeneUtils';
-import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -253,7 +252,7 @@ describe('Oppsumering-Steg for overgangsstønad', () => {
           },
           søknadsdato: {
             label: 'Jeg søker overgangsstønad fra og med',
-            verdi: '2024-07-31T22:00:00.000Z',
+            verdi: '2024-08-01T12:00:00.000Z',
           },
         },
         person: {
@@ -538,8 +537,6 @@ describe('Oppsumering-Steg for overgangsstønad', () => {
     // 2024-08-01
     expect(screen.getByText('Søker du overgangsstønad fra en bestemt måned?')).toBeInTheDocument();
     // Ja
-
-    console.log(prettyDOM(undefined, Infinity));
 
     expect(screen.getByText('Jeg søker overgangsstønad fra og med')).toBeInTheDocument();
     expect(screen.getByText('01.08.2024')).toBeInTheDocument();
