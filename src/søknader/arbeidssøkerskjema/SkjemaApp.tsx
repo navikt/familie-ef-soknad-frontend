@@ -31,12 +31,6 @@ const App = () => {
 
   autentiseringsInterceptor();
 
-  const fetchToggles = () => {
-    return hentToggles(settToggles).catch(() => {
-      settError(true);
-    });
-  };
-
   useEffect(() => {
     verifiserAtBrukerErAutentisert(settAutentisering);
   }, [autentisert]);
@@ -50,7 +44,9 @@ const App = () => {
             settVisningsnavn(response.visningsnavn);
           })
           .then(() => {
-            fetchToggles();
+            hentToggles(settToggles).catch(() => {
+              settError(true);
+            });
 
             settError(false);
             settFeilmelding('');
@@ -64,7 +60,7 @@ const App = () => {
       settFetching(false);
     };
     fetchData();
-  }, []);
+  }, [settToggles]);
 
   if (!fetching && autentisert) {
     if (!error) {

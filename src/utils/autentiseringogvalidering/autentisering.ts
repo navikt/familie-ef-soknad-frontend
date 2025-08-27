@@ -48,7 +48,7 @@ export const verifiserAtBrukerErAutentisert = (
   settAutentisering: (autentisering: boolean) => void
 ) => {
   if (loggInn()) {
-    return verifiserInnloggetApi().then((response) => {
+    verifiserInnloggetApi().then((response) => {
       if (response && 200 === response.status) {
         settAutentisering(true);
       }
