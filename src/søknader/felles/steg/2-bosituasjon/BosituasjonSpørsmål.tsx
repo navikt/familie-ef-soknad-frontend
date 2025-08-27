@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import { SøkerSkalFlytteSammenEllerFåSamboer } from './SøkerSkalFlytteSammenEllerFåSamboer';
 import { EkteskapsliknendeForhold } from './EkteskapsliknendeForhold';
@@ -40,11 +38,14 @@ export const BosituasjonSpørsmål: FC = () => {
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.borAleneMedBarnEllerGravid ||
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.delerBoligMedAndreVoksne ||
     ferdigUtfyltTidligereSamboerFortsattRegistrertPåAdresse;
+  const visTidligereSamboerBorPåSammeAdresseAlert =
+    delerBoligMedAndreVoksne.svarid ===
+    ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse;
   const visEkteskapLignendeForhold =
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.harEkteskapsliknendeForhold;
 
   return (
-    <VStack>
+    <VStack gap={'6'}>
       <MultiSvarSpørsmål
         key={hovedSpørsmål.søknadid}
         spørsmål={hovedSpørsmål}
@@ -53,18 +54,17 @@ export const BosituasjonSpørsmål: FC = () => {
       />
 
       {valgtSvar && valgtSvar.alert_tekstid && (
-        <FeltGruppe>
-          {delerBoligMedAndreVoksne.svarid ===
-          ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse ? (
-            <AlertStripeDokumentasjon>
+        <VStack>
+          {visTidligereSamboerBorPåSammeAdresseAlert ? (
+            <Alert variant={'info'} size={'small'} inline>
               {hentHTMLTekst(valgtSvar.alert_tekstid, intl)}
-            </AlertStripeDokumentasjon>
+            </Alert>
           ) : (
-            <Alert size="small" variant="warning" inline>
+            <Alert variant={'warning'} size={'small'} inline>
               {hentTekst(valgtSvar.alert_tekstid, intl)}
             </Alert>
           )}
-        </FeltGruppe>
+        </VStack>
       )}
 
       {visOmTidligereSamboer && <OmTidligereSamboer />}
