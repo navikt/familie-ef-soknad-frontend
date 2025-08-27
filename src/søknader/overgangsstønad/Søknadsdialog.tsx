@@ -18,7 +18,7 @@ import { erOvergangsstønadSøknad, Søknad } from '../../models/søknad/søknad
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
-import BarnaDine from '../felles/steg/3-barnadine/BarnaDine';
+import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 
 const Søknadsdialog: FC = () => {
   const {
