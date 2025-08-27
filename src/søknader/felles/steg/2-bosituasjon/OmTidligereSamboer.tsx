@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import { EBosituasjon } from '../../../../models/steg/bosituasjon';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { OmSamboerenDin } from './OmSamboerenDin';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harFyltUtSamboerDetaljer } from '../../../../utils/person';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { useBosituasjon } from './BosituasjonContext';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import { VStack } from '@navikt/ds-react';
 
 export const OmTidligereSamboer: FC = () => {
-  const { bosituasjon, settBosituasjon } = useBosituasjon();
   const intl = useLokalIntlContext();
+
+  const { bosituasjon, settBosituasjon } = useBosituasjon();
 
   const settDatoFlyttetFraHverandre = (dato: string) => {
     dato !== null &&
@@ -25,8 +25,11 @@ export const OmTidligereSamboer: FC = () => {
       });
   };
 
+  const visDatoFlyttetFraHverandreVelger =
+    bosituasjon.samboerDetaljer && harFyltUtSamboerDetaljer(bosituasjon.samboerDetaljer, true);
+
   return (
-    <SeksjonGruppe aria-live="polite">
+    <VStack gap={'6'}>
       <OmSamboerenDin
         tittel={'bosituasjon.tittel.omTidligereSamboer'}
         erIdentEllerFødselsdatoObligatorisk={false}
@@ -38,22 +41,20 @@ export const OmTidligereSamboer: FC = () => {
           'bosituasjon-tidligere-samboer-fødselsdato',
         ]}
       />
-      {bosituasjon.samboerDetaljer &&
-        harFyltUtSamboerDetaljer(bosituasjon.samboerDetaljer, true) && (
-          <FeltGruppe>
-            <Datovelger
-              aria-live="polite"
-              valgtDato={
-                bosituasjon.datoFlyttetFraHverandre
-                  ? bosituasjon.datoFlyttetFraHverandre.verdi
-                  : undefined
-              }
-              tekstid={'bosituasjon.datovelger.nårFlyttetDereFraHverandre'}
-              gyldigeDatoer={GyldigeDatoer.Alle}
-              settDato={settDatoFlyttetFraHverandre}
-            />
-          </FeltGruppe>
-        )}
-    </SeksjonGruppe>
+
+      {visDatoFlyttetFraHverandreVelger && (
+        <Datovelger
+          aria-live="polite"
+          valgtDato={
+            bosituasjon.datoFlyttetFraHverandre
+              ? bosituasjon.datoFlyttetFraHverandre.verdi
+              : undefined
+          }
+          tekstid={'bosituasjon.datovelger.nårFlyttetDereFraHverandre'}
+          gyldigeDatoer={GyldigeDatoer.Alle}
+          settDato={settDatoFlyttetFraHverandre}
+        />
+      )}
+    </VStack>
   );
 };
