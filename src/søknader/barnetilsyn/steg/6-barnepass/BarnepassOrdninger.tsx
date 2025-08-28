@@ -8,7 +8,7 @@ import { erBarnepassOrdningerUtfylt } from './hjelper';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { IBarn } from '../../../../models/steg/barn';
-import { IBarnepass, IBarnepassOrdning } from '../../models/barnepass';
+import { BarnepassOrdning, IBarnepass } from '../../models/barnepass';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -27,7 +27,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass }) => {
     : { barnepassordninger: [{ id: hentUid() }] };
   const leggTilLabel = hentBarnNavnEllerBarnet(barn, 'barnepass.label.leggTilOrdning', intl);
 
-  const settBarnepassOrdning = (endretBarnepassordning: IBarnepassOrdning) => {
+  const settBarnepassOrdning = (endretBarnepassordning: BarnepassOrdning) => {
     const endretBarnepassordninger = barnepass.barnepassordninger.map((ordning) => {
       if (ordning.id === endretBarnepassordning.id) {
         return endretBarnepassordning;
@@ -48,7 +48,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass }) => {
     settBarnepass({ ...barn.barnepass, barnepassordninger: endretBarnepassordninger }, barn.id);
   };
 
-  const fjernBarnepassOrdning = (barnepassordning: IBarnepassOrdning) => {
+  const fjernBarnepassOrdning = (barnepassordning: BarnepassOrdning) => {
     const barnepassordninger = barn.barnepass?.barnepassordninger;
     if (barnepassordninger && barnepassordninger.length > 1) {
       const endretBarnepassOrdning = barnepassordninger?.filter(

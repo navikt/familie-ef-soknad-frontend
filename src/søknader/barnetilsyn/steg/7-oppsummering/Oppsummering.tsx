@@ -11,7 +11,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentPath } from '../../../../utils/routing';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { Accordion, BodyShort } from '@navikt/ds-react';

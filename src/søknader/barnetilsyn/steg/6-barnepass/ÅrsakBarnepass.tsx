@@ -5,7 +5,7 @@ import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiS
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { IBarn } from '../../../../models/steg/barn';
-import { EÅrsakBarnepass, IBarnepass, IBarnepassOrdning } from '../../models/barnepass';
+import { BarnepassOrdning, EÅrsakBarnepass, IBarnepass } from '../../models/barnepass';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
@@ -28,7 +28,7 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
   const årsakBarnepassConfig = årsakBarnepass(intl);
 
   const spørsmålTekstMedNavn = hentBarnNavnEllerBarnet(barn, årsakBarnepassConfig.tekstid, intl);
-  const barnepassordningerListe: IBarnepassOrdning[] = barnepass?.barnepassordninger
+  const barnepassordningerListe: BarnepassOrdning[] = barnepass?.barnepassordninger
     ? barnepass.barnepassordninger
     : [{ id: hentUid() }];
 
