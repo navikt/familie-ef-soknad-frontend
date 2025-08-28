@@ -25,7 +25,7 @@ const AlertContainer = styled.div`
   }
 `;
 
-const BarnaDine: React.FC = () => {
+export const BarnaDine: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
   const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
@@ -117,5 +117,3 @@ const BarnaDine: React.FC = () => {
     </Side>
   );
 };
-
-export default BarnaDine;
