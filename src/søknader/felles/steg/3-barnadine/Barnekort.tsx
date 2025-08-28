@@ -7,38 +7,14 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import { formatDate, strengTilDato } from '../../../../utils/dato';
-import { Heading } from '@navikt/ds-react';
-import styled from 'styled-components';
+import { Heading, VStack, Box } from '@navikt/ds-react';
 import { InformasjonsElement } from './BarnekortInformasjonsElement';
+import styles from './Barnekort.module.css';
 
 interface Props {
   gjeldendeBarn: IBarn;
   footer: React.ReactNode;
 }
-
-const Container = styled.div`
-  width: 276px;
-  background-color: #e7e9e9;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: flex-end;
-  height: 128px;
-  justify-content: center;
-  background-color: #4d3e55;
-  border-bottom: 4px solid #826ba1;
-`;
-
-const Innhold = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem 2rem;
-  text-align: center;
-`;
 
 export const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   const intl = useLokalIntlContext();
@@ -79,11 +55,11 @@ export const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   }
 
   return (
-    <Container>
-      <Header>
+    <Box className={styles.container}>
+      <Box className={styles.header}>
         <img alt="barn" src={ikon} />
-      </Header>
-      <Innhold>
+      </Box>
+      <VStack gap="4" className={styles.content}>
         <Heading size="small" level="3">
           {navn.verdi ? navn.verdi : hentTekst('barnekort.normaltekst.barn', intl)}
         </Heading>
@@ -125,7 +101,7 @@ export const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
           />
         )}
         {footer}
-      </Innhold>
-    </Container>
+      </VStack>
+    </Box>
   );
 };
