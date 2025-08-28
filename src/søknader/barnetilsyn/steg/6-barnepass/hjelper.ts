@@ -5,7 +5,7 @@ import {
   erPeriodeGyldig,
   strengTilDato,
 } from '../../../../utils/dato';
-import { ETypeBarnepassOrdning, IBarnepassOrdning } from '../../models/barnepass';
+import { BarnepassOrdning, ETypeBarnepassOrdning } from '../../models/barnepass';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
@@ -32,8 +32,8 @@ export const erÅrsakBarnepassSpmBesvart = (barn: IBarn): boolean => {
   );
 };
 
-export const erBarnepassOrdningerUtfylt = (barnepassordninger: IBarnepassOrdning[]): boolean => {
-  const erBarnepassOrdningUtfylt = (barnepassordning: IBarnepassOrdning) => {
+export const erBarnepassOrdningerUtfylt = (barnepassordninger: BarnepassOrdning[]): boolean => {
+  const erBarnepassOrdningUtfylt = (barnepassordning: BarnepassOrdning) => {
     const { hvaSlagsBarnepassOrdning, navn, periode, belop } = barnepassordning;
     return (
       hvaSlagsBarnepassOrdning?.verdi &&
