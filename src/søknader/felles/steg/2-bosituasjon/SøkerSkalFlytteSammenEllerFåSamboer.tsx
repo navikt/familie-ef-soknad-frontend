@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
 import { skalSøkerGifteSegMedSamboer } from './BosituasjonConfig';
 import { OmSamboerenDin } from './OmSamboerenDin';
@@ -12,11 +11,12 @@ import { Datovelger } from '../../../../components/dato/Datovelger';
 import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
 import { useBosituasjon } from './BosituasjonContext';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import { VStack } from '@navikt/ds-react';
 
 export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
-  const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();
   const intl = useLokalIntlContext();
 
+  const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();
   const { delerBoligMedAndreVoksne, skalGifteSegEllerBliSamboer, datoSkalGifteSegEllerBliSamboer } =
     bosituasjon;
 
@@ -71,45 +71,43 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
 
   const erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid =
     erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(datoSkalGifteSegEllerBliSamboer);
+  const visDatoSkalGifteSegEllerBliSamboer =
+    skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi;
 
   return (
-    <>
-      <KomponentGruppe>
-        <JaNeiSpørsmål
-          spørsmål={spørsmål}
-          onChange={settSøkerSkalGifteSegEllerBliSamboer}
-          valgtSvar={skalGifteSegEllerBliSamboer?.verdi}
-        />
-      </KomponentGruppe>
-      {skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi ? (
-        <>
-          <KomponentGruppe>
-            <Datovelger
-              valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
-              tekstid={'datovelger.nårSkalDetteSkje'}
-              gyldigeDatoer={GyldigeDatoer.Fremtidige}
-              settDato={(e) => {
-                settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
-              }}
-            />
-          </KomponentGruppe>
-          {erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid && (
-            <KomponentGruppe>
-              <OmSamboerenDin
-                tittel={'bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed'}
-                erIdentEllerFødselsdatoObligatorisk={true}
-                samboerDetaljerType={EBosituasjon.vordendeSamboerEktefelle}
-                testIderTextFieldMedBredde={'bosituasjon-skal-gifte-seg-navn'}
-                testIderIdentEllerFødselsdatoGruppe={[
-                  'bosituasjon-skal-gifte-seg-fødselsnummer',
-                  'bosituasjon-skal-gifte-seg-checkbox',
-                  'bosituasjon-skal-gifte-seg-fødselsdato',
-                ]}
-              />
-            </KomponentGruppe>
-          )}
-        </>
-      ) : null}
-    </>
+    <VStack gap={'6'}>
+      <JaNeiSpørsmål
+        spørsmål={spørsmål}
+        onChange={settSøkerSkalGifteSegEllerBliSamboer}
+        valgtSvar={skalGifteSegEllerBliSamboer?.verdi}
+      />
+
+      <VStack gap={'6'} align={'start'}>
+        {visDatoSkalGifteSegEllerBliSamboer && (
+          <Datovelger
+            valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
+            tekstid={'datovelger.nårSkalDetteSkje'}
+            gyldigeDatoer={GyldigeDatoer.Fremtidige}
+            settDato={(e) => {
+              settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
+            }}
+          />
+        )}
+
+        {erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid && (
+          <OmSamboerenDin
+            tittel={'bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed'}
+            erIdentEllerFødselsdatoObligatorisk={true}
+            samboerDetaljerType={EBosituasjon.vordendeSamboerEktefelle}
+            testIderTextFieldMedBredde={'bosituasjon-skal-gifte-seg-navn'}
+            testIderIdentEllerFødselsdatoGruppe={[
+              'bosituasjon-skal-gifte-seg-fødselsnummer',
+              'bosituasjon-skal-gifte-seg-checkbox',
+              'bosituasjon-skal-gifte-seg-fødselsdato',
+            ]}
+          />
+        )}
+      </VStack>
+    </VStack>
   );
 };
