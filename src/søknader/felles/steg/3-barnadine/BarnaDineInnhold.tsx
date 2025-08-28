@@ -3,11 +3,12 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import Barnekort from './Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
-import { Alert, VStack, HStack } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { LeggTilBarnKort } from './LeggTilBarnKort';
 import LeggTilBarnModal from './LeggTilBarnModal';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { EndreEllerSlettBarn } from './EndreEllerSlettBarn';
+import styled from 'styled-components';
 
 interface Props {
   barneliste: IBarn[];
@@ -15,6 +16,24 @@ interface Props {
   fjernBarnFraSøknad: (id: string) => void;
   settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
+
+export const BarneKortWrapper = styled.div`
+  display: inline-flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 568px;
+  margin: auto;
+
+  @media (max-width: 767px) {
+    justify-content: center;
+  }
+`;
+
+export const BarnaDineContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
 
 export const BarnaDineInnhold: React.FC<Props> = ({
   barneliste,
@@ -27,12 +46,11 @@ export const BarnaDineInnhold: React.FC<Props> = ({
   const [åpenModal, settÅpenModal] = useState(false);
 
   return (
-    <VStack gap="4">
+    <BarnaDineContainer>
       <Alert size="small" variant="info" inline>
         {hentTekst('barnadine.infohentet', intl)}
       </Alert>
-
-      <HStack gap="4" wrap justify="center">
+      <BarneKortWrapper>
         {barneliste
           ?.sort((a: IBarn, b: IBarn) => {
             if (a.medforelder?.verdi && !b.medforelder?.verdi) {
@@ -61,8 +79,7 @@ export const BarnaDineInnhold: React.FC<Props> = ({
             />
           ))}
         <LeggTilBarnKort settÅpenModal={settÅpenModal} />
-      </HStack>
-
+      </BarneKortWrapper>
       {åpenModal && (
         <LeggTilBarnModal
           tittel={hentTekst('barnadine.leggtil', intl)}
@@ -72,6 +89,6 @@ export const BarnaDineInnhold: React.FC<Props> = ({
           oppdaterBarnISøknaden={oppdaterBarnISøknaden}
         />
       )}
-    </VStack>
+    </BarnaDineContainer>
   );
 };
