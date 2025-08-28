@@ -40,7 +40,7 @@ const Innhold = styled.div`
   text-align: center;
 `;
 
-const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
+export const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   const intl = useLokalIntlContext();
 
   const {
@@ -129,5 +129,3 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
     </Container>
   );
 };
-
-export default Barnekort;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import Barnekort from './Barnekort';
+import { Barnekort } from './Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
 import { Alert } from '@navikt/ds-react';
 import { LeggTilBarnKort } from './LeggTilBarnKort';
