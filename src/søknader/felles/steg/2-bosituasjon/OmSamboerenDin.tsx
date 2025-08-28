@@ -1,14 +1,10 @@
 import React, { FC, useState } from 'react';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { EBosituasjon } from '../../../../models/steg/bosituasjon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
+import { IdentEllerFødselsdatoGruppe } from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { EPersonDetaljer, IPersonDetaljer } from '../../../../models/søknad/person';
-import { Label } from '@navikt/ds-react';
-import { TextFieldMedBredde } from '../../../../components/TextFieldMedBredde';
+import { Label, TextField, VStack } from '@navikt/ds-react';
 import { useBosituasjon } from './BosituasjonContext';
 import { identErGyldig } from '../../../../utils/validering/validering';
 
@@ -27,12 +23,14 @@ export const OmSamboerenDin: FC<Props> = ({
   testIderTextFieldMedBredde,
   testIderIdentEllerFødselsdatoGruppe,
 }) => {
-  const { bosituasjon, settBosituasjon } = useBosituasjon();
   const intl = useLokalIntlContext();
+
+  const { bosituasjon, settBosituasjon } = useBosituasjon();
   const samboerDetaljer = bosituasjon[samboerDetaljerType];
   const [samboerInfo, settSamboerInfo] = useState<IPersonDetaljer>(
     samboerDetaljer ? samboerDetaljer : { kjennerIkkeIdent: false }
   );
+
   const [ident, settIdent] = useState<string>(samboerInfo?.ident ? samboerInfo?.ident.verdi : '');
 
   const oppdaterSamboerInfo = (personDetaljer: IPersonDetaljer) => {
@@ -92,43 +90,39 @@ export const OmSamboerenDin: FC<Props> = ({
       },
     });
   };
-  return (
-    <>
-      <FeltGruppe>
-        <Label as="p">{hentTekst(tittel, intl)}</Label>
-      </FeltGruppe>
 
-      <KomponentGruppe>
-        <TextFieldMedBredde
-          className={'inputfelt-tekst'}
-          key={'navn'}
-          label={hentTekst('person.navn', intl)}
-          type="text"
-          bredde={'L'}
-          onChange={(e) => settNavn(e)}
-          value={samboerInfo.navn?.verdi ? samboerInfo.navn?.verdi : ''}
-          data-testid={testIderTextFieldMedBredde}
+  const visIdentEllerFødseldatoGruppe = samboerDetaljer?.navn;
+
+  return (
+    <VStack gap={'6'} align={'start'}>
+      <Label as="p">{hentTekst(tittel, intl)}</Label>
+
+      <TextField
+        key={'navn'}
+        label={hentTekst('person.navn', intl)}
+        type="text"
+        onChange={(e) => settNavn(e)}
+        value={samboerInfo.navn?.verdi ? samboerInfo.navn?.verdi : ''}
+        data-testid={testIderTextFieldMedBredde}
+      />
+
+      {visIdentEllerFødseldatoGruppe && (
+        <IdentEllerFødselsdatoGruppe
+          identLabel={hentTekst('person.ident', intl)}
+          datoLabelId={
+            !erIdentEllerFødselsdatoObligatorisk ? 'person.fødselsdato' : 'datovelger.fødselsdato'
+          }
+          checkboxLabel={hentTekst('person.checkbox.ident', intl)}
+          ident={ident && !samboerInfo.kjennerIkkeIdent ? ident : ''}
+          fødselsdato={samboerInfo.fødselsdato?.verdi || ''}
+          checked={samboerInfo?.kjennerIkkeIdent}
+          erGyldigIdent={identErGyldig(ident)}
+          settIdent={oppdaterIdent}
+          settFødselsdato={settFødselsdato}
+          settChecked={settChecked}
+          testIder={testIderIdentEllerFødselsdatoGruppe}
         />
-      </KomponentGruppe>
-      <KomponentGruppe>
-        {samboerDetaljer?.navn && (
-          <IdentEllerFødselsdatoGruppe
-            identLabel={hentTekst('person.ident', intl)}
-            datoLabelId={
-              !erIdentEllerFødselsdatoObligatorisk ? 'person.fødselsdato' : 'datovelger.fødselsdato'
-            }
-            checkboxLabel={hentTekst('person.checkbox.ident', intl)}
-            ident={ident && !samboerInfo.kjennerIkkeIdent ? ident : ''}
-            fødselsdato={samboerInfo.fødselsdato?.verdi || ''}
-            checked={samboerInfo?.kjennerIkkeIdent}
-            erGyldigIdent={identErGyldig(ident)}
-            settIdent={oppdaterIdent}
-            settFødselsdato={settFødselsdato}
-            settChecked={settChecked}
-            testIder={testIderIdentEllerFødselsdatoGruppe}
-          />
-        )}
-      </KomponentGruppe>
-    </>
+      )}
+    </VStack>
   );
 };

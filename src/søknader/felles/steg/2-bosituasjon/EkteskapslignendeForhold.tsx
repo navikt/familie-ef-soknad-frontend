@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import { EBosituasjon } from '../../../../models/steg/bosituasjon';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { OmSamboerenDin } from './OmSamboerenDin';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { harFyltUtSamboerDetaljer } from '../../../../utils/person';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { useBosituasjon } from './BosituasjonContext';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import { VStack } from '@navikt/ds-react';
 
-export const EkteskapsliknendeForhold: FC = () => {
-  const { bosituasjon, settBosituasjon } = useBosituasjon();
+export const EkteskapslignendeForhold: FC = () => {
   const intl = useLokalIntlContext();
+
+  const { bosituasjon, settBosituasjon } = useBosituasjon();
   const { samboerDetaljer } = bosituasjon;
 
   const settDatoFlyttetSammen = (dato: string, label: string) => {
@@ -26,32 +26,31 @@ export const EkteskapsliknendeForhold: FC = () => {
       });
   };
 
+  const visFlyttetSammenMedSamboerDatoVelger =
+    samboerDetaljer && harFyltUtSamboerDetaljer(samboerDetaljer, false);
+
   return (
-    <SeksjonGruppe>
+    <VStack gap={'6'}>
       <OmSamboerenDin
         tittel={'bosituasjon.tittel.omSamboer'}
         erIdentEllerFødselsdatoObligatorisk={true}
         samboerDetaljerType={EBosituasjon.samboerDetaljer}
       />
-      {samboerDetaljer && harFyltUtSamboerDetaljer(samboerDetaljer, false) && (
-        <FeltGruppe>
-          <Datovelger
-            valgtDato={
-              bosituasjon.datoFlyttetSammenMedSamboer
-                ? bosituasjon.datoFlyttetSammenMedSamboer.verdi
-                : undefined
-            }
-            tekstid={'bosituasjon.datovelger.nårFlyttetDereSammen'}
-            gyldigeDatoer={GyldigeDatoer.Tidligere}
-            settDato={(e) =>
-              settDatoFlyttetSammen(
-                e,
-                hentTekst('bosituasjon.datovelger.nårFlyttetDereSammen', intl)
-              )
-            }
-          />
-        </FeltGruppe>
+
+      {visFlyttetSammenMedSamboerDatoVelger && (
+        <Datovelger
+          valgtDato={
+            bosituasjon.datoFlyttetSammenMedSamboer
+              ? bosituasjon.datoFlyttetSammenMedSamboer.verdi
+              : undefined
+          }
+          tekstid={'bosituasjon.datovelger.nårFlyttetDereSammen'}
+          gyldigeDatoer={GyldigeDatoer.Tidligere}
+          settDato={(e) =>
+            settDatoFlyttetSammen(e, hentTekst('bosituasjon.datovelger.nårFlyttetDereSammen', intl))
+          }
+        />
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
