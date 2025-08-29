@@ -13,6 +13,7 @@
     "test": "vitest run",
     "vitest": "vitest",
     "lint": "tsc --project ./tsconfig.json --noEmit && eslint './src/**/*.{js,ts,tsx}'",
+    "dev:hent-tokens": "npx tsx src/utils/autentiseringogvalidering/hent-dev-token.ts",
     "build:dev-server": "cd server && tsc --build --verbose && cd ..",
     "postinstall": "cd server && npm ci && cd ..",
     "set-node-options": "NODE_OPTIONS='--import=./server/build/register.js --es-module-specifier-resolution=node'"
@@ -56,6 +57,7 @@
     "date-fns": "^4.1.0",
     "html-react-parser": "^5.2.6",
     "iso-datestring-validator": "^2.2.2",
+    "playwright": "^1.55.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-dropzone": "^14.3.8",
@@ -104,6 +106,7 @@
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.14",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0",
     "url-loader": "^4.1.1",
