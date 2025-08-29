@@ -6,6 +6,7 @@ import {
   strengTilDato,
 } from '../../../../utils/dato';
 import { BarnepassOrdning, ETypeBarnepassOrdning } from '../../models/barnepass';
+import { SøknadBarnetilsyn } from '../../models/søknad';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
@@ -47,9 +48,9 @@ export const erBarnepassOrdningerUtfylt = (barnepassordninger: BarnepassOrdning[
 
 export const erBarnepassStegFerdigUtfylt = (
   barnSomSkalHaBarnepass: IBarn[],
-  søknadsdato: IDatoFelt | undefined,
-  søkerFraBestemtMåned: ISpørsmålBooleanFelt | undefined
+  søknad: SøknadBarnetilsyn
 ): boolean => {
+  const { søkerFraBestemtMåned, søknadsdato } = søknad;
   const erSpørsmålSøkerFraBestemtMånedBesvart =
     (søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.ja &&
       søknadsdato?.verdi !== undefined) ||

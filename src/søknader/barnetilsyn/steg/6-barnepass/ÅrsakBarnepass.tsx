@@ -12,17 +12,17 @@ import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { årsakBarnepass } from './BarnepassConfig';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
+import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
-import { useBarnepass } from './BarnepassContext';
 
 interface Props {
   barn: IBarn;
   settBarnepass: (barnepass: IBarnepass, barneid: string) => void;
+  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
+const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbehovForBarn }) => {
   const intl = useLokalIntlContext();
-  const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const { barnepass } = barn;
 
   const årsakBarnepassConfig = årsakBarnepass(intl);
