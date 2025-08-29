@@ -78,11 +78,11 @@ async function hentToken(audience: string): Promise<string> {
         (url) => {
           const erTokenGenerator = url.href.startsWith(TOKENX_BASE_URL);
           const audienceParam = audience.replace(/:/g, '%3A');
-          const hasCorrectAudience =
+          const harRiktigAudience =
             url.href.includes(`aud=${encodeURIComponent(audience)}`) ||
             url.href.includes(`aud=${audienceParam}`) ||
             url.href.includes(audience.split(':')[2]);
-          return erTokenGenerator && hasCorrectAudience;
+          return erTokenGenerator && harRiktigAudience;
         },
         { timeout: 60000 }
       );
