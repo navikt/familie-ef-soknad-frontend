@@ -11,17 +11,17 @@ import { IBarn } from '../../../../models/steg/barn';
 import { BarnepassOrdning, IBarnepass } from '../../models/barnepass';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useBarnepass } from './BarnepassContext';
 
 interface Props {
   barn: IBarn;
   settBarnepass: (barnepass: IBarnepass, barnid: string) => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbehovForBarn }) => {
+const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass }) => {
   const intl = useLokalIntlContext();
+  const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const barnepass: IBarnepass = barn.barnepass
     ? barn.barnepass
     : { barnepassordninger: [{ id: hentUid() }] };
