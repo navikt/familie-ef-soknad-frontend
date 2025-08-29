@@ -112,26 +112,26 @@ async function hentToken(audience: string): Promise<string> {
 }
 
 async function oppdaterEnvFil(tokens: TokenPar): Promise<void> {
-  const envSti = path.resolve(ENV_FIL);
+  const envPath = path.resolve(ENV_FIL);
 
-  let innhold = '';
-  if (fs.existsSync(envSti)) {
-    innhold = fs.readFileSync(envSti, 'utf-8');
+  let envInnhold = '';
+  if (fs.existsSync(envPath)) {
+    envInnhold = fs.readFileSync(envPath, 'utf-8');
   }
 
   const oppdaterEllerLeggTil = (nøkkel: string, verdi: string) => {
     const regex = new RegExp(`^${nøkkel}=.*$`, 'm');
-    if (innhold.includes(`${nøkkel}=`)) {
-      innhold = innhold.replace(regex, `${nøkkel}=${verdi}`);
+    if (envInnhold.includes(`${nøkkel}=`)) {
+      envInnhold = envInnhold.replace(regex, `${nøkkel}=${verdi}`);
     } else {
-      innhold += (innhold && !innhold.endsWith('\n') ? '\n' : '') + `${nøkkel}=${verdi}\n`;
+      envInnhold += (envInnhold && !envInnhold.endsWith('\n') ? '\n' : '') + `${nøkkel}=${verdi}\n`;
     }
   };
 
   oppdaterEllerLeggTil('TOKENX_API', tokens.api);
   oppdaterEllerLeggTil('TOKENX_DOKUMENT', tokens.dokument);
 
-  fs.writeFileSync(envSti, innhold, 'utf-8');
+  fs.writeFileSync(envPath, envInnhold, 'utf-8');
 }
 
 async function main(): Promise<void> {
