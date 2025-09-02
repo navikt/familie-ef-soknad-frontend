@@ -11,7 +11,7 @@ const TARGET_AUDIENCES = [
   'dev-gcp:teamfamilie:familie-dokument',
 ];
 
-interface TokenResponse {
+interface HentTokenRespons {
   access_token: string;
   expires_in: number;
 }
@@ -117,7 +117,7 @@ async function hentToken(audience: string, personIdent: string): Promise<string>
         throw new Error(`Token forespørsel feilet: ${tokenResponse.status()}`);
       }
 
-      const tokenData: TokenResponse = await tokenResponse.json();
+      const tokenData: HentTokenRespons = await tokenResponse.json();
       return tokenData.access_token;
     }
   } finally {
