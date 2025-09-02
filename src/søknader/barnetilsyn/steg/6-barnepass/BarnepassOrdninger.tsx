@@ -17,9 +17,10 @@ import { useBarnepass } from './BarnepassContext';
 interface Props {
   barn: IBarn;
   settBarnepass: (barnepass: IBarnepass, barnid: string) => void;
+  indeks: number;
 }
 
-const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass }) => {
+const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const barnepass: IBarnepass = barn.barnepass
@@ -68,6 +69,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass }) => {
           settBarnepassOrdning={settBarnepassOrdning}
           settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
           fjernBarnepassOrdning={fjernBarnepassOrdning}
+          barnIndeks={indeks}
         />
       ))}
       {erBarnepassOrdningerUtfylt(barnepass.barnepassordninger) && (

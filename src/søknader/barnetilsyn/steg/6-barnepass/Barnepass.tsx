@@ -133,7 +133,10 @@ const Barnepass: FC = () => {
                   <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
                 )}
                 {erÅrsakBarnepassSpmBesvart(barn) && (
-                  <BarnepassOrdninger barn={barn} settBarnepass={settBarnepass} />
+                  <BarnepassOrdninger
+                    barn={barn}
+                    settBarnepass={settBarnepass}
+                    indeks={index} />
                 )}
               </React.Fragment>
             )

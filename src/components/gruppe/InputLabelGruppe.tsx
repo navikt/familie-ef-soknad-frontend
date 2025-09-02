@@ -48,6 +48,7 @@ interface Props {
   value: string;
   feil?: React.ReactNode | boolean;
   placeholder?: string;
+  testId?: string;
 }
 
 const InputLabelGruppe: React.FC<Props> = ({
@@ -62,6 +63,7 @@ const InputLabelGruppe: React.FC<Props> = ({
   feil,
   placeholder,
   utvidetTekstNøkkel,
+  testId,
 }) => {
   const intl = useLokalIntlContext();
   const ignorerScrollForTallInput = (e: any) => e.target.blur();
@@ -99,6 +101,7 @@ const InputLabelGruppe: React.FC<Props> = ({
         error={feil}
         placeholder={placeholder}
         onWheel={ignorerScrollForTallInput}
+        data-testid={testId}
       />
       <BodyShort className={'beskrivendeTekst'}>{beskrivendeTekst}</BodyShort>
     </StyledComponent>
