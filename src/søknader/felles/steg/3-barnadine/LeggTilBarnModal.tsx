@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { LeggTilBarnUfødt } from './LeggTilBarnUfødt';
-import Seksjonsgruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { barnetFødt } from './BarneConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentNyttBarn } from '../../../../helpers/steg/barn';
 import { ESvar } from '../../../../models/felles/spørsmålogsvar';
-import { Button } from '@navikt/ds-react';
+import { Button, VStack } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
-import { styled } from 'styled-components';
+import styles from './LeggTilBarnModal.module.css';
 import { ModalWrapper } from '../../../../components/Modal/ModalWrapper';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
@@ -21,17 +19,6 @@ interface Props {
   barneListe: IBarn[];
   oppdaterBarnISøknaden: (oppdatertBarn: IBarn) => void;
 }
-
-const StyledSeksjonsgruppe = styled(Seksjonsgruppe)`
-  min-height: 500px;
-  width: 450px;
-  padding: 2rem 2.5rem;
-
-  @media (max-width: 767px) {
-    width: auto;
-    padding: 2rem 0;
-  }
-`;
 
 export const LeggTilBarnModal: React.FC<Props> = ({
   tittel,
@@ -95,15 +82,13 @@ export const LeggTilBarnModal: React.FC<Props> = ({
 
   return (
     <ModalWrapper tittel={tittel} visModal={true} onClose={lukkModal}>
-      <StyledSeksjonsgruppe aria-live="polite">
-        <KomponentGruppe>
-          <LeggTilBarnUfødt
-            settBo={settBo}
-            boHosDeg={boHosDeg}
-            settDato={settDato}
-            barnDato={barnDato}
-          />
-        </KomponentGruppe>
+      <VStack gap="6" aria-live="polite" className={styles.modalContent}>
+        <LeggTilBarnUfødt
+          settBo={settBo}
+          boHosDeg={boHosDeg}
+          settDato={settDato}
+          barnDato={barnDato}
+        />
         {boHosDeg && (
           <Button
             data-testid="leggTilBarnModal"
@@ -114,7 +99,7 @@ export const LeggTilBarnModal: React.FC<Props> = ({
             {hentTekst('barnadine.leggtil', intl)}
           </Button>
         )}
-      </StyledSeksjonsgruppe>
+      </VStack>
     </ModalWrapper>
   );
 };
