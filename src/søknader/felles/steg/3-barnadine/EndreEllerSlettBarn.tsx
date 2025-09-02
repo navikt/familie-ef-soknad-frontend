@@ -4,7 +4,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Button } from '@navikt/ds-react';
 import { IBarn } from '../../../../models/steg/barn';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
-import LeggTilBarnModal from './LeggTilBarnModal';
+import { LeggTilBarnModal } from './LeggTilBarnModal';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {

@@ -35,7 +35,7 @@ const RadiopanelWrapper = styled.div`
   }
 `;
 
-const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDato }) => {
+export const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDato }) => {
   const intl = useLokalIntlContext();
 
   return (
@@ -88,5 +88,3 @@ const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato, barnDa
     </>
   );
 };
-
-export default LeggTilBarnUfødt;

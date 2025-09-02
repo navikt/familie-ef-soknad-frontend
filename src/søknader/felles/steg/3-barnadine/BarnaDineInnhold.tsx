@@ -5,7 +5,7 @@ import { Barnekort } from './Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
 import { Alert } from '@navikt/ds-react';
 import { LeggTilBarnKort } from './LeggTilBarnKort';
-import LeggTilBarnModal from './LeggTilBarnModal';
+import { LeggTilBarnModal } from './LeggTilBarnModal';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { EndreEllerSlettBarn } from './EndreEllerSlettBarn';
 import styled from 'styled-components';
@@ -47,7 +47,7 @@ export const BarnaDineInnhold: React.FC<Props> = ({
 
   return (
     <BarnaDineContainer>
-      <Alert size="small" variant="info" inline>
+      <Alert variant="info" size="small" inline>
         {hentTekst('barnadine.infohentet', intl)}
       </Alert>
       <BarneKortWrapper>

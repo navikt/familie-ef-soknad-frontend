@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import LeggTilBarnUfødt from './LeggTilBarnUfødt';
+import { LeggTilBarnUfødt } from './LeggTilBarnUfødt';
 import Seksjonsgruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { barnetFødt } from './BarneConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -33,7 +33,7 @@ const StyledSeksjonsgruppe = styled(Seksjonsgruppe)`
   }
 `;
 
-const LeggTilBarnModal: React.FC<Props> = ({
+export const LeggTilBarnModal: React.FC<Props> = ({
   tittel,
   lukkModal,
   id,
@@ -118,5 +118,3 @@ const LeggTilBarnModal: React.FC<Props> = ({
     </ModalWrapper>
   );
 };
-
-export default LeggTilBarnModal;
