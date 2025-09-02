@@ -3,10 +3,12 @@ import { BodyShort, Label, VStack } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
-export const InformasjonsElement: React.FC<{
+interface Props {
   forklaringId: string;
   verdi: string | null;
-}> = ({ forklaringId, verdi }) => {
+}
+
+export const InformasjonsElement: React.FC<Props> = ({ forklaringId, verdi }) => {
   const intl = useLokalIntlContext();
 
   return (
