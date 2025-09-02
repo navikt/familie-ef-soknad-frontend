@@ -68,14 +68,14 @@ const Barnepass: FC = () => {
   );
 
   const settBarnepass = (barnepass: IBarnepass, barnid: string) => {
-    const endretBarn = søknad.person.barn.map((barn: IBarn) => {
-      if (barn.id === barnid) {
+    const endretBarn = barn.map((enkeltBarn: IBarn) => {
+      if (enkeltBarn.id === barnid) {
         return {
-          ...barn,
+          ...enkeltBarn,
           barnepass: barnepass,
         };
       }
-      return barn;
+      return enkeltBarn;
     });
     settBarn(endretBarn);
   };
@@ -133,10 +133,7 @@ const Barnepass: FC = () => {
                   <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
                 )}
                 {erÅrsakBarnepassSpmBesvart(barn) && (
-                  <BarnepassOrdninger
-                    barn={barn}
-                    settBarnepass={settBarnepass}
-                    indeks={index} />
+                  <BarnepassOrdninger barn={barn} settBarnepass={settBarnepass} indeks={index} />
                 )}
               </React.Fragment>
             )

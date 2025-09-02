@@ -44,8 +44,8 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
   };
 
   const leggTilBarnepassordning = () => {
-    const endretBarnepassordninger = barnepass.barnepassordninger;
-    endretBarnepassordninger.push({ id: hentUid() });
+    const endretBarnepassordninger = [...barnepass.barnepassordninger, { id: hentUid() }];
+    // endretBarnepassordninger.push({ id: hentUid() });
     settBarnepass({ ...barn.barnepass, barnepassordninger: endretBarnepassordninger }, barn.id);
   };
 
