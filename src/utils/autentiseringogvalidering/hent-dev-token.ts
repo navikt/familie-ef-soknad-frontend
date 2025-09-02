@@ -1,9 +1,9 @@
 import { chromium } from 'playwright';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as readline from 'readline';
 
 const TOKENX_BASE_URL = 'https://tokenx-token-generator.intern.dev.nav.no/api/obo';
-const PERSON_IDENT = '17499019114';
 const ENV_FIL = process.env.ENV_FILE || '.env';
 
 const TARGET_AUDIENCES = [
@@ -21,7 +21,21 @@ type TokenPar = {
   dokument: string;
 };
 
-async function hentToken(audience: string): Promise<string> {
+function promptForPersonIdent(): Promise<string> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question('Legg inn person ident fra Dolly: ', (answer) => {
+      rl.close();
+      resolve(answer.trim());
+    });
+  });
+}
+
+async function hentToken(audience: string, personIdent: string): Promise<string> {
   const browser = await chromium.launch({
     headless: process.env.HEADLESS !== 'false',
     slowMo: process.env.SLOW_MO ? parseInt(process.env.SLOW_MO) : 0,
@@ -66,7 +80,7 @@ async function hentToken(audience: string): Promise<string> {
 
     const pidInput = side.locator('input[name="pid"]');
     await pidInput.waitFor({ state: 'visible', timeout: 10000 });
-    await pidInput.fill(PERSON_IDENT);
+    await pidInput.fill(personIdent);
 
     const authKnapp = side.locator(
       'button:has-text("Authenticate"), button[type="submit"], input[type="submit"]'
@@ -142,8 +156,14 @@ async function main(): Promise<void> {
   }
 
   try {
-    const apiToken = await hentToken(TARGET_AUDIENCES[0]);
-    const dokumentToken = await hentToken(TARGET_AUDIENCES[1]);
+    const personIdent = await promptForPersonIdent();
+
+    if (!personIdent || personIdent.length !== 11 || !/^\d{11}$/.test(personIdent)) {
+      throw new Error('Ugyldig person ident. Må være 11 siffer.');
+    }
+
+    const apiToken = await hentToken(TARGET_AUDIENCES[0], personIdent);
+    const dokumentToken = await hentToken(TARGET_AUDIENCES[1], personIdent);
 
     await oppdaterEnvFil({
       api: apiToken,
