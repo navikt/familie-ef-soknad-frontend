@@ -9,7 +9,7 @@ import { IForelder } from '../../../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import IdentEllerFødselsdatoGruppe from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
+import { IdentEllerFødselsdatoGruppe } from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
 import { Checkbox, ErrorMessage, Textarea } from '@navikt/ds-react';
 import {
   erIkkeOppgittPgaAnnet,

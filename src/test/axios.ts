@@ -228,6 +228,8 @@ const utledSøknadOvergangsstønad = (
       return lagSøknadOvergangsstønad({ harBekreftet: true });
     case '/din-situasjon':
       return søknadOvergangsstønadBarnasBosted(søknad);
+    case '/oppsummering':
+      return lagSøknadOvergangsstønad({ harBekreftet: true, ...søknad });
     case '/dokumentasjon':
       return søknadOvergangsstønadBarnasBosted(søknad);
     default:
@@ -246,6 +248,8 @@ const utledSøknadBarnetilsyn = (
       return søknadBarnetilsynBarnasBosted(søknad);
     case '/barnetilsyn/barnepass':
       return søknadBarnetilsynBarnasBosted(søknad);
+    case '/barnetilsyn/oppsummering':
+      return lagSøknadBarnetilsyn({ harBekreftet: true, ...søknad });
     default:
       return lagSøknadBarnetilsyn({ harBekreftet: true });
   }
@@ -258,6 +262,8 @@ const utledSøknadSkolepenger = (
   switch (gjeldendeSteg) {
     case '/skolepenger/utdanning':
       return søknadSkolepengerBarnasBosted(søknad);
+    case '/skolepenger/oppsummering':
+      return lagSøknadSkolepenger({ harBekreftet: true, ...søknad });
     default:
       return lagSøknadSkolepenger({ harBekreftet: true });
   }
