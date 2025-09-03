@@ -6,31 +6,15 @@ import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/teksthå
 import { ILandMedKode, IUtenlandsopphold } from '../../../../../models/steg/omDeg/medlemskap';
 import { erPeriodeDatoerValgt } from '../../../../../helpers/steg/omdeg';
 import { EPeriode } from '../../../../../models/felles/periode';
-import styled from 'styled-components';
 import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Heading, HStack, Textarea } from '@navikt/ds-react';
+import { Heading, HStack, Textarea, TextField, VStack } from '@navikt/ds-react';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { utenlandsoppholdLand } from './MedlemskapConfig';
-import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
-import EøsIdent from '../../../../../components/EøsIdent';
+import { EøsIdent } from '../../../../../components/EøsIdent';
 import { stringHarVerdiOgErIkkeTom } from '../../../../../utils/typer';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
-
-const StyledTextarea = styled(Textarea)`
-  width: 100%;
-`;
-
-const StyledPeriodeDatovelgere = styled(PeriodeDatovelgere)`
-  padding-bottom: 0;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
 
 interface Props {
   perioderBoddIUtlandet: IUtenlandsopphold[];
@@ -39,15 +23,18 @@ interface Props {
   oppholdsnr: number;
   land: ILandMedKode[];
 }
-const Utenlandsopphold: FC<Props> = ({
+
+export const Utenlandsopphold: FC<Props> = ({
   perioderBoddIUtlandet,
   settPeriodeBoddIUtlandet,
   oppholdsnr,
   utenlandsopphold,
   land,
 }) => {
-  const { periode, begrunnelse, adresseEøsLand } = utenlandsopphold;
   const intl = useLokalIntlContext();
+
+  const { periode, begrunnelse, adresseEøsLand } = utenlandsopphold;
+
   const periodeTittel = hentTittelMedNr(
     perioderBoddIUtlandet!,
     oppholdsnr,
@@ -65,6 +52,7 @@ const Utenlandsopphold: FC<Props> = ({
   );
 
   const landConfig = utenlandsoppholdLand(land);
+  const harValgUtenlandsOppholdLand = utenlandsopphold.land?.verdi !== undefined;
 
   const fjernUtenlandsperiode = () => {
     if (perioderBoddIUtlandet && perioderBoddIUtlandet.length > 1) {
@@ -144,15 +132,23 @@ const Utenlandsopphold: FC<Props> = ({
     );
   };
 
-  const skalViseSlettKnapp = perioderBoddIUtlandet?.length > 1;
+  const visSlettKnapp = perioderBoddIUtlandet?.length > 1;
+  const visBegrunnelseTextArea =
+    erPeriodeDatoerValgt(utenlandsopphold.periode) &&
+    erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
+    harValgUtenlandsOppholdLand;
+  const visEøsIdent = utenlandsopphold.land && skalVisePersonidentTekstfelt(utenlandsopphold);
+  const visSisteAdressTextField =
+    utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold);
 
   return (
-    <Container aria-live="polite">
+    <VStack gap={'6'}>
       <HStack justify="space-between" align="center">
-        <Heading size="small" level="3" className={'tittel'}>
+        <Heading size="small" level="3">
           {periodeTittel}
         </Heading>
-        {skalViseSlettKnapp && (
+
+        {visSlettKnapp && (
           <SlettKnapp
             onClick={() => fjernUtenlandsperiode()}
             tekstid={'medlemskap.periodeBoddIUtlandet.slett'}
@@ -160,38 +156,36 @@ const Utenlandsopphold: FC<Props> = ({
         )}
       </HStack>
 
-      <StyledPeriodeDatovelgere
-        className={'periodegruppe'}
-        settDato={settPeriode}
-        periode={utenlandsopphold.periode}
+      <PeriodeDatovelgere
         tekst={hentTekst('medlemskap.periodeBoddIUtlandet', intl)}
+        periode={utenlandsopphold.periode}
+        settDato={settPeriode}
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
+
       <SelectSpørsmål
         spørsmål={landConfig}
         settSpørsmålOgSvar={settLand}
         valgtSvarId={perioderBoddIUtlandet[oppholdsnr].land?.svarid}
         skalLogges={false}
       />
-      {erPeriodeDatoerValgt(utenlandsopphold.periode) &&
-        erPeriodeGyldigOgInnenforBegrensning(utenlandsopphold.periode, GyldigeDatoer.Tidligere) &&
-        // eslint-disable-next-line no-prototype-builtins
-        utenlandsopphold.land?.hasOwnProperty('verdi') && (
-          <StyledTextarea
-            label={begrunnelseTekst}
-            placeholder={'...'}
-            value={begrunnelse.verdi}
-            maxLength={1000}
-            autoComplete={'off'}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              if (e.target.value.length <= 1000) {
-                settFeltNavn(e, 'begrunnelse', begrunnelseTekst);
-              }
-            }}
-          />
-        )}
 
-      {utenlandsopphold.land && skalVisePersonidentTekstfelt(utenlandsopphold) && (
+      {visBegrunnelseTextArea && (
+        <Textarea
+          label={begrunnelseTekst}
+          placeholder={'...'}
+          value={begrunnelse.verdi}
+          maxLength={1000}
+          autoComplete={'off'}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            if (e.target.value.length <= 1000) {
+              settFeltNavn(e, 'begrunnelse', begrunnelseTekst);
+            }
+          }}
+        />
+      )}
+
+      {visEøsIdent && (
         <EøsIdent
           halvåpenTekstid={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}
           åpneTekstid={hentTekst('medlemskap.hjelpetekst-innhold.begrunnelse', intl)}
@@ -201,19 +195,16 @@ const Utenlandsopphold: FC<Props> = ({
           }
         />
       )}
-      {utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold) && (
-        <TextFieldMedBredde
-          className={'inputfelt-tekst'}
+
+      {visSisteAdressTextField && (
+        <TextField
           key={'navn'}
           label={sisteAdresseTekst}
           type="text"
-          bredde={'L'}
           onChange={(e) => settFeltNavn(e, 'adresseEøsLand', sisteAdresseTekst)}
           value={adresseEøsLand?.verdi}
         />
       )}
-    </Container>
+    </VStack>
   );
 };
-
-export default Utenlandsopphold;
