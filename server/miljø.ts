@@ -44,7 +44,7 @@ const initierMiljøvariabler = () => {
     case 'prod':
       return prodMiljø;
     default:
-      logger.warn('Mangler miljøvariabler - setter lokale variabler');
+      logger.warn('Mangler miljøvariabler  - setter lokale variabler');
       return lokaltMiljø;
   }
 };
