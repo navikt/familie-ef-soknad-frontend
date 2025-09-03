@@ -29,9 +29,10 @@ export const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato,
           tekstid={'barnadine.termindato'}
           gyldigeDatoer={GyldigeDatoer.Fremtidige}
         />
-        <AlertStripeDokumentasjon>
+
+        <Alert variant={'info'} size={'small'} inline>
           {hentTekst('barnadine.info.terminbekreftelse', intl)}
-        </AlertStripeDokumentasjon>
+        </Alert>
       </VStack>
       {barnDato && erDatoGyldigOgInnenforBegrensning(barnDato, GyldigeDatoer.Fremtidige) && (
         <VStack gap="4">
