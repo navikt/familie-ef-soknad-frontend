@@ -82,7 +82,7 @@ export const LeggTilBarnModal: React.FC<Props> = ({
 
   return (
     <ModalWrapper tittel={tittel} visModal={true} onClose={lukkModal}>
-      <VStack gap="6" aria-live="polite" className={styles.modalContent}>
+      <VStack gap="6" aria-live="polite" className={styles.modalInnhold}>
         <LeggTilBarnUfødt
           settBo={settBo}
           boHosDeg={boHosDeg}

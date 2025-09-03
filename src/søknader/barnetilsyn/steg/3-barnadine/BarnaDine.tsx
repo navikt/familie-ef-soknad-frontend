@@ -62,7 +62,7 @@ export const BarnaDine: React.FC = () => {
         </Alert>
 
         {!harBarnRegistrertIFolkeregisteret && (
-          <Alert variant="info" size="small">
+          <Alert variant="info" size="small" inline>
             {hentTekst('barnadine.ingenBarn', intl)}
           </Alert>
         )}
