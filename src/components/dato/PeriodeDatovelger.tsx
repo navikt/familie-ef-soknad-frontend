@@ -91,6 +91,8 @@ export const PeriodeDatovelgere: FC<Props> = ({
   const visLesMer = hjelpetekst;
   const visDatoFeilmelding = feilmelding && feilmelding !== '';
 
+  console.log('test');
+
   return (
     <VStack gap={'6'}>
       <VStack>
