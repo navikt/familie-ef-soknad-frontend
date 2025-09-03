@@ -43,7 +43,6 @@ const Barnepass: FC = () => {
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const {
-    søknad,
     søknadsdato,
     settSøknadsdato,
     søkerFraBestemtMåned,
