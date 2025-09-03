@@ -1,7 +1,6 @@
 import React from 'react';
 import { ESvar, ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { erDatoGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup, VStack } from '@navikt/ds-react';
