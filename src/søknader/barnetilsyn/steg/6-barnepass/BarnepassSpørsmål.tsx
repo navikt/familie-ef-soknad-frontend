@@ -73,11 +73,6 @@ const BarnepassSpørsmål: FC<Props> = ({
     );
 
   const settSpørsmålFelt = (spørsmål: ISpørsmål, svar: ISvar) => {
-    const endretBarnepassordning = barnepassOrdning;
-    delete endretBarnepassordning.periode;
-    delete endretBarnepassordning.navn;
-    delete endretBarnepassordning.belop;
-
     settBarnepassOrdning({
       ...barnepassOrdning,
       hvaSlagsBarnepassOrdning: {
@@ -86,6 +81,9 @@ const BarnepassSpørsmål: FC<Props> = ({
         label: hentBarnNavnEllerBarnet(barn, spørsmål.tekstid, intl),
         verdi: svar.svar_tekst,
       },
+      periode: undefined,
+      navn: undefined,
+      belop: undefined,
     });
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id, barnepassOrdning.id);
   };
