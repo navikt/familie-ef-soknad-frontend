@@ -62,7 +62,7 @@ const getAccessToken = async (
     logInfo('IdPorten-token found: ' + (token.length > 1), req);
 
     const validation = await validateToken(token);
-    if (validation.ok === false) {
+    if (!validation.ok) {
       logWarn('Feil under validering av token: ', req, { error: validation.error });
       throw validation.error;
     }
