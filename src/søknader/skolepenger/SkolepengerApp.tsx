@@ -24,6 +24,7 @@ const SkolepengerApp = () => {
   const { søknad, settSøknad, hentMellomlagretSkolepenger } = useSkolepengerSøknad();
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
+
   autentiseringsInterceptor();
 
   useEffect(() => {
