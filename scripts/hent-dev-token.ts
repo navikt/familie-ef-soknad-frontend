@@ -28,7 +28,7 @@ function promptForPersonIdent(): Promise<string> {
   });
 
   return new Promise((resolve) => {
-    rl.question('Legg inn person ident fra Dolly: ', (answer) => {
+    rl.question('Legg inn personident fra Dolly: ', (answer) => {
       rl.close();
       resolve(answer.trim());
     });
