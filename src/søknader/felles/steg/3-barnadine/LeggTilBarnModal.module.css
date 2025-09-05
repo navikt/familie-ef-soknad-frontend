@@ -1,0 +1,12 @@
+.modalInnhold {
+  min-height: 500px;
+  width: 450px;
+  padding: 2rem 2.5rem;
+}
+
+@media (max-width: 767px) {
+  .modalInnhold {
+    width: auto;
+    padding: 2rem 0;
+  }
+}

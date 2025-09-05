@@ -19,7 +19,7 @@ Lokal kjøring krever internett da tokenet hentes fra fakedings: `https://github
 TOKENX_API=...
 TOKENX_DOKUMENT=...
 ```
-Du kan også hente token ved å kjøre `dev:hent-tokens` med person ident fra Dolly. Dette gjøre den manuelle prosessen litt enklere, da den fyller ut .env filen automagisk!
+Du kan også hente token ved å kjøre `dev:hent-tokens` med personident fra Dolly. Dette gjøre den manuelle prosessen litt enklere, da den fyller ut .env filen automagisk!
 3. `npm install` 
 4. `npm run start:preprod` 
 5. Gå til url: `http://localhost:3000/familie/alene-med-barn/soknad/`

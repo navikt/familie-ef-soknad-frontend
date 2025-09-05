@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Button } from '@navikt/ds-react';
+import { Button, VStack } from '@navikt/ds-react';
 import { IBarn } from '../../../../models/steg/barn';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
-import LeggTilBarnModal from './LeggTilBarnModal';
+import { LeggTilBarnModal } from './LeggTilBarnModal';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
 interface Props {
@@ -14,13 +13,6 @@ interface Props {
   barneListe: IBarn[];
   oppdaterBarnISøknaden: (oppdatertBarn: IBarn) => void;
 }
-
-const LenkeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
-`;
 
 export const EndreEllerSlettBarn: React.FC<Props> = ({
   fjernBarnFraSøknad,
@@ -35,14 +27,14 @@ export const EndreEllerSlettBarn: React.FC<Props> = ({
 
   return (
     <>
-      <LenkeContainer>
+      <VStack gap="2" align="center">
         <Button variant="secondary" onClick={() => settÅpenEndreModal(true)}>
           {hentTekst('barnekort.lenke.endre', intl)}
         </Button>
         <Button variant="tertiary" onClick={() => fjernBarnFraSøknad(id)}>
           {hentTekst('barnekort.fjern', intl)}
         </Button>
-      </LenkeContainer>
+      </VStack>
 
       {åpenEndreModal && (
         <LeggTilBarnModal

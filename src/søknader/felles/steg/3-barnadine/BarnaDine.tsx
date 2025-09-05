@@ -7,7 +7,7 @@ import { useBarnaDine } from './BarnaDineContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { oppdaterBarnIBarneliste } from '../../../../utils/barn';
 
-const BarnaDine: React.FC = () => {
+export const BarnaDine: React.FC = () => {
   const intl = useLokalIntlContext();
 
   const {
@@ -52,5 +52,3 @@ const BarnaDine: React.FC = () => {
     </Side>
   );
 };
-
-export default BarnaDine;
