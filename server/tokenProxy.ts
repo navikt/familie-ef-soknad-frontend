@@ -1,9 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { logWarn, logInfo } from './logger';
 import { miljø } from './miljø';
-import { TexasClient } from './texas';
-
-const { exchangeToken } = new TexasClient();
+import { requestOboToken, validateToken } from '@navikt/oasis';
 
 export type ApplicationName = 'familie-ef-soknad-api' | 'familie-dokument';
 
@@ -15,7 +13,7 @@ const attachToken = (applicationName: ApplicationName): RequestHandler => {
     req.headers[AUTHORIZATION_HEADER] =
       miljø.erLokalt && !miljø.brukDevApi
         ? await getFakedingsToken(applicationName)
-        : await getAccessToken(req, res, applicationName);
+        : await getAccessToken(req, applicationName);
     req.headers[WONDERWALL_ID_TOKEN_HEADER] = '';
     next();
   };
@@ -29,7 +27,7 @@ const harBearerToken = (authorization: string) => {
   return authorization.includes('Bearer ');
 };
 
-const utledToken = (req: Request, authorization: string | undefined) => {
+const utledToken = (authorization: string | undefined) => {
   if (authorization && harBearerToken(authorization)) {
     return authorization.split(' ')[1];
   } else {
@@ -39,7 +37,6 @@ const utledToken = (req: Request, authorization: string | undefined) => {
 
 const getAccessToken = async (
   req: Request,
-  res: Response,
   applicationName: ApplicationName
 ): Promise<string | undefined> => {
   try {
@@ -55,17 +52,28 @@ const getAccessToken = async (
 
     const cluster = erProd() ? 'prod-gcp' : 'dev-gcp';
     const audience = `${cluster}:teamfamilie:${applicationName}`;
-
     const { authorization } = req.headers;
-    const token = utledToken(req, authorization);
+
+    if (miljø.erLokalt) {
+      return await getFakedingsToken(applicationName);
+    }
+
+    const token = utledToken(authorization);
     logInfo('IdPorten-token found: ' + (token.length > 1), req);
-    const accessToken = await exchangeToken(token, audience, 'tokenx').then(
-      (accessToken) => accessToken.access_token
-    );
-    return `Bearer ${accessToken}`;
+
+    const validation = await validateToken(token);
+    if (!validation.ok) {
+      logWarn('Feil under validering av token: ', req, { error: validation.error });
+      throw validation.error;
+    }
+
+    const accessToken = await requestOboToken(token, `${audience}`);
+    if (!accessToken.ok) {
+      throw accessToken.error;
+    }
+    return `Bearer ${accessToken.token}`;
   } catch (error) {
     logWarn(`Noe gikk galt ved setting av token (${req.method} - ${req.path}): `, req, error);
-    res.status(401).send('En uventet feil oppstod. Ingen gyldig token');
   }
 };
 
