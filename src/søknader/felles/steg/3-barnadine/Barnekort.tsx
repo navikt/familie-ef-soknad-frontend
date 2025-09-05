@@ -7,40 +7,16 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import { formatDate, strengTilDato } from '../../../../utils/dato';
-import { Heading } from '@navikt/ds-react';
-import styled from 'styled-components';
+import { Heading, VStack } from '@navikt/ds-react';
 import { InformasjonsElement } from './BarnekortInformasjonsElement';
+import styles from './Barnekort.module.css';
 
 interface Props {
   gjeldendeBarn: IBarn;
   footer: React.ReactNode;
 }
 
-const Container = styled.div`
-  width: 276px;
-  background-color: #e7e9e9;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: flex-end;
-  height: 128px;
-  justify-content: center;
-  background-color: #4d3e55;
-  border-bottom: 4px solid #826ba1;
-`;
-
-const Innhold = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem 2rem;
-  text-align: center;
-`;
-
-const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
+export const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   const intl = useLokalIntlContext();
 
   const {
@@ -62,7 +38,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   const ikoner = [barn1, barn2, barn3];
   const ikon = født?.verdi ? ikoner[Math.floor(Math.random() * ikoner.length)] : ufødtIkon;
 
-  let bosted: string = '';
+  let bosted: string;
 
   if (lagtTil) {
     bosted = født?.verdi
@@ -79,11 +55,11 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
   }
 
   return (
-    <Container>
-      <Header>
+    <div className={styles.container}>
+      <div className={styles.header}>
         <img alt="barn" src={ikon} />
-      </Header>
-      <Innhold>
+      </div>
+      <VStack gap="4" className={styles.innhold}>
         <Heading size="small" level="3">
           {navn.verdi ? navn.verdi : hentTekst('barnekort.normaltekst.barn', intl)}
         </Heading>
@@ -125,9 +101,7 @@ const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
           />
         )}
         {footer}
-      </Innhold>
-    </Container>
+      </VStack>
+    </div>
   );
 };
-
-export default Barnekort;
