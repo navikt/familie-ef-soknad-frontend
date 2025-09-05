@@ -29,6 +29,7 @@ interface Props {
   settBarnepassOrdning: (barnepassOrdning: BarnepassOrdning) => void;
   fjernBarnepassOrdning: (barnepassordning: BarnepassOrdning) => void;
   settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
+  barnIndeks: number;
 }
 
 const BarnepassSpørsmål: FC<Props> = ({
@@ -37,6 +38,7 @@ const BarnepassSpørsmål: FC<Props> = ({
   fjernBarnepassOrdning,
   barnepassOrdning,
   settDokumentasjonsbehovForBarn,
+  barnIndeks,
 }) => {
   const intl = useLokalIntlContext();
   const { hvaSlagsBarnepassOrdning, periode } = barnepassOrdning;
@@ -71,11 +73,6 @@ const BarnepassSpørsmål: FC<Props> = ({
     );
 
   const settSpørsmålFelt = (spørsmål: ISpørsmål, svar: ISvar) => {
-    const endretBarnepassordning = barnepassOrdning;
-    delete endretBarnepassordning.periode;
-    delete endretBarnepassordning.navn;
-    delete endretBarnepassordning.belop;
-
     settBarnepassOrdning({
       ...barnepassOrdning,
       hvaSlagsBarnepassOrdning: {
@@ -84,6 +81,9 @@ const BarnepassSpørsmål: FC<Props> = ({
         label: hentBarnNavnEllerBarnet(barn, spørsmål.tekstid, intl),
         verdi: svar.svar_tekst,
       },
+      periode: undefined,
+      navn: undefined,
+      belop: undefined,
     });
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id, barnepassOrdning.id);
   };
@@ -148,6 +148,7 @@ const BarnepassSpørsmål: FC<Props> = ({
             type={'text'}
             onChange={(e) => settInputFelt(e, EBarnepass.navn, navnLabel)}
             value={barnepassOrdning?.navn ? barnepassOrdning?.navn.verdi : ''}
+            data-testid={`navnPåBarnepassordningen-${barnIndeks}`}
           />
         </KomponentGruppe>
       )}
@@ -164,11 +165,16 @@ const BarnepassSpørsmål: FC<Props> = ({
             periode={barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode}
             gyldigeDatoer={GyldigeDatoer.Alle}
             settDato={settPeriode}
+            testIndeks={barnIndeks}
           />
         </KomponentGruppe>
       )}
       {periode && erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle) && (
-        <BarnepassBeløp barnepassOrdning={barnepassOrdning} settInputFelt={settInputFelt} />
+        <BarnepassBeløp
+          barnepassOrdning={barnepassOrdning}
+          settInputFelt={settInputFelt}
+          barnIndeks={barnIndeks}
+        />
       )}
     </SeksjonGruppe>
   );

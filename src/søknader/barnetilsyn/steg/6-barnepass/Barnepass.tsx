@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
@@ -25,11 +24,11 @@ import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IBarn } from '../../../../models/steg/barn';
-import { SøknadBarnetilsyn } from '../../models/søknad';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
 import styled from 'styled-components';
+import { useBarnepass } from './BarnepassContext';
 
 const StyledHjelpetekst = styled.div`
   .navds-body-short {
@@ -43,12 +42,16 @@ const Barnepass: FC = () => {
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-  const { søknad, settSøknad, mellomlagreBarnetilsyn, settDokumentasjonsbehovForBarn } =
-    useBarnetilsynSøknad();
-  const { søknadsdato, søkerFraBestemtMåned } = søknad;
-  const barnSomSkalHaBarnepass = søknad.person.barn.filter(
-    (barn: IBarn) => barn.skalHaBarnepass?.verdi
-  );
+  const {
+    søknadsdato,
+    settSøknadsdato,
+    søkerFraBestemtMåned,
+    settSøkerFraBestemtMåned,
+    barn,
+    settBarn,
+    mellomlagreSteg,
+  } = useBarnepass();
+  const barnSomSkalHaBarnepass = barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
 
@@ -64,49 +67,32 @@ const Barnepass: FC = () => {
   );
 
   const settBarnepass = (barnepass: IBarnepass, barnid: string) => {
-    const endretBarn = søknad.person.barn.map((barn: IBarn) => {
-      if (barn.id === barnid) {
+    const endretBarn = barn.map((enkeltBarn: IBarn) => {
+      if (enkeltBarn.id === barnid) {
         return {
-          ...barn,
+          ...enkeltBarn,
           barnepass: barnepass,
         };
       }
-      return barn;
+      return enkeltBarn;
     });
-    settSøknad((prevSøknad: SøknadBarnetilsyn) => {
-      return {
-        ...prevSøknad,
-        person: { ...prevSøknad.person, barn: endretBarn },
-      };
-    });
+    settBarn(endretBarn);
   };
 
-  const settSøknadsdato = (dato: Date | null) => {
+  const oppdaterSøknadsdato = (dato: Date | null) => {
     dato !== null &&
-      settSøknad((prevSøknad: SøknadBarnetilsyn) => {
-        return {
-          ...prevSøknad,
-          søknadsdato: {
-            label: hentTekst(datovelgerLabel, intl),
-            verdi: datoTilStreng(dato),
-          },
-        };
+      settSøknadsdato({
+        label: hentTekst(datovelgerLabel, intl),
+        verdi: datoTilStreng(dato),
       });
   };
 
-  const settSøkerFraBestemtMåned = (spørsmål: ISpørsmål, svar: ISvar) => {
-    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
-      if (svar.id === ESøkerFraBestemtMåned.neiNavKanVurdere && søknadsdato?.verdi)
-        delete prevSoknad.søknadsdato;
-      return {
-        ...prevSoknad,
-        [spørsmål.søknadid]: {
-          spørsmålid: spørsmål.søknadid,
-          svarid: svar.id,
-          label: hentTekst(spørsmål.tekstid, intl),
-          verdi: svar.id === ESøkerFraBestemtMåned.ja,
-        },
-      };
+  const oppdaterSøkerFraBestemtMåned = (spørsmål: ISpørsmål, svar: ISvar) => {
+    settSøkerFraBestemtMåned({
+      spørsmålid: spørsmål.søknadid,
+      svarid: svar.id,
+      label: hentTekst(spørsmål.tekstid, intl),
+      verdi: svar.id === ESøkerFraBestemtMåned.ja,
     });
   };
 
@@ -115,7 +101,7 @@ const Barnepass: FC = () => {
     søkerFraBestemtMåned,
     søknadsdato
   )
-    ? hentTekst('barnepass.dokumentasjon.søkerStønadFraBestemtMnd', intl)
+    ? 'barnepass.dokumentasjon.søkerStønadFraBestemtMnd'
     : '';
 
   return (
@@ -123,8 +109,12 @@ const Barnepass: FC = () => {
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('barnepass.sidetittel', intl)}
       navigasjonState={navigasjonState}
-      mellomlagreStønad={mellomlagreBarnetilsyn}
-      erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(barnSomSkalHaBarnepass, søknad)}
+      mellomlagreSteg={mellomlagreSteg}
+      erSpørsmålBesvart={erBarnepassStegFerdigUtfylt(
+        barnSomSkalHaBarnepass,
+        søknadsdato,
+        søkerFraBestemtMåned
+      )}
       routesStønad={RoutesBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
@@ -139,18 +129,10 @@ const Barnepass: FC = () => {
                   <BarneHeader barn={barn} />
                 </SeksjonGruppe>
                 {harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi) && (
-                  <ÅrsakBarnepass
-                    barn={barn}
-                    settBarnepass={settBarnepass}
-                    settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
-                  />
+                  <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
                 )}
                 {erÅrsakBarnepassSpmBesvart(barn) && (
-                  <BarnepassOrdninger
-                    barn={barn}
-                    settBarnepass={settBarnepass}
-                    settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
-                  />
+                  <BarnepassOrdninger barn={barn} settBarnepass={settBarnepass} indeks={index} />
                 )}
               </React.Fragment>
             )
@@ -161,8 +143,8 @@ const Barnepass: FC = () => {
         <SeksjonGruppe>
           <NårSøkerDuStønadFra
             spørsmål={SøkerDuStønadFraBestemtMndSpm(intl)}
-            settSøkerFraBestemtMåned={settSøkerFraBestemtMåned}
-            settDato={settSøknadsdato}
+            settSøkerFraBestemtMåned={oppdaterSøkerFraBestemtMåned}
+            settDato={oppdaterSøknadsdato}
             søkerFraBestemtMåned={søkerFraBestemtMåned}
             valgtDato={søknadsdato}
             datovelgerLabel={datovelgerLabel}

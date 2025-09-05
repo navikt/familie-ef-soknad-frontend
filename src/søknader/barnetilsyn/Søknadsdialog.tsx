@@ -19,6 +19,7 @@ import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
+import { BarnepassProvider } from './steg/6-barnepass/BarnepassContext';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -27,6 +28,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
     mellomlagretBarnetilsyn,
     mellomlagreBarnetilsyn2,
     settDokumentasjonsbehov,
+    settDokumentasjonsbehovForBarn,
   } = useBarnetilsynSøknad();
 
   const oppdaterBarnetilsynSøknad = (søknad: Søknad) => {
@@ -71,7 +73,17 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/barnepass'}
         element={
           <RedirectTilStart>
-            <Barnepass />
+            <BarnepassProvider
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagretSøknad={mellomlagretBarnetilsyn}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+              settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
+            >
+              <Barnepass />
+            </BarnepassProvider>
           </RedirectTilStart>
         }
       />
