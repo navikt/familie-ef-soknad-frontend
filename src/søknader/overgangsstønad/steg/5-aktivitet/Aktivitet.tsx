@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
+import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/AktivitetConfig';
 import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';

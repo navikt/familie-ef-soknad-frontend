@@ -51,7 +51,7 @@ const StyledCheckbox = styled(Checkbox)`
   }
 `;
 
-export const CheckboxPanel: React.FC<Properties> = ({
+const CheckboxPanelCustom: React.FC<Properties> = ({
   name,
   value,
   checked,
@@ -69,3 +69,4 @@ export const CheckboxPanel: React.FC<Properties> = ({
     </StyledCheckbox>
   );
 };
+export default CheckboxPanelCustom;

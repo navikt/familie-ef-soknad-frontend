@@ -1,9 +1,28 @@
 import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
+import styled from 'styled-components';
+import LesMerTekst from '../LesMerTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { CheckboxPanel } from '../panel/CheckboxPanel';
-import { CheckboxGroup, Heading, ReadMore, VStack } from '@navikt/ds-react';
+import CheckboxPanelCustom from '../panel/CheckboxPanel';
+import { CheckboxGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
+
+const StyledCheckboxSpørsmål = styled.div`
+  .navds-fieldset .navds-checkboxes {
+    margin-top: 0;
+  }
+  .navds-checkboxes {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    grid-gap: 1rem;
+    padding-top: 1rem;
+
+    @media all and (max-width: 420px) {
+      grid-template-columns: 1fr;
+    }
+  }
+`;
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -13,7 +32,7 @@ interface Props {
   brukSvarIdSomVerdi?: boolean;
 }
 
-export const CheckboxSpørsmål: React.FC<Props> = ({
+const CheckboxSpørsmål: React.FC<Props> = ({
   spørsmål,
   settValgteSvar,
   valgteSvar,
@@ -22,39 +41,40 @@ export const CheckboxSpørsmål: React.FC<Props> = ({
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap="6">
-      <VStack gap="2">
-        <Heading size="small">{hentTekst(spørsmål.tekstid, intl)}</Heading>
+    <StyledCheckboxSpørsmål key={spørsmål.søknadid}>
+      <CheckboxGroup
+        legend={hentTekst(spørsmål.tekstid, intl)}
+        value={valgteSvar}
+        description={
+          spørsmål.lesmer && (
+            <LesMerTekst
+              åpneTekstid={spørsmål.lesmer.headerTekstid}
+              innholdTekstid={spørsmål.lesmer.innholdTekstid}
+            />
+          )
+        }
+      >
+        {spørsmål.svaralternativer.map((svar: ISvar) => {
+          const alleredeHuketAvISøknad = valgteSvar.some((valgtSvar) => {
+            return valgtSvar === svar.svar_tekst || valgtSvar === svar.id;
+          });
 
-        {spørsmål.lesmer && (
-          <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size="small">
-            {hentTekst(spørsmål.lesmer.innholdTekstid, intl)}
-          </ReadMore>
-        )}
-      </VStack>
-
-      <CheckboxGroup legend={hentTekst(spørsmål.tekstid, intl)} hideLegend value={valgteSvar}>
-        <VStack gap="4">
-          {spørsmål.svaralternativer.map((svar: ISvar) => {
-            const alleredeHuketAvISøknad = valgteSvar.some((valgtSvar) => {
-              return valgtSvar === svar.svar_tekst || valgtSvar === svar.id;
-            });
-
-            return (
-              <CheckboxPanel
-                key={svar.svar_tekst}
-                value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
-                checked={alleredeHuketAvISøknad}
-                onChange={() => {
-                  settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
-                }}
-              >
-                {svar.svar_tekst}
-              </CheckboxPanel>
-            );
-          })}
-        </VStack>
+          return (
+            <CheckboxPanelCustom
+              key={svar.svar_tekst}
+              value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
+              checked={alleredeHuketAvISøknad}
+              onChange={() => {
+                settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
+              }}
+            >
+              {svar.svar_tekst}
+            </CheckboxPanelCustom>
+          );
+        })}
       </CheckboxGroup>
-    </VStack>
+    </StyledCheckboxSpørsmål>
   );
 };
+
+export default CheckboxSpørsmål;
