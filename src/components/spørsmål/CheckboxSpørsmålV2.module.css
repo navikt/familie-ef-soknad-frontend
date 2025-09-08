@@ -1,0 +1,37 @@
+.checkboxPanel {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid var(--a-border-default);
+    border-radius: 0.25rem;
+    display: block;
+    position: relative;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+    margin-bottom: var(--a-spacing-4);
+}
+
+.checkboxPanel:last-child {
+    margin-bottom: 0;
+}
+
+.checkboxPanel.active {
+    background-color: var(--a-blue-100);
+    border: 1px solid transparent;
+}
+
+.checkboxPanel:hover {
+    border: 1px solid var(--a-blue-500);
+    box-shadow: var(--a-shadow-medium);
+    cursor: pointer;
+}
+
+.checkboxPanel:focus-visible {
+    outline: var(--a-border-action-selected) solid 1px;
+}
+
+.checkboxPanel :global(.navds-checkbox__label) {
+    outline: none;
+    padding: var(--a-spacing-4);
+}
