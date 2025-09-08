@@ -35,6 +35,7 @@ import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../.
 import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
+import { CheckboxSpørsmålV2 } from '../../../../components/spørsmål/CheckboxSpørsmålV2';
 
 const StyledHjelpetekst = styled.div`
   .navds-body-short {
@@ -161,6 +162,14 @@ const MerOmDinSituasjon: React.FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <SeksjonGruppe>
+        {/*TODO: Husk å fjerne meg!*/}
+        <KomponentGruppe>
+          <CheckboxSpørsmålV2
+            spørsmål={gjelderNoeAvDetteDeg(intl)}
+            settValgteSvar={settDinSituasjonFelt}
+            valgteSvar={søknad.merOmDinSituasjon.gjelderDetteDeg.verdi}
+          />
+        </KomponentGruppe>
         <KomponentGruppe>
           <CheckboxSpørsmål
             spørsmål={gjelderNoeAvDetteDeg(intl)}
