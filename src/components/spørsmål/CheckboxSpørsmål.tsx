@@ -32,7 +32,7 @@ interface Props {
   brukSvarIdSomVerdi?: boolean;
 }
 
-const CheckboxSpørsmål: React.FC<Props> = ({
+export const CheckboxSpørsmål: React.FC<Props> = ({
   spørsmål,
   settValgteSvar,
   valgteSvar,
@@ -76,5 +76,3 @@ const CheckboxSpørsmål: React.FC<Props> = ({
     </StyledCheckboxSpørsmål>
   );
 };
-
-export default CheckboxSpørsmål;

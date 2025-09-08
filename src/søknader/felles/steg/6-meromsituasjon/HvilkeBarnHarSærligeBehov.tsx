@@ -3,7 +3,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { formatterBarnetsNavn, hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { DinSituasjonType } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
+import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { leggTilSærligeBehov } from './SituasjonUtil';
