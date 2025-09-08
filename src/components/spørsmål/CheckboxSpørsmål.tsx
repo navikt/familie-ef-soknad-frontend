@@ -1,7 +1,7 @@
 import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import CheckboxPanelCustom from '../panel/CheckboxPanel';
+import { CheckboxPanel } from '../panel/CheckboxPanel';
 import { CheckboxGroup, Heading, ReadMore, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 
@@ -41,7 +41,7 @@ export const CheckboxSpørsmål: React.FC<Props> = ({
             });
 
             return (
-              <CheckboxPanelCustom
+              <CheckboxPanel
                 key={svar.svar_tekst}
                 value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
                 checked={alleredeHuketAvISøknad}
@@ -50,7 +50,7 @@ export const CheckboxSpørsmål: React.FC<Props> = ({
                 }}
               >
                 {svar.svar_tekst}
-              </CheckboxPanelCustom>
+              </CheckboxPanel>
             );
           })}
         </VStack>
