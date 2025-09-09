@@ -2,7 +2,7 @@ import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import styles from './CheckboxSpørsmål.module.css';
 
 interface Props {
@@ -27,7 +27,7 @@ export const CheckboxSpørsmål: React.FC<Props> = ({
       description={
         spørsmål.lesmer && (
           <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>
-            {hentTekst(spørsmål.lesmer.innholdTekstid, intl)}
+            {hentHTMLTekst(spørsmål.lesmer.innholdTekstid, intl)}
           </ReadMore>
         )
       }
