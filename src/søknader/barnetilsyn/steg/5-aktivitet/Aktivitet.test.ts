@@ -1,6 +1,7 @@
 import { mockGet, mockMellomlagretSøknadBarnetilsyn } from '../../../../test/axios';
 import { describe, expect, test } from 'vitest';
 import {
+  klikkButton,
   klikkCheckbox,
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
@@ -31,7 +32,9 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
 
   test('Initielle tekster er tilstede', async () => {
     mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
-    const { screen } = await navigerTilStegBarnetilsyn();
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    await klikkButton('Grunnen til at vi spør om dette', screen, user);
 
     expect(
       screen.getByRole('group', {

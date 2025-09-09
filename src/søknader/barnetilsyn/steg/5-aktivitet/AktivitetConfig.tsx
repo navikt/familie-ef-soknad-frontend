@@ -23,7 +23,7 @@ export const ErDuIArbeidSpm = (intl: LokalIntlShape): ISpørsmål => ({
   tekstid: 'erDuIArbeid.spm',
   flersvar: false,
   lesmer: {
-    headerTekstid: '',
+    headerTekstid: 'arbeidssituasjon.spm.hjelpetekst-åpne',
     innholdTekstid: 'erDuIArbeid.hjelpetekst',
   },
   svaralternativer: [
