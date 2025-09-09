@@ -21,13 +21,13 @@ export const SpørsmålWrapper: React.FC<Props> = ({
   const visLesMer = lesMerHeaderKey !== undefined && lesMerDescriptionKey !== undefined;
 
   return (
-    <VStack>
-      <VStack gap={'6'}>
+    <VStack gap={'6'}>
+      <VStack gap={'2'}>
         <Heading size={'xsmall'}>{hentTekst(spørsmålKey, intl)}</Heading>
 
         {visLesMer && (
           <ReadMore header={hentTekst(lesMerHeaderKey, intl)}>
-            {hentHTMLTekst(lesMerHeaderKey, intl)}
+            {hentHTMLTekst(lesMerDescriptionKey, intl)}
           </ReadMore>
         )}
       </VStack>

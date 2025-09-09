@@ -48,7 +48,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
       lesMerHeaderKey={spørsmål.lesmer?.headerTekstid}
       lesMerDescriptionKey={spørsmål.lesmer?.innholdTekstid}
     >
-      <RadioGroup legend={spørsmålTekst} value={svar()}>
+      <RadioGroup legend={spørsmålTekst} value={svar()} hideLegend>
         {spørsmål.svaralternativer.map((svar: ISvar) => {
           const svarISøknad = valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
 
