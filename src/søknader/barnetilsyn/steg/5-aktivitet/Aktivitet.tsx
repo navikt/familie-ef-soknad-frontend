@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
@@ -11,7 +11,6 @@ import {
   fjernAktivitet,
 } from '../../../../helpers/steg/aktivitet';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
-import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { ErDuIArbeidSpm, hvaErDinArbeidssituasjonSpm } from './AktivitetConfig';
 import AktivitetOppfølgingSpørsmål from './AktivitetOppfølgingSpørsmål';
 import {
@@ -24,53 +23,48 @@ import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpø
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { Alert, Label } from '@navikt/ds-react';
-import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
+import { useAktivitet } from './AktivitetContext';
 
 const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreBarnetilsyn } =
-    useBarnetilsynSøknad();
   const location = useLocation();
-  const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
+  const {
+    søknad,
+    arbeidssituasjon,
+    settArbeidssituasjon,
+    settDokumentasjonsbehov,
+    mellomlagreSteg,
+  } = useAktivitet();
   const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-  useEffect(() => {
-    settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
-    // eslint-disable-next-line
-  }, [arbeidssituasjon]);
-
-  const oppdaterArbeidssituasjon = (nyArbeidssituasjon: IAktivitet) => {
-    settArbeidssituasjon({ ...arbeidssituasjon, ...nyArbeidssituasjon });
-  };
 
   const settErDuIArbeid = (spørsmål: ISpørsmål, svar: ISvar) => {
-    let endretArbeidssituasjon = arbeidssituasjon;
+    const endretArbeidssituasjon =
+      svar.id === ErIArbeid.NeiFordiJegErSyk
+        ? {
+            ...arbeidssituasjon,
+            egetAS: undefined,
+            arbeidsforhold: undefined,
+            firmaer: undefined,
+            etablererEgenVirksomhet: undefined,
+            hvaErDinArbeidssituasjon: {
+              spørsmålid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
+              svarid: [],
+              label: '',
+              verdi: [],
+              alternativer: arbeidssituasjon.hvaErDinArbeidssituasjon.alternativer,
+            },
+          }
+        : arbeidssituasjon;
 
-    if (svar.id === ErIArbeid.NeiFordiJegErSyk) {
-      delete endretArbeidssituasjon.egetAS;
-      delete endretArbeidssituasjon.arbeidsforhold;
-      delete endretArbeidssituasjon.firmaer;
-      delete endretArbeidssituasjon.etablererEgenVirksomhet;
-
-      endretArbeidssituasjon = {
-        ...endretArbeidssituasjon,
-        hvaErDinArbeidssituasjon: {
-          spørsmålid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
-          svarid: [],
-          label: '',
-          verdi: [],
-          alternativer: endretArbeidssituasjon.hvaErDinArbeidssituasjon.alternativer,
-        },
-      };
-    }
-    oppdaterArbeidssituasjon({
+    settArbeidssituasjon({
       ...endretArbeidssituasjon,
       erIArbeid: {
         spørsmålid: spørsmål.søknadid,
@@ -91,7 +85,7 @@ const Aktivitet: React.FC = () => {
 
     const endretArbeidssituasjon = fjernAktivitet(svarider, arbeidssituasjon);
 
-    oppdaterArbeidssituasjon({
+    settArbeidssituasjon({
       ...endretArbeidssituasjon,
       [spørsmål.søknadid]: {
         spørsmålid: spørsmål.søknadid,
@@ -128,7 +122,7 @@ const Aktivitet: React.FC = () => {
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
       routesStønad={RoutesBarnetilsyn}
-      mellomlagreStønad={mellomlagreBarnetilsyn}
+      mellomlagreStønad={mellomlagreSteg}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <SeksjonGruppe aria-live="polite">
@@ -165,28 +159,16 @@ const Aktivitet: React.FC = () => {
 
         {arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid?.map((svarid, index) => {
           const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon?.svarid.length !== 0;
+          const erFørsteAktivitet = hvaErDinArbeidssituasjon?.svarid[0] === svarid;
 
-          const erValgtFørsteAktivitet = hvaErDinArbeidssituasjon?.svarid[0] === svarid;
-
-          const visSeksjon = harValgtMinstEnAktivitet
-            ? !erValgtFørsteAktivitet
-              ? erSpørsmålFørAktivitetBesvart(svarid, arbeidssituasjon)
-              : true
-            : true;
+          const visSeksjon =
+            !harValgtMinstEnAktivitet ||
+            erFørsteAktivitet ||
+            erSpørsmålFørAktivitetBesvart(svarid, arbeidssituasjon);
 
           return (
             visSeksjon && (
-              <AktivitetOppfølgingSpørsmål
-                aria-live="polite"
-                key={index}
-                svarid={svarid}
-                arbeidssituasjon={arbeidssituasjon}
-                settArbeidssituasjon={settArbeidssituasjon}
-                settDokumentasjonsbehov={settDokumentasjonsbehov}
-                overskuddsår={
-                  nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
-                }
-              />
+              <AktivitetOppfølgingSpørsmål aria-live="polite" key={index} svarid={svarid} />
             )
           );
         })}

@@ -19,6 +19,7 @@ import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
+import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -79,7 +80,17 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/aktivitet'}
         element={
           <RedirectTilStart>
-            <Aktivitet />
+            <AktivitetProvider
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagretSøknad={mellomlagretBarnetilsyn}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
+              <Aktivitet />
+            </AktivitetProvider>
           </RedirectTilStart>
         }
       />

@@ -1,25 +1,19 @@
 import React, { FC } from 'react';
-import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
-import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
+import { EAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import OmArbeidsforholdetDitt from '../../../felles/steg/5-aktivitet/arbeidsforhold/OmArbeidsforholdetDitt';
 import EgetAS from '../../../felles/steg/5-aktivitet/aksjeselskap/EgetAS';
 import EtablererEgenVirksomhet from '../../../felles/steg/5-aktivitet/EtablererEgenVirksomhet';
 import OmFirmaeneDine from '../../../felles/steg/5-aktivitet/Firma/OmFirmaeneDine';
+import { useAktivitet } from './AktivitetContext';
+import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 
 interface Props {
-  arbeidssituasjon: IAktivitet;
-  settArbeidssituasjon: (arbeidssituasjon: IAktivitet) => void;
   svarid: string;
-  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
-  overskuddsår: number;
 }
-const AktivitetOppfølgingSpørsmål: FC<Props> = ({
-  arbeidssituasjon,
-  settArbeidssituasjon,
-  svarid,
-  settDokumentasjonsbehov,
-  overskuddsår,
-}) => {
+const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
+  const { søknad, arbeidssituasjon, settArbeidssituasjon, settDokumentasjonsbehov } =
+    useAktivitet();
+
   switch (svarid) {
     case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
       return (
@@ -37,7 +31,9 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
           arbeidssituasjon={arbeidssituasjon}
           settArbeidssituasjon={settArbeidssituasjon}
           inkludertArbeidsmengde={false}
-          overskuddsår={overskuddsår}
+          overskuddsår={
+            nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
+          }
         />
       );
 
