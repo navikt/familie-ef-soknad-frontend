@@ -5,7 +5,6 @@ import { Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import styles from './CheckboxSpørsmål.module.css';
 
-
 interface Props {
   spørsmål: ISpørsmål;
   settValgteSvar: (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => void;
@@ -13,7 +12,7 @@ interface Props {
   brukSvarIdSomVerdi?: boolean;
 }
 
-const CheckboxSpørsmål: React.FC<Props> = ({
+export const CheckboxSpørsmål: React.FC<Props> = ({
   spørsmål,
   settValgteSvar,
   valgteSvar,
@@ -59,5 +58,3 @@ const CheckboxSpørsmål: React.FC<Props> = ({
     </CheckboxGroup>
   );
 };
-
-export default CheckboxSpørsmål;
