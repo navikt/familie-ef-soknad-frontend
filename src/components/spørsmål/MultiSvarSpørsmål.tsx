@@ -24,35 +24,35 @@ export const MultiSvarSpørsmål: FC<Props> = ({
   const legend = hentTekst(spørsmål.tekstid, intl);
 
   return (
-    <div key={spørsmål.søknadid} className={`${styles.multiSvarSpørsmål} ${className || ''}`}>
-      <RadioGroup
-        legend={legend}
-        value={valgtSvar}
-        description={
-          spørsmål.lesmer && (
-            <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>
-              {hentHTMLTekst(spørsmål.lesmer.innholdTekstid, intl)}
-            </ReadMore>
-          )
-        }
-      >
-        {spørsmål.svaralternativer.map((svar: ISvar) => {
-          const svarISøknad = svar.svar_tekst === valgtSvar;
-          return (
-            <RadioPanelCustom
-              key={svar.svar_tekst}
-              name={spørsmål.søknadid}
-              value={svar.svar_tekst}
-              checked={svarISøknad ? svarISøknad : false}
-              onChange={() => {
-                settSpørsmålOgSvar(spørsmål, svar);
-              }}
-            >
-              {svar.svar_tekst}
-            </RadioPanelCustom>
-          );
-        })}
-      </RadioGroup>
-    </div>
+    <RadioGroup
+      key={spørsmål.søknadid}
+      className={`${styles.multiSvarSpørsmål} ${className || ''}`}
+      legend={legend}
+      value={valgtSvar}
+      description={
+        spørsmål.lesmer && (
+          <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>
+            {hentHTMLTekst(spørsmål.lesmer.innholdTekstid, intl)}
+          </ReadMore>
+        )
+      }
+    >
+      {spørsmål.svaralternativer.map((svar: ISvar) => {
+        const svarISøknad = svar.svar_tekst === valgtSvar;
+        return (
+          <RadioPanelCustom
+            key={svar.svar_tekst}
+            name={spørsmål.søknadid}
+            value={svar.svar_tekst}
+            checked={svarISøknad ? svarISøknad : false}
+            onChange={() => {
+              settSpørsmålOgSvar(spørsmål, svar);
+            }}
+          >
+            {svar.svar_tekst}
+          </RadioPanelCustom>
+        );
+      })}
+    </RadioGroup>
   );
 };
