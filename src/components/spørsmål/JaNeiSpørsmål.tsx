@@ -3,7 +3,7 @@ import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar'
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioPanelCustom } from '../panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 

@@ -3,7 +3,7 @@ import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar'
 import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import { RadioGroup } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioPanelCustom } from '../panel/RadioPanel';
 
 const StyledJaNeiSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {

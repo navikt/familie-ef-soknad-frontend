@@ -6,7 +6,7 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentBarnetsNavnEllerBeskrivelse, lagtTilAnnenForelderId } from '../../../../utils/barn';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
-import RadioPanelCustom from '../../../../components/panel/RadioPanel';
+import { RadioPanelCustom } from '../../../../components/panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { hentTekst } from '../../../../utils/teksthåndtering';

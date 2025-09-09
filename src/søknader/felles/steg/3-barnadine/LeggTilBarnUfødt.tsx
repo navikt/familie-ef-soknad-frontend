@@ -6,7 +6,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Alert, RadioGroup, VStack } from '@navikt/ds-react';
 import styles from './LeggTilBarnUfødt.module.css';
 import { Datovelger } from '../../../../components/dato/Datovelger';
-import RadioPanelCustom from '../../../../components/panel/RadioPanel';
+import { RadioPanelCustom } from '../../../../components/panel/RadioPanel';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {

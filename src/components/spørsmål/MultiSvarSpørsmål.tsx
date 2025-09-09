@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup, ReadMore } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioPanelCustom } from '../panel/RadioPanel';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import styles from './MultiSvarSpørsmål.module.css';
 

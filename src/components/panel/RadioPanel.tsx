@@ -9,7 +9,7 @@ interface Properties extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
-const RadioPanelCustom: React.FC<Properties> = ({
+export const RadioPanelCustom: React.FC<Properties> = ({
   name,
   value,
   checked,
@@ -28,4 +28,3 @@ const RadioPanelCustom: React.FC<Properties> = ({
     </Radio>
   );
 };
-export default RadioPanelCustom;

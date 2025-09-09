@@ -9,7 +9,7 @@ import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Label, RadioGroup } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioPanelCustom } from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 
