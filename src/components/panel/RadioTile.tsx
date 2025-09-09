@@ -9,7 +9,7 @@ interface Props {
   legend: string;
   svarAlternativer: string[];
   radioTileLayoutDirection: RadioTileLayoutDirection;
-  valgtVerdi: string | undefined;
+  valgtVerdi: string | null;
   onChange: (verdi: string) => void;
 }
 

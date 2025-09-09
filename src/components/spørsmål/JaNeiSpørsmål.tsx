@@ -1,70 +1,47 @@
-import React, { SyntheticEvent } from 'react';
-import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
+import React from 'react';
+import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import RadioPanelCustom from '../panel/RadioPanel';
-import { RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { SpørsmålWrapper } from './SpørsmålWrapper';
+import { RadioTile } from '../panel/RadioTile';
 
 interface Props {
   spørsmål: ISpørsmål;
-  onChange: (spørsmål: ISpørsmål, svar: ISvar) => void;
   valgtSvar: boolean | undefined;
+  onChange: (spørsmål: ISpørsmål, svar: ISvar) => void;
 }
 
-const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) => {
+const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChange }) => {
   const intl = useLokalIntlContext();
 
-  const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
+  const lesMerHeaderTekstid = spørsmål.lesmer?.headerTekstid;
+  const lesMerinnholdTekstid = spørsmål.lesmer?.innholdTekstid;
 
-  const onClickHandle = (
-    e: SyntheticEvent<EventTarget, Event>,
-    spørsmål: ISpørsmål,
-    svar: ISvar
-  ): void => {
-    onChange !== undefined && svar && onChange(spørsmål, svar);
-  };
+  const svarAlternativer = spørsmål.svaralternativer.map((svar) => svar.svar_tekst);
 
-  const erValgtSvarRadioKnapp = (svar: ISvar, valgtSvar: boolean): boolean => {
-    return (svar.id === ESvar.JA && valgtSvar) || (svar.id === ESvar.NEI && !valgtSvar);
-  };
+  const valgtVerdi = valgtSvar === undefined ? null : valgtSvar ? 'Ja' : 'Nei';
 
-  const svar = (): ESvar | null => {
-    switch (valgtSvar) {
-      case true:
-        return ESvar.JA;
-      case false:
-        return ESvar.NEI;
-      default:
-        return null;
+  const onValgtSvar = (valgt: string) => {
+    const svar = spørsmål.svaralternativer.find((svar) => svar.svar_tekst === valgt);
+
+    if (svar) {
+      onChange(spørsmål, svar);
     }
   };
 
   return (
     <SpørsmålWrapper
       spørsmålKey={spørsmål.tekstid}
-      lesMerHeaderKey={spørsmål.lesmer?.headerTekstid}
-      lesMerDescriptionKey={spørsmål.lesmer?.innholdTekstid}
+      lesMerHeaderKey={lesMerHeaderTekstid}
+      lesMerDescriptionKey={lesMerinnholdTekstid}
     >
-      <RadioGroup legend={spørsmålTekst} value={svar()} hideLegend>
-        {spørsmål.svaralternativer.map((svar: ISvar) => {
-          const svarISøknad = valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
-
-          return (
-            <RadioPanelCustom
-              key={svar.svar_tekst}
-              name={spørsmål.søknadid}
-              value={svar.id}
-              checked={svarISøknad ? svarISøknad : false}
-              onChange={(e) => {
-                onClickHandle(e, spørsmål, svar);
-              }}
-            >
-              {svar.svar_tekst}
-            </RadioPanelCustom>
-          );
-        })}
-      </RadioGroup>
+      <RadioTile
+        legend={spørsmål.tekstid ? hentTekst(spørsmål.tekstid, intl) : ''}
+        svarAlternativer={svarAlternativer}
+        radioTileLayoutDirection={'horizontal'}
+        valgtVerdi={valgtVerdi}
+        onChange={onValgtSvar}
+      />
     </SpørsmålWrapper>
   );
 };
