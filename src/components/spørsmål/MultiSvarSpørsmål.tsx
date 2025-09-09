@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { RadioGroup } from '@navikt/ds-react';
+import { RadioGroup, ReadMore } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
-import { hentTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -56,10 +55,9 @@ export const MultiSvarSpørsmål: FC<Props> = ({
         value={valgtSvar}
         description={
           spørsmål.lesmer && (
-            <LesMerTekst
-              åpneTekstid={spørsmål.lesmer ? spørsmål.lesmer.headerTekstid : ''}
-              innholdTekstid={spørsmål.lesmer ? spørsmål!.lesmer!.innholdTekstid : ''}
-            />
+            <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>
+              {hentHTMLTekst(spørsmål.lesmer.innholdTekstid, intl)}
+            </ReadMore>
           )
         }
       >
