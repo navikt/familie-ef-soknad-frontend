@@ -1,28 +1,10 @@
 import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LesMerTekst from '../LesMerTekst';
-import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
-
-const StyledJaNeiSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
-    margin-top: 0;
-  }
-  .navds-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import { SpørsmålWrapper } from './SpørsmålWrapper';
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -61,19 +43,12 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
   };
 
   return (
-    <StyledJaNeiSpørsmål key={spørsmål.søknadid}>
-      <RadioGroup
-        legend={spørsmålTekst}
-        value={svar()}
-        description={
-          spørsmål.lesmer && (
-            <LesMerTekst
-              åpneTekstid={spørsmål.lesmer.headerTekstid}
-              innholdTekstid={spørsmål.lesmer.innholdTekstid}
-            />
-          )
-        }
-      >
+    <SpørsmålWrapper
+      spørsmålKey={spørsmål.tekstid}
+      lesMerHeaderKey={spørsmål.lesmer?.headerTekstid}
+      lesMerDescriptionKey={spørsmål.lesmer?.innholdTekstid}
+    >
+      <RadioGroup legend={spørsmålTekst} value={svar()}>
         {spørsmål.svaralternativer.map((svar: ISvar) => {
           const svarISøknad = valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
 
@@ -92,7 +67,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
           );
         })}
       </RadioGroup>
-    </StyledJaNeiSpørsmål>
+    </SpørsmålWrapper>
   );
 };
 
