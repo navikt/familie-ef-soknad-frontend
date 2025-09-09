@@ -26,9 +26,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
   };
 
   const erValgtSvarRadioKnapp = (svar: ISvar, valgtSvar: boolean): boolean => {
-    return (
-      (svar.id === ESvar.JA && valgtSvar === true) || (svar.id === ESvar.NEI && valgtSvar === false)
-    );
+    return (svar.id === ESvar.JA && valgtSvar) || (svar.id === ESvar.NEI && !valgtSvar);
   };
 
   const svar = (): ESvar | null => {
