@@ -6,7 +6,7 @@ import {
   oppholderSegINorge,
   søkersOppholdsland,
 } from './MedlemskapConfig';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { PeriodeBoddIUtlandet } from './PeriodeBoddIUtlandet';
 import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../../components/spørsmål/JaNeiSpørsmål';
 import { skalSøkerGifteSegMedSamboer } from './BosituasjonConfig';
 import { OmSamboerenDin } from './OmSamboerenDin';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';

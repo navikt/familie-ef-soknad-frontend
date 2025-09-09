@@ -1,5 +1,5 @@
 import React from 'react';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { SøkerBorIkkePåAdresse } from './SøkerBorIkkePåAdresse';
 import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';

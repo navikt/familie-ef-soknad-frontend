@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import {
   erSøkerArbeidssøker,
   erVilligTilÅTaImotTilbud,

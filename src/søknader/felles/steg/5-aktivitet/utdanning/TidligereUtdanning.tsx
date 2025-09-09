@@ -2,7 +2,7 @@ import React from 'react';
 import { UnderUtdanning, Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import LesMerTekst from '../../../../../components/LesMerTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import RegistrerUtdanning from './RegistrerUtdanning';

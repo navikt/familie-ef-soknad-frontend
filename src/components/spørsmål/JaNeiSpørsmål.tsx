@@ -11,7 +11,7 @@ interface Props {
   onChange: (spørsmål: ISpørsmål, svar: ISvar) => void;
 }
 
-const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChange }) => {
+export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChange }) => {
   const intl = useLokalIntlContext();
 
   const lesMerHeaderTekstid = spørsmål.lesmer?.headerTekstid;
@@ -45,5 +45,3 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChange }) =
     </SpørsmålWrapper>
   );
 };
-
-export default JaNeiSpørsmål;

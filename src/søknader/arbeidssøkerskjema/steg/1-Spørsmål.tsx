@@ -3,7 +3,7 @@ import Side from '../side/Side';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { hentTekst } from '../../../utils/teksthåndtering';
 import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
-import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../components/spørsmål/JaNeiSpørsmål';
 import {
   erSøkerArbeidssøker,
   erVilligTilÅTaImotTilbud,

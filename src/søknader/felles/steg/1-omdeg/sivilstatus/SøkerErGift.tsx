@@ -1,5 +1,5 @@
 import React from 'react';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { JaNeiSpørsmål } from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
 import { SøkerHarSøktSeparasjon } from './SøkerHarSøktSeparasjon';
