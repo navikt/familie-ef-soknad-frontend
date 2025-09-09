@@ -32,7 +32,8 @@ export const [AktivitetProvider, useAktivitet] = constate(
     const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
 
     const mellomlagreSteg = () => {
-      const oppdatertAktivitet = { ...aktivitet, arbeidssituasjon: arbeidssituasjon };
+      const oppdatertAktivitet = { ...aktivitet, ...arbeidssituasjon };
+
       const oppdatertSøknad = { ...søknad, aktivitet: oppdatertAktivitet };
 
       oppdaterSøknad(oppdatertSøknad);
