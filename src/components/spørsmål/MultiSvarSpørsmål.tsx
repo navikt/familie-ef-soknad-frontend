@@ -1,35 +1,10 @@
 import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup, ReadMore } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
-
-const StyledMultisvarSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
-    margin-top: 0;
-  }
-  .navds-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .toKorteSvar .navds-radio-buttons {
-    grid-template-columns: 1fr 1fr;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import styles from './MultiSvarSpørsmål.module.css';
 
 interface Props {
   className?: string;
@@ -49,7 +24,7 @@ export const MultiSvarSpørsmål: FC<Props> = ({
   const legend = hentTekst(spørsmål.tekstid, intl);
 
   return (
-    <StyledMultisvarSpørsmål key={spørsmål.søknadid}>
+    <div key={spørsmål.søknadid} className={`${styles.multiSvarSpørsmål} ${className || ''}`}>
       <RadioGroup
         legend={legend}
         value={valgtSvar}
@@ -65,7 +40,6 @@ export const MultiSvarSpørsmål: FC<Props> = ({
           const svarISøknad = svar.svar_tekst === valgtSvar;
           return (
             <RadioPanelCustom
-              className={className}
               key={svar.svar_tekst}
               name={spørsmål.søknadid}
               value={svar.svar_tekst}
@@ -79,6 +53,6 @@ export const MultiSvarSpørsmål: FC<Props> = ({
           );
         })}
       </RadioGroup>
-    </StyledMultisvarSpørsmål>
+    </div>
   );
 };
