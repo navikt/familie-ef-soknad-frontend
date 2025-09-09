@@ -39,7 +39,12 @@ interface Props {
   valgtSvar: string | undefined;
 }
 
-const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålOgSvar, valgtSvar }) => {
+export const MultiSvarSpørsmål: FC<Props> = ({
+  className,
+  spørsmål,
+  settSpørsmålOgSvar,
+  valgtSvar,
+}) => {
   const intl = useLokalIntlContext();
 
   const legend = hentTekst(spørsmål.tekstid, intl);
@@ -79,5 +84,3 @@ const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålO
     </StyledMultisvarSpørsmål>
   );
 };
-
-export default MultiSvarSpørsmål;

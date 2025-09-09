@@ -3,7 +3,7 @@ import {
   ESagtOppEllerRedusertStilling,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';

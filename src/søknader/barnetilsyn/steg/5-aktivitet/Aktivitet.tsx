@@ -20,7 +20,7 @@ import {
   IAktivitet,
 } from '../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';

@@ -1,5 +1,5 @@
 import React from 'react';
-import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { heltidEllerDeltidSpm } from './UtdanningConfig';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';

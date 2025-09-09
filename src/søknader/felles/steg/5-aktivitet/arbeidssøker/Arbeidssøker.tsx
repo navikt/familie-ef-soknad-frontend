@@ -11,7 +11,7 @@ import {
 import { IArbeidssøker } from '../../../../../models/steg/aktivitet/arbeidssøker';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';

@@ -2,7 +2,7 @@
 import React, { FC } from 'react';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { EndringISamvær } from './EndringISamvær';
-import MultiSvarSpørsmål from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { begrunnelseSpørsmål } from '../SivilstatusConfig';
 import { hentSvarAlertFraSpørsmål } from '../../../../../../utils/søknad';
 import { EBegrunnelse } from '../../../../../../models/steg/omDeg/sivilstatus';

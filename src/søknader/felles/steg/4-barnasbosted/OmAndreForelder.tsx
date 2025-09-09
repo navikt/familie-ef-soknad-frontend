@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { EHvorforIkkeOppgi } from '../../../../models/steg/barnasbosted';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { hvorforIkkeOppgi } from './ForeldreConfig';

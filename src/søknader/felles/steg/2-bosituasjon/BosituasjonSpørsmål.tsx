@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { MultiSvarSpørsmål } from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { ESøkerDelerBolig } from '../../../../models/steg/bosituasjon';
 import { SøkerSkalFlytteSammenEllerFåSamboer } from './SøkerSkalFlytteSammenEllerFåSamboer';
 import { EkteskapslignendeForhold } from './EkteskapslignendeForhold';
