@@ -24,6 +24,7 @@ export const CheckboxSpørsmål: React.FC<Props> = ({
     <CheckboxGroup
       legend={hentTekst(spørsmål.tekstid, intl)}
       value={valgteSvar}
+      className={styles.checkboxGroup}
       description={
         spørsmål.lesmer && (
           <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>

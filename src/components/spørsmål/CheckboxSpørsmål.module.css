@@ -35,3 +35,7 @@
     outline: none;
     padding: var(--a-spacing-4);
 }
+
+.checkboxGroup :global(.navds-fieldset__description) {
+    margin-bottom: var(--a-spacing-4);
+}
