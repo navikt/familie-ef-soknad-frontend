@@ -4,7 +4,7 @@ import { IRoute } from '../../../../models/routes';
 import { useLocation } from 'react-router-dom';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { useState } from 'react';
-import { sanering } from './sanering';
+import { sanerBarnepassSteg } from './sanerBarnepassSteg';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 
 export interface Props {
@@ -33,7 +33,7 @@ export const [BarnepassProvider, useBarnepass] = constate(
     const [søkerFraBestemtMåned, settSøkerFraBestemtMåned] = useState(søknad.søkerFraBestemtMåned);
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = sanering(søknad, barn, søknadsdato, søkerFraBestemtMåned); //TODO sanering,
+      const oppdatertSøknad = sanerBarnepassSteg(søknad, barn, søknadsdato, søkerFraBestemtMåned);
 
       oppdaterSøknad(oppdatertSøknad);
 
