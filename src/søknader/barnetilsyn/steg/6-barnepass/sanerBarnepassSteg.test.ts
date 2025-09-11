@@ -29,6 +29,37 @@ describe('Skal sanere felter tilhørende barnepass', () => {
       'Søker du om stønad til barnetilsyn fra en bestemt måned?'
     );
     expect(sanertSøknad.søkerFraBestemtMåned?.verdi).toBe(false);
-    expect(sanertSøknad.søkerFraBestemtMåned).toBeUndefined;
+    expect(sanertSøknad.søknadsdato).toBeUndefined();
+  });
+
+  test('Beholder søknadsdato dersom bruker søker fra bestemt dato', () => {
+    const søknad = lagSøknadBarnetilsyn({
+      søknadsdato: { label: 'Når søker du stønad fra?', verdi: '02.02.0220' },
+      søkerFraBestemtMåned: {
+        label: 'Søker du om stønad til barnetilsyn fra en bestemt måned?',
+        verdi: true,
+        spørsmålid: EBarnepass.søkerFraBestemtMåned,
+        svarid: ESøkerFraBestemtMåned.ja,
+      },
+    });
+
+    const sanertSøknad = sanerBarnepassSteg(
+      søknad,
+      søknad.person.barn,
+      søknad.søknadsdato,
+      søknad.søkerFraBestemtMåned
+    );
+
+    expect(sanertSøknad.søknadsdato).not.toBeUndefined();
+
+    expect(sanertSøknad.søkerFraBestemtMåned?.spørsmålid).toBe(EBarnepass.søkerFraBestemtMåned);
+    expect(sanertSøknad.søkerFraBestemtMåned?.svarid).toBe(ESøkerFraBestemtMåned.ja);
+    expect(sanertSøknad.søkerFraBestemtMåned?.label).toBe(
+      'Søker du om stønad til barnetilsyn fra en bestemt måned?'
+    );
+    expect(sanertSøknad.søkerFraBestemtMåned?.verdi).toBe(true);
+
+    expect(sanertSøknad.søknadsdato?.label).toBe('Når søker du stønad fra?');
+    expect(sanertSøknad.søknadsdato?.verdi).toBe('02.02.0220');
   });
 });
