@@ -11,17 +11,18 @@ import { IBarn } from '../../../../models/steg/barn';
 import { BarnepassOrdning, IBarnepass } from '../../models/barnepass';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useBarnepass } from './BarnepassContext';
 
 interface Props {
   barn: IBarn;
   settBarnepass: (barnepass: IBarnepass, barnid: string) => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
+  indeks: number;
 }
 
-const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, settDokumentasjonsbehovForBarn }) => {
+const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
   const intl = useLokalIntlContext();
+  const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const barnepass: IBarnepass = barn.barnepass
     ? barn.barnepass
     : { barnepassordninger: [{ id: hentUid() }] };
@@ -43,8 +44,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, settDokumentasjons
   };
 
   const leggTilBarnepassordning = () => {
-    const endretBarnepassordninger = barnepass.barnepassordninger;
-    endretBarnepassordninger.push({ id: hentUid() });
+    const endretBarnepassordninger = [...barnepass.barnepassordninger, { id: hentUid() }];
     settBarnepass({ ...barn.barnepass, barnepassordninger: endretBarnepassordninger }, barn.id);
   };
 
@@ -68,6 +68,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, settDokumentasjons
           settBarnepassOrdning={settBarnepassOrdning}
           settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
           fjernBarnepassOrdning={fjernBarnepassOrdning}
+          barnIndeks={indeks}
         />
       ))}
       {erBarnepassOrdningerUtfylt(barnepass.barnepassordninger) && (

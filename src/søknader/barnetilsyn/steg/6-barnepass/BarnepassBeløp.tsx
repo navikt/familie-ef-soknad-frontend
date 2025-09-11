@@ -12,8 +12,9 @@ import { Detail } from '@navikt/ds-react';
 interface Props {
   barnepassOrdning: BarnepassOrdning;
   settInputFelt: (e: React.FormEvent<HTMLInputElement>, nøkkel: string, label: string) => void;
+  barnIndeks: number;
 }
-const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt }) => {
+const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt, barnIndeks }) => {
   const intl = useLokalIntlContext();
   const beløp = barnepassOrdning.belop ? barnepassOrdning.belop.verdi : '';
   const beløpLabel = hentTekst('barnepass.label.beløp', intl);
@@ -37,6 +38,7 @@ const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt }) => {
           settInputFelt={(e) => settInputFelt(e, EBarnepass.belop, beløpLabel)}
           beskrivendeTekst={hentTekst('input.kroner', intl)}
           value={beløp}
+          testId={`beløp-barn-${barnIndeks}`}
         />
       </FeltGruppe>
       {!erStrengGyldigTall(beløp) && barnepassOrdning.belop && (
