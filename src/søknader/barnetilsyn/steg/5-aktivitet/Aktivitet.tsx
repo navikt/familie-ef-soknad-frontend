@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import CheckboxSpørsmål from '../../../../components/spørsmål/CheckboxSpørsmål';
+import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
@@ -152,7 +152,6 @@ const Aktivitet: React.FC = () => {
               )}
               settValgteSvar={settArbeidssituasjonFelt}
               valgteSvar={hvaErDinArbeidssituasjon?.verdi ? hvaErDinArbeidssituasjon?.verdi : []}
-              skalLogges={true}
             />
           </KomponentGruppe>
         )}

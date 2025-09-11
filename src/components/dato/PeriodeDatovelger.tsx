@@ -25,6 +25,7 @@ interface Props {
   settDato: (objektnøkkel: EPeriode, dato?: string) => void;
   gyldigeDatoer: GyldigeDatoer;
   onValidate?: (isValid: boolean) => void;
+  testIndeks?: number;
 }
 
 export const PeriodeDatovelgere: FC<Props> = ({
@@ -36,6 +37,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
   tomTekstid,
   gyldigeDatoer,
   onValidate,
+  testIndeks,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -109,6 +111,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
           valgtDato={periode.fra.verdi}
           tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
           gyldigeDatoer={gyldigeDatoer}
+          testId={`fraDato-${testIndeks}`}
         />
 
         <Datovelger
@@ -116,6 +119,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
           valgtDato={periode.til.verdi}
           tekstid={tomTekstid ? tomTekstid : 'periode.til'}
           gyldigeDatoer={gyldigeDatoer}
+          testId={`tilDato-${testIndeks}`}
         />
       </HStack>
 

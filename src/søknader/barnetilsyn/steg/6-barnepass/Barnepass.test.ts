@@ -4,6 +4,7 @@ import {
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
   skrivFritekst,
+  skrivFritekstTilKomponentMedId,
 } from '../../../../test/aksjoner';
 import {
   dagensDato,
@@ -502,6 +503,83 @@ describe('Barnepass-Steg', () => {
       screen,
       user
     );
+    await user.click(screen.getByRole('button', { name: 'Neste' }));
+
+    expect(screen.getByRole('heading', { level: 2, name: 'Oppsummering' })).toBeInTheDocument();
+  });
+
+  test('Kan navigere seg til neste med to barn', async () => {
+    mockMellomlagretSøknadBarnetilsyn(
+      '/barnetilsyn/barnepass',
+      undefined,
+      lagSøknadBarnetilsyn({
+        harBekreftet: true,
+        person: lagPerson({
+          barn: [
+            lagIBarn({
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+              fødselsdato: lagTekstfelt({ label: '', verdi: dagensIsoDatoMinusMåneder(60) }),
+              ident: lagTekstfelt({ label: '', verdi: '18877598140' }),
+              født: lagSpørsmålBooleanFelt({ spørsmålid: '', svarid: '', label: '', verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+              skalHaBarnepass: lagSpørsmålBooleanFelt({
+                spørsmålid: '',
+                svarid: '',
+                label: '',
+                verdi: true,
+              }),
+            }),
+            lagIBarn({
+              navn: lagTekstfelt({ label: 'Navn', verdi: 'BARN TO' }),
+              fødselsdato: lagTekstfelt({ label: '', verdi: dagensIsoDatoMinusMåneder(48) }),
+              ident: lagTekstfelt({ label: '', verdi: '18877598140' }),
+              id: '4321',
+              født: lagSpørsmålBooleanFelt({ spørsmålid: '', svarid: '', label: '', verdi: true }),
+              alder: lagTekstfelt({ label: 'Alder', verdi: '4' }),
+              skalHaBarnepass: lagSpørsmålBooleanFelt({
+                spørsmålid: '',
+                svarid: '',
+                label: '',
+                verdi: true,
+              }),
+            }),
+          ],
+        }),
+      })
+    );
+    const { screen, user } = await navigerTilStegBarnetilsyn();
+
+    await klikkRadioknapp(
+      'Hva slags barnepassordning har GÅEN PC?',
+      'Barnehage, SFO eller liknende',
+      screen,
+      user
+    );
+    await skrivFritekst('Navn på barnepassordningen', 'Barnehage', screen, user);
+    await skrivFritekst('Startdato', '01.06.2025', screen, user);
+    await skrivFritekst('Sluttdato', '01.12.2025', screen, user);
+
+    await skrivFritekstTilKomponentMedId('beløp-barn-0', '150', screen, user);
+
+    await klikkRadioknapp(
+      'Hva slags barnepassordning har BARN TO?',
+      'Barnehage, SFO eller liknende',
+      screen,
+      user
+    );
+
+    await skrivFritekstTilKomponentMedId('navnPåBarnepassordningen-1', 'Barnehage', screen, user);
+
+    await skrivFritekstTilKomponentMedId('fraDato-1', '01.06.2025', screen, user);
+    await skrivFritekstTilKomponentMedId('tilDato-1', '01.12.2025', screen, user);
+    await skrivFritekstTilKomponentMedId('beløp-barn-1', '150', screen, user);
+    await klikkRadioknapp(
+      'Søker du om stønad til barnetilsyn fra en bestemt måned?',
+      'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
+      screen,
+      user
+    );
+
     await user.click(screen.getByRole('button', { name: 'Neste' }));
 
     expect(screen.getByRole('heading', { level: 2, name: 'Oppsummering' })).toBeInTheDocument();

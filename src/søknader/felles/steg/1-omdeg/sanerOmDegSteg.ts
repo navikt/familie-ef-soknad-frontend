@@ -5,7 +5,7 @@ import { IPersonDetaljer } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
 
-export const sanering = <T extends Søknad>(
+export const sanerOmDegSteg = <T extends Søknad>(
   søknad: T,
   sivilstatus: ISivilstatus,
   medlemskap: IMedlemskap,
