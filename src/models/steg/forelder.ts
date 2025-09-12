@@ -27,6 +27,7 @@ export interface IForelder {
   hvorMyeSammen?: ISpørsmålFelt;
   beskrivSamværUtenBarn?: ITekstFelt;
   fraFolkeregister?: boolean;
+  erKopiertFraAnnetBarn?: boolean;
 }
 
 export enum EForelder {
