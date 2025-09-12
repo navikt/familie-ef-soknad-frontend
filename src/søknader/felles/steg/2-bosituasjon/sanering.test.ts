@@ -185,11 +185,11 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
 
       expect(skalGifteSegEllerBliSamboer?.verdi).toBeFalsy;
 
-      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined;
-      expect(vordendeSamboerEktefelle).toBeUndefined;
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined();
+      expect(vordendeSamboerEktefelle).toBeUndefined();
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('bruker deler bolig med andre voksne og skal gifte seg', () => {
@@ -230,9 +230,9 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
       expect(vordendeSamboerEktefelle?.fødselsdato?.verdi).toBe(isoDatoEnMånedTilbake);
       expect(vordendeSamboerEktefelle?.kjennerIkkeIdent).toBeFalsy();
 
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('bruker bor alene med barn/gravid', () => {
@@ -265,11 +265,11 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
 
       expect(skalGifteSegEllerBliSamboer?.verdi).toBeTruthy;
 
-      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined;
-      expect(vordendeSamboerEktefelle).toBeUndefined;
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined();
+      expect(vordendeSamboerEktefelle).toBeUndefined();
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('bruker bor alene med barn/gravid og skal gifte seg', () => {
@@ -309,9 +309,9 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
       expect(vordendeSamboerEktefelle?.fødselsdato?.verdi).toBe(isoDatoEnMånedTilbake);
       expect(vordendeSamboerEktefelle?.kjennerIkkeIdent).toBeFalsy();
 
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('tidligere samboer er fortsatt registrert på brukers adresse', () => {
@@ -353,9 +353,9 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
 
       expect(skalGifteSegEllerBliSamboer?.verdi).toBe(false);
 
-      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined;
-      expect(vordendeSamboerEktefelle).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
+      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined();
+      expect(vordendeSamboerEktefelle).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
     });
 
     test('tidligere samboer er fortsatt registrert på brukers adresse og bruker skal gifte seg', () => {
@@ -404,7 +404,7 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
       expect(vordendeSamboerEktefelle?.fødselsdato?.verdi).toBe(isoDatoEnMånedTilbake);
       expect(vordendeSamboerEktefelle?.kjennerIkkeIdent).toBeFalsy();
 
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
     });
   });
 
@@ -551,11 +551,11 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
 
       expect(skalGifteSegEllerBliSamboer?.verdi).toBeFalsy;
 
-      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined;
-      expect(vordendeSamboerEktefelle).toBeUndefined;
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined();
+      expect(vordendeSamboerEktefelle).toBeUndefined();
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('bruker deler bolig med andre voksne og skal gifte seg', () => {
@@ -596,9 +596,9 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
       expect(vordendeSamboerEktefelle?.fødselsdato?.verdi).toBe(isoDatoEnMånedTilbake);
       expect(vordendeSamboerEktefelle?.kjennerIkkeIdent).toBeFalsy();
 
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('bruker bor alene med barn/gravid', () => {
@@ -631,11 +631,11 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
 
       expect(skalGifteSegEllerBliSamboer?.verdi).toBeTruthy;
 
-      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined;
-      expect(vordendeSamboerEktefelle).toBeUndefined;
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined();
+      expect(vordendeSamboerEktefelle).toBeUndefined();
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('bruker bor alene med barn/gravid og skal gifte seg', () => {
@@ -675,9 +675,9 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
       expect(vordendeSamboerEktefelle?.fødselsdato?.verdi).toBe(isoDatoEnMånedTilbake);
       expect(vordendeSamboerEktefelle?.kjennerIkkeIdent).toBeFalsy();
 
-      expect(samboerDetaljer).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
-      expect(datoFlyttetFraHverandre).toBeUndefined;
+      expect(samboerDetaljer).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
+      expect(datoFlyttetFraHverandre).toBeUndefined();
     });
 
     test('tidligere samboer er fortsatt registrert på brukers adresse', () => {
@@ -719,9 +719,9 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
 
       expect(skalGifteSegEllerBliSamboer?.verdi).toBe(false);
 
-      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined;
-      expect(vordendeSamboerEktefelle).toBeUndefined;
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
+      expect(datoSkalGifteSegEllerBliSamboer).toBeUndefined();
+      expect(vordendeSamboerEktefelle).toBeUndefined();
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
     });
 
     test('tidligere samboer er fortsatt registrert på brukers adresse og bruker skal gifte seg', () => {
@@ -770,7 +770,7 @@ describe('skal sanere felter tilhørende bosituasjonsteget', () => {
       expect(vordendeSamboerEktefelle?.fødselsdato?.verdi).toBe(isoDatoEnMånedTilbake);
       expect(vordendeSamboerEktefelle?.kjennerIkkeIdent).toBeFalsy();
 
-      expect(datoFlyttetSammenMedSamboer).toBeUndefined;
+      expect(datoFlyttetSammenMedSamboer).toBeUndefined();
     });
   });
 });

@@ -71,7 +71,7 @@ export const BarnaDine: React.FC = () => {
           {hentHTMLTekst('barnadine.barnetilsyn.info.brukpdf', intl)}
         </Alert>
 
-        <HStack>
+        <HStack justify="center" gap="4">
           {søknad.person.barn
             ?.sort((a: IBarn, b: IBarn) => {
               if (a.medforelder?.verdi && !b.medforelder?.verdi) {
