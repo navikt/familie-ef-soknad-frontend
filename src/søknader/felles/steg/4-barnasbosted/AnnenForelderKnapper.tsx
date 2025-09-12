@@ -69,6 +69,7 @@ const AnnenForelderKnapper: React.FC<Props> = ({
       land: oppdatertForelder?.land,
       fraFolkeregister: oppdatertForelder?.fraFolkeregister,
       skalBarnetBoHosSøker: forelder.skalBarnetBoHosSøker,
+      erKopiertFraAnnetBarn: true,
     });
   };
 
