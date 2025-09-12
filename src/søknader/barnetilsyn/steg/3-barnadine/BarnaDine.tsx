@@ -9,9 +9,8 @@ import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { Alert, Label, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, HStack, Label, ReadMore, VStack } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
-import styles from './BarnaDine.module.css';
 
 export const BarnaDine: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -72,7 +71,7 @@ export const BarnaDine: React.FC = () => {
           {hentHTMLTekst('barnadine.barnetilsyn.info.brukpdf', intl)}
         </Alert>
 
-        <div className={styles.barneKortContainer}>
+        <HStack justify="center" gap="4">
           {søknad.person.barn
             ?.sort((a: IBarn, b: IBarn) => {
               if (a.medforelder?.verdi && !b.medforelder?.verdi) {
@@ -97,7 +96,7 @@ export const BarnaDine: React.FC = () => {
                 }
               />
             ))}
-        </div>
+        </HStack>
       </VStack>
     </Side>
   );
