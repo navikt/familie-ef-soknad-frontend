@@ -19,6 +19,7 @@ export const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, valgtSvar, onChan
 
   const svarAlternativer = spørsmål.svaralternativer.map((svar) => svar.svar_tekst);
 
+  // TODO: Dette skal forenklest, ikke sånn det burde være.
   const valgtVerdi = valgtSvar === undefined ? null : valgtSvar ? 'Ja' : 'Nei';
 
   const onValgtSvar = (valgt: string) => {
