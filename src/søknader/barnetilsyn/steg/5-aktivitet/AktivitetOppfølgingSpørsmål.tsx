@@ -11,15 +11,14 @@ interface Props {
   svarid: string;
 }
 const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
-  const { søknad, arbeidssituasjon, settArbeidssituasjon, settDokumentasjonsbehov } =
-    useAktivitet();
+  const { søknad, aktivitet, settAktivitet, settDokumentasjonsbehov } = useAktivitet();
 
   switch (svarid) {
     case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
       return (
         <OmArbeidsforholdetDitt
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
           inkludertArbeidsmengde={false}
         />
@@ -28,8 +27,8 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
     case EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser:
       return (
         <OmFirmaeneDine
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
           inkludertArbeidsmengde={false}
           overskuddsår={
             nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
@@ -40,8 +39,8 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
     case EAktivitet.erAnsattIEgetAS:
       return (
         <EgetAS
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
           inkludertArbeidsmengde={false}
         />
       );
@@ -49,8 +48,8 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
     case EAktivitet.etablererEgenVirksomhet:
       return (
         <EtablererEgenVirksomhet
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
         />
       );
 
