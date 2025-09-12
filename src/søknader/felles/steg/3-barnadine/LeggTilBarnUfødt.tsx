@@ -1,13 +1,13 @@
 import React from 'react';
-import { ESvar, ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
+import { ESvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { erDatoGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Alert, RadioGroup, VStack } from '@navikt/ds-react';
-import styles from './LeggTilBarnUfødt.module.css';
+import { Alert, VStack } from '@navikt/ds-react';
 import { Datovelger } from '../../../../components/dato/Datovelger';
-import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
+import { skalBarnetBoHosSøker } from './BarneConfig';
 
 interface Props {
   settBo: (nyttBo: string) => void;
@@ -35,31 +35,11 @@ export const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato,
       </VStack>
       {barnDato && erDatoGyldigOgInnenforBegrensning(barnDato, GyldigeDatoer.Fremtidige) && (
         <VStack gap="4">
-          <div className={styles.radiopanelWrapper}>
-            <RadioGroup
-              legend={hentTekst('barnekort.spm.skalBarnetBoHosSøker', intl)}
-              value={boHosDeg}
-            >
-              <RadioPanelCustom
-                key={ESvar.JA}
-                name={'radio-bosted'}
-                value={ESvar.JA}
-                checked={boHosDeg === ESvar.JA}
-                onChange={(e) => settBo(e.target.value)}
-              >
-                {hentTekst(ESvarTekstid.JA, intl)}
-              </RadioPanelCustom>
-              <RadioPanelCustom
-                key={ESvar.NEI}
-                name={'radio-bosted'}
-                value={ESvar.NEI}
-                checked={boHosDeg === ESvar.NEI}
-                onChange={(e) => settBo(e.target.value)}
-              >
-                {hentTekst(ESvarTekstid.NEI, intl)}
-              </RadioPanelCustom>
-            </RadioGroup>
-          </div>
+          <JaNeiSpørsmål
+            spørsmål={skalBarnetBoHosSøker(intl)}
+            onChange={(_, svar) => settBo(svar.id)}
+            valgtSvar={boHosDeg === ESvar.JA ? true : boHosDeg === ESvar.NEI ? false : undefined}
+          />
           {boHosDeg === ESvar.NEI && (
             <Alert size="small" variant="warning" inline>
               {hentTekst('barnadine.advarsel.skalikkebo', intl)}
