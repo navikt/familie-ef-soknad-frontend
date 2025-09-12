@@ -32,14 +32,9 @@ import { useAktivitet } from './AktivitetContext';
 const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
-  const {
-    søknad,
-    arbeidssituasjon,
-    settArbeidssituasjon,
-    settDokumentasjonsbehov,
-    mellomlagreSteg,
-  } = useAktivitet();
-  const { hvaErDinArbeidssituasjon, erIArbeid } = arbeidssituasjon;
+  const { søknad, aktivitet, settAktivitet, settDokumentasjonsbehov, mellomlagreSteg } =
+    useAktivitet();
+  const { hvaErDinArbeidssituasjon, erIArbeid } = aktivitet;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
@@ -49,7 +44,7 @@ const Aktivitet: React.FC = () => {
     const endretArbeidssituasjon =
       svar.id === ErIArbeid.NeiFordiJegErSyk
         ? {
-            ...arbeidssituasjon,
+            ...aktivitet,
             egetAS: undefined,
             arbeidsforhold: undefined,
             firmaer: undefined,
@@ -59,12 +54,12 @@ const Aktivitet: React.FC = () => {
               svarid: [],
               label: '',
               verdi: [],
-              alternativer: arbeidssituasjon.hvaErDinArbeidssituasjon.alternativer,
+              alternativer: aktivitet.hvaErDinArbeidssituasjon.alternativer,
             },
           }
-        : arbeidssituasjon;
+        : aktivitet;
 
-    settArbeidssituasjon({
+    settAktivitet({
       ...endretArbeidssituasjon,
       erIArbeid: {
         spørsmålid: spørsmål.søknadid,
@@ -83,9 +78,9 @@ const Aktivitet: React.FC = () => {
       svar
     );
 
-    const endretArbeidssituasjon = fjernAktivitet(svarider, arbeidssituasjon);
+    const endretArbeidssituasjon = fjernAktivitet(svarider, aktivitet);
 
-    settArbeidssituasjon({
+    settAktivitet({
       ...endretArbeidssituasjon,
       [spørsmål.søknadid]: {
         spørsmålid: spørsmål.søknadid,
@@ -98,7 +93,7 @@ const Aktivitet: React.FC = () => {
   };
 
   const erAlleFelterUtfylt = hvaErDinArbeidssituasjon?.svarid?.every((id) =>
-    erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon, false)
+    erAktivitetSeksjonFerdigUtfylt(id, aktivitet, false)
   );
 
   const erSisteSpørsmålBesvartOgMinstEttAlternativValgt =
@@ -130,10 +125,10 @@ const Aktivitet: React.FC = () => {
           <MultiSvarSpørsmål
             spørsmål={ErDuIArbeidSpm(intl)}
             settSpørsmålOgSvar={settErDuIArbeid}
-            valgtSvar={arbeidssituasjon?.erIArbeid?.verdi}
+            valgtSvar={aktivitet?.erIArbeid?.verdi}
           />
         </KomponentGruppe>
-        {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
+        {aktivitet.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
           <>
             <Alert variant={'info'} inline>
               <Label as="p">{hentHTMLTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
@@ -143,7 +138,7 @@ const Aktivitet: React.FC = () => {
             </AlertStripeDokumentasjon>
           </>
         )}
-        {arbeidssituasjon.erIArbeid?.svarid === ErIArbeid.JA && (
+        {aktivitet.erIArbeid?.svarid === ErIArbeid.JA && (
           <KomponentGruppe>
             <CheckboxSpørsmål
               spørsmål={filtrerAktivitetSvaralternativer(
@@ -156,14 +151,14 @@ const Aktivitet: React.FC = () => {
           </KomponentGruppe>
         )}
 
-        {arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid?.map((svarid, index) => {
+        {aktivitet.hvaErDinArbeidssituasjon?.svarid?.map((svarid, index) => {
           const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon?.svarid.length !== 0;
           const erFørsteAktivitet = hvaErDinArbeidssituasjon?.svarid[0] === svarid;
 
           const visSeksjon =
             !harValgtMinstEnAktivitet ||
             erFørsteAktivitet ||
-            erSpørsmålFørAktivitetBesvart(svarid, arbeidssituasjon);
+            erSpørsmålFørAktivitetBesvart(svarid, aktivitet);
 
           return (
             visSeksjon && (

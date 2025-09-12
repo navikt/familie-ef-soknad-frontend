@@ -1,5 +1,3 @@
-import { MellomlagretSøknad } from '../../../../models/søknad/søknad';
-import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import constate from 'constate';
 import { useLocation } from 'react-router-dom';
@@ -10,29 +8,18 @@ import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 export interface Props {
   søknad: SøknadBarnetilsyn;
   oppdaterSøknad: (søknad: SøknadBarnetilsyn) => void;
-  mellomlagretSøknad: MellomlagretSøknad | undefined;
   mellomlagreSøknad: (steg: string, oppdatertSøknad: SøknadBarnetilsyn) => void;
-  routes: IRoute[];
-  pathOppsummering: string | undefined;
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 export const [AktivitetProvider, useAktivitet] = constate(
-  ({
-    søknad,
-    oppdaterSøknad,
-    mellomlagreSøknad,
-    routes,
-    pathOppsummering,
-    settDokumentasjonsbehov,
-  }: Props) => {
+  ({ søknad, oppdaterSøknad, mellomlagreSøknad, settDokumentasjonsbehov }: Props) => {
     const location = useLocation();
 
-    const [aktivitet, settAktivitet] = useState(søknad.aktivitet);
-    const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>(søknad?.aktivitet);
+    const [aktivitet, settAktivitet] = useState<IAktivitet>(søknad?.aktivitet);
 
     const mellomlagreSteg = () => {
-      const oppdatertAktivitet = { ...aktivitet, ...arbeidssituasjon };
+      const oppdatertAktivitet = { ...aktivitet };
 
       const oppdatertSøknad = { ...søknad, aktivitet: oppdatertAktivitet };
 
@@ -44,12 +31,8 @@ export const [AktivitetProvider, useAktivitet] = constate(
     return {
       aktivitet,
       settAktivitet,
-      arbeidssituasjon,
-      settArbeidssituasjon,
       søknad,
       mellomlagreSteg,
-      routes,
-      pathOppsummering,
       settDokumentasjonsbehov,
     };
   }
