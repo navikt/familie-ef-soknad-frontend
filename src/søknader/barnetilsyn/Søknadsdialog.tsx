@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import { BarnaDine } from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
-import Aktivitet from './steg/5-aktivitet/Aktivitet';
+import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Kvittering from './steg/9-kvittering/Kvittering';
@@ -20,6 +20,7 @@ import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnepassProvider } from './steg/6-barnepass/BarnepassContext';
+import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -91,7 +92,14 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/aktivitet'}
         element={
           <RedirectTilStart>
-            <Aktivitet />
+            <AktivitetProvider
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
+              <Aktivitet />
+            </AktivitetProvider>
           </RedirectTilStart>
         }
       />
