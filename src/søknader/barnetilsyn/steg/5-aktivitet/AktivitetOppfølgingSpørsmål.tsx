@@ -10,7 +10,7 @@ import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 interface Props {
   svarid: string;
 }
-const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
+export const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
   const { søknad, aktivitet, settAktivitet, settDokumentasjonsbehov } = useAktivitet();
 
   switch (svarid) {
@@ -23,7 +23,6 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
           inkludertArbeidsmengde={false}
         />
       );
-
     case EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser:
       return (
         <OmFirmaeneDine
@@ -35,7 +34,6 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
           }
         />
       );
-
     case EAktivitet.erAnsattIEgetAS:
       return (
         <EgetAS
@@ -44,7 +42,6 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
           inkludertArbeidsmengde={false}
         />
       );
-
     case EAktivitet.etablererEgenVirksomhet:
       return (
         <EtablererEgenVirksomhet
@@ -52,10 +49,7 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
           settArbeidssituasjon={settAktivitet}
         />
       );
-
     default:
       return <></>;
   }
 };
-
-export default AktivitetOppfølgingSpørsmål;

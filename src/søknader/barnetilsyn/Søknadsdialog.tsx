@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import { BarnaDine } from './steg/3-barnadine/BarnaDine';
 import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
-import Aktivitet from './steg/5-aktivitet/Aktivitet';
+import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Kvittering from './steg/9-kvittering/Kvittering';
@@ -95,10 +95,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
             <AktivitetProvider
               søknad={søknad}
               oppdaterSøknad={oppdaterBarnetilsynSøknad}
-              mellomlagretSøknad={mellomlagretBarnetilsyn}
               mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
-              pathOppsummering={pathOppsummeringBarnetilsyn}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
             >
               <Aktivitet />

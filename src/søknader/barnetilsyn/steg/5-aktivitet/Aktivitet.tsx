@@ -1,39 +1,27 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
-import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
-import {
-  filtrerAktivitetSvaralternativer,
-  fjernAktivitet,
-} from '../../../../helpers/steg/aktivitet';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
-import { ErDuIArbeidSpm, hvaErDinArbeidssituasjonSpm } from './AktivitetConfig';
-import AktivitetOppfølgingSpørsmål from './AktivitetOppfølgingSpørsmål';
-import {
-  EArbeidssituasjon,
-  ErIArbeid,
-  IAktivitet,
-} from '../../../../models/steg/aktivitet/aktivitet';
+import { ErDuIArbeidSpm } from './AktivitetConfig';
+import { EArbeidssituasjon, ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { Alert, Label } from '@navikt/ds-react';
 import { useAktivitet } from './AktivitetContext';
+import { AktivitetSyk } from './AktivitetSyk';
+import { AktivitetArbeid } from './AktivitetArbeid';
 
-const Aktivitet: React.FC = () => {
+export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
-  const { søknad, aktivitet, settAktivitet, settDokumentasjonsbehov, mellomlagreSteg } =
-    useAktivitet();
+  const { aktivitet, settAktivitet, settDokumentasjonsbehov, mellomlagreSteg } = useAktivitet();
   const { hvaErDinArbeidssituasjon, erIArbeid } = aktivitet;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const navigasjonState = kommerFraOppsummering
@@ -71,27 +59,6 @@ const Aktivitet: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, svar);
   };
 
-  const settArbeidssituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
-    const { avhukedeSvar, svarider } = returnerAvhukedeSvar(
-      hvaErDinArbeidssituasjon,
-      svarHuketAv,
-      svar
-    );
-
-    const endretArbeidssituasjon = fjernAktivitet(svarider, aktivitet);
-
-    settAktivitet({
-      ...endretArbeidssituasjon,
-      [spørsmål.søknadid]: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: svarider,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: avhukedeSvar,
-      },
-    });
-    settDokumentasjonsbehov(spørsmål, svar, svarHuketAv);
-  };
-
   const erAlleFelterUtfylt = hvaErDinArbeidssituasjon?.svarid?.every((id) =>
     erAktivitetSeksjonFerdigUtfylt(id, aktivitet, false)
   );
@@ -99,16 +66,6 @@ const Aktivitet: React.FC = () => {
   const erSisteSpørsmålBesvartOgMinstEttAlternativValgt =
     (hvaErDinArbeidssituasjon?.svarid?.length !== 0 && erAlleFelterUtfylt) ||
     erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk;
-
-  const erSpørsmålFørAktivitetBesvart = (svarid: string, arbeidssituasjon: IAktivitet) => {
-    const svaridPos = arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid.indexOf(svarid);
-    return (
-      svaridPos &&
-      arbeidssituasjon.hvaErDinArbeidssituasjon?.svarid
-        .filter((aktivitet, index) => aktivitet && index < svaridPos)
-        .every((id) => erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon, false))
-    );
-  };
 
   return (
     <Side
@@ -128,47 +85,9 @@ const Aktivitet: React.FC = () => {
             valgtSvar={aktivitet?.erIArbeid?.verdi}
           />
         </KomponentGruppe>
-        {aktivitet.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && (
-          <>
-            <Alert variant={'info'} inline>
-              <Label as="p">{hentHTMLTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
-            </Alert>
-            <AlertStripeDokumentasjon>
-              {hentHTMLTekst('erDuIArbeid.alertsstripe-dokumentasjon', intl)}
-            </AlertStripeDokumentasjon>
-          </>
-        )}
-        {aktivitet.erIArbeid?.svarid === ErIArbeid.JA && (
-          <KomponentGruppe>
-            <CheckboxSpørsmål
-              spørsmål={filtrerAktivitetSvaralternativer(
-                søknad.person,
-                hvaErDinArbeidssituasjonSpm(intl)
-              )}
-              settValgteSvar={settArbeidssituasjonFelt}
-              valgteSvar={hvaErDinArbeidssituasjon?.verdi ? hvaErDinArbeidssituasjon?.verdi : []}
-            />
-          </KomponentGruppe>
-        )}
-
-        {aktivitet.hvaErDinArbeidssituasjon?.svarid?.map((svarid, index) => {
-          const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon?.svarid.length !== 0;
-          const erFørsteAktivitet = hvaErDinArbeidssituasjon?.svarid[0] === svarid;
-
-          const visSeksjon =
-            !harValgtMinstEnAktivitet ||
-            erFørsteAktivitet ||
-            erSpørsmålFørAktivitetBesvart(svarid, aktivitet);
-
-          return (
-            visSeksjon && (
-              <AktivitetOppfølgingSpørsmål aria-live="polite" key={index} svarid={svarid} />
-            )
-          );
-        })}
+        {aktivitet.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && <AktivitetSyk />}
+        {aktivitet.erIArbeid?.svarid === ErIArbeid.JA && <AktivitetArbeid />}
       </SeksjonGruppe>
     </Side>
   );
 };
-
-export default Aktivitet;
