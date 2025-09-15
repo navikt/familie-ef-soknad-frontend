@@ -34,11 +34,11 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeid
 
   return (
     <>
-      <FeltGruppe>
+      <KomponentGruppe className={'sentrert'}>
         <Heading size="small" level="3">
           {hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)}
         </Heading>
-      </FeltGruppe>
+      </KomponentGruppe>
       <KomponentGruppe>
         <Textarea
           autoComplete={'off'}

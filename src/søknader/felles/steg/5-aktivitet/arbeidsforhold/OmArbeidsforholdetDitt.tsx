@@ -66,7 +66,7 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
   };
 
   return (
-    <div style={{ borderBottom: '1px solid black' }}>
+    <>
       <KomponentGruppe className={'sentrert'}>
         <Heading size="small" level="3">
           {hentTekst('arbeidsforhold.tittel', intl)}
@@ -96,7 +96,7 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
           </FeltGruppe>
         </KomponentGruppe>
       )}
-    </div>
+    </>
   );
 };
 
