@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { IBarn } from '../../../../models/steg/barn';
-import { RoutesSkolepenger } from '../../routing/routes';
-import { pathOppsummeringSkolepenger } from '../../utils';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { antallBarnMedForeldreUtfylt } from '../../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useBarnasBosted } from './BarnasBostedContext';
 
-const BarnasBosted: React.FC = () => {
+export const BarnasBosted: React.FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
@@ -20,34 +18,41 @@ const BarnasBosted: React.FC = () => {
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
   const {
+    stønadstype,
     søknad,
-    mellomlagreSkolepenger,
+    routes,
+    mellomlagreSteg,
+    pathOppsummering,
     oppdaterBarnISøknaden,
     oppdaterFlereBarnISøknaden,
     settDokumentasjonsbehovForBarn,
-  } = useSkolepengerSøknad();
+  } = useBarnasBosted();
 
-  const barnMedLevendeForeldre = søknad.person.barn.filter((barn: IBarn) => {
+  const aktuelleBarn =
+    stønadstype === Stønadstype.barnetilsyn
+      ? søknad.person.barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi)
+      : søknad.person.barn;
+
+  const barnMedLevendeForeldre = aktuelleBarn.filter((barn: IBarn) => {
     return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
   });
 
-  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(barnMedLevendeForeldre);
   const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
-    antallBarnMedForeldre === barnMedLevendeForeldre.length
+    antallBarnMedForeldreUtfylt(barnMedLevendeForeldre) === barnMedLevendeForeldre.length
   );
 
   return (
     <Side
-      stønadstype={Stønadstype.skolepenger}
+      stønadstype={stønadstype}
       stegtittel={hentTekst('barnasbosted.sidetittel', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={sisteBarnUtfylt}
-      routesStønad={RoutesSkolepenger}
-      mellomlagreStønad={mellomlagreSkolepenger}
-      tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
+      routesStønad={routes}
+      mellomlagreStønad={mellomlagreSteg}
+      tilbakeTilOppsummeringPath={pathOppsummering}
     >
       <BarnasBostedInnhold
-        aktuelleBarn={søknad.person.barn}
+        aktuelleBarn={aktuelleBarn}
         oppdaterBarnISøknaden={oppdaterBarnISøknaden}
         oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
         settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
@@ -58,5 +63,3 @@ const BarnasBosted: React.FC = () => {
     </Side>
   );
 };
-
-export default BarnasBosted;
