@@ -91,6 +91,7 @@ export const LeggTilBarnModal: React.FC<Props> = ({
         />
         {boHosDeg && (
           <Button
+            className={styles.leggTilBarnKnap}
             data-testid="leggTilBarnModal"
             variant="primary"
             aria-live="polite"

@@ -4,6 +4,10 @@
   padding: 2rem 2.5rem;
 }
 
+.leggTilBarnKnap {
+    align-self: center;
+}
+
 @media (max-width: 767px) {
   .modalInnhold {
     width: auto;
