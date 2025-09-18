@@ -13,12 +13,7 @@ import {
   kopierFellesForeldreInformasjon,
 } from '../../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
-import {
-  SettDokumentasjonsbehovBarn,
-  SøknadOvergangsstønad,
-} from '../../../overgangsstønad/models/søknad';
-import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   if (!ref || !ref.current) return;
@@ -26,25 +21,14 @@ const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
 };
 
 interface Props {
-  aktuelleBarn: IBarn[];
-  oppdaterBarnISøknaden: (oppdatertBarn: IBarn) => void;
-  oppdaterFlereBarnISøknaden: (oppdaterteBarn: IBarn[]) => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
   sisteBarnUtfylt: boolean;
   settSisteBarnUtfylt: React.Dispatch<React.SetStateAction<boolean>>;
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger;
 }
 
-const BarnasBostedInnhold: React.FC<Props> = ({
-  aktuelleBarn,
-  oppdaterBarnISøknaden,
-  oppdaterFlereBarnISøknaden,
-  settDokumentasjonsbehovForBarn,
-  sisteBarnUtfylt,
-  settSisteBarnUtfylt,
-  søknad,
-}) => {
+const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUtfylt }) => {
   const intl = useLokalIntlContext();
+  const { aktuelleBarn, søknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } =
+    useBarnasBosted();
 
   const barnMedLevendeMedforelder = aktuelleBarn.filter(
     (barn: IBarn) =>
@@ -113,11 +97,9 @@ const BarnasBostedInnhold: React.FC<Props> = ({
               aktivIndex={aktivIndex}
               key={key}
               scrollTilLagtTilBarn={scrollTilLagtTilBarn}
-              settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
               oppdaterBarnISøknaden={oppdaterBarnMedNyForelderInformasjon}
               barneListe={søknad.person.barn}
               forelderidenterMedBarn={forelderIdenterMedBarn}
-              søknad={søknad}
             />
           );
         } else {

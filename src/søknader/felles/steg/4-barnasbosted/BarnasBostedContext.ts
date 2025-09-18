@@ -42,17 +42,23 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
       return mellomlagreSøknad(location.pathname, oppdatertSøknad);
     };
 
+    const aktuelleBarn =
+      stønadstype === Stønadstype.barnetilsyn
+        ? søknad.person.barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi)
+        : søknad.person.barn;
+
     return {
-      stønadstype,
-      søknad,
-      oppdaterSøknad,
+      aktuelleBarn,
+      mellomlagreSteg,
       oppdaterBarnISøknaden,
       oppdaterFlereBarnISøknaden,
-      mellomlagreSteg,
-      routes,
+      oppdaterSøknad,
       pathOppsummering,
+      routes,
       settDokumentasjonsbehov,
       settDokumentasjonsbehovForBarn,
+      stønadstype,
+      søknad,
     };
   }
 );
