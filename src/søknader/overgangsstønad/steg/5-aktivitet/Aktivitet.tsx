@@ -15,14 +15,14 @@ import {
 } from '../../../../helpers/steg/aktivitet';
 import AktivitetOppfølgingSpørsmål from '../../../felles/steg/5-aktivitet/AktivitetOppfølgingSpørsmål';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 
-const Aktivitet: React.FC = () => {
+export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreOvergangsstønad } =
     useOvergangsstønadSøknad();
@@ -136,5 +136,3 @@ const Aktivitet: React.FC = () => {
     </Side>
   );
 };
-
-export default Aktivitet;
