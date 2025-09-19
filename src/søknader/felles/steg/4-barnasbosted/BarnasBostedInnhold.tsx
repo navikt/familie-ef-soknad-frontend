@@ -30,7 +30,7 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
   const { aktuelleBarn, søknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } =
     useBarnasBosted();
 
-  const barnMedLevendeMedforelder = aktuelleBarn.filter(
+  const barnMedLevendeMedforelderEllerUndefined = aktuelleBarn.filter(
     (barn: IBarn) =>
       !barn.medforelder?.verdi || (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
   );
@@ -39,10 +39,12 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
     return barn.medforelder?.verdi?.død === true;
   });
 
-  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder);
+  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(
+    barnMedLevendeMedforelderEllerUndefined
+  );
 
   const [aktivIndex, settAktivIndex] = useState<number>(
-    hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelder)
+    hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelderEllerUndefined)
   );
 
   const lagtTilBarn = useRef(null);
@@ -53,11 +55,12 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
 
   useEffect(() => {
     settSisteBarnUtfylt(
-      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder) === barnMedLevendeMedforelder.length
+      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined) ===
+        barnMedLevendeMedforelderEllerUndefined.length
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [søknad]);
-  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelder);
+  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelderEllerUndefined);
 
   const oppdaterBarnMedNyForelderInformasjon = (
     oppdatertBarn: IBarn,
@@ -86,7 +89,7 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
 
   return (
     <>
-      {barnMedLevendeMedforelder.map((barn: IBarn, index: number) => {
+      {barnMedLevendeMedforelderEllerUndefined.map((barn: IBarn, index: number) => {
         const key = barn.fødselsdato.verdi + index;
         if (index === aktivIndex) {
           return (

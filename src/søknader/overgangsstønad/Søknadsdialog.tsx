@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Aktivitet from './steg/5-aktivitet/Aktivitet';
 import Forside from './Forside';
 import MerOmDinSituasjon from './steg/6-meromsituasjon/MerOmDinSituasjon';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
@@ -20,6 +19,7 @@ import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
+import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 
 const Søknadsdialog: FC = () => {
   const {
