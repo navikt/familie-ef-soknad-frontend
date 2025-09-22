@@ -7,7 +7,11 @@ import { useLocation } from 'react-router-dom';
 import { IBarn } from '../../../../models/steg/barn';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { useState } from 'react';
-import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../../../../utils/barn';
+import {
+  antallBarnMedForeldreUtfylt,
+  oppdaterBarneliste,
+  oppdaterBarnIBarneliste,
+} from '../../../../utils/barn';
 import { sanerBarnasBostedSteg } from './sanerBarnasBostedSteg';
 
 export interface Props<T extends Søknad> {
@@ -49,6 +53,14 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
 
     const [barnISøknad, settBarnISøknad] = useState<IBarn[]>(aktuelleBarn);
 
+    const barnMedLevendeMedforelder = barnISøknad.filter((barn: IBarn) => {
+      return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
+    });
+
+    const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
+      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder) === barnMedLevendeMedforelder.length
+    );
+
     const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
       settBarnISøknad(oppdaterBarnIBarneliste(barnISøknad, oppdatertBarn));
     };
@@ -58,6 +70,8 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
     };
 
     return {
+      sisteBarnUtfylt,
+      settSisteBarnUtfylt,
       barnISøknad,
       settBarnISøknad,
       mellomlagreSteg,

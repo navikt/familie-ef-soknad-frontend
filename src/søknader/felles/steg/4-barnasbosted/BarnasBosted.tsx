@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
-import { antallBarnMedForeldreUtfylt } from '../../../../utils/barn';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
 import { useBarnasBosted } from './BarnasBostedContext';
-import { IBarn } from '../../../../models/steg/barn';
 
 export const BarnasBosted: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -16,15 +14,8 @@ export const BarnasBosted: React.FC = () => {
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-  const { barnISøknad, stønadstype, routes, mellomlagreSteg, pathOppsummering } = useBarnasBosted();
-
-  const barnMedLevendeMedforelder = barnISøknad.filter((barn: IBarn) => {
-    return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
-  });
-
-  const [sisteBarnUtfylt, settSisteBarnUtfylt] = useState<boolean>(
-    antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder) === barnMedLevendeMedforelder.length
-  );
+  const { sisteBarnUtfylt, stønadstype, routes, mellomlagreSteg, pathOppsummering } =
+    useBarnasBosted();
 
   return (
     <Side
@@ -36,10 +27,7 @@ export const BarnasBosted: React.FC = () => {
       mellomlagreStønad={mellomlagreSteg}
       tilbakeTilOppsummeringPath={pathOppsummering}
     >
-      <BarnasBostedInnhold
-        sisteBarnUtfylt={sisteBarnUtfylt}
-        settSisteBarnUtfylt={settSisteBarnUtfylt}
-      />
+      <BarnasBostedInnhold />
     </Side>
   );
 };

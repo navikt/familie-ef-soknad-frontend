@@ -35,6 +35,7 @@ import {
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
 import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
 import { useBarnasBosted } from './BarnasBostedContext';
+import { forelderidentMedBarn, kopierFellesForeldreInformasjon } from '../../../../utils/barn';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;
@@ -50,25 +51,21 @@ interface Props {
   barn: IBarn;
   settAktivIndex: React.Dispatch<React.SetStateAction<number>>;
   aktivIndex: number;
-  settSisteBarnUtfylt: (sisteBarnUtfylt: boolean) => void;
   scrollTilLagtTilBarn: () => void;
-  barneListe: IBarn[];
-  oppdaterBarnISøknaden: (endretBarn: IBarn, erFørstebarn: boolean) => void;
-  forelderidenterMedBarn: Map<string, IBarn[]>;
+  barnMedLevendeMedforelderEllerUndefined: IBarn[];
 }
 
 const BarnetsBostedEndre: React.FC<Props> = ({
   barn,
   settAktivIndex,
   aktivIndex,
-  settSisteBarnUtfylt,
   scrollTilLagtTilBarn,
-  barneListe,
-  oppdaterBarnISøknaden,
-  forelderidenterMedBarn,
+  barnMedLevendeMedforelderEllerUndefined,
 }) => {
   const intl = useLokalIntlContext();
-  const { søknad } = useBarnasBosted();
+  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelderEllerUndefined);
+  const { søknad, barnISøknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } =
+    useBarnasBosted();
   const [forelder, settForelder] = useState<IForelder>(
     barn.forelder
       ? {
@@ -94,16 +91,41 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     stringHarVerdiOgErIkkeTom(barn?.medforelder?.verdi?.navn) ||
     barn?.medforelder?.verdi?.harAdressesperre === true;
 
-  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barneListe, barn);
+  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barnISøknad, barn);
 
-  const typeBarn = finnTypeBarnForMedForelder(barn, forelderidenterMedBarn);
+  const typeBarn = finnTypeBarnForMedForelder(barn, forelderIdenterMedBarn);
 
   const [barnHarSammeForelder, settBarnHarSammeForelder] = useState<boolean | undefined>(
     typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON ? true : undefined
   );
 
+  const oppdaterBarnMedNyForelderInformasjon = (
+    oppdatertBarn: IBarn,
+    skalKopiereForeldreinformasjonTilAndreBarn: boolean
+  ) => {
+    const barnMedSammeForelder =
+      oppdatertBarn.forelder?.ident?.verdi &&
+      forelderIdenterMedBarn.get(oppdatertBarn.forelder?.ident?.verdi);
+
+    if (skalKopiereForeldreinformasjonTilAndreBarn && barnMedSammeForelder) {
+      oppdaterFlereBarnISøknaden(
+        barnMedSammeForelder.map((b) => {
+          if (b.id === oppdatertBarn.id) {
+            return oppdatertBarn;
+          }
+
+          return oppdatertBarn.forelder
+            ? kopierFellesForeldreInformasjon(b, oppdatertBarn.forelder)
+            : b;
+        })
+      );
+    } else {
+      oppdaterBarnISøknaden(oppdatertBarn);
+    }
+  };
+
   const leggTilForelder = () => {
-    oppdaterBarnISøknaden(
+    oppdaterBarnMedNyForelderInformasjon(
       { ...barn, forelder: forelder },
       typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
     );
@@ -114,7 +136,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
   };
 
   const leggTilAnnenForelderId = (annenForelderId: string) => {
-    oppdaterBarnISøknaden(
+    oppdaterBarnMedNyForelderInformasjon(
       { ...barn, annenForelderId: annenForelderId },
       typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
     );
@@ -124,7 +146,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     return !erBarnetilsynSøknad(søknad) || barn.skalHaBarnepass?.verdi === true;
   };
 
-  const finnesBarnISøknadMedRegistrertAnnenForelder = barneListe.some(
+  const finnesBarnISøknadMedRegistrertAnnenForelder = barnISøknad.some(
     (b) => erBarnMedISøknad(b) && b.medforelder?.verdi?.ident && b.medforelder?.verdi?.navn
   );
 
@@ -195,7 +217,6 @@ const BarnetsBostedEndre: React.FC<Props> = ({
                 forelder={forelder}
                 kjennerIkkeIdent={kjennerIkkeIdent}
                 settKjennerIkkeIdent={settKjennerIkkeIdent}
-                settSisteBarnUtfylt={settSisteBarnUtfylt}
               />
             )}
 

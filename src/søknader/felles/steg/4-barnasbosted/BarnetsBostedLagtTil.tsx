@@ -10,22 +10,18 @@ import { ESvarTekstid } from '../../../../models/felles/spørsmålogsvar';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { harVerdi } from '../../../../utils/typer';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 interface Props {
   barn: IBarn;
   settAktivIndex: React.Dispatch<React.SetStateAction<number>>;
   index: number;
-  settSisteBarnUtfylt: (sisteBarnUtfylt: boolean) => void;
 }
 
-const BarnetsBostedLagtTil: React.FC<Props> = ({
-  barn,
-  settAktivIndex,
-  index,
-  settSisteBarnUtfylt,
-}) => {
+const BarnetsBostedLagtTil: React.FC<Props> = ({ barn, settAktivIndex, index }) => {
   const forelder = barn.forelder;
   const intl = useLokalIntlContext();
+  const { settSisteBarnUtfylt } = useBarnasBosted();
   const barnetsNavn =
     barn.navn && barn.navn.verdi !== ''
       ? barn.navn.verdi

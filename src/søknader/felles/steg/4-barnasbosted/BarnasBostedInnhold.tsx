@@ -8,9 +8,7 @@ import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import BarneHeader from '../../../../components/BarneHeader';
 import {
   antallBarnMedForeldreUtfylt,
-  forelderidentMedBarn,
   hentIndexFørsteBarnSomIkkeErUtfylt,
-  kopierFellesForeldreInformasjon,
 } from '../../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
 import { useBarnasBosted } from './BarnasBostedContext';
@@ -20,14 +18,9 @@ const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   window.scrollTo({ top: ref.current!.offsetTop, left: 0, behavior: 'smooth' });
 };
 
-interface Props {
-  sisteBarnUtfylt: boolean;
-  settSisteBarnUtfylt: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUtfylt }) => {
+const BarnasBostedInnhold: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { barnISøknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } = useBarnasBosted();
+  const { barnISøknad, sisteBarnUtfylt, settSisteBarnUtfylt } = useBarnasBosted();
 
   const barnMedLevendeMedforelderEllerUndefined = barnISøknad.filter(
     (barn: IBarn) =>
@@ -47,7 +40,6 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
   );
 
   const lagtTilBarn = useRef(null);
-
   const scrollTilLagtTilBarn = () => {
     setTimeout(() => scrollTilRef(lagtTilBarn), 120);
   };
@@ -59,49 +51,19 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [barnISøknad]);
-  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelderEllerUndefined);
-
-  const oppdaterBarnMedNyForelderInformasjon = (
-    oppdatertBarn: IBarn,
-    skalKopiereForeldreinformasjonTilAndreBarn: boolean
-  ) => {
-    const barnMedSammeForelder =
-      oppdatertBarn.forelder?.ident?.verdi &&
-      forelderIdenterMedBarn.get(oppdatertBarn.forelder?.ident?.verdi);
-
-    if (skalKopiereForeldreinformasjonTilAndreBarn && barnMedSammeForelder) {
-      oppdaterFlereBarnISøknaden(
-        barnMedSammeForelder.map((b) => {
-          if (b.id === oppdatertBarn.id) {
-            return oppdatertBarn;
-          }
-
-          return oppdatertBarn.forelder
-            ? kopierFellesForeldreInformasjon(b, oppdatertBarn.forelder)
-            : b;
-        })
-      );
-    } else {
-      oppdaterBarnISøknaden(oppdatertBarn);
-    }
-  };
 
   return (
     <>
       {barnMedLevendeMedforelderEllerUndefined.map((barn: IBarn, index: number) => {
-        const key = barn.fødselsdato.verdi + index;
         if (index === aktivIndex) {
           return (
             <BarnetsBostedEndre
               barn={barn}
-              settSisteBarnUtfylt={settSisteBarnUtfylt}
               settAktivIndex={settAktivIndex}
               aktivIndex={aktivIndex}
-              key={key}
+              key={index}
               scrollTilLagtTilBarn={scrollTilLagtTilBarn}
-              oppdaterBarnISøknaden={oppdaterBarnMedNyForelderInformasjon}
-              barneListe={barnISøknad}
-              forelderidenterMedBarn={forelderIdenterMedBarn}
+              barnMedLevendeMedforelderEllerUndefined={barnMedLevendeMedforelderEllerUndefined}
             />
           );
         } else {
@@ -115,7 +77,6 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
                 settAktivIndex={settAktivIndex}
                 index={index}
                 key={barn.id}
-                settSisteBarnUtfylt={settSisteBarnUtfylt}
               />
             </React.Fragment>
           );
