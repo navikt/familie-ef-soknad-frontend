@@ -6,6 +6,9 @@ import constate from 'constate';
 import { useLocation } from 'react-router-dom';
 import { IBarn } from '../../../../models/steg/barn';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
+import { useState } from 'react';
+import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../../../../utils/barn';
+import { sanerBarnasBostedSteg } from './sanerBarnasBostedSteg';
 
 export interface Props<T extends Søknad> {
   stønadstype: Stønadstype;
@@ -26,8 +29,6 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
     stønadstype,
     søknad,
     oppdaterSøknad,
-    oppdaterBarnISøknaden,
-    oppdaterFlereBarnISøknaden,
     mellomlagreSøknad,
     routes,
     pathOppsummering,
@@ -37,18 +38,28 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
     const location = useLocation();
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = søknad; //TODO
+      const oppdatertSøknad = sanerBarnasBostedSteg(søknad, barnISøknad); //TODO
 
       return mellomlagreSøknad(location.pathname, oppdatertSøknad);
     };
-
     const aktuelleBarn =
       stønadstype === Stønadstype.barnetilsyn
         ? søknad.person.barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi)
         : søknad.person.barn;
 
+    const [barnISøknad, settBarnISøknad] = useState<IBarn[]>(aktuelleBarn);
+
+    const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
+      settBarnISøknad(oppdaterBarnIBarneliste(barnISøknad, oppdatertBarn));
+    };
+
+    const oppdaterFlereBarnISøknaden = (oppdaterteBarn: IBarn[]) => {
+      settBarnISøknad(oppdaterBarneliste(barnISøknad, oppdaterteBarn));
+    };
+
     return {
-      aktuelleBarn,
+      barnISøknad,
+      settBarnISøknad,
       mellomlagreSteg,
       oppdaterBarnISøknaden,
       oppdaterFlereBarnISøknaden,

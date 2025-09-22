@@ -16,10 +16,9 @@ export const BarnasBosted: React.FC = () => {
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-  const { aktuelleBarn, stønadstype, routes, mellomlagreSteg, pathOppsummering } =
-    useBarnasBosted();
+  const { barnISøknad, stønadstype, routes, mellomlagreSteg, pathOppsummering } = useBarnasBosted();
 
-  const barnMedLevendeMedforelder = aktuelleBarn.filter((barn: IBarn) => {
+  const barnMedLevendeMedforelder = barnISøknad.filter((barn: IBarn) => {
     return !barn.medforelder?.verdi || barn.medforelder?.verdi?.død === false;
   });
 

@@ -27,15 +27,14 @@ interface Props {
 
 const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUtfylt }) => {
   const intl = useLokalIntlContext();
-  const { aktuelleBarn, søknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } =
-    useBarnasBosted();
+  const { barnISøknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } = useBarnasBosted();
 
-  const barnMedLevendeMedforelderEllerUndefined = aktuelleBarn.filter(
+  const barnMedLevendeMedforelderEllerUndefined = barnISøknad.filter(
     (barn: IBarn) =>
       !barn.medforelder?.verdi || (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
   );
 
-  const barnMedDødMedforelder = aktuelleBarn.filter((barn: IBarn) => {
+  const barnMedDødMedforelder = barnISøknad.filter((barn: IBarn) => {
     return barn.medforelder?.verdi?.død === true;
   });
 
@@ -59,7 +58,7 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
         barnMedLevendeMedforelderEllerUndefined.length
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [søknad]);
+  }, [barnISøknad]);
   const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelderEllerUndefined);
 
   const oppdaterBarnMedNyForelderInformasjon = (
@@ -101,7 +100,7 @@ const BarnasBostedInnhold: React.FC<Props> = ({ sisteBarnUtfylt, settSisteBarnUt
               key={key}
               scrollTilLagtTilBarn={scrollTilLagtTilBarn}
               oppdaterBarnISøknaden={oppdaterBarnMedNyForelderInformasjon}
-              barneListe={søknad.person.barn}
+              barneListe={barnISøknad}
               forelderidenterMedBarn={forelderIdenterMedBarn}
             />
           );
