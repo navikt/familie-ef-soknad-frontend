@@ -36,7 +36,7 @@ const StyledAnnenForelderSpørsmål = styled.div`
     padding-top: 1rem;
   }
 `;
-const AnnenForelderKnapper: React.FC<Props> = ({
+export const AnnenForelderKnapper: React.FC<Props> = ({
   barn,
   forelder,
   oppdaterAnnenForelder,
@@ -133,5 +133,3 @@ const AnnenForelderKnapper: React.FC<Props> = ({
     </KomponentGruppe>
   );
 };
-
-export default AnnenForelderKnapper;

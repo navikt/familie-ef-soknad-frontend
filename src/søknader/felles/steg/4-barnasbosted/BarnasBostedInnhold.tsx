@@ -2,7 +2,7 @@ import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import BarnetsBostedLagtTil from './BarnetsBostedLagtTil';
-import BarnetsBostedEndre from './BarnetsBostedEndre';
+import { BarnetsBostedRedigerbar } from './BarnetsBostedRedigerbar';
 import { IBarn } from '../../../../models/steg/barn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import BarneHeader from '../../../../components/BarneHeader';
@@ -57,7 +57,7 @@ const BarnasBostedInnhold: React.FC = () => {
       {barnMedLevendeMedforelderEllerUndefined.map((barn: IBarn, index: number) => {
         if (index === aktivIndex) {
           return (
-            <BarnetsBostedEndre
+            <BarnetsBostedRedigerbar
               barn={barn}
               settAktivIndex={settAktivIndex}
               aktivIndex={aktivIndex}

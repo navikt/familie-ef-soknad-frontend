@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AnnenForelderKnapper from './AnnenForelderKnapper';
+import { AnnenForelderKnapper } from './AnnenForelderKnapper';
 import BarneHeader from '../../../../components/BarneHeader';
 import BostedOgSamvær from './bostedOgSamvær/BostedOgSamvær';
 import OmAndreForelder from './OmAndreForelder';
@@ -55,7 +55,7 @@ interface Props {
   barnMedLevendeMedforelderEllerUndefined: IBarn[];
 }
 
-const BarnetsBostedEndre: React.FC<Props> = ({
+export const BarnetsBostedRedigerbar: React.FC<Props> = ({
   barn,
   settAktivIndex,
   aktivIndex,
@@ -207,7 +207,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
                 førsteBarnTilHverForelder={førsteBarnTilHverForelder}
                 settBarnHarSammeForelder={settBarnHarSammeForelder}
                 settForelder={settForelder}
-                oppdaterBarn={oppdaterBarnISøknaden}
+                oppdaterBarn={oppdaterBarnMedNyForelderInformasjon}
               />
             )}
 
@@ -284,5 +284,3 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     </div>
   );
 };
-
-export default BarnetsBostedEndre;
