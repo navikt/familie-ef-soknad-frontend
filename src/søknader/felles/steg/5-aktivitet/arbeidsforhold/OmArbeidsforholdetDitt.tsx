@@ -15,8 +15,8 @@ import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
 interface Props {
-  arbeidssituasjon: IAktivitet;
-  settArbeidssituasjon: (nyArbeidssituasjon: IAktivitet) => void;
+  aktivitet: IAktivitet;
+  settAktivitet: (nyArbeidssituasjon: IAktivitet) => void;
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   inkludertArbeidsmengde?: boolean;
 }
@@ -35,21 +35,19 @@ const tomArbeidsgiver = (inkludertArbeidsmengde: boolean): IArbeidsgiver => {
 };
 
 const OmArbeidsforholdetDitt: React.FC<Props> = ({
-  arbeidssituasjon,
-  settArbeidssituasjon,
+  aktivitet,
+  settAktivitet,
   settDokumentasjonsbehov,
   inkludertArbeidsmengde = true,
 }) => {
   const intl = useLokalIntlContext();
   const [arbeidsforhold, settArbeidsforhold] = useState<IArbeidsgiver[]>(
-    arbeidssituasjon.arbeidsforhold
-      ? arbeidssituasjon.arbeidsforhold
-      : [tomArbeidsgiver(inkludertArbeidsmengde)]
+    aktivitet.arbeidsforhold ? aktivitet.arbeidsforhold : [tomArbeidsgiver(inkludertArbeidsmengde)]
   );
 
   useEffect(() => {
-    settArbeidssituasjon({
-      ...arbeidssituasjon,
+    settAktivitet({
+      ...aktivitet,
       arbeidsforhold: arbeidsforhold,
     });
     // eslint-disable-next-line
@@ -59,8 +57,8 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
     const nyArbeidsgiver: IArbeidsgiver = tomArbeidsgiver(inkludertArbeidsmengde);
     const alleArbeidsgivere = arbeidsforhold;
     alleArbeidsgivere.push(nyArbeidsgiver);
-    settArbeidssituasjon({
-      ...arbeidssituasjon,
+    settAktivitet({
+      ...aktivitet,
       arbeidsforhold: alleArbeidsgivere,
     });
   };
@@ -72,7 +70,7 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
           {hentTekst('arbeidsforhold.tittel', intl)}
         </Heading>
       </KomponentGruppe>
-      {arbeidssituasjon.arbeidsforhold?.map((arbeidsgiver, index) => {
+      {aktivitet.arbeidsforhold?.map((arbeidsgiver, index) => {
         return (
           <SeksjonGruppe key={arbeidsgiver.id}>
             <Arbeidsgiver

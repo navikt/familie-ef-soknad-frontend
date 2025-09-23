@@ -117,8 +117,8 @@ const Aktivitet: React.FC = () => {
             <AktivitetOppfølgingSpørsmål
               key={index}
               svarid={svarid}
-              arbeidssituasjon={aktivitet}
-              settArbeidssituasjon={settAktivitet}
+              aktivitet={aktivitet}
+              settAktivitet={settAktivitet}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
               overskuddsår={
                 nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
