@@ -6,17 +6,16 @@ import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
 import { pathOppsummeringSkolepenger } from '../../utils';
 import { DetaljertUtdanning } from '../../models/detaljertUtdanning';
-import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import TarUtdanning from '../../../felles/steg/5-aktivitet/utdanning/TarUtdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { SøknadSkolepenger } from '../../models/søknad';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useUtdanningSituasjon } from './UtdanningSituasjonContext';
 
 const UtdanningSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
 
-  const { søknad, settSøknad, mellomlagreSkolepenger } = useSkolepengerSøknad();
+  const { utdanning, settUtdanning, mellomlagreSteg } = useUtdanningSituasjon();
 
   const location = useLocation();
 
@@ -27,14 +26,11 @@ const UtdanningSituasjon: React.FC = () => {
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const oppdaterUnderUtdanning = (underUtdanning: DetaljertUtdanning) => {
-    settSøknad((prevSøknad: SøknadSkolepenger) => {
-      return { ...prevSøknad, utdanning: underUtdanning };
-    });
+    settUtdanning(underUtdanning);
   };
 
-  const erSisteSpørsmålBesvartOgMinstEttAlternativValgt = erAllUtdanningFerdigUtfyltForSkolepenger(
-    søknad.utdanning
-  );
+  const erSisteSpørsmålBesvartOgMinstEttAlternativValgt =
+    erAllUtdanningFerdigUtfyltForSkolepenger(utdanning);
 
   return (
     <Side
@@ -42,12 +38,12 @@ const UtdanningSituasjon: React.FC = () => {
       stegtittel={hentTekst('stegtittel.utdanning', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
-      mellomlagreStønad={mellomlagreSkolepenger}
+      mellomlagreStønad={mellomlagreSteg}
       routesStønad={RoutesSkolepenger}
       tilbakeTilOppsummeringPath={pathOppsummeringSkolepenger}
     >
       <TarUtdanning
-        underUtdanning={søknad.utdanning}
+        underUtdanning={utdanning}
         oppdaterUnderUtdanning={oppdaterUnderUtdanning}
         stønadstype={Stønadstype.skolepenger}
       />
