@@ -20,12 +20,12 @@ const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
 
 const BarnasBostedInnhold: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { barnISøknad, sisteBarnUtfylt, settSisteBarnUtfylt } = useBarnasBosted();
-
-  const barnMedLevendeMedforelderEllerUndefined = barnISøknad.filter(
-    (barn: IBarn) =>
-      !barn.medforelder?.verdi || (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
-  );
+  const {
+    barnISøknad,
+    sisteBarnUtfylt,
+    settSisteBarnUtfylt,
+    barnMedLevendeMedforelderEllerUndefined,
+  } = useBarnasBosted();
 
   const barnMedDødMedforelder = barnISøknad.filter((barn: IBarn) => {
     return barn.medforelder?.verdi?.død === true;
@@ -63,7 +63,6 @@ const BarnasBostedInnhold: React.FC = () => {
               aktivIndex={aktivIndex}
               key={index}
               scrollTilLagtTilBarn={scrollTilLagtTilBarn}
-              barnMedLevendeMedforelderEllerUndefined={barnMedLevendeMedforelderEllerUndefined}
             />
           );
         } else {

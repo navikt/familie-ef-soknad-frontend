@@ -35,7 +35,6 @@ import {
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
 import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
 import { useBarnasBosted } from './BarnasBostedContext';
-import { forelderidentMedBarn, kopierFellesForeldreInformasjon } from '../../../../utils/barn';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;
@@ -52,7 +51,6 @@ interface Props {
   settAktivIndex: React.Dispatch<React.SetStateAction<number>>;
   aktivIndex: number;
   scrollTilLagtTilBarn: () => void;
-  barnMedLevendeMedforelderEllerUndefined: IBarn[];
 }
 
 export const BarnetsBostedRedigerbar: React.FC<Props> = ({
@@ -60,11 +58,9 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
   settAktivIndex,
   aktivIndex,
   scrollTilLagtTilBarn,
-  barnMedLevendeMedforelderEllerUndefined,
 }) => {
   const intl = useLokalIntlContext();
-  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelderEllerUndefined);
-  const { søknad, barnISøknad, oppdaterBarnISøknaden, oppdaterFlereBarnISøknaden } =
+  const { søknad, barnISøknad, forelderIdenterMedBarn, oppdaterBarnMedNyForelderInformasjon } =
     useBarnasBosted();
   const [forelder, settForelder] = useState<IForelder>(
     barn.forelder
@@ -99,31 +95,6 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
     typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON ? true : undefined
   );
 
-  const oppdaterBarnMedNyForelderInformasjon = (
-    oppdatertBarn: IBarn,
-    skalKopiereForeldreinformasjonTilAndreBarn: boolean
-  ) => {
-    const barnMedSammeForelder =
-      oppdatertBarn.forelder?.ident?.verdi &&
-      forelderIdenterMedBarn.get(oppdatertBarn.forelder?.ident?.verdi);
-
-    if (skalKopiereForeldreinformasjonTilAndreBarn && barnMedSammeForelder) {
-      oppdaterFlereBarnISøknaden(
-        barnMedSammeForelder.map((b) => {
-          if (b.id === oppdatertBarn.id) {
-            return oppdatertBarn;
-          }
-
-          return oppdatertBarn.forelder
-            ? kopierFellesForeldreInformasjon(b, oppdatertBarn.forelder)
-            : b;
-        })
-      );
-    } else {
-      oppdaterBarnISøknaden(oppdatertBarn);
-    }
-  };
-
   const leggTilForelder = () => {
     oppdaterBarnMedNyForelderInformasjon(
       { ...barn, forelder: forelder },
@@ -133,13 +104,6 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
     const nyIndex = aktivIndex + 1;
     settAktivIndex(nyIndex);
     scrollTilLagtTilBarn();
-  };
-
-  const leggTilAnnenForelderId = (annenForelderId: string) => {
-    oppdaterBarnMedNyForelderInformasjon(
-      { ...barn, annenForelderId: annenForelderId },
-      typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
-    );
   };
 
   const erBarnMedISøknad = (barn: IBarn): boolean => {
@@ -203,11 +167,10 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
               <AnnenForelderKnapper
                 barn={barn}
                 forelder={forelder}
-                oppdaterAnnenForelder={leggTilAnnenForelderId}
                 førsteBarnTilHverForelder={førsteBarnTilHverForelder}
                 settBarnHarSammeForelder={settBarnHarSammeForelder}
                 settForelder={settForelder}
-                oppdaterBarn={oppdaterBarnMedNyForelderInformasjon}
+                typeBarn={typeBarn}
               />
             )}
 

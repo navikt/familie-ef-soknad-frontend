@@ -10,15 +10,16 @@ import RadioPanelCustom from '../../../../components/panel/RadioPanel';
 import { RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { TypeBarn } from '../../../../models/steg/barnasbosted';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 interface Props {
   barn: IBarn;
   forelder: IForelder;
-  oppdaterAnnenForelder: (annenForelderId: string) => void;
   førsteBarnTilHverForelder?: IBarn[];
   settBarnHarSammeForelder: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   settForelder: (verdi: IForelder) => void;
-  oppdaterBarn: (barn: IBarn, erFørsteAvflereBarn: boolean) => void;
+  typeBarn: TypeBarn;
 }
 
 const StyledAnnenForelderSpørsmål = styled.div`
@@ -39,13 +40,20 @@ const StyledAnnenForelderSpørsmål = styled.div`
 export const AnnenForelderKnapper: React.FC<Props> = ({
   barn,
   forelder,
-  oppdaterAnnenForelder,
   førsteBarnTilHverForelder,
   settBarnHarSammeForelder,
   settForelder,
-  oppdaterBarn,
+  typeBarn,
 }) => {
   const intl = useLokalIntlContext();
+  const { oppdaterBarnMedNyForelderInformasjon } = useBarnasBosted();
+
+  const oppdaterAnnenForelder = (annenForelderId: string) => {
+    oppdaterBarnMedNyForelderInformasjon(
+      { ...barn, annenForelderId: annenForelderId },
+      typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
+    );
+  };
 
   const leggTilSammeForelder = (e: SyntheticEvent<EventTarget, Event>, detAndreBarnet: IBarn) => {
     settBarnHarSammeForelder(true);
@@ -85,7 +93,7 @@ export const AnnenForelderKnapper: React.FC<Props> = ({
           }
         : { id };
 
-    oppdaterBarn(
+    oppdaterBarnMedNyForelderInformasjon(
       {
         ...barn,
         annenForelderId: lagtTilAnnenForelderId,

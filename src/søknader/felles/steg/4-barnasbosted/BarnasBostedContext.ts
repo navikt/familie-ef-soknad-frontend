@@ -9,6 +9,8 @@ import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/s�
 import { useState } from 'react';
 import {
   antallBarnMedForeldreUtfylt,
+  forelderidentMedBarn,
+  kopierFellesForeldreInformasjon,
   oppdaterBarneliste,
   oppdaterBarnIBarneliste,
 } from '../../../../utils/barn';
@@ -69,6 +71,39 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
       settBarnISøknad(oppdaterBarneliste(barnISøknad, oppdaterteBarn));
     };
 
+    const barnMedLevendeMedforelderEllerUndefined = barnISøknad.filter(
+      (barn: IBarn) =>
+        !barn.medforelder?.verdi ||
+        (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
+    );
+
+    const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelderEllerUndefined);
+
+    const oppdaterBarnMedNyForelderInformasjon = (
+      oppdatertBarn: IBarn,
+      skalKopiereForeldreinformasjonTilAndreBarn: boolean
+    ) => {
+      const barnMedSammeForelder =
+        oppdatertBarn.forelder?.ident?.verdi &&
+        forelderIdenterMedBarn.get(oppdatertBarn.forelder?.ident?.verdi);
+
+      if (skalKopiereForeldreinformasjonTilAndreBarn && barnMedSammeForelder) {
+        oppdaterFlereBarnISøknaden(
+          barnMedSammeForelder.map((b) => {
+            if (b.id === oppdatertBarn.id) {
+              return oppdatertBarn;
+            }
+
+            return oppdatertBarn.forelder
+              ? kopierFellesForeldreInformasjon(b, oppdatertBarn.forelder)
+              : b;
+          })
+        );
+      } else {
+        oppdaterBarnISøknaden(oppdatertBarn);
+      }
+    };
+
     return {
       sisteBarnUtfylt,
       settSisteBarnUtfylt,
@@ -84,6 +119,9 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
       settDokumentasjonsbehovForBarn,
       stønadstype,
       søknad,
+      barnMedLevendeMedforelderEllerUndefined,
+      forelderIdenterMedBarn,
+      oppdaterBarnMedNyForelderInformasjon,
     };
   }
 );
