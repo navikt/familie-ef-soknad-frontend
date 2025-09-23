@@ -44,7 +44,7 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
     const location = useLocation();
 
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = sanerBarnasBostedSteg(søknad, barnISøknad); //TODO
+      const oppdatertSøknad = sanerBarnasBostedSteg(søknad, barnISøknad);
 
       oppdaterSøknad(oppdatertSøknad);
 
