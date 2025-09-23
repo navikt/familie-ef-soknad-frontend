@@ -1,5 +1,4 @@
 import { SøknadOvergangsstønad } from '../../models/søknad';
-import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import constate from 'constate';
 import { useLocation } from 'react-router-dom';
@@ -9,7 +8,7 @@ import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 export interface Props {
   søknad: SøknadOvergangsstønad;
   oppdaterSøknad: (søknad: SøknadOvergangsstønad) => void;
-  mellomlagreSøknad: (steg: string, oppdatertSøknad: SøknadBarnetilsyn) => void;
+  mellomlagreSøknad: (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => void;
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
