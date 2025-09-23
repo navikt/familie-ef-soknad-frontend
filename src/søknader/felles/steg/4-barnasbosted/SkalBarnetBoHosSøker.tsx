@@ -16,22 +16,17 @@ import {
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
-import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 interface Props {
   barn: IBarn;
   forelder: IForelder;
   settForelder: (forelder: IForelder) => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const SkalBarnetBoHosSøker: React.FC<Props> = ({
-  barn,
-  forelder,
-  settForelder,
-  settDokumentasjonsbehovForBarn,
-}) => {
+const SkalBarnetBoHosSøker: React.FC<Props> = ({ barn, forelder, settForelder }) => {
   const intl = useLokalIntlContext();
+  const { settDokumentasjonsbehovForBarn } = useBarnasBosted();
 
   const skalBarnetBoHosSøkerConfig = skalBarnetBoHosSøker(intl);
   const settSkalBarnetBoHosSøkerFelt = (spørsmål: ISpørsmål, svar: ISvar) => {

@@ -13,7 +13,7 @@ import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsm
 import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { hentLand } from '../../1-omdeg/medlemskap/MedlemskapConfig';
 import { ILandMedKode } from '../../../../../models/steg/omDeg/medlemskap';
-import { SettDokumentasjonsbehovBarn } from '../../../../overgangsstønad/models/søknad';
+import { useBarnasBosted } from '../BarnasBostedContext';
 
 const utledOppholdslandConfig = (land: ILandMedKode[]): ISpørsmål => ({
   søknadid: 'denAndreForelderensOppholdsland',
@@ -26,19 +26,14 @@ interface Props {
   barn: IBarn;
   forelder: IForelder;
   settForelder: (verdi: IForelder) => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const BorForelderINorge: FC<Props> = ({
-  settForelder,
-  barn,
-  forelder,
-  settDokumentasjonsbehovForBarn,
-}) => {
+const BorForelderINorge: FC<Props> = ({ settForelder, barn, forelder }) => {
   const [locale] = useSpråkContext();
   const land = hentLand(locale);
   const oppholdslandConfig = utledOppholdslandConfig(land);
   const intl = useLokalIntlContext();
+  const { settDokumentasjonsbehovForBarn } = useBarnasBosted();
 
   const settFelt = (spørsmål: ISpørsmål, svar: ISvar) => {
     const nyForelder = {

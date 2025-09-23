@@ -2,122 +2,67 @@ import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import BarnetsBostedLagtTil from './BarnetsBostedLagtTil';
-import BarnetsBostedEndre from './BarnetsBostedEndre';
+import { BarnetsBostedRedigerbar } from './BarnetsBostedRedigerbar';
 import { IBarn } from '../../../../models/steg/barn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import BarneHeader from '../../../../components/BarneHeader';
 import {
   antallBarnMedForeldreUtfylt,
-  forelderidentMedBarn,
   hentIndexFørsteBarnSomIkkeErUtfylt,
-  kopierFellesForeldreInformasjon,
 } from '../../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
-import {
-  SettDokumentasjonsbehovBarn,
-  SøknadOvergangsstønad,
-} from '../../../overgangsstønad/models/søknad';
-import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   if (!ref || !ref.current) return;
   window.scrollTo({ top: ref.current!.offsetTop, left: 0, behavior: 'smooth' });
 };
 
-interface Props {
-  aktuelleBarn: IBarn[];
-  oppdaterBarnISøknaden: (oppdatertBarn: IBarn) => void;
-  oppdaterFlereBarnISøknaden: (oppdaterteBarn: IBarn[]) => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
-  sisteBarnUtfylt: boolean;
-  settSisteBarnUtfylt: React.Dispatch<React.SetStateAction<boolean>>;
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger;
-}
-
-const BarnasBostedInnhold: React.FC<Props> = ({
-  aktuelleBarn,
-  oppdaterBarnISøknaden,
-  oppdaterFlereBarnISøknaden,
-  settDokumentasjonsbehovForBarn,
-  sisteBarnUtfylt,
-  settSisteBarnUtfylt,
-  søknad,
-}) => {
+const BarnasBostedInnhold: React.FC = () => {
   const intl = useLokalIntlContext();
+  const {
+    barnISøknad,
+    sisteBarnUtfylt,
+    settSisteBarnUtfylt,
+    barnMedLevendeMedforelderEllerUndefined,
+  } = useBarnasBosted();
 
-  const barnMedLevendeMedforelder = aktuelleBarn.filter(
-    (barn: IBarn) =>
-      !barn.medforelder?.verdi || (barn.medforelder?.verdi && barn.medforelder?.verdi?.død !== true)
-  );
-
-  const barnMedDødMedforelder = aktuelleBarn.filter((barn: IBarn) => {
+  const barnMedDødMedforelder = barnISøknad.filter((barn: IBarn) => {
     return barn.medforelder?.verdi?.død === true;
   });
 
-  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder);
+  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(
+    barnMedLevendeMedforelderEllerUndefined
+  );
 
   const [aktivIndex, settAktivIndex] = useState<number>(
-    hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelder)
+    hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelderEllerUndefined)
   );
 
   const lagtTilBarn = useRef(null);
-
   const scrollTilLagtTilBarn = () => {
     setTimeout(() => scrollTilRef(lagtTilBarn), 120);
   };
 
   useEffect(() => {
     settSisteBarnUtfylt(
-      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelder) === barnMedLevendeMedforelder.length
+      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined) ===
+        barnMedLevendeMedforelderEllerUndefined.length
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [søknad]);
-  const forelderIdenterMedBarn = forelderidentMedBarn(barnMedLevendeMedforelder);
-
-  const oppdaterBarnMedNyForelderInformasjon = (
-    oppdatertBarn: IBarn,
-    skalKopiereForeldreinformasjonTilAndreBarn: boolean
-  ) => {
-    const barnMedSammeForelder =
-      oppdatertBarn.forelder?.ident?.verdi &&
-      forelderIdenterMedBarn.get(oppdatertBarn.forelder?.ident?.verdi);
-
-    if (skalKopiereForeldreinformasjonTilAndreBarn && barnMedSammeForelder) {
-      oppdaterFlereBarnISøknaden(
-        barnMedSammeForelder.map((b) => {
-          if (b.id === oppdatertBarn.id) {
-            return oppdatertBarn;
-          }
-
-          return oppdatertBarn.forelder
-            ? kopierFellesForeldreInformasjon(b, oppdatertBarn.forelder)
-            : b;
-        })
-      );
-    } else {
-      oppdaterBarnISøknaden(oppdatertBarn);
-    }
-  };
+  }, [barnISøknad]);
 
   return (
     <>
-      {barnMedLevendeMedforelder.map((barn: IBarn, index: number) => {
-        const key = barn.fødselsdato.verdi + index;
+      {barnMedLevendeMedforelderEllerUndefined.map((barn: IBarn, index: number) => {
         if (index === aktivIndex) {
           return (
-            <BarnetsBostedEndre
+            <BarnetsBostedRedigerbar
               barn={barn}
-              settSisteBarnUtfylt={settSisteBarnUtfylt}
               settAktivIndex={settAktivIndex}
               aktivIndex={aktivIndex}
-              key={key}
+              key={index}
               scrollTilLagtTilBarn={scrollTilLagtTilBarn}
-              settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
-              oppdaterBarnISøknaden={oppdaterBarnMedNyForelderInformasjon}
-              barneListe={søknad.person.barn}
-              forelderidenterMedBarn={forelderIdenterMedBarn}
-              søknad={søknad}
             />
           );
         } else {
@@ -131,7 +76,6 @@ const BarnasBostedInnhold: React.FC<Props> = ({
                 settAktivIndex={settAktivIndex}
                 index={index}
                 key={barn.id}
-                settSisteBarnUtfylt={settSisteBarnUtfylt}
               />
             </React.Fragment>
           );

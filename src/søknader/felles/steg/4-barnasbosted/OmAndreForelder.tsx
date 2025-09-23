@@ -17,13 +17,13 @@ import {
 } from '../../../../helpers/steg/forelder';
 import { TextFieldMedBredde } from '../../../../components/TextFieldMedBredde';
 import { identErGyldig } from '../../../../utils/validering/validering';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 interface Props {
   settForelder: (verdi: IForelder) => void;
   forelder: IForelder;
   kjennerIkkeIdent: boolean;
   settKjennerIkkeIdent: (kjennerIkkeIdent: boolean) => void;
-  settSisteBarnUtfylt: (sisteBarnUtfylt: boolean) => void;
 }
 
 const OmAndreForelder: React.FC<Props> = ({
@@ -31,9 +31,9 @@ const OmAndreForelder: React.FC<Props> = ({
   forelder,
   kjennerIkkeIdent,
   settKjennerIkkeIdent,
-  settSisteBarnUtfylt,
 }) => {
   const intl = useLokalIntlContext();
+  const { settSisteBarnUtfylt } = useBarnasBosted();
   const { fødselsdato, ident } = forelder;
   const [feilmeldingNavn, settFeilmeldingNavn] = useState<boolean>(false);
   const hvorforIkkeOppgiLabel = hentTekst(hvorforIkkeOppgi(intl).tekstid, intl);
