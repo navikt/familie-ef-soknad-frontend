@@ -75,8 +75,8 @@ const Aktivitet: React.FC = () => {
   const erSpørsmålFørAktivitetBesvart = (svarid: string) => {
     const svaridPos = aktivitet.hvaErDinArbeidssituasjon.svarid.indexOf(svarid);
     return aktivitet.hvaErDinArbeidssituasjon.svarid
-      .filter((aktivitetId: string, index: number) => aktivitetId && index < svaridPos)
-      .every((id: string) => erAktivitetSeksjonFerdigUtfylt(id, aktivitet));
+      .filter((aktivitetId, index) => aktivitetId && index < svaridPos)
+      .every((id) => erAktivitetSeksjonFerdigUtfylt(id, aktivitet));
   };
 
   return (
