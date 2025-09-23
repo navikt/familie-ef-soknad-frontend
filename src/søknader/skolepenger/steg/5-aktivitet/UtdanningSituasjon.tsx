@@ -15,9 +15,13 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const UtdanningSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const { søknad, settSøknad, mellomlagreSkolepenger } = useSkolepengerSøknad();
+
   const location = useLocation();
+
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
+
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
