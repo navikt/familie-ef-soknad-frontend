@@ -74,6 +74,7 @@ const Aktivitet: React.FC = () => {
 
   const erSpørsmålFørAktivitetBesvart = (svarid: string) => {
     const svaridPos = aktivitet.hvaErDinArbeidssituasjon.svarid.indexOf(svarid);
+
     return aktivitet.hvaErDinArbeidssituasjon.svarid
       .filter((aktivitetId, index) => aktivitetId && index < svaridPos)
       .every((id) => erAktivitetSeksjonFerdigUtfylt(id, aktivitet));
