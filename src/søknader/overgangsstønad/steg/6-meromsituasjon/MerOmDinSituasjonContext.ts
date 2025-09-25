@@ -3,7 +3,7 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import constate from 'constate';
 import { useLocation } from 'react-router-dom';
 import { IBarn } from '../../../../models/steg/barn';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 
 export interface Props {
@@ -26,8 +26,17 @@ export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
 
     const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad?.merOmDinSituasjon);
 
+    useEffect(() => {
+      if (dinSituasjon) {
+        const oppdatertSøknad = { ...søknad, merOmDinSituasjon: dinSituasjon };
+        oppdaterSøknad(oppdatertSøknad);
+      }
+    }, [dinSituasjon, søknad, oppdaterSøknad]);
+
     const mellomlagreSteg = () => {
-      const oppdatertSøknad = { ...søknad, merOmDinSituasjon: dinSituasjon };
+      const oppdatertDinSituasjon = { ...dinSituasjon };
+
+      const oppdatertSøknad = { ...søknad, merOmDinSituasjon: oppdatertDinSituasjon };
 
       oppdaterSøknad(oppdatertSøknad);
 

@@ -161,7 +161,7 @@ const MerOmDinSituasjon: React.FC = () => {
           <CheckboxSpørsmål
             spørsmål={gjelderNoeAvDetteDeg(intl)}
             settValgteSvar={settDinSituasjonFelt}
-            valgteSvar={søknad.merOmDinSituasjon.gjelderDetteDeg.verdi}
+            valgteSvar={dinSituasjon.gjelderDetteDeg.verdi}
           />
         </KomponentGruppe>
         {dinSituasjon.gjelderDetteDeg.svarid.map((svarid, index) => {
