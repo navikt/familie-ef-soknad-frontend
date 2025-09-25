@@ -19,6 +19,7 @@ import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonCon
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
+import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -81,7 +82,14 @@ const Søknadsdialog: FC = () => {
           path={'/aktivitet'}
           element={
             <RedirectTilStart>
-              <Aktivitet />
+              <AktivitetProvider
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+              >
+                <Aktivitet />
+              </AktivitetProvider>
             </RedirectTilStart>
           }
         />

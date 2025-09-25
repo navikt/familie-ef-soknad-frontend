@@ -17,8 +17,8 @@ export const AktivitetOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
     case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
       return (
         <OmArbeidsforholdetDitt
-          arbeidssituasjon={aktivitet}
-          settArbeidssituasjon={settAktivitet}
+          aktivitet={aktivitet}
+          settAktivitet={settAktivitet}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
           inkludertArbeidsmengde={false}
         />
