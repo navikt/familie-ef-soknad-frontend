@@ -3,10 +3,14 @@ import constate from 'constate';
 
 export interface Props {
   søknad: SøknadOvergangsstønad;
+  oppdaterSøknad: (søknad: SøknadOvergangsstønad) => void;
 }
 
-export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(({ søknad }: Props) => {
-  return {
-    søknad,
-  };
-});
+export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
+  ({ søknad, oppdaterSøknad }: Props) => {
+    return {
+      søknad,
+      oppdaterSøknad,
+    };
+  }
+);

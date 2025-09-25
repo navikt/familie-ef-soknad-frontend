@@ -75,7 +75,10 @@ const Søknadsdialog: FC = () => {
           path={'/din-situasjon'}
           element={
             <RedirectTilStart>
-              <MerOmDinSituasjonProvider søknad={søknad}>
+              <MerOmDinSituasjonProvider
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+              >
                 <MerOmDinSituasjon />
               </MerOmDinSituasjonProvider>
             </RedirectTilStart>
