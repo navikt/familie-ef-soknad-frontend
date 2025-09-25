@@ -18,6 +18,7 @@ import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonCon
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
+import { UtdanningSituasjonProvider } from './steg/5-aktivitet/UtdanningSituasjonContext';
 
 const SøknadsdialogSkolepenger: FC = () => {
   const {
@@ -71,7 +72,14 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/utdanning'}
         element={
           <RedirectTilStart>
-            <UtdanningSituasjon />
+            <UtdanningSituasjonProvider
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              settDokumentasjonsbehov={settDokumentasjonsbehov}
+            >
+              <UtdanningSituasjon />
+            </UtdanningSituasjonProvider>
           </RedirectTilStart>
         }
       />
