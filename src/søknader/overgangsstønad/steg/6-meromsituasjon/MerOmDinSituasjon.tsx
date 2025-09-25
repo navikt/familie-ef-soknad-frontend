@@ -35,6 +35,7 @@ import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../.
 import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
+import { useMerOmDinSituasjon } from './MerOmDinSituasjonContext';
 
 const StyledHjelpetekst = styled.div`
   .navds-body-short {
@@ -44,13 +45,10 @@ const StyledHjelpetekst = styled.div`
 const MerOmDinSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
 
-  const {
-    søknad,
-    settSøknad,
-    settDokumentasjonsbehov,
-    mellomlagreOvergangsstønad,
-    oppdaterBarnISøknaden,
-  } = useOvergangsstønadSøknad();
+  const { søknad } = useMerOmDinSituasjon();
+
+  const { settSøknad, settDokumentasjonsbehov, mellomlagreOvergangsstønad, oppdaterBarnISøknaden } =
+    useOvergangsstønadSøknad();
 
   const location = useLocation();
 
