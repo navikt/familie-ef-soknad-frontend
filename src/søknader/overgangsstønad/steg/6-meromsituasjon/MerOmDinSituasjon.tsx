@@ -41,8 +41,10 @@ const StyledHjelpetekst = styled.div`
     padding-bottom: 1rem;
   }
 `;
+
 const MerOmDinSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const {
     søknad,
     settSøknad,
@@ -50,13 +52,19 @@ const MerOmDinSituasjon: React.FC = () => {
     mellomlagreOvergangsstønad,
     oppdaterBarnISøknaden,
   } = useOvergangsstønadSøknad();
+
   const location = useLocation();
+
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
+
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
+
   const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
+
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
+
   const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);
 
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
