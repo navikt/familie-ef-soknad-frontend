@@ -20,6 +20,7 @@ import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
+import { MerOmDinSituasjonProvider } from './steg/6-meromsituasjon/MerOmDinSituasjonContext';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -29,6 +30,7 @@ const Søknadsdialog: FC = () => {
     mellomlagreOvergangsstønad2,
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
+    oppdaterBarnISøknaden,
   } = useOvergangsstønadSøknad();
 
   const oppdaterOvergangsstønadSøknad = (søknad: Søknad) => {
@@ -74,7 +76,15 @@ const Søknadsdialog: FC = () => {
           path={'/din-situasjon'}
           element={
             <RedirectTilStart>
-              <MerOmDinSituasjon />
+              <MerOmDinSituasjonProvider
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+                oppdaterBarnISøknaden={oppdaterBarnISøknaden}
+              >
+                <MerOmDinSituasjon />
+              </MerOmDinSituasjonProvider>
             </RedirectTilStart>
           }
         />
