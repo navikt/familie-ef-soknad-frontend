@@ -110,6 +110,7 @@ const MerOmDinSituasjon: React.FC = () => {
       oppdaterDinSituasjon = {
         ...oppdaterDinSituasjon,
         søknadsdato: undefined,
+        sagtOppEllerRedusertStilling: undefined,
         søkerFraBestemtMåned: undefined,
       };
     }
