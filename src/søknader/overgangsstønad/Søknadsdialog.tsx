@@ -78,6 +78,8 @@ const Søknadsdialog: FC = () => {
               <MerOmDinSituasjonProvider
                 søknad={søknad}
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
               >
                 <MerOmDinSituasjon />
               </MerOmDinSituasjonProvider>
