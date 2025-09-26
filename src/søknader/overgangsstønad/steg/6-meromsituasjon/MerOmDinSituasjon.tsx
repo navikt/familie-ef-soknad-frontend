@@ -95,7 +95,7 @@ const MerOmDinSituasjon: React.FC = () => {
       svar
     );
 
-    settDinSituasjon({
+    let oppdaterDinSituasjon = {
       ...dinSituasjon,
       gjelderDetteDeg: {
         spørsmålid: spørsmål.søknadid,
@@ -104,7 +104,17 @@ const MerOmDinSituasjon: React.FC = () => {
         verdi: avhukedeSvar,
         alternativer: dinSituasjon.gjelderDetteDeg.alternativer,
       },
-    });
+    };
+
+    if (svarider.length === 0) {
+      oppdaterDinSituasjon = {
+        ...oppdaterDinSituasjon,
+        søknadsdato: undefined,
+        søkerFraBestemtMåned: undefined,
+      };
+    }
+
+    settDinSituasjon(oppdaterDinSituasjon);
     settDokumentasjonsbehov(spørsmål, svar, svarHuketAv);
   };
 

@@ -34,8 +34,8 @@ export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
         ...søknad,
         person: {
           ...søknad.person,
-          barn: søknad.person.barn.map((b: IBarn) =>
-            b.id === oppdatertBarn.id ? oppdatertBarn : b
+          barn: søknad.person.barn.map((barn: IBarn) =>
+            barn.id === oppdatertBarn.id ? oppdatertBarn : barn
           ),
         },
       };
