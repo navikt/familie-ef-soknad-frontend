@@ -6,7 +6,6 @@ import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';
 import Oppsummering from './steg/6-oppsummering/Oppsummering';
 import Kvittering from './steg/8-kvittering/Kvittering';
-import Dokumentasjon from './steg/7-dokumentasjon/Dokumentasjon';
 import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import OmDeg from '../felles/steg/1-omdeg/OmDeg';
@@ -19,6 +18,9 @@ import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 import { UtdanningSituasjonProvider } from './steg/5-aktivitet/UtdanningSituasjonContext';
+import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
+import { RoutesBarnetilsyn } from '../barnetilsyn/routing/routesBarnetilsyn';
+import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
 
 const SøknadsdialogSkolepenger: FC = () => {
   const {
@@ -56,7 +58,15 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/dokumentasjon'}
         element={
           <RedirectTilStart>
-            <Dokumentasjon />
+            <DokumentasjonsProvider
+              stønadstype={Stønadstype.overgangsstønad}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              routes={RoutesBarnetilsyn}
+            >
+              <Dokumentasjon />
+            </DokumentasjonsProvider>
           </RedirectTilStart>
         }
       />

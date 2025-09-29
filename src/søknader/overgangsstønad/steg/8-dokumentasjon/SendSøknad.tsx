@@ -28,7 +28,7 @@ interface Innsending {
   venter: boolean;
 }
 
-const SendSøknadKnapper: FC = () => {
+export const SendSøknadKnapper: FC = () => {
   const { søknad, settSøknad } = useOvergangsstønadSøknad();
   const location = useLocation();
   const [locale] = useSpråkContext();
@@ -143,5 +143,3 @@ const SendSøknadKnapper: FC = () => {
     </>
   );
 };
-
-export default SendSøknadKnapper;

@@ -32,7 +32,7 @@ const validerSøkerBosattINorgeSisteFemÅr = (søknad: SøknadBarnetilsyn) => {
   return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
 };
 
-const SendSøknadKnapper: FC = () => {
+export const SendSøknadKnapper: FC = () => {
   const { søknad, settSøknad } = useBarnetilsynSøknad();
   const location = useLocation();
   const navigate = useNavigate();
@@ -150,5 +150,3 @@ const SendSøknadKnapper: FC = () => {
     </>
   );
 };
-
-export default SendSøknadKnapper;
