@@ -19,7 +19,6 @@ import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 import { UtdanningSituasjonProvider } from './steg/5-aktivitet/UtdanningSituasjonContext';
 import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
-import { RoutesBarnetilsyn } from '../barnetilsyn/routing/routesBarnetilsyn';
 import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
 
 const SøknadsdialogSkolepenger: FC = () => {
@@ -59,11 +58,11 @@ const SøknadsdialogSkolepenger: FC = () => {
         element={
           <RedirectTilStart>
             <DokumentasjonsProvider
-              stønadstype={Stønadstype.overgangsstønad}
+              stønadstype={Stønadstype.skolepenger}
               søknad={søknad}
               oppdaterSøknad={oppdaterSkolepengerSøknad}
               mellomlagreSøknad={mellomlagreSkolepengerSøknad}
-              routes={RoutesBarnetilsyn}
+              routes={RoutesSkolepenger}
             >
               <Dokumentasjon />
             </DokumentasjonsProvider>

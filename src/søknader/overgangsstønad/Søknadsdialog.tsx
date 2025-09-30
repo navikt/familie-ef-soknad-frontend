@@ -20,7 +20,6 @@ import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
-import { RoutesBarnetilsyn } from '../barnetilsyn/routing/routesBarnetilsyn';
 import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
 
 const Søknadsdialog: FC = () => {
@@ -65,7 +64,7 @@ const Søknadsdialog: FC = () => {
                 søknad={søknad}
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesBarnetilsyn}
+                routes={RoutesOvergangsstonad}
               >
                 <Dokumentasjon />
               </DokumentasjonsProvider>

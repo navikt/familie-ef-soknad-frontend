@@ -10,7 +10,6 @@ export interface Props<T extends Søknad> {
   oppdaterSøknad: (søknad: T) => void;
   mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
   routes: IRoute[];
-  // settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 export const [DokumentasjonsProvider, useDokumentasjon] = constate(
