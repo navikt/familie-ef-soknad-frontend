@@ -20,6 +20,7 @@ import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
 import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
+import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -84,7 +85,14 @@ const Søknadsdialog: FC = () => {
           path={'/aktivitet'}
           element={
             <RedirectTilStart>
-              <Aktivitet />
+              <AktivitetProvider
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+              >
+                <Aktivitet />
+              </AktivitetProvider>
             </RedirectTilStart>
           }
         />

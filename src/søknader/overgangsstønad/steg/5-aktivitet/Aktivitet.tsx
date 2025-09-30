@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/AktivitetConfig';
-import { EAktivitet, IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
+import { EAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
-import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import {
   filtrerAktivitetSvaralternativer,
   fjernAktivitet,
@@ -21,29 +20,23 @@ import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
+import { useAktivitet } from './AktivitetContext';
 
 export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { søknad, settSøknad, settDokumentasjonsbehov, mellomlagreOvergangsstønad } =
-    useOvergangsstønadSøknad();
+
+  const { aktivitet, settAktivitet, søknad, mellomlagreSteg, settDokumentasjonsbehov } =
+    useAktivitet();
+
   const location = useLocation();
+
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
+
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-  const [arbeidssituasjon, settArbeidssituasjon] = useState<IAktivitet>({
-    ...søknad.aktivitet,
-    hvaErDinArbeidssituasjon: søknad.aktivitet.hvaErDinArbeidssituasjon,
-  });
-  const { hvaErDinArbeidssituasjon } = arbeidssituasjon;
-  useEffect(() => {
-    settSøknad({ ...søknad, aktivitet: arbeidssituasjon });
-    // eslint-disable-next-line
-  }, [arbeidssituasjon]);
 
-  const oppdaterArbeidssituasjon = (nyArbeidssituasjon: IAktivitet) => {
-    settArbeidssituasjon({ ...arbeidssituasjon, ...nyArbeidssituasjon });
-  };
+  const { hvaErDinArbeidssituasjon } = aktivitet;
 
   const settArbeidssituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(
@@ -52,12 +45,12 @@ export const Aktivitet: React.FC = () => {
       svar
     );
 
-    const endretArbeidssituasjon = fjernAktivitet(svarider, arbeidssituasjon);
+    const endretArbeidssituasjon = fjernAktivitet(svarider, aktivitet);
 
     // bør løses bedre. Hvis "harFåttTilbudOmJobb" valget tas og senere fravelges må datofeltet for nyJobb slettes så det ikke sendes med i søknad.
     const skalDatoNyjobbNulstilles = svar.id === EAktivitet.harFåttJobbTilbud && svarHuketAv;
 
-    oppdaterArbeidssituasjon({
+    settAktivitet({
       ...endretArbeidssituasjon,
       datoOppstartJobb: skalDatoNyjobbNulstilles
         ? undefined
@@ -73,17 +66,18 @@ export const Aktivitet: React.FC = () => {
   };
 
   const erAlleFelterUtfylt = hvaErDinArbeidssituasjon.svarid.every((id) =>
-    erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon)
+    erAktivitetSeksjonFerdigUtfylt(id, aktivitet)
   );
 
   const erSisteSpørsmålBesvartOgMinstEttAlternativValgt =
     hvaErDinArbeidssituasjon.svarid.length !== 0 && erAlleFelterUtfylt;
 
-  const erSpørsmålFørAktivitetBesvart = (svarid: string, arbeidssituasjon: IAktivitet) => {
-    const svaridPos = arbeidssituasjon.hvaErDinArbeidssituasjon.svarid.indexOf(svarid);
-    return arbeidssituasjon.hvaErDinArbeidssituasjon.svarid
-      .filter((aktivitet, index) => aktivitet && index < svaridPos)
-      .every((id) => erAktivitetSeksjonFerdigUtfylt(id, arbeidssituasjon));
+  const erSpørsmålFørAktivitetBesvart = (svarid: string) => {
+    const svaridPos = aktivitet.hvaErDinArbeidssituasjon.svarid.indexOf(svarid);
+
+    return aktivitet.hvaErDinArbeidssituasjon.svarid
+      .filter((aktivitetId, index) => aktivitetId && index < svaridPos)
+      .every((id) => erAktivitetSeksjonFerdigUtfylt(id, aktivitet));
   };
 
   return (
@@ -92,7 +86,7 @@ export const Aktivitet: React.FC = () => {
       stegtittel={hentTekst('stegtittel.arbeidssituasjon', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
-      mellomlagreStønad={mellomlagreOvergangsstønad}
+      mellomlagreStønad={mellomlagreSteg}
       routesStønad={RoutesOvergangsstonad}
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
@@ -107,14 +101,14 @@ export const Aktivitet: React.FC = () => {
         />
       </SeksjonGruppe>
 
-      {arbeidssituasjon.hvaErDinArbeidssituasjon.svarid.map((svarid, index) => {
+      {aktivitet.hvaErDinArbeidssituasjon.svarid.map((svarid, index) => {
         const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon.svarid.length !== 0;
 
         const erValgtFørsteAktivitet = hvaErDinArbeidssituasjon.svarid[0] === svarid;
 
         const visSeksjon = harValgtMinstEnAktivitet
           ? !erValgtFørsteAktivitet
-            ? erSpørsmålFørAktivitetBesvart(svarid, arbeidssituasjon)
+            ? erSpørsmålFørAktivitetBesvart(svarid)
             : true
           : true;
 
@@ -123,8 +117,8 @@ export const Aktivitet: React.FC = () => {
             <AktivitetOppfølgingSpørsmål
               key={index}
               svarid={svarid}
-              arbeidssituasjon={arbeidssituasjon}
-              settArbeidssituasjon={settArbeidssituasjon}
+              aktivitet={aktivitet}
+              settAktivitet={settAktivitet}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
               overskuddsår={
                 nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr

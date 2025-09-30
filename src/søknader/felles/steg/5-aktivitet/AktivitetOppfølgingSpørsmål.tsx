@@ -13,15 +13,15 @@ import { UnderUtdanning } from '../../../../models/steg/aktivitet/utdanning';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 
 interface Props {
-  arbeidssituasjon: IAktivitet;
-  settArbeidssituasjon: (arbeidssituasjon: IAktivitet) => void;
+  aktivitet: IAktivitet;
+  settAktivitet: (arbeidssituasjon: IAktivitet) => void;
   svarid: string;
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   overskuddsår: number;
 }
 const AktivitetOppfølgingSpørsmål: FC<Props> = ({
-  arbeidssituasjon,
-  settArbeidssituasjon,
+  aktivitet,
+  settAktivitet,
   svarid,
   settDokumentasjonsbehov,
   overskuddsår,
@@ -33,8 +33,8 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
     case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
       return (
         <OmArbeidsforholdetDitt
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          aktivitet={aktivitet}
+          settAktivitet={settAktivitet}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
         />
       );
@@ -42,30 +42,28 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
     case EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser:
       return (
         <OmFirmaeneDine
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
           overskuddsår={overskuddsår}
         />
       );
 
     case EAktivitet.erAnsattIEgetAS:
-      return (
-        <EgetAS arbeidssituasjon={arbeidssituasjon} settArbeidssituasjon={settArbeidssituasjon} />
-      );
+      return <EgetAS arbeidssituasjon={aktivitet} settArbeidssituasjon={settAktivitet} />;
 
     case EAktivitet.etablererEgenVirksomhet:
       return (
         <EtablererEgenVirksomhet
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
         />
       );
 
     case EAktivitet.erArbeidssøker:
       return (
         <Arbeidssøker
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
+          arbeidssituasjon={aktivitet}
+          settArbeidssituasjon={settAktivitet}
           settDokumentasjonsbehov={settDokumentasjonsbehov}
         />
       );
@@ -74,10 +72,10 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
       return (
         <TarUtdanning
           stønadstype={Stønadstype.overgangsstønad}
-          underUtdanning={arbeidssituasjon.underUtdanning}
+          underUtdanning={aktivitet.underUtdanning}
           oppdaterUnderUtdanning={(utdanning: UnderUtdanning) =>
-            settArbeidssituasjon({
-              ...arbeidssituasjon,
+            settAktivitet({
+              ...aktivitet,
               underUtdanning: utdanning,
             })
           }
@@ -85,12 +83,7 @@ const AktivitetOppfølgingSpørsmål: FC<Props> = ({
       );
 
     case EAktivitet.harFåttJobbTilbud:
-      return (
-        <FåttJobbTilbud
-          arbeidssituasjon={arbeidssituasjon}
-          settArbeidssituasjon={settArbeidssituasjon}
-        />
-      );
+      return <FåttJobbTilbud arbeidssituasjon={aktivitet} settArbeidssituasjon={settAktivitet} />;
 
     default:
       return <></>;
