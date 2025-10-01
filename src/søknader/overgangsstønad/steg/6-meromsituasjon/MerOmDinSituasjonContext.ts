@@ -9,12 +9,17 @@ import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasj
 export interface Props {
   søknad: SøknadOvergangsstønad;
   oppdaterSøknad: (søknad: SøknadOvergangsstønad) => void;
-  mellomlagreSøknad: (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => void;
+  mellomlagreMerOmDinSituasjonSteg: (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => void;
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
-  ({ søknad, oppdaterSøknad, mellomlagreSøknad, settDokumentasjonsbehov }: Props) => {
+  ({
+    søknad,
+    oppdaterSøknad,
+    mellomlagreMerOmDinSituasjonSteg,
+    settDokumentasjonsbehov,
+  }: Props) => {
     const location = useLocation();
 
     const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad?.merOmDinSituasjon);
@@ -26,7 +31,7 @@ export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
 
       oppdaterSøknad(oppdatertSøknad);
 
-      return mellomlagreSøknad(location.pathname, oppdatertSøknad);
+      return mellomlagreMerOmDinSituasjonSteg(location.pathname, oppdatertSøknad);
     };
 
     const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
