@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import { BarnaDine } from './steg/3-barnadine/BarnaDine';
-import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
-import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Kvittering from './steg/9-kvittering/Kvittering';
@@ -20,7 +18,10 @@ import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnepassProvider } from './steg/6-barnepass/BarnepassContext';
+import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
+import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
+import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -28,6 +29,8 @@ const SøknadsdialogBarnetilsyn: FC = () => {
     settSøknad,
     mellomlagretBarnetilsyn,
     mellomlagreBarnetilsyn2,
+    oppdaterBarnISøknaden,
+    oppdaterFlereBarnISøknaden,
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
   } = useBarnetilsynSøknad();
@@ -107,7 +110,19 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/barnas-bosted'}
         element={
           <RedirectTilStart>
-            <BarnasBosted />
+            <BarnasBostedProvider
+              stønadstype={Stønadstype.barnetilsyn}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              oppdaterBarnISøknaden={oppdaterBarnISøknaden}
+              oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+              settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
+            >
+              <BarnasBosted />
+            </BarnasBostedProvider>
           </RedirectTilStart>
         }
       />

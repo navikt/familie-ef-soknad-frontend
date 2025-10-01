@@ -16,24 +16,19 @@ import { IBarn } from '../../../../../models/steg/barn';
 import MultiSvarSpørsmålMedNavn from '../../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { SettDokumentasjonsbehovBarn } from '../../../../overgangsstønad/models/søknad';
+import { useBarnasBosted } from '../BarnasBostedContext';
 
 interface Props {
   settForelder: (verdi: IForelder) => void;
   forelder: IForelder;
   barn: IBarn;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
-const BostedOgSamvær: React.FC<Props> = ({
-  settForelder,
-  forelder,
-  barn,
-  settDokumentasjonsbehovForBarn,
-}) => {
+const BostedOgSamvær: React.FC<Props> = ({ settForelder, forelder, barn }) => {
   const intl = useLokalIntlContext();
 
   const harAnnenForelderSamværMedBarnConfig = harAnnenForelderSamværMedBarn(intl, barn);
+  const { settDokumentasjonsbehovForBarn } = useBarnasBosted();
 
   const settBostedOgSamværFelt = (spørsmål: ISpørsmål, svar: ISvar) => {
     const nyForelder = {

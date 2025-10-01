@@ -7,7 +7,7 @@ import './søknader/overgangsstønad/Søknadsdialog.css';
 import './components/feil/Feilside.css';
 import './components/spørsmål/Spørsmål.css';
 import './components/side/Side.module.css';
-import './søknader/overgangsstønad/steg/4-barnasbosted/BarnasBosted.css';
+import './søknader/felles/steg/4-barnasbosted/BarnasBosted.css';
 import './søknader/felles/steg/7-oppsummering/Oppsummering.css';
 import './søknader/arbeidssøkerskjema/side/Side.css';
 import './søknader/arbeidssøkerskjema/Oppsummering.css';
