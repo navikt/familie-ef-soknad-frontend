@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import RedirectTilStart from './RedirectTilStart';
-import BarnasBosted from './steg/4-barnasbosted/BarnasBosted';
 import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';
 import Oppsummering from './steg/6-oppsummering/Oppsummering';
 import Kvittering from './steg/8-kvittering/Kvittering';
@@ -18,6 +17,8 @@ import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonCon
 import { Bosituasjon } from '../felles/steg/2-bosituasjon/Bosituasjon';
 import { BarnaDineProvider } from '../felles/steg/3-barnadine/BarnaDineContext';
 import { BarnaDine } from '../felles/steg/3-barnadine/BarnaDine';
+import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
+import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { UtdanningSituasjonProvider } from './steg/5-aktivitet/UtdanningSituasjonContext';
 
 const SøknadsdialogSkolepenger: FC = () => {
@@ -26,6 +27,8 @@ const SøknadsdialogSkolepenger: FC = () => {
     settSøknad,
     mellomlagretSkolepenger,
     mellomlagreSkolepenger2,
+    oppdaterBarnISøknaden,
+    oppdaterFlereBarnISøknaden,
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
   } = useSkolepengerSøknad();
@@ -87,7 +90,19 @@ const SøknadsdialogSkolepenger: FC = () => {
         path={'/barnas-bosted'}
         element={
           <RedirectTilStart>
-            <BarnasBosted />
+            <BarnasBostedProvider
+              stønadstype={Stønadstype.skolepenger}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterSkolepengerSøknad}
+              oppdaterBarnISøknaden={oppdaterBarnISøknaden}
+              oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
+              mellomlagreSøknad={mellomlagreSkolepengerSøknad}
+              routes={RoutesSkolepenger}
+              pathOppsummering={pathOppsummeringSkolepenger}
+              settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
+            >
+              <BarnasBosted />
+            </BarnasBostedProvider>
           </RedirectTilStart>
         }
       />
