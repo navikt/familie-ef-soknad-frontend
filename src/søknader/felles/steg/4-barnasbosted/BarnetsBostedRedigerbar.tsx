@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AnnenForelderKnapper from './AnnenForelderKnapper';
+import { AnnenForelderKnapper } from './AnnenForelderKnapper';
 import BarneHeader from '../../../../components/BarneHeader';
 import BostedOgSamvær from './bostedOgSamvær/BostedOgSamvær';
 import OmAndreForelder from './OmAndreForelder';
@@ -24,10 +24,6 @@ import { TypeBarn } from '../../../../models/steg/barnasbosted';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
 import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
-import {
-  SettDokumentasjonsbehovBarn,
-  SøknadOvergangsstønad,
-} from '../../../overgangsstønad/models/søknad';
 import styled from 'styled-components';
 import {
   finnFørsteBarnTilHverForelder,
@@ -37,9 +33,8 @@ import {
   skalBorAnnenForelderINorgeVises,
 } from '../../../../helpers/steg/barnetsBostedEndre';
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
-import { SøknadBarnetilsyn } from '../../../barnetilsyn/models/søknad';
-import { SøknadSkolepenger } from '../../../skolepenger/models/søknad';
 import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
+import { useBarnasBosted } from './BarnasBostedContext';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;
@@ -55,28 +50,18 @@ interface Props {
   barn: IBarn;
   settAktivIndex: React.Dispatch<React.SetStateAction<number>>;
   aktivIndex: number;
-  settSisteBarnUtfylt: (sisteBarnUtfylt: boolean) => void;
   scrollTilLagtTilBarn: () => void;
-  settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
-  barneListe: IBarn[];
-  oppdaterBarnISøknaden: (endretBarn: IBarn, erFørstebarn: boolean) => void;
-  forelderidenterMedBarn: Map<string, IBarn[]>;
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger;
 }
 
-const BarnetsBostedEndre: React.FC<Props> = ({
+export const BarnetsBostedRedigerbar: React.FC<Props> = ({
   barn,
   settAktivIndex,
   aktivIndex,
-  settSisteBarnUtfylt,
   scrollTilLagtTilBarn,
-  barneListe,
-  oppdaterBarnISøknaden,
-  settDokumentasjonsbehovForBarn,
-  forelderidenterMedBarn,
-  søknad,
 }) => {
   const intl = useLokalIntlContext();
+  const { søknad, barnISøknad, forelderIdenterMedBarn, oppdaterBarnMedNyForelderInformasjon } =
+    useBarnasBosted();
   const [forelder, settForelder] = useState<IForelder>(
     barn.forelder
       ? {
@@ -102,16 +87,16 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     stringHarVerdiOgErIkkeTom(barn?.medforelder?.verdi?.navn) ||
     barn?.medforelder?.verdi?.harAdressesperre === true;
 
-  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barneListe, barn);
+  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barnISøknad, barn);
 
-  const typeBarn = finnTypeBarnForMedForelder(barn, forelderidenterMedBarn);
+  const typeBarn = finnTypeBarnForMedForelder(barn, forelderIdenterMedBarn);
 
   const [barnHarSammeForelder, settBarnHarSammeForelder] = useState<boolean | undefined>(
     typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON ? true : undefined
   );
 
   const leggTilForelder = () => {
-    oppdaterBarnISøknaden(
+    oppdaterBarnMedNyForelderInformasjon(
       { ...barn, forelder: forelder },
       typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
     );
@@ -121,18 +106,11 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     scrollTilLagtTilBarn();
   };
 
-  const leggTilAnnenForelderId = (annenForelderId: string) => {
-    oppdaterBarnISøknaden(
-      { ...barn, annenForelderId: annenForelderId },
-      typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
-    );
-  };
-
   const erBarnMedISøknad = (barn: IBarn): boolean => {
     return !erBarnetilsynSøknad(søknad) || barn.skalHaBarnepass?.verdi === true;
   };
 
-  const finnesBarnISøknadMedRegistrertAnnenForelder = barneListe.some(
+  const finnesBarnISøknadMedRegistrertAnnenForelder = barnISøknad.some(
     (b) => erBarnMedISøknad(b) && b.medforelder?.verdi?.ident && b.medforelder?.verdi?.navn
   );
 
@@ -178,12 +156,7 @@ const BarnetsBostedEndre: React.FC<Props> = ({
       </SeksjonGruppe>
       <div className="barnas-bosted__innhold">
         {!barn.harSammeAdresse.verdi && (
-          <SkalBarnetBoHosSøker
-            barn={barn}
-            forelder={forelder}
-            settForelder={settForelder}
-            settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
-          />
+          <SkalBarnetBoHosSøker barn={barn} forelder={forelder} settForelder={settForelder} />
         )}
 
         {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
@@ -194,11 +167,10 @@ const BarnetsBostedEndre: React.FC<Props> = ({
               <AnnenForelderKnapper
                 barn={barn}
                 forelder={forelder}
-                oppdaterAnnenForelder={leggTilAnnenForelderId}
                 førsteBarnTilHverForelder={førsteBarnTilHverForelder}
                 settBarnHarSammeForelder={settBarnHarSammeForelder}
                 settForelder={settForelder}
-                oppdaterBarn={oppdaterBarnISøknaden}
+                typeBarn={typeBarn}
               />
             )}
 
@@ -208,7 +180,6 @@ const BarnetsBostedEndre: React.FC<Props> = ({
                 forelder={forelder}
                 kjennerIkkeIdent={kjennerIkkeIdent}
                 settKjennerIkkeIdent={settKjennerIkkeIdent}
-                settSisteBarnUtfylt={settSisteBarnUtfylt}
               />
             )}
 
@@ -234,22 +205,12 @@ const BarnetsBostedEndre: React.FC<Props> = ({
         )}
 
         {visBorAnnenForelderINorge && (
-          <BorForelderINorge
-            barn={barn}
-            forelder={forelder}
-            settForelder={settForelder}
-            settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
-          />
+          <BorForelderINorge barn={barn} forelder={forelder} settForelder={settForelder} />
         )}
 
         {(visBostedOgSamværSeksjon(forelder, visBorAnnenForelderINorge) ||
           barnHarSammeForelder) && (
-          <BostedOgSamvær
-            settForelder={settForelder}
-            forelder={forelder}
-            barn={barn}
-            settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
-          />
+          <BostedOgSamvær settForelder={settForelder} forelder={forelder} barn={barn} />
         )}
 
         {!barnHarSammeForelder && visSpørsmålHvisIkkeSammeForelder(forelder) && (
@@ -286,5 +247,3 @@ const BarnetsBostedEndre: React.FC<Props> = ({
     </div>
   );
 };
-
-export default BarnetsBostedEndre;
