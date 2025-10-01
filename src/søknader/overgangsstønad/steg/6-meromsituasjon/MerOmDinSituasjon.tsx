@@ -188,10 +188,7 @@ const MerOmDinSituasjon: React.FC = () => {
         harValgtMinstEttAlternativ &&
         hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad) && (
           <SeksjonGruppe>
-            <HarSøkerSagtOppEllerRedusertStilling
-              dinSituasjon={dinSituasjon}
-              settDinSituasjon={settDinSituasjon}
-            />
+            <HarSøkerSagtOppEllerRedusertStilling />
           </SeksjonGruppe>
         )}
       {visNårSøkerDuStønadFra && (
