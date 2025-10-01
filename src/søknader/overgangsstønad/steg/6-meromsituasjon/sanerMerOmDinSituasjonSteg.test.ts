@@ -54,5 +54,20 @@ describe('Skal sanere felter tilhørende merOmDinSituasjon steget', () => {
       expect(sanertSøknad.merOmDinSituasjon.datoSagtOppEllerRedusertStilling).toBe(undefined);
       expect(sanertSøknad.merOmDinSituasjon.søkerFraBestemtMåned).toBe(undefined);
     });
+
+    test('skal gjelderDetteDeg ha verdi', () => {
+      const gjelderDetteDeg = lagSpørsmålListeFelt(ESituasjon.gjelderDetteDeg, [], []);
+
+      const søknad: SøknadOvergangsstønad = {
+        ...lagSøknadOvergangsstønad(),
+        merOmDinSituasjon: lagDinSituasjon({
+          gjelderDetteDeg,
+        }),
+      };
+
+      const sanertSøknad = sanerMerOmDinSituasjonSteg(søknad);
+
+      expect(sanertSøknad.merOmDinSituasjon.gjelderDetteDeg).toEqual(gjelderDetteDeg);
+    });
   });
 });
