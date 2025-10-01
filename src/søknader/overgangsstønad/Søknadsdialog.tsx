@@ -106,11 +106,9 @@ const Søknadsdialog: FC = () => {
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 oppdaterBarnISøknaden={oppdaterBarnISøknaden}
                 oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
-                mellomlagretSøknad={mellomlagretOvergangsstønad}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
                 routes={RoutesOvergangsstonad}
                 pathOppsummering={pathOppsummeringOvergangsstønad}
-                settDokumentasjonsbehov={settDokumentasjonsbehov}
                 settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
               >
                 <BarnasBosted />

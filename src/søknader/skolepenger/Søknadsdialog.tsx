@@ -96,11 +96,9 @@ const SøknadsdialogSkolepenger: FC = () => {
               oppdaterSøknad={oppdaterSkolepengerSøknad}
               oppdaterBarnISøknaden={oppdaterBarnISøknaden}
               oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
-              mellomlagretSøknad={mellomlagretSkolepenger}
               mellomlagreSøknad={mellomlagreSkolepengerSøknad}
               routes={RoutesSkolepenger}
               pathOppsummering={pathOppsummeringSkolepenger}
-              settDokumentasjonsbehov={settDokumentasjonsbehov}
               settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
             >
               <BarnasBosted />

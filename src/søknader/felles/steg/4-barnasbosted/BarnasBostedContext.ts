@@ -1,7 +1,6 @@
-import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
+import { Søknad } from '../../../../models/søknad/søknad';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IRoute } from '../../../../models/routes';
-import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import constate from 'constate';
 import { useLocation } from 'react-router-dom';
 import { IBarn } from '../../../../models/steg/barn';
@@ -22,11 +21,9 @@ export interface Props<T extends Søknad> {
   oppdaterSøknad: (søknad: T) => void;
   oppdaterBarnISøknaden: (oppdatertBarn: IBarn) => void;
   oppdaterFlereBarnISøknaden: (oppdaterteBarn: IBarn[]) => void;
-  mellomlagretSøknad: MellomlagretSøknad | undefined;
   mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
   routes: IRoute[];
   pathOppsummering: string | undefined;
-  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
   settDokumentasjonsbehovForBarn: SettDokumentasjonsbehovBarn;
 }
 
@@ -38,7 +35,6 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
     mellomlagreSøknad,
     routes,
     pathOppsummering,
-    settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
   }: Props<Søknad>) => {
     const location = useLocation();
@@ -117,7 +113,6 @@ export const [BarnasBostedProvider, useBarnasBosted] = constate(
       oppdaterSøknad,
       pathOppsummering,
       routes,
-      settDokumentasjonsbehov,
       settDokumentasjonsbehovForBarn,
       stønadstype,
       søknad,
