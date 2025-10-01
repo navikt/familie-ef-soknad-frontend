@@ -5,6 +5,7 @@ import constate from 'constate';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import { sanerMerOmDinSituasjonSteg } from './sanerMerOmDinSituasjonSteg';
 
 export interface Props {
   søknad: SøknadOvergangsstønad;
@@ -29,9 +30,11 @@ export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
 
       const oppdatertSøknad = { ...søknad, merOmDinSituasjon: oppdatertDinSituasjon };
 
-      oppdaterSøknad(oppdatertSøknad);
+      const sanertSøknad = sanerMerOmDinSituasjonSteg(oppdatertSøknad);
 
-      return mellomlagreMerOmDinSituasjonSteg(location.pathname, oppdatertSøknad);
+      oppdaterSøknad(sanertSøknad);
+
+      return mellomlagreMerOmDinSituasjonSteg(location.pathname, sanertSøknad);
     };
 
     const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
