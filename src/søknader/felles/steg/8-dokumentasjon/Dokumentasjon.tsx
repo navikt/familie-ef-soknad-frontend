@@ -20,14 +20,8 @@ import { SendSøknadKnapper as SendSøknadKnapperSkolepenger } from '../../../sk
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();
-  const {
-    stønadstype,
-    søknad,
-    mellomlagreSteg,
-    routes,
-    dokumentasjonsbehov,
-    settDokumentasjonsbehov,
-  } = useDokumentasjon();
+  const { stønadstype, mellomlagreSteg, routes, dokumentasjonsbehov, settDokumentasjonsbehov } =
+    useDokumentasjon();
   const forrigeDokumentasjonsbehov = usePrevious(dokumentasjonsbehov);
 
   const oppdaterDokumentasjon = (
@@ -46,7 +40,7 @@ const Dokumentasjon: React.FC = () => {
 
   // Fjern vedlegg som evt. har blitt slettet i familie-dokument
   useEffect(() => {
-    søknad.dokumentasjonsbehov.forEach((dokBehov: IDokumentasjon) => {
+    dokumentasjonsbehov.forEach((dokBehov: IDokumentasjon) => {
       if (dokBehov.opplastedeVedlegg) {
         const gyldigeVedlegg = dokBehov.opplastedeVedlegg.filter((vedlegg) =>
           erVedleggstidspunktGyldig(vedlegg.tidspunkt)
@@ -72,9 +66,9 @@ const Dokumentasjon: React.FC = () => {
       debounceMellomlagre();
     }
     // eslint-disable-next-line
-  }, [søknad.dokumentasjonsbehov]);
+  }, [dokumentasjonsbehov]);
 
-  const harDokumentasjonsbehov = søknad.dokumentasjonsbehov.length > 0;
+  const harDokumentasjonsbehov = dokumentasjonsbehov.length > 0;
   return (
     <Side
       stønadstype={stønadstype}
