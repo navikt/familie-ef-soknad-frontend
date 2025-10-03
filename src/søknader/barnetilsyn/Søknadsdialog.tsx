@@ -22,12 +22,14 @@ import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
+import { BarnetilsynBarnaDineProvider } from './steg/3-barnadine/BarnetilsynBarnaDineContext';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
     søknad,
     settSøknad,
     mellomlagretBarnetilsyn,
+    mellomlagreBarnetilsyn,
     mellomlagreBarnetilsyn2,
     oppdaterBarnISøknaden,
     oppdaterFlereBarnISøknaden,
@@ -130,7 +132,15 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/barn'}
         element={
           <RedirectTilStart>
-            <BarnaDine />
+            <BarnetilsynBarnaDineProvider
+              søknad={søknad}
+              oppdaterBarnISøknaden={oppdaterBarnISøknaden}
+              mellomlagreBarnetilsyn={mellomlagreBarnetilsyn}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+            >
+              <BarnaDine />
+            </BarnetilsynBarnaDineProvider>
           </RedirectTilStart>
         }
       />
