@@ -17,10 +17,11 @@ export interface Props {
 export const [BarnetilsynBarnaDineProvider, useBarnetilsynBarnaDine] = constate(
   ({ søknad, oppdaterBarnISøknaden, mellomlagreBarnetilsyn, routes, pathOppsummering }: Props) => {
     const location = useLocation();
+
     const intl = useLokalIntlContext();
 
     const toggleSkalHaBarnepass = (id: string) => {
-      const detteBarnet = søknad.person.barn.find((b: IBarn) => b.id === id);
+      const detteBarnet = søknad.person.barn.find((barn: IBarn) => barn.id === id);
 
       if (!detteBarnet) return;
 
@@ -28,11 +29,8 @@ export const [BarnetilsynBarnaDineProvider, useBarnetilsynBarnaDine] = constate(
       const nyttBarn: IBarn = {
         ...detteBarnet,
         skalHaBarnepass: hentFeltObjekt('barnekort.skalHaBarnepass', skalHaBarnepassVerdi, intl),
+        ...(skalHaBarnepassVerdi && { barnepass: detteBarnet.barnepass }),
       };
-
-      if (!skalHaBarnepassVerdi) {
-        delete nyttBarn.barnepass;
-      }
 
       oppdaterBarnISøknaden(nyttBarn);
     };
