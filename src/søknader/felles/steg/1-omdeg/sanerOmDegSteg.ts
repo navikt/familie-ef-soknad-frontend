@@ -4,6 +4,7 @@ import { EBegrunnelse, ISivilstatus } from '../../../../models/steg/omDeg/sivils
 import { IPersonDetaljer } from '../../../../models/søknad/person';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { IAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
+import { sanerBrukerInput } from '../../../../utils/sanering';
 
 export const sanerOmDegSteg = <T extends Søknad>(
   søknad: T,
@@ -74,6 +75,25 @@ const utledTidligereSamboerDetaljer = (
       ident: undefined,
     };
   }
+
+  if (tidligereSamboerDetaljer) {
+    return {
+      ...tidligereSamboerDetaljer,
+      navn: tidligereSamboerDetaljer.navn
+        ? {
+            ...tidligereSamboerDetaljer.navn,
+            verdi: sanerBrukerInput(tidligereSamboerDetaljer.navn.verdi),
+          }
+        : undefined,
+      ident: tidligereSamboerDetaljer.ident
+        ? {
+            ...tidligereSamboerDetaljer.ident,
+            verdi: sanerBrukerInput(tidligereSamboerDetaljer.ident.verdi),
+          }
+        : undefined,
+    };
+  }
+
   return tidligereSamboerDetaljer;
 };
 
@@ -82,11 +102,21 @@ const sanerMedlemskap = (medlemskap: IMedlemskap) => {
 
   const skalFjerneOppholdsland = medlemskap.søkerOppholderSegINorge?.verdi === true;
 
+  const sanertPerioderBoddIUtlandet = medlemskap.perioderBoddIUtlandet?.map((opphold) => ({
+    ...opphold,
+    begrunnelse: opphold.begrunnelse
+      ? { ...opphold.begrunnelse, verdi: sanerBrukerInput(opphold.begrunnelse.verdi) }
+      : opphold.begrunnelse,
+    adresseEøsLand: opphold.adresseEøsLand
+      ? { ...opphold.adresseEøsLand, verdi: sanerBrukerInput(opphold.adresseEøsLand.verdi) }
+      : opphold.adresseEøsLand,
+  }));
+
   return {
     ...medlemskap,
-    ...(skalFjernePerioderBoddIUtlandet && {
-      perioderBoddIUtlandet: undefined,
-    }),
+    perioderBoddIUtlandet: skalFjernePerioderBoddIUtlandet
+      ? undefined
+      : sanertPerioderBoddIUtlandet,
     ...(skalFjerneOppholdsland && { oppholdsland: undefined }),
   };
 };
