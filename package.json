@@ -63,7 +63,7 @@
     "react-router-dom": "^7.9.3",
     "styled-components": "^6.1.19",
     "use-debounce": "^10.0.6",
-    "uuid": "^11.1.0",
+    "uuid": "^13.0.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {
