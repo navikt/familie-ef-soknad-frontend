@@ -12,7 +12,7 @@ import { Alert, VStack } from '@navikt/ds-react';
 
 export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { sivilstatus, settSivilstatus } = useOmDeg();
+  const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
   const { erUformeltGift } = sivilstatus;
 
   const settErUformeltGift = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
@@ -25,6 +25,8 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
         verdi: hentBooleanFraValgtSvar(valgtSvar),
       },
     });
+
+    settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
   const settErUformeltSeparertEllerSkilt = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
@@ -37,6 +39,8 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
         verdi: hentBooleanFraValgtSvar(valgtSvar),
       },
     });
+
+    settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
   const visUformeltGiftAlert = sivilstatus.erUformeltGift?.svarid === ESvar.JA;
