@@ -20,8 +20,10 @@ import { SendSøknadKnapper as SendSøknadKnapperSkolepenger } from '../../../sk
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const { stønadstype, mellomlagreSteg, routes, dokumentasjonsbehov, settDokumentasjonsbehov } =
     useDokumentasjon();
+
   const forrigeDokumentasjonsbehov = usePrevious(dokumentasjonsbehov);
 
   const oppdaterDokumentasjon = (
@@ -29,13 +31,13 @@ const Dokumentasjon: React.FC = () => {
     opplastedeVedlegg: IVedlegg[] | undefined,
     harSendtInnTidligere: boolean
   ) => {
-    const dokumentasjonMedVedlegg = dokumentasjonsbehov.map((dok) => {
-      return dok.id === dokumentasjonsid
-        ? { ...dok, opplastedeVedlegg: opplastedeVedlegg, harSendtInn: harSendtInnTidligere }
-        : dok;
-    });
-
-    settDokumentasjonsbehov(dokumentasjonMedVedlegg);
+    settDokumentasjonsbehov((dokumentasjon) =>
+      dokumentasjon.map((dok) => {
+        return dok.id === dokumentasjonsid
+          ? { ...dok, opplastedeVedlegg: opplastedeVedlegg, harSendtInn: harSendtInnTidligere }
+          : dok;
+      })
+    );
   };
 
   // Fjern vedlegg som evt. har blitt slettet i familie-dokument
@@ -54,7 +56,6 @@ const Dokumentasjon: React.FC = () => {
         }
       }
     });
-    // eslint-disable-next-line
   }, []);
 
   const debounceMellomlagre = useDebouncedCallback(() => {
@@ -65,7 +66,6 @@ const Dokumentasjon: React.FC = () => {
     if (forrigeDokumentasjonsbehov !== undefined) {
       debounceMellomlagre();
     }
-    // eslint-disable-next-line
   }, [dokumentasjonsbehov]);
 
   const harDokumentasjonsbehov = dokumentasjonsbehov.length > 0;

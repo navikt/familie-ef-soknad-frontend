@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { IRoute } from '../../../../models/routes';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { Søknad } from '../../../../models/søknad/søknad';
+import { useLocation } from 'react-router-dom';
 
 export interface Props<T extends Søknad> {
   stønadstype: Stønadstype;
@@ -14,6 +15,8 @@ export interface Props<T extends Søknad> {
 
 export const [DokumentasjonsProvider, useDokumentasjon] = constate(
   ({ stønadstype, søknad, oppdaterSøknad, mellomlagreSøknad, routes }: Props<Søknad>) => {
+    const location = useLocation();
+
     const [dokumentasjonsbehov, settDokumentasjonsbehov] = useState(søknad.dokumentasjonsbehov);
 
     const mellomlagreSteg = () => {
