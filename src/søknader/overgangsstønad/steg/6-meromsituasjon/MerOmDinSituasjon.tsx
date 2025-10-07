@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import HarSøkerSagtOppEllerRedusertStilling from './HarSøkerSagtOppEllerRedusertStilling';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
@@ -11,11 +11,8 @@ import {
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import {
-  ESøkerFraBestemtMåned,
-  IDinSituasjon,
-} from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import { useMerOmDinSituasjon } from './MerOmDinSituasjonContext';
 import {
   harSøkerMindreEnnHalvStilling,
   harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål,
@@ -30,7 +27,6 @@ import { Side, NavigasjonState } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { SøknadOvergangsstønad } from '../../models/søknad';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
@@ -43,20 +39,26 @@ const StyledHjelpetekst = styled.div`
 `;
 const MerOmDinSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
+
   const {
+    dinSituasjon,
+    settDinSituasjon,
     søknad,
-    settSøknad,
+    mellomlagreSteg,
     settDokumentasjonsbehov,
-    mellomlagreOvergangsstønad,
     oppdaterBarnISøknaden,
-  } = useOvergangsstønadSøknad();
+  } = useMerOmDinSituasjon();
+
   const location = useLocation();
+
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
+
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
-  const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
+
   const { gjelderDetteDeg, søknadsdato, søkerFraBestemtMåned } = dinSituasjon;
+
   const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);
 
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
@@ -83,13 +85,6 @@ const MerOmDinSituasjon: React.FC = () => {
     </StyledHjelpetekst>
   );
 
-  useEffect(() => {
-    settSøknad((prevSøknad: SøknadOvergangsstønad) => ({
-      ...prevSøknad,
-      merOmDinSituasjon: dinSituasjon,
-    }));
-  }, [dinSituasjon, settSøknad]);
-
   useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov(søknad, intl, oppdaterBarnISøknaden);
 
   const settDinSituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
@@ -100,7 +95,7 @@ const MerOmDinSituasjon: React.FC = () => {
       svar
     );
 
-    settDinSituasjon({
+    let oppdaterDinSituasjon = {
       ...dinSituasjon,
       gjelderDetteDeg: {
         spørsmålid: spørsmål.søknadid,
@@ -109,7 +104,18 @@ const MerOmDinSituasjon: React.FC = () => {
         verdi: avhukedeSvar,
         alternativer: dinSituasjon.gjelderDetteDeg.alternativer,
       },
-    });
+    };
+
+    if (svarider.length === 0) {
+      oppdaterDinSituasjon = {
+        ...oppdaterDinSituasjon,
+        søknadsdato: undefined,
+        sagtOppEllerRedusertStilling: undefined,
+        søkerFraBestemtMåned: undefined,
+      };
+    }
+
+    settDinSituasjon(oppdaterDinSituasjon);
     settDokumentasjonsbehov(spørsmål, svar, svarHuketAv);
   };
 
@@ -156,7 +162,7 @@ const MerOmDinSituasjon: React.FC = () => {
       stegtittel={hentTekst('stegtittel.dinSituasjon', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
-      mellomlagreStønad={mellomlagreOvergangsstønad}
+      mellomlagreStønad={mellomlagreSteg}
       routesStønad={RoutesOvergangsstonad}
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
@@ -165,7 +171,7 @@ const MerOmDinSituasjon: React.FC = () => {
           <CheckboxSpørsmål
             spørsmål={gjelderNoeAvDetteDeg(intl)}
             settValgteSvar={settDinSituasjonFelt}
-            valgteSvar={søknad.merOmDinSituasjon.gjelderDetteDeg.verdi}
+            valgteSvar={dinSituasjon.gjelderDetteDeg.verdi}
           />
         </KomponentGruppe>
         {dinSituasjon.gjelderDetteDeg.svarid.map((svarid, index) => {
@@ -182,10 +188,7 @@ const MerOmDinSituasjon: React.FC = () => {
         harValgtMinstEttAlternativ &&
         hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad) && (
           <SeksjonGruppe>
-            <HarSøkerSagtOppEllerRedusertStilling
-              dinSituasjon={dinSituasjon}
-              settDinSituasjon={settDinSituasjon}
-            />
+            <HarSøkerSagtOppEllerRedusertStilling />
           </SeksjonGruppe>
         )}
       {visNårSøkerDuStønadFra && (
