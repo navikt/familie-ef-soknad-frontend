@@ -1,5 +1,5 @@
 import constate from 'constate';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { sanerOmDegSteg } from './sanerOmDegSteg';
@@ -53,31 +53,26 @@ export const [OmDegProvider, useOmDeg] = constate(
       return mellomlagreSøknad(location.pathname, oppdatertSøknad);
     };
 
-    const oppdaterSøkerBorPåRegistrertAdresse = useCallback(
-      (søkerBorPåRegistrertAdresseSpørsmål?: ISpørsmålBooleanFelt) => {
-        settSøkerBorPåRegistrertAdresse(søkerBorPåRegistrertAdresseSpørsmål);
+    const oppdaterSøkerBorPåRegistrertAdresse = (
+      søkerBorPåRegistrertAdresseSpørsmål?: ISpørsmålBooleanFelt
+    ) => {
+      settSøkerBorPåRegistrertAdresse(søkerBorPåRegistrertAdresseSpørsmål);
+      settAdresseopplysninger(undefined);
 
-        settAdresseopplysninger(undefined);
+      if (søkerBorPåRegistrertAdresseSpørsmål?.verdi === false) {
+        settSivilstatus({});
+        settMedlemskap({});
+      }
+    };
 
-        if (søkerBorPåRegistrertAdresseSpørsmål?.verdi === false) {
-          settSivilstatus({});
-          settMedlemskap({});
-        }
-      },
-      []
-    );
+    const oppdaterAdresseopplysninger = (harMeldtAdresseEndringSpørsmål?: IAdresseopplysninger) => {
+      settAdresseopplysninger(harMeldtAdresseEndringSpørsmål);
 
-    const oppdaterAdresseopplysninger = useCallback(
-      (harMeldtAdresseEndringSpørsmål?: IAdresseopplysninger) => {
-        settAdresseopplysninger(harMeldtAdresseEndringSpørsmål);
-
-        if (harMeldtAdresseEndringSpørsmål?.harMeldtAdresseendring?.verdi === false) {
-          settSivilstatus({});
-          settMedlemskap({});
-        }
-      },
-      []
-    );
+      if (harMeldtAdresseEndringSpørsmål?.harMeldtAdresseendring?.verdi === false) {
+        settSivilstatus({});
+        settMedlemskap({});
+      }
+    };
 
     return {
       søkerBorPåRegistrertAdresse,
