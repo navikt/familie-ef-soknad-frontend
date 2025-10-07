@@ -24,12 +24,18 @@ export const Personopplysninger: React.FC = () => {
   const { søker } = søknad.person;
 
   const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+    const borPåRegistrertAdresse = hentBooleanFraValgtSvar(valgtSvar);
+
     settSøkerBorPåRegistrertAdresse({
       spørsmålid: spørsmål.søknadid,
       svarid: valgtSvar.id,
       label: hentTekst(spørsmål.tekstid, intl),
-      verdi: hentBooleanFraValgtSvar(valgtSvar),
+      verdi: borPåRegistrertAdresse,
     });
+
+    if (borPåRegistrertAdresse) {
+      settAdresseopplysninger(undefined);
+    }
   };
 
   const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {

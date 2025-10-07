@@ -87,6 +87,45 @@ describe('OmDegSteg, personopplysninger', () => {
       )
     ).toBeInTheDocument();
   });
+
+  test('Skal skjule adresseendring-spørsmål når bruker endrer svar fra nei til ja på borPåAdresse', async () => {
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du meldt adresseendring til Folkeregisteret?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Har du meldt adresseendring til Folkeregisteret?', 'Nei', screen, user);
+
+    expect(
+      screen.getByText((tekst) =>
+        tekst.includes('Du må ha meldt adresseendring til Folkeregisteret')
+      )
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Har du meldt adresseendring til Folkeregisteret?',
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText((tekst) =>
+        tekst.includes('Du må ha meldt adresseendring til Folkeregisteret')
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      })
+    ).toBeInTheDocument();
+  });
 });
 
 describe('OmDegSteg, sivilstatus', () => {
