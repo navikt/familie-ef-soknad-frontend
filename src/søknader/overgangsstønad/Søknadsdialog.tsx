@@ -21,7 +21,6 @@ import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
-import { MerOmDinSituasjonProvider } from './steg/6-meromsituasjon/MerOmDinSituasjonContext';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -78,14 +77,7 @@ const Søknadsdialog: FC = () => {
           path={'/din-situasjon'}
           element={
             <RedirectTilStart>
-              <MerOmDinSituasjonProvider
-                søknad={søknad}
-                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
-                mellomlagreMerOmDinSituasjonSteg={mellomlagreOverganggstønadSøknad}
-                settDokumentasjonsbehov={settDokumentasjonsbehov}
-              >
-                <MerOmDinSituasjon />
-              </MerOmDinSituasjonProvider>
+              <MerOmDinSituasjon />
             </RedirectTilStart>
           }
         />

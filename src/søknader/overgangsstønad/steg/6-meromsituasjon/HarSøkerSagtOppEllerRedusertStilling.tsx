@@ -1,5 +1,8 @@
 import React from 'react';
-import { ESagtOppEllerRedusertStilling } from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import {
+  ESagtOppEllerRedusertStilling,
+  IDinSituasjon,
+} from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -8,17 +11,23 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { isAfter, isBefore, subMonths } from 'date-fns';
 import { dagensDato, strengTilDato } from '../../../../utils/dato';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
-import { useMerOmDinSituasjon } from './MerOmDinSituasjonContext';
 
-const HarSøkerSagtOppEllerRedusertStilling: React.FC = () => {
+interface Props {
+  dinSituasjon: IDinSituasjon;
+  settDinSituasjon: (dinSituasjon: IDinSituasjon) => void;
+}
+
+const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
+  dinSituasjon,
+  settDinSituasjon,
+}) => {
   const intl = useLokalIntlContext();
-
-  const { settDokumentasjonsbehov, dinSituasjon, settDinSituasjon } = useMerOmDinSituasjon();
-
+  const { settDokumentasjonsbehov } = useOvergangsstønadSøknad();
   const {
     datoSagtOppEllerRedusertStilling,
     begrunnelseSagtOppEllerRedusertStilling,
@@ -32,7 +41,6 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC = () => {
       label: hentTekst(spørsmål.tekstid, intl),
       verdi: svar.svar_tekst,
     };
-
     if (
       valgtSvarNei &&
       (datoSagtOppEllerRedusertStilling || begrunnelseSagtOppEllerRedusertStilling)
@@ -50,7 +58,6 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC = () => {
         sagtOppEllerRedusertStilling: valgtSvar,
       });
     }
-
     settDokumentasjonsbehov(spørsmål, svar);
   };
 
