@@ -29,8 +29,11 @@ export const [BarnetilsynBarnaDineProvider, useBarnetilsynBarnaDine] = constate(
       const nyttBarn: IBarn = {
         ...detteBarnet,
         skalHaBarnepass: hentFeltObjekt('barnekort.skalHaBarnepass', skalHaBarnepassVerdi, intl),
-        ...(skalHaBarnepassVerdi && { barnepass: detteBarnet.barnepass }),
       };
+
+      if (!skalHaBarnepassVerdi) {
+        delete nyttBarn.barnepass;
+      }
 
       oppdaterBarnISøknaden(nyttBarn);
     };
