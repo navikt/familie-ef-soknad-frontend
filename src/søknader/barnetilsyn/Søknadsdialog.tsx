@@ -29,7 +29,6 @@ const SøknadsdialogBarnetilsyn: FC = () => {
     søknad,
     settSøknad,
     mellomlagretBarnetilsyn,
-    mellomlagreBarnetilsyn,
     mellomlagreBarnetilsyn2,
     oppdaterBarnISøknaden,
     oppdaterFlereBarnISøknaden,
