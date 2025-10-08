@@ -89,6 +89,7 @@ const MerOmDinSituasjon: React.FC = () => {
 
   const settDinSituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const spørsmålTekst = hentTekst(spørsmål.tekstid, intl);
+
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(
       dinSituasjon.gjelderDetteDeg,
       svarHuketAv,
