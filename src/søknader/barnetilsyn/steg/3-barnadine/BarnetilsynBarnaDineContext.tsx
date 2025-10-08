@@ -9,13 +9,13 @@ import { IRoute } from '../../../../models/routes';
 export interface Props {
   søknad: SøknadBarnetilsyn;
   oppdaterBarnISøknaden: (barn: IBarn) => void;
-  mellomlagreBarnetilsyn: (steg: string) => void;
+  mellomlagreSøknad: (steg: string, oppdatertSøknad: SøknadBarnetilsyn) => void;
   routes: IRoute[];
   pathOppsummering: string | undefined;
 }
 
 export const [BarnetilsynBarnaDineProvider, useBarnetilsynBarnaDine] = constate(
-  ({ søknad, oppdaterBarnISøknaden, mellomlagreBarnetilsyn, routes, pathOppsummering }: Props) => {
+  ({ søknad, oppdaterBarnISøknaden, mellomlagreSøknad, routes, pathOppsummering }: Props) => {
     const location = useLocation();
 
     const intl = useLokalIntlContext();
@@ -39,7 +39,7 @@ export const [BarnetilsynBarnaDineProvider, useBarnetilsynBarnaDine] = constate(
     };
 
     const mellomlagreSteg = () => {
-      return mellomlagreBarnetilsyn(location.pathname);
+      return mellomlagreSøknad(location.pathname, søknad);
     };
 
     return {

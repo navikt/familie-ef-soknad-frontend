@@ -135,7 +135,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
             <BarnetilsynBarnaDineProvider
               søknad={søknad}
               oppdaterBarnISøknaden={oppdaterBarnISøknaden}
-              mellomlagreBarnetilsyn={mellomlagreBarnetilsyn}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
               routes={RoutesBarnetilsyn}
               pathOppsummering={pathOppsummeringBarnetilsyn}
             >
