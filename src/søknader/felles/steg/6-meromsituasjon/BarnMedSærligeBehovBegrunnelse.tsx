@@ -1,19 +1,21 @@
 import React, { ChangeEvent } from 'react';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
-import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label, Textarea } from '@navikt/ds-react';
 import LesMerTekst from '../../../../components/LesMerTekst';
 import { hentTekstMedEnVariabel, storeForbokstaver } from '../../../../utils/teksthåndtering';
+import { useMerOmDinSituasjon } from '../../../overgangsstønad/steg/6-meromsituasjon/MerOmDinSituasjonContext';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 
 const BarnMedSærligeBehovBegrunnelse = () => {
   const intl = useLokalIntlContext();
-  const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
+
+  const { søknad, oppdaterBarnISøknaden } = useMerOmDinSituasjon();
+
   const barnMedSærligeBehov = søknad.person.barn.filter((barn: IBarn) => barn.særligeTilsynsbehov);
 
   const settBarnSærligBehovBegrunnelse = (barnMedSærligeBehovBegrunnelse: IBarn) => {
