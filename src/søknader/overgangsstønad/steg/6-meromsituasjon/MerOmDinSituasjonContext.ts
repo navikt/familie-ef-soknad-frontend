@@ -3,7 +3,6 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { IBarn } from '../../../../models/steg/barn';
 import constate from 'constate';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { sanerMerOmDinSituasjonSteg } from './sanerMerOmDinSituasjonSteg';
 
@@ -12,6 +11,7 @@ export interface Props {
   oppdaterSøknad: (søknad: SøknadOvergangsstønad) => void;
   mellomlagreMerOmDinSituasjonSteg: (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => void;
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
+  oppdaterBarnISøknaden: (oppdatertBarn: IBarn) => void;
 }
 
 export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
@@ -20,10 +20,16 @@ export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
     oppdaterSøknad,
     mellomlagreMerOmDinSituasjonSteg,
     settDokumentasjonsbehov,
+    oppdaterBarnISøknaden,
   }: Props) => {
     const location = useLocation();
 
-    const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad?.merOmDinSituasjon);
+    const dinSituasjon = søknad.merOmDinSituasjon;
+
+    const settDinSituasjon = (oppdatertDinSituasjon: IDinSituasjon) => {
+      const oppdatertSøknad = { ...søknad, merOmDinSituasjon: oppdatertDinSituasjon };
+      oppdaterSøknad(oppdatertSøknad);
+    };
 
     const mellomlagreSteg = () => {
       const oppdatertDinSituasjon = { ...dinSituasjon };
@@ -35,19 +41,6 @@ export const [MerOmDinSituasjonProvider, useMerOmDinSituasjon] = constate(
       oppdaterSøknad(sanertSøknad);
 
       return mellomlagreMerOmDinSituasjonSteg(location.pathname, sanertSøknad);
-    };
-
-    const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
-      const oppdatertSøknad = {
-        ...søknad,
-        person: {
-          ...søknad.person,
-          barn: søknad.person.barn.map((barn: IBarn) =>
-            barn.id === oppdatertBarn.id ? oppdatertBarn : barn
-          ),
-        },
-      };
-      oppdaterSøknad(oppdatertSøknad);
     };
 
     return {

@@ -83,6 +83,7 @@ const Søknadsdialog: FC = () => {
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 mellomlagreMerOmDinSituasjonSteg={mellomlagreOverganggstønadSøknad}
                 settDokumentasjonsbehov={settDokumentasjonsbehov}
+                oppdaterBarnISøknaden={oppdaterBarnISøknaden}
               >
                 <MerOmDinSituasjon />
               </MerOmDinSituasjonProvider>
