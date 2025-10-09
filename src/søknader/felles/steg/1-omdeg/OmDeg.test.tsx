@@ -87,6 +87,111 @@ describe('OmDegSteg, personopplysninger', () => {
       )
     ).toBeInTheDocument();
   });
+
+  test('Skal skjule adresseendring-spørsmål når bruker endrer svar fra nei til ja på borPåAdresse', async () => {
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du meldt adresseendring til Folkeregisteret?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Har du meldt adresseendring til Folkeregisteret?', 'Nei', screen, user);
+
+    expect(
+      screen.getByText((tekst) =>
+        tekst.includes('Du må ha meldt adresseendring til Folkeregisteret')
+      )
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Har du meldt adresseendring til Folkeregisteret?',
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText((tekst) =>
+        tekst.includes('Du må ha meldt adresseendring til Folkeregisteret')
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('Skal skjule og cleare sivilstatus og medlemskap når bruker endrer fra ja til nei-nei på adressespørsmål', async () => {
+    mockMellomlagretSøknadOvergangsstønad('/om-deg');
+    const { screen, user } = await navigerTilStegOvergangsstønad();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
+
+    await klikkRadioknapp(
+      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
+      'Nei',
+      screen,
+      user
+    );
+    await klikkRadioknapp(
+      'Hvorfor er du alene med barn?',
+      'Jeg er alene med barn på grunn av dødsfall',
+      screen,
+      user
+    );
+
+    await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
+    await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
+
+    expect(
+      screen.getByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('group', {
+        name: 'Har du oppholdt deg i Norge de siste 5 årene?',
+      })
+    ).toBeInTheDocument();
+
+    await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', {
+        name: 'Har du oppholdt deg i Norge de siste 5 årene?',
+      })
+    ).not.toBeInTheDocument();
+
+    await klikkRadioknapp('Har du meldt adresseendring til Folkeregisteret?', 'Nei', screen, user);
+
+    expect(
+      screen.queryByRole('group', {
+        name: 'Oppholder du og barnet/barna dere i Norge?',
+      })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', {
+        name: 'Har du oppholdt deg i Norge de siste 5 årene?',
+      })
+    ).not.toBeInTheDocument();
+  });
 });
 
 describe('OmDegSteg, sivilstatus', () => {

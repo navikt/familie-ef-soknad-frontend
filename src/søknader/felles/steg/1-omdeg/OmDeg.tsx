@@ -36,19 +36,21 @@ const OmDeg: FC = () => {
 
   const { søker } = søknad.person;
 
-  const SkalViseSivilstatusdialog =
+  const skalViseSivilstatusdialog =
     søkerBorPåRegistrertAdresse?.verdi === true ||
     adresseopplysninger?.harMeldtAdresseendring?.verdi === true ||
     søker?.erStrengtFortrolig;
 
   const skalViseMedlemskapsdialog =
-    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) && erÅrsakEnsligBesvart(sivilstatus);
+    skalViseSivilstatusdialog &&
+    erSivilstandSpørsmålBesvart(søker.sivilstand, sivilstatus) &&
+    erÅrsakEnsligBesvart(sivilstatus);
 
   const erAlleSpørsmålBesvart = erStegFerdigUtfylt(
     sivilstatus,
     søker.sivilstand,
     medlemskap,
-    SkalViseSivilstatusdialog
+    skalViseSivilstatusdialog
   );
 
   return (
@@ -62,7 +64,7 @@ const OmDeg: FC = () => {
       mellomlagreSteg={mellomlagreSteg}
     >
       <Personopplysninger />
-      {SkalViseSivilstatusdialog && <Sivilstatus />}
+      {skalViseSivilstatusdialog && <Sivilstatus />}
       {skalViseMedlemskapsdialog && <Medlemskap />}
     </Side>
   );
