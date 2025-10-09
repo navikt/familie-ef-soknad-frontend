@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import MerOmDinSituasjon from './steg/6-meromsituasjon/MerOmDinSituasjon';
-import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Kvittering from './steg/9-kvittering/Kvittering';
 import RedirectTilStart from './RedirectTilStart';
@@ -21,6 +20,8 @@ import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
+import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
+import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -61,7 +62,15 @@ const Søknadsdialog: FC = () => {
           path={'/dokumentasjon'}
           element={
             <RedirectTilStart>
-              <Dokumentasjon />
+              <DokumentasjonsProvider
+                stønadstype={Stønadstype.overgangsstønad}
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                routes={RoutesOvergangsstonad}
+              >
+                <Dokumentasjon />
+              </DokumentasjonsProvider>
             </RedirectTilStart>
           }
         />

@@ -28,14 +28,14 @@ interface Innsending {
   venter: boolean;
 }
 
-const SendSøknadKnapper: FC = () => {
+export const SendSøknadKnapper: FC = () => {
   const { søknad, settSøknad } = useOvergangsstønadSøknad();
   const location = useLocation();
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
   const nesteRoute = hentNesteRoute(RoutesOvergangsstonad, location.pathname);
-  const intl = useLokalIntlContext();
   const forrigeRoute = hentForrigeRoute(RoutesOvergangsstonad, location.pathname);
+  const intl = useLokalIntlContext();
 
   const [innsendingState, settinnsendingState] = React.useState<Innsending>({
     status: IStatus.KLAR_TIL_INNSENDING,
@@ -143,5 +143,3 @@ const SendSøknadKnapper: FC = () => {
     </>
   );
 };
-
-export default SendSøknadKnapper;

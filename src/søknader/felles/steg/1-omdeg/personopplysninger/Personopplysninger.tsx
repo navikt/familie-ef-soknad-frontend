@@ -31,6 +31,8 @@ export const Personopplysninger: React.FC = () => {
       label: hentTekst(spørsmål.tekstid, intl),
       verdi: hentBooleanFraValgtSvar(valgtSvar),
     });
+
+    settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
   const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
