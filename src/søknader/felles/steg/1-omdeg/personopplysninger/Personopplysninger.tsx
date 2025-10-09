@@ -12,7 +12,6 @@ import { useOmDeg } from '../OmDegContext';
 
 export const Personopplysninger: React.FC = () => {
   const intl = useLokalIntlContext();
-
   const {
     søknad,
     settDokumentasjonsbehov,
@@ -51,7 +50,9 @@ export const Personopplysninger: React.FC = () => {
   const visAdresseSpørsmål = !søker?.erStrengtFortrolig;
   const visMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse?.verdi === false;
   const visMeldtAdresseEndringAlert = adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
-  const visSøkerBorIkkePåAdresse = adresseopplysninger?.harMeldtAdresseendring?.verdi === false;
+  const visSøkerBorIkkePåAdresse =
+    adresseopplysninger?.harMeldtAdresseendring?.verdi === false &&
+    søkerBorPåRegistrertAdresse?.verdi === false;
 
   return (
     <VStack gap={'8'}>

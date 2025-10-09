@@ -6,8 +6,6 @@ import { sanerOmDegSteg } from './sanerOmDegSteg';
 import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
 import { IRoute } from '../../../../models/routes';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
-import { IAdresseopplysninger } from '../../../../models/steg/adresseopplysninger';
 
 export interface Props<T extends Søknad> {
   stønadstype: Stønadstype;
@@ -53,32 +51,11 @@ export const [OmDegProvider, useOmDeg] = constate(
       return mellomlagreSøknad(location.pathname, oppdatertSøknad);
     };
 
-    const oppdaterSøkerBorPåRegistrertAdresse = (
-      søkerBorPåRegistrertAdresseSpørsmål?: ISpørsmålBooleanFelt
-    ) => {
-      settSøkerBorPåRegistrertAdresse(søkerBorPåRegistrertAdresseSpørsmål);
-      settAdresseopplysninger(undefined);
-
-      if (søkerBorPåRegistrertAdresseSpørsmål?.verdi === false) {
-        settSivilstatus({});
-        settMedlemskap({});
-      }
-    };
-
-    const oppdaterAdresseopplysninger = (harMeldtAdresseEndringSpørsmål?: IAdresseopplysninger) => {
-      settAdresseopplysninger(harMeldtAdresseEndringSpørsmål);
-
-      if (harMeldtAdresseEndringSpørsmål?.harMeldtAdresseendring?.verdi === false) {
-        settSivilstatus({});
-        settMedlemskap({});
-      }
-    };
-
     return {
       søkerBorPåRegistrertAdresse,
-      settSøkerBorPåRegistrertAdresse: oppdaterSøkerBorPåRegistrertAdresse,
+      settSøkerBorPåRegistrertAdresse,
       adresseopplysninger,
-      settAdresseopplysninger: oppdaterAdresseopplysninger,
+      settAdresseopplysninger,
       sivilstatus,
       settSivilstatus,
       medlemskap,
