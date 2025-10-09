@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
   sendInnBarnetilsynSøknad,
@@ -15,12 +15,12 @@ import { SøknadBarnetilsyn } from '../../models/søknad';
 import { IBarn } from '../../../../models/steg/barn';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
-import { ERouteSkolepenger, RoutesSkolepenger } from '../../../skolepenger/routing/routes';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 
 interface Innsending {
   status: string;
@@ -28,11 +28,7 @@ interface Innsending {
   venter: boolean;
 }
 
-const validerSøkerBosattINorgeSisteFemÅr = (søknad: SøknadBarnetilsyn) => {
-  return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
-};
-
-const SendSøknadKnapper: FC = () => {
+export const SendSøknadKnapper: FC = () => {
   const { søknad, settSøknad } = useBarnetilsynSøknad();
   const location = useLocation();
   const navigate = useNavigate();
@@ -108,7 +104,7 @@ const SendSøknadKnapper: FC = () => {
             {hentTekst('dokumentasjon.alert.gåTilbake', intl)}{' '}
             <Link
               to={{
-                pathname: hentPath(RoutesSkolepenger, ERouteSkolepenger.OmDeg),
+                pathname: hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg),
               }}
               state={{ kommerFraOppsummering: true }}
             >
@@ -150,5 +146,3 @@ const SendSøknadKnapper: FC = () => {
     </>
   );
 };
-
-export default SendSøknadKnapper;
