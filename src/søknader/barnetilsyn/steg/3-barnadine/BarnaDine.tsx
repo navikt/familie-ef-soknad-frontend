@@ -1,12 +1,9 @@
 import React from 'react';
-import { hentFeltObjekt } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
+import { useBarnetilsynBarnaDine } from './BarnetilsynBarnaDineContext';
 import BarnMedISøknad from './BarnMedISøknad';
 import { Barnekort } from '../../../felles/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { Alert, HStack, Label, ReadMore, VStack } from '@navikt/ds-react';
@@ -14,26 +11,11 @@ import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 
 export const BarnaDine: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
+
+  const { søknad, toggleSkalHaBarnepass, mellomlagreSteg, routes, pathOppsummering } =
+    useBarnetilsynBarnaDine();
+
   const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
-
-  const toggleSkalHaBarnepass = (id: string) => {
-    const detteBarnet = søknad.person.barn.find((b: IBarn) => b.id === id);
-
-    if (!detteBarnet) return;
-
-    const skalHaBarnepassVerdi = !detteBarnet.skalHaBarnepass?.verdi;
-    const nyttBarn: IBarn = {
-      ...detteBarnet,
-      skalHaBarnepass: hentFeltObjekt('barnekort.skalHaBarnepass', skalHaBarnepassVerdi, intl),
-    };
-
-    if (!skalHaBarnepassVerdi) {
-      delete nyttBarn.barnepass;
-    }
-
-    oppdaterBarnISøknaden(nyttBarn);
-  };
 
   const harValgtMinstEttBarn = søknad.person.barn.some((b: IBarn) => b.skalHaBarnepass?.verdi);
 
@@ -45,9 +27,9 @@ export const BarnaDine: React.FC = () => {
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={harValgtMinstEttBarn}
-      routesStønad={RoutesBarnetilsyn}
-      mellomlagreStønad={mellomlagreBarnetilsyn}
-      tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
+      routesStønad={routes}
+      mellomlagreStønad={mellomlagreSteg}
+      tilbakeTilOppsummeringPath={pathOppsummering}
     >
       <VStack gap={'6'}>
         <VStack>
