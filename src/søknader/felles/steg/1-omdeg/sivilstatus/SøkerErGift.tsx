@@ -12,7 +12,7 @@ import { hentTekst } from '../../../../../utils/teksthåndtering';
 export const SøkerErGift: React.FC = () => {
   const intl = useLokalIntlContext();
   const separasjonsSpørsmål: ISpørsmål = harSøktSeparasjonSpørsmål(intl);
-  const { sivilstatus, settSivilstatus } = useOmDeg();
+  const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
   const { harSøktSeparasjon } = sivilstatus;
 
   const settHarSøktSeparasjon = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
@@ -23,6 +23,8 @@ export const SøkerErGift: React.FC = () => {
         verdi: hentBooleanFraValgtSvar(valgtSvar),
       },
     });
+
+    settDokumentasjonsbehov(spørsmål, valgtSvar);
   };
 
   const visSøkerHarSøktSeperasjonSpørsmål = harSøktSeparasjon?.verdi;

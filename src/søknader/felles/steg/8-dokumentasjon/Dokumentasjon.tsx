@@ -1,54 +1,48 @@
 import React, { useEffect } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
-import { useLocation } from 'react-router-dom';
 import { usePrevious } from '../../../../utils/hooks';
 import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg';
-import SendSøknadKnapper from './SendBarnetilsynSøknad';
-import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import { IVedlegg } from '../../../../models/steg/vedlegg';
-import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { SøknadBarnetilsyn } from '../../models/søknad';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
 import * as Sentry from '@sentry/browser';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { DokumentasjonBeskrivelse } from '../../../felles/steg/8-dokumentasjon/DokumentasjonBeskrivelse';
+import { DokumentasjonBeskrivelse } from './DokumentasjonBeskrivelse';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { IVedlegg } from '../../../../models/steg/vedlegg';
+import { useDokumentasjon } from './DokumentasjonsContext';
+import { Stønadstype } from '../../../../models/søknad/stønadstyper';
+import { SendSøknadKnapper as SendSøknadKnapperOvergangsstønad } from '../../../overgangsstønad/steg/8-dokumentasjon/SendSøknad';
+import { SendSøknadKnapper as SendSøknadKnapperBarnetilsyn } from '../../../barnetilsyn/steg/8-dokumentasjon/SendBarnetilsynSøknad';
+import { SendSøknadKnapper as SendSøknadKnapperSkolepenger } from '../../../skolepenger/steg/7-dokumentasjon/SendSkolepengerSøknad';
 
 const Dokumentasjon: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { søknad, settSøknad, mellomlagreBarnetilsyn } = useBarnetilsynSøknad();
-  const location = useLocation();
-  const { dokumentasjonsbehov } = søknad;
-  const sidetittel: string = hentTekst('dokumentasjon.tittel', intl);
-  const forrigeDokumentasjonsbehov = usePrevious(søknad.dokumentasjonsbehov);
+
+  const { stønadstype, mellomlagreSteg, routes, dokumentasjonsbehov, settDokumentasjonsbehov } =
+    useDokumentasjon();
+
+  const forrigeDokumentasjonsbehov = usePrevious(dokumentasjonsbehov);
 
   const oppdaterDokumentasjon = (
     dokumentasjonsid: string,
     opplastedeVedlegg: IVedlegg[] | undefined,
     harSendtInnTidligere: boolean
   ) => {
-    settSøknad((prevSoknad: SøknadBarnetilsyn) => {
-      const dokumentasjonMedVedlegg = prevSoknad.dokumentasjonsbehov.map((dok) => {
+    settDokumentasjonsbehov((dokumentasjon) =>
+      dokumentasjon.map((dok) => {
         return dok.id === dokumentasjonsid
-          ? {
-              ...dok,
-              opplastedeVedlegg: opplastedeVedlegg,
-              harSendtInn: harSendtInnTidligere,
-            }
+          ? { ...dok, opplastedeVedlegg: opplastedeVedlegg, harSendtInn: harSendtInnTidligere }
           : dok;
-      });
-      return { ...prevSoknad, dokumentasjonsbehov: dokumentasjonMedVedlegg };
-    });
+      })
+    );
   };
 
   // Fjern vedlegg som evt. har blitt slettet i familie-dokument
   useEffect(() => {
-    søknad.dokumentasjonsbehov.forEach((dokBehov: IDokumentasjon) => {
+    dokumentasjonsbehov.forEach((dokBehov: IDokumentasjon) => {
       if (dokBehov.opplastedeVedlegg) {
         const gyldigeVedlegg = dokBehov.opplastedeVedlegg.filter((vedlegg) =>
           erVedleggstidspunktGyldig(vedlegg.tidspunkt)
@@ -62,28 +56,26 @@ const Dokumentasjon: React.FC = () => {
         }
       }
     });
-    // eslint-disable-next-line
   }, []);
 
-  const debounceMellomlagreBarnetilsyn = useDebouncedCallback((pathName) => {
-    mellomlagreBarnetilsyn(pathName);
+  const debounceMellomlagre = useDebouncedCallback(() => {
+    mellomlagreSteg();
   }, 500);
 
   useEffect(() => {
     if (forrigeDokumentasjonsbehov !== undefined) {
-      debounceMellomlagreBarnetilsyn(location.pathname);
+      debounceMellomlagre();
     }
-    // eslint-disable-next-line
-  }, [søknad.dokumentasjonsbehov]);
+  }, [dokumentasjonsbehov]);
 
-  const harDokumentasjonsbehov = søknad.dokumentasjonsbehov.length > 0;
+  const harDokumentasjonsbehov = dokumentasjonsbehov.length > 0;
   return (
     <Side
-      stønadstype={Stønadstype.barnetilsyn}
-      stegtittel={sidetittel}
+      stønadstype={stønadstype}
+      stegtittel={hentTekst('dokumentasjon.tittel', intl)}
       navigasjonState={NavigasjonState.skjulKnapper}
       erSpørsmålBesvart={false}
-      routesStønad={RoutesBarnetilsyn}
+      routesStønad={routes}
     >
       <DokumentasjonBeskrivelse harDokumentasjonsbehov={harDokumentasjonsbehov} />
       <SeksjonGruppe>
@@ -99,7 +91,9 @@ const Dokumentasjon: React.FC = () => {
             );
           })}
       </SeksjonGruppe>
-      <SendSøknadKnapper />
+      {stønadstype === Stønadstype.overgangsstønad && <SendSøknadKnapperOvergangsstønad />}
+      {stønadstype === Stønadstype.barnetilsyn && <SendSøknadKnapperBarnetilsyn />}
+      {stønadstype === Stønadstype.skolepenger && <SendSøknadKnapperSkolepenger />}
     </Side>
   );
 };

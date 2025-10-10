@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Forside from './Forside';
 import { BarnaDine } from './steg/3-barnadine/BarnaDine';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
-import Dokumentasjon from './steg/8-dokumentasjon/Dokumentasjon';
 import Kvittering from './steg/9-kvittering/Kvittering';
 import Barnepass from './steg/6-barnepass/Barnepass';
 import RedirectTilStart from './RedirectTilStart';
@@ -21,6 +20,8 @@ import { BarnepassProvider } from './steg/6-barnepass/BarnepassContext';
 import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
+import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
+import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import { BarnetilsynBarnaDineProvider } from './steg/3-barnadine/BarnetilsynBarnaDineContext';
 
@@ -62,7 +63,15 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/dokumentasjon'}
         element={
           <RedirectTilStart>
-            <Dokumentasjon />
+            <DokumentasjonsProvider
+              stønadstype={Stønadstype.barnetilsyn}
+              søknad={søknad}
+              oppdaterSøknad={oppdaterBarnetilsynSøknad}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+            >
+              <Dokumentasjon />
+            </DokumentasjonsProvider>
           </RedirectTilStart>
         }
       />
