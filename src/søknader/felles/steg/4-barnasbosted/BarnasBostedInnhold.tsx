@@ -5,13 +5,13 @@ import BarnetsBostedLagtTil from './BarnetsBostedLagtTil';
 import { BarnetsBostedRedigerbar } from './BarnetsBostedRedigerbar';
 import { IBarn } from '../../../../models/steg/barn';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import BarneHeader from '../../../../components/BarneHeader';
 import {
   antallBarnMedForeldreUtfylt,
   hentIndexFørsteBarnSomIkkeErUtfylt,
 } from '../../../../utils/barn';
 import { BodyShort } from '@navikt/ds-react';
 import { useBarnasBosted } from './BarnasBostedContext';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   if (!ref || !ref.current) return;
