@@ -7,16 +7,12 @@ import { useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, Box, Heading } from '@navikt/ds-react';
-import styled from 'styled-components';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
 import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
-
-const StyledAlert = styled(Alert)`
-  margin-bottom: 2rem;
-`;
+import styles from '../../components/cssModules/Alert.module.css';
 
 const Forside: React.FC = () => {
   const { person } = usePersonContext();
@@ -61,12 +57,12 @@ const Forside: React.FC = () => {
           </Heading>
 
           {erDagensDatoMellomMaiOgAugust && (
-            <StyledAlert variant="info">
+            <Alert variant="info" className={styles.alert}>
               <Heading spacing size="small" level="3">
                 {hentTekstMedEnVariabel('skolepenger.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>
               {hentTekst('skolepenger.søkerFraAugustInnhold', intl)}
-            </StyledAlert>
+            </Alert>
           )}
 
           {kanBrukeMellomlagretSøknad && mellomlagretSkolepenger ? (

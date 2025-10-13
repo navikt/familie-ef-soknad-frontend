@@ -1,6 +1,5 @@
 import { Alert, Box, Heading } from '@navikt/ds-react';
 import React from 'react';
-import styled from 'styled-components';
 import Environment from '../../Environment';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import FortsettSøknad from '../../components/forside/FortsettSøknad';
@@ -13,10 +12,7 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { BarnetilsynInformasjon } from './BarnetilsynInformasjon';
 import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
-
-const StyledAlert = styled(Alert)`
-  margin-bottom: 2rem;
-`;
+import styles from '../../components/cssModules/Alert.module.css';
 
 const Forside: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -62,12 +58,12 @@ const Forside: React.FC = () => {
           </Heading>
 
           {erDagensDatoMellomMaiOgAugust && (
-            <StyledAlert variant="info">
+            <Alert variant="info" className={styles.alert}>
               <Heading spacing size="small" level="3">
                 {hentTekstMedEnVariabel('barnetilsyn.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>
               {hentTekst('barnetilsyn.søkerFraAugustInnhold', intl)}
-            </StyledAlert>
+            </Alert>
           )}
 
           {kanBrukeMellomlagretSøknad && mellomlagretBarnetilsyn ? (
