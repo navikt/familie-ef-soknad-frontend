@@ -1,6 +1,5 @@
 import React from 'react';
 import KomponentGruppe from '../gruppe/KomponentGruppe';
-import LesMerTekst from '../LesMerTekst';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import { IDatoFelt, ISpørsmålBooleanFelt } from '../../models/søknad/søknadsfelter';
@@ -12,6 +11,7 @@ import { Label, RadioGroup } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../dato/GyldigeDatoer';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {

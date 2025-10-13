@@ -1,0 +1,10 @@
+.åpenHjelpetekst :global(.navds-body-short) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem !important;
+ }
+
+.halvåpenHjelpetekst :global(.navds-body-short) {
+    margin-top: 1rem;
+    font-size: 1rem !important;
+ }

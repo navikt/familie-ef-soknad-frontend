@@ -1,23 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { hentHTMLTekst, hentTekst } from '../utils/teksthåndtering';
-import { useLokalIntlContext } from '../context/LokalIntlContext';
 import { BodyShort, ReadMore } from '@navikt/ds-react';
-
-const StyledÅpenHjelpetekst = styled.div`
-  .navds-body-short {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-size: 1rem !important;
-  }
-`;
-
-const StyledHalvåpenHjelpetekst = styled.div`
-  .navds-body-short {
-    margin-top: 1rem;
-    font-size: 1rem !important;
-  }
-`;
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
+import styles from './LesMerTekst.module.css';
 
 interface Props {
   halvåpenTekstid?: string;
@@ -28,7 +13,7 @@ interface Props {
   testID?: string;
 }
 
-const LesMerTekst: React.FC<Props> = ({
+export const LesMerTekst: React.FC<Props> = ({
   halvåpenTekstid,
   åpneTekstid,
   innholdTekstid,
@@ -40,20 +25,20 @@ const LesMerTekst: React.FC<Props> = ({
 
   if (åpneTekstid === '') {
     return (
-      <StyledÅpenHjelpetekst>
+      <div className={styles.åpenHjelpetekst}>
         <BodyShort>
           {innholdTekst && innholdTekst}
           {!innholdTekst && innholdTekstid && hentHTMLTekst(innholdTekstid, intl)}
         </BodyShort>
-      </StyledÅpenHjelpetekst>
+      </div>
     );
   } else {
     return (
       <>
         {halvåpenTekstid && (
-          <StyledHalvåpenHjelpetekst>
+          <div className={styles.halvåpenHjelpetekst}>
             <BodyShort>{hentTekst(halvåpenTekstid, intl)}</BodyShort>
-          </StyledHalvåpenHjelpetekst>
+          </div>
         )}
         <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
           <BodyShort>
@@ -66,5 +51,3 @@ const LesMerTekst: React.FC<Props> = ({
     );
   }
 };
-
-export default LesMerTekst;
