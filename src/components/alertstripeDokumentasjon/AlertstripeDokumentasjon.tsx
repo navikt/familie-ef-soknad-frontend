@@ -1,37 +1,15 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import { BodyShort } from '@navikt/ds-react';
 import { FilIkon } from '../../assets/FilIkon';
-
-const StyledAlertstripe = styled.div`
-  padding-top: 2rem;
-  display: flex;
-  align-content: center;
-  .navds-body-short {
-    font-size: 1rem;
-  }
-
-  .ikon {
-    margin-right: 0.75rem;
-    display: flex;
-    top: 1rem;
-    flex-shrink: 0;
-  }
-  .tekst {
-    margin: auto 0;
-    max-width: 37.5rem;
-    display: block;
-    flex: 1 1;
-  }
-`;
+import styles from './AlertStripeDokumentasjon.module.css';
 
 export const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
-    <StyledAlertstripe>
-      <FilIkon className={'ikon'} />
-      <div className={'tekst'}>
+    <div className={styles.alertstripe}>
+      <FilIkon className={styles.ikon} />
+      <div className={styles.tekst}>
         <BodyShort>{children}</BodyShort>
       </div>
-    </StyledAlertstripe>
+    </div>
   );
 };
