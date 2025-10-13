@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { FilIkon } from '../assets/FilIkon';
 import { BodyShort } from '@navikt/ds-react';
+import { FilIkon } from '../../assets/FilIkon';
 
 const StyledAlertstripe = styled.div`
   padding-top: 2rem;
@@ -25,7 +25,7 @@ const StyledAlertstripe = styled.div`
   }
 `;
 
-const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
+export const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <StyledAlertstripe>
       <FilIkon className={'ikon'} />
@@ -35,5 +35,3 @@ const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children
     </StyledAlertstripe>
   );
 };
-
-export default AlertStripeDokumentasjon;

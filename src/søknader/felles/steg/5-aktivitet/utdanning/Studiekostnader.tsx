@@ -6,9 +6,9 @@ import { hentHTMLTekst, hentTekst } from '../../../../../utils/teksthåndtering'
 import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import styled from 'styled-components';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
+import { AlertStripeDokumentasjon } from '../../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
 
 interface Props {
   utdanning: DetaljertUtdanning;

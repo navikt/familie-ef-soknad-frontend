@@ -12,10 +12,10 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { isAfter, isBefore, subMonths } from 'date-fns';
 import { dagensDato, strengTilDato } from '../../../../utils/dato';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert, Textarea } from '@navikt/ds-react';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
 
 interface Props {
   dinSituasjon: IDinSituasjon;

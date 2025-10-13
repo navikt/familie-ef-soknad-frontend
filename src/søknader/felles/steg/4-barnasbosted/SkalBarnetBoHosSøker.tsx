@@ -14,9 +14,9 @@ import {
   hentSpørsmålTekstMedNavnEllerBarn,
 } from '../../../../utils/barn';
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
 import { useBarnasBosted } from './BarnasBostedContext';
+import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
 
 interface Props {
   barn: IBarn;
