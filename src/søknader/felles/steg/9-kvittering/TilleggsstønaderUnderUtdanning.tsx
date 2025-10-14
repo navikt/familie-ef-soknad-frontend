@@ -6,9 +6,10 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
 
-const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stønadstype }) => {
+export const TilleggsstønaderUnderUtdanning: FC<{ stønadstype: Stønadstype }> = ({
+  stønadstype,
+}) => {
   const intl = useLokalIntlContext();
   return (
     <SeksjonGruppe>
@@ -43,9 +44,7 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stø
       </FeltGruppe>
 
       <FeltGruppe>
-        <StyledBeskrivelse>
-          <BodyShort>{hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader', intl)}</BodyShort>
-        </StyledBeskrivelse>
+        <BodyShort>{hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader', intl)}</BodyShort>
       </FeltGruppe>
 
       <BodyShort>
@@ -61,5 +60,3 @@ const RegistrerDegSomArbeidssøker: FC<{ stønadstype: Stønadstype }> = ({ stø
     </SeksjonGruppe>
   );
 };
-
-export default RegistrerDegSomArbeidssøker;

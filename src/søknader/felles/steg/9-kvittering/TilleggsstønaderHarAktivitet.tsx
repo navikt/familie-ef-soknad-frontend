@@ -2,11 +2,10 @@ import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
-import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
-const TilleggsstønaderHarAktivitet: FC = () => {
+export const TilleggsstønaderHarAktivitet: FC = () => {
   const intl = useLokalIntlContext();
   return (
     <SeksjonGruppe>
@@ -16,11 +15,9 @@ const TilleggsstønaderHarAktivitet: FC = () => {
         </Heading>
       </FeltGruppe>
       <FeltGruppe>
-        <StyledBeskrivelse>
-          <BodyShort>
-            {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
-          </BodyShort>
-        </StyledBeskrivelse>
+        <BodyShort>
+          {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
+        </BodyShort>
       </FeltGruppe>
       <BodyShort>
         <Link href={'https://www.nav.no/barnetilsyn-enslig'}>
@@ -35,5 +32,3 @@ const TilleggsstønaderHarAktivitet: FC = () => {
     </SeksjonGruppe>
   );
 };
-
-export default TilleggsstønaderHarAktivitet;
