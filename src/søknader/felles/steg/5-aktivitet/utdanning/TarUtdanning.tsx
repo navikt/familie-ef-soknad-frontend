@@ -6,7 +6,6 @@ import {
 } from '../../../../../models/steg/aktivitet/utdanning';
 import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
 import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
-import LesMerTekst from '../../../../../components/LesMerTekst';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import NårSkalDuVæreElevEllerStudent from './NårSkalDuElevEllerStudent';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
@@ -30,6 +29,7 @@ import { Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
+import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
   margin-top: -2rem;

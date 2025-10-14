@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import LesMerTekst from '../LesMerTekst';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentHTMLTekst } from '../../utils/teksthåndtering';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledComponent = styled.div`
   display: grid;

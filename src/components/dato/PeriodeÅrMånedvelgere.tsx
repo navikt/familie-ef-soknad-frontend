@@ -3,7 +3,6 @@ import Feilmelding from '../feil/Feilmelding';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
-import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
@@ -15,6 +14,7 @@ import {
 } from '../../utils/gyldigeDatoerUtils';
 import { Label } from '@navikt/ds-react';
 import { GyldigeDatoer } from './GyldigeDatoer';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const PeriodeGruppe = styled.div`
   display: grid;
