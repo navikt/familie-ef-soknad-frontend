@@ -3,7 +3,6 @@ import { UnderUtdanning, Utdanning } from '../../../../../models/steg/aktivitet/
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import LesMerTekst from '../../../../../components/LesMerTekst';
 import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import RegistrerUtdanning from './RegistrerUtdanning';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
@@ -15,6 +14,7 @@ import { erTidligereUtdanningFerdigUtfylt } from '../../../../../helpers/steg/ak
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, Label } from '@navikt/ds-react';
+import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
 
 interface Props {
   underUtdanning: UnderUtdanning;

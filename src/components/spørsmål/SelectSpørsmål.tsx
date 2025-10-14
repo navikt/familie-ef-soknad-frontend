@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LesMerTekst from '../LesMerTekst';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Select } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 interface Props {
   spørsmål: ISpørsmål;
