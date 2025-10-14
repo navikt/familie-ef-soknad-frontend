@@ -2,7 +2,6 @@ import { FC } from 'react';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { BodyShort, Heading, Link } from '@navikt/ds-react';
-import { StyledBeskrivelse } from '../../../../components/StyledBeskrivelse';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
@@ -16,11 +15,9 @@ const TilleggsstønaderArbeidssøker: FC = () => {
         </Heading>
       </FeltGruppe>
       <FeltGruppe>
-        <StyledBeskrivelse>
-          <BodyShort>
-            {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.arbeidssøker', intl)}
-          </BodyShort>
-        </StyledBeskrivelse>
+        <BodyShort>
+          {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.arbeidssøker', intl)}
+        </BodyShort>
       </FeltGruppe>
       <BodyShort>
         <Link href={'https://www.nav.no/tilleggsstonader-enslig'}>
