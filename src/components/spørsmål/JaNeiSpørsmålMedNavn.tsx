@@ -29,7 +29,7 @@ interface Props {
   valgtSvar: boolean | undefined;
 }
 
-const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
+export const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
   spørsmål,
   spørsmålTekst,
   onChange,
@@ -68,7 +68,6 @@ const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
         description={
           spørsmål.lesmer && (
             <LesMerTekst
-              halvåpenTekstid={spørsmål.lesmer.halvåpenTekstid}
               åpneTekstid={spørsmål.lesmer.headerTekstid}
               innholdTekstid={spørsmål.lesmer.innholdTekstid}
             />
@@ -94,5 +93,3 @@ const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
     </StyledJaNeiSpørsmål>
   );
 };
-
-export default JaNeiSpørsmålMedNavn;

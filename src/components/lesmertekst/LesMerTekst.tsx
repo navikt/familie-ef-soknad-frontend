@@ -1,11 +1,9 @@
 import React from 'react';
-import { BodyShort, ReadMore } from '@navikt/ds-react';
+import { BodyShort, ReadMore, VStack } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
-import styles from './LesMerTekst.module.css';
 
 interface Props {
-  halvåpenTekstid?: string;
   åpneTekstid: string;
   innholdTekstid?: string;
   innholdTekst?: string | React.ReactNode;
@@ -14,7 +12,6 @@ interface Props {
 }
 
 export const LesMerTekst: React.FC<Props> = ({
-  halvåpenTekstid,
   åpneTekstid,
   innholdTekstid,
   innholdTekst,
@@ -25,21 +22,16 @@ export const LesMerTekst: React.FC<Props> = ({
 
   if (åpneTekstid === '') {
     return (
-      <div className={styles.åpenHjelpetekst}>
-        <BodyShort>
+      <VStack gap={'4'}>
+        <BodyShort size={'small'}>
           {innholdTekst && innholdTekst}
           {!innholdTekst && innholdTekstid && hentHTMLTekst(innholdTekstid, intl)}
         </BodyShort>
-      </div>
+      </VStack>
     );
   } else {
     return (
       <>
-        {halvåpenTekstid && (
-          <div className={styles.halvåpenHjelpetekst}>
-            <BodyShort>{hentTekst(halvåpenTekstid, intl)}</BodyShort>
-          </div>
-        )}
         <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
           <BodyShort>
             {innholdTekst && innholdTekst}
