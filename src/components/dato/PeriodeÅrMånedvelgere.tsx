@@ -3,7 +3,6 @@ import Feilmelding from '../feil/Feilmelding';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
-import styled from 'styled-components';
 import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
 import {
@@ -12,30 +11,9 @@ import {
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
 } from '../../utils/gyldigeDatoerUtils';
-import { Label } from '@navikt/ds-react';
+import { HGrid, Label } from '@navikt/ds-react';
 import { GyldigeDatoer } from './GyldigeDatoer';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
-
-const PeriodeGruppe = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, min-content);
-  grid-template-rows: repeat(2, min-content);
-  grid-gap: 2rem;
-
-  .feilmelding {
-    grid-column: 1/3;
-  }
-
-  @media (max-width: 420px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 2rem;
-
-    .feilmelding {
-      grid-column: 1/2;
-    }
-  }
-`;
 
 interface Props {
   tekst: string;
@@ -49,7 +27,7 @@ interface Props {
   testIder?: string[];
 }
 
-const PeriodeÅrMånedvelgere: FC<Props> = ({
+export const PeriodeÅrMånedvelgere: FC<Props> = ({
   periode,
   hjelpetekst,
   settDato,
@@ -120,38 +98,41 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
           />
         )}
       </FeltGruppe>
-      <PeriodeGruppe aria-live="polite">
-        <>
-          <MånedÅrVelger
-            settDato={(e) => settPeriode(e, EPeriode.fra)}
-            valgtDato={
-              periode.fra.verdi && periode.fra.verdi !== ''
-                ? strengTilDato(periode.fra.verdi)
-                : undefined
-            }
-            tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
-            gyldigeDatoer={gyldigeDatoer}
-            testId={testIder ? testIder[0] : ''}
-          />
+      <HGrid
+        gap={'8'}
+        columns={{ xs: 1, sm: 'max-content max-content' }}
+        align={'start'}
+        aria-live="polite"
+      >
+        <MånedÅrVelger
+          settDato={(e) => settPeriode(e, EPeriode.fra)}
+          valgtDato={
+            periode.fra.verdi && periode.fra.verdi !== ''
+              ? strengTilDato(periode.fra.verdi)
+              : undefined
+          }
+          tekstid={fomTekstid ? fomTekstid : 'periode.fra'}
+          gyldigeDatoer={gyldigeDatoer}
+          testId={testIder ? testIder[0] : ''}
+        />
 
-          <MånedÅrVelger
-            settDato={(e) => settPeriode(e, EPeriode.til)}
-            valgtDato={
-              periode.til.verdi && periode.til.verdi !== ''
-                ? strengTilDato(periode.til.verdi)
-                : undefined
-            }
-            tekstid={tomTekstid ? tomTekstid : 'periode.til'}
-            gyldigeDatoer={gyldigeDatoer}
-            testId={testIder ? testIder[1] : ''}
-          />
-        </>
+        <MånedÅrVelger
+          settDato={(e) => settPeriode(e, EPeriode.til)}
+          valgtDato={
+            periode.til.verdi && periode.til.verdi !== ''
+              ? strengTilDato(periode.til.verdi)
+              : undefined
+          }
+          tekstid={tomTekstid ? tomTekstid : 'periode.til'}
+          gyldigeDatoer={gyldigeDatoer}
+          testId={testIder ? testIder[1] : ''}
+        />
         {feilmelding && feilmelding !== '' && (
-          <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
+          <div style={{ gridColumn: '1/-1' }}>
+            <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
+          </div>
         )}
-      </PeriodeGruppe>
+      </HGrid>
     </>
   );
 };
-
-export default PeriodeÅrMånedvelgere;
