@@ -12,7 +12,6 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
 import { BarnetilsynInformasjon } from './BarnetilsynInformasjon';
 import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
-import styles from '../../components/cssModules/Alert.module.css';
 
 const Forside: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -58,7 +57,7 @@ const Forside: React.FC = () => {
           </Heading>
 
           {erDagensDatoMellomMaiOgAugust && (
-            <Alert variant="info" className={styles.alert}>
+            <Alert variant="info" style={{ marginBottom: '2rem' }}>
               <Heading spacing size="small" level="3">
                 {hentTekstMedEnVariabel('barnetilsyn.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>

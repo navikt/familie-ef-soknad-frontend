@@ -12,7 +12,6 @@ import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
 import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
-import styles from '../../components/cssModules/Alert.module.css';
 
 const Forside: React.FC = () => {
   const { person } = usePersonContext();
@@ -57,7 +56,7 @@ const Forside: React.FC = () => {
           </Heading>
 
           {erDagensDatoMellomMaiOgAugust && (
-            <Alert variant="info" className={styles.alert}>
+            <Alert variant="info" style={{ marginBottom: '2rem' }}>
               <Heading spacing size="small" level="3">
                 {hentTekstMedEnVariabel('skolepenger.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>
