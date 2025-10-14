@@ -14,11 +14,11 @@ import {
   IArbeidsgiver,
 } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 const StyledArbeidsgiver = styled.div`
   display: flex;

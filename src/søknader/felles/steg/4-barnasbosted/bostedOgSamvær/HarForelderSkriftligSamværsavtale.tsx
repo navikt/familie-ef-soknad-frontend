@@ -8,9 +8,9 @@ import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsva
 import { IBarn } from '../../../../../models/steg/barn';
 import MultiSvarSpørsmålMedNavn from '../../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   forelder: IForelder;

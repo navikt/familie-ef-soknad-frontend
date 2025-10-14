@@ -10,10 +10,10 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { årsakBarnepass } from './BarnepassConfig';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import { Alert } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useBarnepass } from './BarnepassContext';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   barn: IBarn;

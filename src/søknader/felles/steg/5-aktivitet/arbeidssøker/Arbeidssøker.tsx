@@ -15,10 +15,10 @@ import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarS
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import AlertStripeDokumentasjon from '../../../../../components/AlertstripeDokumentasjon';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   arbeidssituasjon: IAktivitet;
