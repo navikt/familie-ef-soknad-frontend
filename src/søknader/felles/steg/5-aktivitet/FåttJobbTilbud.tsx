@@ -29,7 +29,9 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
       <AlertStripeDokumentasjon>
         <Label as="p">{hentTekst('dokumentasjon.arbeidskontrakt.tittel', intl)}</Label>
         <br />
-        <BodyShort>{hentHTMLTekst('dokumentasjon.arbeidskontrakt.beskrivelse', intl)}</BodyShort>
+        <BodyShort size={'small'}>
+          {hentHTMLTekst('dokumentasjon.arbeidskontrakt.beskrivelse', intl)}
+        </BodyShort>
       </AlertStripeDokumentasjon>
       <Datovelger
         valgtDato={arbeidssituasjon.datoOppstartJobb?.verdi}

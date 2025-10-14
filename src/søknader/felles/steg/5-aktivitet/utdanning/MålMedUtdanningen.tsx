@@ -38,7 +38,7 @@ const MålMedUtdanningen: React.FC<Props> = ({ utdanning, oppdaterUtdanning, st�
       <FeltGruppe>
         <AlertStripeDokumentasjon>
           <Label as="p"> {hentTekst('utdanning.alert-tittel.mål', intl)} </Label>
-          <BodyShort>
+          <BodyShort size={'small'}>
             {hentHTMLTekst(`utdanning.alert-beskrivelse.mål.${stønadstype}`, intl)}
           </BodyShort>
         </AlertStripeDokumentasjon>
