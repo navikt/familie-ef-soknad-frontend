@@ -4,8 +4,8 @@ import { FileTextIcon } from '@navikt/aksel-icons';
 
 export const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
-    <HStack gap="2" align="center" paddingBlock="4">
-      <FileTextIcon title="a11y-title" fontSize="2rem" />
+    <HStack gap="2" paddingBlock="4" wrap={false}>
+      <FileTextIcon title="fil-ikon" fontSize="2rem" style={{ flexShrink: 0 }} />
       <BodyShort size={'small'}>{children}</BodyShort>
     </HStack>
   );
