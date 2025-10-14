@@ -1,5 +1,5 @@
 import React from 'react';
-import { BodyShort, ReadMore, VStack } from '@navikt/ds-react';
+import { BodyShort, ReadMore } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 
@@ -22,24 +22,20 @@ export const LesMerTekst: React.FC<Props> = ({
 
   if (åpneTekstid === '') {
     return (
-      <VStack gap={'4'}>
-        <BodyShort size={'small'}>
-          {innholdTekst && innholdTekst}
-          {!innholdTekst && innholdTekstid && hentHTMLTekst(innholdTekstid, intl)}
-        </BodyShort>
-      </VStack>
+      <BodyShort size={'small'}>
+        {innholdTekst && innholdTekst}
+        {!innholdTekst && innholdTekstid && hentHTMLTekst(innholdTekstid, intl)}
+      </BodyShort>
     );
   } else {
     return (
-      <>
-        <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
-          <BodyShort>
-            {innholdTekst && innholdTekst}
-            {!innholdTekst && innholdTekstid && html && hentHTMLTekst(innholdTekstid, intl)}
-            {!innholdTekst && innholdTekstid && !html && hentHTMLTekst(innholdTekstid, intl)}
-          </BodyShort>
-        </ReadMore>
-      </>
+      <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
+        <BodyShort>
+          {innholdTekst && innholdTekst}
+          {!innholdTekst && innholdTekstid && html && hentHTMLTekst(innholdTekstid, intl)}
+          {!innholdTekst && innholdTekstid && !html && hentHTMLTekst(innholdTekstid, intl)}
+        </BodyShort>
+      </ReadMore>
     );
   }
 };
