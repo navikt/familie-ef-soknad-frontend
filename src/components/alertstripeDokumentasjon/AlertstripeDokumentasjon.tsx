@@ -1,15 +1,12 @@
 import React, { FC } from 'react';
-import { BodyShort } from '@navikt/ds-react';
-import { FilIkon } from '../../assets/FilIkon';
-import styles from './AlertStripeDokumentasjon.module.css';
+import { BodyShort, HStack } from '@navikt/ds-react';
+import { FileTextIcon } from '@navikt/aksel-icons';
 
 export const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
-    <div className={styles.alertstripe}>
-      <FilIkon className={styles.ikon} />
-      <div className={styles.tekst}>
-        <BodyShort>{children}</BodyShort>
-      </div>
-    </div>
+    <HStack gap="2" align="center" paddingBlock="4">
+      <FileTextIcon title="a11y-title" fontSize="2rem" />
+      <BodyShort size={'small'}>{children}</BodyShort>
+    </HStack>
   );
 };
