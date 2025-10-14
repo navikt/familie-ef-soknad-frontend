@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import Feilmelding from '../feil/Feilmelding';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
@@ -11,9 +10,11 @@ import {
   erFraDatoSenereEnnTilDato,
   hentStartOgSluttDato,
 } from '../../utils/gyldigeDatoerUtils';
-import { HGrid, Label } from '@navikt/ds-react';
+import { ErrorMessage, HGrid, Label } from '@navikt/ds-react';
 import { GyldigeDatoer } from './GyldigeDatoer';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
 interface Props {
   tekst: string;
@@ -39,6 +40,7 @@ export const PeriodeÅrMånedvelgere: FC<Props> = ({
   testIder,
 }) => {
   const [feilmelding, settFeilmelding] = useState('');
+  const intl = useLokalIntlContext();
 
   const sammenlignDatoerOgHentFeilmelding = (
     periode: IPeriode,
@@ -128,9 +130,9 @@ export const PeriodeÅrMånedvelgere: FC<Props> = ({
           testId={testIder ? testIder[1] : ''}
         />
         {feilmelding && feilmelding !== '' && (
-          <div style={{ gridColumn: '1/-1' }}>
-            <Feilmelding className={'feilmelding'} tekstid={feilmelding} />
-          </div>
+          <ErrorMessage size={'small'} style={{ gridColumn: '1/-1' }}>
+            {hentTekst(feilmelding, intl)}
+          </ErrorMessage>
         )}
       </HGrid>
     </>
