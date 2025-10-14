@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {

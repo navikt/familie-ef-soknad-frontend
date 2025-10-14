@@ -5,7 +5,7 @@ import { boddSammenFør } from '../ForeldreConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
+import { JaNeiSpørsmålMedNavn } from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
