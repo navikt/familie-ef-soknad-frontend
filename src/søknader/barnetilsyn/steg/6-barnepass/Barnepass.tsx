@@ -9,7 +9,6 @@ import { SøkerDuStønadFraBestemtMndSpm } from './BarnepassConfig';
 import { IBarnepass } from '../../models/barnepass';
 import BarnepassOrdninger from './BarnepassOrdninger';
 import ÅrsakBarnepass from './ÅrsakBarnepass';
-import BarneHeader from '../../../../components/BarneHeader';
 import {
   erBarnepassForAlleBarnUtfylt,
   erBarnepassForBarnFørNåværendeUtfylt,
@@ -29,6 +28,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { useBarnepass } from './BarnepassContext';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 const StyledHjelpetekst = styled.div`
   .navds-body-short {

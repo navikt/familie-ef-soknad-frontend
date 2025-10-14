@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AnnenForelderKnapper } from './AnnenForelderKnapper';
-import BarneHeader from '../../../../components/BarneHeader';
 import BostedOgSamvær from './bostedOgSamvær/BostedOgSamvær';
 import OmAndreForelder from './OmAndreForelder';
 import SkalBarnetBoHosSøker from './SkalBarnetBoHosSøker';
@@ -35,6 +34,7 @@ import {
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
 import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
 import { useBarnasBosted } from './BarnasBostedContext';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;

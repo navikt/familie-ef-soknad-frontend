@@ -10,11 +10,11 @@ import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/me
 import { formatDate, strengTilDato } from '../../../../utils/dato';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { VisLabelOgSvar, visLabelOgVerdiForSpørsmålFelt } from '../../../../utils/visning';
-import BarneHeader from '../../../../components/BarneHeader';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
 import { BodyShort, Label } from '@navikt/ds-react';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 interface Props {
   søkerFraBestemtDato?: ISpørsmålBooleanFelt;

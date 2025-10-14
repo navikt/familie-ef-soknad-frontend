@@ -6,10 +6,10 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import OppsummeringBarn from './OppsummeringBarn';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import BarneHeader from '../../../../components/BarneHeader';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 interface Props {
   barn: IBarn[];
