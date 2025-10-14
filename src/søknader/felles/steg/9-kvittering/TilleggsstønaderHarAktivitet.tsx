@@ -5,7 +5,7 @@ import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
-const TilleggsstønaderHarAktivitet: FC = () => {
+export const TilleggsstønaderHarAktivitet: FC = () => {
   const intl = useLokalIntlContext();
   return (
     <SeksjonGruppe>
@@ -32,5 +32,3 @@ const TilleggsstønaderHarAktivitet: FC = () => {
     </SeksjonGruppe>
   );
 };
-
-export default TilleggsstønaderHarAktivitet;

@@ -9,7 +9,7 @@ import FeltGruppe from '../../../components/gruppe/FeltGruppe';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Link } from '@navikt/ds-react';
 
-const Kvittering: React.FC = () => {
+export const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { skjema } = useSkjema();
 
@@ -50,5 +50,3 @@ const Kvittering: React.FC = () => {
     <Feilside />
   );
 };
-
-export default Kvittering;
