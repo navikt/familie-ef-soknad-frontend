@@ -18,7 +18,7 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
-import { AlertStripeDokumentasjon } from '../../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 const StyledArbeidsgiver = styled.div`
   display: flex;

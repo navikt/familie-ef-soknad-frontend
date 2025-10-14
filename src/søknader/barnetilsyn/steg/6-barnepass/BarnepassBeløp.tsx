@@ -7,7 +7,7 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
 import { Detail } from '@navikt/ds-react';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   barnepassOrdning: BarnepassOrdning;

@@ -13,7 +13,7 @@ import { årsakBarnepass } from './BarnepassConfig';
 import { Alert } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useBarnepass } from './BarnepassContext';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   barn: IBarn;

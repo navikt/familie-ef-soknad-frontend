@@ -15,7 +15,7 @@ import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { Alert, Textarea } from '@navikt/ds-react';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   dinSituasjon: IDinSituasjon;

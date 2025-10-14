@@ -18,7 +18,7 @@ import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
-import { AlertStripeDokumentasjon } from '../../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

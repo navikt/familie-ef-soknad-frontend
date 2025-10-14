@@ -8,7 +8,7 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, Heading } from '@navikt/ds-react';
-import { AlertStripeDokumentasjon } from '../../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   utdanning: DetaljertUtdanning;

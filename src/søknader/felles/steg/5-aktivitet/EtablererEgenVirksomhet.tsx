@@ -9,7 +9,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { Heading, Textarea } from '@navikt/ds-react';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

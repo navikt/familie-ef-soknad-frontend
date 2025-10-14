@@ -6,7 +6,7 @@ import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { BodyShort, Label, Textarea } from '@navikt/ds-react';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
-import { AlertStripeDokumentasjon } from '../../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   utdanning: UnderUtdanning;

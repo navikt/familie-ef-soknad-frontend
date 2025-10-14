@@ -6,7 +6,7 @@ import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   arbeidssituasjon: IAktivitet;

@@ -11,7 +11,7 @@ import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
-import { AlertStripeDokumentasjon } from '../alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../AlertstripeDokumentasjon';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {

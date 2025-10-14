@@ -2,7 +2,7 @@ import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 import { Alert, Label } from '@navikt/ds-react';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 export const AktivitetSyk: React.FC = () => {
   const intl = useLokalIntlContext();

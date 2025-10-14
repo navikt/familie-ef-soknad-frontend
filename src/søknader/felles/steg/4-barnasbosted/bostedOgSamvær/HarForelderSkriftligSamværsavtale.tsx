@@ -10,7 +10,7 @@ import MultiSvarSpørsmålMedNavn from '../../../../../components/spørsmål/Mul
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
-import { AlertStripeDokumentasjon } from '../../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   forelder: IForelder;

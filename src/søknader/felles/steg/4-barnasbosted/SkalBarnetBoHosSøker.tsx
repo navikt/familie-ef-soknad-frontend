@@ -16,7 +16,7 @@ import {
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import { Alert } from '@navikt/ds-react';
 import { useBarnasBosted } from './BarnasBostedContext';
-import { AlertStripeDokumentasjon } from '../../../../components/alertstripeDokumentasjon/AlertstripeDokumentasjon';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   barn: IBarn;
