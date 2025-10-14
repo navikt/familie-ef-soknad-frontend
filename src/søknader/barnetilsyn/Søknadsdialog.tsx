@@ -23,6 +23,7 @@ import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
 import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
 import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
+import { BarnetilsynBarnaDineProvider } from './steg/3-barnadine/BarnetilsynBarnaDineContext';
 
 const SøknadsdialogBarnetilsyn: FC = () => {
   const {
@@ -139,7 +140,15 @@ const SøknadsdialogBarnetilsyn: FC = () => {
         path={'/barn'}
         element={
           <RedirectTilStart>
-            <BarnaDine />
+            <BarnetilsynBarnaDineProvider
+              søknad={søknad}
+              oppdaterBarnISøknaden={oppdaterBarnISøknaden}
+              mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
+              routes={RoutesBarnetilsyn}
+              pathOppsummering={pathOppsummeringBarnetilsyn}
+            >
+              <BarnaDine />
+            </BarnetilsynBarnaDineProvider>
           </RedirectTilStart>
         }
       />
