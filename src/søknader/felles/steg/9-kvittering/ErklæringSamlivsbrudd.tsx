@@ -2,11 +2,10 @@ import { FC } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import download from '../../../../assets/download.svg';
 import styled from 'styled-components';
-import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
-import { BodyShort, Label, Link } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
@@ -39,9 +38,9 @@ const ErklæringSamlivsbrudd: FC = () => {
 
   return (
     <SeksjonGruppe>
-      <StyledUndertittel size="small">
+      <Heading size="small" spacing={true}>
         {hentTekst('kvittering.tittel.samlivsbrudd', intl)}
-      </StyledUndertittel>
+      </Heading>
       <BodyShort>{hentTekst('kvittering.beskrivelse.samlivsbrudd', intl)}</BodyShort>
 
       <StyledLenke>

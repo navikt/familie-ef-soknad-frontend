@@ -6,8 +6,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { flereBarnsNavn } from '../../../../utils/barn';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 interface Props {
   barna: IBarn[];
@@ -33,7 +32,9 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
 
   return (
     <SeksjonGruppe>
-      <StyledUndertittel size={'small'}>{tekst}</StyledUndertittel>
+      <Heading size={'small'} spacing={true}>
+        {tekst}
+      </Heading>
       <BodyShort>{tekst}</BodyShort>
       <KomponentGruppe>
         <a

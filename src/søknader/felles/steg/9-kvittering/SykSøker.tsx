@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import download from '../../../../assets/download.svg';
-import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { BodyShort, Label, Link } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
@@ -26,9 +25,9 @@ const SykSøker: FC<{ filPath: string }> = ({ filPath }) => {
   const { filInformasjon } = useHentFilInformasjon(filPath);
   return (
     <SeksjonGruppe>
-      <StyledUndertittel size="small">
+      <Heading size="small" spacing={true}>
         {hentTekst('kvittering.tittel.huskeliste.erSyk', intl)}
-      </StyledUndertittel>
+      </Heading>
 
       <BodyShort>{hentTekst('kvittering.beskrivelse.huskeliste.erSyk', intl)}</BodyShort>
       <StyledLenke>
