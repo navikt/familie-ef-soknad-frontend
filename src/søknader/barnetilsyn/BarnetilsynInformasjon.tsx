@@ -1,7 +1,4 @@
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
-import { Tekst } from '../../components/forside/Tekst';
-import { Seksjon } from '../../components/forside/Seksjon';
-import { Overskrift } from '../../components/forside/Overskrift';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
@@ -15,6 +12,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -60,46 +58,54 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   const gjenbrukSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
 
   return (
-    <>
+    <VStack gap={'10'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
 
-      <Seksjon>
-        <Tekst tekst="forside.barnetilsyn.info" />
-        <Tekst tekst="forside.barnetilsyn.fåStønadSkoleår" />
+      <VStack gap={'3'}>
+        <BodyShort>{hentTekst('forside.barnetilsyn.info', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.fåStønadSkoleår', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.merOmStønad', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>{hentHTMLTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</Seksjon>
+      <VStack gap={'3'}>{hentHTMLTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.barnetilsyn.overskrift.riktigeOpplysninger" />
-        <Tekst tekst="forside.barnetilsyn.riktigeOpplysninger" />
-        <Tekst tekst="forside.barnetilsyn.meldeEndringer" />
-      </Seksjon>
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.barnetilsyn.overskrift.riktigeOpplysninger', intl)}{' '}
+        </Heading>
+        <BodyShort>{hentTekst('forside.barnetilsyn.riktigeOpplysninger', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.meldeEndringer', intl)}</BodyShort>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.barnetilsyn.overskrift.sendeDokumentasjon" />
-        <Tekst tekst="forside.barnetilsyn.beskjedDokumentere" />
-        <Tekst tekst="forside.barnetilsyn.merInformasjon" />
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.barnetilsyn.overskrift.sendeDokumentasjon', intl)}{' '}
+        </Heading>
+        <BodyShort>{hentTekst('forside.barnetilsyn.beskjedDokumentere', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.barnetilsyn.overskrift.henteInformasjon" />
-        <Tekst tekst="forside.barnetilsyn.henteInformasjon" />
-        <Tekst tekst="forside.barnetilsyn.viHenter" />
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.barnetilsyn.overskrift.henteInformasjon', intl)}{' '}
+        </Heading>
+        <BodyShort>{hentTekst('forside.barnetilsyn.henteInformasjon', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.viHenter', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.henterPunktliste', intl)}
-        <Tekst tekst="forside.barnetilsyn.tidligereOpplysninger" />
+        <BodyShort>{hentTekst('forside.barnetilsyn.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.barnetilsyn.overskrift.slikSøkerDu" />
-        <Tekst tekst="forside.barnetilsyn.slikSøkerDu" />
-        <Tekst tekst="forside.barnetilsyn.slikSøkerDu2" />
-        <Tekst tekst="forside.barnetilsyn.slikSøkerDu3" />
-        <Tekst tekst="forside.barnetilsyn.slikSøkerDu4" />
-      </Seksjon>
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.barnetilsyn.overskrift.slikSøkerDu', intl)}{' '}
+        </Heading>
+        <BodyShort>{hentTekst('forside.barnetilsyn.slikSøkerDu', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.slikSøkerDu2', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.slikSøkerDu3', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.barnetilsyn.slikSøkerDu4', intl)}</BodyShort>
+      </VStack>
 
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
@@ -112,6 +118,6 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
           nesteSide={kanGjenbrukeForrigeSøknad ? gjenbrukSide : nesteSide}
         />
       )}
-    </>
+    </VStack>
   );
 };
