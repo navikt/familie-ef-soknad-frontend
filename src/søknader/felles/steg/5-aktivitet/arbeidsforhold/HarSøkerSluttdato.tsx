@@ -1,22 +1,21 @@
 import React from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import { harDuSluttdato } from './ArbeidsgiverConfig';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { Datovelger } from '../../../../../components/dato/Datovelger';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EArbeidsgiver, IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
+import { VStack } from '@navikt/ds-react';
 
 interface Props {
   arbeidsgiver: IArbeidsgiver;
   settArbeidsgiver: (arbeidsgiver: IArbeidsgiver) => void;
 }
 
-const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver }) => {
+export const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver }) => {
   const intl = useLokalIntlContext();
 
   const settDato = (dato: string) => {
@@ -56,28 +55,20 @@ const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsgiver })
   const sluttdatoTekstid = 'arbeidsforhold.datovelger.sluttdato';
 
   return (
-    <>
-      <KomponentGruppe>
-        <FeltGruppe>
-          <JaNeiSpørsmål
-            spørsmål={harDuSluttdato(intl)}
-            onChange={settHarSluttDato}
-            valgtSvar={arbeidsgiver.harSluttDato?.verdi}
-          />
-        </FeltGruppe>
-        {arbeidsgiver.harSluttDato?.verdi === true && (
-          <FeltGruppe>
-            <Datovelger
-              valgtDato={arbeidsgiver.sluttdato?.verdi}
-              tekstid={sluttdatoTekstid}
-              gyldigeDatoer={GyldigeDatoer.Fremtidige}
-              settDato={(e) => settDato(e)}
-            />
-          </FeltGruppe>
-        )}
-      </KomponentGruppe>
-    </>
+    <VStack gap={'4'}>
+      <JaNeiSpørsmål
+        spørsmål={harDuSluttdato(intl)}
+        onChange={settHarSluttDato}
+        valgtSvar={arbeidsgiver.harSluttDato?.verdi}
+      />
+      {arbeidsgiver.harSluttDato?.verdi === true && (
+        <Datovelger
+          valgtDato={arbeidsgiver.sluttdato?.verdi}
+          tekstid={sluttdatoTekstid}
+          gyldigeDatoer={GyldigeDatoer.Fremtidige}
+          settDato={(e) => settDato(e)}
+        />
+      )}
+    </VStack>
   );
 };
-
-export default HarSøkerSluttdato;

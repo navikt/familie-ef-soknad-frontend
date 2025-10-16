@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Feilside from '../../../../components/feil/Feilside';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { formatDateHour } from '../../../../utils/dato';
 import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -10,7 +9,7 @@ import { ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
 import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
@@ -56,12 +55,9 @@ const Kvittering: React.FC = () => {
       routesStønad={RoutesBarnetilsyn}
       skalViseStegindikator={false}
     >
-      <SeksjonGruppe>
-        <Alert size="small" variant={'success'}>
-          {mottattAlert}
-        </Alert>
-      </SeksjonGruppe>
-
+      <Alert size="small" variant={'success'}>
+        {mottattAlert}
+      </Alert>
       <DineSaker />
       <EttersendDokumentasjon
         dokumentasjonsbehov={søknad.dokumentasjonsbehov}

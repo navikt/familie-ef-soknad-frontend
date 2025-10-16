@@ -4,7 +4,6 @@ import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
 import styled from 'styled-components';
-import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
 import {
   erDatoerLike,
@@ -111,15 +110,13 @@ const PeriodeÅrMånedvelgere: FC<Props> = ({
 
   return (
     <>
-      <FeltGruppe>
-        <Label as="p">{tekst}</Label>
-        {hjelpetekst && (
-          <LesMerTekst
-            åpneTekstid={hjelpetekst.headerTekstid}
-            innholdTekstid={hjelpetekst.innholdTekstid}
-          />
-        )}
-      </FeltGruppe>
+      <Label as="p">{tekst}</Label>
+      {hjelpetekst && (
+        <LesMerTekst
+          åpneTekstid={hjelpetekst.headerTekstid}
+          innholdTekstid={hjelpetekst.innholdTekstid}
+        />
+      )}
       <PeriodeGruppe aria-live="polite">
         <>
           <MånedÅrVelger

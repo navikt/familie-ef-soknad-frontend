@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
@@ -13,7 +11,7 @@ import { EPeriode } from '../../../../../models/felles/periode';
 import PeriodeÅrMånedvelgere from '../../../../../components/dato/PeriodeÅrMånedvelgere';
 import { formatIsoDate } from '../../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
@@ -90,7 +88,7 @@ const RegistrerUtdanning: React.FC<Props> = ({
   const skalViseSlettKnapp = tidligereUtdanninger?.length > 1;
 
   return (
-    <KomponentGruppe>
+    <VStack gap={'4'}>
       <TittelOgSlettKnapp justify="space-between" align="center">
         <Heading size="small" level="4" className={'tittel'}>
           {utdanningTittel}
@@ -99,30 +97,26 @@ const RegistrerUtdanning: React.FC<Props> = ({
           <SlettKnapp onClick={() => fjernUtdanning()} tekstid={'utdanning.knapp.slett'} />
         )}
       </TittelOgSlettKnapp>
-      <FeltGruppe aria-live="polite">
-        <TextFieldMedBredde
-          key={linjeKursGrad.id}
-          label={linjeKursGradLabel}
-          type="text"
-          value={utdanning.linjeKursGrad?.verdi}
-          bredde={'XL'}
-          onChange={(e) => settInputFelt(linjeKursGradLabel, e)}
-          data-testid={testIder ? testIder[0] : undefined}
-        />
-      </FeltGruppe>
+      <TextFieldMedBredde
+        key={linjeKursGrad.id}
+        label={linjeKursGradLabel}
+        type="text"
+        value={utdanning.linjeKursGrad?.verdi}
+        bredde={'XL'}
+        onChange={(e) => settInputFelt(linjeKursGradLabel, e)}
+        data-testid={testIder ? testIder[0] : undefined}
+      />
       {harValgtSvar(utdanning.linjeKursGrad?.verdi) && (
-        <KomponentGruppe>
-          <PeriodeÅrMånedvelgere
-            tekst={hentTekst('utdanning.datovelger.studieperiode', intl)}
-            periode={utdanning.periode ? utdanning.periode : tomPeriode}
-            settDato={settPeriode}
-            aria-live="polite"
-            gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
-            testIder={testIder ? [testIder[1], testIder[2]] : undefined}
-          />
-        </KomponentGruppe>
+        <PeriodeÅrMånedvelgere
+          tekst={hentTekst('utdanning.datovelger.studieperiode', intl)}
+          periode={utdanning.periode ? utdanning.periode : tomPeriode}
+          settDato={settPeriode}
+          aria-live="polite"
+          gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
+          testIder={testIder ? [testIder[1], testIder[2]] : undefined}
+        />
       )}
-    </KomponentGruppe>
+    </VStack>
   );
 };
 
