@@ -8,7 +8,7 @@ import { linjeKursGrad } from './UtdanningConfig';
 import { tomPeriode } from '../../../../../helpers/tommeSøknadsfelter';
 import { harValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { EPeriode } from '../../../../../models/felles/periode';
-import PeriodeÅrMånedvelgere from '../../../../../components/dato/PeriodeÅrMånedvelgere';
+import { PeriodeÅrMånedvelgere } from '../../../../../components/dato/PeriodeÅrMånedvelgere';
 import { formatIsoDate } from '../../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Heading, VStack } from '@navikt/ds-react';
