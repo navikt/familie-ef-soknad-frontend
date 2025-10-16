@@ -1,25 +1,12 @@
 import React from 'react';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import Filopplaster from '../../../../components/filopplaster/Filopplaster';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { BarnetilsynDokumentasjon, IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
 import { EFiltyper } from '../../../../helpers/filtyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Checkbox, GuidePanel, Heading } from '@navikt/ds-react';
-import styled from 'styled-components';
+import { BodyShort, Checkbox, GuidePanel, Heading, VStack } from '@navikt/ds-react';
 import { GrøntDokumentIkon } from './GrøntDokumentIkon';
-
-const StyledSeksjonGruppe = styled(SeksjonGruppe)`
-  padding-bottom: 40px;
-`;
-
-const StyledGuidePanel = styled(GuidePanel)`
-  .navds-guide {
-    border: none;
-  }
-`;
 
 interface Props {
   dokumentasjon: IDokumentasjon;
@@ -42,25 +29,21 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
     dokumentasjon.id !== BarnetilsynDokumentasjon.FAKTURA_BARNEPASSORDNING;
 
   return (
-    <StyledSeksjonGruppe>
-      <StyledGuidePanel illustration={<GrøntDokumentIkon />} poster>
-        <FeltGruppe>
-          <Heading size="small" level="3" style={{ justifyContent: 'left' }}>
-            {hentTekst(dokumentasjon.tittel, intl)}
-          </Heading>
-        </FeltGruppe>
+    <GuidePanel style={{ border: 'none' }} illustration={<GrøntDokumentIkon />} poster>
+      <VStack gap={'8'}>
+        <Heading size="small" level="3" style={{ justifyContent: 'left' }}>
+          {hentTekst(dokumentasjon.tittel, intl)}
+        </Heading>
         {dokumentasjon.beskrivelse && (
-          <FeltGruppe>{hentHTMLTekst(dokumentasjon.beskrivelse, intl)}</FeltGruppe>
+          <BodyShort>{hentHTMLTekst(dokumentasjon.beskrivelse, intl)}</BodyShort>
         )}
         {hvisIkkeFakturaForBarnepass && (
-          <FeltGruppe>
-            <Checkbox
-              checked={dokumentasjon.harSendtInn}
-              onChange={(e) => settHarSendtInnTidligere(e.target.checked)}
-            >
-              {hentTekst('dokumentasjon.checkbox.sendtTidligere', intl)}
-            </Checkbox>
-          </FeltGruppe>
+          <Checkbox
+            checked={dokumentasjon.harSendtInn}
+            onChange={(e) => settHarSendtInnTidligere(e.target.checked)}
+          >
+            {hentTekst('dokumentasjon.checkbox.sendtTidligere', intl)}
+          </Checkbox>
         )}
         {!dokumentasjon.harSendtInn && (
           <Filopplaster
@@ -70,8 +53,8 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
             tillatteFiltyper={[EFiltyper.PNG, EFiltyper.PDF, EFiltyper.JPG, EFiltyper.JPEG]}
           />
         )}
-      </StyledGuidePanel>
-    </StyledSeksjonGruppe>
+      </VStack>
+    </GuidePanel>
   );
 };
 
