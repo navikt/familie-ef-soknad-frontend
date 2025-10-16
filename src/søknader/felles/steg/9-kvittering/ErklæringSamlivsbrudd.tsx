@@ -1,29 +1,13 @@
 import { FC } from 'react';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import download from '../../../../assets/download.svg';
-import styled from 'styled-components';
-import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
-import { BodyShort, Label, Link } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, Link, VStack } from '@navikt/ds-react';
 import { useHentFilInformasjon } from '../../../../utils/hooks';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
-const StyledLenke = styled.div`
-  margin-top: 1rem;
-
-  img {
-    margin-right: 0.5rem;
-    display: inline;
-  }
-
-  p {
-    display: inline;
-  }
-`;
-
-const ErklæringSamlivsbrudd: FC = () => {
+export const ErklæringSamlivsbrudd: FC = () => {
   const intl = useLokalIntlContext();
   const [locale] = useSpråkContext();
 
@@ -38,23 +22,18 @@ const ErklæringSamlivsbrudd: FC = () => {
   const { filInformasjon } = useHentFilInformasjon(hentÆrklæringBasertPåSpråk());
 
   return (
-    <SeksjonGruppe>
-      <StyledUndertittel size="small">
+    <VStack gap={'4'}>
+      <Heading size="small" spacing={true}>
         {hentTekst('kvittering.tittel.samlivsbrudd', intl)}
-      </StyledUndertittel>
+      </Heading>
       <BodyShort>{hentTekst('kvittering.beskrivelse.samlivsbrudd', intl)}</BodyShort>
-
-      <StyledLenke>
-        <Link href={hentÆrklæringBasertPåSpråk()} download>
-          <img alt="Nedlastingsikon" src={download} />
-          <Label as="p">
-            {hentTekst('kvittering.knapp.samlivsbrudd', intl)}
-            {filInformasjon}
-          </Label>
-        </Link>
-      </StyledLenke>
-    </SeksjonGruppe>
+      <Link href={hentÆrklæringBasertPåSpråk()} download>
+        <img alt="Nedlastingsikon" src={download} />
+        <Label as="p">
+          {hentTekst('kvittering.knapp.samlivsbrudd', intl)}
+          {filInformasjon}
+        </Label>
+      </Link>
+    </VStack>
   );
 };
-
-export default ErklæringSamlivsbrudd;

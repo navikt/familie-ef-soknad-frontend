@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
 import {
   erSøkerArbeidssøker,
@@ -10,13 +9,12 @@ import {
 } from './ArbeidssøkerConfig';
 import { IArbeidssøker } from '../../../../../models/steg/aktivitet/arbeidssøker';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { hentSvarAlertFraSpørsmål } from '../../../../../utils/søknad';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
 
@@ -73,14 +71,12 @@ const Arbeidssøker: React.FC<Props> = ({
   );
 
   return (
-    <SeksjonGruppe>
-      <KomponentGruppe>
-        <Heading size="small" level="3" className={'sentrert'}>
-          {hentTekst('arbeidssøker.tittel', intl)}
-        </Heading>
-      </KomponentGruppe>
+    <VStack gap={'16'}>
+      <Heading size="small" level="3" align={'center'}>
+        {hentTekst('arbeidssøker.tittel', intl)}
+      </Heading>
 
-      <KomponentGruppe>
+      <VStack gap={'2'}>
         <JaNeiSpørsmål
           spørsmål={erSøkerArbeidssøker(intl)}
           onChange={settJaNeiSpørsmål}
@@ -91,10 +87,10 @@ const Arbeidssøker: React.FC<Props> = ({
             {hentTekst(registrertSomArbeidssøkerAlert, intl)}
           </Alert>
         )}
-      </KomponentGruppe>
+      </VStack>
 
       {arbeidssøker.registrertSomArbeidssøkerNav && (
-        <KomponentGruppe>
+        <VStack gap={'2'}>
           <JaNeiSpørsmål
             spørsmål={erVilligTilÅTaImotTilbud(intl)}
             onChange={settJaNeiSpørsmål}
@@ -105,10 +101,10 @@ const Arbeidssøker: React.FC<Props> = ({
               {hentTekst('arbeidssøker.alert.villig', intl)}
             </AlertStripeDokumentasjon>
           )}
-        </KomponentGruppe>
+        </VStack>
       )}
       {arbeidssøker.villigTilÅTaImotTilbudOmArbeid && (
-        <KomponentGruppe>
+        <VStack gap={'2'}>
           <JaNeiSpørsmål
             spørsmål={kanBegynneInnenEnUke(intl)}
             onChange={settJaNeiSpørsmål}
@@ -119,20 +115,18 @@ const Arbeidssøker: React.FC<Props> = ({
               {hentTekst('arbeidssøker.alert.senestEnUke', intl)}
             </Alert>
           )}
-        </KomponentGruppe>
+        </VStack>
       )}
 
       {arbeidssøker.kanBegynneInnenEnUke && (
-        <KomponentGruppe>
-          <MultiSvarSpørsmål
-            spørsmål={ønsketArbeidssted(intl)}
-            settSpørsmålOgSvar={settMultiSvarSpørsmål}
-            valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
-          />
-        </KomponentGruppe>
+        <MultiSvarSpørsmål
+          spørsmål={ønsketArbeidssted(intl)}
+          settSpørsmålOgSvar={settMultiSvarSpørsmål}
+          valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
+        />
       )}
       {arbeidssøker.hvorØnskerSøkerArbeid && (
-        <KomponentGruppe>
+        <VStack gap={'2'}>
           <JaNeiSpørsmål
             spørsmål={ønskerHalvStilling(intl)}
             onChange={settJaNeiSpørsmål}
@@ -143,9 +137,9 @@ const Arbeidssøker: React.FC<Props> = ({
               {hentTekst('arbeidssøker.alert.halvstilling', intl)}
             </Alert>
           )}
-        </KomponentGruppe>
+        </VStack>
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 

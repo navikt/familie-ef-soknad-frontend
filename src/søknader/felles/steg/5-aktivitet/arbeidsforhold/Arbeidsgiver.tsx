@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { hentTittelMedNr } from '../../../../../language/utils';
-import styled from 'styled-components';
 import { hvaSlagsStilling } from './ArbeidsgiverConfig';
 import MultiSvarSpørsmål from '../../../../../components/spørsmål/MultiSvarSpørsmål';
-import HarSøkerSluttdato from './HarSøkerSluttdato';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
+import { HarSøkerSluttdato } from './HarSøkerSluttdato';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import {
@@ -15,15 +13,9 @@ import {
 } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Heading } from '@navikt/ds-react';
+import { Heading, HStack, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
-import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { AlertStripeDokumentasjon } from '../../../../../components/AlertstripeDokumentasjon';
-
-const StyledArbeidsgiver = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 interface Props {
   arbeidsforhold: IArbeidsgiver[];
@@ -33,7 +25,7 @@ interface Props {
   settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
-const Arbeidsgiver: React.FC<Props> = ({
+export const Arbeidsgiver: React.FC<Props> = ({
   arbeidsforhold,
   settArbeidsforhold,
   arbeidsgivernummer,
@@ -114,8 +106,8 @@ const Arbeidsgiver: React.FC<Props> = ({
   const skalViseSlettKnapp = arbeidsforhold?.length > 1;
 
   return (
-    <StyledArbeidsgiver aria-live="polite">
-      <TittelOgSlettKnapp justify="space-between" align="center">
+    <VStack gap={'6'}>
+      <HStack justify="space-between" align="center">
         <Heading size="small" level="4" className={'tittel'}>
           {arbeidsgiverTittel}
         </Heading>
@@ -125,56 +117,46 @@ const Arbeidsgiver: React.FC<Props> = ({
             tekstid={'arbeidsforhold.knapp.slettArbeidsgiver'}
           />
         )}
-      </TittelOgSlettKnapp>
-      <FeltGruppe>
-        <TextFieldMedBredde
-          key={navnLabel}
-          label={navnLabel}
-          type="text"
-          bredde={'L'}
-          value={arbeidsgiver?.navn ? arbeidsgiver.navn.verdi : ''}
-          onChange={(e) => settTekstInputFelt(e, EArbeidsgiver.navn, navnLabel)}
-        />
-      </FeltGruppe>
+      </HStack>
+      <TextFieldMedBredde
+        key={navnLabel}
+        label={navnLabel}
+        type="text"
+        bredde={'L'}
+        value={arbeidsgiver?.navn ? arbeidsgiver.navn.verdi : ''}
+        onChange={(e) => settTekstInputFelt(e, EArbeidsgiver.navn, navnLabel)}
+      />
       {arbeidsgiver.navn?.verdi && inkludertArbeidsmengde && (
-        <FeltGruppe>
-          <InputLabelGruppe
-            label={arbeidsmengdeLabel}
-            nøkkel={EArbeidsgiver.arbeidsmengde}
-            utvidetTekstNøkkel={'arbeidsforhold.label.arbeidsmengde.beskrivelse'}
-            type={'number'}
-            bredde={'XXS'}
-            settInputFelt={(e) =>
-              settTekstInputFelt(e, EArbeidsgiver.arbeidsmengde, arbeidsmengdeLabel)
-            }
-            value={arbeidsgiver?.arbeidsmengde?.verdi ? arbeidsgiver?.arbeidsmengde?.verdi : ''}
-            beskrivendeTekst={'%'}
-          />
-        </FeltGruppe>
+        <InputLabelGruppe
+          label={arbeidsmengdeLabel}
+          nøkkel={EArbeidsgiver.arbeidsmengde}
+          utvidetTekstNøkkel={'arbeidsforhold.label.arbeidsmengde.beskrivelse'}
+          type={'number'}
+          bredde={'XXS'}
+          settInputFelt={(e) =>
+            settTekstInputFelt(e, EArbeidsgiver.arbeidsmengde, arbeidsmengdeLabel)
+          }
+          value={arbeidsgiver?.arbeidsmengde?.verdi ? arbeidsgiver?.arbeidsmengde?.verdi : ''}
+          beskrivendeTekst={'%'}
+        />
       )}
       {(arbeidsgiver.arbeidsmengde?.verdi ||
         (arbeidsgiver.navn?.verdi && !inkludertArbeidsmengde)) && (
-        <FeltGruppe>
-          <MultiSvarSpørsmål
-            spørsmål={hvaSlagsStilling(intl)}
-            settSpørsmålOgSvar={settSpørsmålOgSvar}
-            valgtSvar={arbeidsgiver.ansettelsesforhold?.verdi}
-          />
-        </FeltGruppe>
+        <MultiSvarSpørsmål
+          spørsmål={hvaSlagsStilling(intl)}
+          settSpørsmålOgSvar={settSpørsmålOgSvar}
+          valgtSvar={arbeidsgiver.ansettelsesforhold?.verdi}
+        />
       )}
 
       {arbeidsgiver.ansettelsesforhold?.svarid === EStilling.lærling && (
-        <FeltGruppe>
-          <AlertStripeDokumentasjon>
-            {hentTekst('arbeidsforhold.alert.lærling', intl)}
-          </AlertStripeDokumentasjon>
-        </FeltGruppe>
+        <AlertStripeDokumentasjon>
+          {hentTekst('arbeidsforhold.alert.lærling', intl)}
+        </AlertStripeDokumentasjon>
       )}
       {arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig && (
         <HarSøkerSluttdato arbeidsgiver={arbeidsgiver} settArbeidsgiver={settArbeidsgiver} />
       )}
-    </StyledArbeidsgiver>
+    </VStack>
   );
 };
-
-export default Arbeidsgiver;

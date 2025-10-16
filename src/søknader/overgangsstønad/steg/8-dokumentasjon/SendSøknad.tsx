@@ -7,7 +7,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
@@ -18,7 +17,7 @@ import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
-import { Alert, BodyShort, Button } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
@@ -111,7 +110,7 @@ export const SendSøknadKnapper: FC = () => {
           </Alert>
         </KomponentGruppe>
       )}
-      <SeksjonGruppe className={'sentrert'}>
+      <HStack justify={'center'}>
         <StyledKnapper>
           <Button
             className={'tilbake'}
@@ -139,7 +138,7 @@ export const SendSøknadKnapper: FC = () => {
             {hentTekst('knapp.avbryt', intl)}
           </Button>
         </StyledKnapper>
-      </SeksjonGruppe>
+      </HStack>
     </>
   );
 };

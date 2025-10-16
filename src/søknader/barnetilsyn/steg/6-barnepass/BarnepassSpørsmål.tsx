@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { IBarn } from '../../../../models/steg/barn';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
@@ -18,7 +17,7 @@ import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BarnepassOrdning, EBarnepass, ETypeBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
 import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
-import { Heading, TextField } from '@navikt/ds-react';
+import { Heading, TextField, VStack } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
@@ -118,7 +117,7 @@ const BarnepassSpørsmål: FC<Props> = ({
   };
 
   return (
-    <SeksjonGruppe>
+    <VStack>
       <TittelOgSlettKnapp justify="space-between" align="center">
         <Heading size="small" className="tittel">
           {barnepassordningTittel}
@@ -176,7 +175,7 @@ const BarnepassSpørsmål: FC<Props> = ({
           barnIndeks={barnIndeks}
         />
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 

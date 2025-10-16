@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Arbeidsgiver from './Arbeidsgiver';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
+import { Arbeidsgiver } from './Arbeidsgiver';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { IArbeidsgiver } from '../../../../../models/steg/aktivitet/arbeidsgiver';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
@@ -10,7 +7,7 @@ import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { erSisteArbeidsgiverFerdigUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { Heading, Label } from '@navikt/ds-react';
+import { Heading, Label, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
@@ -64,37 +61,32 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <KomponentGruppe className={'sentrert'}>
-        <Heading size="small" level="3">
-          {hentTekst('arbeidsforhold.tittel', intl)}
-        </Heading>
-      </KomponentGruppe>
+    <VStack gap={'12'}>
+      <Heading size="small" level="3" align={'center'}>
+        {hentTekst('arbeidsforhold.tittel', intl)}
+      </Heading>
       {aktivitet.arbeidsforhold?.map((arbeidsgiver, index) => {
         return (
-          <SeksjonGruppe key={arbeidsgiver.id}>
-            <Arbeidsgiver
-              arbeidsforhold={arbeidsforhold}
-              settArbeidsforhold={settArbeidsforhold}
-              arbeidsgivernummer={index}
-              settDokumentasjonsbehov={settDokumentasjonsbehov}
-              inkludertArbeidsmengde={inkludertArbeidsmengde}
-            />
-          </SeksjonGruppe>
+          <Arbeidsgiver
+            key={arbeidsgiver.id}
+            arbeidsforhold={arbeidsforhold}
+            settArbeidsforhold={settArbeidsforhold}
+            arbeidsgivernummer={index}
+            settDokumentasjonsbehov={settDokumentasjonsbehov}
+            inkludertArbeidsmengde={inkludertArbeidsmengde}
+          />
         );
       })}
 
       {erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold) && (
-        <KomponentGruppe>
-          <FeltGruppe>
-            <Label as="p">{hentTekst('arbeidsforhold.label.flereArbeidsgivere', intl)}</Label>
-            <LeggTilKnapp onClick={() => leggTilArbeidsgiver()}>
-              {hentTekst('arbeidsforhold.knapp.leggTilArbeidsgiver', intl)}
-            </LeggTilKnapp>
-          </FeltGruppe>
-        </KomponentGruppe>
+        <VStack align={'start'}>
+          <Label as="p">{hentTekst('arbeidsforhold.label.flereArbeidsgivere', intl)}</Label>
+          <LeggTilKnapp onClick={() => leggTilArbeidsgiver()}>
+            {hentTekst('arbeidsforhold.knapp.leggTilArbeidsgiver', intl)}
+          </LeggTilKnapp>
+        </VStack>
       )}
-    </>
+    </VStack>
   );
 };
 

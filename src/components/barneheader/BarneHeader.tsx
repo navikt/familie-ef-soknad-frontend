@@ -18,7 +18,7 @@ export const BarneHeader: React.FC<Props> = ({ barn, visBakgrunn = false }) => {
   const intl = useLokalIntlContext();
 
   return (
-    <>
+    <div>
       <div className={visBakgrunn ? styles.barnasBostedHeader : styles.barnasBostedTom}>
         <img alt="barn" className="barneikon" src={ikon} />
       </div>
@@ -27,6 +27,6 @@ export const BarneHeader: React.FC<Props> = ({ barn, visBakgrunn = false }) => {
           {førsteBokstavStor(hentBarnetsNavnEllerBeskrivelse(barn, intl))}
         </Heading>
       </div>
-    </>
+    </div>
   );
 };

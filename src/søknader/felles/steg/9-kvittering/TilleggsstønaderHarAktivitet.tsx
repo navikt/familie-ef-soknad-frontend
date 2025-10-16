@@ -1,24 +1,18 @@
 import { FC } from 'react';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import { BodyShort, Heading, Link } from '@navikt/ds-react';
+import { BodyShort, Heading, Link, VStack } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 export const TilleggsstønaderHarAktivitet: FC = () => {
   const intl = useLokalIntlContext();
   return (
-    <SeksjonGruppe>
-      <FeltGruppe>
-        <Heading size="small" level="4">
-          {hentTekst('kvittering.tittel.tilleggsstønader.aktivitetskrav', intl)}
-        </Heading>
-      </FeltGruppe>
-      <FeltGruppe>
-        <BodyShort>
-          {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
-        </BodyShort>
-      </FeltGruppe>
+    <VStack gap={'4'}>
+      <Heading size="small" level="4">
+        {hentTekst('kvittering.tittel.tilleggsstønader.aktivitetskrav', intl)}
+      </Heading>
+      <BodyShort>
+        {hentHTMLTekst('kvittering.beskrivelse.tilleggsstønader.aktivitetskrav', intl)}
+      </BodyShort>
       <BodyShort>
         <Link href={'https://www.nav.no/barnetilsyn-enslig'}>
           {hentTekst('kvittering.lenke.tilleggsstønader.aktivitetskrav', intl)}
@@ -29,6 +23,6 @@ export const TilleggsstønaderHarAktivitet: FC = () => {
           {hentTekst('kvittering.knapp.tilleggsstønader.aktivitetskrav', intl)}
         </Link>
       </BodyShort>
-    </SeksjonGruppe>
+    </VStack>
   );
 };

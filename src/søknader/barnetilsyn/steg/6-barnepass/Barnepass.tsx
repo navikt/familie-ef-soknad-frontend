@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
@@ -25,7 +24,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IBarn } from '../../../../models/steg/barn';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, VStack } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { useBarnepass } from './BarnepassContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
@@ -118,16 +117,14 @@ const Barnepass: FC = () => {
       routesStønad={RoutesBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
-      <SeksjonGruppe>
+      <VStack gap={'16'}>
         {barnSomSkalHaBarnepass.map((barn: IBarn, index: number) => {
           const visSeksjon =
             index === 0 || erBarnepassForBarnFørNåværendeUtfylt(barn, barnSomSkalHaBarnepass);
           return (
             visSeksjon && (
               <React.Fragment key={barn.id}>
-                <SeksjonGruppe>
-                  <BarneHeader barn={barn} />
-                </SeksjonGruppe>
+                <BarneHeader barn={barn} />
                 {harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi) && (
                   <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
                 )}
@@ -138,25 +135,23 @@ const Barnepass: FC = () => {
             )
           );
         })}
-      </SeksjonGruppe>
+      </VStack>
       {erBarnepassForAlleBarnUtfylt(barnSomSkalHaBarnepass) && (
-        <SeksjonGruppe>
-          <NårSøkerDuStønadFra
-            spørsmål={SøkerDuStønadFraBestemtMndSpm(intl)}
-            settSøkerFraBestemtMåned={oppdaterSøkerFraBestemtMåned}
-            settDato={oppdaterSøknadsdato}
-            søkerFraBestemtMåned={søkerFraBestemtMåned}
-            valgtDato={søknadsdato}
-            datovelgerLabel={datovelgerLabel}
-            hjelpetekstInnholdTekst={
-              <StyledHjelpetekst>
-                <BodyShort>{hjelpetekstInnholdSøkerFraMndTekstDel1}</BodyShort>
-                <BodyShort>{hjelpetekstInnholdSøkerFraMndTekstDel2}</BodyShort>
-              </StyledHjelpetekst>
-            }
-            alertTekst={alertTekst}
-          />
-        </SeksjonGruppe>
+        <NårSøkerDuStønadFra
+          spørsmål={SøkerDuStønadFraBestemtMndSpm(intl)}
+          settSøkerFraBestemtMåned={oppdaterSøkerFraBestemtMåned}
+          settDato={oppdaterSøknadsdato}
+          søkerFraBestemtMåned={søkerFraBestemtMåned}
+          valgtDato={søknadsdato}
+          datovelgerLabel={datovelgerLabel}
+          hjelpetekstInnholdTekst={
+            <StyledHjelpetekst>
+              <BodyShort>{hjelpetekstInnholdSøkerFraMndTekstDel1}</BodyShort>
+              <BodyShort>{hjelpetekstInnholdSøkerFraMndTekstDel2}</BodyShort>
+            </StyledHjelpetekst>
+          }
+          alertTekst={alertTekst}
+        />
       )}
     </Side>
   );

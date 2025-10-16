@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { erGyldigDato, strengTilDato } from '../../utils/dato';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
-import FeltGruppe from '../gruppe/FeltGruppe';
 import MånedÅrVelger from './MånedÅrVelger';
 import {
   erDatoerLike,
@@ -91,15 +90,13 @@ export const PeriodeÅrMånedvelgere: FC<Props> = ({
 
   return (
     <>
-      <FeltGruppe>
-        <Label as="p">{tekst}</Label>
-        {hjelpetekst && (
-          <LesMerTekst
-            åpneTekstid={hjelpetekst.headerTekstid}
-            innholdTekstid={hjelpetekst.innholdTekstid}
-          />
-        )}
-      </FeltGruppe>
+      <Label as="p">{tekst}</Label>
+      {hjelpetekst && (
+        <LesMerTekst
+          åpneTekstid={hjelpetekst.headerTekstid}
+          innholdTekstid={hjelpetekst.innholdTekstid}
+        />
+      )}
       <HGrid
         gap={'8'}
         columns={{ xs: 1, sm: 'max-content max-content' }}

@@ -1,9 +1,6 @@
 import React from 'react';
 import { UnderUtdanning, Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import RegistrerUtdanning from './RegistrerUtdanning';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
@@ -13,7 +10,7 @@ import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { erTidligereUtdanningFerdigUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Heading, Label } from '@navikt/ds-react';
+import { Heading, Label, VStack } from '@navikt/ds-react';
 import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
 
 interface Props {
@@ -21,7 +18,7 @@ interface Props {
   settUnderUtdanning: (utdanning: UnderUtdanning) => void;
 }
 
-const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdanning }) => {
+export const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdanning }) => {
   const intl = useLokalIntlContext();
   const tidligereUtdanning: Utdanning[] = underUtdanning.tidligereUtdanning
     ? underUtdanning.tidligereUtdanning
@@ -64,8 +61,8 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
   };
 
   return (
-    <SeksjonGruppe>
-      <KomponentGruppe>
+    <VStack gap={'16'}>
+      <VStack gap={'2'}>
         <Heading size="small" level="3" className={'sentrert'}>
           {hentTekst('utdanning.tittel.tidligere', intl)}
         </Heading>
@@ -75,15 +72,13 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
           html={true}
           testID={'grunn-til-spørsmål-om-tidligere-utdanning'}
         />
-      </KomponentGruppe>
+      </VStack>
 
-      <KomponentGruppe>
-        <JaNeiSpørsmål
-          spørsmål={utdanningEtterGrunnskolenSpm(intl)}
-          onChange={settHarTattUtdanningEtterGrunnskolen}
-          valgtSvar={underUtdanning.harTattUtdanningEtterGrunnskolen?.verdi}
-        />
-      </KomponentGruppe>
+      <JaNeiSpørsmål
+        spørsmål={utdanningEtterGrunnskolenSpm(intl)}
+        onChange={settHarTattUtdanningEtterGrunnskolen}
+        valgtSvar={underUtdanning.harTattUtdanningEtterGrunnskolen?.verdi}
+      />
       {underUtdanning.harTattUtdanningEtterGrunnskolen?.verdi && (
         <>
           {tidligereUtdanning?.map((utdanning, index) => {
@@ -102,19 +97,15 @@ const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderUtdannin
             );
           })}
           {erTidligereUtdanningFerdigUtfylt(tidligereUtdanning ? tidligereUtdanning : []) && (
-            <KomponentGruppe>
-              <FeltGruppe>
-                <Label as="p">{hentTekst('utdanning.label.leggtil', intl)}</Label>
-                <LeggTilKnapp onClick={() => leggTilUtdanning()}>
-                  {hentTekst('utdanning.knapp.leggtil', intl)}
-                </LeggTilKnapp>
-              </FeltGruppe>
-            </KomponentGruppe>
+            <VStack align={'start'}>
+              <Label as="p">{hentTekst('utdanning.label.leggtil', intl)}</Label>
+              <LeggTilKnapp onClick={() => leggTilUtdanning()}>
+                {hentTekst('utdanning.knapp.leggtil', intl)}
+              </LeggTilKnapp>
+            </VStack>
           )}
         </>
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
-
-export default TidligereUtdanning;
