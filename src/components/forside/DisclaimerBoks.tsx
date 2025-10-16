@@ -1,16 +1,7 @@
-import { BodyShort, ConfirmationPanel, Heading } from '@navikt/ds-react';
-import styled from 'styled-components';
+import { BodyShort, Box, Checkbox, Heading, VStack } from '@navikt/ds-react';
 import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
 import React from 'react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-
-const StyledConfirmationPanel = styled(ConfirmationPanel)`
-  margin-bottom: 2rem;
-`;
-
-const DisclaimerTittel = styled(Heading)`
-  margin-bottom: 1rem;
-`;
 
 export const DisclaimerBoks: React.FC<{
   navn: string;
@@ -20,17 +11,22 @@ export const DisclaimerBoks: React.FC<{
 }> = ({ navn, tekst, harBekreftet, settBekreftelse }) => {
   const intl = useLokalIntlContext();
   return (
-    <>
-      <DisclaimerTittel level="2" size="small">
+    <VStack gap={'2'}>
+      <Heading level="2" size="small">
         {hentTekst('skjema.forside.disclaimer.tittel', intl)}
-      </DisclaimerTittel>
-      <StyledConfirmationPanel
-        checked={!!harBekreftet}
-        label={hentTekstMedEnVariabel('side.bekreftelse', intl, navn)}
-        onChange={() => settBekreftelse(!harBekreftet)}
+      </Heading>
+      <Box
+        background={harBekreftet ? 'surface-success-subtle' : 'surface-warning-subtle'}
+        padding={'4'}
+        borderWidth={'1'}
+        borderRadius={'medium'}
+        borderColor={harBekreftet ? 'border-success' : 'border-warning'}
       >
         <BodyShort>{hentTekst(tekst, intl)}</BodyShort>
-      </StyledConfirmationPanel>
-    </>
+        <Checkbox checked={!!harBekreftet} onChange={() => settBekreftelse(!harBekreftet)}>
+          {hentTekstMedEnVariabel('side.bekreftelse', intl, navn)}
+        </Checkbox>
+      </Box>
+    </VStack>
   );
 };

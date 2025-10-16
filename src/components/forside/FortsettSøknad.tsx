@@ -1,9 +1,8 @@
 import React from 'react';
 import SeksjonGruppe from '../gruppe/SeksjonGruppe';
-import { FortsettSøknadKnappWrapper } from './FortsettSøknadKnapper';
 import { useNavigate } from 'react-router-dom';
 import { LokalIntlShape } from '../../language/typer';
-import { BodyShort, Button } from '@navikt/ds-react';
+import { BodyShort, Button, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 
 interface FortsettSøknadProps {
@@ -28,7 +27,7 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
         <BodyShort>{hentTekst('side.fortsettSøknad.påbegyntSøknad', intl)}</BodyShort>
       </div>
       <SeksjonGruppe className={'sentrert'}>
-        <FortsettSøknadKnappWrapper>
+        <VStack gap={'4'}>
           <Button
             onClick={() => {
               brukMellomlagretSøknad();
@@ -50,7 +49,7 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
           >
             {hentTekst('side.fortsettSøknad.knapp.startPåNytt', intl)}
           </Button>
-        </FortsettSøknadKnappWrapper>
+        </VStack>
       </SeksjonGruppe>
     </>
   );

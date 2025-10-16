@@ -1,7 +1,4 @@
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
-import { Tekst } from '../../components/forside/Tekst';
-import { Seksjon } from '../../components/forside/Seksjon';
-import { Overskrift } from '../../components/forside/Overskrift';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from './routing/routesOvergangsstonad';
@@ -9,13 +6,9 @@ import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocale
 import React from 'react';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
-import { hentHTMLTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-
-export interface SistInnsendtSøknad {
-  søknadsdato: string;
-  stønadType: Stønadstype;
-}
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -26,42 +19,50 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
 
   return (
-    <>
+    <VStack gap={'10'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
-      <Seksjon>
-        <Tekst tekst="forside.overgangsstønad.erDuEnsligMorEllerFar" />
-        <Tekst tekst="forside.overgangsstønad.sammeSøknad" />
+      <VStack gap={'3'}>
+        <BodyShort>{hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.overgangsstønad.sammeSøknad', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.overgangsstønad.overskrift.riktigeOpplysninger" />
-        <Tekst tekst="forside.overgangsstønad.riktigeOpplysninger" />
-        <Tekst tekst="forside.overgangsstønad.meldeEndringer" />
-      </Seksjon>
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.overgangsstønad.overskrift.riktigeOpplysninger', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.overgangsstønad.riktigeOpplysninger', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.overgangsstønad.meldeEndringer', intl)}</BodyShort>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.overgangsstønad.overskrift.sendeDokumentasjon" />
-        <Tekst tekst="forside.overgangsstønad.beskjedDokumentere" />
-        <Tekst tekst="forside.overgangsstønad.merInformasjon" />
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.overgangsstønad.overskrift.sendeDokumentasjon', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.overgangsstønad.beskjedDokumentere', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.overgangsstønad.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.oversiktDokumentasjon', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.overgangsstønad.overskrift.henteInformasjon" />
-        <Tekst tekst="forside.overgangsstønad.henteInformasjon" />
-        <Tekst tekst="forside.overgangsstønad.viHenter" />
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.overgangsstønad.overskrift.henteInformasjon', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.overgangsstønad.henteInformasjon', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.overgangsstønad.viHenter', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.henterPunktliste', intl)}
-        <Tekst tekst="forside.overgangsstønad.tidligereOpplysninger" />
+        <BodyShort>{hentTekst('forside.overgangsstønad.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.personopplysningeneDine', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.overgangsstønad.overskrift.slikSøkerDu" />
-        <Tekst tekst="forside.overgangsstønad.slikSøkerDu" />
-        <Tekst tekst="forside.overgangsstønad.viLagrerSøknadenDin" />
-        <Tekst tekst="forside.overgangsstønad.manglerDuDokumentasjon" />
-      </Seksjon>
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.overgangsstønad.overskrift.slikSøkerDu', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.overgangsstønad.slikSøkerDu', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.overgangsstønad.viLagrerSøknadenDin', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.overgangsstønad.manglerDuDokumentasjon', intl)}</BodyShort>
+      </VStack>
 
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
@@ -71,6 +72,6 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
       />
 
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
-    </>
+    </VStack>
   );
 };
