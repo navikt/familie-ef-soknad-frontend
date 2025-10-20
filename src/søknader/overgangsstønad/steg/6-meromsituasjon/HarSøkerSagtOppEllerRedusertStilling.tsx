@@ -8,11 +8,10 @@ import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { isAfter, isBefore, subMonths } from 'date-fns';
 import { dagensDato, strengTilDato } from '../../../../utils/dato';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import { Alert, Textarea } from '@navikt/ds-react';
+import { Alert, Textarea, VStack } from '@navikt/ds-react';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
@@ -22,7 +21,7 @@ interface Props {
   settDinSituasjon: (dinSituasjon: IDinSituasjon) => void;
 }
 
-const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
+export const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
   dinSituasjon,
   settDinSituasjon,
 }) => {
@@ -119,32 +118,28 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     : 'dinSituasjon.datovelger-alert.redusertStilling';
 
   return (
-    <>
+    <VStack gap={'6'}>
       <MultiSvarSpørsmål
         spørsmål={SagtOppEllerRedusertStillingSpm(intl)}
         settSpørsmålOgSvar={settSagtOppEllerRedusertStilling}
         valgtSvar={sagtOppEllerRedusertStilling?.verdi}
       />
       {(harSagtOpp || harRedusertStilling) && (
-        <>
-          <KomponentGruppe>
-            <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
-          </KomponentGruppe>
-          <KomponentGruppe>
-            <Textarea
-              autoComplete={'off'}
-              label={begrunnelseLabel}
-              value={
-                begrunnelseSagtOppEllerRedusertStilling
-                  ? begrunnelseSagtOppEllerRedusertStilling.verdi
-                  : ''
-              }
-              maxLength={1000}
-              onChange={(e) => settBegrunnelse(e)}
-            />
-          </KomponentGruppe>
+        <VStack gap={'8'}>
+          <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
+          <Textarea
+            autoComplete={'off'}
+            label={begrunnelseLabel}
+            value={
+              begrunnelseSagtOppEllerRedusertStilling
+                ? begrunnelseSagtOppEllerRedusertStilling.verdi
+                : ''
+            }
+            maxLength={1000}
+            onChange={(e) => settBegrunnelse(e)}
+          />
           {begrunnelseSagtOppEllerRedusertStilling && (
-            <KomponentGruppe>
+            <VStack gap={'2'}>
               <Datovelger
                 valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
                 tekstid={datovelgerLabelId}
@@ -156,12 +151,10 @@ const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
                   {hentTekst(valgtDatoMindreEnn6mndSidenAlertId, intl)}
                 </Alert>
               )}
-            </KomponentGruppe>
+            </VStack>
           )}
-        </>
+        </VStack>
       )}
-    </>
+    </VStack>
   );
 };
-
-export default HarSøkerSagtOppEllerRedusertStilling;
