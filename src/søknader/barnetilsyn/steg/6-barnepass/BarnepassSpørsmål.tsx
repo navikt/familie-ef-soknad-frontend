@@ -10,7 +10,7 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { tomPeriode } from '../../../../helpers/tommeSøknadsfelter';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import BarnepassBeløp from './BarnepassBeløp';
+import { BarnepassBeløp } from './BarnepassBeløp';
 import { erÅrsakBarnepassSpmBesvart } from './hjelper';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BarnepassOrdning, EBarnepass, ETypeBarnepassOrdning } from '../../models/barnepass';
@@ -30,7 +30,7 @@ interface Props {
   barnIndeks: number;
 }
 
-const BarnepassSpørsmål: FC<Props> = ({
+export const BarnepassSpørsmål: FC<Props> = ({
   barn,
   settBarnepassOrdning,
   fjernBarnepassOrdning,
@@ -173,5 +173,3 @@ const BarnepassSpørsmål: FC<Props> = ({
     </VStack>
   );
 };
-
-export default BarnepassSpørsmål;

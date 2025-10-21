@@ -4,7 +4,7 @@ import Forside from './Forside';
 import { BarnaDine } from './steg/3-barnadine/BarnaDine';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';
 import Kvittering from './steg/9-kvittering/Kvittering';
-import Barnepass from './steg/6-barnepass/Barnepass';
+import { Barnepass } from './steg/6-barnepass/Barnepass';
 import RedirectTilStart from './RedirectTilStart';
 import Gjenbruk from './steg/0.5-gjenbruk/Gjenbruk';
 import { Stønadstype } from '../../models/søknad/stønadstyper';

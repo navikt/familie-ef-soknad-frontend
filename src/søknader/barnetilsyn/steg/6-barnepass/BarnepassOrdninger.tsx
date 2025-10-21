@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import BarnepassSpørsmål from './BarnepassSpørsmål';
+import { BarnepassSpørsmål } from './BarnepassSpørsmål';
 import LeggTilKnapp from '../../../../components/knapper/LeggTilKnapp';
 import { erBarnepassOrdningerUtfylt } from './hjelper';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
@@ -17,7 +17,7 @@ interface Props {
   indeks: number;
 }
 
-const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
+export const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const barnepass: IBarnepass = barn.barnepass
@@ -79,5 +79,3 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
     </VStack>
   );
 };
-
-export default BarnepassOrdninger;

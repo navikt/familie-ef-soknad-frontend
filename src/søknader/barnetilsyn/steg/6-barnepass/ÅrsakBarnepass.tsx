@@ -18,7 +18,7 @@ interface Props {
   settBarnepass: (barnepass: IBarnepass, barneid: string) => void;
 }
 
-const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
+export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const { barnepass } = barn;
@@ -76,5 +76,3 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
     </VStack>
   );
 };
-
-export default ÅrsakBarnepass;

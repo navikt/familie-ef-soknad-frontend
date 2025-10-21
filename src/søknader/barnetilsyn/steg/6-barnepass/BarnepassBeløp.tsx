@@ -12,7 +12,7 @@ interface Props {
   settInputFelt: (e: React.FormEvent<HTMLInputElement>, nøkkel: string, label: string) => void;
   barnIndeks: number;
 }
-const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt, barnIndeks }) => {
+export const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt, barnIndeks }) => {
   const intl = useLokalIntlContext();
   const beløp = barnepassOrdning.belop ? barnepassOrdning.belop.verdi : '';
   const beløpLabel = hentTekst('barnepass.label.beløp', intl);
@@ -44,5 +44,3 @@ const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt, barnIndek
     </VStack>
   );
 };
-
-export default BarnepassBeløp;
