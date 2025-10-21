@@ -10,7 +10,6 @@ interface ModalProps {
     lukkKnapp: Aksjonsknapp;
     marginTop?: number;
   };
-  maxWidth?: number;
   ariaLabel?: string;
   children?: React.ReactNode;
 }
@@ -26,14 +25,13 @@ export const ModalWrapper: React.FC<ModalProps> = ({
   visModal,
   onClose,
   aksjonsknapper,
-  ariaLabel,
   children,
 }) => {
   return (
     <Modal
       open={visModal}
       onClose={onClose ? () => onClose() : () => null}
-      aria-label={ariaLabel ? ariaLabel : tittel}
+      aria-label={tittel}
       header={{ heading: tittel, closeButton: !!onClose }}
       style={{ maxWidth: '40rem' }}
     >
