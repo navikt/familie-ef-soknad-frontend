@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import { RadioGroup } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioKnapp } from '../panel/RadioKnapp';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledMultisvarSpørsmål = styled.div`
@@ -52,7 +52,7 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
         {spørsmål.svaralternativer.map((svar: ISvar) => {
           const svarISøknad = svar.svar_tekst === valgtSvar;
           return (
-            <RadioPanelCustom
+            <RadioKnapp
               key={svar.svar_tekst}
               name={spørsmål.søknadid}
               value={svar.svar_tekst}
@@ -62,7 +62,7 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
               }}
             >
               {svar.svar_tekst}
-            </RadioPanelCustom>
+            </RadioKnapp>
           );
         })}
       </RadioGroup>

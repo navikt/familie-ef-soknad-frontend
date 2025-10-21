@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import { RadioGroup } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioKnapp } from '../panel/RadioKnapp';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledJaNeiSpørsmål = styled.div`
@@ -78,7 +78,7 @@ export const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
           const svarISøknad = valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
 
           return (
-            <RadioPanelCustom
+            <RadioKnapp
               key={svar.svar_tekst}
               name={spørsmål.søknadid}
               value={svar.id}
@@ -86,7 +86,7 @@ export const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
               onChange={(e) => onClickHandle(e, spørsmål, svar)}
             >
               {svar.svar_tekst}
-            </RadioPanelCustom>
+            </RadioKnapp>
           );
         })}
       </RadioGroup>

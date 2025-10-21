@@ -6,7 +6,7 @@ import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentBarnetsNavnEllerBeskrivelse, lagtTilAnnenForelderId } from '../../../../utils/barn';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
-import RadioPanelCustom from '../../../../components/panel/RadioPanel';
+import { RadioKnapp } from '../../../../components/panel/RadioKnapp';
 import { RadioGroup } from '@navikt/ds-react';
 import styled from 'styled-components';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -118,16 +118,16 @@ export const AnnenForelderKnapper: React.FC<Props> = ({
               return null;
 
             return (
-              <RadioPanelCustom
+              <RadioKnapp
                 key={`${andreForelder}${barn.id}`}
                 name={`${andreForelder}${barn.id}`}
                 value={barn.id}
                 checked={barn.annenForelderId === barn.id}
                 onChange={(e) => leggTilSammeForelder(e, barn)}
-              >{`${hentTekst('barnasbosted.forelder.sammesom', intl)} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioPanelCustom>
+              >{`${hentTekst('barnasbosted.forelder.sammesom', intl)} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioKnapp>
             );
           })}
-          <RadioPanelCustom
+          <RadioKnapp
             key={andreForelderAnnen}
             name={`${andreForelder}${barn.navn}`}
             value={lagtTilAnnenForelderId}
@@ -135,7 +135,7 @@ export const AnnenForelderKnapper: React.FC<Props> = ({
             onChange={() => leggTilAnnenForelder()}
           >
             {hentTekst('barnasbosted.forelder.annen', intl)}
-          </RadioPanelCustom>
+          </RadioKnapp>
         </RadioGroup>
       </StyledAnnenForelderSpørsmål>
     </KomponentGruppe>

@@ -3,7 +3,7 @@ import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioGroup } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioKnapp } from '../panel/RadioKnapp';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
@@ -61,7 +61,7 @@ const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålO
         {spørsmål.svaralternativer.map((svar: ISvar) => {
           const svarISøknad = svar.svar_tekst === valgtSvar;
           return (
-            <RadioPanelCustom
+            <RadioKnapp
               className={className}
               key={svar.svar_tekst}
               name={spørsmål.søknadid}
@@ -72,7 +72,7 @@ const MultiSvarSpørsmål: FC<Props> = ({ className, spørsmål, settSpørsmålO
               }}
             >
               {svar.svar_tekst}
-            </RadioPanelCustom>
+            </RadioKnapp>
           );
         })}
       </RadioGroup>
