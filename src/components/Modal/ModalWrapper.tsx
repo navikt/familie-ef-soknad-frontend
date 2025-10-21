@@ -1,29 +1,5 @@
-import styled from 'styled-components';
-import { Button, Modal } from '@navikt/ds-react';
+import { Button, Modal, VStack } from '@navikt/ds-react';
 import React from 'react';
-
-const ModalContainer = styled(Modal)<{ maxWidth?: number }>`
-  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}rem` : '40rem')};
-`;
-
-const Innhold = styled.div`
-  margin-right: 2rem;
-  margin-left: 2rem;
-`;
-
-const ButtonContainer = styled.div<{ marginTop?: number }>`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: ${(props) => (props.marginTop ? `${props.marginTop}rem` : '1rem')};
-  margin-right: 2rem;
-  margin-bottom: 0.5rem;
-`;
-
-const ModalKnapp = styled(Button)`
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-  margin-left: 1rem;
-`;
 
 interface ModalProps {
   tittel: string;
@@ -50,39 +26,40 @@ export const ModalWrapper: React.FC<ModalProps> = ({
   visModal,
   onClose,
   aksjonsknapper,
-  maxWidth,
   ariaLabel,
   children,
 }) => {
   return (
-    <ModalContainer
+    <Modal
       open={visModal}
       onClose={onClose ? () => onClose() : () => null}
-      maxWidth={maxWidth}
       aria-label={ariaLabel ? ariaLabel : tittel}
       header={{ heading: tittel, closeButton: !!onClose }}
+      style={{ maxWidth: '40rem' }}
     >
       <Modal.Body>
-        <Innhold>{children}</Innhold>
-        {aksjonsknapper && (
-          <ButtonContainer marginTop={aksjonsknapper.marginTop}>
-            <ModalKnapp
-              variant="tertiary"
-              onClick={aksjonsknapper.lukkKnapp.onClick}
-              disabled={aksjonsknapper.lukkKnapp.disabled}
-            >
-              {aksjonsknapper.lukkKnapp.tekst}
-            </ModalKnapp>
-            <ModalKnapp
-              variant="primary"
-              onClick={aksjonsknapper.hovedKnapp.onClick}
-              disabled={aksjonsknapper.hovedKnapp.disabled}
-            >
-              {aksjonsknapper.hovedKnapp.tekst}
-            </ModalKnapp>
-          </ButtonContainer>
-        )}
+        <VStack gap={'4'} marginInline={'6 6'}>
+          {children}
+          {aksjonsknapper && (
+            <>
+              <Button
+                variant="tertiary"
+                onClick={aksjonsknapper.lukkKnapp.onClick}
+                disabled={aksjonsknapper.lukkKnapp.disabled}
+              >
+                {aksjonsknapper.lukkKnapp.tekst}
+              </Button>
+              <Button
+                variant="primary"
+                onClick={aksjonsknapper.hovedKnapp.onClick}
+                disabled={aksjonsknapper.hovedKnapp.disabled}
+              >
+                {aksjonsknapper.hovedKnapp.tekst}
+              </Button>
+            </>
+          )}
+        </VStack>
       </Modal.Body>
-    </ModalContainer>
+    </Modal>
   );
 };
