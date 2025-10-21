@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnnenForelderKnapper } from './AnnenForelderKnapper';
-import BostedOgSamvær from './bostedOgSamvær/BostedOgSamvær';
+import { BostedOgSamvær } from './bostedOgSamvær/BostedOgSamvær';
 import OmAndreForelder from './OmAndreForelder';
 import SkalBarnetBoHosSøker from './SkalBarnetBoHosSøker';
 import { IBarn } from '../../../../models/steg/barn';
@@ -13,16 +13,15 @@ import {
   utfyltBorINorge,
   visSpørsmålHvisIkkeSammeForelder,
 } from '../../../../helpers/steg/forelder';
-import BorForelderINorge from './bostedOgSamvær/BorForelderINorge';
-import BorAnnenForelderISammeHus from './ikkesammeforelder/BorAnnenForelderISammeHus';
-import BoddSammenFør from './ikkesammeforelder/BoddSammenFør';
-import HvorMyeSammen from './ikkesammeforelder/HvorMyeSammen';
+import { BorForelderINorge } from './bostedOgSamvær/BorForelderINorge';
+import { BorAnnenForelderISammeHus } from './ikkesammeforelder/BorAnnenForelderISammeHus';
+import { BoddSammenFør } from './ikkesammeforelder/BoddSammenFør';
+import { HvorMyeSammen } from './ikkesammeforelder/HvorMyeSammen';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { erGyldigDato } from '../../../../utils/dato';
 import { TypeBarn } from '../../../../models/steg/barnasbosted';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
-import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Label, VStack } from '@navikt/ds-react';
 import styled from 'styled-components';
 import {
   finnFørsteBarnTilHverForelder,
@@ -151,16 +150,15 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
 
   return (
     <div className="barnas-bosted">
-      <SeksjonGruppe>
+      <VStack gap={'16'}>
         <BarneHeader barn={barn} />
-      </SeksjonGruppe>
-      <div className="barnas-bosted__innhold">
+
         {!barn.harSammeAdresse.verdi && (
           <SkalBarnetBoHosSøker barn={barn} forelder={forelder} settForelder={settForelder} />
         )}
 
         {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
-          <SeksjonGruppe>
+          <div>
             <BarnetsAndreForelderTittel barn={barn} />
 
             {skalViseAnnenForelderKnapper && (
@@ -201,7 +199,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
                 {hentTekst('barnasbosted.medforelder.gjenbrukt', intl)}
               </AlertMedTopMargin>
             )}
-          </SeksjonGruppe>
+          </div>
         )}
 
         {visBorAnnenForelderINorge && (
@@ -235,15 +233,17 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
         )}
 
         {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) && (
-          <Button
-            variant="secondary"
-            onClick={leggTilForelder}
-            data-testid={'leggTilForelderKnapp'}
-          >
-            {hentTekst('knapp.neste', intl)}
-          </Button>
+          <div>
+            <Button
+              variant="secondary"
+              onClick={leggTilForelder}
+              data-testid={'leggTilForelderKnapp'}
+            >
+              {hentTekst('knapp.neste', intl)}
+            </Button>
+          </div>
         )}
-      </div>
+      </VStack>
     </div>
   );
 };

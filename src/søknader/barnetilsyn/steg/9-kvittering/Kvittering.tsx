@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
 import Feilside from '../../../../components/feil/Feilside';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { formatDateHour } from '../../../../utils/dato';
 import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import SykSøker from '../../../felles/steg/9-kvittering/SykSøker';
-import DineSaker from '../../../felles/steg/9-kvittering/DineSaker';
+import { SykSøker } from '../../../felles/steg/9-kvittering/SykSøker';
+import { DineSaker } from '../../../felles/steg/9-kvittering/DineSaker';
 import { ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
-import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
+import { ErklæringSamlivsbrudd } from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
-import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
-import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
+import { RegistrerBarnIFolkeregister } from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
+import { EttersendDokumentasjon } from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { usePersonContext } from '../../../../context/PersonContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { IBarn } from '../../../../models/steg/barn';
-import { Alert } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
 const Kvittering: React.FC = () => {
@@ -56,29 +55,27 @@ const Kvittering: React.FC = () => {
       routesStønad={RoutesBarnetilsyn}
       skalViseStegindikator={false}
     >
-      <SeksjonGruppe>
+      <VStack gap={'16'}>
         <Alert size="small" variant={'success'}>
           {mottattAlert}
         </Alert>
-      </SeksjonGruppe>
+        <DineSaker />
+        {søknad.dokumentasjonsbehov.length > 0 && (
+          <EttersendDokumentasjon stønadstype={Stønadstype.barnetilsyn} />
+        )}
+        {sykSøker && (
+          <SykSøker
+            filPath={hentFilePath(locale, {
+              nb: '/familie/alene-med-barn/soknad/filer/Huskeliste_lege_syk_BT.pdf',
+              en: '/familie/alene-med-barn/soknad/filer/Checklist_for_your_doctors_appointment_BT_EN.pdf',
+              nn: '/familie/alene-med-barn/soknad/filer/Hugseliste_lege_sjukdom_BT_NN.pdf',
+            })}
+          />
+        )}
+        {erklæringSamlivsbrudd && <ErklæringSamlivsbrudd />}
 
-      <DineSaker />
-      <EttersendDokumentasjon
-        dokumentasjonsbehov={søknad.dokumentasjonsbehov}
-        stønadstype={Stønadstype.barnetilsyn}
-      />
-      {sykSøker && (
-        <SykSøker
-          filPath={hentFilePath(locale, {
-            nb: '/familie/alene-med-barn/soknad/filer/Huskeliste_lege_syk_BT.pdf',
-            en: '/familie/alene-med-barn/soknad/filer/Checklist_for_your_doctors_appointment_BT_EN.pdf',
-            nn: '/familie/alene-med-barn/soknad/filer/Hugseliste_lege_sjukdom_BT_NN.pdf',
-          })}
-        />
-      )}
-      {erklæringSamlivsbrudd && <ErklæringSamlivsbrudd />}
-
-      <RegistrerBarnIFolkeregister barna={barnSomSkalHaBarnepass} />
+        <RegistrerBarnIFolkeregister barna={barnSomSkalHaBarnepass} />
+      </VStack>
     </Side>
   ) : (
     <Feilside />
