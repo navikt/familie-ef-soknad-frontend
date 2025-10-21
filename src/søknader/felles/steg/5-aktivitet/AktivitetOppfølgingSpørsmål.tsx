@@ -4,7 +4,7 @@ import HjemmeMedBarnUnderEttÅr from './HjemmeMedBarnUnderEttÅr';
 import OmArbeidsforholdetDitt from './arbeidsforhold/OmArbeidsforholdetDitt';
 import EtablererEgenVirksomhet from './EtablererEgenVirksomhet';
 import Arbeidssøker from './arbeidssøker/Arbeidssøker';
-import TarUtdanning from './utdanning/TarUtdanning';
+import { TarUtdanning } from './utdanning/TarUtdanning';
 import EgetAS from './aksjeselskap/EgetAS';
 import FåttJobbTilbud from './FåttJobbTilbud';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
