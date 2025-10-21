@@ -14,13 +14,12 @@ import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
-import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 
 interface Innsending {
   status: IStatus;
@@ -75,7 +74,7 @@ const Oppsummering: React.FC = () => {
 
   return (
     <Side tittel={hentTekst('oppsummering.sidetittel', intl)} skalViseKnapper={false}>
-      <SeksjonGruppe>
+      <VStack gap={'12'}>
         <div className="oppsummering-arbeidssøker">
           <p className="navds-body-short navds-body-long disclaimer">
             {hentTekst('skjema.oppsummering.disclaimer', intl)}
@@ -84,56 +83,56 @@ const Oppsummering: React.FC = () => {
             {hentTekst('skjema.oppsummering.omdeg', intl)}
           </Heading>
           {spørsmålOgSvar}
+          <LenkeMedIkon
+            onClick={() =>
+              navigate(
+                {
+                  pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål),
+                },
+                { state: { kommerFraOppsummering: true } }
+              )
+            }
+            tekst_id="barnasbosted.knapp.endre"
+            ikon={endre}
+          />
         </div>
-        <LenkeMedIkon
-          onClick={() =>
-            navigate(
-              {
-                pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål),
-              },
-              { state: { kommerFraOppsummering: true } }
-            )
-          }
-          tekst_id="barnasbosted.knapp.endre"
-          ikon={endre}
-        />
-      </SeksjonGruppe>
 
-      {innsendingState.status === IStatus.FEILET && (
-        <KomponentGruppe>
-          <Alert size="small" variant={'warning'} inline>
-            <BodyShort>{innsendingState.melding}</BodyShort>
-          </Alert>
-        </KomponentGruppe>
-      )}
-      <SeksjonGruppe className={'sentrert'}>
-        <StyledKnapper>
-          <Button
-            className={'tilbake'}
-            variant={'secondary'}
-            onClick={() => navigate(forrigeRoute.path)}
-          >
-            {hentTekst('knapp.tilbake', intl)}
-          </Button>
+        {innsendingState.status === IStatus.FEILET && (
+          <KomponentGruppe>
+            <Alert size="small" variant={'warning'} inline>
+              <BodyShort>{innsendingState.melding}</BodyShort>
+            </Alert>
+          </KomponentGruppe>
+        )}
+        <HStack justify={'center'}>
+          <StyledKnapper>
+            <Button
+              className={'tilbake'}
+              variant={'secondary'}
+              onClick={() => navigate(forrigeRoute.path)}
+            >
+              {hentTekst('knapp.tilbake', intl)}
+            </Button>
 
-          <Button
-            variant={'primary'}
-            onClick={() => !innsendingState.venter && sendSkjema(skjema.arbeidssøker)}
-            className={'neste'}
-            loading={innsendingState.venter}
-          >
-            {hentTekst('skjema.send', intl)}
-          </Button>
+            <Button
+              variant={'primary'}
+              onClick={() => !innsendingState.venter && sendSkjema(skjema.arbeidssøker)}
+              className={'neste'}
+              loading={innsendingState.venter}
+            >
+              {hentTekst('skjema.send', intl)}
+            </Button>
 
-          <Button
-            className={'avbryt'}
-            variant={'tertiary'}
-            onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}
-          >
-            {hentTekst('knapp.avbryt', intl)}
-          </Button>
-        </StyledKnapper>
-      </SeksjonGruppe>
+            <Button
+              className={'avbryt'}
+              variant={'tertiary'}
+              onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}
+            >
+              {hentTekst('knapp.avbryt', intl)}
+            </Button>
+          </StyledKnapper>
+        </HStack>
+      </VStack>
     </Side>
   );
 };

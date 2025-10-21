@@ -1,9 +1,9 @@
 import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import LesMerTekst from '../LesMerTekst';
 import styled from 'styled-components';
 import { RadioGroup } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledJaNeiSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -29,7 +29,7 @@ interface Props {
   valgtSvar: boolean | undefined;
 }
 
-const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
+export const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
   spørsmål,
   spørsmålTekst,
   onChange,
@@ -68,7 +68,6 @@ const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
         description={
           spørsmål.lesmer && (
             <LesMerTekst
-              halvåpenTekstid={spørsmål.lesmer.halvåpenTekstid}
               åpneTekstid={spørsmål.lesmer.headerTekstid}
               innholdTekstid={spørsmål.lesmer.innholdTekstid}
             />
@@ -94,5 +93,3 @@ const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
     </StyledJaNeiSpørsmål>
   );
 };
-
-export default JaNeiSpørsmålMedNavn;

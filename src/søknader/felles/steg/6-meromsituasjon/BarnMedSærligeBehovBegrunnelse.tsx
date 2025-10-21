@@ -6,8 +6,8 @@ import './BarnMedSærligeBehovBegrunnelse.css';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label, Textarea } from '@navikt/ds-react';
-import LesMerTekst from '../../../../components/LesMerTekst';
 import { hentTekstMedEnVariabel, storeForbokstaver } from '../../../../utils/teksthåndtering';
+import { LesMerTekst } from '../../../../components/lesmertekst/LesMerTekst';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 

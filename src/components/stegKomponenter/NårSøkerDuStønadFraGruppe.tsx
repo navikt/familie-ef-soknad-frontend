@@ -1,17 +1,16 @@
 import React from 'react';
-import KomponentGruppe from '../gruppe/KomponentGruppe';
-import LesMerTekst from '../LesMerTekst';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import { IDatoFelt, ISpørsmålBooleanFelt } from '../../models/søknad/søknadsfelter';
-import AlertStripeDokumentasjon from '../AlertstripeDokumentasjon';
 import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Label, RadioGroup } from '@navikt/ds-react';
+import { Label, RadioGroup, VStack } from '@navikt/ds-react';
 import RadioPanelCustom from '../panel/RadioPanel';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../dato/GyldigeDatoer';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
+import { AlertStripeDokumentasjon } from '../AlertstripeDokumentasjon';
 
 const StyledMultisvarSpørsmål = styled.div`
   .navds-fieldset .navds-radio-buttons {
@@ -28,10 +27,6 @@ const StyledMultisvarSpørsmål = styled.div`
       grid-template-columns: 1fr;
     }
   }
-`;
-
-const StyledDatovelger = styled.div`
-  padding-top: 0.5rem;
 `;
 
 interface Props {
@@ -58,8 +53,8 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
   const intl = useLokalIntlContext();
 
   return (
-    <>
-      <KomponentGruppe>
+    <VStack gap={'16'}>
+      <VStack>
         <StyledMultisvarSpørsmål>
           <RadioGroup
             legend={hentTekst(spørsmål.tekstid, intl)}
@@ -87,25 +82,23 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
             })}
           </RadioGroup>
         </StyledMultisvarSpørsmål>
-      </KomponentGruppe>
+      </VStack>
 
       {søkerFraBestemtMåned?.verdi === true && (
-        <KomponentGruppe>
+        <VStack gap={'2'}>
           <Label as="p">{hentTekst('søkerFraBestemtMåned.datovelger', intl)}</Label>
-          <StyledDatovelger>
-            <MånedÅrVelger
-              valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}
-              tekstid={datovelgerLabel}
-              gyldigeDatoer={GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem}
-              settDato={settDato}
-            />
-          </StyledDatovelger>
+          <MånedÅrVelger
+            valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}
+            tekstid={datovelgerLabel}
+            gyldigeDatoer={GyldigeDatoer.FemÅrTidligereOgSeksMånederFrem}
+            settDato={settDato}
+          />
           {alertTekst && (
             <AlertStripeDokumentasjon>{hentTekst(alertTekst, intl)}</AlertStripeDokumentasjon>
           )}
-        </KomponentGruppe>
+        </VStack>
       )}
-    </>
+    </VStack>
   );
 };
 export default NårSøkerDuStønadFra;

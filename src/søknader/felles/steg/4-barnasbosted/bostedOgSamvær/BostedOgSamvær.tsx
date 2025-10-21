@@ -1,12 +1,11 @@
 import React from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { harAnnenForelderSamværMedBarn } from '../ForeldreConfig';
-import HvordanPraktiseresSamværet from '../HvordanPraktiseresSamværet';
+import { HvordanPraktiseresSamværet } from '../HvordanPraktiseresSamværet';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EForelder, IForelder } from '../../../../../models/steg/forelder';
 import { erJaNeiSvar, hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import HarForelderSkriftligSamværsavtale from './HarForelderSkriftligSamværsavtale';
+import { HarForelderSkriftligSamværsavtale } from './HarForelderSkriftligSamværsavtale';
 import {
   harForelderSamværMedBarn,
   hvisEndretSvarSlettFeltHvordanPraktiseresSamværet,
@@ -24,7 +23,7 @@ interface Props {
   barn: IBarn;
 }
 
-const BostedOgSamvær: React.FC<Props> = ({ settForelder, forelder, barn }) => {
+export const BostedOgSamvær: React.FC<Props> = ({ settForelder, forelder, barn }) => {
   const intl = useLokalIntlContext();
 
   const harAnnenForelderSamværMedBarnConfig = harAnnenForelderSamværMedBarn(intl, barn);
@@ -57,19 +56,17 @@ const BostedOgSamvær: React.FC<Props> = ({ settForelder, forelder, barn }) => {
 
   return (
     <>
-      <KomponentGruppe>
-        <MultiSvarSpørsmålMedNavn
-          key={harAnnenForelderSamværMedBarnConfig.søknadid}
-          spørsmål={harAnnenForelderSamværMedBarnConfig}
-          spørsmålTekst={hentBarnNavnEllerBarnet(
-            barn,
-            harAnnenForelderSamværMedBarnConfig.tekstid,
-            intl
-          )}
-          valgtSvar={forelder.harAnnenForelderSamværMedBarn?.verdi}
-          settSpørsmålOgSvar={settBostedOgSamværFelt}
-        />
-      </KomponentGruppe>
+      <MultiSvarSpørsmålMedNavn
+        key={harAnnenForelderSamværMedBarnConfig.søknadid}
+        spørsmål={harAnnenForelderSamværMedBarnConfig}
+        spørsmålTekst={hentBarnNavnEllerBarnet(
+          barn,
+          harAnnenForelderSamværMedBarnConfig.tekstid,
+          intl
+        )}
+        valgtSvar={forelder.harAnnenForelderSamværMedBarn?.verdi}
+        settSpørsmålOgSvar={settBostedOgSamværFelt}
+      />
       {harForelderSamværMedBarn(forelder.harAnnenForelderSamværMedBarn?.svarid) && (
         <HarForelderSkriftligSamværsavtale
           forelder={forelder}
@@ -84,5 +81,3 @@ const BostedOgSamvær: React.FC<Props> = ({ settForelder, forelder, barn }) => {
     </>
   );
 };
-
-export default BostedOgSamvær;

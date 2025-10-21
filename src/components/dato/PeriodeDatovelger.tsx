@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { EPeriode, IPeriode } from '../../models/felles/periode';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
-import LesMerTekst from '../LesMerTekst';
 import {
   erDatoerLike,
   erDatoInnenforBegrensing,
@@ -14,6 +13,7 @@ import { Datovelger } from './Datovelger';
 import { GyldigeDatoer } from './GyldigeDatoer';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 interface Props {
   className?: string;

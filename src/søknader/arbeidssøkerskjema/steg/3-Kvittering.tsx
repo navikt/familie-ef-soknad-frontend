@@ -8,9 +8,8 @@ import Feilside from '../../../components/feil/Feilside';
 import FeltGruppe from '../../../components/gruppe/FeltGruppe';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Link } from '@navikt/ds-react';
-import { StyledBeskrivelse } from '../../../components/StyledBeskrivelse';
 
-const Kvittering: React.FC = () => {
+export const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { skjema } = useSkjema();
 
@@ -30,16 +29,12 @@ const Kvittering: React.FC = () => {
         </Alert>
       </KomponentGruppe>
       <KomponentGruppe>
-        <StyledBeskrivelse>
-          <BodyShort>{hentHTMLTekst('skjema.beskrivelse', intl)}</BodyShort>
-        </StyledBeskrivelse>
+        <BodyShort>{hentHTMLTekst('skjema.beskrivelse', intl)}</BodyShort>
       </KomponentGruppe>
 
       <KomponentGruppe>
         <FeltGruppe>
-          <StyledBeskrivelse>
-            <BodyShort>{hentHTMLTekst('arbeidssøker.tekst.tillegstønad', intl)}</BodyShort>
-          </StyledBeskrivelse>
+          <BodyShort>{hentHTMLTekst('arbeidssøker.tekst.tillegstønad', intl)}</BodyShort>
         </FeltGruppe>
         <FeltGruppe>
           <Link href={'https://www.nav.no/tilleggsstonader-enslig'}>
@@ -55,5 +50,3 @@ const Kvittering: React.FC = () => {
     <Feilside />
   );
 };
-
-export default Kvittering;

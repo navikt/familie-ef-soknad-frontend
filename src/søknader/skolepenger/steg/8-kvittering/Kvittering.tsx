@@ -1,20 +1,19 @@
 import { useEffect } from 'react';
-import DineSaker from '../../../felles/steg/9-kvittering/DineSaker';
+import { DineSaker } from '../../../felles/steg/9-kvittering/DineSaker';
 import Feilside from '../../../../components/feil/Feilside';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
-import TilleggsstønaderUnderUtdanning from '../../../felles/steg/9-kvittering/TilleggsstønaderUnderUtdanning';
+import { TilleggsstønaderUnderUtdanning } from '../../../felles/steg/9-kvittering/TilleggsstønaderUnderUtdanning';
 import { formatDateHour } from '../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import ErklæringSamlivsbrudd from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
+import { ErklæringSamlivsbrudd } from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';
-import RegistrerBarnIFolkeregister from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
-import EttersendDokumentasjon from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
+import { RegistrerBarnIFolkeregister } from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
+import { EttersendDokumentasjon } from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { usePersonContext } from '../../../../context/PersonContext';
-import { Alert } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { oppdaterBarnMedLabel } from '../../../../utils/søknad';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
@@ -47,19 +46,20 @@ const Kvittering: React.FC = () => {
       routesStønad={RoutesSkolepenger}
       skalViseStegindikator={false}
     >
-      <SeksjonGruppe>
+      <VStack gap={'16'}>
         <Alert size="small" variant="success">
           {mottattAlert}
         </Alert>
-      </SeksjonGruppe>
-      <DineSaker />
-      <EttersendDokumentasjon
-        dokumentasjonsbehov={søknad.dokumentasjonsbehov}
-        stønadstype={Stønadstype.overgangsstønad}
-      />
-      {erklæringSamlivsbrudd && <ErklæringSamlivsbrudd />}
-      <RegistrerBarnIFolkeregister barna={søknad.person.barn} />
-      {søknad.utdanning && <TilleggsstønaderUnderUtdanning stønadstype={Stønadstype.skolepenger} />}
+        <DineSaker />
+        {søknad.dokumentasjonsbehov.length > 0 && (
+          <EttersendDokumentasjon stønadstype={Stønadstype.overgangsstønad} />
+        )}
+        {erklæringSamlivsbrudd && <ErklæringSamlivsbrudd />}
+        <RegistrerBarnIFolkeregister barna={søknad.person.barn} />
+        {søknad.utdanning && (
+          <TilleggsstønaderUnderUtdanning stønadstype={Stønadstype.skolepenger} />
+        )}
+      </VStack>
     </Side>
   ) : (
     <Feilside />

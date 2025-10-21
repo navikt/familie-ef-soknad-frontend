@@ -1,9 +1,7 @@
 import { IForelder } from '../../../../../models/steg/forelder';
 import React, { FC } from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { hvorMyeSammen } from '../ForeldreConfig';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { EHvorMyeSammen } from '../../../../../models/steg/barnasbosted';
 import { IBarn } from '../../../../../models/steg/barn';
@@ -17,7 +15,7 @@ interface Props {
   barn: IBarn;
   settForelder: (verdi: IForelder) => void;
 }
-const HvorMyeSammen: FC<Props> = ({ forelder, barn, settForelder }) => {
+export const HvorMyeSammen: FC<Props> = ({ forelder, barn, settForelder }) => {
   const intl = useLokalIntlContext();
 
   const hvorMyeSammenConfig = hvorMyeSammen(intl, barn);
@@ -54,32 +52,25 @@ const HvorMyeSammen: FC<Props> = ({ forelder, barn, settForelder }) => {
   };
   return (
     <>
-      <KomponentGruppe>
-        <MultiSvarSpørsmålMedNavn
-          key={hvorMyeSammenConfig.søknadid}
-          spørsmål={hvorMyeSammenConfig}
-          spørsmålTekst={hentBarnNavnEllerBarnet(barn, hvorMyeSammenConfig.tekstid, intl)}
-          valgtSvar={forelder.hvorMyeSammen?.verdi}
-          settSpørsmålOgSvar={(spørsmål, svar) => settHvorMyeSammen(spørsmål, svar)}
-        />
-      </KomponentGruppe>
+      <MultiSvarSpørsmålMedNavn
+        key={hvorMyeSammenConfig.søknadid}
+        spørsmål={hvorMyeSammenConfig}
+        spørsmålTekst={hentBarnNavnEllerBarnet(barn, hvorMyeSammenConfig.tekstid, intl)}
+        valgtSvar={forelder.hvorMyeSammen?.verdi}
+        settSpørsmålOgSvar={(spørsmål, svar) => settHvorMyeSammen(spørsmål, svar)}
+      />
       {forelder.hvorMyeSammen?.svarid === EHvorMyeSammen.møtesUtenom && (
-        <>
-          <FeltGruppe>
-            <Textarea
-              autoComplete={'off'}
-              value={
-                forelder.beskrivSamværUtenBarn && forelder.beskrivSamværUtenBarn.verdi
-                  ? forelder.beskrivSamværUtenBarn.verdi
-                  : ''
-              }
-              onChange={(e) => settBeskrivSamværUtenBarn(e.target.value)}
-              label={hentBarnNavnEllerBarnet(barn, 'barnasbosted.spm.beskrivSamværUtenBarn', intl)}
-            />
-          </FeltGruppe>
-        </>
+        <Textarea
+          autoComplete={'off'}
+          value={
+            forelder.beskrivSamværUtenBarn && forelder.beskrivSamværUtenBarn.verdi
+              ? forelder.beskrivSamværUtenBarn.verdi
+              : ''
+          }
+          onChange={(e) => settBeskrivSamværUtenBarn(e.target.value)}
+          label={hentBarnNavnEllerBarnet(barn, 'barnasbosted.spm.beskrivSamværUtenBarn', intl)}
+        />
       )}
     </>
   );
 };
-export default HvorMyeSammen;

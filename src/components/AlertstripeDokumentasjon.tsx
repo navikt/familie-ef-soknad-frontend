@@ -1,39 +1,12 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
-import { FilIkon } from '../assets/FilIkon';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack } from '@navikt/ds-react';
+import { FileTextIcon } from '@navikt/aksel-icons';
 
-const StyledAlertstripe = styled.div`
-  padding-top: 2rem;
-  display: flex;
-  align-content: center;
-  .navds-body-short {
-    font-size: 1rem;
-  }
-
-  .ikon {
-    margin-right: 0.75rem;
-    display: flex;
-    top: 1rem;
-    flex-shrink: 0;
-  }
-  .tekst {
-    margin: auto 0;
-    max-width: 37.5rem;
-    display: block;
-    flex: 1 1;
-  }
-`;
-
-const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
+export const AlertStripeDokumentasjon: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
-    <StyledAlertstripe>
-      <FilIkon className={'ikon'} />
-      <div className={'tekst'}>
-        <BodyShort>{children}</BodyShort>
-      </div>
-    </StyledAlertstripe>
+    <HStack gap="2" paddingBlock="4" wrap={false}>
+      <FileTextIcon title="fil-ikon" fontSize="2rem" style={{ flexShrink: 0 }} />
+      <BodyShort size={'small'}>{children}</BodyShort>
+    </HStack>
   );
 };
-
-export default AlertStripeDokumentasjon;

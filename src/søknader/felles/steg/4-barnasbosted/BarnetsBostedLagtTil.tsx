@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import BarneHeader from '../../../../components/BarneHeader';
 import { formatDate, strengTilDato } from '../../../../utils/dato';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
@@ -11,6 +10,7 @@ import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { harVerdi } from '../../../../utils/typer';
 import { useBarnasBosted } from './BarnasBostedContext';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 interface Props {
   barn: IBarn;

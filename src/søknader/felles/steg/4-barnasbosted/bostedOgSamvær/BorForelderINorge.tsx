@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { EForelder, IForelder } from '../../../../../models/steg/forelder';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { borINorge } from '../ForeldreConfig';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
-import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
+import { JaNeiSpørsmålMedNavn } from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { erJaNeiSvar, hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
@@ -28,7 +27,7 @@ interface Props {
   settForelder: (verdi: IForelder) => void;
 }
 
-const BorForelderINorge: FC<Props> = ({ settForelder, barn, forelder }) => {
+export const BorForelderINorge: FC<Props> = ({ settForelder, barn, forelder }) => {
   const [locale] = useSpråkContext();
   const land = hentLand(locale);
   const oppholdslandConfig = utledOppholdslandConfig(land);
@@ -67,25 +66,19 @@ const BorForelderINorge: FC<Props> = ({ settForelder, barn, forelder }) => {
 
   return (
     <>
-      <KomponentGruppe>
-        <JaNeiSpørsmålMedNavn
-          spørsmål={borINorge(intl)}
-          spørsmålTekst={hentBarnNavnEllerBarnet(barn, borINorge(intl).tekstid, intl)}
-          onChange={settFelt}
-          valgtSvar={forelder.borINorge?.verdi}
-        />
-      </KomponentGruppe>
+      <JaNeiSpørsmålMedNavn
+        spørsmål={borINorge(intl)}
+        spørsmålTekst={hentBarnNavnEllerBarnet(barn, borINorge(intl).tekstid, intl)}
+        onChange={settFelt}
+        valgtSvar={forelder.borINorge?.verdi}
+      />
       {forelder.borINorge?.verdi === false && (
-        <KomponentGruppe>
-          <SelectSpørsmål
-            spørsmål={oppholdslandConfig}
-            valgtSvarId={forelder.land?.svarid}
-            settSpørsmålOgSvar={oppdaterMedforeldersOppholdsland}
-          />
-        </KomponentGruppe>
+        <SelectSpørsmål
+          spørsmål={oppholdslandConfig}
+          valgtSvarId={forelder.land?.svarid}
+          settSpørsmålOgSvar={oppdaterMedforeldersOppholdsland}
+        />
       )}
     </>
   );
 };
-
-export default BorForelderINorge;

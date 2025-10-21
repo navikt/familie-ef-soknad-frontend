@@ -1,19 +1,17 @@
 import { FC } from 'react';
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
 import { IBarn } from '../../../../models/steg/barn';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { flereBarnsNavn } from '../../../../utils/barn';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledUndertittel } from '../../../../components/gruppe/Spacing';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
   barna: IBarn[];
 }
 
-const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
+export const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
   const intl = useLokalIntlContext();
 
   const barnSomSkalRegistreresIFolkeregister = barna.filter((barn) => {
@@ -32,8 +30,10 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
   );
 
   return (
-    <SeksjonGruppe>
-      <StyledUndertittel size={'small'}>{tekst}</StyledUndertittel>
+    <VStack gap={'4'}>
+      <Heading size={'small'} spacing={true}>
+        {tekst}
+      </Heading>
       <BodyShort>{tekst}</BodyShort>
       <KomponentGruppe>
         <a
@@ -45,7 +45,6 @@ const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
           {hentTekst('barnasbosted.skalBliFolkeregistrert.knapp', intl)}
         </a>
       </KomponentGruppe>
-    </SeksjonGruppe>
+    </VStack>
   );
 };
-export default RegistrerBarnIFolkeregister;

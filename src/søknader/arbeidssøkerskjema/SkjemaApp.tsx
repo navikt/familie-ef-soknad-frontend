@@ -9,7 +9,7 @@ import {
 import Forside from './Forside';
 import Spørsmål from './steg/1-Spørsmål';
 import Oppsummering from './steg/2-Oppsummering';
-import Kvittering from './steg/3-Kvittering';
+import { Kvittering } from './steg/3-Kvittering';
 import { SkjemaProvider } from './SkjemaContext';
 import RedirectArbeidssoker from './routes/RedirectArbeidssoker';
 import { Loader } from '@navikt/ds-react';

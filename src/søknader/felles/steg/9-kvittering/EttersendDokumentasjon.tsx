@@ -1,30 +1,21 @@
 import { FC } from 'react';
-import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 interface Props {
   stønadstype: Stønadstype;
-  dokumentasjonsbehov: IDokumentasjon[];
 }
 
-const EttersendDokumentasjon: FC<Props> = ({ stønadstype, dokumentasjonsbehov }) => {
+export const EttersendDokumentasjon: FC<Props> = ({ stønadstype }) => {
   const intl = useLokalIntlContext();
-  return dokumentasjonsbehov.length > 0 ? (
-    <KomponentGruppe>
-      <FeltGruppe>
-        <Heading size="small" level="3">
-          {hentTekst('dokumentasjon.ettersend.tittel', intl)}
-        </Heading>
-      </FeltGruppe>
-      <FeltGruppe>
-        <BodyShort>{hentHTMLTekst(`dokumentasjon.ettersend.tekst.${stønadstype}`, intl)}</BodyShort>
-      </FeltGruppe>
-    </KomponentGruppe>
-  ) : null;
+  return (
+    <VStack gap={'4'}>
+      <Heading size="small" level="3">
+        {hentTekst('dokumentasjon.ettersend.tittel', intl)}
+      </Heading>
+      <BodyShort>{hentHTMLTekst(`dokumentasjon.ettersend.tekst.${stønadstype}`, intl)}</BodyShort>
+    </VStack>
+  );
 };
-export default EttersendDokumentasjon;

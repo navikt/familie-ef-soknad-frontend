@@ -4,17 +4,14 @@ import {
   EUtdanning,
   UnderUtdanning,
 } from '../../../../../models/steg/aktivitet/utdanning';
-import ErUtdanningenOffentligEllerPrivat from './ErUtdanningenOffentligEllerPrivat';
-import ErUtdanningenPåHeltidEllerDeltid from './ErUtdanningenPåHeltidEllerDeltid';
-import LesMerTekst from '../../../../../components/LesMerTekst';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import NårSkalDuVæreElevEllerStudent from './NårSkalDuElevEllerStudent';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
-import SkoleOgLinje from './SkoleOgLinjeInputFelter';
-import StudieArbeidsmengde from './StudieArbeidsmengde';
-import TidligereUtdanning from './TidligereUtdanning';
+import { ErUtdanningenOffentligEllerPrivat } from './ErUtdanningenOffentligEllerPrivat';
+import { ErUtdanningenPåHeltidEllerDeltid } from './ErUtdanningenPåHeltidEllerDeltid';
+import { NårSkalDuVæreElevEllerStudent } from './NårSkalDuElevEllerStudent';
+import { SkoleOgLinje } from './SkoleOgLinjeInputFelter';
+import { StudieArbeidsmengde } from './StudieArbeidsmengde';
+import { TidligereUtdanning } from './TidligereUtdanning';
 import { utdanningDuKanFåStønadTil, utdanningDuKanFåStønadTilSkolepenger } from './UtdanningConfig';
-import MålMedUtdanningen from './MålMedUtdanningen';
+import { MålMedUtdanningen } from './MålMedUtdanningen';
 import {
   erDetaljertUtdanningFerdigUtfylt,
   erUnderUtdanningFerdigUtfylt,
@@ -22,14 +19,15 @@ import {
 import { strengErMerEnnNull } from '../../../../../utils/spørsmålogsvar';
 import { lagTomUnderUtdanning } from '../../../../../helpers/steg/utdanning';
 import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
-import Studiekostnader from './Studiekostnader';
+import { Studiekostnader } from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
 import styled from 'styled-components';
 import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
+import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
 
 const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
   margin-top: -2rem;
@@ -78,74 +76,70 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
     : erUnderUtdanningFerdigUtfylt(utdanning);
 
   return (
-    <>
-      <SeksjonGruppe>
-        <KomponentGruppe>
-          {stønadstype === Stønadstype.overgangsstønad && (
-            <>
-              <Heading size="small" level="3" className={'sentrert'}>
-                {hentTekst('utdanning.tittel', intl)}
-              </Heading>
-              <LesMerTekst
-                åpneTekstid={utdanningDuKanFåStønadTil.headerTekstid}
-                innholdTekstid={utdanningDuKanFåStønadTil.innholdTekstid}
-              />
-            </>
-          )}
-          {stønadstype === Stønadstype.skolepenger && (
-            <LesMerTekstUnderSidetittel
-              åpneTekstid={utdanningDuKanFåStønadTilSkolepenger.headerTekstid}
-              innholdTekstid={utdanningDuKanFåStønadTilSkolepenger.innholdTekstid}
-            />
-          )}
-        </KomponentGruppe>
-
-        <SkoleOgLinje
-          aria-live="polite"
-          utdanning={utdanning}
-          oppdaterUtdanning={oppdaterUtdanning}
-        />
-
-        {utdanning.linjeKursGrad?.verdi && (
-          <ErUtdanningenOffentligEllerPrivat utdanning={utdanning} settUtdanning={settUtdanning} />
-        )}
-        {utdanning.offentligEllerPrivat?.verdi && (
-          <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
-        )}
-        {utdanning?.periode &&
-          erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle) && (
-            <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
-          )}
-        {søkerSkalStudereHeltid && (
-          <MålMedUtdanningen
-            utdanning={utdanning}
-            oppdaterUtdanning={oppdaterUtdanning}
-            stønadstype={stønadstype}
-          />
-        )}
-        {søkerSkalStudereDeltid && (
+    <VStack gap={'16'}>
+      <VStack gap={'2'}>
+        {stønadstype === Stønadstype.overgangsstønad && (
           <>
-            <StudieArbeidsmengde utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
-            {strengErMerEnnNull(utdanning.arbeidsmengde?.verdi) && (
-              <MålMedUtdanningen
-                utdanning={utdanning}
-                oppdaterUtdanning={oppdaterUtdanning}
-                stønadstype={stønadstype}
-              />
-            )}
+            <Heading size="small" level="3" className={'sentrert'}>
+              {hentTekst('utdanning.tittel', intl)}
+            </Heading>
+            <LesMerTekst
+              åpneTekstid={utdanningDuKanFåStønadTil.headerTekstid}
+              innholdTekstid={utdanningDuKanFåStønadTil.innholdTekstid}
+            />
           </>
         )}
-        {skalHaDetaljertUtdanning && erUnderUtdanningFerdigUtfylt(utdanning) && (
-          <Studiekostnader utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
+        {stønadstype === Stønadstype.skolepenger && (
+          <LesMerTekstUnderSidetittel
+            åpneTekstid={utdanningDuKanFåStønadTilSkolepenger.headerTekstid}
+            innholdTekstid={utdanningDuKanFåStønadTilSkolepenger.innholdTekstid}
+          />
         )}
-      </SeksjonGruppe>
+      </VStack>
 
-      {visTidligereUtdanning && (
+      <SkoleOgLinje
+        aria-live="polite"
+        utdanning={utdanning}
+        oppdaterUtdanning={oppdaterUtdanning}
+      />
+
+      {utdanning.linjeKursGrad?.verdi && (
+        <ErUtdanningenOffentligEllerPrivat utdanning={utdanning} settUtdanning={settUtdanning} />
+      )}
+      {utdanning.offentligEllerPrivat?.verdi && (
+        <NårSkalDuVæreElevEllerStudent utdanning={utdanning} settUtdanning={settUtdanning} />
+      )}
+      {utdanning?.periode &&
+        erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle) && (
+          <ErUtdanningenPåHeltidEllerDeltid utdanning={utdanning} settUtdanning={settUtdanning} />
+        )}
+      {søkerSkalStudereHeltid && (
+        <MålMedUtdanningen
+          utdanning={utdanning}
+          oppdaterUtdanning={oppdaterUtdanning}
+          stønadstype={stønadstype}
+        />
+      )}
+      {søkerSkalStudereDeltid && (
         <>
-          <TidligereUtdanning underUtdanning={utdanning} settUnderUtdanning={settUtdanning} />
+          <StudieArbeidsmengde utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
+          {strengErMerEnnNull(utdanning.arbeidsmengde?.verdi) && (
+            <MålMedUtdanningen
+              utdanning={utdanning}
+              oppdaterUtdanning={oppdaterUtdanning}
+              stønadstype={stønadstype}
+            />
+          )}
         </>
       )}
-    </>
+      {skalHaDetaljertUtdanning && erUnderUtdanningFerdigUtfylt(utdanning) && (
+        <Studiekostnader utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
+      )}
+
+      {visTidligereUtdanning && (
+        <TidligereUtdanning underUtdanning={utdanning} settUnderUtdanning={settUtdanning} />
+      )}
+    </VStack>
   );
 };
 
