@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioKnapp } from '../panel/RadioKnapp';
 import { RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
@@ -78,7 +78,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
           const svarISøknad = valgtSvar !== undefined && erValgtSvarRadioKnapp(svar, valgtSvar);
 
           return (
-            <RadioPanelCustom
+            <RadioKnapp
               key={svar.svar_tekst}
               name={spørsmål.søknadid}
               value={svar.id}
@@ -88,7 +88,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
               }}
             >
               {svar.svar_tekst}
-            </RadioPanelCustom>
+            </RadioKnapp>
           );
         })}
       </RadioGroup>
