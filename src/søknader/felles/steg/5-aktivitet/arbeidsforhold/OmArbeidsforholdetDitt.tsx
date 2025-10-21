@@ -31,7 +31,7 @@ const tomArbeidsgiver = (inkludertArbeidsmengde: boolean): IArbeidsgiver => {
       };
 };
 
-const OmArbeidsforholdetDitt: React.FC<Props> = ({
+export const OmArbeidsforholdetDitt: React.FC<Props> = ({
   aktivitet,
   settAktivitet,
   settDokumentasjonsbehov,
@@ -89,5 +89,3 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
     </VStack>
   );
 };
-
-export default OmArbeidsforholdetDitt;

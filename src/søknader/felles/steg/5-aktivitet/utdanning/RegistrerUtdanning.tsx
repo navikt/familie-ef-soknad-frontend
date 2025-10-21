@@ -22,7 +22,7 @@ interface Props {
   testIder?: string[];
 }
 
-const RegistrerUtdanning: React.FC<Props> = ({
+export const RegistrerUtdanning: React.FC<Props> = ({
   tidligereUtdanninger,
   settTidligereUtdanninger,
   utdanningsnummer,
@@ -119,5 +119,3 @@ const RegistrerUtdanning: React.FC<Props> = ({
     </VStack>
   );
 };
-
-export default RegistrerUtdanning;
