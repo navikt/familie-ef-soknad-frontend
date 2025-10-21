@@ -2,7 +2,6 @@
 import { FC } from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { IBarn } from '../../../../models/steg/barn';
 import { BarnepassOrdning, EÅrsakBarnepass, IBarnepass } from '../../models/barnepass';
@@ -10,10 +9,10 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { årsakBarnepass } from './BarnepassConfig';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import { Alert } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useBarnepass } from './BarnepassContext';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   barn: IBarn;
@@ -54,7 +53,7 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id);
   };
   return (
-    <SeksjonGruppe>
+    <VStack>
       <KomponentGruppe>
         <Alert size="small" variant="warning" inline>
           {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
@@ -81,7 +80,7 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
           </AlertStripeDokumentasjon>
         )}
       </KomponentGruppe>
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 

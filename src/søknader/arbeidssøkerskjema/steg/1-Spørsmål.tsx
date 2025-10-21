@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import Side from '../side/Side';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { hentTekst } from '../../../utils/teksthåndtering';
-import SeksjonGruppe from '../../../components/gruppe/SeksjonGruppe';
 import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
 import {
   erSøkerArbeidssøker,
@@ -24,7 +23,7 @@ import {
 import { hentPath } from '../../../utils/routing';
 import { kommerFraOppsummeringen } from '../../../utils/locationState';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Alert, BodyShort, Button, Label } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Label, VStack } from '@navikt/ds-react';
 
 const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
   const location = useLocation();
@@ -72,7 +71,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
       erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
       skalViseKnapper={!kommerFraOppsummering}
     >
-      <SeksjonGruppe>
+      <VStack>
         <FeltGruppe>
           <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
           <BodyShort>{ident}</BodyShort>
@@ -131,7 +130,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
             />
           </KomponentGruppe>
         )}
-      </SeksjonGruppe>
+      </VStack>
       {kommerFraOppsummering ? (
         <Button
           variant="primary"

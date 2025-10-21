@@ -1,16 +1,15 @@
 import React from 'react';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
-import { BodyShort } from '@navikt/ds-react';
 import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 const SyktBarn: React.FC = () => {
   const intl = useLokalIntlContext();
   return (
     <KomponentGruppe>
       <AlertStripeDokumentasjon>
-        <BodyShort>{hentHTMLTekst('dinSituasjon.alert.harSyktBarn', intl)}</BodyShort>
+        {hentHTMLTekst('dinSituasjon.alert.harSyktBarn', intl)}
       </AlertStripeDokumentasjon>
     </KomponentGruppe>
   );

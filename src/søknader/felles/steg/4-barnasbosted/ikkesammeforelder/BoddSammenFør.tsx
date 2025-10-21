@@ -1,11 +1,10 @@
 import { IForelder } from '../../../../../models/steg/forelder';
 import React, { FC } from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { boddSammenFør } from '../ForeldreConfig';
 import { ESvar, ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import JaNeiSpørsmålMedNavn from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
+import { JaNeiSpørsmålMedNavn } from '../../../../../components/spørsmål/JaNeiSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { IBarn } from '../../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -17,7 +16,7 @@ interface Props {
   settForelder: (verdi: IForelder) => void;
   barn: IBarn;
 }
-const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
+export const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
   const intl = useLokalIntlContext();
   const boddSammenFørSpm = boddSammenFør(intl);
 
@@ -41,37 +40,30 @@ const BoddSammenFør: FC<Props> = ({ forelder, barn, settForelder }) => {
 
   return (
     <>
-      <KomponentGruppe>
-        <JaNeiSpørsmålMedNavn
-          spørsmål={boddSammenFørSpm}
-          spørsmålTekst={hentBarnNavnEllerBarnet(barn, boddSammenFørSpm.tekstid, intl)}
-          onChange={(spørsmål, svar) => settHarBoddsammenFør(spørsmål, svar)}
-          valgtSvar={forelder.boddSammenFør?.verdi}
-        />
-      </KomponentGruppe>
+      <JaNeiSpørsmålMedNavn
+        spørsmål={boddSammenFørSpm}
+        spørsmålTekst={hentBarnNavnEllerBarnet(barn, boddSammenFørSpm.tekstid, intl)}
+        onChange={(spørsmål, svar) => settHarBoddsammenFør(spørsmål, svar)}
+        valgtSvar={forelder.boddSammenFør?.verdi}
+      />
       {forelder.boddSammenFør?.verdi && (
-        <KomponentGruppe>
-          <Datovelger
-            settDato={(dato: string) => {
-              settForelder({
-                ...forelder,
-                flyttetFra: {
-                  label: hentTekst('barnasbosted.normaltekst.nårflyttetfra', intl),
-                  verdi: dato,
-                },
-              });
-            }}
-            valgtDato={
-              forelder.flyttetFra && forelder.flyttetFra.verdi
-                ? forelder.flyttetFra.verdi
-                : undefined
-            }
-            tekstid={'barnasbosted.normaltekst.nårflyttetfra'}
-            gyldigeDatoer={GyldigeDatoer.Alle}
-          />
-        </KomponentGruppe>
+        <Datovelger
+          settDato={(dato: string) => {
+            settForelder({
+              ...forelder,
+              flyttetFra: {
+                label: hentTekst('barnasbosted.normaltekst.nårflyttetfra', intl),
+                verdi: dato,
+              },
+            });
+          }}
+          valgtDato={
+            forelder.flyttetFra && forelder.flyttetFra.verdi ? forelder.flyttetFra.verdi : undefined
+          }
+          tekstid={'barnasbosted.normaltekst.nårflyttetfra'}
+          gyldigeDatoer={GyldigeDatoer.Alle}
+        />
       )}
     </>
   );
 };
-export default BoddSammenFør;

@@ -4,11 +4,10 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import Aksjeselskap from './Aksjeselskap';
 import { erAksjeselskapFerdigUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
-import { Heading, Label } from '@navikt/ds-react';
+import { Heading, Label, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
@@ -53,23 +52,19 @@ const EgetAS: FC<Props> = ({
   };
 
   return (
-    <>
-      <KomponentGruppe className={'sentrert'}>
-        <Heading size="small" level="3">
-          {hentTekst('egetAS.tittel', intl)}
-        </Heading>
-      </KomponentGruppe>
-
+    <VStack gap={'20'}>
+      <Heading size="small" level="3" align={'center'}>
+        {hentTekst('egetAS.tittel', intl)}
+      </Heading>
       {arbeidssituasjon.egetAS?.map((aksjeselskap, index) => {
         return (
-          <SeksjonGruppe key={index}>
-            <Aksjeselskap
-              egetAS={egetAS}
-              settEgetAS={settEgetAS}
-              aksjeselskapnummer={index}
-              inkludertArbeidsmengde={inkludertArbeidsmengde}
-            />
-          </SeksjonGruppe>
+          <Aksjeselskap
+            key={index}
+            egetAS={egetAS}
+            settEgetAS={settEgetAS}
+            aksjeselskapnummer={index}
+            inkludertArbeidsmengde={inkludertArbeidsmengde}
+          />
         );
       })}
       {erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde) && (
@@ -82,7 +77,7 @@ const EgetAS: FC<Props> = ({
           </FeltGruppe>
         </KomponentGruppe>
       )}
-    </>
+    </VStack>
   );
 };
 export default EgetAS;

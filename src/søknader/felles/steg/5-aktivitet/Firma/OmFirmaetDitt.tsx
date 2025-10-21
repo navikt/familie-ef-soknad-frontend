@@ -13,8 +13,8 @@ import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSl
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
-import LesMerTekst from '../../../../../components/LesMerTekst';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
+import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
 
 const StyledFirma = styled.div`
   display: flex;

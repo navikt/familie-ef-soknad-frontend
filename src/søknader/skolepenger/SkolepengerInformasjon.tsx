@@ -3,14 +3,12 @@ import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
 import { ERouteSkolepenger, RoutesSkolepenger } from './routing/routes';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
-import { Overskrift } from '../../components/forside/Overskrift';
-import { Seksjon } from '../../components/forside/Seksjon';
-import { Tekst } from '../../components/forside/Tekst';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
-import { hentHTMLTekst } from '../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -21,42 +19,50 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
   const nesteSide = hentPath(RoutesSkolepenger, ERouteSkolepenger.OmDeg) || '';
 
   return (
-    <>
+    <VStack gap={'10'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.skolepenger} />
 
-      <Seksjon>
-        <Tekst tekst="forside.skolepenger.innledning" />
+      <VStack gap={'3'}>
+        <BodyShort>{hentTekst('forside.skolepenger.innledning', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.merInfoLenke', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.skolepenger.overskrift.riktigeOpplysninger" />
-        <Tekst tekst="forside.skolepenger.riktigeOpplysninger" />
-        <Tekst tekst="forside.skolepenger.meldeEndringer" />
-      </Seksjon>
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.skolepenger.overskrift.riktigeOpplysninger', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.skolepenger.riktigeOpplysninger', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.skolepenger.meldeEndringer', intl)}</BodyShort>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.skolepenger.overskrift.sendeDokumentasjon" />
-        <Tekst tekst="forside.skolepenger.beskjedDokumentere" />
-        <Tekst tekst="forside.skolepenger.merInformasjon" />
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.skolepenger.overskrift.sendeDokumentasjon', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.skolepenger.beskjedDokumentere', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.skolepenger.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.dokumentasjonsOversiktLenke', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.skolepenger.overskrift.henteInformasjon" />
-        <Tekst tekst="forside.skolepenger.henteInformasjon" />
-        <Tekst tekst="forside.skolepenger.viHenter" />
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.skolepenger.overskrift.henteInformasjon', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.skolepenger.henteInformasjon', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.skolepenger.viHenter', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.informasjonHentet', intl)}
-        <Tekst tekst="forside.skolepenger.tidligereOpplysninger" />
+        <BodyShort>{hentTekst('forside.skolepenger.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.personopplysningeneDineLenke', intl)}
-      </Seksjon>
+      </VStack>
 
-      <Seksjon>
-        <Overskrift tekst="forside.skolepenger.overskrift.slikSøkerDu" />
-        <Tekst tekst="forside.skolepenger.slikSøkerDu" />
-        <Tekst tekst="forside.skolepenger.lagringSøknad" />
-        <Tekst tekst="forside.skolepenger.manglerDuDokumentasjon" />
-      </Seksjon>
+      <VStack gap={'3'}>
+        <Heading level="2" size="small">
+          {hentTekst('forside.skolepenger.overskrift.slikSøkerDu', intl)}
+        </Heading>
+        <BodyShort>{hentTekst('forside.skolepenger.slikSøkerDu', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.skolepenger.lagringSøknad', intl)}</BodyShort>
+        <BodyShort>{hentTekst('forside.skolepenger.manglerDuDokumentasjon', intl)}</BodyShort>
+      </VStack>
 
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
@@ -66,7 +72,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
       />
 
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
-    </>
+    </VStack>
   );
 };
 

@@ -3,11 +3,11 @@ import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../components/gruppe/InputLabelGruppe';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { BarnepassOrdning, EBarnepass, ETypeBarnepassOrdning } from '../../models/barnepass';
-import AlertStripeDokumentasjon from '../../../../components/AlertstripeDokumentasjon';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
 import { Detail } from '@navikt/ds-react';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
 interface Props {
   barnepassOrdning: BarnepassOrdning;

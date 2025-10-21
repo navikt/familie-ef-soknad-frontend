@@ -3,16 +3,16 @@ import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { linjeKursGrad, skoleUtdanningssted } from './UtdanningConfig';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
+import { VStack } from '@navikt/ds-react';
 
 interface Props {
   utdanning: UnderUtdanning;
   oppdaterUtdanning: (nøkkel: EUtdanning, label: string, verdi: string) => void;
 }
 
-const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
+export const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
   const intl = useLokalIntlContext();
 
   const settInputFelt = (
@@ -27,7 +27,7 @@ const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
   const linjeKursGradLabel = hentTekst(linjeKursGrad.label_tekstid, intl);
 
   return (
-    <KomponentGruppe aria-live="polite">
+    <VStack>
       <FeltGruppe>
         <TextFieldMedBredde
           key={skoleUtdanningssted.id}
@@ -52,8 +52,6 @@ const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
           />
         </FeltGruppe>
       )}
-    </KomponentGruppe>
+    </VStack>
   );
 };
-
-export default SkoleOgLinje;

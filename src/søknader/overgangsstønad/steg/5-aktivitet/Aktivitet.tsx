@@ -3,7 +3,6 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/AktivitetConfig';
 import { EAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
@@ -21,6 +20,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 import { useAktivitet } from './AktivitetContext';
+import { VStack } from '@navikt/ds-react';
 
 export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -90,7 +90,7 @@ export const Aktivitet: React.FC = () => {
       routesStønad={RoutesOvergangsstonad}
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
-      <SeksjonGruppe>
+      <VStack gap={'24'}>
         <CheckboxSpørsmål
           spørsmål={filtrerAktivitetSvaralternativer(
             søknad.person,
@@ -99,34 +99,34 @@ export const Aktivitet: React.FC = () => {
           settValgteSvar={settArbeidssituasjonFelt}
           valgteSvar={hvaErDinArbeidssituasjon?.verdi}
         />
-      </SeksjonGruppe>
 
-      {aktivitet.hvaErDinArbeidssituasjon.svarid.map((svarid, index) => {
-        const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon.svarid.length !== 0;
+        {aktivitet.hvaErDinArbeidssituasjon.svarid.map((svarid, index) => {
+          const harValgtMinstEnAktivitet = hvaErDinArbeidssituasjon.svarid.length !== 0;
 
-        const erValgtFørsteAktivitet = hvaErDinArbeidssituasjon.svarid[0] === svarid;
+          const erValgtFørsteAktivitet = hvaErDinArbeidssituasjon.svarid[0] === svarid;
 
-        const visSeksjon = harValgtMinstEnAktivitet
-          ? !erValgtFørsteAktivitet
-            ? erSpørsmålFørAktivitetBesvart(svarid)
-            : true
-          : true;
+          const visSeksjon = harValgtMinstEnAktivitet
+            ? !erValgtFørsteAktivitet
+              ? erSpørsmålFørAktivitetBesvart(svarid)
+              : true
+            : true;
 
-        return (
-          visSeksjon && (
-            <AktivitetOppfølgingSpørsmål
-              key={index}
-              svarid={svarid}
-              aktivitet={aktivitet}
-              settAktivitet={settAktivitet}
-              settDokumentasjonsbehov={settDokumentasjonsbehov}
-              overskuddsår={
-                nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
-              }
-            />
-          )
-        );
-      })}
+          return (
+            visSeksjon && (
+              <AktivitetOppfølgingSpørsmål
+                key={index}
+                svarid={svarid}
+                aktivitet={aktivitet}
+                settAktivitet={settAktivitet}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+                overskuddsår={
+                  nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
+                }
+              />
+            )
+          );
+        })}
+      </VStack>
     </Side>
   );
 };

@@ -1,9 +1,7 @@
 import React from 'react';
-import SeksjonGruppe from '../gruppe/SeksjonGruppe';
-import { FortsettSøknadKnappWrapper } from './FortsettSøknadKnapper';
 import { useNavigate } from 'react-router-dom';
 import { LokalIntlShape } from '../../language/typer';
-import { BodyShort, Button } from '@navikt/ds-react';
+import { BodyShort, Button, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 
 interface FortsettSøknadProps {
@@ -27,31 +25,29 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
       <div className="seksjon">
         <BodyShort>{hentTekst('side.fortsettSøknad.påbegyntSøknad', intl)}</BodyShort>
       </div>
-      <SeksjonGruppe className={'sentrert'}>
-        <FortsettSøknadKnappWrapper>
-          <Button
-            onClick={() => {
-              brukMellomlagretSøknad();
-              navigate(gjeldendeSteg);
-            }}
-            variant="primary"
-            className={'fortsett'}
-          >
-            {hentTekst('side.fortsettSøknad.knapp.fortsett', intl)}
-          </Button>
-          <Button
-            onClick={() => {
-              nullstillMellomlagretSøknad().then(() => {
-                window.location.reload();
-              });
-            }}
-            variant="secondary"
-            className={'start-ny'}
-          >
-            {hentTekst('side.fortsettSøknad.knapp.startPåNytt', intl)}
-          </Button>
-        </FortsettSøknadKnappWrapper>
-      </SeksjonGruppe>
+      <VStack gap={'4'} align={'center'}>
+        <Button
+          onClick={() => {
+            brukMellomlagretSøknad();
+            navigate(gjeldendeSteg);
+          }}
+          variant="primary"
+          className={'fortsett'}
+        >
+          {hentTekst('side.fortsettSøknad.knapp.fortsett', intl)}
+        </Button>
+        <Button
+          onClick={() => {
+            nullstillMellomlagretSøknad().then(() => {
+              window.location.reload();
+            });
+          }}
+          variant="secondary"
+          className={'start-ny'}
+        >
+          {hentTekst('side.fortsettSøknad.knapp.startPåNytt', intl)}
+        </Button>
+      </VStack>
     </>
   );
 };
