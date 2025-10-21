@@ -68,7 +68,7 @@ const FeilmeldingModalInnhold = styled.div`
   }
 `;
 
-const Filopplaster: React.FC<Props> = ({
+export const Filopplaster: React.FC<Props> = ({
   oppdaterDokumentasjon,
   dokumentasjon,
   tillatteFiltyper,
@@ -212,5 +212,3 @@ const Filopplaster: React.FC<Props> = ({
     </div>
   );
 };
-
-export default Filopplaster;
