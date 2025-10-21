@@ -17,7 +17,7 @@ interface Props {
   inkludertArbeidsmengde: boolean;
 }
 
-const Aksjeselskap: FC<Props> = ({
+export const Aksjeselskap: FC<Props> = ({
   egetAS,
   settEgetAS,
   aksjeselskapnummer,
@@ -110,5 +110,3 @@ const Aksjeselskap: FC<Props> = ({
     </div>
   );
 };
-
-export default Aksjeselskap;
