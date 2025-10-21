@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { EAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
-import OmArbeidsforholdetDitt from '../../../felles/steg/5-aktivitet/arbeidsforhold/OmArbeidsforholdetDitt';
-import EgetAS from '../../../felles/steg/5-aktivitet/aksjeselskap/EgetAS';
+import { OmArbeidsforholdetDitt } from '../../../felles/steg/5-aktivitet/arbeidsforhold/OmArbeidsforholdetDitt';
+import { EgetAS } from '../../../felles/steg/5-aktivitet/aksjeselskap/EgetAS';
 import EtablererEgenVirksomhet from '../../../felles/steg/5-aktivitet/EtablererEgenVirksomhet';
 import OmFirmaeneDine from '../../../felles/steg/5-aktivitet/Firma/OmFirmaeneDine';
 import { useAktivitet } from './AktivitetContext';

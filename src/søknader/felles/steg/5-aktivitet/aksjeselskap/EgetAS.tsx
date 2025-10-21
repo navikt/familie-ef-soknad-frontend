@@ -4,7 +4,7 @@ import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
-import Aksjeselskap from './Aksjeselskap';
+import { Aksjeselskap } from './Aksjeselskap';
 import { erAksjeselskapFerdigUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { Heading, Label, VStack } from '@navikt/ds-react';
@@ -29,7 +29,7 @@ const tomtAksjeselskap = (inkludertArbeidsmengde: boolean): IAksjeselskap => {
         navn: nyttTekstFelt,
       };
 };
-const EgetAS: FC<Props> = ({
+export const EgetAS: FC<Props> = ({
   arbeidssituasjon,
   settArbeidssituasjon,
   inkludertArbeidsmengde = true,
@@ -80,4 +80,3 @@ const EgetAS: FC<Props> = ({
     </VStack>
   );
 };
-export default EgetAS;

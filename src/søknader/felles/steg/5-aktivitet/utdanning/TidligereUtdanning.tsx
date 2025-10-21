@@ -1,7 +1,7 @@
 import React from 'react';
 import { UnderUtdanning, Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import RegistrerUtdanning from './RegistrerUtdanning';
+import { RegistrerUtdanning } from './RegistrerUtdanning';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { tidligereUtdanningHjelpetekst, utdanningEtterGrunnskolenSpm } from './UtdanningConfig';

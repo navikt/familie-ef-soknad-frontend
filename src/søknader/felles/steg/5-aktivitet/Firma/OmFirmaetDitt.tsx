@@ -6,20 +6,14 @@ import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
-import styled from 'styled-components';
 import { erStrengGyldigOrganisasjonsnummer } from '../../../../../utils/autentiseringogvalidering/feltvalidering';
 import { erDatoGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { ErrorMessage, Heading, Label, Textarea } from '@navikt/ds-react';
+import { ErrorMessage, Heading, Label, Textarea, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
-
-const StyledFirma = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 interface Props {
   firmaer: IFirma[];
@@ -29,7 +23,7 @@ interface Props {
   overskuddsår: number;
 }
 
-const OmFirmaetDitt: React.FC<Props> = ({
+export const OmFirmaetDitt: React.FC<Props> = ({
   firmaer,
   firmanr,
   settFirmaer,
@@ -106,7 +100,7 @@ const OmFirmaetDitt: React.FC<Props> = ({
   const skalViseSlettKnapp = firmaer?.length > 1;
 
   return (
-    <StyledFirma aria-live="polite">
+    <VStack gap={'2'}>
       <TittelOgSlettKnapp justify="space-between" align="center">
         <Heading size="small" level="4" className={'tittel'}>
           {firmaTittel}
@@ -210,8 +204,6 @@ const OmFirmaetDitt: React.FC<Props> = ({
           </FeltGruppe>
         </>
       )}
-    </StyledFirma>
+    </VStack>
   );
 };
-
-export default OmFirmaetDitt;
