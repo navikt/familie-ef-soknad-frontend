@@ -1,5 +1,5 @@
 import React from 'react';
-import Filopplaster from '../../../../components/filopplaster/Filopplaster';
+import { Filopplaster } from '../../../../components/filopplaster/Filopplaster';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { BarnetilsynDokumentasjon, IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { IVedlegg } from '../../../../models/steg/vedlegg';
