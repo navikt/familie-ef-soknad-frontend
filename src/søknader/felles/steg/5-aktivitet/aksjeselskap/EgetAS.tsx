@@ -52,7 +52,7 @@ export const EgetAS: FC<Props> = ({
   };
 
   return (
-    <VStack gap={'20'}>
+    <VStack gap={'4'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('egetAS.tittel', intl)}
       </Heading>

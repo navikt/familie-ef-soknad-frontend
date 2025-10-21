@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
 import { ErDuIArbeidSpm } from './AktivitetConfig';
 import { EArbeidssituasjon, ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
@@ -77,14 +76,12 @@ export const Aktivitet: React.FC = () => {
       mellomlagreStønad={mellomlagreSteg}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
-      <VStack>
-        <KomponentGruppe>
-          <MultiSvarSpørsmål
-            spørsmål={ErDuIArbeidSpm(intl)}
-            settSpørsmålOgSvar={settErDuIArbeid}
-            valgtSvar={aktivitet?.erIArbeid?.verdi}
-          />
-        </KomponentGruppe>
+      <VStack gap={'12'}>
+        <MultiSvarSpørsmål
+          spørsmål={ErDuIArbeidSpm(intl)}
+          settSpørsmålOgSvar={settErDuIArbeid}
+          valgtSvar={aktivitet?.erIArbeid?.verdi}
+        />
         {aktivitet.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && <AktivitetSyk />}
         {aktivitet.erIArbeid?.svarid === ErIArbeid.JA && <AktivitetArbeid />}
       </VStack>
