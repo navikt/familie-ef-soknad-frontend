@@ -179,7 +179,7 @@ const Filopplaster: React.FC<Props> = ({
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <>
+    <div>
       <OpplastedeFiler
         filliste={dokumentasjon.opplastedeVedlegg || []}
         slettVedlegg={slettVedlegg}
@@ -209,7 +209,7 @@ const Filopplaster: React.FC<Props> = ({
           </IkonOgTekstWrapper>
         </div>
       </FilopplastingFelt>
-    </>
+    </div>
   );
 };
 

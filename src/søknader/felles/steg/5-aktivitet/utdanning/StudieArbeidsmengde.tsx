@@ -1,10 +1,9 @@
 import React from 'react';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Alert } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import styled from 'styled-components';
 
 const StudereProsentVarsel = styled(Alert)`
@@ -16,7 +15,7 @@ interface Props {
   oppdaterUtdanning: (nøkkel: EUtdanning, label: string, verdi: string) => void;
 }
 
-const StudieArbeidsmengde: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
+export const StudieArbeidsmengde: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) => {
   const intl = useLokalIntlContext();
 
   const settInputFelt = (
@@ -33,7 +32,7 @@ const StudieArbeidsmengde: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) 
     utdanning?.arbeidsmengde?.verdi !== undefined && Number(utdanning?.arbeidsmengde?.verdi) > 99;
 
   return (
-    <KomponentGruppe>
+    <VStack gap={'1'}>
       <InputLabelGruppe
         label={arbeidsmengdeLabel}
         nøkkel={EUtdanning.arbeidsmengde}
@@ -48,8 +47,6 @@ const StudieArbeidsmengde: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) 
           {hentTekst('utdanning.alert.arbeidsmengde', intl)}
         </StudereProsentVarsel>
       )}
-    </KomponentGruppe>
+    </VStack>
   );
 };
-
-export default StudieArbeidsmengde;

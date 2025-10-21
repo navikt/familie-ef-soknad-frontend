@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { borAnnenForelderISammeHus } from '../ForeldreConfig';
 import { EBorAnnenForelderISammeHus } from '../../../../../models/steg/barnasbosted';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
@@ -17,7 +15,7 @@ interface Props {
   settForelder: (verdi: IForelder) => void;
   barn: IBarn;
 }
-const BorAnnenForelderISammeHus: FC<Props> = ({ forelder, settForelder, barn }) => {
+export const BorAnnenForelderISammeHus: FC<Props> = ({ forelder, settForelder, barn }) => {
   const intl = useLokalIntlContext();
 
   const borAnnenForelderISammeHusConfig = borAnnenForelderISammeHus(intl);
@@ -55,38 +53,26 @@ const BorAnnenForelderISammeHus: FC<Props> = ({ forelder, settForelder, barn }) 
 
   return (
     <>
-      <KomponentGruppe>
-        <MultiSvarSpørsmålMedNavn
-          key={borAnnenForelderISammeHusConfig.søknadid}
-          spørsmål={borAnnenForelderISammeHusConfig}
-          spørsmålTekst={hentBarnNavnEllerBarnet(
-            barn,
-            borAnnenForelderISammeHusConfig.tekstid,
-            intl
-          )}
-          valgtSvar={forelder.borAnnenForelderISammeHus?.verdi}
-          settSpørsmålOgSvar={(spørsmål, svar) => settBorAnnenForelderISammeHus(spørsmål, svar)}
-        />
-      </KomponentGruppe>
+      <MultiSvarSpørsmålMedNavn
+        key={borAnnenForelderISammeHusConfig.søknadid}
+        spørsmål={borAnnenForelderISammeHusConfig}
+        spørsmålTekst={hentBarnNavnEllerBarnet(barn, borAnnenForelderISammeHusConfig.tekstid, intl)}
+        valgtSvar={forelder.borAnnenForelderISammeHus?.verdi}
+        settSpørsmålOgSvar={(spørsmål, svar) => settBorAnnenForelderISammeHus(spørsmål, svar)}
+      />
       {forelder.borAnnenForelderISammeHus?.svarid === EBorAnnenForelderISammeHus.ja && (
-        <>
-          <FeltGruppe>
-            <Textarea
-              autoComplete={'off'}
-              value={
-                forelder.borAnnenForelderISammeHusBeskrivelse &&
-                forelder.borAnnenForelderISammeHusBeskrivelse.verdi
-                  ? forelder.borAnnenForelderISammeHusBeskrivelse.verdi
-                  : ''
-              }
-              onChange={settBorAnnenForelderISammeHusBeskrivelse}
-              label={hentTekst('barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse', intl)}
-            />
-          </FeltGruppe>
-        </>
+        <Textarea
+          autoComplete={'off'}
+          value={
+            forelder.borAnnenForelderISammeHusBeskrivelse &&
+            forelder.borAnnenForelderISammeHusBeskrivelse.verdi
+              ? forelder.borAnnenForelderISammeHusBeskrivelse.verdi
+              : ''
+          }
+          onChange={settBorAnnenForelderISammeHusBeskrivelse}
+          label={hentTekst('barnasbosted.spm.borAnnenForelderISammeHusBeskrivelse', intl)}
+        />
       )}
     </>
   );
 };
-
-export default BorAnnenForelderISammeHus;

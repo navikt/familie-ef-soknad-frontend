@@ -3,7 +3,6 @@ import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import {
@@ -17,7 +16,7 @@ import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/ro
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
-import { Alert, BodyShort, Button } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
@@ -114,7 +113,7 @@ export const SendSøknadKnapper: FC = () => {
           </Alert>
         </KomponentGruppe>
       )}
-      <SeksjonGruppe className={'sentrert'}>
+      <HStack justify={'center'}>
         <StyledKnapper>
           <Button
             className={'tilbake'}
@@ -142,7 +141,7 @@ export const SendSøknadKnapper: FC = () => {
             {hentTekst('knapp.avbryt', intl)}
           </Button>
         </StyledKnapper>
-      </SeksjonGruppe>
+      </HStack>
     </>
   );
 };
