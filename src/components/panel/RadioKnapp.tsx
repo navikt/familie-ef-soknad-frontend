@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Radio } from '@navikt/ds-react';
-import styles from './Radiopanel.module.css';
+import styles from './RadioKnapp.module.css';
 
 interface Properties extends React.InputHTMLAttributes<HTMLInputElement> {
   name?: string | undefined;
