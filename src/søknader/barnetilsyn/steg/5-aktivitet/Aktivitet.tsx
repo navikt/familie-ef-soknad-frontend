@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
@@ -17,6 +16,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useAktivitet } from './AktivitetContext';
 import { AktivitetSyk } from './AktivitetSyk';
 import { AktivitetArbeid } from './AktivitetArbeid';
+import { VStack } from '@navikt/ds-react';
 
 export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -77,7 +77,7 @@ export const Aktivitet: React.FC = () => {
       mellomlagreStønad={mellomlagreSteg}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
-      <SeksjonGruppe aria-live="polite">
+      <VStack>
         <KomponentGruppe>
           <MultiSvarSpørsmål
             spørsmål={ErDuIArbeidSpm(intl)}
@@ -87,7 +87,7 @@ export const Aktivitet: React.FC = () => {
         </KomponentGruppe>
         {aktivitet.erIArbeid?.svarid === ErIArbeid.NeiFordiJegErSyk && <AktivitetSyk />}
         {aktivitet.erIArbeid?.svarid === ErIArbeid.JA && <AktivitetArbeid />}
-      </SeksjonGruppe>
+      </VStack>
     </Side>
   );
 };

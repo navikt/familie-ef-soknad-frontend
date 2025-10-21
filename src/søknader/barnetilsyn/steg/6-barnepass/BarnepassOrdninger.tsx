@@ -3,14 +3,13 @@ import BarnepassSpørsmål from './BarnepassSpørsmål';
 import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import LeggTilKnapp from '../../../../components/knapper/LeggTilKnapp';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 import { erBarnepassOrdningerUtfylt } from './hjelper';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { IBarn } from '../../../../models/steg/barn';
 import { BarnepassOrdning, IBarnepass } from '../../models/barnepass';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Label } from '@navikt/ds-react';
+import { Label, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useBarnepass } from './BarnepassContext';
 
@@ -59,7 +58,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
   };
 
   return (
-    <SeksjonGruppe key={barn.id}>
+    <VStack gap={'16'} key={barn.id}>
       {barnepass?.barnepassordninger.map((barnepassordning) => (
         <BarnepassSpørsmål
           key={barnepassordning.id}
@@ -81,7 +80,7 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
           </FeltGruppe>
         </KomponentGruppe>
       )}
-    </SeksjonGruppe>
+    </VStack>
   );
 };
 

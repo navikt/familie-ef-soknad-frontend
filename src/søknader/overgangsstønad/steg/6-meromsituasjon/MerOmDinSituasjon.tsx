@@ -1,8 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
-import HarSøkerSagtOppEllerRedusertStilling from './HarSøkerSagtOppEllerRedusertStilling';
+import { HarSøkerSagtOppEllerRedusertStilling } from './HarSøkerSagtOppEllerRedusertStilling';
 import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import SeksjonGruppe from '../../../../components/gruppe/SeksjonGruppe';
 
 import {
   gjelderNoeAvDetteDeg,
@@ -26,7 +25,7 @@ import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import SituasjonOppfølgingSpørsmål from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
-import { Side, NavigasjonState } from '../../../../components/side/Side';
+import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -34,7 +33,7 @@ import { SøknadOvergangsstønad } from '../../models/søknad';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, VStack } from '@navikt/ds-react';
 
 const StyledHjelpetekst = styled.div`
   .navds-body-short {
@@ -160,7 +159,7 @@ const MerOmDinSituasjon: React.FC = () => {
       routesStønad={RoutesOvergangsstonad}
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
-      <SeksjonGruppe>
+      <VStack gap={'16'}>
         <KomponentGruppe>
           <CheckboxSpørsmål
             spørsmål={gjelderNoeAvDetteDeg(intl)}
@@ -177,19 +176,16 @@ const MerOmDinSituasjon: React.FC = () => {
             )
           );
         })}
-      </SeksjonGruppe>
-      {søkerJobberMindreEnnFemtiProsent &&
-        harValgtMinstEttAlternativ &&
-        hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad) && (
-          <SeksjonGruppe>
+
+        {søkerJobberMindreEnnFemtiProsent &&
+          harValgtMinstEttAlternativ &&
+          hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst(søknad) && (
             <HarSøkerSagtOppEllerRedusertStilling
               dinSituasjon={dinSituasjon}
               settDinSituasjon={settDinSituasjon}
             />
-          </SeksjonGruppe>
-        )}
-      {visNårSøkerDuStønadFra && (
-        <SeksjonGruppe>
+          )}
+        {visNårSøkerDuStønadFra && (
           <NårSøkerDuStønadFra
             spørsmål={SøkerFraBestemtMånedSpm(intl)}
             settSøkerFraBestemtMåned={settSøkerFraBestemtMåned}
@@ -199,8 +195,8 @@ const MerOmDinSituasjon: React.FC = () => {
             datovelgerLabel={datovelgerLabel}
             hjelpetekstInnholdTekst={hjelpetekst}
           />
-        </SeksjonGruppe>
-      )}
+        )}
+      </VStack>
     </Side>
   );
 };

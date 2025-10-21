@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
-import SeksjonGruppe from '../../../../../components/gruppe/SeksjonGruppe';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
@@ -9,7 +8,7 @@ import { erSisteFirmaUtfylt } from '../../../../../helpers/steg/aktivitetvalider
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { IFirma } from '../../../../../models/steg/aktivitet/firma';
 import OmFirmaetDitt from './OmFirmaetDitt';
-import { Heading, Label } from '@navikt/ds-react';
+import { Heading, Label, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 
@@ -59,23 +58,20 @@ const OmFirmaeneDine: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <KomponentGruppe className={'sentrert'}>
-        <Heading size="small" level="3">
-          {hentTekst('firmaer.tittel', intl)}
-        </Heading>
-      </KomponentGruppe>
+    <VStack gap={'20'}>
+      <Heading size="small" level="3" align={'center'}>
+        {hentTekst('firmaer.tittel', intl)}
+      </Heading>
       {firmaer?.map((firma, index) => {
         return (
-          <SeksjonGruppe key={firma.id}>
-            <OmFirmaetDitt
-              firmaer={firmaer}
-              settFirmaer={settFirmaer}
-              firmanr={index}
-              inkludertArbeidsmengde={inkludertArbeidsmengde}
-              overskuddsår={overskuddsår}
-            />
-          </SeksjonGruppe>
+          <OmFirmaetDitt
+            key={firma.id}
+            firmaer={firmaer}
+            settFirmaer={settFirmaer}
+            firmanr={index}
+            inkludertArbeidsmengde={inkludertArbeidsmengde}
+            overskuddsår={overskuddsår}
+          />
         );
       })}
 
@@ -89,7 +85,7 @@ const OmFirmaeneDine: React.FC<Props> = ({
           </FeltGruppe>
         </KomponentGruppe>
       )}
-    </>
+    </VStack>
   );
 };
 
