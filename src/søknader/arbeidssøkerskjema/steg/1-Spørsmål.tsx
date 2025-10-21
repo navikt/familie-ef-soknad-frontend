@@ -10,8 +10,6 @@ import {
   ønskerHalvStilling,
   ønsketArbeidssted,
 } from '../../felles/steg/5-aktivitet/arbeidssøker/ArbeidssøkerConfig';
-import FeltGruppe from '../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { ESvar, ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
 import { hentBooleanFraValgtSvar } from '../../../utils/spørsmålogsvar';
 import { useSkjema } from '../SkjemaContext';
@@ -71,12 +69,12 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
       erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
       skalViseKnapper={!kommerFraOppsummering}
     >
-      <VStack>
-        <FeltGruppe>
+      <VStack gap={'16'}>
+        <VStack>
           <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
           <BodyShort>{ident}</BodyShort>
-        </FeltGruppe>
-        <KomponentGruppe>
+        </VStack>
+        <VStack gap={'4'}>
           <JaNeiSpørsmål
             spørsmål={erSøkerArbeidssøker(intl)}
             onChange={settJaNeiSpørsmål}
@@ -87,10 +85,10 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
               {hentTekst('skjema.alert.registrert', intl)}
             </Alert>
           )}
-        </KomponentGruppe>
+        </VStack>
 
         {arbeidssøker.registrertSomArbeidssøkerNav && (
-          <KomponentGruppe>
+          <VStack gap={'4'}>
             <JaNeiSpørsmål
               spørsmål={erVilligTilÅTaImotTilbud(intl)}
               onChange={settJaNeiSpørsmål}
@@ -101,34 +99,28 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
                 {hentTekst('arbeidssøker.alert.villig', intl)}
               </Alert>
             )}
-          </KomponentGruppe>
+          </VStack>
         )}
         {arbeidssøker.villigTilÅTaImotTilbudOmArbeid && (
-          <KomponentGruppe>
-            <JaNeiSpørsmål
-              spørsmål={kanBegynneInnenEnUke(intl)}
-              onChange={settJaNeiSpørsmål}
-              valgtSvar={arbeidssøker.kanBegynneInnenEnUke?.verdi}
-            />
-          </KomponentGruppe>
+          <JaNeiSpørsmål
+            spørsmål={kanBegynneInnenEnUke(intl)}
+            onChange={settJaNeiSpørsmål}
+            valgtSvar={arbeidssøker.kanBegynneInnenEnUke?.verdi}
+          />
         )}
         {arbeidssøker.kanBegynneInnenEnUke && (
-          <KomponentGruppe>
-            <MultiSvarSpørsmål
-              spørsmål={ønsketArbeidssted(intl)}
-              settSpørsmålOgSvar={settMultiSvarSpørsmål}
-              valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
-            />
-          </KomponentGruppe>
+          <MultiSvarSpørsmål
+            spørsmål={ønsketArbeidssted(intl)}
+            settSpørsmålOgSvar={settMultiSvarSpørsmål}
+            valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
+          />
         )}
         {arbeidssøker.hvorØnskerSøkerArbeid && (
-          <KomponentGruppe>
-            <JaNeiSpørsmål
-              spørsmål={ønskerHalvStilling(intl)}
-              onChange={settJaNeiSpørsmål}
-              valgtSvar={arbeidssøker.ønskerSøker50ProsentStilling?.verdi}
-            />
-          </KomponentGruppe>
+          <JaNeiSpørsmål
+            spørsmål={ønskerHalvStilling(intl)}
+            onChange={settJaNeiSpørsmål}
+            valgtSvar={arbeidssøker.ønskerSøker50ProsentStilling?.verdi}
+          />
         )}
       </VStack>
       {kommerFraOppsummering ? (

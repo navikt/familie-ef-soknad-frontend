@@ -14,7 +14,6 @@ import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
 import LenkeMedIkon from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
-import KomponentGruppe from '../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
@@ -74,35 +73,29 @@ const Oppsummering: React.FC = () => {
 
   return (
     <Side tittel={hentTekst('oppsummering.sidetittel', intl)} skalViseKnapper={false}>
-      <VStack gap={'12'}>
-        <div className="oppsummering-arbeidssøker">
-          <p className="navds-body-short navds-body-long disclaimer">
-            {hentTekst('skjema.oppsummering.disclaimer', intl)}
-          </p>
-          <Heading size="small" level="4">
-            {hentTekst('skjema.oppsummering.omdeg', intl)}
-          </Heading>
-          {spørsmålOgSvar}
-          <LenkeMedIkon
-            onClick={() =>
-              navigate(
-                {
-                  pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål),
-                },
-                { state: { kommerFraOppsummering: true } }
-              )
-            }
-            tekst_id="barnasbosted.knapp.endre"
-            ikon={endre}
-          />
-        </div>
+      <VStack gap={'6'}>
+        <BodyShort>{hentTekst('skjema.oppsummering.disclaimer', intl)}</BodyShort>
+        <Heading size="small" level="4" align={'center'}>
+          {hentTekst('skjema.oppsummering.omdeg', intl)}
+        </Heading>
+        {spørsmålOgSvar}
+        <LenkeMedIkon
+          onClick={() =>
+            navigate(
+              {
+                pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Spørsmål),
+              },
+              { state: { kommerFraOppsummering: true } }
+            )
+          }
+          tekst_id="barnasbosted.knapp.endre"
+          ikon={endre}
+        />
 
         {innsendingState.status === IStatus.FEILET && (
-          <KomponentGruppe>
-            <Alert size="small" variant={'warning'} inline>
-              <BodyShort>{innsendingState.melding}</BodyShort>
-            </Alert>
-          </KomponentGruppe>
+          <Alert size="small" variant={'warning'} inline>
+            <BodyShort>{innsendingState.melding}</BodyShort>
+          </Alert>
         )}
         <HStack justify={'center'}>
           <StyledKnapper>
