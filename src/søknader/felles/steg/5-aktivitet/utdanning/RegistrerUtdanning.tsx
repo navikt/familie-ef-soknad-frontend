@@ -43,7 +43,6 @@ const RegistrerUtdanning: React.FC<Props> = ({
       }
     );
     endretTidligereUtdanninger && settTidligereUtdanninger(endretTidligereUtdanninger);
-    // eslint-disable-next-line
   }, [utdanning]);
 
   const linjeKursGradLabel = hentTekst(linjeKursGrad.label_tekstid, intl);

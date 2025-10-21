@@ -47,7 +47,6 @@ const OmArbeidsforholdetDitt: React.FC<Props> = ({
       ...aktivitet,
       arbeidsforhold: arbeidsforhold,
     });
-    // eslint-disable-next-line
   }, [arbeidsforhold]);
 
   const leggTilArbeidsgiver = () => {

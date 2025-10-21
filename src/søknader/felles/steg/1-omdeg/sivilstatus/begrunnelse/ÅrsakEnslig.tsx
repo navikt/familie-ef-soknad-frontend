@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { FC } from 'react';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { EndringISamvær } from './EndringISamvær';

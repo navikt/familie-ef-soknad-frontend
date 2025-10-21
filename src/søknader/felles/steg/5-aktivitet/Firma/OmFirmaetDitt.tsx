@@ -50,7 +50,6 @@ const OmFirmaetDitt: React.FC<Props> = ({
     });
 
     settFirmaer(endredeFirmaer);
-    // eslint-disable-next-line
   }, [firma]);
 
   const settDatoFelt = (dato: string): void => {

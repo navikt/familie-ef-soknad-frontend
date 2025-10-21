@@ -49,7 +49,6 @@ export const LeggTilBarnModal: React.FC<Props> = ({
       settSkalHaBarnepass(detteBarnet?.skalHaBarnepass?.verdi);
       detteBarnet?.fødselsdato.verdi && settDato(detteBarnet.fødselsdato?.verdi);
     }
-    // eslint-disable-next-line
   }, []);
 
   const settDato = (date: string): void => {

@@ -51,7 +51,6 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
     };
 
     fetchHentOgSjekkForrigeSøknad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
 
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';

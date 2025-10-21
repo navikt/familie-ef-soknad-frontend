@@ -48,7 +48,6 @@ export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
 export const useMount = (fn: () => void) => {
   useEffect(() => {
     fn();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
@@ -64,7 +63,6 @@ export const useHentFilInformasjon = (path: string) => {
       });
     };
     hentFilInformasjon(path);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { filInformasjon };
@@ -88,6 +86,5 @@ export const useSpråkValg = (skalViseSpråkvalg: boolean) => {
     return () => {
       setAvailableLanguages([]);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };

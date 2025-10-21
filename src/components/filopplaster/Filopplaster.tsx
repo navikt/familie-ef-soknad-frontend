@@ -164,7 +164,7 @@ const Filopplaster: React.FC<Props> = ({
           });
       });
     },
-    // eslint-disable-next-line
+
     [dokumentasjon.opplastedeVedlegg]
   );
 
