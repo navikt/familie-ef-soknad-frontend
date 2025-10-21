@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { IBarn } from '../../../../models/steg/barn';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import { PeriodeDatovelgere } from '../../../../components/dato/PeriodeDatovelger';
 import { SlettKnapp } from '../../../../components/knapper/SlettKnapp';
@@ -117,56 +116,52 @@ const BarnepassSpørsmål: FC<Props> = ({
   };
 
   return (
-    <VStack>
-      <TittelOgSlettKnapp justify="space-between" align="center">
-        <Heading size="small" className="tittel">
-          {barnepassordningTittel}
-        </Heading>
-        {skalViseSlettKnapp && (
-          <SlettKnapp
-            onClick={() => fjernBarnepassOrdning(barnepassOrdning)}
-            tekstid={'barnepass.knapp.slett'}
-          />
-        )}
-      </TittelOgSlettKnapp>
-      {erÅrsakBarnepassSpmBesvart(barn) && (
-        <KomponentGruppe>
+    <VStack gap={'12'}>
+      <VStack>
+        <TittelOgSlettKnapp justify="space-between" align="center">
+          <Heading size="small" className="tittel">
+            {barnepassordningTittel}
+          </Heading>
+          {skalViseSlettKnapp && (
+            <SlettKnapp
+              onClick={() => fjernBarnepassOrdning(barnepassOrdning)}
+              tekstid={'barnepass.knapp.slett'}
+            />
+          )}
+        </TittelOgSlettKnapp>
+        {erÅrsakBarnepassSpmBesvart(barn) && (
           <MultiSvarSpørsmålMedNavn
             spørsmål={HvaSlagsBarnepassOrdningSpm(intl)}
             spørsmålTekst={spørsmålTekstBarnepassOrdning}
             settSpørsmålOgSvar={settSpørsmålFelt}
             valgtSvar={hvaSlagsBarnepassOrdning?.verdi}
           />
-        </KomponentGruppe>
-      )}
+        )}{' '}
+      </VStack>
       {hvaSlagsBarnepassOrdning?.verdi && (
-        <KomponentGruppe>
-          <TextField
-            key={EBarnepass.navn}
-            label={navnLabel}
-            type={'text'}
-            onChange={(e) => settInputFelt(e, EBarnepass.navn, navnLabel)}
-            value={barnepassOrdning?.navn ? barnepassOrdning?.navn.verdi : ''}
-            data-testid={`navnPåBarnepassordningen-${barnIndeks}`}
-          />
-        </KomponentGruppe>
+        <TextField
+          key={EBarnepass.navn}
+          label={navnLabel}
+          type={'text'}
+          onChange={(e) => settInputFelt(e, EBarnepass.navn, navnLabel)}
+          value={barnepassOrdning?.navn ? barnepassOrdning?.navn.verdi : ''}
+          data-testid={`navnPåBarnepassordningen-${barnIndeks}`}
+        />
       )}
       {harValgtSvar(barnepassOrdning?.navn?.verdi) && (
-        <KomponentGruppe>
-          <PeriodeDatovelgere
-            tekst={periodeTekst}
-            hjelpetekst={{
-              headerTekstid: '',
-              innholdTekstid: 'barnepass.hjelpetekst.periodePåBarnepass',
-            }}
-            fomTekstid={'periode.startdato'}
-            tomTekstid={'periode.sluttdato'}
-            periode={barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode}
-            gyldigeDatoer={GyldigeDatoer.Alle}
-            settDato={settPeriode}
-            testIndeks={barnIndeks}
-          />
-        </KomponentGruppe>
+        <PeriodeDatovelgere
+          tekst={periodeTekst}
+          hjelpetekst={{
+            headerTekstid: '',
+            innholdTekstid: 'barnepass.hjelpetekst.periodePåBarnepass',
+          }}
+          fomTekstid={'periode.startdato'}
+          tomTekstid={'periode.sluttdato'}
+          periode={barnepassOrdning.periode ? barnepassOrdning.periode : tomPeriode}
+          gyldigeDatoer={GyldigeDatoer.Alle}
+          settDato={settPeriode}
+          testIndeks={barnIndeks}
+        />
       )}
       {periode && erPeriodeGyldigOgInnenforBegrensning(periode, GyldigeDatoer.Alle) && (
         <BarnepassBeløp
