@@ -7,7 +7,10 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
-import { filtrerAktivitetSvaralternativer, fjernAktivitet, } from '../../../../helpers/steg/aktivitet';
+import {
+  filtrerAktivitetSvaralternativer,
+  fjernAktivitet,
+} from '../../../../helpers/steg/aktivitet';
 import { AktivitetOppfølgingSpørsmål } from '../../../felles/steg/5-aktivitet/AktivitetOppfølgingSpørsmål';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
 import { NavigasjonState, Side } from '../../../../components/side/Side';

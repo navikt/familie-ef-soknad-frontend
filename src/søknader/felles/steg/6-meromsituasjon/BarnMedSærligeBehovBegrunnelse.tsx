@@ -3,15 +3,14 @@ import { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import './BarnMedSærligeBehovBegrunnelse.css';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Label, Textarea } from '@navikt/ds-react';
+import { Label, Textarea, VStack } from '@navikt/ds-react';
 import { hentTekstMedEnVariabel, storeForbokstaver } from '../../../../utils/teksthåndtering';
 import { LesMerTekst } from '../../../../components/lesmertekst/LesMerTekst';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 
-const BarnMedSærligeBehovBegrunnelse = () => {
+export const BarnMedSærligeBehovBegrunnelse = () => {
   const intl = useLokalIntlContext();
   const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
   const barnMedSærligeBehov = søknad.person.barn.filter((barn: IBarn) => barn.særligeTilsynsbehov);
@@ -45,7 +44,7 @@ const BarnMedSærligeBehovBegrunnelse = () => {
           navn
         );
         return (
-          <KomponentGruppe key={barn.id}>
+          <VStack key={barn.id}>
             <Label className="blokk-xs" as={'label'}>
               {omBarnetsTilsynsbehovLabel}
             </Label>
@@ -61,11 +60,9 @@ const BarnMedSærligeBehovBegrunnelse = () => {
               value={barn.særligeTilsynsbehov!.verdi}
               maxLength={MAX_LENGDE_BEGRUNDELSE}
             />
-          </KomponentGruppe>
+          </VStack>
         );
       })}
     </>
   );
 };
-
-export default BarnMedSærligeBehovBegrunnelse;
