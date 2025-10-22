@@ -81,11 +81,16 @@ const OppsummeringOmDeg: FC<Props> = ({
         {utenlandsopphold && (
           <VStack>
             {utenlandsopphold.map((land, index) => {
+              const utenlandsoppholdDeltittel =
+                index === 0
+                  ? hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
+                  : `${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${index + 1}`;
+
               return (
                 <VStack key={index}>
                   {index !== 0 && <hr style={{ width: '100%' }} />}
                   <Heading size={'small'} level={'4'}>
-                    {`${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${index + 1}`}
+                    {utenlandsoppholdDeltittel}
                   </Heading>
                   {VisLabelOgSvar(land)}
                 </VStack>
