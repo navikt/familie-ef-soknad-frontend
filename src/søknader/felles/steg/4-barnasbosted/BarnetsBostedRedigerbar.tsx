@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { AnnenForelderKnapper } from './AnnenForelderKnapper';
 import { BostedOgSamvær } from './bostedOgSamvær/BostedOgSamvær';
-import OmAndreForelder from './OmAndreForelder';
-import SkalBarnetBoHosSøker from './SkalBarnetBoHosSøker';
+import { OmAndreForelder } from './OmAndreForelder';
+import { SkalBarnetBoHosSøker } from './SkalBarnetBoHosSøker';
 import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -20,8 +20,7 @@ import { HvorMyeSammen } from './ikkesammeforelder/HvorMyeSammen';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { erGyldigDato } from '../../../../utils/dato';
 import { TypeBarn } from '../../../../models/steg/barnasbosted';
-import BarnetsAndreForelderTittel from './BarnetsAndreForelderTittel';
-import { Alert, BodyShort, Button, Label, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, Label, VStack } from '@navikt/ds-react';
 import styled from 'styled-components';
 import {
   finnFørsteBarnTilHverForelder,
@@ -34,6 +33,8 @@ import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
 import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
 import { useBarnasBosted } from './BarnasBostedContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
+import { førsteBokstavStor } from '../../../../utils/språk';
+import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 
 const AlertMedTopMargin = styled(Alert)`
   margin-top: 1rem;
@@ -158,9 +159,13 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
         )}
 
         {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
-          <div>
-            <BarnetsAndreForelderTittel barn={barn} />
-
+          <VStack gap={'12'}>
+            <Heading size="small" level="4">
+              {førsteBokstavStor(
+                hentBarnNavnEllerBarnet(barn, 'barnasbosted.element.barnet', intl)
+              )}
+              {hentTekst('barnasbosted.element.andreforelder', intl)}
+            </Heading>
             {skalViseAnnenForelderKnapper && (
               <AnnenForelderKnapper
                 barn={barn}
@@ -199,7 +204,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
                 {hentTekst('barnasbosted.medforelder.gjenbrukt', intl)}
               </AlertMedTopMargin>
             )}
-          </div>
+          </VStack>
         )}
 
         {visBorAnnenForelderINorge && (

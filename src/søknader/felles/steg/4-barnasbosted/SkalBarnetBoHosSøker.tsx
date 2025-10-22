@@ -1,6 +1,4 @@
 import React from 'react';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { hentHTMLTekstMedEnVariabel, hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { skalBarnetBoHosSøker } from './ForeldreConfig';
@@ -14,7 +12,7 @@ import {
   hentSpørsmålTekstMedNavnEllerBarn,
 } from '../../../../utils/barn';
 import { ESkalBarnetBoHosSøker } from '../../../../models/steg/barnasbosted';
-import { Alert } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { useBarnasBosted } from './BarnasBostedContext';
 import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
@@ -24,7 +22,7 @@ interface Props {
   settForelder: (forelder: IForelder) => void;
 }
 
-const SkalBarnetBoHosSøker: React.FC<Props> = ({ barn, forelder, settForelder }) => {
+export const SkalBarnetBoHosSøker: React.FC<Props> = ({ barn, forelder, settForelder }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnasBosted();
 
@@ -50,48 +48,36 @@ const SkalBarnetBoHosSøker: React.FC<Props> = ({ barn, forelder, settForelder }
   };
 
   return (
-    <>
-      <FeltGruppe>
-        <Alert size="small" variant="warning" inline>
-          {hentSpørsmålTekst('barnasbosted.alert.måBoHosDeg')}
-        </Alert>
-      </FeltGruppe>
-      <KomponentGruppe>
-        <MultiSvarSpørsmålMedNavn
-          key={skalBarnetBoHosSøkerConfig.søknadid}
-          spørsmål={skalBarnetBoHosSøkerConfig}
-          spørsmålTekst={hentBarnNavnEllerBarnet(barn, skalBarnetBoHosSøkerConfig.tekstid, intl)}
-          valgtSvar={forelder.skalBarnetBoHosSøker?.verdi}
-          settSpørsmålOgSvar={settSkalBarnetBoHosSøkerFelt}
-        />
-      </KomponentGruppe>
+    <VStack gap={'12'}>
+      <Alert size="small" variant="warning" inline>
+        {hentSpørsmålTekst('barnasbosted.alert.måBoHosDeg')}
+      </Alert>
+      <MultiSvarSpørsmålMedNavn
+        key={skalBarnetBoHosSøkerConfig.søknadid}
+        spørsmål={skalBarnetBoHosSøkerConfig}
+        spørsmålTekst={hentBarnNavnEllerBarnet(barn, skalBarnetBoHosSøkerConfig.tekstid, intl)}
+        valgtSvar={forelder.skalBarnetBoHosSøker?.verdi}
+        settSpørsmålOgSvar={settSkalBarnetBoHosSøkerFelt}
+      />
       {forelder.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.jaMenSamarbeiderIkke && (
-        <FeltGruppe>
-          <AlertStripeDokumentasjon>
-            {hentHTMLTekstMedEnVariabel(
-              'barnasbosted.alert.hvisFaktiskBor',
-              intl,
-              barnetsNavnEllerBarnet(barn, intl)
-            )}
-          </AlertStripeDokumentasjon>
-        </FeltGruppe>
+        <AlertStripeDokumentasjon>
+          {hentHTMLTekstMedEnVariabel(
+            'barnasbosted.alert.hvisFaktiskBor',
+            intl,
+            barnetsNavnEllerBarnet(barn, intl)
+          )}
+        </AlertStripeDokumentasjon>
       )}
       {forelder.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.ja && (
-        <FeltGruppe>
-          <Alert size="small" variant="info" inline>
-            {hentTekst('barnasbosted.alert.skalBarnetBoHosSøker.ja', intl)}
-          </Alert>
-        </FeltGruppe>
+        <Alert size="small" variant="info" inline>
+          {hentTekst('barnasbosted.alert.skalBarnetBoHosSøker.ja', intl)}
+        </Alert>
       )}
       {forelder.skalBarnetBoHosSøker?.svarid === ESkalBarnetBoHosSøker.nei && (
-        <FeltGruppe>
-          <Alert size="small" variant="warning" inline>
-            {hentTekst('barnasbosted.alert.skalBarnetBoHosSøker.nei', intl)}
-          </Alert>
-        </FeltGruppe>
+        <Alert size="small" variant="warning" inline>
+          {hentTekst('barnasbosted.alert.skalBarnetBoHosSøker.nei', intl)}
+        </Alert>
       )}
-    </>
+    </VStack>
   );
 };
-
-export default SkalBarnetBoHosSøker;
