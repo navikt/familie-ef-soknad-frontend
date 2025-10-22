@@ -31,7 +31,7 @@ const tomtFirma = (inkludertArbeidsmengde: boolean): IFirma => {
       };
 };
 
-const OmFirmaeneDine: React.FC<Props> = ({
+export const OmFirmaeneDine: React.FC<Props> = ({
   arbeidssituasjon,
   settArbeidssituasjon,
   inkludertArbeidsmengde = true,
@@ -85,5 +85,3 @@ const OmFirmaeneDine: React.FC<Props> = ({
     </VStack>
   );
 };
-
-export default OmFirmaeneDine;

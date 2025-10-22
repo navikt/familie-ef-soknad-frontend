@@ -14,7 +14,10 @@ interface Props {
   settArbeidssituasjon: (nyArbeidssituasjon: IAktivitet) => void;
 }
 
-const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasjon }) => {
+export const EtablererEgenVirksomhet: React.FC<Props> = ({
+  arbeidssituasjon,
+  settArbeidssituasjon,
+}) => {
   const { etablererEgenVirksomhet } = arbeidssituasjon;
   const intl = useLokalIntlContext();
 
@@ -48,5 +51,3 @@ const EtablererEgenVirksomhet: React.FC<Props> = ({ arbeidssituasjon, settArbeid
     </VStack>
   );
 };
-
-export default EtablererEgenVirksomhet;
