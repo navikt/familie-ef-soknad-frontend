@@ -1,9 +1,5 @@
 import { FC } from 'react';
-import {
-  VisLabelOgSvar,
-  visLabelOgVerdiForSpørsmålFelt,
-  visListeAvLabelOgSvar,
-} from '../../../../utils/visning';
+import { verdiTilTekstsvar, VisLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -11,14 +7,8 @@ import { IMedlemskap, IUtenlandsopphold } from '../../../../models/steg/omDeg/me
 import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import { Søker } from '../../../../models/søknad/person';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import {
-  SeksjonSpacingTop,
-  StyledOppsummering,
-  StyledOppsummeringMedUndertitler,
-} from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
-import { BodyShort, Ingress, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 
 interface Props {
@@ -41,56 +31,70 @@ const OppsummeringOmDeg: FC<Props> = ({
   const intl = useLokalIntlContext();
 
   const navigate = useNavigate();
-  const omDeg = søker;
   const utenlandsopphold: IUtenlandsopphold[] | undefined = medlemskap.perioderBoddIUtlandet;
 
-  const borDuPåDenneAdressen = visLabelOgVerdiForSpørsmålFelt(søkerBorPåRegistrertAdresse, intl);
-
-  const harDuMeldtAdresseendring = visLabelOgVerdiForSpørsmålFelt(harMeldtAdresseendring, intl);
   const datoFlyttetFraHverandre = VisLabelOgSvar(sivilstatus);
   const tidligereSamboer = VisLabelOgSvar(sivilstatus.tidligereSamboerDetaljer);
   const medlemskapSpørsmål = VisLabelOgSvar(medlemskap);
 
-  const perioderUtland = visListeAvLabelOgSvar(
-    utenlandsopphold,
-    hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)
-  );
-
   return (
-    <>
-      <KomponentGruppe>
-        <StyledOppsummering>
-          <div className="spørsmål-og-svar">
-            <Label as="p">{hentTekst('person.ident', intl)}</Label>
-            <BodyShort>{omDeg.fnr}</BodyShort>
-          </div>
-          <div className="spørsmål-og-svar">
-            <Label as="p">{hentTekst('person.statsborgerskap', intl)}</Label>
-            <BodyShort>{omDeg.statsborgerskap}</BodyShort>
-          </div>
-          <div className="spørsmål-og-svar">
-            <Label as="p">{hentTekst('person.adresse', intl)}</Label>
-            <BodyShort>{omDeg.adresse.adresse}</BodyShort>
-            <BodyShort>
-              {omDeg.adresse.postnummer} {omDeg.adresse.poststed}
-            </BodyShort>
-          </div>
-          {borDuPåDenneAdressen}
-          {harDuMeldtAdresseendring}
-          {tidligereSamboer && (
-            <div className="spørsmål-og-svar">
-              <Ingress>{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Ingress>
-              {tidligereSamboer}
-            </div>
-          )}
-          {datoFlyttetFraHverandre}
-          {medlemskapSpørsmål}
-        </StyledOppsummering>
+    <VStack gap={'12'}>
+      <VStack gap={'8'}>
+        <VStack>
+          <Label as="p">{hentTekst('person.ident', intl)}</Label>
+          <BodyShort>{søker.fnr}</BodyShort>
+        </VStack>
+        <VStack>
+          <Label as="p">{hentTekst('person.statsborgerskap', intl)}</Label>
+          <BodyShort>{søker.statsborgerskap}</BodyShort>
+        </VStack>
+        <VStack>
+          <Label as="p">{hentTekst('person.adresse', intl)}</Label>
+          <BodyShort>{søker.adresse.adresse}</BodyShort>
+          <BodyShort>
+            {søker.adresse.postnummer} {søker.adresse.poststed}
+          </BodyShort>
+        </VStack>
+        {søkerBorPåRegistrertAdresse && (
+          <VStack>
+            <Label as="p">{søkerBorPåRegistrertAdresse.label}</Label>
+            <BodyShort>{verdiTilTekstsvar(søkerBorPåRegistrertAdresse.verdi, intl)}</BodyShort>
+          </VStack>
+        )}
+        {harMeldtAdresseendring && (
+          <VStack>
+            <Label as="p">{harMeldtAdresseendring.label}</Label>
+            <BodyShort>{verdiTilTekstsvar(harMeldtAdresseendring.verdi, intl)}</BodyShort>
+          </VStack>
+        )}
+        {tidligereSamboer && (
+          <VStack>
+            <Heading size={'small'}>
+              {hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}
+            </Heading>
+            {tidligereSamboer}
+          </VStack>
+        )}
+        {datoFlyttetFraHverandre}
+        {medlemskapSpørsmål}
 
-        <StyledOppsummeringMedUndertitler>
-          <SeksjonSpacingTop>{perioderUtland}</SeksjonSpacingTop>
-        </StyledOppsummeringMedUndertitler>
-      </KomponentGruppe>
+        {utenlandsopphold && (
+          <VStack>
+            {utenlandsopphold.map((land, index) => {
+              return (
+                <VStack key={index}>
+                  {index !== 0 && <hr style={{ width: '100%' }} />}
+                  <Heading size={'small'} level={'4'}>
+                    {`${hentTekst('medlemskap.periodeBoddIUtlandet.utenlandsopphold', intl)} ${index + 1}`}
+                  </Heading>
+                  {VisLabelOgSvar(land)}
+                </VStack>
+              );
+            })}
+          </VStack>
+        )}
+      </VStack>
+
       <LenkeMedIkon
         onClick={() =>
           navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
@@ -98,7 +102,7 @@ const OppsummeringOmDeg: FC<Props> = ({
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}
       />
-    </>
+    </VStack>
   );
 };
 

@@ -3,13 +3,12 @@ import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { IBarn } from '../../../../models/steg/barn';
 import { VisLabelOgSvar } from '../../../../utils/visning';
-import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useNavigate } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
+import { VStack } from '@navikt/ds-react';
 
 interface Props {
   barn: IBarn[];
@@ -48,16 +47,16 @@ const OppsummeringBarnasBosituasjon: FC<Props> = ({ barn, endreInformasjonPath, 
       const forelderFelter = VisLabelOgSvar(visningForelder, barnetsNavn);
 
       return (
-        <StyledOppsummeringForBarn key={barn.id}>
+        <VStack key={barn.id}>
           <BarneHeader barn={barn} />
           {forelderFelter}
-        </StyledOppsummeringForBarn>
+        </VStack>
       );
     });
 
   return (
-    <>
-      <KomponentGruppe>{felterAlleForeldrene}</KomponentGruppe>
+    <VStack gap={'16'}>
+      {felterAlleForeldrene}
       <LenkeMedIkon
         onClick={() =>
           navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
@@ -65,7 +64,7 @@ const OppsummeringBarnasBosituasjon: FC<Props> = ({ barn, endreInformasjonPath, 
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}
       />
-    </>
+    </VStack>
   );
 };
 

@@ -6,10 +6,9 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import OppsummeringBarn from './OppsummeringBarn';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
+import { VStack } from '@navikt/ds-react';
 
 interface Props {
   barn: IBarn[];
@@ -46,16 +45,16 @@ const OppsummeringBarnaDine: React.FC<Props> = ({ barn, stønadstype, endreInfor
       const endretBarn = hentEndretBarn(barn);
 
       return (
-        <StyledOppsummeringForBarn key={barn.id}>
+        <>
           <BarneHeader barn={barn} />
           <OppsummeringBarn stønadstype={stønadstype} barn={endretBarn} />
-        </StyledOppsummeringForBarn>
+        </>
       );
     });
 
   return (
-    <>
-      <KomponentGruppe>{oppsummeringBarnaDine}</KomponentGruppe>
+    <VStack gap={'16'}>
+      {oppsummeringBarnaDine}
       <LenkeMedIkon
         onClick={() =>
           navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
@@ -63,7 +62,7 @@ const OppsummeringBarnaDine: React.FC<Props> = ({ barn, stønadstype, endreInfor
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}
       />
-    </>
+    </VStack>
   );
 };
 
