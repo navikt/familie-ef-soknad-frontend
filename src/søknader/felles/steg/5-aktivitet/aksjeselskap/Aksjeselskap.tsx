@@ -35,7 +35,6 @@ export const Aksjeselskap: FC<Props> = ({
       else return aksjeselskapFraSøknad;
     });
     endretAksjeselskap && settEgetAS(endretAksjeselskap);
-    // eslint-disable-next-line
   }, [aksjeselskap]);
 
   const aksjeselskapTittel = hentTittelMedNr(

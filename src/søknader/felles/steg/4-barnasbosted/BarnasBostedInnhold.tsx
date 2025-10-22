@@ -48,7 +48,6 @@ const BarnasBostedInnhold: React.FC = () => {
       antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined) ===
         barnMedLevendeMedforelderEllerUndefined.length
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [barnISøknad]);
 
   return (

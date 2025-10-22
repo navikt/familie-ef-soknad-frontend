@@ -47,7 +47,6 @@ export const TarUtdanning: React.FC<Props> = ({
 
   useEffect(() => {
     oppdaterUnderUtdanning(utdanning);
-    // eslint-disable-next-line
   }, [utdanning]);
 
   useEffect(() => {

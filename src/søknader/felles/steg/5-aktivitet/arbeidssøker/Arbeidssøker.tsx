@@ -36,7 +36,6 @@ export const Arbeidssøker: React.FC<Props> = ({
 
   useEffect(() => {
     settArbeidssituasjon({ ...arbeidssituasjon, arbeidssøker: arbeidssøker });
-    // eslint-disable-next-line
   }, [arbeidssøker]);
 
   const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {

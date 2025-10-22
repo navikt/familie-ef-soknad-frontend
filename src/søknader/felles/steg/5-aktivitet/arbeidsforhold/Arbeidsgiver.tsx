@@ -44,7 +44,6 @@ export const Arbeidsgiver: React.FC<Props> = ({
       else return arbeidsgiverFraSøknad;
     });
     endretArbeidsforhold && settArbeidsforhold(endretArbeidsforhold);
-    // eslint-disable-next-line
   }, [arbeidsgiver]);
 
   const settSpørsmålOgSvar = (spørsmål: ISpørsmål, svar: ISvar) => {

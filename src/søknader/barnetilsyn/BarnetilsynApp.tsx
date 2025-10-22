@@ -62,14 +62,12 @@ const BarnetilsynApp = () => {
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (skalGjenbrukeSøknad) {
       hentForrigeSøknadBarnetilsyn();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetching, skalGjenbrukeSøknad]);
 
   if (!fetching && autentisert) {

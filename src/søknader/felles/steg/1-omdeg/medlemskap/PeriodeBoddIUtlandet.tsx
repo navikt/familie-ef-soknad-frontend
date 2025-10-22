@@ -38,7 +38,6 @@ export const PeriodeBoddIUtlandet: FC<{
       ...medlemskap,
       perioderBoddIUtlandet: perioderBoddIUtlandet,
     });
-    // eslint-disable-next-line
   }, [perioderBoddIUtlandet]);
 
   const leggTilUtenlandsperiode = () => {

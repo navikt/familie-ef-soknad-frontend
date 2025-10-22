@@ -55,8 +55,6 @@ const OmAndreForelder: React.FC<Props> = ({
 
       settForelder(nyForelder);
     }
-
-    // eslint-disable-next-line
   }, [erGyldigIdent, identFelt]);
 
   const hvisGyldigIdentSettIdent = (ident: string) => {

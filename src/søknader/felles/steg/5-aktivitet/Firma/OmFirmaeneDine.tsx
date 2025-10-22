@@ -47,7 +47,6 @@ const OmFirmaeneDine: React.FC<Props> = ({
       ...arbeidssituasjon,
       firmaer: firmaer,
     });
-    // eslint-disable-next-line
   }, [firmaer]);
 
   const leggTilFirma = () => {

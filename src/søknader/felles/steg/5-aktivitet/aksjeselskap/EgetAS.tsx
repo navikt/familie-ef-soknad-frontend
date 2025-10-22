@@ -41,7 +41,6 @@ export const EgetAS: FC<Props> = ({
 
   useEffect(() => {
     settArbeidssituasjon({ ...arbeidssituasjon, egetAS: egetAS });
-    // eslint-disable-next-line
   }, [egetAS]);
 
   const leggTilAksjeselskap = () => {

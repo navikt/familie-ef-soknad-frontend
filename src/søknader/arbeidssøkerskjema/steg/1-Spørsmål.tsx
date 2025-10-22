@@ -36,7 +36,6 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
 
   React.useEffect(() => {
     settSkjema({ ...skjema, arbeidssøker: arbeidssøker });
-    // eslint-disable-next-line
   }, [arbeidssøker]);
 
   const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
