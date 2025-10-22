@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import {
@@ -91,14 +90,12 @@ export const SendSøknadKnapper: FC = () => {
   return (
     <>
       {innsendingState.status === IStatus.FEILET && (
-        <KomponentGruppe>
-          <Alert size="small" variant={'warning'} inline>
-            <BodyShort>{innsendingState.melding}</BodyShort>
-          </Alert>
-        </KomponentGruppe>
+        <Alert size="small" variant={'warning'} inline>
+          <BodyShort>{innsendingState.melding}</BodyShort>
+        </Alert>
       )}
       {!validerSøkerBosattINorgeSisteFemÅr(søknad) && (
-        <KomponentGruppe>
+        <>
           <Alert size="small" variant={'warning'} inline>
             {hentTekst('dokumentasjon.alert.gåTilbake', intl)}{' '}
             <Link
@@ -111,7 +108,7 @@ export const SendSøknadKnapper: FC = () => {
             </Link>
             {hentTekst('dokumentasjon.alert.manglende', intl)}
           </Alert>
-        </KomponentGruppe>
+        </>
       )}
       <HStack justify={'center'}>
         <StyledKnapper>
