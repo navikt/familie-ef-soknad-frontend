@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import BarnasBostedInnhold from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
+import { BarnasBostedInnhold } from '../../../felles/steg/4-barnasbosted/BarnasBostedInnhold';
 import { useBarnasBosted } from './BarnasBostedContext';
 
 export const BarnasBosted: React.FC = () => {

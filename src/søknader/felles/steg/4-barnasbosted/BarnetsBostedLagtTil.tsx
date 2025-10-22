@@ -18,7 +18,7 @@ interface Props {
   index: number;
 }
 
-const BarnetsBostedLagtTil: React.FC<Props> = ({ barn, settAktivIndex, index }) => {
+export const BarnetsBostedLagtTil: React.FC<Props> = ({ barn, settAktivIndex, index }) => {
   const forelder = barn.forelder;
   const intl = useLokalIntlContext();
   const { settSisteBarnUtfylt } = useBarnasBosted();
@@ -179,5 +179,3 @@ const BarnetsBostedLagtTil: React.FC<Props> = ({ barn, settAktivIndex, index }) 
     </div>
   );
 };
-
-export default BarnetsBostedLagtTil;
