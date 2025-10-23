@@ -6,7 +6,7 @@ import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Label, RadioGroup, VStack } from '@navikt/ds-react';
-import RadioPanelCustom from '../panel/RadioPanel';
+import { RadioKnapp } from '../panel/RadioKnapp';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
@@ -69,7 +69,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
             {spørsmål.svaralternativer.map((svar: ISvar) => {
               const svarISøknad = svar.id === søkerFraBestemtMåned?.svarid;
               return (
-                <RadioPanelCustom
+                <RadioKnapp
                   key={svar.svar_tekst}
                   name={spørsmål.søknadid}
                   value={svar.id}
@@ -77,7 +77,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
                   onChange={() => settSøkerFraBestemtMåned(spørsmål, svar)}
                 >
                   {svar.svar_tekst}
-                </RadioPanelCustom>
+                </RadioKnapp>
               );
             })}
           </RadioGroup>

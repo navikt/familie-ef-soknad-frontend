@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../../components/gruppe/KomponentGruppe';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { erSisteFirmaUtfylt } from '../../../../../helpers/steg/aktivitetvalidering';
 import LeggTilKnapp from '../../../../../components/knapper/LeggTilKnapp';
 import { IFirma } from '../../../../../models/steg/aktivitet/firma';
-import OmFirmaetDitt from './OmFirmaetDitt';
+import { OmFirmaetDitt } from './OmFirmaetDitt';
 import { Heading, Label, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -76,14 +75,12 @@ const OmFirmaeneDine: React.FC<Props> = ({
       })}
 
       {erSisteFirmaUtfylt(firmaer) && (
-        <KomponentGruppe>
-          <FeltGruppe>
-            <Label as="p">{hentTekst('firmaer.label.flereFirmaer', intl)}</Label>
-            <LeggTilKnapp onClick={() => leggTilFirma()}>
-              {hentTekst('firmaer.knapp.leggTilFirma', intl)}
-            </LeggTilKnapp>
-          </FeltGruppe>
-        </KomponentGruppe>
+        <FeltGruppe>
+          <Label as="p">{hentTekst('firmaer.label.flereFirmaer', intl)}</Label>
+          <LeggTilKnapp onClick={() => leggTilFirma()}>
+            {hentTekst('firmaer.knapp.leggTilFirma', intl)}
+          </LeggTilKnapp>
+        </FeltGruppe>
       )}
     </VStack>
   );

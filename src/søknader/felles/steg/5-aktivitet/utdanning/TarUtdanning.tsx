@@ -21,7 +21,6 @@ import { lagTomUnderUtdanning } from '../../../../../helpers/steg/utdanning';
 import { DetaljertUtdanning } from '../../../../skolepenger/models/detaljertUtdanning';
 import { Studiekostnader } from './Studiekostnader';
 import { Stønadstype } from '../../../../../models/søknad/stønadstyper';
-import styled from 'styled-components';
 import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
 import { Heading, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
@@ -29,17 +28,17 @@ import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
 
-const LesMerTekstUnderSidetittel = styled(LesMerTekst)`
-  margin-top: -2rem;
-`;
-
 interface Props {
   underUtdanning?: UnderUtdanning | DetaljertUtdanning;
   oppdaterUnderUtdanning: (utdanning: UnderUtdanning | DetaljertUtdanning) => void;
   stønadstype: Stønadstype;
 }
 
-const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning, stønadstype }) => {
+export const TarUtdanning: React.FC<Props> = ({
+  underUtdanning,
+  oppdaterUnderUtdanning,
+  stønadstype,
+}) => {
   const intl = useLokalIntlContext();
   const skalHaDetaljertUtdanning = stønadstype === Stønadstype.skolepenger;
   const [utdanning, settUtdanning] = useState<UnderUtdanning | DetaljertUtdanning>(
@@ -90,7 +89,7 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
           </>
         )}
         {stønadstype === Stønadstype.skolepenger && (
-          <LesMerTekstUnderSidetittel
+          <LesMerTekst
             åpneTekstid={utdanningDuKanFåStønadTilSkolepenger.headerTekstid}
             innholdTekstid={utdanningDuKanFåStønadTilSkolepenger.innholdTekstid}
           />
@@ -142,5 +141,3 @@ const TarUtdanning: React.FC<Props> = ({ underUtdanning, oppdaterUnderUtdanning,
     </VStack>
   );
 };
-
-export default TarUtdanning;
