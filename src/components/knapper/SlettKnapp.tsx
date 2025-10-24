@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentTekst } from '../../utils/teksthåndtering';
-
-const Knapp = styled(Button)`
-  width: fit-content;
-`;
 
 interface Props {
   className?: string;
@@ -18,7 +13,7 @@ interface Props {
 export const SlettKnapp: React.FC<Props> = ({ tekstid, onClick, className }) => {
   const intl = useLokalIntlContext();
   return (
-    <Knapp
+    <Button
       className={className}
       iconPosition={'right'}
       icon={<TrashIcon />}
@@ -27,6 +22,6 @@ export const SlettKnapp: React.FC<Props> = ({ tekstid, onClick, className }) => 
       variant={'tertiary'}
     >
       <span>{hentTekst(tekstid, intl)}</span>
-    </Knapp>
+    </Button>
   );
 };

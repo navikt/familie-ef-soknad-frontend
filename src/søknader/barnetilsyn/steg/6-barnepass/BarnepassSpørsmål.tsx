@@ -16,9 +16,8 @@ import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { BarnepassOrdning, EBarnepass, ETypeBarnepassOrdning } from '../../models/barnepass';
 import { EPeriode } from '../../../../models/felles/periode';
 import { erPeriodeGyldigOgInnenforBegrensning } from '../../../../utils/gyldigeDatoerUtils';
-import { Heading, TextField, VStack } from '@navikt/ds-react';
+import { Heading, HStack, TextField, VStack } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
-import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 
 interface Props {
@@ -117,18 +116,18 @@ export const BarnepassSpørsmål: FC<Props> = ({
 
   return (
     <VStack gap={'12'}>
+      <HStack justify="space-between" align="center">
+        <Heading size="small" className="tittel">
+          {barnepassordningTittel}
+        </Heading>
+        {skalViseSlettKnapp && (
+          <SlettKnapp
+            onClick={() => fjernBarnepassOrdning(barnepassOrdning)}
+            tekstid={'barnepass.knapp.slett'}
+          />
+        )}
+      </HStack>
       <VStack>
-        <TittelOgSlettKnapp justify="space-between" align="center">
-          <Heading size="small" className="tittel">
-            {barnepassordningTittel}
-          </Heading>
-          {skalViseSlettKnapp && (
-            <SlettKnapp
-              onClick={() => fjernBarnepassOrdning(barnepassOrdning)}
-              tekstid={'barnepass.knapp.slett'}
-            />
-          )}
-        </TittelOgSlettKnapp>
         {erÅrsakBarnepassSpmBesvart(barn) && (
           <MultiSvarSpørsmålMedNavn
             spørsmål={HvaSlagsBarnepassOrdningSpm(intl)}
