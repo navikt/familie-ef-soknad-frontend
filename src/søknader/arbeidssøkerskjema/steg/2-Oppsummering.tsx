@@ -14,11 +14,10 @@ import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
 import { LenkeMedIkon } from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
-import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Alert, BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, HGrid, VStack } from '@navikt/ds-react';
 
 interface Innsending {
   status: IStatus;
@@ -97,34 +96,25 @@ const Oppsummering: React.FC = () => {
             <BodyShort>{innsendingState.melding}</BodyShort>
           </Alert>
         )}
-        <HStack justify={'center'}>
-          <StyledKnapper>
-            <Button
-              className={'tilbake'}
-              variant={'secondary'}
-              onClick={() => navigate(forrigeRoute.path)}
-            >
+        <VStack gap={'4'} align={'center'}>
+          <HGrid gap={'4'} columns={{ md: '1fr 1fr' }}>
+            <Button variant={'secondary'} onClick={() => navigate(forrigeRoute.path)}>
               {hentTekst('knapp.tilbake', intl)}
             </Button>
 
             <Button
               variant={'primary'}
               onClick={() => !innsendingState.venter && sendSkjema(skjema.arbeidssøker)}
-              className={'neste'}
               loading={innsendingState.venter}
             >
               {hentTekst('skjema.send', intl)}
             </Button>
+          </HGrid>
 
-            <Button
-              className={'avbryt'}
-              variant={'tertiary'}
-              onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}
-            >
-              {hentTekst('knapp.avbryt', intl)}
-            </Button>
-          </StyledKnapper>
-        </HStack>
+          <Button variant={'tertiary'} onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}>
+            {hentTekst('knapp.avbryt', intl)}
+          </Button>
+        </VStack>
       </VStack>
     </Side>
   );
