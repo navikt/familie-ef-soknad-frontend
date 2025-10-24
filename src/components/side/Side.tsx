@@ -81,9 +81,9 @@ export const Side: React.FC<Props> = ({
         {skalViseStegindikator && <Stegindikator steg={stegobjekter} aktivtSteg={aktivtSteg} />}
 
         {navigasjonState === NavigasjonState.skjulKnapper && (
-          <div className={styles.brevIkon}>
+          <VStack align={'center'} marginBlock={'8 8'}>
             <SendBrevSVG />
-          </div>
+          </VStack>
         )}
 
         <VStack gap="8" className={styles.children}>
