@@ -30,15 +30,9 @@ import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
-import styled from 'styled-components';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort, VStack } from '@navikt/ds-react';
 
-const StyledHjelpetekst = styled.div`
-  .navds-body-short {
-    padding-bottom: 1rem;
-  }
-`;
 const MerOmDinSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
   const {
@@ -74,11 +68,11 @@ const MerOmDinSituasjon: React.FC = () => {
     intl
   );
   const hjelpetekst: ReactNode = (
-    <StyledHjelpetekst>
+    <VStack gap={'4'}>
       <BodyShort>{hjelpetekstFørsteAvsnitt}</BodyShort>
       <BodyShort>{hjelpetekstAndreAvsnitt}</BodyShort>
       <BodyShort>{hjelpetekstTredjeAvsnitt}</BodyShort>
-    </StyledHjelpetekst>
+    </VStack>
   );
 
   useEffect(() => {
