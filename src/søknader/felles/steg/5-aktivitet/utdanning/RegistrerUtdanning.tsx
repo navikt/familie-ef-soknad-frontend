@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
-import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { Utdanning } from '../../../../../models/steg/aktivitet/utdanning';
@@ -11,7 +10,7 @@ import { EPeriode } from '../../../../../models/felles/periode';
 import { PeriodeÅrMånedvelgere } from '../../../../../components/dato/PeriodeÅrMånedvelgere';
 import { formatIsoDate } from '../../../../../utils/dato';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Heading, VStack } from '@navikt/ds-react';
+import { Heading, HStack, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 
@@ -88,34 +87,38 @@ export const RegistrerUtdanning: React.FC<Props> = ({
   const skalViseSlettKnapp = tidligereUtdanninger?.length > 1;
 
   return (
-    <VStack gap={'4'}>
-      <TittelOgSlettKnapp justify="space-between" align="center">
+    <>
+      <HStack justify="space-between" align="center">
         <Heading size="small" level="4" className={'tittel'}>
           {utdanningTittel}
         </Heading>
         {skalViseSlettKnapp && (
           <SlettKnapp onClick={() => fjernUtdanning()} tekstid={'utdanning.knapp.slett'} />
         )}
-      </TittelOgSlettKnapp>
-      <TextFieldMedBredde
-        key={linjeKursGrad.id}
-        label={linjeKursGradLabel}
-        type="text"
-        value={utdanning.linjeKursGrad?.verdi}
-        bredde={'XL'}
-        onChange={(e) => settInputFelt(linjeKursGradLabel, e)}
-        data-testid={testIder ? testIder[0] : undefined}
-      />
-      {harValgtSvar(utdanning.linjeKursGrad?.verdi) && (
-        <PeriodeÅrMånedvelgere
-          tekst={hentTekst('utdanning.datovelger.studieperiode', intl)}
-          periode={utdanning.periode ? utdanning.periode : tomPeriode}
-          settDato={settPeriode}
-          aria-live="polite"
-          gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
-          testIder={testIder ? [testIder[1], testIder[2]] : undefined}
+      </HStack>
+      <VStack gap={'16'}>
+        <TextFieldMedBredde
+          key={linjeKursGrad.id}
+          label={linjeKursGradLabel}
+          type="text"
+          value={utdanning.linjeKursGrad?.verdi}
+          bredde={'XL'}
+          onChange={(e) => settInputFelt(linjeKursGradLabel, e)}
+          data-testid={testIder ? testIder[0] : undefined}
         />
-      )}
-    </VStack>
+        {harValgtSvar(utdanning.linjeKursGrad?.verdi) && (
+          <VStack gap={'2'}>
+            <PeriodeÅrMånedvelgere
+              tekst={hentTekst('utdanning.datovelger.studieperiode', intl)}
+              periode={utdanning.periode ? utdanning.periode : tomPeriode}
+              settDato={settPeriode}
+              aria-live="polite"
+              gyldigeDatoer={GyldigeDatoer.FemtiÅrTidligereOgSeksMånederFrem}
+              testIder={testIder ? [testIder[1], testIder[2]] : undefined}
+            />
+          </VStack>
+        )}
+      </VStack>
+    </>
   );
 };

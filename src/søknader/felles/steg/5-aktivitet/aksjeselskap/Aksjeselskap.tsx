@@ -1,13 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { EAksjeselskap, IAksjeselskap } from '../../../../../models/steg/aktivitet/aktivitet';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { Heading } from '@navikt/ds-react';
+import { Heading, HStack, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 
 interface Props {
@@ -70,8 +68,8 @@ export const Aksjeselskap: FC<Props> = ({
   const skalViseSlettKnapp = egetAS?.length;
 
   return (
-    <div aria-live="polite" role="region">
-      <TittelOgSlettKnapp justify="space-between" align="center">
+    <>
+      <HStack align={'center'} justify={'space-between'}>
         <Heading size="small" level="4" className={'tittel'}>
           {aksjeselskapTittel}
         </Heading>
@@ -81,8 +79,8 @@ export const Aksjeselskap: FC<Props> = ({
             tekstid={'arbeidsforhold.knapp.slettArbeidsgiver'}
           />
         )}
-      </TittelOgSlettKnapp>
-      <FeltGruppe>
+      </HStack>
+      <VStack gap={'16'}>
         <TextFieldMedBredde
           key={navnLabel}
           label={navnLabel}
@@ -91,9 +89,7 @@ export const Aksjeselskap: FC<Props> = ({
           onChange={(e) => settTekstInputFelt(e, navnLabel, EAksjeselskap.navn)}
           value={aksjeselskap?.navn?.verdi ? aksjeselskap.navn.verdi : ''}
         />
-      </FeltGruppe>
-      {aksjeselskap.navn?.verdi && inkludertArbeidsmengde && (
-        <FeltGruppe>
+        {aksjeselskap.navn?.verdi && inkludertArbeidsmengde && (
           <InputLabelGruppe
             label={arbeidsmengdeLabel}
             nøkkel={EAksjeselskap.arbeidsmengde}
@@ -105,8 +101,8 @@ export const Aksjeselskap: FC<Props> = ({
             }
             beskrivendeTekst={'%'}
           />
-        </FeltGruppe>
-      )}
-    </div>
+        )}
+      </VStack>
+    </>
   );
 };
