@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { harDereSkriftligSamværsavtale } from '../ForeldreConfig';
 import { EHarSkriftligSamværsavtale } from '../../../../../models/steg/barnasbosted';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { IForelder } from '../../../../../models/steg/forelder';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { IBarn } from '../../../../../models/steg/barn';
@@ -25,7 +24,7 @@ export const HarForelderSkriftligSamværsavtale: FC<Props> = ({
   const intl = useLokalIntlContext();
   const harDereSkriftligSamværsavtaleSpm = harDereSkriftligSamværsavtale(intl);
   return (
-    <VStack>
+    <VStack gap={'2'}>
       <MultiSvarSpørsmålMedNavn
         key={harDereSkriftligSamværsavtaleSpm.søknadid}
         spørsmål={harDereSkriftligSamværsavtaleSpm}
@@ -41,11 +40,9 @@ export const HarForelderSkriftligSamværsavtale: FC<Props> = ({
         EHarSkriftligSamværsavtale.jaIkkeKonkreteTidspunkter ||
         forelder.harDereSkriftligSamværsavtale?.svarid ===
           EHarSkriftligSamværsavtale.jaKonkreteTidspunkter) && (
-        <FeltGruppe>
-          <AlertStripeDokumentasjon>
-            {hentTekst('barnasbosted.alert.leggeVedSamværsavtalen', intl)}
-          </AlertStripeDokumentasjon>
-        </FeltGruppe>
+        <AlertStripeDokumentasjon>
+          {hentTekst('barnasbosted.alert.leggeVedSamværsavtalen', intl)}
+        </AlertStripeDokumentasjon>
       )}
     </VStack>
   );

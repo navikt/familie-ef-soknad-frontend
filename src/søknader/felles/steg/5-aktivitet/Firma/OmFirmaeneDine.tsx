@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
@@ -57,7 +56,7 @@ export const OmFirmaeneDine: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'8'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('firmaer.tittel', intl)}
       </Heading>
@@ -75,12 +74,12 @@ export const OmFirmaeneDine: React.FC<Props> = ({
       })}
 
       {erSisteFirmaUtfylt(firmaer) && (
-        <FeltGruppe>
+        <VStack align={'start'}>
           <Label as="p">{hentTekst('firmaer.label.flereFirmaer', intl)}</Label>
           <LeggTilKnapp onClick={() => leggTilFirma()}>
             {hentTekst('firmaer.knapp.leggTilFirma', intl)}
           </LeggTilKnapp>
-        </FeltGruppe>
+        </VStack>
       )}
     </VStack>
   );

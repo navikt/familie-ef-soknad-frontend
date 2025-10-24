@@ -1,6 +1,5 @@
 import React from 'react';
 import { EUtdanning, UnderUtdanning } from '../../../../../models/steg/aktivitet/utdanning';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { linjeKursGrad, skoleUtdanningssted } from './UtdanningConfig';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
@@ -27,30 +26,24 @@ export const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) 
   const linjeKursGradLabel = hentTekst(linjeKursGrad.label_tekstid, intl);
 
   return (
-    <VStack>
-      <FeltGruppe>
+    <VStack gap={'8'}>
+      <TextFieldMedBredde
+        key={skoleUtdanningssted.id}
+        label={skoleUtdanningstedLabel}
+        type="text"
+        bredde={'XL'}
+        value={utdanning?.skoleUtdanningssted?.verdi ? utdanning?.skoleUtdanningssted?.verdi : ''}
+        onChange={(e) => settInputFelt(EUtdanning.skoleUtdanningssted, skoleUtdanningstedLabel, e)}
+      />
+      {utdanning?.skoleUtdanningssted?.verdi && (
         <TextFieldMedBredde
-          key={skoleUtdanningssted.id}
-          label={skoleUtdanningstedLabel}
+          key={linjeKursGrad.id}
+          label={linjeKursGradLabel}
           type="text"
           bredde={'XL'}
-          value={utdanning?.skoleUtdanningssted?.verdi ? utdanning?.skoleUtdanningssted?.verdi : ''}
-          onChange={(e) =>
-            settInputFelt(EUtdanning.skoleUtdanningssted, skoleUtdanningstedLabel, e)
-          }
+          onChange={(e) => settInputFelt(EUtdanning.linjeKursGrad, linjeKursGradLabel, e)}
+          value={utdanning?.linjeKursGrad?.verdi ? utdanning?.linjeKursGrad?.verdi : ''}
         />
-      </FeltGruppe>
-      {utdanning?.skoleUtdanningssted?.verdi && (
-        <FeltGruppe>
-          <TextFieldMedBredde
-            key={linjeKursGrad.id}
-            label={linjeKursGradLabel}
-            type="text"
-            bredde={'XL'}
-            onChange={(e) => settInputFelt(EUtdanning.linjeKursGrad, linjeKursGradLabel, e)}
-            value={utdanning?.linjeKursGrad?.verdi ? utdanning?.linjeKursGrad?.verdi : ''}
-          />
-        </FeltGruppe>
       )}
     </VStack>
   );
