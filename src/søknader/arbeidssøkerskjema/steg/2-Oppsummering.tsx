@@ -11,7 +11,7 @@ import { hentTekst } from '../../../utils/teksthåndtering';
 import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../../utils/visning';
 import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
-import LenkeMedIkon from '../../../components/knapper/LenkeMedIkon';
+import { LenkeMedIkon } from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
 import { StyledKnapper } from '../../../components/knapper/StyledKnapper';

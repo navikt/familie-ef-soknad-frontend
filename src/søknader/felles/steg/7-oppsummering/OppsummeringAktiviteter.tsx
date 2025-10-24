@@ -1,6 +1,6 @@
 import React from 'react';
 import endre from '../../../../assets/endre.svg';
-import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
+import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';

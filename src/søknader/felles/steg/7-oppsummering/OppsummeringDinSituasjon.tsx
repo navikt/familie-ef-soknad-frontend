@@ -1,7 +1,7 @@
 import React from 'react';
 import { VisLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
-import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
+import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
 import { useNavigate } from 'react-router-dom';
