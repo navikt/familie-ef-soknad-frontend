@@ -1,5 +1,5 @@
 import React from 'react';
-import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
+import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar } from '../../../../utils/visning';
