@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import endre from '../../../../assets/endre.svg';
-import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
+import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
 import { IBarn } from '../../../../models/steg/barn';
 import { VisLabelOgSvar } from '../../../../utils/visning';
 import { hentTekst } from '../../../../utils/teksthåndtering';
