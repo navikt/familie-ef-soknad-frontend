@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IAksjeselskap, IAktivitet } from '../../../../../models/steg/aktivitet/aktivitet';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { hentUid } from '../../../../../utils/autentiseringogvalidering/uuid';
 import { nyttTekstFelt } from '../../../../../helpers/tommeSøknadsfelter';
 import { Aksjeselskap } from './Aksjeselskap';
@@ -67,13 +66,11 @@ export const EgetAS: FC<Props> = ({
         );
       })}
       {erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde) && (
-        <VStack>
-          <FeltGruppe>
-            <Label as="p">{hentTekst('egetAS.label.flere', intl)}</Label>
-            <LeggTilKnapp onClick={() => leggTilAksjeselskap()}>
-              {hentTekst('egetAS.knapp.leggtil', intl)}
-            </LeggTilKnapp>
-          </FeltGruppe>
+        <VStack align={'start'}>
+          <Label as="p">{hentTekst('egetAS.label.flere', intl)}</Label>
+          <LeggTilKnapp onClick={() => leggTilAksjeselskap()}>
+            {hentTekst('egetAS.knapp.leggtil', intl)}
+          </LeggTilKnapp>
         </VStack>
       )}
     </VStack>

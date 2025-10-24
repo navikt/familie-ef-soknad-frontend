@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@navikt/ds-react';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
+import { Button, VStack } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { GjenbrukContext } from '../../../../context/GjenbrukContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -19,10 +18,12 @@ export const GjenbrukKnapp: React.FC<{
   };
 
   return (
-    <FeltGruppe classname={'sentrert'} aria-live="polite">
-      <Button onClick={() => handleButtonClick()} variant="primary">
-        {hentTekst('knapp.startGjenbruk', intl)}
-      </Button>
-    </FeltGruppe>
+    <VStack align={'center'}>
+      <div>
+        <Button onClick={() => handleButtonClick()} variant="primary">
+          {hentTekst('knapp.startGjenbruk', intl)}
+        </Button>
+      </div>
+    </VStack>
   );
 };

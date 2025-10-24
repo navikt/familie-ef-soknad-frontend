@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Datovelger } from '../../../../../components/dato/Datovelger';
 import InputLabelGruppe from '../../../../../components/gruppe/InputLabelGruppe';
-import FeltGruppe from '../../../../../components/gruppe/FeltGruppe';
 import { EFirma, IFirma } from '../../../../../models/steg/aktivitet/firma';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../../utils/teksthåndtering';
 import { hentTittelMedNr } from '../../../../../language/utils';
 import { SlettKnapp } from '../../../../../components/knapper/SlettKnapp';
 import { erStrengGyldigOrganisasjonsnummer } from '../../../../../utils/autentiseringogvalidering/feltvalidering';
 import { erDatoGyldigOgInnenforBegrensning } from '../../../../../utils/gyldigeDatoerUtils';
-import { TittelOgSlettKnapp } from '../../../../../components/knapper/TittelOgSlettKnapp';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { ErrorMessage, Heading, Label, Textarea, VStack } from '@navikt/ds-react';
+import { ErrorMessage, Heading, HStack, Label, Textarea, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../../../../../components/TextFieldMedBredde';
 import { GyldigeDatoer } from '../../../../../components/dato/GyldigeDatoer';
 import { LesMerTekst } from '../../../../../components/lesmertekst/LesMerTekst';
@@ -100,16 +98,16 @@ export const OmFirmaetDitt: React.FC<Props> = ({
   const skalViseSlettKnapp = firmaer?.length > 1;
 
   return (
-    <VStack gap={'2'}>
-      <TittelOgSlettKnapp justify="space-between" align="center">
+    <>
+      <HStack justify="space-between" align="center">
         <Heading size="small" level="4" className={'tittel'}>
           {firmaTittel}
         </Heading>
         {skalViseSlettKnapp && (
           <SlettKnapp onClick={() => fjernFirma()} tekstid={'firma.knapp.slett'} />
         )}
-      </TittelOgSlettKnapp>
-      <FeltGruppe>
+      </HStack>
+      <VStack gap={'16'}>
         <TextFieldMedBredde
           label={labelNavn}
           bredde={'L'}
@@ -117,11 +115,9 @@ export const OmFirmaetDitt: React.FC<Props> = ({
           onChange={(e) => settInputTekstFelt(e, EFirma.navn, labelNavn)}
           value={firma?.navn ? firma?.navn.verdi : ''}
         />
-      </FeltGruppe>
 
-      {firma.navn?.verdi && (
-        <>
-          <FeltGruppe>
+        {firma.navn?.verdi && (
+          <>
             <TextFieldMedBredde
               label={labelOrganisasjonsnr}
               bredde={'XS'}
@@ -133,30 +129,27 @@ export const OmFirmaetDitt: React.FC<Props> = ({
               value={organisasjonsnummer ? organisasjonsnummer : ''}
               error={harValgtUgyldigOrganisasjonsnummer}
             />
-          </FeltGruppe>
-          {harValgtUgyldigOrganisasjonsnummer && (
-            <FeltGruppe>
+            {harValgtUgyldigOrganisasjonsnummer && (
               <ErrorMessage>{hentTekst('firma.feilmelding.organisasjonnr', intl)}</ErrorMessage>
-            </FeltGruppe>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
 
-      {erStrengGyldigOrganisasjonsnummer(firma.organisasjonsnummer?.verdi) && (
-        <FeltGruppe>
+        {erStrengGyldigOrganisasjonsnummer(firma.organisasjonsnummer?.verdi) && (
           <Datovelger
             valgtDato={firma?.etableringsdato?.verdi}
             tekstid={'firma.datovelger.etablering'}
             gyldigeDatoer={GyldigeDatoer.Tidligere}
             settDato={(e) => settDatoFelt(e)}
           />
-        </FeltGruppe>
-      )}
+        )}
 
-      {firma.etableringsdato?.verdi &&
-        erDatoGyldigOgInnenforBegrensning(firma.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
-        inkludertArbeidsmengde && (
-          <FeltGruppe>
+        {firma.etableringsdato?.verdi &&
+          erDatoGyldigOgInnenforBegrensning(
+            firma.etableringsdato?.verdi,
+            GyldigeDatoer.Tidligere
+          ) &&
+          inkludertArbeidsmengde && (
             <InputLabelGruppe
               label={labelArbeidsmengde}
               nøkkel={labelArbeidsmengde}
@@ -166,28 +159,26 @@ export const OmFirmaetDitt: React.FC<Props> = ({
               beskrivendeTekst={'%'}
               value={firma?.arbeidsmengde?.verdi ? firma?.arbeidsmengde?.verdi : ''}
             />
-          </FeltGruppe>
-        )}
+          )}
 
-      {(firma.arbeidsmengde?.verdi ||
-        (!inkludertArbeidsmengde && firma.etableringsdato?.verdi)) && (
-        <>
-          <FeltGruppe>
-            <Label as={'label'} htmlFor={labelArbeidsuke}>
-              {labelArbeidsuke}
-            </Label>
-            <LesMerTekst åpneTekstid={''} innholdTekstid={'firma.lesmer-innhold.arbeidsuke'} />
-            <Textarea
-              autoComplete={'off'}
-              key={labelArbeidsuke}
-              label={labelArbeidsuke}
-              hideLabel={true}
-              value={firma.arbeidsuke?.verdi ? firma.arbeidsuke?.verdi : ''}
-              maxLength={1000}
-              onChange={(e) => settArbeidsukeTekst(e)}
-            />
-          </FeltGruppe>
-          <FeltGruppe>
+        {(firma.arbeidsmengde?.verdi ||
+          (!inkludertArbeidsmengde && firma.etableringsdato?.verdi)) && (
+          <>
+            <VStack>
+              <Label as={'label'} htmlFor={labelArbeidsuke}>
+                {labelArbeidsuke}
+              </Label>
+              <LesMerTekst åpneTekstid={''} innholdTekstid={'firma.lesmer-innhold.arbeidsuke'} />
+              <Textarea
+                autoComplete={'off'}
+                key={labelArbeidsuke}
+                label={labelArbeidsuke}
+                hideLabel={true}
+                value={firma.arbeidsuke?.verdi ? firma.arbeidsuke?.verdi : ''}
+                maxLength={1000}
+                onChange={(e) => settArbeidsukeTekst(e)}
+              />
+            </VStack>
             <InputLabelGruppe
               hjelpetekst={{
                 headerTekstid: '',
@@ -201,9 +192,9 @@ export const OmFirmaetDitt: React.FC<Props> = ({
               beskrivendeTekst={'kroner'}
               value={firma?.overskudd?.verdi ? firma?.overskudd?.verdi : ''}
             />
-          </FeltGruppe>
-        </>
-      )}
-    </VStack>
+          </>
+        )}
+      </VStack>
+    </>
   );
 };
