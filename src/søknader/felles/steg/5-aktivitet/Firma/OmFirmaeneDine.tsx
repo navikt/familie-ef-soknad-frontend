@@ -31,7 +31,7 @@ const tomtFirma = (inkludertArbeidsmengde: boolean): IFirma => {
       };
 };
 
-const OmFirmaeneDine: React.FC<Props> = ({
+export const OmFirmaeneDine: React.FC<Props> = ({
   arbeidssituasjon,
   settArbeidssituasjon,
   inkludertArbeidsmengde = true,
@@ -57,7 +57,7 @@ const OmFirmaeneDine: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'20'}>
+    <VStack gap={'4'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('firmaer.tittel', intl)}
       </Heading>
@@ -85,5 +85,3 @@ const OmFirmaeneDine: React.FC<Props> = ({
     </VStack>
   );
 };
-
-export default OmFirmaeneDine;

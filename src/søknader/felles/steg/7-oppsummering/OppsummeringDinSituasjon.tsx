@@ -3,10 +3,9 @@ import { VisLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
 import LenkeMedIkon from '../../../../components/knapper/LenkeMedIkon';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledOppsummering } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
 import { useNavigate } from 'react-router-dom';
+import { VStack } from '@navikt/ds-react';
 
 interface Props {
   dinSituasjon: IDinSituasjon;
@@ -33,24 +32,20 @@ const OppsummeringDinSituasjon: React.FC<Props> = ({
   );
 
   return (
-    <>
-      <StyledOppsummering>
-        <KomponentGruppe>
-          {VisLabelOgSvar({
-            gjelderDetteDeg,
-            ...barnMedsærligeTilsynsbehovlabelOgSvar,
-            ...rest,
-          })}
-        </KomponentGruppe>
-        <LenkeMedIkon
-          onClick={() =>
-            navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
-          }
-          tekst_id="barnasbosted.knapp.endre"
-          ikon={endre}
-        />
-      </StyledOppsummering>
-    </>
+    <VStack>
+      {VisLabelOgSvar({
+        gjelderDetteDeg,
+        ...barnMedsærligeTilsynsbehovlabelOgSvar,
+        ...rest,
+      })}
+      <LenkeMedIkon
+        onClick={() =>
+          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
+        }
+        tekst_id="barnasbosted.knapp.endre"
+        ikon={endre}
+      />
+    </VStack>
   );
 };
 

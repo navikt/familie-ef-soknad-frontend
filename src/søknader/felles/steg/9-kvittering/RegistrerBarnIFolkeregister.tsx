@@ -4,7 +4,6 @@ import { IBarn } from '../../../../models/steg/barn';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { flereBarnsNavn } from '../../../../utils/barn';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
@@ -35,16 +34,14 @@ export const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
         {tekst}
       </Heading>
       <BodyShort>{tekst}</BodyShort>
-      <KomponentGruppe>
-        <a
-          target={'_blank'}
-          rel={'noreferrer noopener'}
-          className={'knapp knapp--standard kvittering'}
-          href={'https://www.skatteetaten.no/person/folkeregister/flytte/i-norge/'}
-        >
-          {hentTekst('barnasbosted.skalBliFolkeregistrert.knapp', intl)}
-        </a>
-      </KomponentGruppe>
+      <a
+        target={'_blank'}
+        rel={'noreferrer noopener'}
+        className={'knapp knapp--standard kvittering'}
+        href={'https://www.skatteetaten.no/person/folkeregister/flytte/i-norge/'}
+      >
+        {hentTekst('barnasbosted.skalBliFolkeregistrert.knapp', intl)}
+      </a>
     </VStack>
   );
 };

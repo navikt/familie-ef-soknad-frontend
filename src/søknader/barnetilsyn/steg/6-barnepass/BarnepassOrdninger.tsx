@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
-import BarnepassSpørsmål from './BarnepassSpørsmål';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
+import { BarnepassSpørsmål } from './BarnepassSpørsmål';
 import LeggTilKnapp from '../../../../components/knapper/LeggTilKnapp';
 import { erBarnepassOrdningerUtfylt } from './hjelper';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
@@ -19,7 +17,7 @@ interface Props {
   indeks: number;
 }
 
-const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
+export const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const barnepass: IBarnepass = barn.barnepass
@@ -71,17 +69,13 @@ const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) => {
         />
       ))}
       {erBarnepassOrdningerUtfylt(barnepass.barnepassordninger) && (
-        <KomponentGruppe>
-          <FeltGruppe>
-            <Label as="p">{leggTilLabel}</Label>
-            <LeggTilKnapp onClick={() => leggTilBarnepassordning()}>
-              {hentTekst('barnepass.knapp.leggTilOrdning', intl)}
-            </LeggTilKnapp>
-          </FeltGruppe>
-        </KomponentGruppe>
+        <div>
+          <Label as="p">{leggTilLabel}</Label>
+          <LeggTilKnapp onClick={() => leggTilBarnepassordning()}>
+            {hentTekst('barnepass.knapp.leggTilOrdning', intl)}
+          </LeggTilKnapp>
+        </div>
       )}
     </VStack>
   );
 };
-
-export default BarnepassOrdninger;

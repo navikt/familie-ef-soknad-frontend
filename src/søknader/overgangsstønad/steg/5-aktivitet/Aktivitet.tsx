@@ -11,7 +11,7 @@ import {
   filtrerAktivitetSvaralternativer,
   fjernAktivitet,
 } from '../../../../helpers/steg/aktivitet';
-import AktivitetOppfølgingSpørsmål from '../../../felles/steg/5-aktivitet/AktivitetOppfølgingSpørsmål';
+import { AktivitetOppfølgingSpørsmål } from '../../../felles/steg/5-aktivitet/AktivitetOppfølgingSpørsmål';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';

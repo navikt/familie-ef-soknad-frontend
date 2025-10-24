@@ -5,11 +5,10 @@ import { formatterBarnetsNavn, hentBarnetsNavnEllerBeskrivelse } from '../../../
 import { DinSituasjonType } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { leggTilSærligeBehov } from './SituasjonUtil';
 import { IBarn } from '../../../../models/steg/barn';
 
-const HvilkeBarnHarSærligeBehov: React.FC = () => {
+export const HvilkeBarnHarSærligeBehov: React.FC = () => {
   const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
   const intl = useLokalIntlContext();
 
@@ -50,15 +49,11 @@ const HvilkeBarnHarSærligeBehov: React.FC = () => {
   const valgteSvar = barnMedSærligeBehov.map((barn: IBarn) => barn.id);
 
   return (
-    <KomponentGruppe>
-      <CheckboxSpørsmål
-        spørsmål={spørsmål}
-        valgteSvar={valgteSvar}
-        settValgteSvar={settBarnTrengerSærligBehov}
-        brukSvarIdSomVerdi={true}
-      />
-    </KomponentGruppe>
+    <CheckboxSpørsmål
+      spørsmål={spørsmål}
+      valgteSvar={valgteSvar}
+      settValgteSvar={settBarnTrengerSærligBehov}
+      brukSvarIdSomVerdi={true}
+    />
   );
 };
-
-export default HvilkeBarnHarSærligeBehov;

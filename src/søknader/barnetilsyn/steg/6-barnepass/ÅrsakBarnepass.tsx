@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { FC } from 'react';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
 import { IBarn } from '../../../../models/steg/barn';
@@ -19,7 +18,7 @@ interface Props {
   settBarnepass: (barnepass: IBarnepass, barneid: string) => void;
 }
 
-const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
+export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const { barnepass } = barn;
@@ -53,35 +52,27 @@ const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id);
   };
   return (
-    <VStack>
-      <KomponentGruppe>
-        <Alert size="small" variant="warning" inline>
-          {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
+    <VStack gap={'12'}>
+      <Alert size="small" variant="warning" inline>
+        {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
+      </Alert>
+      <MultiSvarSpørsmålMedNavn
+        spørsmål={årsakBarnepassConfig}
+        spørsmålTekst={spørsmålTekstMedNavn}
+        settSpørsmålOgSvar={settÅrsakBarnepass}
+        valgtSvar={barnepass?.årsakBarnepass?.verdi}
+      />
+      {valgtÅrsak === EÅrsakBarnepass.myeBortePgaJobb && (
+        <Alert size="small" variant="info" inline>
+          {hentTekst('barnepass.alert-info.myeBortePgaJobb', intl)}
         </Alert>
-      </KomponentGruppe>
-      <KomponentGruppe>
-        <MultiSvarSpørsmålMedNavn
-          spørsmål={årsakBarnepassConfig}
-          spørsmålTekst={spørsmålTekstMedNavn}
-          settSpørsmålOgSvar={settÅrsakBarnepass}
-          valgtSvar={barnepass?.årsakBarnepass?.verdi}
-        />
-      </KomponentGruppe>
-      <KomponentGruppe>
-        {valgtÅrsak === EÅrsakBarnepass.myeBortePgaJobb && (
-          <Alert size="small" variant="info" inline>
-            {hentTekst('barnepass.alert-info.myeBortePgaJobb', intl)}
-          </Alert>
-        )}
+      )}
 
-        {dokumentasjonsbehovTekst && (
-          <AlertStripeDokumentasjon>
-            {hentTekst(dokumentasjonsbehovTekst, intl)}
-          </AlertStripeDokumentasjon>
-        )}
-      </KomponentGruppe>
+      {dokumentasjonsbehovTekst && (
+        <AlertStripeDokumentasjon>
+          {hentTekst(dokumentasjonsbehovTekst, intl)}
+        </AlertStripeDokumentasjon>
+      )}
     </VStack>
   );
 };
-
-export default ÅrsakBarnepass;

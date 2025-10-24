@@ -4,7 +4,6 @@ import { SøknadOvergangsstønad } from '../../models/søknad';
 import { parseISO } from 'date-fns';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
@@ -88,14 +87,12 @@ export const SendSøknadKnapper: FC = () => {
   return (
     <>
       {innsendingState.status === IStatus.FEILET && (
-        <KomponentGruppe>
-          <Alert size="small" variant="warning" inline>
-            <BodyShort>{innsendingState.melding}</BodyShort>
-          </Alert>
-        </KomponentGruppe>
+        <Alert size="small" variant="warning" inline>
+          <BodyShort>{innsendingState.melding}</BodyShort>
+        </Alert>
       )}
       {!validerSøkerBosattINorgeSisteFemÅr(søknad) && (
-        <KomponentGruppe>
+        <>
           <Alert size="small" variant="warning" inline>
             {hentTekst('dokumentasjon.alert.gåTilbake', intl)}{' '}
             <Link
@@ -108,7 +105,7 @@ export const SendSøknadKnapper: FC = () => {
             </Link>
             {hentTekst('dokumentasjon.alert.manglende', intl)}
           </Alert>
-        </KomponentGruppe>
+        </>
       )}
       <HStack justify={'center'}>
         <StyledKnapper>

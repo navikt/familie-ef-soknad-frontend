@@ -1,10 +1,9 @@
 import React from 'react';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, VStack } from '@navikt/ds-react';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 
@@ -12,7 +11,7 @@ interface Props {
   arbeidssituasjon: IAktivitet;
   settArbeidssituasjon: (arbeidssituasjon: IAktivitet) => void;
 }
-const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasjon }) => {
+export const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasjon }) => {
   const intl = useLokalIntlContext();
 
   const settDato = (dato: string) => {
@@ -25,7 +24,7 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
     });
   };
   return (
-    <KomponentGruppe>
+    <VStack>
       <AlertStripeDokumentasjon>
         <Label as="p">{hentTekst('dokumentasjon.arbeidskontrakt.tittel', intl)}</Label>
         <br />
@@ -39,7 +38,6 @@ const FåttJobbTilbud: React.FC<Props> = ({ arbeidssituasjon, settArbeidssituasj
         gyldigeDatoer={GyldigeDatoer.Fremtidige}
         settDato={settDato}
       />
-    </KomponentGruppe>
+    </VStack>
   );
 };
-export default FåttJobbTilbud;

@@ -8,12 +8,9 @@ import { IDatoFelt, ISpørsmålBooleanFelt } from '../../../../models/søknad/s�
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 
 import { formatDate, strengTilDato } from '../../../../utils/dato';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
 import { VisLabelOgSvar, visLabelOgVerdiForSpørsmålFelt } from '../../../../utils/visning';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledOppsummeringForBarn } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, VStack } from '@navikt/ds-react';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 interface Props {
@@ -23,7 +20,7 @@ interface Props {
   endreInformasjonPath?: string;
 }
 
-const OppsummeringBarnepass: FC<Props> = ({
+export const OppsummeringBarnepass: FC<Props> = ({
   barnSomSkalHaBarnepass,
   søknadsdato,
   søkerFraBestemtDato,
@@ -33,31 +30,25 @@ const OppsummeringBarnepass: FC<Props> = ({
   const intl = useLokalIntlContext();
 
   return (
-    <>
+    <VStack gap={'12'}>
       {barnSomSkalHaBarnepass.map((barn: IBarn) => {
         const { barnepass } = barn;
-
         return (
-          <KomponentGruppe key={barn.id}>
-            <StyledOppsummeringForBarn key={barn.id}>
-              <FeltGruppe>
-                <BarneHeader barn={barn} />
-              </FeltGruppe>
-              {barnepass?.årsakBarnepass &&
-                visLabelOgVerdiForSpørsmålFelt(barnepass.årsakBarnepass, intl)}
-              {barnepass?.barnepassordninger.map((barnepassordning) =>
-                VisLabelOgSvar(barnepassordning)
-              )}
-            </StyledOppsummeringForBarn>
-          </KomponentGruppe>
+          <section key={barn.id}>
+            <BarneHeader barn={barn} />
+            {barnepass?.årsakBarnepass &&
+              visLabelOgVerdiForSpørsmålFelt(barnepass.årsakBarnepass, intl)}
+            {barnepass?.barnepassordninger.map((barnepassordning) =>
+              VisLabelOgSvar(barnepassordning)
+            )}
+          </section>
         );
       })}
 
       {søkerFraBestemtDato && (
-        <KomponentGruppe>
-          <hr />
-          <br />
-          <div className={'spørsmål-og-svar'}>
+        <VStack gap={'8'}>
+          <hr style={{ width: '100%' }} />
+          <div>
             <Label as="p">{søkerFraBestemtDato.label}</Label>
             <BodyShort>
               {søkerFraBestemtDato.svarid === ESøkerFraBestemtMåned.ja
@@ -67,24 +58,20 @@ const OppsummeringBarnepass: FC<Props> = ({
           </div>
 
           {søkerFraBestemtDato.svarid === ESøkerFraBestemtMåned.ja && søknadsdato?.verdi && (
-            <div className={'spørsmål-og-svar'}>
+            <div>
               <Label as="p">{søknadsdato.label}</Label>
               <BodyShort>{formatDate(strengTilDato(søknadsdato?.verdi))}</BodyShort>
             </div>
           )}
-        </KomponentGruppe>
+        </VStack>
       )}
-      <KomponentGruppe>
-        <LenkeMedIkon
-          onClick={() =>
-            navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
-          }
-          tekst_id="barnasbosted.knapp.endre"
-          ikon={endre}
-        />
-      </KomponentGruppe>
-    </>
+      <LenkeMedIkon
+        onClick={() =>
+          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
+        }
+        tekst_id="barnasbosted.knapp.endre"
+        ikon={endre}
+      />
+    </VStack>
   );
 };
-
-export default OppsummeringBarnepass;

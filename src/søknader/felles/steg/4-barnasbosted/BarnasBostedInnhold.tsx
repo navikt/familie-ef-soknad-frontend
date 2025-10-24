@@ -1,7 +1,7 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import BarnetsBostedLagtTil from './BarnetsBostedLagtTil';
+import { BarnetsBostedLagtTil } from './BarnetsBostedLagtTil';
 import { BarnetsBostedRedigerbar } from './BarnetsBostedRedigerbar';
 import { IBarn } from '../../../../models/steg/barn';
 import {
@@ -17,7 +17,7 @@ const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
   window.scrollTo({ top: ref.current!.offsetTop, left: 0, behavior: 'smooth' });
 };
 
-const BarnasBostedInnhold: React.FC = () => {
+export const BarnasBostedInnhold: React.FC = () => {
   const intl = useLokalIntlContext();
   const {
     barnISøknad,
@@ -92,5 +92,3 @@ const BarnasBostedInnhold: React.FC = () => {
     </>
   );
 };
-
-export default BarnasBostedInnhold;

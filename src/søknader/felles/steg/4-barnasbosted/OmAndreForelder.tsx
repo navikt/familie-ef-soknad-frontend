@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import FeltGruppe from '../../../../components/gruppe/FeltGruppe';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
 import { EHvorforIkkeOppgi } from '../../../../models/steg/barnasbosted';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -10,7 +8,7 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { IdentEllerFødselsdatoGruppe } from '../../../../components/gruppe/IdentEllerFødselsdatoGruppe';
-import { Checkbox, ErrorMessage, Textarea } from '@navikt/ds-react';
+import { Checkbox, ErrorMessage, Textarea, VStack } from '@navikt/ds-react';
 import {
   erIkkeOppgittPgaAnnet,
   slettIrrelevantPropertiesHvisHuketAvKanIkkeOppgiAnnenForelder,
@@ -26,7 +24,7 @@ interface Props {
   settKjennerIkkeIdent: (kjennerIkkeIdent: boolean) => void;
 }
 
-const OmAndreForelder: React.FC<Props> = ({
+export const OmAndreForelder: React.FC<Props> = ({
   settForelder,
   forelder,
   kjennerIkkeIdent,
@@ -143,47 +141,43 @@ const OmAndreForelder: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <KomponentGruppe>
-        <FeltGruppe>
-          <TextFieldMedBredde
-            bredde={'L'}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              settForelder({
-                ...forelder,
-                navn: {
-                  label: hentTekst('person.navn', intl),
-                  verdi: e.target.value,
-                },
-              });
-              e.target.value === '' && settSisteBarnUtfylt(false);
-            }}
-            onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
-              e.target.value === '' ? settFeilmeldingNavn(true) : settFeilmeldingNavn(false)
-            }
-            value={forelder.navn ? forelder.navn?.verdi : ''}
-            label={hentTekst('person.navn', intl)}
-            disabled={forelder.kanIkkeOppgiAnnenForelderFar?.verdi}
-          />
-          {feilmeldingNavn && (
-            <ErrorMessage className={'skjemaelement__feilmelding'}>
-              {hentTekst('person.feilmelding.navn', intl)}
-            </ErrorMessage>
-          )}
-        </FeltGruppe>
-        <FeltGruppe>
-          <Checkbox
-            checked={
-              forelder.kanIkkeOppgiAnnenForelderFar?.verdi
-                ? forelder.kanIkkeOppgiAnnenForelderFar?.verdi
-                : false
-            }
-            onChange={(e) => hukAvKanIkkeOppgiAnnenForelder(e.target.checked)}
-          >
-            {hentTekst('barnasbosted.kanikkeoppgiforelder', intl)}
-          </Checkbox>
-        </FeltGruppe>
-      </KomponentGruppe>
+    <VStack gap={'12'}>
+      <VStack gap={'4'}>
+        <TextFieldMedBredde
+          bredde={'L'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            settForelder({
+              ...forelder,
+              navn: {
+                label: hentTekst('person.navn', intl),
+                verdi: e.target.value,
+              },
+            });
+            e.target.value === '' && settSisteBarnUtfylt(false);
+          }}
+          onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+            e.target.value === '' ? settFeilmeldingNavn(true) : settFeilmeldingNavn(false)
+          }
+          value={forelder.navn ? forelder.navn?.verdi : ''}
+          label={hentTekst('person.navn', intl)}
+          disabled={forelder.kanIkkeOppgiAnnenForelderFar?.verdi}
+        />
+        {feilmeldingNavn && (
+          <ErrorMessage className={'skjemaelement__feilmelding'}>
+            {hentTekst('person.feilmelding.navn', intl)}
+          </ErrorMessage>
+        )}
+        <Checkbox
+          checked={
+            forelder.kanIkkeOppgiAnnenForelderFar?.verdi
+              ? forelder.kanIkkeOppgiAnnenForelderFar?.verdi
+              : false
+          }
+          onChange={(e) => hukAvKanIkkeOppgiAnnenForelder(e.target.checked)}
+        >
+          {hentTekst('barnasbosted.kanikkeoppgiforelder', intl)}
+        </Checkbox>
+      </VStack>
       {forelder.navn && !forelder.kanIkkeOppgiAnnenForelderFar?.verdi && (
         <IdentEllerFødselsdatoGruppe
           identLabel={hentTekst('person.ident', intl)}
@@ -199,30 +193,24 @@ const OmAndreForelder: React.FC<Props> = ({
         />
       )}
       {forelder.kanIkkeOppgiAnnenForelderFar?.verdi && (
-        <KomponentGruppe>
-          <MultiSvarSpørsmål
-            spørsmål={hvorforIkkeOppgi(intl)}
-            settSpørsmålOgSvar={settHvorforIkkeOppgi}
-            valgtSvar={
-              forelder.hvorforIkkeOppgi?.svarid === EHvorforIkkeOppgi.annet
-                ? hentTekst('barnasbosted.spm.annet', intl)
-                : forelder.hvorforIkkeOppgi?.verdi
-            }
-          />
-        </KomponentGruppe>
+        <MultiSvarSpørsmål
+          spørsmål={hvorforIkkeOppgi(intl)}
+          settSpørsmålOgSvar={settHvorforIkkeOppgi}
+          valgtSvar={
+            forelder.hvorforIkkeOppgi?.svarid === EHvorforIkkeOppgi.annet
+              ? hentTekst('barnasbosted.spm.annet', intl)
+              : forelder.hvorforIkkeOppgi?.verdi
+          }
+        />
       )}
       {erIkkeOppgittPgaAnnet(forelder) && (
-        <FeltGruppe aria-live="polite">
-          <Textarea
-            autoComplete={'off'}
-            value={forelder.ikkeOppgittAnnenForelderBegrunnelse?.verdi}
-            onChange={(e) => settIkkeOppgittAnnenForelderBegrunnelse(e.target.value)}
-            label={hvorforIkkeOppgiLabel}
-          />
-        </FeltGruppe>
+        <Textarea
+          autoComplete={'off'}
+          value={forelder.ikkeOppgittAnnenForelderBegrunnelse?.verdi}
+          onChange={(e) => settIkkeOppgittAnnenForelderBegrunnelse(e.target.value)}
+          label={hvorforIkkeOppgiLabel}
+        />
       )}
-    </>
+    </VStack>
   );
 };
-
-export default OmAndreForelder;

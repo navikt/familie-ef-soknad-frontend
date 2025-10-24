@@ -1,24 +1,37 @@
 import React, { FC } from 'react';
 import { DinSituasjonType } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import SøkerErSyk from './SøkerErSyk';
-import SyktBarn from './SyktBarn';
-import SøktBarnepassOgVenterPåSvar from './SøktBarnepassOgVenterPåSvar';
-import BarnMedSærligeBehov from './BarnMedSærligeBehov';
+import { BarnMedSærligeBehov } from './BarnMedSærligeBehov';
+import { hentHTMLTekst } from '../../../../utils/teksthåndtering';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 
 interface Props {
   svarid: string;
 }
 
-const SituasjonOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
+export const SituasjonOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
+  const intl = useLokalIntlContext();
   switch (svarid) {
     case DinSituasjonType.erSyk:
-      return <SøkerErSyk />;
+      return (
+        <AlertStripeDokumentasjon>
+          {hentHTMLTekst('dinSituasjon.alert.erSyk', intl)}
+        </AlertStripeDokumentasjon>
+      );
 
     case DinSituasjonType.harSyktBarn:
-      return <SyktBarn />;
+      return (
+        <AlertStripeDokumentasjon>
+          {hentHTMLTekst('dinSituasjon.alert.harSyktBarn', intl)}
+        </AlertStripeDokumentasjon>
+      );
 
     case DinSituasjonType.harSøktBarnepassOgVenterEnnå:
-      return <SøktBarnepassOgVenterPåSvar />;
+      return (
+        <AlertStripeDokumentasjon>
+          {hentHTMLTekst('dinSituasjon.alert.harSøktBarnepassOgVenterEnnå', intl)}
+        </AlertStripeDokumentasjon>
+      );
 
     case DinSituasjonType.harBarnMedSærligeBehov:
       return <BarnMedSærligeBehov />;
@@ -27,5 +40,3 @@ const SituasjonOppfølgingSpørsmål: FC<Props> = ({ svarid }) => {
       return <></>;
   }
 };
-
-export default SituasjonOppfølgingSpørsmål;

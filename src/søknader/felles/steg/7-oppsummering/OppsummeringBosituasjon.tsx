@@ -5,10 +5,8 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar } from '../../../../utils/visning';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
-import { StyledOppsummering } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
-import { Ingress } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
   bosituasjon: IBosituasjon;
@@ -38,22 +36,24 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInfor
   };
 
   return (
-    <StyledOppsummering>
-      <KomponentGruppe>{VisLabelOgSvar(bosituasjon)}</KomponentGruppe>
+    <VStack gap={'8'}>
+      {VisLabelOgSvar(bosituasjon)}
       {samboerDetaljer && (
-        <KomponentGruppe>
-          <Ingress>{lagSamboerOverskrift()}</Ingress>
+        <VStack gap={'2'}>
+          <Heading size={'small'} level={'4'}>
+            {lagSamboerOverskrift()}
+          </Heading>
           {samboerDetaljer}
-        </KomponentGruppe>
+        </VStack>
       )}
 
       {vordendeSamboerEktefelle && (
-        <KomponentGruppe>
-          <Ingress>
+        <VStack>
+          <Heading size={'small'} level={'4'}>
             {hentTekst('bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed', intl)}
-          </Ingress>
+          </Heading>
           {vordendeSamboerEktefelle}
-        </KomponentGruppe>
+        </VStack>
       )}
 
       <LenkeMedIkon
@@ -63,7 +63,7 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInfor
         tekst_id="barnasbosted.knapp.endre"
         ikon={endre}
       />
-    </StyledOppsummering>
+    </VStack>
   );
 };
 

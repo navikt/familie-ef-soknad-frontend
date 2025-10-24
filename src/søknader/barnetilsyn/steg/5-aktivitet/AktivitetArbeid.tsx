@@ -10,8 +10,8 @@ import {
 } from '../../../../helpers/steg/aktivitet';
 import { hvaErDinArbeidssituasjonSpm } from './AktivitetConfig';
 import { AktivitetOppfølgingSpørsmål } from './AktivitetOppfølgingSpørsmål';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { useAktivitet } from './AktivitetContext';
+import { VStack } from '@navikt/ds-react';
 
 export const AktivitetArbeid: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -40,20 +40,18 @@ export const AktivitetArbeid: React.FC = () => {
   };
 
   return (
-    <>
-      <KomponentGruppe>
-        <CheckboxSpørsmål
-          spørsmål={filtrerAktivitetSvaralternativer(
-            søknad.person,
-            hvaErDinArbeidssituasjonSpm(intl)
-          )}
-          settValgteSvar={settArbeidssituasjonFelt}
-          valgteSvar={hvaErDinArbeidssituasjon?.verdi ? hvaErDinArbeidssituasjon?.verdi : []}
-        />
-      </KomponentGruppe>
+    <VStack gap={'12'}>
+      <CheckboxSpørsmål
+        spørsmål={filtrerAktivitetSvaralternativer(
+          søknad.person,
+          hvaErDinArbeidssituasjonSpm(intl)
+        )}
+        settValgteSvar={settArbeidssituasjonFelt}
+        valgteSvar={hvaErDinArbeidssituasjon?.verdi ? hvaErDinArbeidssituasjon?.verdi : []}
+      />
       {aktivitet.hvaErDinArbeidssituasjon?.svarid?.map((svarid, index) => (
         <AktivitetOppfølgingSpørsmål aria-live="polite" key={index} svarid={svarid} />
       ))}
-    </>
+    </VStack>
   );
 };

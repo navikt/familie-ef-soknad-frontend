@@ -61,7 +61,7 @@ export const OmArbeidsforholdetDitt: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'4'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('arbeidsforhold.tittel', intl)}
       </Heading>

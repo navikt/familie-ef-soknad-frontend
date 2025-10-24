@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { HarSøkerSagtOppEllerRedusertStilling } from './HarSøkerSagtOppEllerRedusertStilling';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 
 import {
   gjelderNoeAvDetteDeg,
@@ -22,7 +21,7 @@ import {
 } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';
 import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
-import SituasjonOppfølgingSpørsmål from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
+import { SituasjonOppfølgingSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
@@ -160,13 +159,11 @@ const MerOmDinSituasjon: React.FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <VStack gap={'16'}>
-        <KomponentGruppe>
-          <CheckboxSpørsmål
-            spørsmål={gjelderNoeAvDetteDeg(intl)}
-            settValgteSvar={settDinSituasjonFelt}
-            valgteSvar={søknad.merOmDinSituasjon.gjelderDetteDeg.verdi}
-          />
-        </KomponentGruppe>
+        <CheckboxSpørsmål
+          spørsmål={gjelderNoeAvDetteDeg(intl)}
+          settValgteSvar={settDinSituasjonFelt}
+          valgteSvar={søknad.merOmDinSituasjon.gjelderDetteDeg.verdi}
+        />
         {dinSituasjon.gjelderDetteDeg.svarid.map((svarid, index) => {
           const harValgtMinstEttAlternativ = gjelderDetteDeg.svarid.length !== 0;
 

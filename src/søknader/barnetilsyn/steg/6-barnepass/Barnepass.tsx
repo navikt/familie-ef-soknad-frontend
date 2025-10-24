@@ -6,8 +6,8 @@ import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { SøkerDuStønadFraBestemtMndSpm } from './BarnepassConfig';
 import { IBarnepass } from '../../models/barnepass';
-import BarnepassOrdninger from './BarnepassOrdninger';
-import ÅrsakBarnepass from './ÅrsakBarnepass';
+import { BarnepassOrdninger } from './BarnepassOrdninger';
+import { ÅrsakBarnepass } from './ÅrsakBarnepass';
 import {
   erBarnepassForAlleBarnUtfylt,
   erBarnepassForBarnFørNåværendeUtfylt,
@@ -25,16 +25,10 @@ import { IBarn } from '../../../../models/steg/barn';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort, VStack } from '@navikt/ds-react';
-import styled from 'styled-components';
 import { useBarnepass } from './BarnepassContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
-const StyledHjelpetekst = styled.div`
-  .navds-body-short {
-    padding-bottom: 1rem;
-  }
-`;
-const Barnepass: FC = () => {
+export const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
@@ -145,10 +139,13 @@ const Barnepass: FC = () => {
           valgtDato={søknadsdato}
           datovelgerLabel={datovelgerLabel}
           hjelpetekstInnholdTekst={
-            <StyledHjelpetekst>
-              <BodyShort>{hjelpetekstInnholdSøkerFraMndTekstDel1}</BodyShort>
+            <div>
+              <BodyShort style={{ paddingBottom: '1rem' }}>
+                {hjelpetekstInnholdSøkerFraMndTekstDel1}
+              </BodyShort>
+
               <BodyShort>{hjelpetekstInnholdSøkerFraMndTekstDel2}</BodyShort>
-            </StyledHjelpetekst>
+            </div>
           }
           alertTekst={alertTekst}
         />
@@ -156,5 +153,3 @@ const Barnepass: FC = () => {
     </Side>
   );
 };
-
-export default Barnepass;

@@ -2,7 +2,6 @@ import React, { SyntheticEvent } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { IBarn } from '../../../../models/steg/barn';
 import { IForelder } from '../../../../models/steg/forelder';
-import KomponentGruppe from '../../../../components/gruppe/KomponentGruppe';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentBarnetsNavnEllerBeskrivelse, lagtTilAnnenForelderId } from '../../../../utils/barn';
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
@@ -110,34 +109,32 @@ export const AnnenForelderKnapper: React.FC<Props> = ({
   if (!førsteBarnTilHverForelder) return null;
 
   return (
-    <KomponentGruppe>
-      <StyledAnnenForelderSpørsmål>
-        <RadioGroup legend={null} value={barn.annenForelderId}>
-          {førsteBarnTilHverForelder.map((barn) => {
-            if (!barn.forelder?.borINorge && !barn.forelder?.kanIkkeOppgiAnnenForelderFar)
-              return null;
+    <StyledAnnenForelderSpørsmål>
+      <RadioGroup legend={null} value={barn.annenForelderId}>
+        {førsteBarnTilHverForelder.map((barn) => {
+          if (!barn.forelder?.borINorge && !barn.forelder?.kanIkkeOppgiAnnenForelderFar)
+            return null;
 
-            return (
-              <RadioKnapp
-                key={`${andreForelder}${barn.id}`}
-                name={`${andreForelder}${barn.id}`}
-                value={barn.id}
-                checked={barn.annenForelderId === barn.id}
-                onChange={(e) => leggTilSammeForelder(e, barn)}
-              >{`${hentTekst('barnasbosted.forelder.sammesom', intl)} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioKnapp>
-            );
-          })}
-          <RadioKnapp
-            key={andreForelderAnnen}
-            name={`${andreForelder}${barn.navn}`}
-            value={lagtTilAnnenForelderId}
-            checked={barn.annenForelderId === lagtTilAnnenForelderId}
-            onChange={() => leggTilAnnenForelder()}
-          >
-            {hentTekst('barnasbosted.forelder.annen', intl)}
-          </RadioKnapp>
-        </RadioGroup>
-      </StyledAnnenForelderSpørsmål>
-    </KomponentGruppe>
+          return (
+            <RadioKnapp
+              key={`${andreForelder}${barn.id}`}
+              name={`${andreForelder}${barn.id}`}
+              value={barn.id}
+              checked={barn.annenForelderId === barn.id}
+              onChange={(e) => leggTilSammeForelder(e, barn)}
+            >{`${hentTekst('barnasbosted.forelder.sammesom', intl)} ${hentBarnetsNavnEllerBeskrivelse(barn, intl)}`}</RadioKnapp>
+          );
+        })}
+        <RadioKnapp
+          key={andreForelderAnnen}
+          name={`${andreForelder}${barn.navn}`}
+          value={lagtTilAnnenForelderId}
+          checked={barn.annenForelderId === lagtTilAnnenForelderId}
+          onChange={() => leggTilAnnenForelder()}
+        >
+          {hentTekst('barnasbosted.forelder.annen', intl)}
+        </RadioKnapp>
+      </RadioGroup>
+    </StyledAnnenForelderSpørsmål>
   );
 };
