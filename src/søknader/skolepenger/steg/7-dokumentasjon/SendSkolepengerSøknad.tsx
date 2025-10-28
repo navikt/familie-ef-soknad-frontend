@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import { ERouteSkolepenger, RoutesSkolepenger } from '../../routing/routes';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
@@ -15,7 +14,7 @@ import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, HGrid, VStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -107,8 +106,8 @@ export const SendSøknadKnapper: FC = () => {
           </Alert>
         </>
       )}
-      <HStack justify={'center'}>
-        <StyledKnapper>
+      <VStack gap={'4'} align={'center'}>
+        <HGrid gap={'4'} columns={{ md: '1fr 1fr' }}>
           <Button
             className={'tilbake'}
             variant="secondary"
@@ -127,15 +126,15 @@ export const SendSøknadKnapper: FC = () => {
               {hentTekst('knapp.sendSøknad', intl)}
             </Button>
           )}
-          <Button
-            className={'avbryt'}
-            variant="tertiary"
-            onClick={() => navigate(RoutesSkolepenger[0].path)}
-          >
-            {hentTekst('knapp.avbryt', intl)}
-          </Button>
-        </StyledKnapper>
-      </HStack>
+        </HGrid>
+        <Button
+          className={'avbryt'}
+          variant="tertiary"
+          onClick={() => navigate(RoutesSkolepenger[0].path)}
+        >
+          {hentTekst('knapp.avbryt', intl)}
+        </Button>
+      </VStack>
     </>
   );
 };

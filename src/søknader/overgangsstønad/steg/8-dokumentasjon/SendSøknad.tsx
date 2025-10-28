@@ -6,7 +6,6 @@ import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
-import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
   mapBarnUtenBarnepass,
@@ -16,7 +15,7 @@ import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { oppdaterBarnLabels } from '../../../../utils/barn';
-import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, HGrid, VStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
@@ -107,13 +106,9 @@ export const SendSøknadKnapper: FC = () => {
           </Alert>
         </>
       )}
-      <HStack justify={'center'}>
-        <StyledKnapper>
-          <Button
-            className={'tilbake'}
-            variant="secondary"
-            onClick={() => navigate(forrigeRoute.path)}
-          >
+      <VStack gap={'4'} align={'center'}>
+        <HGrid gap={'4'} columns={{ md: '1fr 1fr' }}>
+          <Button variant="secondary" onClick={() => navigate(forrigeRoute.path)}>
             {hentTekst('knapp.tilbake', intl)}
           </Button>
 
@@ -121,21 +116,16 @@ export const SendSøknadKnapper: FC = () => {
             <Button
               variant="primary"
               onClick={() => !innsendingState.venter && sendSøknad(søknad)}
-              className={'neste'}
               loading={innsendingState.venter}
             >
               {hentTekst('knapp.sendSøknad', intl)}
             </Button>
           )}
-          <Button
-            className={'avbryt'}
-            variant="tertiary"
-            onClick={() => navigate(RoutesOvergangsstonad[0].path)}
-          >
-            {hentTekst('knapp.avbryt', intl)}
-          </Button>
-        </StyledKnapper>
-      </HStack>
+        </HGrid>
+        <Button variant="tertiary" onClick={() => navigate(RoutesOvergangsstonad[0].path)}>
+          {hentTekst('knapp.avbryt', intl)}
+        </Button>
+      </VStack>
     </>
   );
 };
