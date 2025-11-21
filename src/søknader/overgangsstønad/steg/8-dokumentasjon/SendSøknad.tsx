@@ -60,7 +60,8 @@ export const SendSøknadKnapper: FC = () => {
       settinnsendingState({
         ...innsendingState,
         status: IStatus.FEILET,
-        melding: `Noe gikk galt: ${e}`,
+        // melding: `Noe gikk galt: ${e}`,
+        melding: `Noe gikk galt. Dersom feilen vedvarer kan du prøve å starte søknaden helt på nytt, uten å gjenbruke informasjon fra tidligere søknader.`,
         venter: false,
       });
     }
