@@ -19,7 +19,6 @@ import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import logger from '../../../../../server/logger';
 
 interface Innsending {
   status: string;
@@ -58,7 +57,7 @@ export const SendSøknadKnapper: FC = () => {
       });
       navigate(nesteRoute.path);
     } catch (e: any) {
-      logger.info(e);
+      console.log(e);
       settinnsendingState({
         ...innsendingState,
         status: IStatus.FEILET,
