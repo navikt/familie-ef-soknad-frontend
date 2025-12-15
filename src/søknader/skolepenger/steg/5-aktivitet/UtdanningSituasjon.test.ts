@@ -100,7 +100,9 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
 
     expect(
-      screen.queryByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
+      screen.queryByRole('group', {
+        name: 'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      })
     ).not.toBeInTheDocument();
 
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
@@ -124,7 +126,9 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
       )
     );
     expect(
-      screen.getByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
+      screen.getByRole('group', {
+        name: 'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      })
     ).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
     expect(
@@ -142,12 +146,22 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     expect(screen.queryByText('Når skal du være elev/student?')).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: 'Fra' })).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: 'Til' })).not.toBeInTheDocument();
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     expect(screen.getByText('Når skal du være elev/student?')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
 
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Offentlig', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Offentlig',
+      screen,
+      user
+    );
     expect(screen.getByText('Når skal du være elev/student?')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
@@ -163,7 +177,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
 
     expect(
       screen.queryByRole('group', { name: 'Er utdanningen på heltid eller deltid?' })
@@ -188,7 +207,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
 
@@ -213,7 +237,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Deltid', screen, user);
@@ -239,7 +268,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
 
@@ -284,7 +318,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
@@ -385,7 +424,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
@@ -409,7 +453,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
@@ -433,7 +482,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
@@ -457,7 +511,12 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
 
     await skrivFritekst('Skole / utdanningssted', 'NTNU', screen, user);
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     await skrivFritekst('Fra', '01.08.2019', screen, user);
     await skrivFritekst('Til', '01.08.2024', screen, user);
     await klikkRadioknapp('Er utdanningen på heltid eller deltid?', 'Heltid', screen, user);
@@ -513,17 +572,29 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', { name: 'Har du tatt utdanning etter grunnskolen?' })
+      screen.getByRole('group', {
+        name: 'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
+      })
     ).toBeInTheDocument();
 
-    await klikkRadioknapp('Har du tatt utdanning etter grunnskolen?', 'Nei', screen, user);
+    await klikkRadioknapp(
+      'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
+      'Nei',
+      screen,
+      user
+    );
 
     expect(
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkRadioknapp('Har du tatt utdanning etter grunnskolen?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
+      'Ja',
+      screen,
+      user
+    );
     expect(
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).toBeInTheDocument();
