@@ -7,7 +7,6 @@ import {
   skrivFritekst,
 } from '../../../../test/aksjoner';
 import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
-import { prettyDOM } from '@testing-library/dom';
 
 vi.mock('axios', () => {
   return {
@@ -25,8 +24,6 @@ describe('Mer om din situasjon', () => {
   test('Skal navigere til din situasjon-steg fra mellomlagret søknad', async () => {
     mockMellomlagretSøknadOvergangsstønad('/din-situasjon', {});
     const { screen } = await navigerTilStegOvergangsstønad();
-
-    console.log('hei', prettyDOM(undefined, Infinity));
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Mer om situasjonen din' })
