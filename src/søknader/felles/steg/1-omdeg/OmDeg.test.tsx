@@ -39,7 +39,7 @@ describe('OmDegSteg, personopplysninger', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       })
     ).toBeInTheDocument();
   });
@@ -122,7 +122,7 @@ describe('OmDegSteg, personopplysninger', () => {
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       })
     ).toBeInTheDocument();
   });
@@ -134,7 +134,7 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -146,7 +146,7 @@ describe('OmDegSteg, personopplysninger', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
@@ -203,12 +203,12 @@ describe('OmDegSteg, sivilstatus', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+        name: 'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Ja',
       screen,
       user
@@ -225,7 +225,7 @@ describe('OmDegSteg, sivilstatus', () => {
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -267,7 +267,7 @@ describe('OmDegSteg, sivilstatus', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Hvorfor er du alene med barn?',
+        name: 'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       })
     ).toBeInTheDocument();
 
@@ -297,7 +297,7 @@ describe('OmDegSteg, sivilstatus', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Hvorfor er du alene med barn?',
+        name: 'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       })
     ).toBeInTheDocument();
   });
@@ -309,7 +309,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -323,7 +323,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Samlivsbrudd med den andre forelderen',
       screen,
       user
@@ -345,7 +345,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -359,7 +359,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Samlivsbrudd med noen andre',
       screen,
       user
@@ -422,7 +422,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -436,7 +436,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Samlivsbrudd med noen andre',
       screen,
       user
@@ -491,7 +491,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -505,7 +505,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn fra fødsel',
       screen,
       user
@@ -525,7 +525,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -539,7 +539,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Endring i omsorgen for barn',
       screen,
       user
@@ -566,7 +566,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -580,7 +580,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
@@ -620,7 +620,7 @@ describe('OmDegSteg, medlemskap', () => {
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -632,7 +632,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
@@ -739,7 +739,7 @@ describe('OmDegSteg, medlemskap', () => {
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -751,7 +751,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
@@ -785,7 +785,7 @@ describe('OmDegSteg, medlemskap', () => {
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -797,7 +797,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
@@ -816,7 +816,7 @@ describe('OmDegSteg, medlemskap', () => {
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -828,7 +828,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
@@ -869,7 +869,7 @@ describe('OmDegSteg, medlemskap', () => {
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -881,7 +881,7 @@ describe('OmDegSteg, medlemskap', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Jeg er alene med barn på grunn av dødsfall',
       screen,
       user
