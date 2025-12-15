@@ -1268,7 +1268,9 @@ describe('2 barn, samme forelder', () => {
       )
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.getByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).toBeInTheDocument();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -1309,24 +1311,30 @@ describe('2 barn, samme forelder', () => {
     );
 
     expect(
-      screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.queryByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Neste' }));
 
     expect(
-      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.getByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
       user
     );
 
     expect(
-      screen.getByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+      screen.getByRole('group', {
+        name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
@@ -1335,7 +1343,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1345,7 +1353,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1355,7 +1363,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Nei',
       screen,
       user
@@ -1365,13 +1373,13 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
       user
     );
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1386,7 +1394,7 @@ describe('2 barn, samme forelder', () => {
     );
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1414,7 +1422,7 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Nei',
       screen,
       user
@@ -1440,14 +1448,16 @@ describe('2 barn, samme forelder', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
 
     expect(
-      screen.queryByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+      screen.queryByRole('group', {
+        name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+      })
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId('hvordanPraktiseresSamværet')).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
@@ -1488,7 +1498,7 @@ describe('2 barn, samme forelder', () => {
     );
     await user.click(screen.getByRole('button', { name: 'Neste' }));
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
@@ -1670,7 +1680,9 @@ describe('2 barn, forskjellige foreldre', () => {
     );
 
     expect(
-      screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.queryByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Neste' }));
@@ -1690,7 +1702,9 @@ describe('2 barn, forskjellige foreldre', () => {
       screen.getByRole('combobox', { name: 'Hvilket land bor den andre forelderen i?' })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.queryByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).not.toBeInTheDocument();
 
     await user.selectOptions(
@@ -1701,24 +1715,30 @@ describe('2 barn, forskjellige foreldre', () => {
     );
 
     expect(
-      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.getByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).toBeInTheDocument();
 
     await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
 
     expect(
-      screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+      screen.getByRole('group', {
+        name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+      })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
       user
     );
 
     expect(
-      screen.getByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+      screen.getByRole('group', {
+        name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
@@ -1727,12 +1747,12 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
     expect(
       screen.queryByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).not.toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1741,12 +1761,12 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1755,12 +1775,12 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Nei',
       screen,
       user
@@ -1769,18 +1789,18 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
       screen,
       user
     );
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1789,7 +1809,7 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
@@ -1799,7 +1819,7 @@ describe('2 barn, forskjellige foreldre', () => {
     );
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
       screen,
       user
@@ -1807,7 +1827,7 @@ describe('2 barn, forskjellige foreldre', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).not.toBeInTheDocument();
     expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
@@ -1831,12 +1851,12 @@ describe('2 barn, forskjellige foreldre', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+      'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
       'Nei',
       screen,
       user
@@ -1844,7 +1864,7 @@ describe('2 barn, forskjellige foreldre', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).not.toBeInTheDocument();
     expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
@@ -1866,29 +1886,31 @@ describe('2 barn, forskjellige foreldre', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
 
     expect(
-      screen.queryByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+      screen.queryByRole('group', {
+        name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+      })
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId('hvordanPraktiseresSamværet')).not.toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       'Ja',
       screen,
       user
@@ -1914,7 +1936,9 @@ describe('2 barn, forskjellige foreldre', () => {
       })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole('Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?')
+      screen.queryByRole(
+        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.'
+      )
     ).not.toBeInTheDocument();
 
     await klikkRadioknapp(
@@ -1925,12 +1949,12 @@ describe('2 barn, forskjellige foreldre', () => {
     );
     expect(
       screen.getByRole('group', {
-        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       'Vi møtes også utenom henting og levering',
       screen,
       user
@@ -1952,7 +1976,7 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       'Vi møtes kun når barnet skal hentes eller leveres',
       screen,
       user
@@ -1961,7 +1985,7 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       'Vi møtes ikke',
       screen,
       user
@@ -1982,7 +2006,7 @@ describe('2 barn, forskjellige foreldre', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
     expect(
       screen.queryByRole('textbox', {
-        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       })
     ).not.toBeInTheDocument();
 
@@ -1993,12 +2017,12 @@ describe('2 barn, forskjellige foreldre', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       'Nei',
       screen,
       user
@@ -2011,7 +2035,7 @@ describe('2 barn, forskjellige foreldre', () => {
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
@@ -2062,13 +2086,13 @@ describe('2 barn, forskjellige foreldre', () => {
     await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
 
     await klikkRadioknapp(
-      'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+      'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
       'Nei, den andre forelderen har ikke samvær med barnet',
       screen,
       user
     );
     await klikkRadioknapp(
-      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+      'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
       'Jeg vet ikke hvor den andre forelderen bor',
       screen,
       user
@@ -2080,7 +2104,7 @@ describe('2 barn, forskjellige foreldre', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+      'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
       'Vi møtes ikke',
       screen,
       user
