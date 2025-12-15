@@ -135,7 +135,9 @@ describe('Barnetilsyn', () => {
       const { screen, user } = await navigerTilStegBarnetilsyn();
 
       expect(
-        screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.queryByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Nei', screen, user);
@@ -144,7 +146,9 @@ describe('Barnetilsyn', () => {
         screen.getByRole('combobox', { name: 'Hvilket land bor den andre forelderen i?' })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.queryByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).not.toBeInTheDocument();
 
       await user.selectOptions(
@@ -155,7 +159,9 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
     });
 
@@ -164,13 +170,17 @@ describe('Barnetilsyn', () => {
       const { screen, user } = await navigerTilStegBarnetilsyn();
 
       expect(
-        screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.queryByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
     });
 
@@ -187,17 +197,17 @@ describe('Barnetilsyn', () => {
       );
       expect(
         screen.getByRole('group', {
-          name: 'Har den andre forelderen samvær med GÅEN PC?',
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
@@ -208,7 +218,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -220,7 +230,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -238,17 +248,17 @@ describe('Barnetilsyn', () => {
       );
       expect(
         screen.getByRole('group', {
-          name: 'Har den andre forelderen samvær med GÅEN PC?',
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
@@ -279,7 +289,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -291,7 +301,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -304,7 +314,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
       expect(
@@ -314,17 +324,22 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
 
-      await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+      await klikkRadioknapp(
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+        'Nei',
+        screen,
+        user
+      );
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -337,12 +352,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
@@ -353,7 +368,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -365,7 +380,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -378,12 +393,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
@@ -394,7 +409,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -415,7 +430,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByTestId('hvordanPraktiseresSamværet')).toBeInTheDocument();
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
 
@@ -423,7 +438,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -436,12 +451,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
@@ -451,7 +466,12 @@ describe('Barnetilsyn', () => {
         screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
       ).toBeInTheDocument();
 
-      await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+      await klikkRadioknapp(
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+        'Nei',
+        screen,
+        user
+      );
 
       expect(
         screen.queryByText((tekst) => tekst.includes('Du må legge ved samværsavtalen'))
@@ -468,7 +488,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByTestId('hvordanPraktiseresSamværet')).toBeInTheDocument();
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
 
@@ -476,7 +496,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -489,12 +509,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate??',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.?',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -502,12 +522,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GÅEN PC?',
+          name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
     });
@@ -518,7 +538,7 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -529,7 +549,7 @@ describe('Barnetilsyn', () => {
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Ja',
         screen,
         user
@@ -562,7 +582,7 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -575,7 +595,7 @@ describe('Barnetilsyn', () => {
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Nei',
         screen,
         user
@@ -594,7 +614,7 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -607,7 +627,7 @@ describe('Barnetilsyn', () => {
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -626,20 +646,20 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
       );
       expect(
         screen.queryByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).not.toBeInTheDocument();
       expect(
@@ -667,7 +687,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
       expect(
@@ -689,20 +709,20 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
       );
       expect(
         screen.queryByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).not.toBeInTheDocument();
       expect(
@@ -720,7 +740,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
       expect(
@@ -742,13 +762,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -763,7 +783,7 @@ describe('Barnetilsyn', () => {
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -778,13 +798,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -799,7 +819,7 @@ describe('Barnetilsyn', () => {
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes kun når barnet skal hentes eller leveres',
         screen,
         user
@@ -814,13 +834,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -834,12 +854,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('textbox', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes også utenom henting og levering',
         screen,
         user
@@ -868,13 +888,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -886,7 +906,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -937,13 +957,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -955,7 +975,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1010,7 +1030,9 @@ describe('Barnetilsyn', () => {
         )
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
 
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -1024,13 +1046,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1042,7 +1064,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1050,25 +1072,29 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
 
       await user.click(screen.getByRole('button', { name: 'Neste' }));
 
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
 
       expect(
-        screen.getByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+        screen.getByRole('group', {
+          name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+        })
       ).toBeInTheDocument();
       expect(
         screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
@@ -1077,7 +1103,7 @@ describe('Barnetilsyn', () => {
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1087,7 +1113,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1097,7 +1123,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Nei',
         screen,
         user
@@ -1107,13 +1133,13 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1128,7 +1154,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1156,7 +1182,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Nei',
         screen,
         user
@@ -1182,7 +1208,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -1190,7 +1216,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+          name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
       expect(screen.queryByTestId('hvordanPraktiseresSamværet')).not.toBeInTheDocument();
@@ -1205,13 +1231,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1223,14 +1249,14 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
       );
       await user.click(screen.getByRole('button', { name: 'Neste' }));
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -1308,13 +1334,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1326,7 +1352,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1385,13 +1411,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1403,7 +1429,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1411,14 +1437,16 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
 
       await user.click(screen.getByRole('button', { name: 'Neste' }));
 
       expect(
-        screen.queryByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.queryByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).not.toBeInTheDocument();
       expect(
         screen.getByRole('group', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
@@ -1431,7 +1459,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
       expect(
         screen.queryByRole('group', {
-          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
 
@@ -1443,24 +1471,30 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
 
       await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
 
       expect(
-        screen.getByRole('group', { name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?' })
+        screen.getByRole('group', {
+          name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+        })
       ).toBeInTheDocument();
       expect(
         screen.getByRole('button', { name: 'Opplysninger vi trenger i samværsavtalen' })
@@ -1469,12 +1503,12 @@ describe('Barnetilsyn', () => {
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1483,12 +1517,12 @@ describe('Barnetilsyn', () => {
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1497,12 +1531,12 @@ describe('Barnetilsyn', () => {
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Nei',
         screen,
         user
@@ -1511,18 +1545,18 @@ describe('Barnetilsyn', () => {
       expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1531,7 +1565,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
@@ -1541,7 +1575,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -1549,7 +1583,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
@@ -1573,12 +1607,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+        'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Nei',
         screen,
         user
@@ -1586,7 +1620,7 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
       expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
@@ -1608,12 +1642,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
@@ -1621,18 +1655,18 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.queryByRole('group', {
-          name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR?',
+          name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
       expect(screen.queryByTestId('hvordanPraktiseresSamværet')).not.toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Ja',
         screen,
         user
@@ -1658,7 +1692,9 @@ describe('Barnetilsyn', () => {
         })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?')
+        screen.queryByRole(
+          'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.'
+        )
       ).not.toBeInTheDocument();
 
       await klikkRadioknapp(
@@ -1669,12 +1705,12 @@ describe('Barnetilsyn', () => {
       );
       expect(
         screen.getByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes også utenom henting og levering',
         screen,
         user
@@ -1696,7 +1732,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes kun når barnet skal hentes eller leveres',
         screen,
         user
@@ -1705,7 +1741,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1737,12 +1773,12 @@ describe('Barnetilsyn', () => {
 
       expect(
         screen.getByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Nei',
         screen,
         user
@@ -1755,7 +1791,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1776,13 +1812,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1794,7 +1830,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1804,13 +1840,13 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GAMMEL TRUBADUR?',
+        'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1822,7 +1858,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR?',
+        'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1901,13 +1937,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1919,7 +1955,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -1955,13 +1991,13 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -1973,7 +2009,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2005,14 +2041,19 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, men ikke mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
-      await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+        'Nei',
+        screen,
+        user
+      );
+      await klikkRadioknapp(
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2024,7 +2065,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2056,19 +2097,19 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2080,7 +2121,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2112,13 +2153,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2130,7 +2171,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2160,19 +2201,19 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, og den beskriver når barnet er sammen med hver av foreldrene',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2184,7 +2225,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2216,13 +2257,13 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -2234,7 +2275,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2246,7 +2287,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2284,12 +2325,17 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
-      await klikkRadioknapp('Har dere skriftlig samværsavtale for GÅEN PC?', 'Nei', screen, user);
+      await klikkRadioknapp(
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
+        'Nei',
+        screen,
+        user
+      );
 
       await user.type(
         screen.getByTestId('hvordanPraktiseresSamværet'),
@@ -2297,7 +2343,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2309,7 +2355,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2345,14 +2391,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Ja',
         screen,
         user
@@ -2370,7 +2416,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2400,14 +2446,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Nei',
         screen,
         user
@@ -2420,7 +2466,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2450,14 +2496,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2470,7 +2516,7 @@ describe('Barnetilsyn', () => {
         user
       );
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2500,14 +2546,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2528,7 +2574,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2558,14 +2604,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2579,7 +2625,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2607,14 +2653,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2628,7 +2674,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2656,14 +2702,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2677,7 +2723,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes kun når barnet skal hentes eller leveres',
         screen,
         user
@@ -2707,14 +2753,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2728,7 +2774,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes også utenom henting og levering',
         screen,
         user
@@ -2767,14 +2813,14 @@ describe('Barnetilsyn', () => {
 
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Nei, den andre forelderen har ikke samvær med barnet',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Jeg vet ikke hvor den andre forelderen bor',
         screen,
         user
@@ -2788,7 +2834,7 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes ikke',
         screen,
         user
@@ -2839,11 +2885,13 @@ describe('Barnetilsyn', () => {
       expect(screen.getByText('Navn')).toBeInTheDocument();
       expect(screen.getByText('SPRUDLENDE MEDFORELDER')).toBeInTheDocument();
       expect(
-        screen.getByRole('group', { name: 'Har den andre forelderen samvær med GÅEN PC?' })
+        screen.getByRole('group', {
+          name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
+        })
       ).toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+          name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
       expect(
@@ -2853,7 +2901,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
       expect(
         screen.getByRole('group', {
-          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+          name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
@@ -2868,14 +2916,14 @@ describe('Barnetilsyn', () => {
       );
 
       await klikkRadioknapp(
-        'Har den andre forelderen samvær med GÅEN PC?',
+        'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         'Ja, mer enn én ettermiddag i uken med overnatting og annenhver helg eller tilsvarende',
         screen,
         user
       );
 
       await klikkRadioknapp(
-        'Har dere skriftlig samværsavtale for GÅEN PC?',
+        'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         'Ja, men den beskriver ikke når barnet er sammen med hver av foreldrene',
         screen,
         user
@@ -2884,7 +2932,7 @@ describe('Barnetilsyn', () => {
       await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'Ved å være sammen');
 
       await klikkRadioknapp(
-        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate?',
+        'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         'Nei',
         screen,
         user
@@ -2900,7 +2948,7 @@ describe('Barnetilsyn', () => {
       await skrivFritekst('Når flyttet dere fra hverandre?', '02.06.2025', screen, user);
 
       await klikkRadioknapp(
-        'Hvor mye er du sammen med den andre forelderen til GÅEN PC?',
+        'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         'Vi møtes kun når barnet skal hentes eller leveres',
         screen,
         user

@@ -35,7 +35,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Er du i arbeid?',
+        name: 'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
       })
     ).toBeInTheDocument();
 
@@ -64,7 +64,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     await klikkRadioknapp(
-      'Er du i arbeid?',
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
       'Nei, jeg er ikke i arbeid fordi jeg er syk',
       screen,
       user
@@ -125,7 +125,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     expect(screen.getByRole('group', { name: 'Hvordan er situasjonen din?' })).toBeInTheDocument();
     expect(screen.getByText('Du kan velge flere alternativer')).toBeInTheDocument();
@@ -169,7 +174,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox('Jeg er arbeidstaker (og/eller lønnsmottaker som frilanser)', screen, user);
 
@@ -212,7 +222,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox('Jeg er arbeidstaker (og/eller lønnsmottaker som frilanser)', screen, user);
 
@@ -285,7 +300,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox('Jeg er arbeidstaker (og/eller lønnsmottaker som frilanser)', screen, user);
 
@@ -329,7 +349,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox('Jeg er arbeidstaker (og/eller lønnsmottaker som frilanser)', screen, user);
 
@@ -378,7 +403,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox(
       'Jeg er selvstendig næringsdrivende eller frilanser med enkeltpersonforetak',
@@ -461,7 +491,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox(
       'Jeg er selvstendig næringsdrivende og ansatt i mitt eget aksjeselskap (AS)',
@@ -506,7 +541,12 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).not.toBeInTheDocument();
 
-    await klikkRadioknapp('Er du i arbeid?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
+      'Ja',
+      screen,
+      user
+    );
 
     await klikkCheckbox('Jeg etablerer egen virksomhet', screen, user);
 

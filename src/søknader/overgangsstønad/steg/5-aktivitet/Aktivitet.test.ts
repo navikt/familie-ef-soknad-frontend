@@ -584,7 +584,9 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
 
     expect(screen.getByText('Når du er arbeidssøker')).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Er du registrert som arbeidssøker hos Nav?' })
+      screen.getByRole('group', {
+        name: 'Er du registrert som arbeidssøker hos Nav? Om å være registrert som arbeidssøker hos Nav For å ha rett til overgangsstønad, må du registrere deg som arbeidssøker på nav.no. Hvis du ikke er registrert, kan du gjøre dette etter at du har sendt inn denne søknaden.',
+      })
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Om å være registrert som arbeidssøker hos Nav' })
@@ -600,7 +602,12 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
       })
     );
 
-    await klikkRadioknapp('Er du registrert som arbeidssøker hos Nav?', 'Nei', screen, user);
+    await klikkRadioknapp(
+      'Er du registrert som arbeidssøker hos Nav? Om å være registrert som arbeidssøker hos Nav For å ha rett til overgangsstønad, må du registrere deg som arbeidssøker på nav.no. Hvis du ikke er registrert, kan du gjøre dette etter at du har sendt inn denne søknaden.',
+      'Nei',
+      screen,
+      user
+    );
     expect(
       screen.getByText(
         'Du kan registrere deg etter at du har sendt inn denne søknaden. Da hjelper vi deg videre til registreringen.'
@@ -612,7 +619,12 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
       })
     ).toBeInTheDocument();
 
-    await klikkRadioknapp('Er du registrert som arbeidssøker hos Nav?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Er du registrert som arbeidssøker hos Nav? Om å være registrert som arbeidssøker hos Nav For å ha rett til overgangsstønad, må du registrere deg som arbeidssøker på nav.no. Hvis du ikke er registrert, kan du gjøre dette etter at du har sendt inn denne søknaden.',
+      'Ja',
+      screen,
+      user
+    );
     expect(
       screen.getByRole('group', {
         name: 'Er du villig til å ta imot tilbud om arbeid eller arbeidsmarkedstiltak?',
@@ -621,7 +633,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb?',
+        name: 'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb? Du må være tilgjengelig og raskt kunne ta stilling til tilbud om arbeid eller arbeidsmarkedstiltak. Du må derfor kunne skaffe barnepass på kort varsel.',
       })
     ).not.toBeInTheDocument();
     await klikkRadioknapp(
@@ -637,7 +649,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb?',
+        name: 'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb? Du må være tilgjengelig og raskt kunne ta stilling til tilbud om arbeid eller arbeidsmarkedstiltak. Du må derfor kunne skaffe barnepass på kort varsel.',
       })
     ).toBeInTheDocument();
     expect(
@@ -659,17 +671,17 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb?',
+        name: 'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb? Du må være tilgjengelig og raskt kunne ta stilling til tilbud om arbeid eller arbeidsmarkedstiltak. Du må derfor kunne skaffe barnepass på kort varsel.',
       })
     ).toBeInTheDocument();
 
     expect(
       screen.queryByRole('group', {
-        name: 'Hvor ønsker du å søke arbeid?',
+        name: 'Hvor ønsker du å søke arbeid? Dette betyr 1 times reisevei 1 times reisevei vil si at reisetiden med transportmiddel mellom hjem og arbeidssted ikke er over 1 time hver vei. Det inkuderer ikke gangtid mellom bolig og transportmiddel, og transportmiddel og arbeidssted.',
       })
     ).not.toBeInTheDocument();
     await klikkRadioknapp(
-      'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb?',
+      'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb? Du må være tilgjengelig og raskt kunne ta stilling til tilbud om arbeid eller arbeidsmarkedstiltak. Du må derfor kunne skaffe barnepass på kort varsel.',
       'Nei',
       screen,
       user
@@ -681,11 +693,11 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Hvor ønsker du å søke arbeid?',
+        name: 'Hvor ønsker du å søke arbeid? Dette betyr 1 times reisevei 1 times reisevei vil si at reisetiden med transportmiddel mellom hjem og arbeidssted ikke er over 1 time hver vei. Det inkuderer ikke gangtid mellom bolig og transportmiddel, og transportmiddel og arbeidssted.',
       })
     ).toBeInTheDocument();
     await klikkRadioknapp(
-      'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb?',
+      'Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb? Du må være tilgjengelig og raskt kunne ta stilling til tilbud om arbeid eller arbeidsmarkedstiltak. Du må derfor kunne skaffe barnepass på kort varsel.',
       'Ja',
       screen,
       user
@@ -697,7 +709,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Hvor ønsker du å søke arbeid?',
+        name: 'Hvor ønsker du å søke arbeid? Dette betyr 1 times reisevei 1 times reisevei vil si at reisetiden med transportmiddel mellom hjem og arbeidssted ikke er over 1 time hver vei. Det inkuderer ikke gangtid mellom bolig og transportmiddel, og transportmiddel og arbeidssted.',
       })
     ).toBeInTheDocument();
 
@@ -713,24 +725,29 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling?',
+        name: 'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling? Du kan søke heltidsjobb, men som enslig mor eller far holder det at du jobber minst 50 prosent. Det er heller ikke krav om at du må jobbe kvelds-, natt-, helg- og skiftarbeid.',
       })
     ).not.toBeInTheDocument();
-    await klikkRadioknapp('Hvor ønsker du å søke arbeid?', 'Hvor som helst i landet', screen, user);
+    await klikkRadioknapp(
+      'Hvor ønsker du å søke arbeid? Dette betyr 1 times reisevei 1 times reisevei vil si at reisetiden med transportmiddel mellom hjem og arbeidssted ikke er over 1 time hver vei. Det inkuderer ikke gangtid mellom bolig og transportmiddel, og transportmiddel og arbeidssted.',
+      'Hvor som helst i landet',
+      screen,
+      user
+    );
     expect(
       screen.getByRole('group', {
-        name: 'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling?',
+        name: 'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling? Du kan søke heltidsjobb, men som enslig mor eller far holder det at du jobber minst 50 prosent. Det er heller ikke krav om at du må jobbe kvelds-, natt-, helg- og skiftarbeid.',
       })
     ).toBeInTheDocument();
     await klikkRadioknapp(
-      'Hvor ønsker du å søke arbeid?',
+      'Hvor ønsker du å søke arbeid? Dette betyr 1 times reisevei 1 times reisevei vil si at reisetiden med transportmiddel mellom hjem og arbeidssted ikke er over 1 time hver vei. Det inkuderer ikke gangtid mellom bolig og transportmiddel, og transportmiddel og arbeidssted.',
       'Kun i bodistriktet mitt, ikke mer enn 1 times reisevei hver vei',
       screen,
       user
     );
     expect(
       screen.getByRole('group', {
-        name: 'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling?',
+        name: 'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling? Du kan søke heltidsjobb, men som enslig mor eller far holder det at du jobber minst 50 prosent. Det er heller ikke krav om at du må jobbe kvelds-, natt-, helg- og skiftarbeid.',
       })
     ).toBeInTheDocument();
 
@@ -741,7 +758,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling?',
+      'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling? Du kan søke heltidsjobb, men som enslig mor eller far holder det at du jobber minst 50 prosent. Det er heller ikke krav om at du må jobbe kvelds-, natt-, helg- og skiftarbeid.',
       'Nei',
       screen,
       user
@@ -753,7 +770,7 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling?',
+      'Ønsker du å stå som arbeidssøker til minst 50 prosent stilling? Du kan søke heltidsjobb, men som enslig mor eller far holder det at du jobber minst 50 prosent. Det er heller ikke krav om at du må jobbe kvelds-, natt-, helg- og skiftarbeid.',
       'Ja',
       screen,
       user
@@ -824,7 +841,9 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
 
     expect(screen.getByRole('textbox', { name: 'Linje / kurs / grad' })).toBeInTheDocument();
     expect(
-      screen.queryByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
+      screen.queryByRole('group', {
+        name: 'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      })
     ).not.toBeInTheDocument();
 
     await skrivFritekst('Linje / kurs / grad', 'Informatikk', screen, user);
@@ -833,7 +852,9 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
       screen.getByRole('button', { name: 'Om godkjenning av privat utdanning' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Er utdanningen offentlig eller privat?' })
+      screen.getByRole('group', {
+        name: 'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      })
     ).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Om godkjenning av privat utdanning' }));
@@ -855,12 +876,22 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     expect(screen.queryByText('Når skal du være elev/student?')).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: 'Fra' })).not.toBeInTheDocument();
     expect(screen.queryByRole('textbox', { name: 'Til' })).not.toBeInTheDocument();
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Privat', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Privat',
+      screen,
+      user
+    );
     expect(screen.getByText('Når skal du være elev/student?')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
 
-    await klikkRadioknapp('Er utdanningen offentlig eller privat?', 'Offentlig', screen, user);
+    await klikkRadioknapp(
+      'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
+      'Offentlig',
+      screen,
+      user
+    );
     expect(screen.getByText('Når skal du være elev/student?')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Fra' })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Til' })).toBeInTheDocument();
@@ -971,17 +1002,29 @@ describe('Aktivitet-Steg for overgangsstønad', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', { name: 'Har du tatt utdanning etter grunnskolen?' })
+      screen.getByRole('group', {
+        name: 'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
+      })
     ).toBeInTheDocument();
 
-    await klikkRadioknapp('Har du tatt utdanning etter grunnskolen?', 'Nei', screen, user);
+    await klikkRadioknapp(
+      'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
+      'Nei',
+      screen,
+      user
+    );
 
     expect(
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
 
-    await klikkRadioknapp('Har du tatt utdanning etter grunnskolen?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
+      'Ja',
+      screen,
+      user
+    );
     expect(
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).toBeInTheDocument();

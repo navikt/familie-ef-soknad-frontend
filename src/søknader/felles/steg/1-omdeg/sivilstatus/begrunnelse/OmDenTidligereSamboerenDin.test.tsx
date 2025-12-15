@@ -25,7 +25,7 @@ describe('OmDenTidligereSamboerenDin', () => {
 
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
     await klikkRadioknapp(
-      'Er du gift uten at det er registrert i folkeregisteret i Norge?',
+      'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       'Nei',
       screen,
       user
@@ -37,7 +37,7 @@ describe('OmDenTidligereSamboerenDin', () => {
       user
     );
     await klikkRadioknapp(
-      'Hvorfor er du alene med barn?',
+      'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       'Samlivsbrudd med noen andre',
       screen,
       user

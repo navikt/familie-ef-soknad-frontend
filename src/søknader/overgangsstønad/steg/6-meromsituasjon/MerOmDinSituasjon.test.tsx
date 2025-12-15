@@ -71,7 +71,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -123,7 +123,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
   });
@@ -133,7 +133,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -173,7 +173,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
   });
@@ -183,7 +183,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -211,7 +211,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
   });
@@ -221,7 +221,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -275,7 +275,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
   });
@@ -285,7 +285,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -293,7 +293,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
   });
@@ -304,7 +304,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -312,7 +312,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
     expect(
@@ -328,7 +328,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       'Ja, jeg har sagt opp jobben eller tatt frivillig permisjon (ikke foreldrepermisjon)',
       screen,
       user
@@ -356,7 +356,9 @@ describe('Mer om din situasjon', () => {
     expect(screen.getByRole('textbox', { name: 'Når sa du opp?' })).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('group', { name: 'Søker du overgangsstønad fra en bestemt måned?' })
+      screen.queryByRole('group', {
+        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      })
     ).not.toBeInTheDocument();
 
     await skrivFritekst('Når sa du opp?', '28.07.2025', screen, user);
@@ -370,7 +372,9 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', { name: 'Søker du overgangsstønad fra en bestemt måned?' })
+      screen.getByRole('group', {
+        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      })
     ).toBeInTheDocument();
   });
   test('Søker har redusert arbeidstiden', async () => {
@@ -379,7 +383,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -387,12 +391,12 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       'Ja, jeg har redusert arbeidstiden',
       screen,
       user
@@ -425,7 +429,9 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('group', { name: 'Søker du overgangsstønad fra en bestemt måned?' })
+      screen.queryByRole('group', {
+        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      })
     ).not.toBeInTheDocument();
 
     await skrivFritekst('Når reduserte du arbeidstiden?', '28.07.2025', screen, user);
@@ -439,7 +445,9 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', { name: 'Søker du overgangsstønad fra en bestemt måned?' })
+      screen.getByRole('group', {
+        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      })
     ).toBeInTheDocument();
   });
   test('Søker har ikke sagt opp jobben eller redusert arbeidstiden de siste 6 månedene', async () => {
@@ -448,7 +456,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
 
@@ -456,23 +464,27 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+        name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('group', { name: 'Søker du overgangsstønad fra en bestemt måned?' })
+      screen.queryByRole('group', {
+        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      })
     ).not.toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       'Nei',
       screen,
       user
     );
 
     expect(
-      screen.getByRole('group', { name: 'Søker du overgangsstønad fra en bestemt måned?' })
+      screen.getByRole('group', {
+        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      })
     ).toBeInTheDocument();
   });
 
@@ -482,7 +494,7 @@ describe('Mer om din situasjon', () => {
 
     await klikkCheckbox('Nei', screen, user);
     await klikkRadioknapp(
-      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       'Nei',
       screen,
       user
@@ -516,7 +528,12 @@ describe('Mer om din situasjon', () => {
       )
     ).toBeInTheDocument();
 
-    await klikkRadioknapp('Søker du overgangsstønad fra en bestemt måned?', 'Ja', screen, user);
+    await klikkRadioknapp(
+      'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      'Ja',
+      screen,
+      user
+    );
 
     expect(screen.getByText('Når søker du stønad fra?')).toBeInTheDocument();
     expect(
@@ -543,7 +560,7 @@ describe('Mer om din situasjon', () => {
 
     await klikkCheckbox('Nei', screen, user);
     await klikkRadioknapp(
-      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
+      'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       'Nei',
       screen,
       user
@@ -583,7 +600,7 @@ describe('Mer om din situasjon', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Søker du overgangsstønad fra en bestemt måned?',
+      'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
       'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
       screen,
       user
