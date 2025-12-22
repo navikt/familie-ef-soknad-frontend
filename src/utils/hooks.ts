@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DinSituasjonType } from '../models/steg/dinsituasjon/meromsituasjon';
 import { leggTilSærligeBehov } from '../søknader/felles/steg/6-meromsituasjon/SituasjonUtil';
 import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
@@ -7,12 +7,16 @@ import { LokalIntlShape } from '../language/typer';
 import { byteTilKilobyte, filtypeOgFilstørrelseStreng } from './nedlastningFilformater';
 import { setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 
-export const usePrevious = (value: any) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
+export const usePrevious = <T>(value: T): T | undefined => {
+  const [current, setCurrent] = useState<T | undefined>(undefined);
+  const [previous, setPrevious] = useState<T | undefined>(undefined);
+
+  if (current !== value) {
+    setPrevious(current);
+    setCurrent(value);
+  }
+
+  return previous;
 };
 
 export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
