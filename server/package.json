@@ -14,7 +14,7 @@
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
-    "html-react-parser": "^5.2.10",
+    "html-react-parser": "^5.2.11",
     "http-proxy-middleware": "^3.0.5",
     "jsdom": "^27.3.0",
     "uuid": "^13.0.0",
