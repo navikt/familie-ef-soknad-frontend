@@ -103,8 +103,8 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
   const hentForrigeSøknadBarnetilsyn = async (): Promise<void> => {
     const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad();
     const personData = await hentPersonData();
-
-    if (forrigeSøknad) {
+    const ENABLE_GJENBRUK_FORRIGE_SØKNAD = false;
+    if (ENABLE_GJENBRUK_FORRIGE_SØKNAD && forrigeSøknad) {
       settSøknad((prevSøknad) => {
         const aktuelleBarn = forrigeSøknad.person.barn.filter((barn) =>
           personData.barn.some((personBarn) => personBarn.fnr === barn.ident.verdi)
