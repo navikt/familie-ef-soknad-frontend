@@ -19,6 +19,8 @@ import {
   lagTekstfelt,
 } from '../../../../test/domeneUtils';
 
+const søkerFraBestemtMånedSpørsmålBarnetilsyn = `Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 3)}. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.`;
+
 vi.mock('axios', () => {
   return {
     default: {
@@ -129,7 +131,7 @@ describe('Barnepass-Steg', () => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole('group', {
-        name: 'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).not.toBeInTheDocument();
     await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
@@ -139,7 +141,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).toBeInTheDocument();
 
@@ -259,7 +261,7 @@ describe('Barnepass-Steg', () => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole('group', {
-        name: 'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).not.toBeInTheDocument();
     await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
@@ -269,7 +271,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('group', {
-        name: 'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).toBeInTheDocument();
 
@@ -317,7 +319,7 @@ describe('Barnepass-Steg', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      søkerFraBestemtMånedSpørsmålBarnetilsyn,
       'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
       screen,
       user
@@ -340,7 +342,7 @@ describe('Barnepass-Steg', () => {
     );
     await skrivFritekst('Navn på barnepassordningen', 'Barnehage', screen, user);
     await skrivFritekst('Startdato', '01.06.2025', screen, user);
-    await skrivFritekst('Sluttdato', '01.12.2025', screen, user);
+    await skrivFritekst('Sluttdato', '01.12.2026', screen, user);
     await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
 
     expect(
@@ -352,19 +354,14 @@ describe('Barnepass-Steg', () => {
     expect(
       screen.queryByRole('textbox', { name: 'Jeg søker stønad til barnetilsyn fra og med' })
     ).not.toBeInTheDocument();
-    await klikkRadioknapp(
-      'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkRadioknapp(søkerFraBestemtMånedSpørsmålBarnetilsyn, 'Ja', screen, user);
     expect(screen.getByText('Når søker du stønad fra?')).toBeInTheDocument();
     expect(
       screen.getByRole('textbox', { name: 'Jeg søker stønad til barnetilsyn fra og med' })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Åpne månedsvelger' }));
-    await user.click(screen.getByRole('button', { name: 'august' }));
+    // Type directly into the month field instead of using the picker
+    await skrivFritekst('Jeg søker stønad til barnetilsyn fra og med', 'okt. 2025', screen, user);
 
     expect(
       screen.queryByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
@@ -498,7 +495,7 @@ describe('Barnepass-Steg', () => {
     await skrivFritekst('Sluttdato', '01.12.2025', screen, user);
     await skrivFritekst('Beløp pr måned (ikke inkludert kost)', '150', screen, user);
     await klikkRadioknapp(
-      'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      søkerFraBestemtMånedSpørsmålBarnetilsyn,
       'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
       screen,
       user
@@ -574,7 +571,7 @@ describe('Barnepass-Steg', () => {
     await skrivFritekstTilKomponentMedId('tilDato-1', '01.12.2025', screen, user);
     await skrivFritekstTilKomponentMedId('beløp-barn-1', '150', screen, user);
     await klikkRadioknapp(
-      'Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      søkerFraBestemtMånedSpørsmålBarnetilsyn,
       'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
       screen,
       user
