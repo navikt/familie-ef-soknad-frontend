@@ -1,11 +1,13 @@
 import { mockGet, mockMellomlagretSøknadBarnetilsyn } from '../../../../test/axios';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import {
   klikkCheckbox,
   klikkRadioknapp,
   navigerTilStegBarnetilsyn,
   skrivFritekst,
 } from '../../../../test/aksjoner';
+
+const nåværendeÅr = new Date().getFullYear();
 
 vi.mock('axios', () => {
   return {
@@ -452,7 +454,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
 
     expect(
       screen.getByRole('spinbutton', {
-        name: 'Hva forventer du at overskuddet i virksomheten din blir før skatt i 2025?',
+        name: `Hva forventer du at overskuddet i virksomheten din blir før skatt i ${nåværendeÅr}?`,
       })
     ).toBeInTheDocument();
     expect(
@@ -466,7 +468,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     await skrivFritekst('Beskriv arbeidsuken i virksomheten din', 'Veldig travel', screen, user);
     await user.type(
       screen.getByRole('spinbutton', {
-        name: 'Hva forventer du at overskuddet i virksomheten din blir før skatt i 2025?',
+        name: `Hva forventer du at overskuddet i virksomheten din blir før skatt i ${nåværendeÅr}?`,
       }),
       '1500'
     );

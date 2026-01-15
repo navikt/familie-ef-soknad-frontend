@@ -4,6 +4,7 @@ import { parseISO } from 'date-fns';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
   sendInnBarnetilsynSøknad,
@@ -30,8 +31,9 @@ export const SendSøknadKnapper: FC = () => {
   const { søknad, settSøknad } = useBarnetilsynSøknad();
   const location = useLocation();
   const navigate = useNavigate();
-  const nesteRoute = hentNesteRoute(RoutesBarnetilsyn, location.pathname);
-  const forrigeRoute = hentForrigeRoute(RoutesBarnetilsyn, location.pathname);
+  const { routes } = useBarnetilsynRoutes();
+  const nesteRoute = hentNesteRoute(routes, location.pathname);
+  const forrigeRoute = hentForrigeRoute(routes, location.pathname);
   const intl = useLokalIntlContext();
   const [locale] = useSpråkContext();
 
@@ -133,7 +135,7 @@ export const SendSøknadKnapper: FC = () => {
           <Button
             className={'avbryt'}
             variant={'tertiary'}
-            onClick={() => navigate(RoutesBarnetilsyn[0].path)}
+            onClick={() => navigate(routes[0].path)}
           >
             {hentTekst('knapp.avbryt', intl)}
           </Button>

@@ -17,7 +17,7 @@ import {
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { useLocation } from 'react-router-dom';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -31,6 +31,7 @@ import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 export const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
+  const { routes } = useBarnetilsynRoutes();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
@@ -108,7 +109,7 @@ export const Barnepass: FC = () => {
         søknadsdato,
         søkerFraBestemtMåned
       )}
-      routesStønad={RoutesBarnetilsyn}
+      routesStønad={routes}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
       <VStack gap={'16'}>

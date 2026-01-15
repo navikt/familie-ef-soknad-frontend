@@ -8,10 +8,16 @@ import { GjenbrukKnapp } from './GjenbrukKnapp';
 import styled from 'styled-components';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 
 const Gjenbruk: FC = () => {
   const intl = useLokalIntlContext();
   const { søknad } = useBarnetilsynSøknad();
+  const { gjenbrukAktivert } = useBarnetilsynRoutes();
+
+  if (!gjenbrukAktivert) {
+    return null;
+  }
 
   const BodyShortContainer = styled.div`
     & > *:not(:last-child) {
