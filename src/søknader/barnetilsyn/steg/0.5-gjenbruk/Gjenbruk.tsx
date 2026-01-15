@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Box, GuidePanel } from '@navikt/ds-react';
@@ -9,25 +8,14 @@ import { GjenbrukKnapp } from './GjenbrukKnapp';
 import styled from 'styled-components';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
-
-// TODO: Skrur av GJENBRUK midlertidlig til vi har løst mapping problematikk
-const ENABLE_GJENBRUK_FORRIGE_SØKNAD = false;
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 
 const Gjenbruk: FC = () => {
   const intl = useLokalIntlContext();
   const { søknad } = useBarnetilsynSøknad();
-  const navigate = useNavigate();
+  const { gjenbrukAktivert } = useBarnetilsynRoutes();
 
-  // TODO: Skrur av GJENBRUK midlertidlig til vi har løst mapping problematikk
-  // TODO: Denne quickfixen forsikrer oss om at gjenbruk modalen ikke dukker opp.
-  // TODO: Dette skal fjernes.
-  useEffect(() => {
-    if (!ENABLE_GJENBRUK_FORRIGE_SØKNAD) {
-      navigate('/barnetilsyn', { replace: true });
-    }
-  }, [navigate]);
-
-  if (!ENABLE_GJENBRUK_FORRIGE_SØKNAD) {
+  if (!gjenbrukAktivert) {
     return null;
   }
 

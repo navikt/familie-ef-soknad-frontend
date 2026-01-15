@@ -6,6 +6,7 @@ import { OppsummeringBarnepass } from './OppsummeringBarnepass';
 import OppsummeringBosituasionenDin from '../../../felles/steg/7-oppsummering/OppsummeringBosituasjon';
 import OppsummeringOmDeg from '../../../felles/steg/7-oppsummering/OppsummeringOmDeg';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import { IBarn } from '../../../../models/steg/barn';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
@@ -18,6 +19,7 @@ import { Accordion, BodyShort } from '@navikt/ds-react';
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { mellomlagreBarnetilsyn, søknad } = useBarnetilsynSøknad();
+  const { routes } = useBarnetilsynRoutes();
   const barnSomSkalHaBarnepass: IBarn[] = søknad.person.barn.filter(
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
   );
@@ -29,7 +31,7 @@ const Oppsummering: React.FC = () => {
         stegtittel={hentTekst('oppsummering.sidetittel', intl)}
         erSpørsmålBesvart={true}
         mellomlagreStønad={mellomlagreBarnetilsyn}
-        routesStønad={RoutesBarnetilsyn}
+        routesStønad={routes}
         navigasjonState={NavigasjonState.visTilbakeNesteAvbrytKnapp}
       >
         <div className="oppsummering">

@@ -13,6 +13,8 @@ import { TidligereInnsendteSøknaderAlert } from '../../components/forside/Tidli
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -23,6 +25,9 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   const { settSkalGjenbrukeSøknad } = useContext(GjenbrukContext);
   const [locale] = useSpråkContext();
   const intl = useLokalIntlContext();
+
+  const { toggles } = useToggles();
+  const gjenbrukBarnetilsynToggle = toggles[ToggleName.gjenbrukBarnetilsyn];
 
   const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (forrigeSøknad?: ForrigeSøknad) => {
     if (forrigeSøknad) {
@@ -46,12 +51,15 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   };
 
   useEffect(() => {
+    if (!gjenbrukBarnetilsynToggle) {
+      return;
+    }
+
     const fetchHentOgSjekkForrigeSøknad = async () => {
       await hentOgSjekkForrigeSøknad();
     };
 
     fetchHentOgSjekkForrigeSøknad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
 
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';
@@ -115,7 +123,9 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
       />
       {harBekreftet && (
         <KnappLocaleTekstOgNavigate
-          nesteSide={kanGjenbrukeForrigeSøknad ? gjenbrukSide : nesteSide}
+          nesteSide={
+            gjenbrukBarnetilsynToggle && kanGjenbrukeForrigeSøknad ? gjenbrukSide : nesteSide
+          }
         />
       )}
     </VStack>

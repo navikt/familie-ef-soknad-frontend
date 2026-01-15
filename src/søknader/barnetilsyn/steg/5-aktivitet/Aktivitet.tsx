@@ -7,7 +7,7 @@ import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivit
 import { ErDuIArbeidSpm } from './AktivitetConfig';
 import { EArbeidssituasjon, ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
 import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -20,6 +20,7 @@ import { VStack } from '@navikt/ds-react';
 export const Aktivitet: React.FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
+  const { routes } = useBarnetilsynRoutes();
   const { aktivitet, settAktivitet, settDokumentasjonsbehov, mellomlagreSteg } = useAktivitet();
   const { hvaErDinArbeidssituasjon, erIArbeid } = aktivitet;
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
@@ -72,7 +73,7 @@ export const Aktivitet: React.FC = () => {
       stegtittel={hentTekst('stegtittel.arbeidssituasjon.barnetilsyn', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erSisteSpørsmålBesvartOgMinstEttAlternativValgt}
-      routesStønad={RoutesBarnetilsyn}
+      routesStønad={routes}
       mellomlagreStønad={mellomlagreSteg}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >

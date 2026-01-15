@@ -38,6 +38,8 @@ import {
 } from '../../helpers/steg/forelder';
 import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 const initialState = (intl: LokalIntlShape): SøknadBarnetilsyn => {
   return {
@@ -78,6 +80,9 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
   const [mellomlagretBarnetilsyn, settMellomlagretBarnetilsyn] =
     useState<MellomlagretSøknadBarnetilsyn>();
 
+  const { toggles } = useToggles();
+  const gjenbrukBarnetilsynToggle = toggles[ToggleName.gjenbrukBarnetilsyn];
+
   useEffect(() => {
     if (mellomlagretBarnetilsyn?.locale && mellomlagretBarnetilsyn?.locale !== locale) {
       setLocale(mellomlagretBarnetilsyn.locale as LocaleType);
@@ -103,8 +108,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
   const hentForrigeSøknadBarnetilsyn = async (): Promise<void> => {
     const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad();
     const personData = await hentPersonData();
-    const ENABLE_GJENBRUK_FORRIGE_SØKNAD = false;
-    if (ENABLE_GJENBRUK_FORRIGE_SØKNAD && forrigeSøknad) {
+    if (gjenbrukBarnetilsynToggle && forrigeSøknad) {
       settSøknad((prevSøknad) => {
         const aktuelleBarn = forrigeSøknad.person.barn.filter((barn) =>
           personData.barn.some((personBarn) => personBarn.fnr === barn.ident.verdi)
