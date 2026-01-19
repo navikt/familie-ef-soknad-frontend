@@ -5,7 +5,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import BarnMedISøknad from './BarnMedISøknad';
 import { Barnekort } from '../../../felles/steg/3-barnadine/Barnekort';
 import { IBarn } from '../../../../models/steg/barn';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -15,6 +15,7 @@ import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 export const BarnaDine: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, mellomlagreBarnetilsyn, oppdaterBarnISøknaden } = useBarnetilsynSøknad();
+  const { routes } = useBarnetilsynRoutes();
   const navigasjonState = NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const toggleSkalHaBarnepass = (id: string) => {
@@ -45,7 +46,7 @@ export const BarnaDine: React.FC = () => {
       stegtittel={hentTekst('barnadine.sidetittel', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={harValgtMinstEttBarn}
-      routesStønad={RoutesBarnetilsyn}
+      routesStønad={routes}
       mellomlagreStønad={mellomlagreBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >

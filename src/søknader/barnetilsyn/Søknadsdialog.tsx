@@ -10,7 +10,7 @@ import Gjenbruk from './steg/0.5-gjenbruk/Gjenbruk';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 import { useBarnetilsynSøknad } from './BarnetilsynContext';
-import { RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from './routing/useBarnetilsynRoutes';
 import { pathOppsummeringBarnetilsyn } from './utils';
 import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { erBarnetilsynSøknad, Søknad } from '../../models/søknad/søknad';
@@ -35,6 +35,8 @@ const SøknadsdialogBarnetilsyn: FC = () => {
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
   } = useBarnetilsynSøknad();
+
+  const { routes } = useBarnetilsynRoutes();
 
   const oppdaterBarnetilsynSøknad = (søknad: Søknad) => {
     if (erBarnetilsynSøknad(søknad)) {
@@ -67,7 +69,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
               søknad={søknad}
               oppdaterSøknad={oppdaterBarnetilsynSøknad}
               mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
+              routes={routes}
             >
               <Dokumentasjon />
             </DokumentasjonsProvider>
@@ -91,7 +93,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
               oppdaterSøknad={oppdaterBarnetilsynSøknad}
               mellomlagretSøknad={mellomlagretBarnetilsyn}
               mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
+              routes={routes}
               pathOppsummering={pathOppsummeringBarnetilsyn}
               settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
             >
@@ -126,7 +128,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
               oppdaterBarnISøknaden={oppdaterBarnISøknaden}
               oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
               mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
+              routes={routes}
               pathOppsummering={pathOppsummeringBarnetilsyn}
               settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
             >
@@ -153,7 +155,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
               oppdaterSøknad={oppdaterBarnetilsynSøknad}
               mellomlagretSøknad={mellomlagretBarnetilsyn}
               mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
+              routes={routes}
               pathOppsummering={pathOppsummeringBarnetilsyn}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
             >
@@ -172,7 +174,7 @@ const SøknadsdialogBarnetilsyn: FC = () => {
               oppdaterSøknad={oppdaterBarnetilsynSøknad}
               mellomlagretSøknad={mellomlagretBarnetilsyn}
               mellomlagreSøknad={mellomlagreBarnetilsynSøknad}
-              routes={RoutesBarnetilsyn}
+              routes={routes}
               pathOppsummering={pathOppsummeringBarnetilsyn}
               settDokumentasjonsbehov={settDokumentasjonsbehov}
             >

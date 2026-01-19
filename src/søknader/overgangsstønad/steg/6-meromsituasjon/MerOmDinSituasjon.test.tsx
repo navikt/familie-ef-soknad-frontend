@@ -1,5 +1,5 @@
 import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import {
   klikkCheckbox,
   klikkRadioknapp,
@@ -7,6 +7,8 @@ import {
   skrivFritekst,
 } from '../../../../test/aksjoner';
 import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
+
+const søkerFraBestemtMånedSpørsmålOvergangsstønad = `Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 3)}. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 5)}. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.`;
 
 vi.mock('axios', () => {
   return {
@@ -357,7 +359,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).not.toBeInTheDocument();
 
@@ -373,7 +375,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).toBeInTheDocument();
   });
@@ -430,7 +432,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).not.toBeInTheDocument();
 
@@ -446,7 +448,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).toBeInTheDocument();
   });
@@ -470,7 +472,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.queryByRole('group', {
-        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).not.toBeInTheDocument();
 
@@ -483,7 +485,7 @@ describe('Mer om din situasjon', () => {
 
     expect(
       screen.getByRole('group', {
-        name: 'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+        name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).toBeInTheDocument();
   });
@@ -528,12 +530,7 @@ describe('Mer om din situasjon', () => {
       )
     ).toBeInTheDocument();
 
-    await klikkRadioknapp(
-      'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
-      'Ja',
-      screen,
-      user
-    );
+    await klikkRadioknapp(søkerFraBestemtMånedSpørsmålOvergangsstønad, 'Ja', screen, user);
 
     expect(screen.getByText('Når søker du stønad fra?')).toBeInTheDocument();
     expect(
@@ -600,7 +597,7 @@ describe('Mer om din situasjon', () => {
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
     await klikkRadioknapp(
-      'Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med september 2025. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med juli 2025. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.',
+      søkerFraBestemtMånedSpørsmålOvergangsstønad,
       'Nei, Nav kan vurdere fra hvilken måned jeg har rett til stønad',
       screen,
       user

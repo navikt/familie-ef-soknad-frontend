@@ -10,7 +10,7 @@ import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { ErklæringSamlivsbrudd } from '../../../felles/steg/9-kvittering/ErklæringSamlivsbrudd';
 import { EBegrunnelse } from '../../../../models/steg/omDeg/sivilstatus';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
-import { RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
+import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import { RegistrerBarnIFolkeregister } from '../../../felles/steg/9-kvittering/RegistrerBarnIFolkeregister';
 import { EttersendDokumentasjon } from '../../../felles/steg/9-kvittering/EttersendDokumentasjon';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
@@ -27,6 +27,7 @@ const Kvittering: React.FC = () => {
   const { søknad, nullstillMellomlagretBarnetilsyn, nullstillSøknadBarnetilsyn } =
     useBarnetilsynSøknad();
   const { person } = usePersonContext();
+  const { routes } = useBarnetilsynRoutes();
   const barnSomSkalHaBarnepass = søknad.person.barn.filter(
     (barn: IBarn) => barn.skalHaBarnepass?.verdi
   );
@@ -52,7 +53,7 @@ const Kvittering: React.FC = () => {
       stønadstype={Stønadstype.barnetilsyn}
       stegtittel={hentTekst('kvittering.takk', intl)}
       navigasjonState={NavigasjonState.skjulKnapper}
-      routesStønad={RoutesBarnetilsyn}
+      routesStønad={routes}
       skalViseStegindikator={false}
     >
       <VStack gap={'16'}>

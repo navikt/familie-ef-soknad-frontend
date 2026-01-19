@@ -17,7 +17,7 @@ export enum ERouteBarnetilsyn {
   Kvittering = 'Kvittering',
 }
 
-export const RoutesBarnetilsyn: IRoute[] = [
+const alleRoutes: IRoute[] = [
   { path: '/barnetilsyn', label: 'Forside', route: ERouteBarnetilsyn.Forside },
   {
     path: '/barnetilsyn/gjenbruk',
@@ -78,6 +78,11 @@ export const RoutesBarnetilsyn: IRoute[] = [
     route: ERouteBarnetilsyn.Kvittering,
   },
 ];
+
+export const RoutesBarnetilsyn: IRoute[] = alleRoutes;
+
+export const filtrerRoutesUtenGjenbruk = (routes: IRoute[]): IRoute[] =>
+  routes.filter((route) => route.route !== ERouteBarnetilsyn.Gjenbruk);
 
 export const erUrlBarnetilsyn = (): boolean => {
   return window.location.href.includes(

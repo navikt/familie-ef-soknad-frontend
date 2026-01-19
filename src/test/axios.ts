@@ -67,6 +67,14 @@ export const mockGet = (url: string, stønadType: StønadType) => {
   if (url === `${Environment().apiProxyUrl}/api/innlogget`) {
     return Promise.resolve({ status: 200 });
   }
+  if (url === `${Environment().apiProxyUrl}/api/featuretoggle`) {
+    return Promise.resolve({
+      data: {
+        'familie.ef.soknad.nynorsk': true,
+        'familie.ef.soknad.gjenbruk-barnetilsyn': false,
+      },
+    });
+  }
   if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
     return Promise.resolve({
       data: lagPersonData({
