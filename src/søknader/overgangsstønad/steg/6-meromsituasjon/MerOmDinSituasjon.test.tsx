@@ -6,7 +6,10 @@ import {
   navigerTilStegOvergangsstønad,
   skrivFritekst,
 } from '../../../../test/aksjoner';
-import { dagensDato, formatMånederTilbake } from '../../../../utils/dato';
+import { dagensDato, formatDate, formatMånederTilbake } from '../../../../utils/dato';
+import { subMonths } from 'date-fns';
+
+const datoToMånederSiden = formatDate(subMonths(dagensDato, 2));
 
 const søkerFraBestemtMånedSpørsmålOvergangsstønad = `Søker du overgangsstønad fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få overgangsstønad fra og med måneden etter at du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 3)}. Hvis du er gravid, kan du ha rett til overgangsstønad fra måneden før fødsel. Hvis du har fått barn i løpet av de siste 3 månedene, kan du få stønad i inntil 5 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 5)}. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.`;
 
@@ -363,7 +366,7 @@ describe('Mer om din situasjon', () => {
       })
     ).not.toBeInTheDocument();
 
-    await skrivFritekst('Når sa du opp?', '28.07.2025', screen, user);
+    await skrivFritekst('Når sa du opp?', datoToMånederSiden, screen, user);
 
     expect(
       screen.getByText((tekst) =>
@@ -436,7 +439,7 @@ describe('Mer om din situasjon', () => {
       })
     ).not.toBeInTheDocument();
 
-    await skrivFritekst('Når reduserte du arbeidstiden?', '28.07.2025', screen, user);
+    await skrivFritekst('Når reduserte du arbeidstiden?', datoToMånederSiden, screen, user);
 
     expect(
       screen.getByText((tekst) =>
