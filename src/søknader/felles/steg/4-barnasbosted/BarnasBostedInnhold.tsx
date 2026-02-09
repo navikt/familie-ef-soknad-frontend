@@ -48,7 +48,6 @@ export const BarnasBostedInnhold: React.FC = () => {
       antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined) ===
         barnMedLevendeMedforelderEllerUndefined.length
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [barnISøknad]);
 
   return (
@@ -82,7 +81,7 @@ export const BarnasBostedInnhold: React.FC = () => {
       })}
       {sisteBarnUtfylt &&
         barnMedDødMedforelder.map((barn: IBarn) => (
-          <VStack key={barn.id} gap={'16'}>
+          <VStack key={barn.id} gap={'space-64'}>
             <BarneHeader barn={barn} />
             <BodyShort style={{ textAlign: 'center', marginTop: '2rem' }}>
               {hentTekst('barnasbosted.kanGåVidere', intl)}

@@ -8,10 +8,10 @@ import { hentTekst } from '../../utils/teksthåndtering';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledMultisvarSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
+  .aksel-fieldset .aksel-radio-buttons {
     margin-top: 0;
   }
-  .navds-radio-buttons {
+  .aksel-radio-buttons {
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
@@ -23,7 +23,7 @@ const StyledMultisvarSpørsmål = styled.div`
     }
   }
 
-  .toKorteSvar .navds-radio-buttons {
+  .toKorteSvar .aksel-radio-buttons {
     grid-template-columns: 1fr 1fr;
 
     @media all and (max-width: 420px) {

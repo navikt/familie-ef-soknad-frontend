@@ -23,14 +23,13 @@ export const SøkerHarSøktSeparasjon: React.FC = () => {
   };
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <Datovelger
         settDato={(e) => settDatoSøktSeparasjon(e, datovelgerTekstid)}
         valgtDato={datoSøktSeparasjon ? datoSøktSeparasjon.verdi : undefined}
         tekstid={datovelgerTekstid}
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
-
       <Alert variant={'info'} size={'small'} inline>
         {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
       </Alert>

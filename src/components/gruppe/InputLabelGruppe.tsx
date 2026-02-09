@@ -16,11 +16,11 @@ const StyledComponent = styled.div`
     'hjelpetekst hjelpetekst'
     'input tegn';
 
-  .navds-label {
+  .aksel-label {
     grid-area: label;
   }
 
-  .navds-form-field {
+  .aksel-form-field {
     grid-area: input;
   }
 

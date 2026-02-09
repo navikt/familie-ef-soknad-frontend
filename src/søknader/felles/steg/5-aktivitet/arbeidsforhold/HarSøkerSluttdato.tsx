@@ -55,7 +55,7 @@ export const HarSøkerSluttdato: React.FC<Props> = ({ arbeidsgiver, settArbeidsg
   const sluttdatoTekstid = 'arbeidsforhold.datovelger.sluttdato';
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <JaNeiSpørsmål
         spørsmål={harDuSluttdato(intl)}
         onChange={settHarSluttDato}

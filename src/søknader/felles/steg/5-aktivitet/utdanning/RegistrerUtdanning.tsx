@@ -42,7 +42,6 @@ export const RegistrerUtdanning: React.FC<Props> = ({
       }
     );
     endretTidligereUtdanninger && settTidligereUtdanninger(endretTidligereUtdanninger);
-    // eslint-disable-next-line
   }, [utdanning]);
 
   const linjeKursGradLabel = hentTekst(linjeKursGrad.label_tekstid, intl);
@@ -96,7 +95,7 @@ export const RegistrerUtdanning: React.FC<Props> = ({
           <SlettKnapp onClick={() => fjernUtdanning()} tekstid={'utdanning.knapp.slett'} />
         )}
       </HStack>
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <TextFieldMedBredde
           key={linjeKursGrad.id}
           label={linjeKursGradLabel}
@@ -107,7 +106,7 @@ export const RegistrerUtdanning: React.FC<Props> = ({
           data-testid={testIder ? testIder[0] : undefined}
         />
         {harValgtSvar(utdanning.linjeKursGrad?.verdi) && (
-          <VStack gap={'2'}>
+          <VStack gap={'space-8'}>
             <PeriodeÅrMånedvelgere
               tekst={hentTekst('utdanning.datovelger.studieperiode', intl)}
               periode={utdanning.periode ? utdanning.periode : tomPeriode}

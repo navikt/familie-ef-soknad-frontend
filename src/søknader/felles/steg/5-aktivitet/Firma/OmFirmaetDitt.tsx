@@ -42,7 +42,6 @@ export const OmFirmaetDitt: React.FC<Props> = ({
     });
 
     settFirmaer(endredeFirmaer);
-    // eslint-disable-next-line
   }, [firma]);
 
   const settDatoFelt = (dato: string): void => {
@@ -107,7 +106,7 @@ export const OmFirmaetDitt: React.FC<Props> = ({
           <SlettKnapp onClick={() => fjernFirma()} tekstid={'firma.knapp.slett'} />
         )}
       </HStack>
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <TextFieldMedBredde
           label={labelNavn}
           bredde={'L'}

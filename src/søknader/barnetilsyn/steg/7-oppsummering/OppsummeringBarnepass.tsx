@@ -30,7 +30,7 @@ export const OppsummeringBarnepass: FC<Props> = ({
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'space-48'}>
       {barnSomSkalHaBarnepass.map((barn: IBarn) => {
         const { barnepass } = barn;
         return (
@@ -44,9 +44,8 @@ export const OppsummeringBarnepass: FC<Props> = ({
           </section>
         );
       })}
-
       {søkerFraBestemtDato && (
-        <VStack gap={'8'}>
+        <VStack gap={'space-32'}>
           <hr style={{ width: '100%' }} />
           <div>
             <Label as="p">{søkerFraBestemtDato.label}</Label>

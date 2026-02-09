@@ -6,10 +6,10 @@ import { RadioKnapp } from '../panel/RadioKnapp';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 
 const StyledJaNeiSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
+  .aksel-fieldset .aksel-radio-buttons {
     margin-top: 0;
   }
-  .navds-radio-buttons {
+  .aksel-radio-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: min-content;

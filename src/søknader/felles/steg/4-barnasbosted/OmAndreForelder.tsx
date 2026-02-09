@@ -53,8 +53,6 @@ export const OmAndreForelder: React.FC<Props> = ({
 
       settForelder(nyForelder);
     }
-
-    // eslint-disable-next-line
   }, [erGyldigIdent, identFelt]);
 
   const hvisGyldigIdentSettIdent = (ident: string) => {
@@ -141,8 +139,8 @@ export const OmAndreForelder: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'12'}>
-      <VStack gap={'4'}>
+    <VStack gap={'space-48'}>
+      <VStack gap={'space-16'}>
         <TextFieldMedBredde
           bredde={'L'}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

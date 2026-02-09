@@ -41,7 +41,7 @@ const Side: React.FC<ISide> = ({
       <SøknadBanner bannerKey={'banner.tittel.arbeidssøker'} />
       <div className={'side'}>
         {skalViseStegindikator && <Stegindikator aktivtSteg={aktivtSteg} steg={stegobjekter} />}
-        <Box padding="4" className={'side__innhold'}>
+        <Box padding="space-16" className={'side__innhold'}>
           <div className={'innholdscontainer'}>
             <Heading size="medium" className="hoved">
               {tittel}

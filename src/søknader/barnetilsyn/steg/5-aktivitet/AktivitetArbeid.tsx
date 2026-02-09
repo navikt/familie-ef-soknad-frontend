@@ -40,7 +40,7 @@ export const AktivitetArbeid: React.FC = () => {
   };
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'space-48'}>
       <CheckboxSpørsmål
         spørsmål={filtrerAktivitetSvaralternativer(
           søknad.person,

@@ -45,14 +45,13 @@ export const BosituasjonSpørsmål: FC = () => {
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.harEkteskapsliknendeForhold;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <MultiSvarSpørsmål
         key={hovedSpørsmål.søknadid}
         spørsmål={hovedSpørsmål}
         valgtSvar={delerBoligMedAndreVoksne.verdi}
         settSpørsmålOgSvar={oppdaterDelerBoligMedAndreVoksne}
       />
-
       {valgtSvar && valgtSvar.alert_tekstid && (
         <VStack>
           {visTidligereSamboerBorPåSammeAdresseAlert ? (
@@ -66,11 +65,8 @@ export const BosituasjonSpørsmål: FC = () => {
           )}
         </VStack>
       )}
-
       {visOmTidligereSamboer && <OmTidligereSamboer />}
-
       {visPlanerOmÅFlytteSammenEllerFåSamboer && <SøkerSkalFlytteSammenEllerFåSamboer />}
-
       {visEkteskapLignendeForhold && <EkteskapslignendeForhold />}
     </VStack>
   );

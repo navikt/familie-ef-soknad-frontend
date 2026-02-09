@@ -11,16 +11,16 @@ export const DisclaimerBoks: React.FC<{
 }> = ({ navn, tekst, harBekreftet, settBekreftelse }) => {
   const intl = useLokalIntlContext();
   return (
-    <VStack gap={'2'}>
+    <VStack gap={'space-8'}>
       <Heading level="2" size="small">
         {hentTekst('skjema.forside.disclaimer.tittel', intl)}
       </Heading>
       <Box
-        background={harBekreftet ? 'surface-success-subtle' : 'surface-warning-subtle'}
-        padding={'4'}
+        background={harBekreftet ? 'success-soft' : 'warning-soft'}
+        padding={'space-16'}
         borderWidth={'1'}
-        borderRadius={'medium'}
-        borderColor={harBekreftet ? 'border-success' : 'border-warning'}
+        borderRadius={'4'}
+        borderColor={harBekreftet ? 'success' : 'warning'}
       >
         <BodyShort>{hentTekst(tekst, intl)}</BodyShort>
         <Checkbox checked={!!harBekreftet} onChange={() => settBekreftelse(!harBekreftet)}>

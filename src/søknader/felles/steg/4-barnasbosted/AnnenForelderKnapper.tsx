@@ -25,10 +25,10 @@ const StyledAnnenForelderSpørsmål = styled.div`
   legend {
     display: none;
   }
-  .navds-fieldset .navds-radio-buttons {
+  .aksel-fieldset .aksel-radio-buttons {
     margin-top: 0;
   }
-  .navds-radio-buttons {
+  .aksel-radio-buttons {
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;

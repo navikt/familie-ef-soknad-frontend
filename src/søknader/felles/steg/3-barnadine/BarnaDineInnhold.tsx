@@ -28,11 +28,10 @@ export const BarnaDineInnhold: React.FC<Props> = ({
   const [åpenModal, settÅpenModal] = useState(false);
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Alert variant="info" size="small" inline>
         {hentTekst('barnadine.infohentet', intl)}
       </Alert>
-
       <div className={styles.barneKortWrapper}>
         {barneliste
           ?.sort((a: IBarn, b: IBarn) => {
@@ -63,7 +62,6 @@ export const BarnaDineInnhold: React.FC<Props> = ({
           ))}
         <LeggTilBarnKort settÅpenModal={settÅpenModal} />
       </div>
-
       {åpenModal && (
         <LeggTilBarnModal
           tittel={hentTekst('barnadine.leggtil', intl)}

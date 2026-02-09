@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { FC } from 'react';
 import MultiSvarSpørsmålMedNavn from '../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
@@ -52,7 +51,7 @@ export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id);
   };
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'space-48'}>
       <Alert size="small" variant="warning" inline>
         {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
       </Alert>
@@ -67,7 +66,6 @@ export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
           {hentTekst('barnepass.alert-info.myeBortePgaJobb', intl)}
         </Alert>
       )}
-
       {dokumentasjonsbehovTekst && (
         <AlertStripeDokumentasjon>
           {hentTekst(dokumentasjonsbehovTekst, intl)}

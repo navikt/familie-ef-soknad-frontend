@@ -61,8 +61,8 @@ export const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderU
   };
 
   return (
-    <VStack gap={'16'}>
-      <VStack gap={'2'}>
+    <VStack gap={'space-64'}>
+      <VStack gap={'space-8'}>
         <Heading size="small" level="3" className={'sentrert'}>
           {hentTekst('utdanning.tittel.tidligere', intl)}
         </Heading>
@@ -73,7 +73,6 @@ export const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderU
           testID={'grunn-til-spørsmål-om-tidligere-utdanning'}
         />
       </VStack>
-
       <JaNeiSpørsmål
         spørsmål={utdanningEtterGrunnskolenSpm(intl)}
         onChange={settHarTattUtdanningEtterGrunnskolen}

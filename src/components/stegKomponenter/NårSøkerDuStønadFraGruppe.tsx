@@ -13,10 +13,10 @@ import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 import { AlertStripeDokumentasjon } from '../AlertstripeDokumentasjon';
 
 const StyledMultisvarSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
+  .aksel-fieldset .aksel-radio-buttons {
     margin-top: 0;
   }
-  .navds-radio-buttons {
+  .aksel-radio-buttons {
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: min-content;
@@ -53,7 +53,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap={'16'}>
+    <VStack gap={'space-64'}>
       <VStack>
         <StyledMultisvarSpørsmål>
           <RadioGroup
@@ -83,9 +83,8 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
           </RadioGroup>
         </StyledMultisvarSpørsmål>
       </VStack>
-
       {søkerFraBestemtMåned?.verdi === true && (
-        <VStack gap={'2'}>
+        <VStack gap={'space-8'}>
           <Label as="p">{hentTekst('søkerFraBestemtMåned.datovelger', intl)}</Label>
           <MånedÅrVelger
             valgtDato={valgtDato?.verdi ? strengTilDato(valgtDato?.verdi) : undefined}

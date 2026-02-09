@@ -36,7 +36,7 @@ export const ModalWrapper: React.FC<ModalProps> = ({
       style={{ maxWidth: '40rem' }}
     >
       <Modal.Body>
-        <VStack gap={'4'} marginInline={'6 6'}>
+        <VStack gap={'space-16'} marginInline={'space-24 space-24'}>
           {children}
           {aksjonsknapper && (
             <>

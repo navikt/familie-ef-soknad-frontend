@@ -8,7 +8,7 @@ export const AktivitetSyk: React.FC = () => {
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap={'2'}>
+    <VStack gap={'space-8'}>
       <Alert variant={'info'} inline>
         <Label as="p">{hentHTMLTekst('erDuIArbeid.alertsstripe-info', intl)}</Label>
       </Alert>

@@ -20,7 +20,7 @@ const OppsummeringDetaljertUtdanning: React.FC<Props> = ({ utdanning, endreInfor
   const underUtdanning = VisLabelOgSvar(utdanning);
 
   return (
-    <VStack gap={'12'} marginBlock={'10 0'}>
+    <VStack gap={'space-48'} marginBlock={'space-40 space-0'}>
       <VStack>
         <Heading size={'small'} level={'4'}>
           {hentTekst('utdanning.tittel', intl)}

@@ -43,7 +43,7 @@ const Gjenbruk: FC = () => {
   return (
     <div className={'forside'}>
       <div className={'forside__innhold'}>
-        <Box padding="4" className={'forside__panel'}>
+        <Box padding="space-16" className={'forside__panel'}>
           <GuidePanel poster>
             <BodyShortContainer>
               <BodyShort>

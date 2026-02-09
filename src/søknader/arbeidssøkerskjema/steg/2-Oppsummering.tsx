@@ -73,7 +73,7 @@ const Oppsummering: React.FC = () => {
 
   return (
     <Side tittel={hentTekst('oppsummering.sidetittel', intl)} skalViseKnapper={false}>
-      <VStack gap={'6'}>
+      <VStack gap={'space-24'}>
         <BodyShort>{hentTekst('skjema.oppsummering.disclaimer', intl)}</BodyShort>
         <Heading size="small" level="4" align={'center'}>
           {hentTekst('skjema.oppsummering.omdeg', intl)}

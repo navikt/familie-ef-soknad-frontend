@@ -24,14 +24,13 @@ export const DatoForSamlivsbrudd: React.FC = () => {
   };
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <Datovelger
         settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
         valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}
         tekstid={datovelgerLabel}
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
-
       <Alert variant={'info'} size={'small'} inline>
         {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
       </Alert>

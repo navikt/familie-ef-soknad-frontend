@@ -49,7 +49,6 @@ export const LeggTilBarnModal: React.FC<Props> = ({
       settSkalHaBarnepass(detteBarnet?.skalHaBarnepass?.verdi);
       detteBarnet?.fødselsdato.verdi && settDato(detteBarnet.fødselsdato?.verdi);
     }
-    // eslint-disable-next-line
   }, []);
 
   const settDato = (date: string): void => {
@@ -82,7 +81,7 @@ export const LeggTilBarnModal: React.FC<Props> = ({
 
   return (
     <ModalWrapper tittel={tittel} visModal={true} onClose={lukkModal}>
-      <VStack gap="6" aria-live="polite" className={styles.modalInnhold}>
+      <VStack gap="space-24" aria-live="polite" className={styles.modalInnhold}>
         <LeggTilBarnUfødt
           settBo={settBo}
           boHosDeg={boHosDeg}

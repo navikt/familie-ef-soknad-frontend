@@ -151,7 +151,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
 
   return (
     <div className="barnas-bosted">
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <BarneHeader barn={barn} />
 
         {!barn.harSammeAdresse.verdi && (
@@ -159,7 +159,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
         )}
 
         {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
-          <VStack gap={'12'}>
+          <VStack gap={'space-48'}>
             <Heading size="small" level="4">
               {førsteBokstavStor(
                 hentBarnNavnEllerBarnet(barn, 'barnasbosted.element.barnet', intl)

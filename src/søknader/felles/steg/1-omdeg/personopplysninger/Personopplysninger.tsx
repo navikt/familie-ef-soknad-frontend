@@ -55,16 +55,15 @@ export const Personopplysninger: React.FC = () => {
     søkerBorPåRegistrertAdresse?.verdi === false;
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <PersonopplysningerVisning
         personIdent={søker.fnr}
         statsborgerskap={søker.statsborgerskap}
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
-
       {visAdresseSpørsmål && (
-        <VStack gap={'8'}>
+        <VStack gap={'space-32'}>
           <JaNeiSpørsmål
             spørsmål={borDuPåDenneAdressen(intl)}
             valgtSvar={søkerBorPåRegistrertAdresse?.verdi}

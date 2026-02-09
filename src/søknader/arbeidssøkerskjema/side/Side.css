@@ -13,7 +13,7 @@
   grid-area: stegindikator;
   margin: 1rem 0 1rem;
 }
-.skjema > .side .navds-heading {
+.skjema > .side .aksel-heading {
   grid-area: tittel;
   justify-self: center;
   padding-bottom: 2rem;
@@ -77,7 +77,7 @@
   margin-top: 2rem;
   max-width: 588px;
 }
-.side .navds-button.kvittering {
+.side .aksel-button.kvittering {
   padding-top: 0;
   padding-bottom: 0;
 }

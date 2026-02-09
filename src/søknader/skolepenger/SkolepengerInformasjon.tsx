@@ -19,23 +19,20 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
   const nesteSide = hentPath(RoutesSkolepenger, ERouteSkolepenger.OmDeg) || '';
 
   return (
-    <VStack gap={'10'} align={'center'}>
+    <VStack gap={'space-40'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.skolepenger} />
-
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.skolepenger.innledning', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.merInfoLenke', intl)}
       </VStack>
-
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.riktigeOpplysninger', intl)}
         </Heading>
         <BodyShort>{hentTekst('forside.skolepenger.riktigeOpplysninger', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.skolepenger.meldeEndringer', intl)}</BodyShort>
       </VStack>
-
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.sendeDokumentasjon', intl)}
         </Heading>
@@ -43,8 +40,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.dokumentasjonsOversiktLenke', intl)}
       </VStack>
-
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.henteInformasjon', intl)}
         </Heading>
@@ -54,8 +50,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.personopplysningeneDineLenke', intl)}
       </VStack>
-
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.slikSøkerDu', intl)}
         </Heading>
@@ -63,14 +58,12 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.lagringSøknad', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.skolepenger.manglerDuDokumentasjon', intl)}</BodyShort>
       </VStack>
-
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
         tekst={'forside.skolepenger.disclaimerTekst'}
         harBekreftet={harBekreftet}
         settBekreftelse={settBekreftelse}
       />
-
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
     </VStack>
   );

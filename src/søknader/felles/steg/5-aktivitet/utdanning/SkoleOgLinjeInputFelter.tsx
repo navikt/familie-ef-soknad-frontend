@@ -26,7 +26,7 @@ export const SkoleOgLinje: React.FC<Props> = ({ utdanning, oppdaterUtdanning }) 
   const linjeKursGradLabel = hentTekst(linjeKursGrad.label_tekstid, intl);
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <TextFieldMedBredde
         key={skoleUtdanningssted.id}
         label={skoleUtdanningstedLabel}

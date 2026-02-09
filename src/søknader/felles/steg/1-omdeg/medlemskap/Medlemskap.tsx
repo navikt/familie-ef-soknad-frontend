@@ -94,13 +94,12 @@ export const Medlemskap: React.FC = () => {
   const visPeriodeBoddIUtland = søkerBosattINorgeSisteTreÅr?.verdi === false;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <JaNeiSpørsmål
         spørsmål={oppholderSegINorgeConfig}
         valgtSvar={hentValgtSvar(oppholderSegINorgeConfig, medlemskap)}
         onChange={settMedlemskapBooleanFelt}
       />
-
       {visOppholdsLandSpørsmål && (
         <SelectSpørsmål
           spørsmål={oppholdslandConfig}
@@ -108,7 +107,6 @@ export const Medlemskap: React.FC = () => {
           settSpørsmålOgSvar={settOppholdsland}
         />
       )}
-
       {visBosattINorgeSiste5ÅrSpørsmål && (
         <JaNeiSpørsmål
           spørsmål={bosattINorgeDeSisteFemÅrConfig}
@@ -116,7 +114,6 @@ export const Medlemskap: React.FC = () => {
           onChange={settBosattSisteFemÅr}
         />
       )}
-
       {visPeriodeBoddIUtland && <PeriodeBoddIUtlandet land={land} />}
     </VStack>
   );

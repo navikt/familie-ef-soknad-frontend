@@ -24,32 +24,28 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
   const visAdresse = adresse.adresse.trim() !== '';
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Alert variant="info" inline>
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>
-
       <VStack>
         <Heading size="xsmall">{hentTekst('person.ident.visning', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {personIdent}
         </BodyShort>
       </VStack>
-
       <VStack>
         <Heading size="xsmall">{hentTekst('person.statsborgerskap', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {statsborgerskap}
         </BodyShort>
       </VStack>
-
       <VStack>
         <Heading size="xsmall">{hentTekst('sivilstatus.tittel', intl)}</Heading>
         <BodyShort size="medium" weight="regular">
           {formatertSivilstand}
         </BodyShort>
       </VStack>
-
       {visAdresse && (
         <VStack>
           <Heading size="xsmall">{hentTekst('person.adresse', intl)}</Heading>

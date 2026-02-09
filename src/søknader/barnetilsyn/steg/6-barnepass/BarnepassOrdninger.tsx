@@ -56,7 +56,7 @@ export const BarnepassOrdninger: FC<Props> = ({ barn, settBarnepass, indeks }) =
   };
 
   return (
-    <VStack gap={'16'} key={barn.id}>
+    <VStack gap={'space-64'} key={barn.id}>
       {barnepass?.barnepassordninger.map((barnepassordning) => (
         <BarnepassSpørsmål
           key={barnepassordning.id}

@@ -24,7 +24,7 @@ export const HarForelderSkriftligSamværsavtale: FC<Props> = ({
   const intl = useLokalIntlContext();
   const harDereSkriftligSamværsavtaleSpm = harDereSkriftligSamværsavtale(intl);
   return (
-    <VStack gap={'2'}>
+    <VStack gap={'space-8'}>
       <MultiSvarSpørsmålMedNavn
         key={harDereSkriftligSamværsavtaleSpm.søknadid}
         spørsmål={harDereSkriftligSamværsavtaleSpm}

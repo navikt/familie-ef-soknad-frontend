@@ -11,7 +11,7 @@ interface Props {
 export const EttersendDokumentasjon: FC<Props> = ({ stønadstype }) => {
   const intl = useLokalIntlContext();
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" level="3">
         {hentTekst('dokumentasjon.ettersend.tittel', intl)}
       </Heading>

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { FC } from 'react';
 import { DatoForSamlivsbrudd } from './DatoForSamlivsbrudd';
 import { EndringISamvær } from './EndringISamvær';
@@ -42,20 +41,16 @@ export const ÅrsakEnslig: FC = () => {
   const visDødsfallAlert = årsakEnslig?.svarid === EBegrunnelse.dødsfall;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <MultiSvarSpørsmål
         key={spørsmål.tekstid}
         spørsmål={spørsmål}
         valgtSvar={sivilstatus.årsakEnslig?.verdi}
         settSpørsmålOgSvar={settÅrsakEnslig}
       />
-
       {visDatoForSamlivsbrudd && <DatoForSamlivsbrudd />}
-
       {visOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
-
       {visEndringISamvær && <EndringISamvær />}
-
       {visDødsfallAlert && (
         <Alert variant="info" size="small" inline>
           {hentHTMLTekst(alertTekstForDødsfall, intl)}

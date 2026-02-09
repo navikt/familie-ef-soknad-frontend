@@ -53,7 +53,7 @@ const OppsummeringBarnaDine: React.FC<Props> = ({ barn, stønadstype, endreInfor
     });
 
   return (
-    <VStack gap={'16'}>
+    <VStack gap={'space-64'}>
       {oppsummeringBarnaDine}
       <LenkeMedIkon
         onClick={() =>

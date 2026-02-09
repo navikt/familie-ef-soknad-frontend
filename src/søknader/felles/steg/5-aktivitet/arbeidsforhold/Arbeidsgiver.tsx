@@ -44,7 +44,6 @@ export const Arbeidsgiver: React.FC<Props> = ({
       else return arbeidsgiverFraSøknad;
     });
     endretArbeidsforhold && settArbeidsforhold(endretArbeidsforhold);
-    // eslint-disable-next-line
   }, [arbeidsgiver]);
 
   const settSpørsmålOgSvar = (spørsmål: ISpørsmål, svar: ISvar) => {
@@ -106,7 +105,7 @@ export const Arbeidsgiver: React.FC<Props> = ({
   const skalViseSlettKnapp = arbeidsforhold?.length > 1;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <HStack justify="space-between" align="center">
         <Heading size="small" level="4" className={'tittel'}>
           {arbeidsgiverTittel}
@@ -148,7 +147,6 @@ export const Arbeidsgiver: React.FC<Props> = ({
           valgtSvar={arbeidsgiver.ansettelsesforhold?.verdi}
         />
       )}
-
       {arbeidsgiver.ansettelsesforhold?.svarid === EStilling.lærling && (
         <AlertStripeDokumentasjon>
           {hentTekst('arbeidsforhold.alert.lærling', intl)}

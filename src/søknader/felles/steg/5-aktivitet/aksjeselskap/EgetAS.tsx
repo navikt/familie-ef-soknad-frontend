@@ -39,7 +39,6 @@ export const EgetAS: FC<Props> = ({
 
   useEffect(() => {
     settArbeidssituasjon({ ...arbeidssituasjon, egetAS: egetAS });
-    // eslint-disable-next-line
   }, [egetAS]);
 
   const leggTilAksjeselskap = () => {
@@ -50,7 +49,7 @@ export const EgetAS: FC<Props> = ({
   };
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'space-48'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('egetAS.tittel', intl)}
       </Heading>

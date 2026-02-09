@@ -9,7 +9,7 @@ export const SykSøker: FC<{ filPath: string }> = ({ filPath }) => {
   const intl = useLokalIntlContext();
   const { filInformasjon } = useHentFilInformasjon(filPath);
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" spacing={true}>
         {hentTekst('kvittering.tittel.huskeliste.erSyk', intl)}
       </Heading>

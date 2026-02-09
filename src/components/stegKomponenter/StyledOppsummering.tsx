@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledOppsummering = styled.div`
   .spørsmål-og-svar {
     margin-top: 2rem;
-    .navds-body-short {
+    .aksel-body-short {
       margin-top: 0.5rem;
     }
   }
@@ -17,7 +17,7 @@ export const StyledOppsummeringForBarn = styled.section`
 
   .spørsmål-og-svar {
     margin-top: 2rem;
-    .navds-body-short {
+    .aksel-body-short {
       margin-top: 0.5rem;
     }
   }
@@ -26,7 +26,7 @@ export const StyledOppsummeringForBarn = styled.section`
 export const StyledOppsummeringMedUndertitler = styled.div`
   .spørsmål-og-svar {
     margin-top: 1rem;
-    .navds-body-short {
+    .aksel-body-short {
       margin-top: 0.5rem;
     }
   }

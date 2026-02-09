@@ -6,7 +6,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 export const RegistrerDegSomArbeidssøker: FC = () => {
   const intl = useLokalIntlContext();
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <BodyShort>{hentTekst('kvittering.tekst.arbeidssøker', intl)}</BodyShort>
       <Link href={'https://arbeidssokerregistrering.nav.no/'}>
         {hentTekst('kvittering.knapp.arbeidssøker', intl)}

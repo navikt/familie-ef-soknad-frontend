@@ -12,7 +12,7 @@ export const InformasjonsElement: React.FC<Props> = ({ forklaringId, verdi }) =>
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap="1">
+    <VStack gap="space-4">
       <Label size="small">{hentTekst(forklaringId, intl)}</Label>
       <BodyShort>{verdi}</BodyShort>
     </VStack>

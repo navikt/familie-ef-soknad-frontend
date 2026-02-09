@@ -76,7 +76,7 @@ const Dokumentasjon: React.FC = () => {
       erSpørsmålBesvart={false}
       routesStønad={routes}
     >
-      <VStack gap={'4'}>
+      <VStack gap={'space-16'}>
         {harDokumentasjonsbehov ? (
           <>
             {hentTekst('dokumentasjon.beskrivelse', intl)}
@@ -89,7 +89,7 @@ const Dokumentasjon: React.FC = () => {
           hentTekst('dokumentasjon.ingenDokumentasjonsbehov.beskrivelse', intl)
         )}
       </VStack>
-      <VStack gap={'10'}>
+      <VStack gap={'space-40'}>
         {dokumentasjonsbehov
           .filter(unikeDokumentasjonsbehov)
           .map((dokumentasjon: IDokumentasjon, i: number) => {

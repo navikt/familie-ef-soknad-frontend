@@ -22,7 +22,7 @@ export const BarnepassBeløp: FC<Props> = ({ barnepassOrdning, settInputFelt, ba
       : 'barnepass.alert-dokumentasjon.beløp.privat';
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <InputLabelGruppe
         label={hentTekst('barnepass.label.beløp', intl)}
         nøkkel={EBarnepass.belop}

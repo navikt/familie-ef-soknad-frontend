@@ -36,17 +36,16 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInfor
   };
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       {VisLabelOgSvar(bosituasjon)}
       {samboerDetaljer && (
-        <VStack gap={'2'}>
+        <VStack gap={'space-8'}>
           <Heading size={'small'} level={'4'}>
             {lagSamboerOverskrift()}
           </Heading>
           {samboerDetaljer}
         </VStack>
       )}
-
       {vordendeSamboerEktefelle && (
         <VStack>
           <Heading size={'small'} level={'4'}>
@@ -55,7 +54,6 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInfor
           {vordendeSamboerEktefelle}
         </VStack>
       )}
-
       <LenkeMedIkon
         onClick={() =>
           navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })

@@ -142,7 +142,7 @@ export const Utenlandsopphold: FC<Props> = ({
     utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold);
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <HStack justify="space-between" align="center">
         <Heading size="small" level="3">
           {periodeTittel}
@@ -155,21 +155,18 @@ export const Utenlandsopphold: FC<Props> = ({
           />
         )}
       </HStack>
-
       <PeriodeDatovelgere
         tekst={hentTekst('medlemskap.periodeBoddIUtlandet', intl)}
         periode={utenlandsopphold.periode}
         settDato={settPeriode}
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
-
       <SelectSpørsmål
         spørsmål={landConfig}
         settSpørsmålOgSvar={settLand}
         valgtSvarId={perioderBoddIUtlandet[oppholdsnr].land?.svarid}
         skalLogges={false}
       />
-
       {visBegrunnelseTextArea && (
         <Textarea
           label={begrunnelseTekst}
@@ -184,7 +181,6 @@ export const Utenlandsopphold: FC<Props> = ({
           }}
         />
       )}
-
       {visEøsIdent && (
         <EøsIdent
           halvåpenTekstid={hentTekst('medlemskap.hjelpetekst-åpne.begrunnelse', intl)}
@@ -195,7 +191,6 @@ export const Utenlandsopphold: FC<Props> = ({
           }
         />
       )}
-
       {visSisteAdressTextField && (
         <TextField
           key={'navn'}

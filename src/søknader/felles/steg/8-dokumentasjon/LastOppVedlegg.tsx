@@ -30,7 +30,7 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
 
   return (
     <GuidePanel style={{ border: 'none' }} illustration={<GrøntDokumentIkon />} poster>
-      <VStack gap={'8'}>
+      <VStack gap={'space-32'}>
         <Heading size="small" level="3" style={{ justifyContent: 'left' }}>
           {hentTekst(dokumentasjon.tittel, intl)}
         </Heading>

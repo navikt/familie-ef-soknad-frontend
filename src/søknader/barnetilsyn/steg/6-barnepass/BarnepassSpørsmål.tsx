@@ -116,7 +116,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
   };
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'space-48'}>
       <VStack>
         <TittelOgSlettKnapp justify="space-between" align="center">
           <Heading size="small" className="tittel">
