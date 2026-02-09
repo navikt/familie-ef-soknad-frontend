@@ -29,7 +29,11 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
     dokumentasjon.id !== BarnetilsynDokumentasjon.FAKTURA_BARNEPASSORDNING;
 
   return (
-    <GuidePanel style={{ border: 'none' }} illustration={<GrøntDokumentIkon />} poster>
+    <GuidePanel
+      style={{ border: 'none', width: '100%' }}
+      illustration={<GrøntDokumentIkon />}
+      poster
+    >
       <VStack gap={'space-32'}>
         <Heading size="small" level="3" style={{ justifyContent: 'left' }}>
           {hentTekst(dokumentasjon.tittel, intl)}
