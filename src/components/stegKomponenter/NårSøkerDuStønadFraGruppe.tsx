@@ -1,6 +1,5 @@
 import React from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import styled from 'styled-components';
 import { IDatoFelt, ISpørsmålBooleanFelt } from '../../models/søknad/søknadsfelter';
 import MånedÅrVelger from '../dato/MånedÅrVelger';
 import { strengTilDato } from '../../utils/dato';
@@ -11,23 +10,7 @@ import { hentTekst } from '../../utils/teksthåndtering';
 import { GyldigeDatoer } from '../dato/GyldigeDatoer';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
 import { AlertStripeDokumentasjon } from '../AlertstripeDokumentasjon';
-
-const StyledMultisvarSpørsmål = styled.div`
-  .aksel-fieldset .aksel-radio-buttons {
-    margin-top: 0;
-  }
-  .aksel-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import styles from '../spørsmål/Spørsmål.module.css';
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -55,7 +38,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
   return (
     <VStack gap={'space-64'}>
       <VStack>
-        <StyledMultisvarSpørsmål>
+        <div className={`${styles.radioGruppe} ${styles.multiSvar}`}>
           <RadioGroup
             legend={hentTekst(spørsmål.tekstid, intl)}
             value={søkerFraBestemtMåned?.svarid}
@@ -81,7 +64,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
               );
             })}
           </RadioGroup>
-        </StyledMultisvarSpørsmål>
+        </div>
       </VStack>
       {søkerFraBestemtMåned?.verdi === true && (
         <VStack gap={'space-8'}>

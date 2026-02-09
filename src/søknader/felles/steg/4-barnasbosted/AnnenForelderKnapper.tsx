@@ -7,10 +7,10 @@ import { hentBarnetsNavnEllerBeskrivelse, lagtTilAnnenForelderId } from '../../.
 import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { RadioKnapp } from '../../../../components/panel/RadioKnapp';
 import { RadioGroup } from '@navikt/ds-react';
-import styled from 'styled-components';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { TypeBarn } from '../../../../models/steg/barnasbosted';
 import { useBarnasBosted } from './BarnasBostedContext';
+import styles from '../../../../components/spørsmål/Spørsmål.module.css';
 
 interface Props {
   barn: IBarn;
@@ -21,21 +21,6 @@ interface Props {
   typeBarn: TypeBarn;
 }
 
-const StyledAnnenForelderSpørsmål = styled.div`
-  legend {
-    display: none;
-  }
-  .aksel-fieldset .aksel-radio-buttons {
-    margin-top: 0;
-  }
-  .aksel-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-  }
-`;
 export const AnnenForelderKnapper: React.FC<Props> = ({
   barn,
   forelder,
@@ -109,7 +94,7 @@ export const AnnenForelderKnapper: React.FC<Props> = ({
   if (!førsteBarnTilHverForelder) return null;
 
   return (
-    <StyledAnnenForelderSpørsmål>
+    <div className={`${styles.radioGruppe} ${styles.multiSvar} ${styles.hiddenLegend}`}>
       <RadioGroup legend={null} value={barn.annenForelderId}>
         {førsteBarnTilHverForelder.map((barn) => {
           if (!barn.forelder?.borINorge && !barn.forelder?.kanIkkeOppgiAnnenForelderFar)
@@ -135,6 +120,6 @@ export const AnnenForelderKnapper: React.FC<Props> = ({
           {hentTekst('barnasbosted.forelder.annen', intl)}
         </RadioKnapp>
       </RadioGroup>
-    </StyledAnnenForelderSpørsmål>
+    </div>
   );
 };

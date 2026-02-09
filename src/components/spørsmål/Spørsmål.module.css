@@ -1,0 +1,30 @@
+.radioGruppe :global(.aksel-radio-buttons) {
+    display: grid;
+    grid-auto-rows: min-content;
+    gap: 1rem;
+    padding-top: 1rem;
+    margin-top: 0;
+}
+
+.jaNei :global(.aksel-radio-buttons) {
+    grid-template-columns: 1fr 1fr;
+}
+
+.multiSvar :global(.aksel-radio-buttons) {
+    grid-template-columns: 1fr;
+}
+
+.toKorteSvar :global(.aksel-radio-buttons) {
+    grid-template-columns: 1fr 1fr;
+}
+
+@media all and (max-width: 420px) {
+    .jaNei :global(.aksel-radio-buttons),
+    .toKorteSvar :global(.aksel-radio-buttons) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hiddenLegend :global(legend) {
+    display: none;
+}
