@@ -13,7 +13,7 @@
 }
 
 .radioPanel:focus-within::after {
-    inset: 0;
+    content: none;
 }
 
 .active {
