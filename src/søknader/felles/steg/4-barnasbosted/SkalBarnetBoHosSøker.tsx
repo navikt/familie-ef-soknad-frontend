@@ -48,7 +48,7 @@ export const SkalBarnetBoHosSøker: React.FC<Props> = ({ barn, forelder, settFor
   };
 
   return (
-    <VStack gap={'12'}>
+    <VStack gap={'space-48'}>
       <Alert size="small" variant="warning" inline>
         {hentSpørsmålTekst('barnasbosted.alert.måBoHosDeg')}
       </Alert>

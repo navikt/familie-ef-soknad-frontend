@@ -22,7 +22,7 @@ export const SyktBarn: FC = () => {
   const { filInformasjon } = useHentFilInformasjon(hentSøknadBasertPåBrukerSpråk());
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" spacing={true}>
         {hentTekst('kvittering.tittel.huskeliste.syktBarn', intl)}
       </Heading>

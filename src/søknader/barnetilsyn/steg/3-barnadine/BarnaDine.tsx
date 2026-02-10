@@ -50,7 +50,7 @@ export const BarnaDine: React.FC = () => {
       mellomlagreStønad={mellomlagreBarnetilsyn}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
-      <VStack gap={'6'}>
+      <VStack gap={'space-24'}>
         <VStack>
           <Label size={'medium'}>{hentTekst('barnetilsyn.tekst.hvilke', intl)}</Label>
           <ReadMore header={hentTekst('barnetilsyn.hjelpetekst-åpne.hvilke', intl)} size={'small'}>
@@ -72,7 +72,7 @@ export const BarnaDine: React.FC = () => {
           {hentHTMLTekst('barnadine.barnetilsyn.info.brukpdf', intl)}
         </Alert>
 
-        <HStack justify="center" gap="4">
+        <HStack justify="center" gap="space-16">
           {søknad.person.barn
             ?.sort((a: IBarn, b: IBarn) => {
               if (a.medforelder?.verdi && !b.medforelder?.verdi) {

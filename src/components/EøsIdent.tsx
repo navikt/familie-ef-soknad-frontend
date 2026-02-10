@@ -52,7 +52,7 @@ export const EøsIdent: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <VStack>
         <Label>{utenlandskIDNummerTekst}</Label>
         <ReadMore header={halvåpenTekstid}>{åpneTekstid}</ReadMore>

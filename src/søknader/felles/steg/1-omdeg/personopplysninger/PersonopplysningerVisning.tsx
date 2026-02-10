@@ -24,7 +24,7 @@ export const PersonopplysningerVisning: React.FC<Props> = ({
   const visAdresse = adresse.adresse.trim() !== '';
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Alert variant="info" inline>
         {hentTekst('personopplysninger.alert.infohentet', intl)}
       </Alert>

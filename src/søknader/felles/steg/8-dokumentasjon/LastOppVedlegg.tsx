@@ -7,6 +7,7 @@ import { EFiltyper } from '../../../../helpers/filtyper';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { BodyShort, Checkbox, GuidePanel, Heading, VStack } from '@navikt/ds-react';
 import { GrøntDokumentIkon } from './GrøntDokumentIkon';
+import styles from './LastOppVedlegg.module.css';
 
 interface Props {
   dokumentasjon: IDokumentasjon;
@@ -29,8 +30,13 @@ const LastOppVedlegg: React.FC<Props> = ({ dokumentasjon, oppdaterDokumentasjon 
     dokumentasjon.id !== BarnetilsynDokumentasjon.FAKTURA_BARNEPASSORDNING;
 
   return (
-    <GuidePanel style={{ border: 'none' }} illustration={<GrøntDokumentIkon />} poster>
-      <VStack gap={'8'}>
+    <GuidePanel
+      className={styles.guidePanel}
+      style={{ border: 'none' }}
+      illustration={<GrøntDokumentIkon />}
+      poster
+    >
+      <VStack gap={'space-32'}>
         <Heading size="small" level="3" style={{ justifyContent: 'left' }}>
           {hentTekst(dokumentasjon.tittel, intl)}
         </Heading>

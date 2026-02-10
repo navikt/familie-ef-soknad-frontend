@@ -15,7 +15,7 @@ export const LenkeMedIkon: React.FC<Props> = ({ onClick, tekst_id, ikon }) => {
   return (
     <HStack align={'start'}>
       <Button variant={'tertiary'} onClick={onClick} style={{ textDecoration: 'underline' }}>
-        <HStack gap={'4'}>
+        <HStack gap={'space-16'}>
           <img alt="Endre informasjon" src={ikon} />
           <BodyShort>{hentHTMLTekst(tekst_id, intl)}</BodyShort>
         </HStack>

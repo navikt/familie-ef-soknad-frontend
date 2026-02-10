@@ -25,7 +25,7 @@ export const SøkerBorIkkePåAdresse: FC<Props> = ({ stønadstype }) => {
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <Alert size="small" variant="warning" inline>
         {hentHTMLTekst('personopplysninger.alert.riktigAdresse', intl)}
       </Alert>

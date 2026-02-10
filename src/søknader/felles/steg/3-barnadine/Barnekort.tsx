@@ -59,7 +59,7 @@ export const Barnekort: React.FC<Props> = ({ gjeldendeBarn, footer }) => {
       <div className={styles.header}>
         <img alt="barn" src={ikon} />
       </div>
-      <VStack gap="4" className={styles.innhold}>
+      <VStack gap="space-16" className={styles.innhold}>
         <Heading size="small" level="3">
           {navn.verdi ? navn.verdi : hentTekst('barnekort.normaltekst.barn', intl)}
         </Heading>

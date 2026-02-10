@@ -24,7 +24,7 @@ export const DatoForSamlivsbrudd: React.FC = () => {
   };
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <Datovelger
         settDato={(e) => settDatoForSamlivsbrudd(e, datovelgerLabel)}
         valgtDato={datoForSamlivsbrudd ? datoForSamlivsbrudd?.verdi : ''}

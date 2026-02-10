@@ -90,7 +90,7 @@ export const Aktivitet: React.FC = () => {
       routesStønad={RoutesOvergangsstonad}
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
-      <VStack gap={'24'}>
+      <VStack gap={'space-96'}>
         <CheckboxSpørsmål
           spørsmål={filtrerAktivitetSvaralternativer(
             søknad.person,

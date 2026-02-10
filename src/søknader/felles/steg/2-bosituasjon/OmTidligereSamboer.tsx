@@ -29,7 +29,7 @@ export const OmTidligereSamboer: FC = () => {
     bosituasjon.samboerDetaljer && harFyltUtSamboerDetaljer(bosituasjon.samboerDetaljer, true);
 
   return (
-    <VStack gap={'6'} align="start">
+    <VStack gap={'space-24'} align="start">
       <OmSamboerenDin
         tittel={'bosituasjon.tittel.omTidligereSamboer'}
         erIdentEllerFødselsdatoObligatorisk={false}

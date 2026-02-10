@@ -36,7 +36,6 @@ export const Arbeidssøker: React.FC<Props> = ({
 
   useEffect(() => {
     settArbeidssituasjon({ ...arbeidssituasjon, arbeidssøker: arbeidssøker });
-    // eslint-disable-next-line
   }, [arbeidssøker]);
 
   const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
@@ -71,12 +70,12 @@ export const Arbeidssøker: React.FC<Props> = ({
   );
 
   return (
-    <VStack gap={'16'}>
+    <VStack gap={'space-64'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('arbeidssøker.tittel', intl)}
       </Heading>
 
-      <VStack gap={'2'}>
+      <VStack gap={'space-8'}>
         <JaNeiSpørsmål
           spørsmål={erSøkerArbeidssøker(intl)}
           onChange={settJaNeiSpørsmål}
@@ -90,7 +89,7 @@ export const Arbeidssøker: React.FC<Props> = ({
       </VStack>
 
       {arbeidssøker.registrertSomArbeidssøkerNav && (
-        <VStack gap={'2'}>
+        <VStack gap={'space-8'}>
           <JaNeiSpørsmål
             spørsmål={erVilligTilÅTaImotTilbud(intl)}
             onChange={settJaNeiSpørsmål}
@@ -104,7 +103,7 @@ export const Arbeidssøker: React.FC<Props> = ({
         </VStack>
       )}
       {arbeidssøker.villigTilÅTaImotTilbudOmArbeid && (
-        <VStack gap={'2'}>
+        <VStack gap={'space-8'}>
           <JaNeiSpørsmål
             spørsmål={kanBegynneInnenEnUke(intl)}
             onChange={settJaNeiSpørsmål}
@@ -126,7 +125,7 @@ export const Arbeidssøker: React.FC<Props> = ({
         />
       )}
       {arbeidssøker.hvorØnskerSøkerArbeid && (
-        <VStack gap={'2'}>
+        <VStack gap={'space-8'}>
           <JaNeiSpørsmål
             spørsmål={ønskerHalvStilling(intl)}
             onChange={settJaNeiSpørsmål}

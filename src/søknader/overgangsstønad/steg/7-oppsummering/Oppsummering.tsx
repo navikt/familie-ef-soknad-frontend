@@ -110,7 +110,6 @@ const Oppsummering: React.FC = () => {
           oppdaterManglendeFelter(ManglendeFelter.OM_DEG);
         }
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [søknad, manglendeFelter, skjemaId]);
 
   const harManglendeFelter = manglendeFelter.length > 0;

@@ -27,7 +27,7 @@ export const StudieArbeidsmengde: React.FC<Props> = ({ utdanning, oppdaterUtdann
     utdanning?.arbeidsmengde?.verdi !== undefined && Number(utdanning?.arbeidsmengde?.verdi) > 99;
 
   return (
-    <VStack gap={'3'}>
+    <VStack gap={'space-12'}>
       <InputLabelGruppe
         label={arbeidsmengdeLabel}
         nøkkel={EUtdanning.arbeidsmengde}

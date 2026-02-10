@@ -47,7 +47,6 @@ export const TarUtdanning: React.FC<Props> = ({
 
   useEffect(() => {
     oppdaterUnderUtdanning(utdanning);
-    // eslint-disable-next-line
   }, [utdanning]);
 
   useEffect(() => {
@@ -75,8 +74,8 @@ export const TarUtdanning: React.FC<Props> = ({
     : erUnderUtdanningFerdigUtfylt(utdanning);
 
   return (
-    <VStack gap={'16'}>
-      <VStack gap={'2'}>
+    <VStack gap={'space-64'}>
+      <VStack gap={'space-8'}>
         {stønadstype === Stønadstype.overgangsstønad && (
           <>
             <Heading size="small" level="3" className={'sentrert'}>

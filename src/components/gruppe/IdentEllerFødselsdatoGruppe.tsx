@@ -37,7 +37,7 @@ export const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   const feilmelding: string = hentTekst('person.feilmelding.ident', intl);
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <TextField
         key={'ident'}
         label={identLabel}

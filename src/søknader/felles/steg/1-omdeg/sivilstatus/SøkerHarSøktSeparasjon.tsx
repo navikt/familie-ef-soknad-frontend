@@ -23,7 +23,7 @@ export const SøkerHarSøktSeparasjon: React.FC = () => {
   };
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <Datovelger
         settDato={(e) => settDatoSøktSeparasjon(e, datovelgerTekstid)}
         valgtDato={datoSøktSeparasjon ? datoSøktSeparasjon.verdi : undefined}

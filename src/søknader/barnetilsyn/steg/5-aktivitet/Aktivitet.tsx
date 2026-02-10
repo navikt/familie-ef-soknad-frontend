@@ -77,7 +77,7 @@ export const Aktivitet: React.FC = () => {
       mellomlagreStønad={mellomlagreSteg}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
-      <VStack gap={'12'}>
+      <VStack gap={'space-48'}>
         <MultiSvarSpørsmål
           spørsmål={ErDuIArbeidSpm(intl)}
           settSpørsmålOgSvar={settErDuIArbeid}

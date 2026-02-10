@@ -47,7 +47,6 @@ export const OmArbeidsforholdetDitt: React.FC<Props> = ({
       ...aktivitet,
       arbeidsforhold: arbeidsforhold,
     });
-    // eslint-disable-next-line
   }, [arbeidsforhold]);
 
   const leggTilArbeidsgiver = () => {
@@ -61,7 +60,7 @@ export const OmArbeidsforholdetDitt: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('arbeidsforhold.tittel', intl)}
       </Heading>

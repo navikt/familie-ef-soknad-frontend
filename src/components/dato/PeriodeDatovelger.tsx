@@ -94,7 +94,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
   const visDatoFeilmelding = feilmelding && feilmelding !== '';
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <VStack>
         <Heading size={'xsmall'}>{tekst}</Heading>
         {visLesMer && (
@@ -105,7 +105,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
         )}
       </VStack>
 
-      <HStack gap={'6'}>
+      <HStack gap={'space-24'}>
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.fra, e)}
           valgtDato={periode.fra.verdi}

@@ -18,7 +18,7 @@ export const Sivilstatus: React.FC = () => {
   const visÅrsakEnslig = erSivilstandSpørsmålBesvart(sivilstand, sivilstatus);
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       {visSøkerErGift && <SøkerErGift />}
 
       {visGiftSeparertEllerSkiltIkkeRegistrert && <SpørsmålGiftSeparertEllerSkiltIkkeRegistrert />}

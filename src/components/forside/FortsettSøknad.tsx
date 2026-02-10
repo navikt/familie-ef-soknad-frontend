@@ -25,7 +25,7 @@ const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
       <div className="seksjon">
         <BodyShort>{hentTekst('side.fortsettSøknad.påbegyntSøknad', intl)}</BodyShort>
       </div>
-      <VStack gap={'4'} align={'center'}>
+      <VStack gap={'space-16'} align={'center'}>
         <Button
           onClick={() => {
             brukMellomlagretSøknad();

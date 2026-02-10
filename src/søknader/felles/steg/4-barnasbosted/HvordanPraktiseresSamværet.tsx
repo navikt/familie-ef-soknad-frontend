@@ -13,8 +13,8 @@ export const HvordanPraktiseresSamværet: React.FC<Props> = ({ forelder, settFor
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap={'4'}>
-      <VStack gap={'2'}>
+    <VStack gap={'space-16'}>
+      <VStack gap={'space-8'}>
         <Label as="p">{hentTekst('barnasbosted.element.samvær', intl)}</Label>
         <BodyShort>{hentTekst('barnasbosted.normaltekst.opplysninger', intl)}</BodyShort>
         <ul>

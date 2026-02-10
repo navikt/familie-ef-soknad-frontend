@@ -45,7 +45,7 @@ export const BosituasjonSpørsmål: FC = () => {
     delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.harEkteskapsliknendeForhold;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <MultiSvarSpørsmål
         key={hovedSpørsmål.søknadid}
         spørsmål={hovedSpørsmål}

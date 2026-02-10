@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ABlue500 } from '@navikt/ds-tokens/dist/tokens';
+import { Accent500 } from '@navikt/ds-tokens/dist/tokens';
 
 interface Props {
   height?: number;
@@ -11,7 +11,7 @@ const KalenderIkonSVG: React.FC<Props> = ({ height, width }) => (
     height={height || 24}
     version="1.1"
     aria-labelledby="Kalender"
-    color={ABlue500}
+    color={Accent500}
     viewBox="0 0 18 18"
     role="presentation"
     focusable={false}

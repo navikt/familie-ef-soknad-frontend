@@ -142,7 +142,7 @@ export const Utenlandsopphold: FC<Props> = ({
     utenlandsopphold.land && skalViseAdresseTekstfelt(utenlandsopphold);
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <HStack justify="space-between" align="center">
         <Heading size="small" level="3">
           {periodeTittel}

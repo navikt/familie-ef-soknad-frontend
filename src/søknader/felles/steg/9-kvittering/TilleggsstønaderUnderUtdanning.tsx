@@ -9,7 +9,7 @@ export const TilleggsstønaderUnderUtdanning: FC<{ stønadstype: Stønadstype }>
 }) => {
   const intl = useLokalIntlContext();
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       {stønadstype === Stønadstype.overgangsstønad && (
         <VStack>
           <Heading size="small" level="4">

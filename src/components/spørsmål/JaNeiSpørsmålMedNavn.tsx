@@ -1,26 +1,9 @@
 import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import styled from 'styled-components';
 import { RadioGroup } from '@navikt/ds-react';
 import { RadioKnapp } from '../panel/RadioKnapp';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
-
-const StyledJaNeiSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
-    margin-top: 0;
-  }
-  .navds-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import styles from './Spørsmål.module.css';
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -61,7 +44,7 @@ export const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
   };
 
   return (
-    <StyledJaNeiSpørsmål key={spørsmål.søknadid}>
+    <div className={`${styles.radioGruppe} ${styles.jaNei}`} key={spørsmål.søknadid}>
       <RadioGroup
         legend={spørsmålTekst}
         value={svar()}
@@ -90,6 +73,6 @@ export const JaNeiSpørsmålMedNavn: React.FC<Props> = ({
           );
         })}
       </RadioGroup>
-    </StyledJaNeiSpørsmål>
+    </div>
   );
 };

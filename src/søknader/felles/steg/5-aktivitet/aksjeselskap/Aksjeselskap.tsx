@@ -33,7 +33,6 @@ export const Aksjeselskap: FC<Props> = ({
       else return aksjeselskapFraSøknad;
     });
     endretAksjeselskap && settEgetAS(endretAksjeselskap);
-    // eslint-disable-next-line
   }, [aksjeselskap]);
 
   const aksjeselskapTittel = hentTittelMedNr(
@@ -80,7 +79,7 @@ export const Aksjeselskap: FC<Props> = ({
           />
         )}
       </HStack>
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <TextFieldMedBredde
           key={navnLabel}
           label={navnLabel}

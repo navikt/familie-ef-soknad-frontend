@@ -46,10 +46,10 @@ export const StegNavigasjon: FC<Props> = ({
   };
 
   return (
-    <VStack gap="4" align="center" aria-live="polite">
+    <VStack gap="space-16" align="center" aria-live="polite">
       {erSpørsmålBesvart ? (
         <>
-          <HStack gap="4">
+          <HStack gap="space-16">
             <Button variant="secondary" onClick={onTilbake}>
               {hentTekst('knapp.tilbake', intl)}
             </Button>
@@ -62,7 +62,7 @@ export const StegNavigasjon: FC<Props> = ({
           </Button>
         </>
       ) : (
-        <VStack gap="4" align="center">
+        <VStack gap="space-16" align="center">
           <Button variant="secondary" onClick={onTilbake}>
             {hentTekst('knapp.tilbake', intl)}
           </Button>

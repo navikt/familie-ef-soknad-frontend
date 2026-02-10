@@ -86,7 +86,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   };
 
   return (
-    <VStack gap="6" align="start">
+    <VStack gap="space-24" align="start">
       <Heading size="small">{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Heading>
 
       <TextField

@@ -47,7 +47,7 @@ const Forside: React.FC = () => {
   return (
     <div className={'forside'}>
       <div className={'forside__innhold'}>
-        <Box padding="4" className={'forside__panel'}>
+        <Box padding="space-16" className={'forside__panel'}>
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}

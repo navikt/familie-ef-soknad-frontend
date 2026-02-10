@@ -1,28 +1,22 @@
 .radioPanel {
     width: 100%;
-    background-color: #fff;
-    border: 1px solid var(--a-border-default);
-    border-radius: 0.25rem;
-    display: block;
-    position: relative;
-    font-family: 'Source Sans Pro', Arial, sans-serif;
-    font-size: 1rem;
-    line-height: 1.375rem;
-    font-weight: 400;
-    padding: var(--a-spacing-1) var(--a-spacing-4);
+    background-color: var(--ax-bg-default);
+    border: 1px solid var(--ax-border-default);
+    border-radius: var(--ax-radius-4);
+    padding: var(--ax-space-12) var(--ax-space-16);
 }
 
 .radioPanel:hover {
-    border: 1px solid var(--a-blue-500);
-    box-shadow: var(--a-shadow-medium);
+    border-color: var(--ax-accent-500);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     cursor: pointer;
 }
 
-.radioPanel:focus-visible {
-    outline: var(--a-border-action-selected) solid 1px;
+.radioPanel:focus-within::after {
+    inset: 0;
 }
 
 .active {
-    background-color: var(--a-blue-100);
-    border: 1px solid transparent;
+    background-color: var(--ax-bg-accent-soft);
+    border-color: transparent;
 }

@@ -46,7 +46,6 @@ export const OmFirmaeneDine: React.FC<Props> = ({
       ...arbeidssituasjon,
       firmaer: firmaer,
     });
-    // eslint-disable-next-line
   }, [firmaer]);
 
   const leggTilFirma = () => {
@@ -56,7 +55,7 @@ export const OmFirmaeneDine: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('firmaer.tittel', intl)}
       </Heading>

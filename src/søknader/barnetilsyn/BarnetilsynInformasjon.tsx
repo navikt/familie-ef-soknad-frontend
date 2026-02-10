@@ -66,18 +66,18 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   const gjenbrukSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
 
   return (
-    <VStack gap={'10'} align={'center'}>
+    <VStack gap={'space-40'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.barnetilsyn.info', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.barnetilsyn.fåStønadSkoleår', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.merOmStønad', intl)}
       </VStack>
-
-      <VStack gap={'3'}>{hentHTMLTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}</VStack>
-
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
+        {hentHTMLTekst('forside.barnetilsyn.arbeidssøkerUtdanning', intl)}
+      </VStack>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.riktigeOpplysninger', intl)}{' '}
         </Heading>
@@ -85,7 +85,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.barnetilsyn.meldeEndringer', intl)}</BodyShort>
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.sendeDokumentasjon', intl)}{' '}
         </Heading>
@@ -94,7 +94,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         {hentHTMLTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.henteInformasjon', intl)}{' '}
         </Heading>
@@ -105,7 +105,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         {hentHTMLTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.slikSøkerDu', intl)}{' '}
         </Heading>

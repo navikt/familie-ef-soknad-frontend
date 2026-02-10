@@ -34,7 +34,6 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
 
   React.useEffect(() => {
     settSkjema({ ...skjema, arbeidssøker: arbeidssøker });
-    // eslint-disable-next-line
   }, [arbeidssøker]);
 
   const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
@@ -69,12 +68,12 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
       erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
       skalViseKnapper={!kommerFraOppsummering}
     >
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <VStack>
           <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
           <BodyShort>{ident}</BodyShort>
         </VStack>
-        <VStack gap={'4'}>
+        <VStack gap={'space-16'}>
           <JaNeiSpørsmål
             spørsmål={erSøkerArbeidssøker(intl)}
             onChange={settJaNeiSpørsmål}
@@ -88,7 +87,7 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
         </VStack>
 
         {arbeidssøker.registrertSomArbeidssøkerNav && (
-          <VStack gap={'4'}>
+          <VStack gap={'space-16'}>
             <JaNeiSpørsmål
               spørsmål={erVilligTilÅTaImotTilbud(intl)}
               onChange={settJaNeiSpørsmål}

@@ -98,7 +98,7 @@ export const PeriodeÅrMånedvelgere: FC<Props> = ({
         />
       )}
       <HGrid
-        gap={'8'}
+        gap={'space-32'}
         columns={{ xs: 1, sm: 'max-content max-content' }}
         align={'start'}
         aria-live="polite"

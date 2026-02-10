@@ -23,7 +23,7 @@
   display: inline-block;
   border: 2px solid #000;
 }
-.barnas-bosted .hvordan-praktiseres-samværet .navds-label {
+.barnas-bosted .hvordan-praktiseres-samværet .aksel-label {
   margin-bottom: 1rem;
 }
 .barnas-bosted .innskutt {
@@ -59,7 +59,7 @@
 .spørsmål-og-svar {
   margin-top: 2rem;
 }
-.spørsmål-og-svar .navds-body-short {
+.spørsmål-og-svar .aksel-body-short {
   margin-top: 0.5rem;
 }
 .lenke-knapp {
@@ -68,7 +68,7 @@
   color: #0067c5;
   text-decoration: underline;
 }
-.lenke-knapp .navds-body-short {
+.lenke-knapp .aksel-body-short {
   margin-left: 1rem;
 }
 .lenke-knapp:hover {

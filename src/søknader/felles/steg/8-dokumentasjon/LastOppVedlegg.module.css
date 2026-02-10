@@ -1,0 +1,7 @@
+.guidePanel:global(.aksel-guide-panel) {
+  width: 100%;
+}
+
+.guidePanel :global(.aksel-guide-panel__content) {
+  align-self: stretch;
+}

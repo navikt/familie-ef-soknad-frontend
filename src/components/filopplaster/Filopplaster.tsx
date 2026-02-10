@@ -13,7 +13,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
 import styled from 'styled-components';
-import { ABlue500, ADeepblue50, AGray700 } from '@navikt/ds-tokens/dist/tokens';
+import { Accent500, BgAccentSoft, Neutral700 } from '@navikt/ds-tokens/dist/tokens';
 import {
   hentTekst,
   hentTekstMedEnVariabel,
@@ -42,10 +42,10 @@ interface OpplastetVedlegg {
 
 const FilopplastingFelt = styled.div`
   font-weight: bold;
-  border: 2px dashed ${AGray700};
+  border: 2px dashed ${Neutral700};
   border-radius: 4px;
-  background-color: ${ADeepblue50};
-  color: ${ABlue500};
+  background-color: ${BgAccentSoft};
+  color: ${Accent500};
   margin: 0 auto;
   height: 64px;
   display: flex;
@@ -164,7 +164,7 @@ export const Filopplaster: React.FC<Props> = ({
           });
       });
     },
-    // eslint-disable-next-line
+
     [dokumentasjon.opplastedeVedlegg]
   );
 

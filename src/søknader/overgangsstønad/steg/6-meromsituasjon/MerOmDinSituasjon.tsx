@@ -68,7 +68,7 @@ const MerOmDinSituasjon: React.FC = () => {
     intl
   );
   const hjelpetekst: ReactNode = (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <BodyShort>{hjelpetekstFørsteAvsnitt}</BodyShort>
       <BodyShort>{hjelpetekstAndreAvsnitt}</BodyShort>
       <BodyShort>{hjelpetekstTredjeAvsnitt}</BodyShort>
@@ -152,7 +152,7 @@ const MerOmDinSituasjon: React.FC = () => {
       routesStønad={RoutesOvergangsstonad}
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <CheckboxSpørsmål
           spørsmål={gjelderNoeAvDetteDeg(intl)}
           settValgteSvar={settDinSituasjonFelt}

@@ -55,7 +55,7 @@ const OppsummeringBarnasBosituasjon: FC<Props> = ({ barn, endreInformasjonPath, 
     });
 
   return (
-    <VStack gap={'16'}>
+    <VStack gap={'space-64'}>
       {felterAlleForeldrene}
       <LenkeMedIkon
         onClick={() =>

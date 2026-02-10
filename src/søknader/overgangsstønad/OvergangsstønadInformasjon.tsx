@@ -19,15 +19,15 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
 
   return (
-    <VStack gap={'10'} align={'center'}>
+    <VStack gap={'space-40'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.overgangsstønad.sammeSøknad', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.riktigeOpplysninger', intl)}
         </Heading>
@@ -35,7 +35,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.overgangsstønad.meldeEndringer', intl)}</BodyShort>
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.sendeDokumentasjon', intl)}
         </Heading>
@@ -44,7 +44,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         {hentHTMLTekst('forside.overgangsstønad.oversiktDokumentasjon', intl)}
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.henteInformasjon', intl)}
         </Heading>
@@ -55,7 +55,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         {hentHTMLTekst('forside.overgangsstønad.personopplysningeneDine', intl)}
       </VStack>
 
-      <VStack gap={'3'}>
+      <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.slikSøkerDu', intl)}
         </Heading>

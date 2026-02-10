@@ -38,8 +38,8 @@ const OppsummeringOmDeg: FC<Props> = ({
   const medlemskapSpørsmål = VisLabelOgSvar(medlemskap);
 
   return (
-    <VStack gap={'12'}>
-      <VStack gap={'8'}>
+    <VStack gap={'space-48'}>
+      <VStack gap={'space-32'}>
         <VStack>
           <Label as="p">{hentTekst('person.ident', intl)}</Label>
           <BodyShort>{søker.fnr}</BodyShort>

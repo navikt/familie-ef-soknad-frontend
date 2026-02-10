@@ -6,7 +6,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 export const DineSaker: FC = () => {
   const intl = useLokalIntlContext();
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <BodyShort>{hentTekst('kvittering.tekst.altViTrenger', intl)}</BodyShort>
       <BodyShort>{hentHTMLTekst('kvittering.tekst.dineSaker', intl)}</BodyShort>
     </VStack>

@@ -34,7 +34,7 @@ export const EtablererEgenVirksomhet: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" level="3">
         {hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)}
       </Heading>

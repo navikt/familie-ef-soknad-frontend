@@ -38,7 +38,6 @@ export const PeriodeBoddIUtlandet: FC<{
       ...medlemskap,
       perioderBoddIUtlandet: perioderBoddIUtlandet,
     });
-    // eslint-disable-next-line
   }, [perioderBoddIUtlandet]);
 
   const leggTilUtenlandsperiode = () => {
@@ -52,7 +51,7 @@ export const PeriodeBoddIUtlandet: FC<{
   };
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       {perioderBoddIUtlandet.map((periode, index) => (
         <Utenlandsopphold
           key={periode.id}
@@ -65,7 +64,7 @@ export const PeriodeBoddIUtlandet: FC<{
       ))}
 
       {erForrigePeriodeFyltUt && (
-        <VStack gap="6">
+        <VStack gap="space-24">
           <Heading size={'xsmall'}>
             {hentTekst('medlemskap.periodeBoddIUtlandet.flereutenlandsopphold', intl)}
           </Heading>

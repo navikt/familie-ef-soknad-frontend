@@ -1,28 +1,11 @@
 import React, { SyntheticEvent } from 'react';
 import { ESvar, ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import styled from 'styled-components';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { RadioKnapp } from '../panel/RadioKnapp';
 import { RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
-
-const StyledJaNeiSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
-    margin-top: 0;
-  }
-  .navds-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import styles from './Spørsmål.module.css';
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -61,7 +44,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
   };
 
   return (
-    <StyledJaNeiSpørsmål key={spørsmål.søknadid}>
+    <div className={`${styles.radioGruppe} ${styles.jaNei}`} key={spørsmål.søknadid}>
       <RadioGroup
         legend={spørsmålTekst}
         value={svar()}
@@ -92,7 +75,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
           );
         })}
       </RadioGroup>
-    </StyledJaNeiSpørsmål>
+    </div>
   );
 };
 

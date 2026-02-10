@@ -74,19 +74,19 @@ export const Side: React.FC<Props> = ({
   };
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
 
-      <VStack gap="6" className={styles.innhold}>
+      <VStack gap="space-24" className={styles.innhold}>
         {skalViseStegindikator && <Stegindikator steg={stegobjekter} aktivtSteg={aktivtSteg} />}
 
         {navigasjonState === NavigasjonState.skjulKnapper && (
-          <VStack align={'center'} marginBlock={'8 8'}>
+          <VStack align={'center'} marginBlock={'space-32 space-32'}>
             <SendBrevSVG />
           </VStack>
         )}
 
-        <VStack gap="8" className={styles.children}>
+        <VStack gap="space-32" className={styles.children}>
           <Heading level="2" size="medium" className={styles.stegTittel}>
             {stegtittel}
           </Heading>

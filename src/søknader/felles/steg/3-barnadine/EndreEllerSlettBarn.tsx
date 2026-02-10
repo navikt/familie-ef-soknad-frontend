@@ -27,7 +27,7 @@ export const EndreEllerSlettBarn: React.FC<Props> = ({
 
   return (
     <>
-      <VStack gap="2" align="center">
+      <VStack gap="space-8" align="center">
         <Button variant="secondary" onClick={() => settÅpenEndreModal(true)}>
           {hentTekst('barnekort.lenke.endre', intl)}
         </Button>

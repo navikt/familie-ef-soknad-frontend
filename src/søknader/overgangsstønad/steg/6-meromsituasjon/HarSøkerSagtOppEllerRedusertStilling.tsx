@@ -118,14 +118,14 @@ export const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
     : 'dinSituasjon.datovelger-alert.redusertStilling';
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <MultiSvarSpørsmål
         spørsmål={SagtOppEllerRedusertStillingSpm(intl)}
         settSpørsmålOgSvar={settSagtOppEllerRedusertStilling}
         valgtSvar={sagtOppEllerRedusertStilling?.verdi}
       />
       {(harSagtOpp || harRedusertStilling) && (
-        <VStack gap={'8'}>
+        <VStack gap={'space-32'}>
           <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
           <Textarea
             autoComplete={'off'}
@@ -139,7 +139,7 @@ export const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
             onChange={(e) => settBegrunnelse(e)}
           />
           {begrunnelseSagtOppEllerRedusertStilling && (
-            <VStack gap={'2'}>
+            <VStack gap={'space-8'}>
               <Datovelger
                 valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
                 tekstid={datovelgerLabelId}

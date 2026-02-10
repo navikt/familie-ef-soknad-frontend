@@ -29,7 +29,7 @@ export const RegistrerBarnIFolkeregister: FC<Props> = ({ barna }) => {
   );
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size={'small'} spacing={true}>
         {tekst}
       </Heading>

@@ -1,26 +1,9 @@
 import React, { FC } from 'react';
 import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import styled from 'styled-components';
 import { RadioGroup } from '@navikt/ds-react';
 import { RadioKnapp } from '../panel/RadioKnapp';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
-
-const StyledMultisvarSpørsmål = styled.div`
-  .navds-fieldset .navds-radio-buttons {
-    margin-top: 0;
-  }
-  .navds-radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: min-content;
-    grid-gap: 1rem;
-    padding-top: 1rem;
-
-    @media all and (max-width: 420px) {
-      grid-template-columns: 1fr;
-    }
-  }
-`;
+import styles from './Spørsmål.module.css';
 
 interface Props {
   spørsmål: ISpørsmål;
@@ -36,7 +19,7 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
   valgtSvar,
 }) => {
   return (
-    <StyledMultisvarSpørsmål key={spørsmål.søknadid}>
+    <div className={`${styles.radioGruppe} ${styles.multiSvar}`} key={spørsmål.søknadid}>
       <RadioGroup
         legend={spørsmålTekst}
         value={valgtSvar}
@@ -66,7 +49,7 @@ const MultiSvarSpørsmålMedNavn: FC<Props> = ({
           );
         })}
       </RadioGroup>
-    </StyledMultisvarSpørsmål>
+    </div>
   );
 };
 

@@ -17,7 +17,7 @@ const OppsummeringBarn: FC<Props> = ({ stønadstype, barn }) => {
     barn;
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       {!harAdressesperre && navn && (
         <VStack>
           <Label as="p">{hentTekst('person.navn', intl)}</Label>

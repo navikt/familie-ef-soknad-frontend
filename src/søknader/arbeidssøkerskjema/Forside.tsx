@@ -33,20 +33,20 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
   return (
     <div className={'forside'}>
       <div className={'forside__innhold'}>
-        <Box padding="4" className={'forside__panel'}>
+        <Box padding="space-16" className={'forside__panel'}>
           <VeilederBoks navn={visningsnavn} />
 
           <Heading level="1" size="xlarge">
             {hentTekst('skjema.sidetittel', intl)}
           </Heading>
-          <VStack gap={'10'}>
-            <VStack gap={'3'}>
+          <VStack gap={'space-40'}>
+            <VStack gap={'space-12'}>
               <BodyShort>{hentTekst('forside.arbeidssøker.info', intl)}</BodyShort>
               <BodyShort>{hentTekst('forside.arbeidssøker.krav', intl)}</BodyShort>
               {hentHTMLTekst('forside.arbeidssøker.lerMer', intl)}
             </VStack>
 
-            <VStack gap={'3'}>
+            <VStack gap={'space-12'}>
               <Heading level="2" size="small">
                 {hentTekst('forside.arbeidssøker.overskrift.riktigeOpplysninger', intl)}
               </Heading>

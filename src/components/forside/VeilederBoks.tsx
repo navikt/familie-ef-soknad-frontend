@@ -14,7 +14,7 @@ export const VeilederBoks: React.FC<VeilederBoksProps> = ({ navn }) => {
 
   const søkerNavn = navn ? navn : person.søker.forkortetNavn;
   return (
-    <div style={{ marginBottom: '4rem' }}>
+    <div style={{ marginBottom: '4rem', display: 'flex', justifyContent: 'center' }}>
       <VeilederSnakkeboble tekst={hentTekstMedEnVariabel('skjema.hei', intl, søkerNavn)} />
     </div>
   );

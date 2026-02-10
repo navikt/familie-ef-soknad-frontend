@@ -28,7 +28,7 @@ export const Studiekostnader: React.FC<Props> = ({ utdanning, oppdaterUtdanning 
   const eksamensgebyrLabel = hentTekst('utdanning.label.utgifter.eksamensgebyr', intl);
 
   return (
-    <VStack gap={'8'}>
+    <VStack gap={'space-32'}>
       <Heading size="small">{hentTekst('utdanning.label.utgifter', intl)}</Heading>
       <InputLabelGruppe
         label={semesteravgiftLabel}

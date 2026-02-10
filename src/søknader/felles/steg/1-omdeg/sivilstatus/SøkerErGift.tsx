@@ -31,7 +31,7 @@ export const SøkerErGift: React.FC = () => {
   const visSøktSeperasjonAlert = harSøktSeparasjon?.verdi === false;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <JaNeiSpørsmål
         spørsmål={separasjonsSpørsmål}
         onChange={settHarSøktSeparasjon}

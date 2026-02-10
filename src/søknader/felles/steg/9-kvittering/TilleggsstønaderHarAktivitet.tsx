@@ -6,7 +6,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 export const TilleggsstønaderHarAktivitet: FC = () => {
   const intl = useLokalIntlContext();
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" level="4">
         {hentTekst('kvittering.tittel.tilleggsstønader.aktivitetskrav', intl)}
       </Heading>

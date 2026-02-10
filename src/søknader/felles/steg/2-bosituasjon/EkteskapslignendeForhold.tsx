@@ -30,7 +30,7 @@ export const EkteskapslignendeForhold: FC = () => {
     samboerDetaljer && harFyltUtSamboerDetaljer(samboerDetaljer, false);
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <OmSamboerenDin
         tittel={'bosituasjon.tittel.omSamboer'}
         erIdentEllerFødselsdatoObligatorisk={true}

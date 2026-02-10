@@ -112,7 +112,7 @@ export const Barnepass: FC = () => {
       routesStønad={routes}
       tilbakeTilOppsummeringPath={pathOppsummeringBarnetilsyn}
     >
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         {barnSomSkalHaBarnepass.map((barn: IBarn, index: number) => {
           const visSeksjon =
             index === 0 || erBarnepassForBarnFørNåværendeUtfylt(barn, barnSomSkalHaBarnepass);

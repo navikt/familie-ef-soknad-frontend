@@ -65,10 +65,10 @@
 .forside .forside__innhold .nav-veileder __snakkeboblePil {
   height: 0;
 }
-.forside .forside__innhold .seksjon .navds-label {
+.forside .forside__innhold .seksjon .aksel-label {
   font-size: 20px;
 }
-.forside .forside__innhold .seksjon .navds-body-short {
+.forside .forside__innhold .seksjon .aksel-body-short {
   line-height: 26px;
 }
 .forside .forside__innhold .seksjon .alertstripe__ikon {

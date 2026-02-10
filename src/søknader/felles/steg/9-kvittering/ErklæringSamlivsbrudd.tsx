@@ -22,7 +22,7 @@ export const ErklæringSamlivsbrudd: FC = () => {
   const { filInformasjon } = useHentFilInformasjon(hentÆrklæringBasertPåSpråk());
 
   return (
-    <VStack gap={'4'}>
+    <VStack gap={'space-16'}>
       <Heading size="small" spacing={true}>
         {hentTekst('kvittering.tittel.samlivsbrudd', intl)}
       </Heading>

@@ -67,7 +67,7 @@ const Kvittering: React.FC = () => {
       routesStønad={RoutesOvergangsstonad}
       skalViseStegindikator={false}
     >
-      <VStack gap={'16'}>
+      <VStack gap={'space-64'}>
         <Alert size="small" variant="success">
           {mottattAlert}
         </Alert>

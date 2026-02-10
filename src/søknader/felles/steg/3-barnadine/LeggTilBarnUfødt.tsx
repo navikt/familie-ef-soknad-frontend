@@ -20,8 +20,8 @@ export const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato,
   const intl = useLokalIntlContext();
 
   return (
-    <VStack gap="6">
-      <VStack gap="4">
+    <VStack gap="space-24">
+      <VStack gap="space-16">
         <Datovelger
           settDato={(e) => settDato(e)}
           valgtDato={barnDato}
@@ -34,7 +34,7 @@ export const LeggTilBarnUfødt: React.FC<Props> = ({ settBo, boHosDeg, settDato,
         </Alert>
       </VStack>
       {barnDato && erDatoGyldigOgInnenforBegrensning(barnDato, GyldigeDatoer.Fremtidige) && (
-        <VStack gap="4">
+        <VStack gap="space-16">
           <JaNeiSpørsmål
             spørsmål={skalBarnetBoHosSøker(intl)}
             onChange={(_, svar) => settBo(svar.id)}

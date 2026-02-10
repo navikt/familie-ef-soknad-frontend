@@ -7,16 +7,16 @@
     "build": "tsc --build --verbose"
   },
   "dependencies": {
-    "@navikt/nav-dekoratoren-moduler": "^3.6.1",
+    "@navikt/nav-dekoratoren-moduler": "^3.6.2",
     "@types/express": "^5.0.6",
-    "axios": "^1.13.2",
+    "axios": "^1.13.4",
     "dotenv": "^17.2.3",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
-    "html-react-parser": "^5.2.11",
+    "html-react-parser": "^5.2.16",
     "http-proxy-middleware": "^3.0.5",
-    "jsdom": "^27.4.0",
+    "jsdom": "^28.0.0",
     "uuid": "^13.0.0",
     "winston": "^3.19.0",
     "typescript": "^5.9.3"

@@ -21,7 +21,7 @@ export const Kvittering: React.FC = () => {
       skalViseKnapper={false}
       skalViseStegindikator={false}
     >
-      <VStack gap={'12'}>
+      <VStack gap={'space-48'}>
         <Alert size="small" variant="success">
           {mottattAlert}
         </Alert>

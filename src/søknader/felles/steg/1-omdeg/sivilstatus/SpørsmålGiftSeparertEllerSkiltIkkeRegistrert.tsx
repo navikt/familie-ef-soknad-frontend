@@ -49,7 +49,7 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
     sivilstatus.erUformeltSeparertEllerSkilt?.svarid === ESvar.JA;
 
   return (
-    <VStack gap={'6'}>
+    <VStack gap={'space-24'}>
       <JaNeiSpørsmål
         spørsmål={erUformeltGiftSpørsmål(intl)}
         onChange={settErUformeltGift}
