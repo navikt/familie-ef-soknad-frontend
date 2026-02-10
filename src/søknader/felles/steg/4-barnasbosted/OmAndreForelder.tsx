@@ -53,7 +53,6 @@ export const OmAndreForelder: React.FC<Props> = ({
 
       settForelder(nyForelder);
     }
-
   }, [erGyldigIdent, identFelt]);
 
   const hvisGyldigIdentSettIdent = (ident: string) => {

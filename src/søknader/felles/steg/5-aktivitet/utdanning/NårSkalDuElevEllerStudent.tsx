@@ -18,7 +18,6 @@ export const NårSkalDuVæreElevEllerStudent: React.FC<Props> = ({ utdanning, se
     if (!utdanning.periode) {
       settUtdanning({ ...utdanning, periode: tomPeriode });
     }
-
   }, []);
 
   const settPeriode = (nøkkel: EPeriode, dato?: string): void => {
