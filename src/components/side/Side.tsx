@@ -76,6 +76,7 @@ export const Side: React.FC<Props> = ({
   return (
     <VStack gap="space-24">
       <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
+
       <VStack gap="space-24" className={styles.innhold}>
         {skalViseStegindikator && <Stegindikator steg={stegobjekter} aktivtSteg={aktivtSteg} />}
 

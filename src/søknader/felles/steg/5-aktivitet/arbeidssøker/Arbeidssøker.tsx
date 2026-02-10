@@ -74,6 +74,7 @@ export const Arbeidssøker: React.FC<Props> = ({
       <Heading size="small" level="3" align={'center'}>
         {hentTekst('arbeidssøker.tittel', intl)}
       </Heading>
+
       <VStack gap={'space-8'}>
         <JaNeiSpørsmål
           spørsmål={erSøkerArbeidssøker(intl)}
@@ -86,6 +87,7 @@ export const Arbeidssøker: React.FC<Props> = ({
           </Alert>
         )}
       </VStack>
+
       {arbeidssøker.registrertSomArbeidssøkerNav && (
         <VStack gap={'space-8'}>
           <JaNeiSpørsmål
@@ -114,6 +116,7 @@ export const Arbeidssøker: React.FC<Props> = ({
           )}
         </VStack>
       )}
+
       {arbeidssøker.kanBegynneInnenEnUke && (
         <MultiSvarSpørsmål
           spørsmål={ønsketArbeidssted(intl)}

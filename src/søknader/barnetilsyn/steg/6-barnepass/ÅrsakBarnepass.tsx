@@ -66,6 +66,7 @@ export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
           {hentTekst('barnepass.alert-info.myeBortePgaJobb', intl)}
         </Alert>
       )}
+
       {dokumentasjonsbehovTekst && (
         <AlertStripeDokumentasjon>
           {hentTekst(dokumentasjonsbehovTekst, intl)}

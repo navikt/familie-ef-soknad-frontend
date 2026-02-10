@@ -24,30 +24,35 @@ const OppsummeringBarn: FC<Props> = ({ stønadstype, barn }) => {
           <BodyShort>{navn.verdi}</BodyShort>
         </VStack>
       )}
+
       {!harAdressesperre && ident && ident.verdi !== '' && (
         <VStack>
           <Label as="p">{hentTekst('person.fnr', intl)}</Label>
           <BodyShort>{ident.verdi}</BodyShort>
         </VStack>
       )}
+
       {alder && (
         <VStack>
           <Label as="p">{hentTekst('person.alder', intl)}</Label>
           <BodyShort>{alder.verdi}</BodyShort>
         </VStack>
       )}
+
       {født?.verdi && lagtTil && (
         <VStack>
           <Label as="p">{hentTekst('barnekort.spm.født', intl)}</Label>
           <BodyShort>{verdiTilTekstsvar(født.verdi, intl)}</BodyShort>
         </VStack>
       )}
+
       {stønadstype === Stønadstype.barnetilsyn && skalHaBarnepass && (
         <VStack>
           <Label as="p">{hentTekst('barnekort.skalHaBarnepass', intl)}</Label>
           <BodyShort>{verdiTilTekstsvar(skalHaBarnepass?.verdi, intl)}</BodyShort>
         </VStack>
       )}
+
       {!harAdressesperre && harSammeAdresse && (
         <VStack>
           <Label as="p">{hentTekst('barnekort.spm.sammeAdresse', intl)}</Label>

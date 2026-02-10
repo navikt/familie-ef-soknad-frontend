@@ -71,6 +71,7 @@ export const OmFirmaeneDine: React.FC<Props> = ({
           />
         );
       })}
+
       {erSisteFirmaUtfylt(firmaer) && (
         <VStack align={'start'}>
           <Label as="p">{hentTekst('firmaer.label.flereFirmaer', intl)}</Label>

@@ -99,6 +99,7 @@ const OppsummeringOmDeg: FC<Props> = ({
           </VStack>
         )}
       </VStack>
+
       <LenkeMedIkon
         onClick={() =>
           navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })

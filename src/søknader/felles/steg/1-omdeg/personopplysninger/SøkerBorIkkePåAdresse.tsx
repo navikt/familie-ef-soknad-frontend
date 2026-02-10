@@ -29,6 +29,7 @@ export const SøkerBorIkkePåAdresse: FC<Props> = ({ stønadstype }) => {
       <Alert size="small" variant="warning" inline>
         {hentHTMLTekst('personopplysninger.alert.riktigAdresse', intl)}
       </Alert>
+
       <Heading size={'xsmall'}>{hentTekst('personopplysninger.info.endreAdresse', intl)}</Heading>
       <BodyShort>
         {hentHTMLTekstMedEnVariabel(

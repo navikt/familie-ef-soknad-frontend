@@ -52,6 +52,7 @@ export const BosituasjonSpørsmål: FC = () => {
         valgtSvar={delerBoligMedAndreVoksne.verdi}
         settSpørsmålOgSvar={oppdaterDelerBoligMedAndreVoksne}
       />
+
       {valgtSvar && valgtSvar.alert_tekstid && (
         <VStack>
           {visTidligereSamboerBorPåSammeAdresseAlert ? (
@@ -65,8 +66,11 @@ export const BosituasjonSpørsmål: FC = () => {
           )}
         </VStack>
       )}
+
       {visOmTidligereSamboer && <OmTidligereSamboer />}
+
       {visPlanerOmÅFlytteSammenEllerFåSamboer && <SøkerSkalFlytteSammenEllerFåSamboer />}
+
       {visEkteskapLignendeForhold && <EkteskapslignendeForhold />}
     </VStack>
   );

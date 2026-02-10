@@ -50,6 +50,7 @@ export const IdentEllerFødselsdatoGruppe: FC<Props> = ({
         }}
         data-testid={testIder && testIder[0]}
       />
+
       <Checkbox
         className={'checkbox'}
         checked={checked}
@@ -58,6 +59,7 @@ export const IdentEllerFødselsdatoGruppe: FC<Props> = ({
       >
         {checkboxLabel}
       </Checkbox>
+
       {checked && (
         <Datovelger
           valgtDato={fødselsdato}

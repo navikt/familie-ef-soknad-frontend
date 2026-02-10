@@ -48,9 +48,13 @@ export const ÅrsakEnslig: FC = () => {
         valgtSvar={sivilstatus.årsakEnslig?.verdi}
         settSpørsmålOgSvar={settÅrsakEnslig}
       />
+
       {visDatoForSamlivsbrudd && <DatoForSamlivsbrudd />}
+
       {visOmDenTidligereSamboerenDin && <OmDenTidligereSamboerenDin />}
+
       {visEndringISamvær && <EndringISamvær />}
+
       {visDødsfallAlert && (
         <Alert variant="info" size="small" inline>
           {hentHTMLTekst(alertTekstForDødsfall, intl)}

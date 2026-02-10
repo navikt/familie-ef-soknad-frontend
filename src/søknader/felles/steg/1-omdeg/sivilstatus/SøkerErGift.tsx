@@ -37,7 +37,9 @@ export const SøkerErGift: React.FC = () => {
         onChange={settHarSøktSeparasjon}
         valgtSvar={harSøktSeparasjon ? harSøktSeparasjon.verdi : undefined}
       />
+
       {visSøkerHarSøktSeperasjonSpørsmål && <SøkerHarSøktSeparasjon />}
+
       {visSøktSeperasjonAlert && (
         <Alert variant={'warning'} size={'small'} inline>
           {hentTekst('sivilstatus.alert-advarsel.søktSeparasjon', intl)}

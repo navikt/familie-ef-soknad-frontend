@@ -73,6 +73,7 @@ export const TidligereUtdanning: React.FC<Props> = ({ underUtdanning, settUnderU
           testID={'grunn-til-spørsmål-om-tidligere-utdanning'}
         />
       </VStack>
+
       <JaNeiSpørsmål
         spørsmål={utdanningEtterGrunnskolenSpm(intl)}
         onChange={settHarTattUtdanningEtterGrunnskolen}

@@ -88,11 +88,13 @@ export const OmDenTidligereSamboerenDin: FC = () => {
   return (
     <VStack gap="space-24" align="start">
       <Heading size="small">{hentTekst('sivilstatus.tittel.samlivsbruddAndre', intl)}</Heading>
+
       <TextField
         label={hentTekst('person.navn', intl)}
         onChange={(event) => settNavn(event.target.value)}
         value={tidligereSamboerDetaljer?.navn?.verdi}
       />
+
       <TextField
         label={hentTekst('person.ident', intl)}
         value={brukerIkkeIdent ? '' : ident}
@@ -101,9 +103,11 @@ export const OmDenTidligereSamboerenDin: FC = () => {
         disabled={brukerIkkeIdent}
         error={ident && !erGyldigIdent ? feilmelding : undefined}
       />
+
       <Checkbox checked={brukerIkkeIdent} onChange={(e) => settKjennerIkkeIdent(e.target.checked)}>
         {hentTekst('person.checkbox.ident', intl)}
       </Checkbox>
+
       {visFødseldatoVelger && (
         <Datovelger
           valgtDato={tidligereSamboerDetaljer?.fødselsdato?.verdi || ''}
@@ -112,6 +116,7 @@ export const OmDenTidligereSamboerenDin: FC = () => {
           settDato={(dato) => settTidligereSamboersFødselsdato(dato)}
         />
       )}
+
       {visFlyttedatoVelger && (
         <Datovelger
           settDato={(dato) => settDatoFlyttetFraHverandre(dato)}

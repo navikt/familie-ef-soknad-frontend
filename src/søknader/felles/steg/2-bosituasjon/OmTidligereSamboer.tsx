@@ -41,6 +41,7 @@ export const OmTidligereSamboer: FC = () => {
           'bosituasjon-tidligere-samboer-fødselsdato',
         ]}
       />
+
       {visDatoFlyttetFraHverandreVelger && (
         <Datovelger
           aria-live="polite"

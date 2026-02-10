@@ -76,6 +76,7 @@ export const OmArbeidsforholdetDitt: React.FC<Props> = ({
           />
         );
       })}
+
       {erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold) && (
         <VStack align={'start'}>
           <Label as="p">{hentTekst('arbeidsforhold.label.flereArbeidsgivere', intl)}</Label>

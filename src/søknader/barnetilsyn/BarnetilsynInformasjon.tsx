@@ -68,6 +68,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   return (
     <VStack gap={'space-40'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
+
       <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.barnetilsyn.info', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.barnetilsyn.fåStønadSkoleår', intl)}</BodyShort>
@@ -83,6 +84,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.barnetilsyn.riktigeOpplysninger', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.barnetilsyn.meldeEndringer', intl)}</BodyShort>
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.sendeDokumentasjon', intl)}{' '}
@@ -91,6 +93,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.barnetilsyn.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.oversiktDokumentasjon', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.henteInformasjon', intl)}{' '}
@@ -101,6 +104,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.barnetilsyn.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.personopplysningeneDine', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.barnetilsyn.overskrift.slikSøkerDu', intl)}{' '}
@@ -110,6 +114,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.barnetilsyn.slikSøkerDu3', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.barnetilsyn.slikSøkerDu4', intl)}</BodyShort>
       </VStack>
+
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
         tekst={'forside.barnetilsyn.disclaimerTekst'}

@@ -62,6 +62,7 @@ export const Personopplysninger: React.FC = () => {
         sivilstand={søker.sivilstand}
         adresse={søker.adresse}
       />
+
       {visAdresseSpørsmål && (
         <VStack gap={'space-32'}>
           <JaNeiSpørsmål

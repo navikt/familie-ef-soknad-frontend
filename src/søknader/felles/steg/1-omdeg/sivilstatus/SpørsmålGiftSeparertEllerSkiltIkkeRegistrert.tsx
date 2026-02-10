@@ -55,11 +55,13 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
         onChange={settErUformeltGift}
         valgtSvar={hentValgtSvar(erUformeltGiftSpørsmål(intl), sivilstatus)}
       />
+
       {visUformeltGiftAlert && (
         <Alert variant={'info'} size={'small'} inline>
           {hentTekst(hentSvarAlertFraSpørsmål(ESvar.JA, erUformeltGiftSpørsmål(intl)), intl)}
         </Alert>
       )}
+
       {visUformeltSeperertEllerSkiltSpørsmål && (
         <JaNeiSpørsmål
           spørsmål={erUformeltSeparertEllerSkiltSpørsmål(intl)}
@@ -67,6 +69,7 @@ export const SpørsmålGiftSeparertEllerSkiltIkkeRegistrert: React.FC = () => {
           valgtSvar={hentValgtSvar(erUformeltSeparertEllerSkiltSpørsmål(intl), sivilstatus)}
         />
       )}
+
       {visUformeltSeperertEllerSkiltAlert && (
         <Alert variant={'info'} size={'small'} inline>
           {hentTekst(

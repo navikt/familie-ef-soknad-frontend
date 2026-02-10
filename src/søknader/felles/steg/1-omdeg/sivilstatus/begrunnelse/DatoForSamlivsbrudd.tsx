@@ -31,6 +31,7 @@ export const DatoForSamlivsbrudd: React.FC = () => {
         tekstid={datovelgerLabel}
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
+
       <Alert variant={'info'} size={'small'} inline>
         {hentTekst('sivilstatus.alert.samlivsbrudd', intl)}
       </Alert>

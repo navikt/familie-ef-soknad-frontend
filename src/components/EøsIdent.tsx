@@ -57,6 +57,7 @@ export const EøsIdent: React.FC<Props> = ({
         <Label>{utenlandskIDNummerTekst}</Label>
         <ReadMore header={halvåpenTekstid}>{åpneTekstid}</ReadMore>
       </VStack>
+
       <TextField
         key={'navn'}
         label={utenlandskIDNummerTekst}
@@ -67,6 +68,7 @@ export const EøsIdent: React.FC<Props> = ({
         disabled={utenlandsopphold.kanIkkeOppgiPersonident}
         maxLength={32}
       />
+
       <Checkbox
         checked={utenlandsopphold.kanIkkeOppgiPersonident}
         onChange={() => toggleHarUtenlandskPersonId(!utenlandsopphold.kanIkkeOppgiPersonident)}

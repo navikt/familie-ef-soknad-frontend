@@ -46,6 +46,7 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInfor
           {samboerDetaljer}
         </VStack>
       )}
+
       {vordendeSamboerEktefelle && (
         <VStack>
           <Heading size={'small'} level={'4'}>
@@ -54,6 +55,7 @@ const OppsummeringBosituasionenDin: React.FC<Props> = ({ bosituasjon, endreInfor
           {vordendeSamboerEktefelle}
         </VStack>
       )}
+
       <LenkeMedIkon
         onClick={() =>
           navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })

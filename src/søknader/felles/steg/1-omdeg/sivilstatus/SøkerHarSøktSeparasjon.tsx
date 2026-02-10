@@ -30,6 +30,7 @@ export const SøkerHarSøktSeparasjon: React.FC = () => {
         tekstid={datovelgerTekstid}
         gyldigeDatoer={GyldigeDatoer.Tidligere}
       />
+
       <Alert variant={'info'} size={'small'} inline>
         {hentTekst('sivilstatus.alert-info.søktSeparasjon', intl)}
       </Alert>

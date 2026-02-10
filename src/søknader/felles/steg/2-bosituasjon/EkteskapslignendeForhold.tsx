@@ -36,6 +36,7 @@ export const EkteskapslignendeForhold: FC = () => {
         erIdentEllerFødselsdatoObligatorisk={true}
         samboerDetaljerType={EBosituasjon.samboerDetaljer}
       />
+
       {visFlyttetSammenMedSamboerDatoVelger && (
         <Datovelger
           valgtDato={

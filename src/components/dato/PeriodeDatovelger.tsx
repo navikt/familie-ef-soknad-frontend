@@ -104,6 +104,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
           />
         )}
       </VStack>
+
       <HStack gap={'space-24'}>
         <Datovelger
           settDato={(e) => settPeriode(EPeriode.fra, e)}
@@ -121,6 +122,7 @@ export const PeriodeDatovelgere: FC<Props> = ({
           testId={`tilDato-${testIndeks}`}
         />
       </HStack>
+
       {visDatoFeilmelding && (
         <Alert variant={'error'} size={'small'}>
           {hentTekst(feilmelding, intl)}

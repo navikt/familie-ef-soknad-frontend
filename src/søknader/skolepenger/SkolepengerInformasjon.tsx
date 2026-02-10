@@ -21,10 +21,12 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
   return (
     <VStack gap={'space-40'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.skolepenger} />
+
       <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.skolepenger.innledning', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.merInfoLenke', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.riktigeOpplysninger', intl)}
@@ -32,6 +34,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.riktigeOpplysninger', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.skolepenger.meldeEndringer', intl)}</BodyShort>
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.sendeDokumentasjon', intl)}
@@ -40,6 +43,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.dokumentasjonsOversiktLenke', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.henteInformasjon', intl)}
@@ -50,6 +54,7 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.skolepenger.personopplysningeneDineLenke', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.skolepenger.overskrift.slikSøkerDu', intl)}
@@ -58,12 +63,14 @@ export const SkolepengerInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.skolepenger.lagringSøknad', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.skolepenger.manglerDuDokumentasjon', intl)}</BodyShort>
       </VStack>
+
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
         tekst={'forside.skolepenger.disclaimerTekst'}
         harBekreftet={harBekreftet}
         settBekreftelse={settBekreftelse}
       />
+
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
     </VStack>
   );

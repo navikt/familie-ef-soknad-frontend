@@ -94,11 +94,13 @@ export const TarUtdanning: React.FC<Props> = ({
           />
         )}
       </VStack>
+
       <SkoleOgLinje
         aria-live="polite"
         utdanning={utdanning}
         oppdaterUtdanning={oppdaterUtdanning}
       />
+
       {utdanning.linjeKursGrad?.verdi && (
         <ErUtdanningenOffentligEllerPrivat utdanning={utdanning} settUtdanning={settUtdanning} />
       )}
@@ -131,6 +133,7 @@ export const TarUtdanning: React.FC<Props> = ({
       {skalHaDetaljertUtdanning && erUnderUtdanningFerdigUtfylt(utdanning) && (
         <Studiekostnader utdanning={utdanning} oppdaterUtdanning={oppdaterUtdanning} />
       )}
+
       {visTidligereUtdanning && (
         <TidligereUtdanning underUtdanning={utdanning} settUnderUtdanning={settUtdanning} />
       )}

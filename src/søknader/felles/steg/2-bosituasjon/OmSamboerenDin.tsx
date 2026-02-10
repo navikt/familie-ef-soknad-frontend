@@ -96,6 +96,7 @@ export const OmSamboerenDin: FC<Props> = ({
   return (
     <VStack gap={'space-24'} align={'start'}>
       <Label as="p">{hentTekst(tittel, intl)}</Label>
+
       <TextField
         key={'navn'}
         label={hentTekst('person.navn', intl)}
@@ -104,6 +105,7 @@ export const OmSamboerenDin: FC<Props> = ({
         value={samboerInfo.navn?.verdi ? samboerInfo.navn?.verdi : ''}
         data-testid={testIderTextFieldMedBredde}
       />
+
       {visIdentEllerFødseldatoGruppe && (
         <IdentEllerFødselsdatoGruppe
           identLabel={hentTekst('person.ident', intl)}

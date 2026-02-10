@@ -81,6 +81,7 @@ export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
         onChange={settSøkerSkalGifteSegEllerBliSamboer}
         valgtSvar={skalGifteSegEllerBliSamboer?.verdi}
       />
+
       <VStack gap={'space-24'} align={'start'}>
         {visDatoSkalGifteSegEllerBliSamboer && (
           <Datovelger

@@ -147,6 +147,7 @@ export const Arbeidsgiver: React.FC<Props> = ({
           valgtSvar={arbeidsgiver.ansettelsesforhold?.verdi}
         />
       )}
+
       {arbeidsgiver.ansettelsesforhold?.svarid === EStilling.lærling && (
         <AlertStripeDokumentasjon>
           {hentTekst('arbeidsforhold.alert.lærling', intl)}

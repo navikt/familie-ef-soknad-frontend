@@ -26,6 +26,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.overgangsstønad.sammeSøknad', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.riktigeOpplysninger', intl)}
@@ -33,6 +34,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.overgangsstønad.riktigeOpplysninger', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.overgangsstønad.meldeEndringer', intl)}</BodyShort>
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.sendeDokumentasjon', intl)}
@@ -41,6 +43,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.overgangsstønad.merInformasjon', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.oversiktDokumentasjon', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.henteInformasjon', intl)}
@@ -51,6 +54,7 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.overgangsstønad.tidligereOpplysninger', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.personopplysningeneDine', intl)}
       </VStack>
+
       <VStack gap={'space-12'}>
         <Heading level="2" size="small">
           {hentTekst('forside.overgangsstønad.overskrift.slikSøkerDu', intl)}
@@ -59,12 +63,14 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
         <BodyShort>{hentTekst('forside.overgangsstønad.viLagrerSøknadenDin', intl)}</BodyShort>
         <BodyShort>{hentTekst('forside.overgangsstønad.manglerDuDokumentasjon', intl)}</BodyShort>
       </VStack>
+
       <DisclaimerBoks
         navn={person.søker.forkortetNavn}
         tekst={'forside.overgangsstønad.disclaimerTekst'}
         harBekreftet={harBekreftet}
         settBekreftelse={settBekreftelse}
       />
+
       {harBekreftet && <KnappLocaleTekstOgNavigate nesteSide={nesteSide} />}
     </VStack>
   );

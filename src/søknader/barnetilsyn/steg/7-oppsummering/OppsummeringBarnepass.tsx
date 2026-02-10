@@ -44,6 +44,7 @@ export const OppsummeringBarnepass: FC<Props> = ({
           </section>
         );
       })}
+
       {søkerFraBestemtDato && (
         <VStack gap={'space-32'}>
           <hr style={{ width: '100%' }} />

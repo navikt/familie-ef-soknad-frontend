@@ -35,6 +35,7 @@ export const EndreEllerSlettBarn: React.FC<Props> = ({
           {hentTekst('barnekort.fjern', intl)}
         </Button>
       </VStack>
+
       {åpenEndreModal && (
         <LeggTilBarnModal
           tittel={hentTekst('barnadine.endre', intl)}

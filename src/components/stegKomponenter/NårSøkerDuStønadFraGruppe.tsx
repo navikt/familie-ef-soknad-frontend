@@ -66,6 +66,7 @@ const NårSøkerDuStønadFra: React.FC<Props> = ({
           </RadioGroup>
         </div>
       </VStack>
+
       {søkerFraBestemtMåned?.verdi === true && (
         <VStack gap={'space-8'}>
           <Label as="p">{hentTekst('søkerFraBestemtMåned.datovelger', intl)}</Label>

@@ -62,6 +62,7 @@ export const PeriodeBoddIUtlandet: FC<{
           land={land}
         />
       ))}
+
       {erForrigePeriodeFyltUt && (
         <VStack gap="space-24">
           <Heading size={'xsmall'}>
