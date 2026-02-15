@@ -10,7 +10,7 @@
     "@navikt/nav-dekoratoren-moduler": "^3.6.2",
     "@types/express": "^5.0.6",
     "axios": "^1.13.4",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.2.4",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
