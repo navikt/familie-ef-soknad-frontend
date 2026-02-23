@@ -54,6 +54,10 @@ export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]
 };
 
 export const erUnderUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning): boolean => {
+  if (!harValgtSvar(underUtdanning.heltidEllerDeltid?.verdi)) {
+    return false;
+  }
+
   if (underUtdanning.heltidEllerDeltid?.verdi === 'Deltid') {
     return erDeltidUtdanningOgSkalStudereUnderHundreProsent(underUtdanning);
   } else {
