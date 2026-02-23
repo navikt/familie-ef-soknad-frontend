@@ -54,7 +54,9 @@ export const TarUtdanning: React.FC<Props> = ({
       utdanning.periode &&
       !erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
     ) {
-      delete utdanning.heltidEllerDeltid;
+      if (utdanning.heltidEllerDeltid) {
+        settUtdanning({ ...utdanning, heltidEllerDeltid: undefined });
+      }
     }
   }, [utdanning]);
 
