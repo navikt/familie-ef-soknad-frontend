@@ -72,7 +72,7 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
-    "@sentry/webpack-plugin": "^4.9.1",
+    "@sentry/webpack-plugin": "^5.1.0",
     "@svgr/webpack": "^8.1.0",
     "@types/body-parser": "^1.19.6",
     "@types/node": "^25.2.3",
