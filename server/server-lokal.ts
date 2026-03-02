@@ -23,7 +23,9 @@ const startServer = async () => {
 
   app.use(lagRoutes(vite));
 
-  app.listen(3000);
+  app.listen(3000, () => {
+    console.log('http://localhost:3000/familie/alene-med-barn/soknad/');
+  });
 };
 
 startServer();

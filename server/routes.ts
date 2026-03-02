@@ -53,7 +53,7 @@ const lagHtmlRouter = (vite?: ViteDevServer): Router => {
     router.use(BASE_PATH, express.static(buildPath, { index: false }));
   }
 
-  router.use(`${BASE_PATH}/*`, async (_req: Request, res: Response) => {
+  router.use(`${BASE_PATH}/{*path}`, async (_req: Request, res: Response) => {
     try {
       if (erUtvikling && vite) {
         const rawHtml = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
