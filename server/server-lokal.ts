@@ -1,40 +1,37 @@
 import express from 'express';
+import { createServer as createViteServer } from 'vite';
 
 import routes from './routes';
 import cookieParser from 'cookie-parser';
 import { cspString } from './csp';
-import webpack from 'webpack';
-// @ts-ignore
-import config from '../../config/webpack.run.js';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 
-const app = express();
+const startServer = async () => {
+  const app = express();
 
-app.use((_req, res, next) => {
-  res.header('Content-Security-Policy', cspString());
-  res.header('X-Content-Type-Options', 'nosniff');
-  res.header('X-Frame-Options', 'DENY');
-  next();
-});
+  app.use((_req, res, next) => {
+    res.header('Content-Security-Policy', cspString());
+    res.header('X-Content-Type-Options', 'nosniff');
+    res.header('X-Frame-Options', 'DENY');
+    next();
+  });
 
-const compiler = webpack(config);
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: 'custom',
+  });
 
-if (!compiler) {
-  throw new Error('Webpack compiler kunne ikke opprettes, mangler verdi.');
-}
+  app.use((req, res, next) => {
+    const originalUrl = req.url;
+    vite.middlewares(req, res, () => {
+      req.url = originalUrl;
+      next();
+    });
+  });
+  app.use(cookieParser());
+  app.use(routes(app, vite));
 
-const middleware = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  writeToDisk: true,
-  index: false, // Får dekoratøren på forsiden
-});
+  console.log('Startet - lytter på port 3000');
+  app.listen(3000);
+};
 
-app.use(middleware);
-app.use(cookieParser());
-app.use(webpackHotMiddleware(compiler));
-
-app.use(routes(app));
-
-console.log('Startet - lytter på port 3000');
-app.listen(3000);
+startServer();

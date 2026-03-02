@@ -1,10 +1,14 @@
-import { DecoratorParams, injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
+import {
+  DecoratorParams,
+  fetchDecoratorHtml,
+  injectDecoratorServerSide,
+} from '@navikt/nav-dekoratoren-moduler/ssr';
 import logger from './logger';
 import { miljø } from './miljø';
 
 type NaisEnv = 'prod' | 'dev';
 
-const getHtmlWithDecorator = (filePath: string) => {
+const hentDekoratørConfig = () => {
   const env = process.env.ENV;
   if (env === undefined) {
     logger.error('Mangler miljø for dekoratøren');
@@ -17,13 +21,26 @@ const getHtmlWithDecorator = (filePath: string) => {
     level: 'Level4',
   };
 
-  const dekoratørConfig = {
+  return {
     env: miljø.erLokalt ? 'dev' : (env as NaisEnv),
-    filePath: filePath,
     params: dekoratørParams,
   };
+};
 
-  return injectDecoratorServerSide(dekoratørConfig);
+const getHtmlWithDecorator = (filePath: string) => {
+  return injectDecoratorServerSide({
+    ...hentDekoratørConfig(),
+    filePath,
+  });
+};
+
+export const injectDekoratorIHtml = async (html: string): Promise<string> => {
+  const elementer = await fetchDecoratorHtml(hentDekoratørConfig());
+
+  return html
+    .replace('</head>', `${elementer.DECORATOR_HEAD_ASSETS}</head>`)
+    .replace('<body>', `<body>${elementer.DECORATOR_HEADER}`)
+    .replace('</body>', `${elementer.DECORATOR_FOOTER}${elementer.DECORATOR_SCRIPTS}</body>`);
 };
 
 export default getHtmlWithDecorator;

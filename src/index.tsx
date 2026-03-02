@@ -1,4 +1,3 @@
-import './utils/polyfills';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '@navikt/ds-css';
 import './index.css';

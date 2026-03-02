@@ -1,18 +1,19 @@
 import express, { Express, Request, Response } from 'express';
 import path from 'path';
-import getHtmlWithDecorator from './decorator';
+import fs from 'fs';
+import getHtmlWithDecorator, { injectDekoratorIHtml } from './decorator';
 import logger from './logger';
 import { addRequestInfo, doProxy } from './proxy';
 import attachToken from './tokenProxy';
 import { miljø } from './miljø';
+import type { ViteDevServer } from 'vite';
 
-const buildPath =
-  process.env.NODE_ENV !== 'development'
-    ? path.join(process.cwd(), '../build')
-    : path.join(process.cwd(), 'dev-build');
+const erUtvikling = process.env.NODE_ENV === 'development';
+const buildPath = path.join(process.cwd(), '../build');
 const EF_BASE_PATH = '/familie/alene-med-barn';
 const BASE_PATH = `${EF_BASE_PATH}/soknad`;
-const routes = (app: Express) => {
+
+const routes = (app: Express, vite?: ViteDevServer) => {
   const expressRouter = express.Router();
   console.log('Setter opp routes');
 
@@ -23,17 +24,25 @@ const routes = (app: Express) => {
     }
   );
 
-  expressRouter.use(BASE_PATH, express.static(buildPath, { index: false }));
+  if (!erUtvikling) {
+    expressRouter.use(BASE_PATH, express.static(buildPath, { index: false }));
+  }
 
-  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, (_req, res) => {
-    getHtmlWithDecorator(path.join(buildPath, 'index.html'))
-      .then((html) => {
+  expressRouter.use(/^(?!.*\/(internal|static|api)\/).*$/, async (_req, res) => {
+    try {
+      if (erUtvikling && vite) {
+        const råHtml = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
+        const transformertHtml = await vite.transformIndexHtml(_req.originalUrl, råHtml);
+        const html = await injectDekoratorIHtml(transformertHtml);
         res.send(html);
-      })
-      .catch((e) => {
-        logger.error(e);
-        res.status(500).send(e);
-      });
+      } else {
+        const html = await getHtmlWithDecorator(path.join(buildPath, 'index.html'));
+        res.send(html);
+      }
+    } catch (e) {
+      logger.error(e);
+      res.status(500).send(e);
+    }
   });
 
   expressRouter.use(
