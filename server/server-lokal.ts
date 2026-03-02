@@ -1,19 +1,12 @@
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
-
-import routes from './routes';
-import cookieParser from 'cookie-parser';
-import { cspString } from './csp';
+import { sikkerhetsheadere } from './sikkerhetsheadere';
+import { lagRoutes } from './routes';
 
 const startServer = async () => {
   const app = express();
 
-  app.use((_req, res, next) => {
-    res.header('Content-Security-Policy', cspString());
-    res.header('X-Content-Type-Options', 'nosniff');
-    res.header('X-Frame-Options', 'DENY');
-    next();
-  });
+  app.use(sikkerhetsheadere());
 
   const vite = await createViteServer({
     server: { middlewareMode: true },
@@ -27,10 +20,9 @@ const startServer = async () => {
       next();
     });
   });
-  app.use(cookieParser());
-  app.use(routes(app, vite));
 
-  console.log('Startet - lytter på port 3000');
+  app.use(lagRoutes(vite));
+
   app.listen(3000);
 };
 

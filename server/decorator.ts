@@ -27,14 +27,14 @@ const hentDekoratørConfig = () => {
   };
 };
 
-const getHtmlWithDecorator = (filePath: string) => {
+export const hentHtmlMedDekoratør = (filsti: string) => {
   return injectDecoratorServerSide({
     ...hentDekoratørConfig(),
-    filePath,
+    filePath: filsti,
   });
 };
 
-export const injectDekoratorIHtml = async (html: string): Promise<string> => {
+export const injectDekoratørIHtml = async (html: string): Promise<string> => {
   const elementer = await fetchDecoratorHtml(hentDekoratørConfig());
 
   return html
@@ -42,5 +42,3 @@ export const injectDekoratorIHtml = async (html: string): Promise<string> => {
     .replace('<body>', `<body>${elementer.DECORATOR_HEADER}`)
     .replace('</body>', `${elementer.DECORATOR_FOOTER}${elementer.DECORATOR_SCRIPTS}</body>`);
 };
-
-export default getHtmlWithDecorator;
