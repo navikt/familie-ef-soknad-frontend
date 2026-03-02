@@ -24,7 +24,10 @@ const startServer = async () => {
   app.use(lagRoutes(vite));
 
   app.listen(3000, () => {
-    console.log('http://localhost:3000/familie/alene-med-barn/soknad/');
+    console.log('Arbeidssøker: http://localhost:3000/familie/alene-med-barn/soknad/arbeidssoker');
+    console.log('Barnetilsyn: http://localhost:3000/familie/alene-med-barn/soknad/barnetilsyn');
+    console.log('Skolepenger: http://localhost:3000/familie/alene-med-barn/soknad/skolepenger');
+    console.log('Overgangsstønad: http://localhost:3000/familie/alene-med-barn/soknad/');
   });
 };
 
