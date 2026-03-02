@@ -1,7 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { getToken, requestTokenxOboToken } from '@navikt/oasis';
 import { logWarn, logInfo } from './logger';
 import { miljø } from './miljø';
-import { byttToken } from './texas';
 
 export type ApplicationName = 'familie-ef-soknad-api' | 'familie-dokument';
 
@@ -9,15 +9,6 @@ const AUTHORIZATION_HEADER = 'authorization';
 const WONDERWALL_ID_TOKEN_HEADER = 'x-wonderwall-id-token';
 
 const erProd = () => process.env.ENV === 'prod';
-
-const harBearerToken = (authorization: string) => authorization.includes('Bearer ');
-
-const utledToken = (req: Request, authorization: string | undefined) => {
-  if (authorization && harBearerToken(authorization)) {
-    return authorization.split(' ')[1];
-  }
-  throw Error('Mangler authorization i header');
-};
 
 const hentAccessToken = async (
   req: Request,
@@ -36,12 +27,17 @@ const hentAccessToken = async (
   const cluster = erProd() ? 'prod-gcp' : 'dev-gcp';
   const audience = `${cluster}:teamfamilie:${applikasjonsnavn}`;
 
-  const { authorization } = req.headers;
-  const token = utledToken(req, authorization);
+  const token = getToken(req);
+  if (!token) {
+    throw Error('Mangler authorization i header');
+  }
   logInfo('IdPorten-token found: ' + (token.length > 1), req);
 
-  const accessToken = await byttToken(token, audience, 'tokenx');
-  return `Bearer ${accessToken}`;
+  const oboResult = await requestTokenxOboToken(token, audience);
+  if (!oboResult.ok) {
+    throw oboResult.error;
+  }
+  return `Bearer ${oboResult.token}`;
 };
 
 const hentFakedingsToken = async (applikasjonsnavn: string): Promise<string> => {
