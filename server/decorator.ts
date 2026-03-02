@@ -27,10 +27,10 @@ const hentDekoratørConfig = () => {
   };
 };
 
-export const hentHtmlMedDekoratør = (filsti: string) => {
+export const hentHtmlMedDekoratør = (path: string) => {
   return injectDecoratorServerSide({
     ...hentDekoratørConfig(),
-    filePath: filsti,
+    filePath: path,
   });
 };
 
