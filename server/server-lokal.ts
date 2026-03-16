@@ -1,40 +1,34 @@
 import express from 'express';
+import { createServer as createViteServer } from 'vite';
+import { sikkerhetsheadere } from './sikkerhetsheadere';
+import { lagRoutes } from './routes';
 
-import routes from './routes';
-import cookieParser from 'cookie-parser';
-import { cspString } from './csp';
-import webpack from 'webpack';
-// @ts-ignore
-import config from '../../config/webpack.run.js';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+const startServer = async () => {
+  const app = express();
 
-const app = express();
+  app.use(sikkerhetsheadere());
 
-app.use((_req, res, next) => {
-  res.header('Content-Security-Policy', cspString());
-  res.header('X-Content-Type-Options', 'nosniff');
-  res.header('X-Frame-Options', 'DENY');
-  next();
-});
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: 'custom',
+  });
 
-const compiler = webpack(config);
+  app.use((req, res, next) => {
+    const originalUrl = req.url;
+    vite.middlewares(req, res, () => {
+      req.url = originalUrl;
+      next();
+    });
+  });
 
-if (!compiler) {
-  throw new Error('Webpack compiler kunne ikke opprettes, mangler verdi.');
-}
+  app.use(lagRoutes(vite));
 
-const middleware = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  writeToDisk: true,
-  index: false, // Får dekoratøren på forsiden
-});
+  app.listen(3000, () => {
+    console.log('Arbeidssøker: http://localhost:3000/familie/alene-med-barn/soknad/arbeidssoker');
+    console.log('Barnetilsyn: http://localhost:3000/familie/alene-med-barn/soknad/barnetilsyn');
+    console.log('Skolepenger: http://localhost:3000/familie/alene-med-barn/soknad/skolepenger');
+    console.log('Overgangsstønad: http://localhost:3000/familie/alene-med-barn/soknad/');
+  });
+};
 
-app.use(middleware);
-app.use(cookieParser());
-app.use(webpackHotMiddleware(compiler));
-
-app.use(routes(app));
-
-console.log('Startet - lytter på port 3000');
-app.listen(3000);
+startServer();
