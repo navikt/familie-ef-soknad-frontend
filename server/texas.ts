@@ -1,31 +1,31 @@
-import axios from 'axios';
 import { envVar } from './envVar';
 
-interface SuksessResponse {
+interface TokenResponse {
   access_token: string;
   token_type: string;
 }
 
-export class TexasClient {
-  async exchangeToken(
-    token: string,
-    target: string,
-    identityProvider: string
-  ): Promise<SuksessResponse> {
-    const exchangeTokenUrl = envVar('NAIS_TOKEN_EXCHANGE_ENDPOINT');
+export const byttToken = async (
+  token: string,
+  target: string,
+  identityProvider: string
+): Promise<string> => {
+  const url = envVar('NAIS_TOKEN_EXCHANGE_ENDPOINT');
 
-    const requestBody = {
+  const respons = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       identity_provider: identityProvider,
       target: target,
       user_token: token,
-    };
+    }),
+  });
 
-    const response = await axios.post<SuksessResponse>(exchangeTokenUrl, requestBody, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    return response.data;
+  if (!respons.ok) {
+    throw new Error(`Token-utveksling feilet: ${respons.status}`);
   }
-}
+
+  const data: TokenResponse = await respons.json();
+  return data.access_token;
+};
