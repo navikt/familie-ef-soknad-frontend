@@ -6,8 +6,8 @@ interface TokenResponse {
 }
 
 export const byttToken = async (
-  brukerToken: string,
-  targetApplication: string,
+  token: string,
+  target: string,
   identityProvider: string
 ): Promise<string> => {
   const url = envVar('NAIS_TOKEN_EXCHANGE_ENDPOINT');
@@ -17,8 +17,8 @@ export const byttToken = async (
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       identity_provider: identityProvider,
-      target: targetApplication,
-      user_token: brukerToken,
+      target: target,
+      user_token: token,
     }),
   });
 
