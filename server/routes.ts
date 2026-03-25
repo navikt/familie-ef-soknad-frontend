@@ -1,6 +1,7 @@
 import express, { Request, Response, Router } from 'express';
 import path from 'path';
 import fs from 'fs';
+import rateLimit from 'express-rate-limit';
 import { hentHtmlMedDekoratør, injectDekoratørIHtml } from './decorator';
 import logger from './logger';
 import { leggTilRequestInfo, lagProxy } from './proxy';
@@ -49,11 +50,19 @@ const lagApiProxyer = (): Router => {
 const lagHtmlRouter = (vite?: ViteDevServer): Router => {
   const router = express.Router();
 
+  const htmlRateLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    limit: 100,
+    message: 'For mange forespørsler, vennligst prøv igjen senere',
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+  });
+
   if (!erUtvikling) {
     router.use(BASE_PATH, express.static(buildPath, { index: false }));
   }
 
-  router.use(`${BASE_PATH}/{*path}`, async (_req: Request, res: Response) => {
+  router.use(`${BASE_PATH}/{*path}`, htmlRateLimiter, async (_req: Request, res: Response) => {
     try {
       if (erUtvikling && vite) {
         const rawHtml = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
