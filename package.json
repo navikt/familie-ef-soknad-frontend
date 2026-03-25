@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_DEV_API=true ENV=localhost node server/build/server-lokal.js",
     "build": "npm run lint && npm run build:prod",
     "build:prod": "tsc --noEmit & vite build",
     "start": "npm run build:dev-server && npm run set-node-options NODE_ENV=development ENV=localhost node server/build/server-lokal.js",
-    "start:preprod": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_DEV_API=true ENV=localhost node server/build/server-lokal.js",
     "start:mock": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_MOCK_LOKALT=true ENV=localhost node server/build/server-lokal.js",
     "test": "vitest run",
     "vitest": "vitest",
