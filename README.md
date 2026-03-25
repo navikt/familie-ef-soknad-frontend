@@ -21,7 +21,7 @@ TOKENX_DOKUMENT=...
 ```
 Du kan også hente token ved å kjøre `dev:hent-tokens` med personident fra Dolly. Dette gjøre den manuelle prosessen litt enklere, da den fyller ut .env filen automagisk!
 3. `npm install` 
-4. `npm run start:preprod` 
+4. `npm run dev` 
 5. Gå til url: `http://localhost:3000/familie/alene-med-barn/soknad/`
 
 * Hvis man ønsker å kjøre med mock-api
