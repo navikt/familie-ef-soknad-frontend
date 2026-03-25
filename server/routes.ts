@@ -51,7 +51,7 @@ const lagHtmlRouter = (vite?: ViteDevServer): Router => {
   const router = express.Router();
 
   const htmlRateLimiter = rateLimit({
-    windowMs: 1 * 60 * 1000,
+    windowMs: 60 * 1000,
     limit: 100,
     message: 'For mange forespørsler, vennligst prøv igjen senere',
     standardHeaders: 'draft-8',
