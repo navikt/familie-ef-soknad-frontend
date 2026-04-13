@@ -81,7 +81,7 @@
     "pretty-quick": "^4.2.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.57.1",
+    "typescript-eslint": "^8.58.1",
     "vite": "^8.0.8",
     "vitest": "^4.1.0"
   },
