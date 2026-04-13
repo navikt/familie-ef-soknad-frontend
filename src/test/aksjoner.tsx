@@ -3,7 +3,7 @@ import { TestContainer } from './TestContainer';
 import { OvergangsstønadApp } from '../søknader/overgangsstønad/OvergangsstønadApp';
 import { Screen, waitFor, within } from '@testing-library/dom';
 import { expect } from 'vitest';
-import { UserEvent } from '@testing-library/user-event/index';
+import { UserEvent } from '@testing-library/user-event';
 import BarnetilsynApp from '../søknader/barnetilsyn/BarnetilsynApp';
 import SkolepengerApp from '../søknader/skolepenger/SkolepengerApp';
 
