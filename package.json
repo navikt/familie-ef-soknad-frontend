@@ -40,7 +40,7 @@
     "@navikt/ds-react": "^8.7.0",
     "@navikt/ds-tokens": "^8.2.2",
     "@navikt/fnrvalidator": "^2.2.0",
-    "@navikt/land-verktoy": "^11.3.0",
+    "@navikt/land-verktoy": "^13.0.7",
     "@navikt/nav-dekoratoren-moduler": "^3.6.3",
     "@sentry/browser": "^10.44.0",
     "axios": "^1.15.0",
