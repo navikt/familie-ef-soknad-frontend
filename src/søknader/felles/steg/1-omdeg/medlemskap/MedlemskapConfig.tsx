@@ -2,7 +2,10 @@ import { ISpørsmål } from '../../../../../models/felles/spørsmålogsvar';
 import { JaNeiSvar } from '../../../../../helpers/svar';
 import { EMedlemskap, ILandMedKode } from '../../../../../models/steg/omDeg/medlemskap';
 import { LocaleType, LokalIntlShape } from '../../../../../language/typer';
-import CountryData, { Countries, CountryFilter } from '@navikt/land-verktoy';
+import landVerktoy, { Countries, CountryFilter } from '@navikt/land-verktoy';
+
+const CountryData =
+  (landVerktoy as unknown as { default?: typeof landVerktoy }).default ?? landVerktoy;
 
 export const oppholderSegINorge = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: EMedlemskap.søkerOppholderSegINorge,
