@@ -9,7 +9,7 @@ import { OmDegProvider } from '../felles/steg/1-omdeg/OmDegContext';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
 import OmDeg from '../felles/steg/1-omdeg/OmDeg';
 import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
-import { RoutesOvergangsstonad } from './routing/routesOvergangsstonad';
+import { hentRoutesOvergangsstonad } from './routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from './utils';
 import { erOvergangsstønadSøknad, Søknad } from '../../models/søknad/søknad';
 import { BosituasjonProvider } from '../felles/steg/2-bosituasjon/BosituasjonContext';
@@ -20,8 +20,11 @@ import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
+import { NyeSteg5_6 } from './steg/5-nytt-regelverk/NyeSteg5-6';
 import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
 import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -34,6 +37,13 @@ const Søknadsdialog: FC = () => {
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
   } = useOvergangsstønadSøknad();
+
+  const { toggles } = useToggles();
+
+  const erUtvikling = process.env.NODE_ENV === 'development';
+  const erToggleNyeRegler = toggles[ToggleName.nyeReglerOvergangsstonad];
+  const brukNyeRegler = erToggleNyeRegler && erUtvikling;
+  const overgangsstønadRoutes = hentRoutesOvergangsstonad(brukNyeRegler);
 
   const oppdaterOvergangsstønadSøknad = (søknad: Søknad) => {
     if (erOvergangsstønadSøknad(søknad)) {
@@ -67,7 +77,7 @@ const Søknadsdialog: FC = () => {
                 søknad={søknad}
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesOvergangsstonad}
+                routes={overgangsstønadRoutes}
               >
                 <Dokumentasjon />
               </DokumentasjonsProvider>
@@ -106,6 +116,21 @@ const Søknadsdialog: FC = () => {
           }
         />
         <Route
+          path={'/aktivitet-og-situasjon'}
+          element={
+            <RedirectTilStart>
+              <AktivitetProvider
+                søknad={søknad}
+                oppdaterSøknad={oppdaterOvergangsstønadSøknad}
+                mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
+                settDokumentasjonsbehov={settDokumentasjonsbehov}
+              >
+                <NyeSteg5_6 />
+              </AktivitetProvider>
+            </RedirectTilStart>
+          }
+        />
+        <Route
           path={'/barnas-bosted'}
           element={
             <RedirectTilStart>
@@ -116,7 +141,7 @@ const Søknadsdialog: FC = () => {
                 oppdaterBarnISøknaden={oppdaterBarnISøknaden}
                 oppdaterFlereBarnISøknaden={oppdaterFlereBarnISøknaden}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesOvergangsstonad}
+                routes={overgangsstønadRoutes}
                 pathOppsummering={pathOppsummeringOvergangsstønad}
                 settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
               >
@@ -135,7 +160,7 @@ const Søknadsdialog: FC = () => {
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 mellomlagretSøknad={mellomlagretOvergangsstønad}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesOvergangsstonad}
+                routes={overgangsstønadRoutes}
                 pathOppsummering={pathOppsummeringOvergangsstønad}
                 settDokumentasjonsbehovForBarn={settDokumentasjonsbehovForBarn}
               >
@@ -154,7 +179,7 @@ const Søknadsdialog: FC = () => {
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 mellomlagretSøknad={mellomlagretOvergangsstønad}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesOvergangsstonad}
+                routes={overgangsstønadRoutes}
                 pathOppsummering={pathOppsummeringOvergangsstønad}
                 settDokumentasjonsbehov={settDokumentasjonsbehov}
               >
@@ -173,7 +198,7 @@ const Søknadsdialog: FC = () => {
                 oppdaterSøknad={oppdaterOvergangsstønadSøknad}
                 mellomlagretSøknad={mellomlagretOvergangsstønad}
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
-                routes={RoutesOvergangsstonad}
+                routes={overgangsstønadRoutes}
                 pathOppsummering={pathOppsummeringOvergangsstønad}
                 settDokumentasjonsbehov={settDokumentasjonsbehov}
               >
