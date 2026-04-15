@@ -39,7 +39,7 @@ const Oppsummering: React.FC = () => {
   const { mellomlagreOvergangsstønad, søknad } = useOvergangsstønadSøknad();
   const { toggles } = useToggles();
   const erUtvikling = process.env.NODE_ENV === 'development';
-  const brukNyeRegler = toggles[ToggleName.nyeReglerOvergangsstonad] && erUtvikling;
+  const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
   const routes = hentRoutesOvergangsstonad(brukNyeRegler);
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
 

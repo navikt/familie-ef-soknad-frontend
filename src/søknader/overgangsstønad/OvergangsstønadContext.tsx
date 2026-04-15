@@ -82,7 +82,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
 
   const { toggles } = useToggles();
   const erUtvikling = process.env.NODE_ENV === 'development';
-  const brukNyeRegler = toggles[ToggleName.nyeReglerOvergangsstonad] && erUtvikling;
+  const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
 
   const aktivStønadstype = brukNyeRegler
     ? MellomlagredeStønadstyper.overgangsstønadV2

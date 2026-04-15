@@ -41,7 +41,7 @@ export const SendSøknadKnapper: FC = () => {
   const navigate = useNavigate();
   const { toggles } = useToggles();
   const erUtvikling = process.env.NODE_ENV === 'development';
-  const brukNyeRegler = toggles[ToggleName.nyeReglerOvergangsstonad] && erUtvikling;
+  const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
   const routes = hentRoutesOvergangsstonad(brukNyeRegler);
   const nesteRoute = hentNesteRoute(routes, location.pathname);
   const forrigeRoute = hentForrigeRoute(routes, location.pathname);

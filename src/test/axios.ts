@@ -74,6 +74,7 @@ export const mockGet = (url: string, stønadType: StønadType) => {
       data: {
         'familie.ef.soknad.nynorsk': true,
         'familie.ef.soknad.gjenbruk-barnetilsyn': false,
+        'familie.ef.soknad.overgangsstonad-regelendringer-2026': false,
       },
     });
   }

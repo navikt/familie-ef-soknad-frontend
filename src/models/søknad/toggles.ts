@@ -5,5 +5,5 @@ export interface Toggles {
 export enum ToggleName {
   leggTilNynorsk = 'familie.ef.soknad.nynorsk',
   gjenbrukBarnetilsyn = 'familie.ef.soknad.gjenbruk-barnetilsyn',
-  nyeReglerOvergangsstonad = 'familie.ef.soknad.nye-regler-overgangsstonad',
+  overgangsstønadRegelendringer2026 = 'familie.ef.soknad.overgangsstonad-regelendringer-2026',
 }
