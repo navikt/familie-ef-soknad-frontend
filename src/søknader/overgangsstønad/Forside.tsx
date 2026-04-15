@@ -2,7 +2,6 @@ import React from 'react';
 import { usePersonContext } from '../../context/PersonContext';
 import { useOvergangsstønadSøknad } from './OvergangsstønadContext';
 import FortsettSøknad from '../../components/forside/FortsettSøknad';
-import Environment from '../../Environment';
 import { useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
@@ -17,6 +16,7 @@ const Forside: React.FC = () => {
   const { person } = usePersonContext();
   const {
     mellomlagretOvergangsstønad,
+    aktivModellVersjon,
     brukMellomlagretOvergangsstønad,
     nullstillMellomlagretOvergangsstønad,
     søknad,
@@ -33,7 +33,7 @@ const Forside: React.FC = () => {
   const kanBrukeMellomlagretSøknad =
     mellomlagretOvergangsstønad !== undefined &&
     mellomlagretOvergangsstønad.søknad.person.hash === person.hash &&
-    mellomlagretOvergangsstønad.modellVersjon === Environment().modellVersjon.overgangsstønad;
+    mellomlagretOvergangsstønad.modellVersjon === aktivModellVersjon;
 
   const alder = person.søker.alder;
 

@@ -368,6 +368,18 @@ export const lagMellomlagretSøknadOvergangsstønad = (
   };
 };
 
+export const lagMellomlagretSøknadOvergangsstønadV2 = (
+  søknad?: Partial<MellomlagretSøknadOvergangsstønad>
+): MellomlagretSøknadOvergangsstønad => {
+  return {
+    søknad: lagSøknadOvergangsstønad(),
+    modellVersjon: 1,
+    gjeldendeSteg: '/',
+    locale: '',
+    ...søknad,
+  };
+};
+
 export const lagMellomlagretSøknadBarnetilsyn = (
   søknad?: Partial<MellomlagretSøknadBarnetilsyn>
 ): MellomlagretSøknadBarnetilsyn => {

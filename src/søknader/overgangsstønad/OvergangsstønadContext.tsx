@@ -28,6 +28,8 @@ import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType, LokalIntlShape } from '../../language/typer';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadOvergangsstønad => {
@@ -78,6 +80,18 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const [locale, setLocale] = useSpråkContext();
   const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
+  const { toggles } = useToggles();
+  const erUtvikling = process.env.NODE_ENV === 'development';
+  const brukNyeRegler = toggles[ToggleName.nyeReglerOvergangsstonad] && erUtvikling;
+
+  const aktivStønadstype = brukNyeRegler
+    ? MellomlagredeStønadstyper.overgangsstønadV2
+    : MellomlagredeStønadstyper.overgangsstønad;
+
+  const aktivModellVersjon = brukNyeRegler
+    ? Environment().modellVersjon.overgangsstønadV2
+    : Environment().modellVersjon.overgangsstønad;
+
   const [mellomlagretOvergangsstønad, settMellomlagretOvergangsstønad] =
     useState<MellomlagretSøknadOvergangsstønad>();
 
@@ -89,7 +103,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
 
   const hentMellomlagretOvergangsstønad = (): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(
-      MellomlagredeStønadstyper.overgangsstønad
+      aktivStønadstype
     ).then((mellomlagretVersjon?: MellomlagretSøknadOvergangsstønad) => {
       if (mellomlagretVersjon) {
         settMellomlagretOvergangsstønad(mellomlagretVersjon);
@@ -106,27 +120,27 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const mellomlagreOvergangsstønad2 = (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => {
     const utfyltSøknad = {
       søknad: oppdatertSøknad,
-      modellVersjon: Environment().modellVersjon.overgangsstønad,
+      modellVersjon: aktivModellVersjon,
       gjeldendeSteg: steg,
       locale: locale,
     };
-    mellomlagreSøknadTilDokument(utfyltSøknad, MellomlagredeStønadstyper.overgangsstønad);
+    mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
     settMellomlagretOvergangsstønad(utfyltSøknad);
   };
 
   const mellomlagreOvergangsstønad = (steg: string) => {
     const utfyltSøknad = {
       søknad: søknad,
-      modellVersjon: Environment().modellVersjon.overgangsstønad,
+      modellVersjon: aktivModellVersjon,
       gjeldendeSteg: steg,
       locale: locale,
     };
-    mellomlagreSøknadTilDokument(utfyltSøknad, MellomlagredeStønadstyper.overgangsstønad);
+    mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
     settMellomlagretOvergangsstønad(utfyltSøknad);
   };
 
   const nullstillMellomlagretOvergangsstønad = (): Promise<string> => {
-    return nullstillMellomlagretSøknadTilDokument(MellomlagredeStønadstyper.overgangsstønad);
+    return nullstillMellomlagretSøknadTilDokument(aktivStønadstype);
   };
 
   const nullstillSøknadOvergangsstønad = (person: IPerson, barnMedLabels: IBarn[]) => {
@@ -228,6 +242,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
     mellomlagretOvergangsstønad,
+    aktivModellVersjon,
     hentMellomlagretOvergangsstønad,
     mellomlagreOvergangsstønad,
     mellomlagreOvergangsstønad2,
