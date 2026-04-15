@@ -5,12 +5,17 @@ import { parseISO } from 'date-fns';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
-import { ERouteOvergangsstønad, RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
+import {
+  ERouteOvergangsstønad,
+  hentRoutesOvergangsstonad,
+  RoutesOvergangsstonad,
+} from '../../routing/routesOvergangsstonad';
 import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
   mapBarnUtenBarnepass,
   sendInnOvergangstønadSøknad,
+  sendInnOvergangstønadSøknadV2,
 } from '../../../../innsending/api';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
@@ -19,6 +24,9 @@ import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useToggles } from '../../../../context/TogglesContext';
+import { ToggleName } from '../../../../models/søknad/toggles';
+import { tilSøknadV2 } from '../../models/søknadNyeRegler';
 
 interface Innsending {
   status: string;
@@ -31,8 +39,12 @@ export const SendSøknadKnapper: FC = () => {
   const location = useLocation();
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
-  const nesteRoute = hentNesteRoute(RoutesOvergangsstonad, location.pathname);
-  const forrigeRoute = hentForrigeRoute(RoutesOvergangsstonad, location.pathname);
+  const { toggles } = useToggles();
+  const erUtvikling = process.env.NODE_ENV === 'development';
+  const brukNyeRegler = toggles[ToggleName.nyeReglerOvergangsstonad] && erUtvikling;
+  const routes = hentRoutesOvergangsstonad(brukNyeRegler);
+  const nesteRoute = hentNesteRoute(routes, location.pathname);
+  const forrigeRoute = hentForrigeRoute(routes, location.pathname);
   const intl = useLokalIntlContext();
 
   const [innsendingState, settinnsendingState] = React.useState<Innsending>({
@@ -41,9 +53,10 @@ export const SendSøknadKnapper: FC = () => {
     venter: false,
   });
 
-  const sendInnSøknad = async (søknadMedFiltrerteBarn: SøknadOvergangsstønad) => {
+  const sendInnSøknad = async (søknadPayload: object) => {
     try {
-      const kvittering = await sendInnOvergangstønadSøknad(søknadMedFiltrerteBarn);
+      const apiKall = brukNyeRegler ? sendInnOvergangstønadSøknadV2 : sendInnOvergangstønadSøknad;
+      const kvittering = await apiKall(søknadPayload);
 
       settinnsendingState({
         ...innsendingState,
@@ -75,7 +88,7 @@ export const SendSøknadKnapper: FC = () => {
     const barnMedOppdaterteLabels = oppdaterBarnLabels(barnMedEntenIdentEllerFødselsdato, intl);
 
     const dokumentasjonsbehov = søknad.dokumentasjonsbehov.filter(unikeDokumentasjonsbehov);
-    const søknadKlarForSending: SøknadOvergangsstønad = {
+    const søknadMedFellesTransformasjon: SøknadOvergangsstønad = {
       ...søknad,
       person: { ...søknad.person, barn: barnMedOppdaterteLabels },
       dokumentasjonsbehov: dokumentasjonsbehov,
@@ -83,7 +96,12 @@ export const SendSøknadKnapper: FC = () => {
     };
 
     settinnsendingState({ ...innsendingState, venter: true });
-    sendInnSøknad(søknadKlarForSending);
+
+    if (brukNyeRegler) {
+      sendInnSøknad(tilSøknadV2(søknadMedFellesTransformasjon));
+    } else {
+      sendInnSøknad(søknadMedFellesTransformasjon);
+    }
   };
 
   return (

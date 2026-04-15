@@ -62,7 +62,7 @@ const NYE_STEG_5_6: IRoute[] = [
     path: '/aktivitet-og-situasjon',
     label: 'NYTT STEG 5-6',
     route: ERouteOvergangsstønad.AktivitetOgSituasjon,
-    localeTekst: 'stegtittel.arbeidssituasjonNY',
+    localeTekst: 'stegtittel.aktivitetOgSituasjon',
   },
 ];
 

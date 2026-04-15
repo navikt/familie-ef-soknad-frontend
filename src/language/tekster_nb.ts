@@ -323,6 +323,7 @@ export default {
     'Du har besvart spørsmålene om relasjonen din til den andre forelderen på et annet barn. Siden du har flere barn med samme forelder, trenger du bare å svare på spørsmålene én gang. Hvis du vil endre svarene dine, må du gå tilbake til barnet hvor du svarte på spørsmålene.',
   'stegtittel.arbeidssituasjon': 'Arbeid, utdanning og andre aktiviteter',
   'stegtittel.arbeidssituasjonNY': 'NYTT STEG 5-6',
+  'stegtittel.aktivitetOgSituasjon': 'NYTT STEG 5-6',
 
   'nySituasjon.spm.hvaSituasjon': 'Hva er situasjonen din?',
   'nySituasjon.svar.barnUnder14Måneder': 'Jeg har barn under 14 måneder',

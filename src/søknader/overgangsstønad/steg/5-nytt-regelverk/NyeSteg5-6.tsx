@@ -123,7 +123,6 @@ export const NyeSteg5_6: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, svar, svarHuketAv);
   };
 
-  // --- Spørsmål 2: Har du inntekt? (flervalg) ---
   const settHarInntekt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const spørsmålTekst = hentTekst(spørsmål.tekstid, intl);
     const nåværende = dinSituasjon.harInntekt ?? {
@@ -237,7 +236,7 @@ export const NyeSteg5_6: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={hentTekst('stegtittel.arbeidssituasjonNY', intl)}
+      stegtittel={hentTekst('stegtittel.aktivitetOgSituasjon', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       mellomlagreStønad={mellomlagreOvergangsstønad}
