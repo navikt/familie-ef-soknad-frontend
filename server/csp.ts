@@ -11,6 +11,7 @@ export const cspMap = (): Record<string, string[]> => {
       '*.psplugin.com',
       '*.taskanalytics.com',
       '*.hotjar.com',
+      '*.skyra.no',
     ],
     // Hvor vi kan hente .css filer fra.
     'style-src': ["'self'", "'unsafe-inline'", '*.nav.no', '*.psplugin.com'],
@@ -23,6 +24,7 @@ export const cspMap = (): Record<string, string[]> => {
       '*.hotjar.io',
       '*.boost.ai',
       '*.taskanalytics.com',
+      '*.skyra.no',
     ],
     // Kan kun submitte forms til seg selv.
     'form-action': ["'self'"],
