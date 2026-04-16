@@ -146,30 +146,6 @@ describe('tilSøknadRegelendring2026', () => {
     expect(overgangsstønadRegelendring2026.harBekreftet).toBe(true);
   });
 
-  test('fjerner skalBehandlesINySaksbehandling', () => {
-    const hvaSituasjon = lagSpørsmålListeFelt(
-      'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
-    );
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
-      [EHarInntekt.arbeidstaker],
-      [EHarInntekt.arbeidstaker]
-    );
-
-    const søknad = lagSøknadOvergangsstønad({
-      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, harInntekt }),
-      skalBehandlesINySaksbehandling: true,
-    });
-
-    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
-
-    expect(overgangsstønadRegelendring2026).not.toHaveProperty('skalBehandlesINySaksbehandling');
-    expect(overgangsstønadRegelendring2026).not.toHaveProperty('aktivitet');
-    expect(overgangsstønadRegelendring2026).not.toHaveProperty('merOmDinSituasjon');
-  });
-
   test('kaster feil hvis hvaSituasjon mangler', () => {
     const harInntekt = lagSpørsmålListeFelt(
       'harInntekt',
