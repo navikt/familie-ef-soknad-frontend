@@ -12,9 +12,12 @@ interface Props {
   stønadstype: Stønadstype;
 }
 
+const ETTERSENDING_OVERGANGSSTONAD_URL_PDF =
+  'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/dokumentinnsending';
+
 const lenkerPDFSøknad = {
-  [Stønadstype.overgangsstønad]:
-    'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.01/dokumentinnsending',
+  [Stønadstype.overgangsstønad]: ETTERSENDING_OVERGANGSSTONAD_URL_PDF,
+  [Stønadstype.overgangsstønadRegelendring2026]: ETTERSENDING_OVERGANGSSTONAD_URL_PDF,
   [Stønadstype.barnetilsyn]:
     'https://www.nav.no/soknader/nb/person/familie/enslig-mor-eller-far/NAV%2015-00.02/dokumentinnsending',
   [Stønadstype.skolepenger]:

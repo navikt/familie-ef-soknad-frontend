@@ -15,8 +15,12 @@ interface TidligereInnsendteSøknadAlertProps {
   stønadType: Stønadstype;
 }
 
+const ETTERSENDING_OVERGANGSSTONAD_URL =
+  'https://www.nav.no/start/ettersend-soknad-overgangsstonad-enslig';
+
 const ettersendingUrler = {
-  [Stønadstype.overgangsstønad]: 'https://www.nav.no/start/ettersend-soknad-overgangsstonad-enslig',
+  [Stønadstype.overgangsstønad]: ETTERSENDING_OVERGANGSSTONAD_URL,
+  [Stønadstype.overgangsstønadRegelendring2026]: ETTERSENDING_OVERGANGSSTONAD_URL,
   [Stønadstype.barnetilsyn]: 'https://www.nav.no/start/ettersend-soknad-barnetilsyn-enslig',
   [Stønadstype.skolepenger]: 'https://www.nav.no/start/ettersend-soknad-skolepenger-enslig',
 };

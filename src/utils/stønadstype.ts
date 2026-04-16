@@ -3,6 +3,7 @@ import { Stønadstype } from '../models/søknad/stønadstyper';
 export const hentBannerKeyForStønad = (stønadstype: Stønadstype): string => {
   switch (stønadstype) {
     case Stønadstype.overgangsstønad:
+    case Stønadstype.overgangsstønadRegelendring2026:
       return 'banner.tittel.overgangsstønad';
     case Stønadstype.barnetilsyn:
       return 'banner.tittel.barnetilsyn';
