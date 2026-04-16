@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { tilSøknadV2 } from './søknadNyeRegler';
+import { tilSøknadRegelendring2026 } from './søknad-regelendring-2026';
 import {
   lagSøknadOvergangsstønad,
   lagDinSituasjon,
@@ -22,7 +22,7 @@ const lagFirma = (id: string): IFirma => ({
   arbeidsuke: lagTekstfelt({ label: 'Arbeidsuke', verdi: '37.5' }),
 });
 
-describe('tilSøknadV2', () => {
+describe('tilSøknadRegelendring2026', () => {
   test('mapper hvaSituasjon og harInntekt til flatet struktur', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
@@ -39,11 +39,11 @@ describe('tilSøknadV2', () => {
       merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, harInntekt }),
     });
 
-    const v2 = tilSøknadV2(søknad);
+    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(v2.brukNyeRegler).toBe(true);
-    expect(v2.hvaSituasjon).toEqual(hvaSituasjon);
-    expect(v2.harInntekt).toEqual(harInntekt);
+    expect(overgangsstønadRegelendring2026.brukNyeRegler).toBe(true);
+    expect(overgangsstønadRegelendring2026.hvaSituasjon).toEqual(hvaSituasjon);
+    expect(overgangsstønadRegelendring2026.harInntekt).toEqual(harInntekt);
   });
 
   test('mapper firmaer fra aktivitet', () => {
@@ -64,9 +64,9 @@ describe('tilSøknadV2', () => {
       aktivitet: lagAktivitet({ firmaer }),
     });
 
-    const v2 = tilSøknadV2(søknad);
+    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(v2.firmaer).toEqual(firmaer);
+    expect(overgangsstønadRegelendring2026.firmaer).toEqual(firmaer);
   });
 
   test('mapper sagtOpp-felt og søkerFraBestemtMåned', () => {
@@ -106,13 +106,17 @@ describe('tilSøknadV2', () => {
       }),
     });
 
-    const v2 = tilSøknadV2(søknad);
+    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(v2.sagtOppEllerRedusertStilling).toEqual(sagtOppEllerRedusertStilling);
-    expect(v2.begrunnelseSagtOppEllerRedusertStilling).toEqual(begrunnelse);
-    expect(v2.datoSagtOppEllerRedusertStilling).toEqual(dato);
-    expect(v2.søkerFraBestemtMåned).toEqual(søkerFraBestemtMåned);
-    expect(v2.søknadsdato).toEqual(søknadsdato);
+    expect(overgangsstønadRegelendring2026.sagtOppEllerRedusertStilling).toEqual(
+      sagtOppEllerRedusertStilling
+    );
+    expect(overgangsstønadRegelendring2026.begrunnelseSagtOppEllerRedusertStilling).toEqual(
+      begrunnelse
+    );
+    expect(overgangsstønadRegelendring2026.datoSagtOppEllerRedusertStilling).toEqual(dato);
+    expect(overgangsstønadRegelendring2026.søkerFraBestemtMåned).toEqual(søkerFraBestemtMåned);
+    expect(overgangsstønadRegelendring2026.søknadsdato).toEqual(søknadsdato);
   });
 
   test('beholder fellesfelter fra steg 1-4', () => {
@@ -132,14 +136,14 @@ describe('tilSøknadV2', () => {
       harBekreftet: true,
     });
 
-    const v2 = tilSøknadV2(søknad);
+    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(v2.person).toEqual(søknad.person);
-    expect(v2.sivilstatus).toEqual(søknad.sivilstatus);
-    expect(v2.medlemskap).toEqual(søknad.medlemskap);
-    expect(v2.bosituasjon).toEqual(søknad.bosituasjon);
-    expect(v2.dokumentasjonsbehov).toEqual(søknad.dokumentasjonsbehov);
-    expect(v2.harBekreftet).toBe(true);
+    expect(overgangsstønadRegelendring2026.person).toEqual(søknad.person);
+    expect(overgangsstønadRegelendring2026.sivilstatus).toEqual(søknad.sivilstatus);
+    expect(overgangsstønadRegelendring2026.medlemskap).toEqual(søknad.medlemskap);
+    expect(overgangsstønadRegelendring2026.bosituasjon).toEqual(søknad.bosituasjon);
+    expect(overgangsstønadRegelendring2026.dokumentasjonsbehov).toEqual(søknad.dokumentasjonsbehov);
+    expect(overgangsstønadRegelendring2026.harBekreftet).toBe(true);
   });
 
   test('fjerner skalBehandlesINySaksbehandling', () => {
@@ -159,11 +163,11 @@ describe('tilSøknadV2', () => {
       skalBehandlesINySaksbehandling: true,
     });
 
-    const v2 = tilSøknadV2(søknad);
+    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(v2).not.toHaveProperty('skalBehandlesINySaksbehandling');
-    expect(v2).not.toHaveProperty('aktivitet');
-    expect(v2).not.toHaveProperty('merOmDinSituasjon');
+    expect(overgangsstønadRegelendring2026).not.toHaveProperty('skalBehandlesINySaksbehandling');
+    expect(overgangsstønadRegelendring2026).not.toHaveProperty('aktivitet');
+    expect(overgangsstønadRegelendring2026).not.toHaveProperty('merOmDinSituasjon');
   });
 
   test('kaster feil hvis hvaSituasjon mangler', () => {
@@ -177,7 +181,7 @@ describe('tilSøknadV2', () => {
       merOmDinSituasjon: lagDinSituasjon({ harInntekt }),
     });
 
-    expect(() => tilSøknadV2(søknad)).toThrow('hvaSituasjon mangler');
+    expect(() => tilSøknadRegelendring2026(søknad)).toThrow('hvaSituasjon mangler');
   });
 
   test('kaster feil hvis harInntekt mangler', () => {
@@ -191,7 +195,7 @@ describe('tilSøknadV2', () => {
       merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon }),
     });
 
-    expect(() => tilSøknadV2(søknad)).toThrow('harInntekt mangler');
+    expect(() => tilSøknadRegelendring2026(søknad)).toThrow('harInntekt mangler');
   });
 
   test('firmaer er undefined når selvstendig ikke valgt', () => {
@@ -211,8 +215,8 @@ describe('tilSøknadV2', () => {
       aktivitet: lagAktivitet({ firmaer: undefined }),
     });
 
-    const v2 = tilSøknadV2(søknad);
+    const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(v2.firmaer).toBeUndefined();
+    expect(overgangsstønadRegelendring2026.firmaer).toBeUndefined();
   });
 });

@@ -13,15 +13,15 @@ interface EnvironmentProps {
 
 interface IModellversjon {
   overgangsstønad: number;
-  overgangsstønadV2: number;
+  overgangsstønadRegelendring2026: number;
   barnetilsyn: number;
   skolepenger: number;
 }
 
 const Environment = (): EnvironmentProps => {
-  const modellVersjon = {
+  const modellVersjon: IModellversjon = {
     overgangsstønad: 7,
-    overgangsstønadV2: 1,
+    overgangsstønadRegelendring2026: 1,
     barnetilsyn: 2,
     skolepenger: 2,
   };

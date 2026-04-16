@@ -15,7 +15,7 @@ import {
   mapBarnTilEntenIdentEllerFødselsdato,
   mapBarnUtenBarnepass,
   sendInnOvergangstønadSøknad,
-  sendInnOvergangstønadSøknadV2,
+  sendInnOvergangstønadSøknadRegelendring2026,
 } from '../../../../innsending/api';
 import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { useSpråkContext } from '../../../../context/SpråkContext';
@@ -26,7 +26,7 @@ import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/o
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useToggles } from '../../../../context/TogglesContext';
 import { ToggleName } from '../../../../models/søknad/toggles';
-import { tilSøknadV2 } from '../../models/søknadNyeRegler';
+import { tilSøknadRegelendring2026 } from '../../models/søknad-regelendring-2026';
 
 interface Innsending {
   status: string;
@@ -55,7 +55,9 @@ export const SendSøknadKnapper: FC = () => {
 
   const sendInnSøknad = async (søknadPayload: object) => {
     try {
-      const apiKall = brukNyeRegler ? sendInnOvergangstønadSøknadV2 : sendInnOvergangstønadSøknad;
+      const apiKall = brukNyeRegler
+        ? sendInnOvergangstønadSøknadRegelendring2026
+        : sendInnOvergangstønadSøknad;
       const kvittering = await apiKall(søknadPayload);
 
       settinnsendingState({
@@ -98,7 +100,7 @@ export const SendSøknadKnapper: FC = () => {
     settinnsendingState({ ...innsendingState, venter: true });
 
     if (brukNyeRegler) {
-      sendInnSøknad(tilSøknadV2(søknadMedFellesTransformasjon));
+      sendInnSøknad(tilSøknadRegelendring2026(søknadMedFellesTransformasjon));
     } else {
       sendInnSøknad(søknadMedFellesTransformasjon);
     }

@@ -6,7 +6,7 @@ import {
   lagIMedforelder,
   lagMellomlagretSøknadBarnetilsyn,
   lagMellomlagretSøknadOvergangsstønad,
-  lagMellomlagretSøknadOvergangsstønadV2,
+  lagMellomlagretSøknadOvergangsstønadRegelendring2026,
   lagMellomlagretSøknadSkolepenger,
   lagPerson,
   lagPersonData,
@@ -29,7 +29,11 @@ import { dagensIsoDatoMinusMåneder } from '../utils/dato';
 import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 
-type StønadType = 'overgangsstonad' | 'overgangsstonad-v2' | 'barnetilsyn' | 'skolepenger';
+type StønadType =
+  | 'overgangsstonad'
+  | 'overgangsstonad-regelendring-2026'
+  | 'barnetilsyn'
+  | 'skolepenger';
 type SøknadStegOvergangsstønad =
   | '/om-deg'
   | '/bosituasjon'
@@ -102,8 +106,8 @@ const utledMellomlagretSøknad = (stønadType: StønadType) => {
   switch (stønadType) {
     case 'overgangsstonad':
       return lagMellomlagretSøknadOvergangsstønad();
-    case 'overgangsstonad-v2':
-      return lagMellomlagretSøknadOvergangsstønadV2();
+    case 'overgangsstonad-regelendring-2026':
+      return lagMellomlagretSøknadOvergangsstønadRegelendring2026();
     case 'barnetilsyn':
       return lagMellomlagretSøknadBarnetilsyn();
     case 'skolepenger':
@@ -152,35 +156,6 @@ export const mockMellomlagretSøknadOvergangsstønad = (
     }
 
     return mockGet(url, 'overgangsstonad');
-  });
-};
-
-export const mockMellomlagretSøknadOvergangsstønadV2 = (
-  gjeldendeSteg?: SøknadStegOvergangsstønad,
-  søker?: Partial<Søker>,
-  søknad?: Partial<SøknadOvergangsstønad>
-) => {
-  (axios.get as any).mockImplementation((url: string) => {
-    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-v2'}`) {
-      return gjeldendeSteg
-        ? Promise.resolve({
-            data: lagMellomlagretSøknadOvergangsstønadV2({
-              søknad: utledSøknadOvergangsstønad(gjeldendeSteg, søknad),
-              gjeldendeSteg: gjeldendeSteg,
-            }),
-          })
-        : undefined;
-    }
-
-    if (url === `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`) {
-      return Promise.resolve({
-        data: lagPersonData({
-          søker: lagSøker({ ...søker }),
-        }),
-      });
-    }
-
-    return mockGet(url, 'overgangsstonad-v2');
   });
 };
 

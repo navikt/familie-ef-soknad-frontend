@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import createUseContext from 'constate';
 import tomPerson from '../../mock/initialState.json';
 import { EArbeidssituasjon } from '../../models/steg/aktivitet/aktivitet';
@@ -85,15 +85,32 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
 
   const aktivStønadstype = brukNyeRegler
-    ? MellomlagredeStønadstyper.overgangsstønadV2
+    ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
     : MellomlagredeStønadstyper.overgangsstønad;
 
   const aktivModellVersjon = brukNyeRegler
-    ? Environment().modellVersjon.overgangsstønadV2
+    ? Environment().modellVersjon.overgangsstønadRegelendring2026
     : Environment().modellVersjon.overgangsstønad;
 
   const [mellomlagretOvergangsstønad, settMellomlagretOvergangsstønad] =
     useState<MellomlagretSøknadOvergangsstønad>();
+
+  const prevAktivStønadstypeRef = useRef<MellomlagredeStønadstyper | null>(null);
+
+  useEffect(() => {
+    const forrige = prevAktivStønadstypeRef.current;
+    prevAktivStønadstypeRef.current = aktivStønadstype;
+
+    if (forrige !== null && forrige !== aktivStønadstype) {
+      hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(aktivStønadstype)
+        .then((mellomlagretVersjon) => {
+          if (mellomlagretVersjon) {
+            settMellomlagretOvergangsstønad(mellomlagretVersjon);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [aktivStønadstype]);
 
   useEffect(() => {
     if (mellomlagretOvergangsstønad?.locale && mellomlagretOvergangsstønad?.locale !== locale) {

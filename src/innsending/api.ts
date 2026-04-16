@@ -13,9 +13,9 @@ export const sendInnOvergangstønadSøknad = (søknad: object) => {
     });
 };
 
-export const sendInnOvergangstønadSøknadV2 = (søknad: object) => {
+export const sendInnOvergangstønadSøknadRegelendring2026 = (søknad: object) => {
   return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad-v2`, søknad, {
+    .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad-regelendring-2026`, søknad, {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       withCredentials: true,
     })

@@ -368,7 +368,7 @@ export const lagMellomlagretSøknadOvergangsstønad = (
   };
 };
 
-export const lagMellomlagretSøknadOvergangsstønadV2 = (
+export const lagMellomlagretSøknadOvergangsstønadRegelendring2026 = (
   søknad?: Partial<MellomlagretSøknadOvergangsstønad>
 ): MellomlagretSøknadOvergangsstønad => {
   return {

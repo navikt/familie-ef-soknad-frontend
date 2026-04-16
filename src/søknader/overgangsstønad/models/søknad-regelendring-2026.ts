@@ -14,7 +14,7 @@ import { IAdresseopplysninger } from '../../../models/steg/adresseopplysninger';
 import { IFirma } from '../../../models/steg/aktivitet/firma';
 import { SøknadOvergangsstønad } from './søknad';
 
-export interface SøknadOvergangsstønadV2 {
+export interface SøknadOvergangsstønadRegelendring2026 {
   brukNyeRegler: true;
   innsendingsdato?: Date;
   person: IPerson;
@@ -39,7 +39,9 @@ export interface SøknadOvergangsstønadV2 {
   datoPåbegyntSøknad?: string;
 }
 
-export const tilSøknadV2 = (søknad: SøknadOvergangsstønad): SøknadOvergangsstønadV2 => {
+export const tilSøknadRegelendring2026 = (
+  søknad: SøknadOvergangsstønad
+): SøknadOvergangsstønadRegelendring2026 => {
   const { merOmDinSituasjon, aktivitet, ...fellesfelter } = søknad;
 
   if (!merOmDinSituasjon.hvaSituasjon) {
