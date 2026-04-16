@@ -38,9 +38,9 @@ const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
   const { mellomlagreOvergangsstønad, søknad } = useOvergangsstønadSøknad();
   const { toggles } = useToggles();
-  const erUtvikling = process.env.NODE_ENV === 'development';
-  const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
-  const routes = hentRoutesOvergangsstonad(brukNyeRegler);
+  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+
+  const routes = hentRoutesOvergangsstonad(toggleBrukRegelendringer2026);
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
 
   const [manglendeFelter, settManglendeFelter] = useState<string[]>([]);
@@ -89,7 +89,7 @@ const Oppsummering: React.FC = () => {
       .validate(søknad.aktivitet)
       .then()
       .catch(() => {
-        const felt = brukNyeRegler
+        const felt = toggleBrukRegelendringer2026
           ? ManglendeFelter.AKTIVITET_OG_SITUASJON
           : ManglendeFelter.AKTIVITET;
         if (!manglendeFelter.includes(manglendeFelterTilTekst[felt])) {
@@ -110,7 +110,7 @@ const Oppsummering: React.FC = () => {
       .validate(søknad.merOmDinSituasjon)
       .then()
       .catch(() => {
-        const felt = brukNyeRegler
+        const felt = toggleBrukRegelendringer2026
           ? ManglendeFelter.AKTIVITET_OG_SITUASJON
           : ManglendeFelter.MER_OM_DIN_SITUASJON;
         if (feilIkkeRegistrertFor(felt)) {
@@ -189,7 +189,7 @@ const Oppsummering: React.FC = () => {
                 />
               </Accordion.Content>
             </Accordion.Item>
-            {brukNyeRegler ? (
+            {toggleBrukRegelendringer2026 ? (
               <Accordion.Item>
                 <Accordion.Header>
                   {hentTekst('stegtittel.aktivitetOgSituasjon', intl)}

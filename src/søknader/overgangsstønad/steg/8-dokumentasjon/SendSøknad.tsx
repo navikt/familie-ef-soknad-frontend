@@ -55,7 +55,7 @@ export const SendSøknadKnapper: FC = () => {
 
   const sendInnSøknad = async (søknadPayload: object) => {
     try {
-      const apiKall = brukNyeRegler
+      const apiKall = toggleBrukRegelendringer2026
         ? sendInnOvergangstønadSøknadRegelendring2026
         : sendInnOvergangstønadSøknad;
       const kvittering = await apiKall(søknadPayload);
@@ -99,7 +99,7 @@ export const SendSøknadKnapper: FC = () => {
 
     settinnsendingState({ ...innsendingState, venter: true });
 
-    if (brukNyeRegler) {
+    if (toggleBrukRegelendringer2026) {
       sendInnSøknad(tilSøknadRegelendring2026(søknadMedFellesTransformasjon));
     } else {
       sendInnSøknad(søknadMedFellesTransformasjon);
