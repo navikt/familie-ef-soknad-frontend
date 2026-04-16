@@ -81,14 +81,14 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
   const { toggles } = useToggles();
-  const erUtvikling = process.env.NODE_ENV === 'development';
-  const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
 
-  const aktivStønadstype = brukNyeRegler
+  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+
+  const aktivStønadstype = toggleBrukRegelendringer2026
     ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
     : MellomlagredeStønadstyper.overgangsstønad;
 
-  const aktivModellVersjon = brukNyeRegler
+  const aktivModellVersjon = toggleBrukRegelendringer2026
     ? Environment().modellVersjon.overgangsstønadRegelendring2026
     : Environment().modellVersjon.overgangsstønad;
 

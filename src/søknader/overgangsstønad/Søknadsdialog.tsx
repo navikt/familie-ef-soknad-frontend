@@ -40,10 +40,9 @@ const Søknadsdialog: FC = () => {
 
   const { toggles } = useToggles();
 
-  const erUtvikling = process.env.NODE_ENV === 'development';
-  const erToggleNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026];
-  const brukNyeRegler = erToggleNyeRegler && erUtvikling;
-  const overgangsstønadRoutes = hentRoutesOvergangsstonad(brukNyeRegler);
+  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+
+  const overgangsstønadRoutes = hentRoutesOvergangsstonad(toggleBrukRegelendringer2026);
 
   const oppdaterOvergangsstønadSøknad = (søknad: Søknad) => {
     if (erOvergangsstønadSøknad(søknad)) {

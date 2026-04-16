@@ -40,9 +40,9 @@ export const SendSøknadKnapper: FC = () => {
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
   const { toggles } = useToggles();
-  const erUtvikling = process.env.NODE_ENV === 'development';
-  const brukNyeRegler = toggles[ToggleName.overgangsstønadRegelendringer2026] && erUtvikling;
-  const routes = hentRoutesOvergangsstonad(brukNyeRegler);
+
+  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+  const routes = hentRoutesOvergangsstonad(toggleBrukRegelendringer2026);
   const nesteRoute = hentNesteRoute(routes, location.pathname);
   const forrigeRoute = hentForrigeRoute(routes, location.pathname);
   const intl = useLokalIntlContext();
