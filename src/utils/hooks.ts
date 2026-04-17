@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { DinSituasjonType } from '../models/steg/dinsituasjon/meromsituasjon';
+import { EHvaSituasjon } from '../models/steg/dinsituasjon/nyeSituasjonTyper';
 import { leggTilSærligeBehov } from '../søknader/felles/steg/6-meromsituasjon/SituasjonUtil';
 import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
 import { IBarn } from '../models/steg/barn';
@@ -26,7 +27,9 @@ export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
       const harSvartJaPåAtHarBarnMedSærligeBehov =
         søknad.merOmDinSituasjon.gjelderDetteDeg.svarid.findIndex(
           (v) => v === DinSituasjonType.harBarnMedSærligeBehov
-        ) > -1;
+        ) > -1 ||
+        søknad.merOmDinSituasjon.hvaSituasjon?.svarid.includes(EHvaSituasjon.barnSærligTilsyn) ===
+          true;
       if (!barn.særligeTilsynsbehov && harSvartJaPåAtHarBarnMedSærligeBehov) {
         const oppdatertBarn = leggTilSærligeBehov(barn, intl);
         oppdaterBarnISoknaden(oppdatertBarn);
@@ -41,6 +44,7 @@ export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
     søknad.person.barn,
     oppdaterBarnISoknaden,
     søknad.merOmDinSituasjon.gjelderDetteDeg.svarid,
+    søknad.merOmDinSituasjon.hvaSituasjon?.svarid,
     intl,
   ]);
 };
