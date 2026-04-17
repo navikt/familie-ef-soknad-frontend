@@ -191,9 +191,7 @@ const Oppsummering: React.FC = () => {
             </Accordion.Item>
             {toggleBrukRegelendringer2026 ? (
               <Accordion.Item>
-                <Accordion.Header>
-                  {hentTekst('stegtittel.aktivitetOgSituasjon', intl)}
-                </Accordion.Header>
+                <Accordion.Header>{hentTekst('stegtittel.situasjonen', intl)}</Accordion.Header>
                 <Accordion.Content>
                   <OppsummeringNySituasjon
                     dinSituasjon={søknad.merOmDinSituasjon}

@@ -15,7 +15,7 @@ import {
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { EHarInntekt, EHvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
-import { hvaSituasjonSpm, harInntektSpm } from './NyeSteg5-6Config';
+import { hvaSituasjonSpm, harInntektSpm } from './SituasjonConfig';
 import { SøkerFraBestemtMånedSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';
 
@@ -32,9 +32,9 @@ import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../ut
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
-import { hvisHarBarnMedSærligeTilsynFritekstUtfylt } from './NyeSteg5-6Validering';
+import { hvisHarBarnMedSærligeTilsynFritekstUtfylt } from './SituasjonValidering';
 
-export const NyeSteg5_6: React.FC = () => {
+export const Situasjon: React.FC = () => {
   const intl = useLokalIntlContext();
   const location = useLocation();
   const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
@@ -236,7 +236,7 @@ export const NyeSteg5_6: React.FC = () => {
   return (
     <Side
       stønadstype={Stønadstype.overgangsstønad}
-      stegtittel={hentTekst('stegtittel.aktivitetOgSituasjon', intl)}
+      stegtittel={hentTekst('stegtittel.situasjonen', intl)}
       navigasjonState={navigasjonState}
       erSpørsmålBesvart={erAlleSpørsmålBesvart}
       mellomlagreStønad={mellomlagreOvergangsstønad}

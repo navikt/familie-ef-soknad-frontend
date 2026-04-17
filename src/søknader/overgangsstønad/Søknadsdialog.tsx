@@ -20,11 +20,12 @@ import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
-import { NyeSteg5_6 } from './steg/5-nytt-regelverk/NyeSteg5-6';
+
 import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
 import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
+import { Situasjon } from './steg/5-regelendring-2026/Situasjon';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -124,7 +125,7 @@ const Søknadsdialog: FC = () => {
                 mellomlagreSøknad={mellomlagreOverganggstønadSøknad}
                 settDokumentasjonsbehov={settDokumentasjonsbehov}
               >
-                <NyeSteg5_6 />
+                <Situasjon />
               </AktivitetProvider>
             </RedirectTilStart>
           }

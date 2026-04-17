@@ -15,7 +15,7 @@ vi.mock('axios', () => {
   };
 });
 
-describe('NyeSteg5-6: Aktivitet og situasjon', () => {
+describe('Situasjon regelendring 2026', () => {
   test('Viser spørsmål 1 ved oppstart', async () => {
     mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
     const { screen } = await navigerTilStegOvergangsstønad();
