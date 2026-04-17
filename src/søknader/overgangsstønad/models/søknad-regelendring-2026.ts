@@ -15,7 +15,7 @@ import { IFirma } from '../../../models/steg/aktivitet/firma';
 import { SøknadOvergangsstønad } from './søknad';
 
 export interface SøknadOvergangsstønadRegelendring2026 {
-  brukNyeRegler: true;
+  erRegelendring2026: true;
   innsendingsdato?: Date;
   person: IPerson;
   søkerBorPåRegistrertAdresse?: ISpørsmålBooleanFelt;
@@ -54,7 +54,7 @@ export const tilSøknadRegelendring2026 = (
 
   return {
     ...fellesfelter,
-    brukNyeRegler: true,
+    erRegelendring2026: true,
     hvaSituasjon: merOmDinSituasjon.hvaSituasjon,
     harInntekt: merOmDinSituasjon.harInntekt,
     firmaer: aktivitet.firmaer,

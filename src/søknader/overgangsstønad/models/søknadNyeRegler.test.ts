@@ -41,7 +41,7 @@ describe('tilSøknadRegelendring2026', () => {
 
     const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
-    expect(overgangsstønadRegelendring2026.brukNyeRegler).toBe(true);
+    expect(overgangsstønadRegelendring2026.erRegelendring2026).toBe(true);
     expect(overgangsstønadRegelendring2026.hvaSituasjon).toEqual(hvaSituasjon);
     expect(overgangsstønadRegelendring2026.harInntekt).toEqual(harInntekt);
   });

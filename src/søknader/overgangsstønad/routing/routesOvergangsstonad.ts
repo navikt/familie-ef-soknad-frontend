@@ -42,7 +42,7 @@ const FELLESSTEG_FØR: IRoute[] = [
   },
 ];
 
-const GAMLE_STEG_5_6: IRoute[] = [
+const GAMLE_STEG_FØR_REGELENDRING_2026: IRoute[] = [
   {
     path: '/aktivitet',
     label: 'Arbeid, utdanning og andre aktiviteter',
@@ -57,7 +57,7 @@ const GAMLE_STEG_5_6: IRoute[] = [
   },
 ];
 
-const NYE_STEG_5_6: IRoute[] = [
+const STEG_ETTER_REGELENDRING_2026: IRoute[] = [
   {
     path: '/aktivitet-og-situasjon',
     label: 'Situasjon',
@@ -86,9 +86,9 @@ const FELLESSTEG_ETTER: IRoute[] = [
   },
 ];
 
-export const hentRoutesOvergangsstonad = (brukNyeRegler: boolean): IRoute[] => [
+export const hentRoutesOvergangsstonad = (brukRegelendring2026: boolean): IRoute[] => [
   ...FELLESSTEG_FØR,
-  ...(brukNyeRegler ? NYE_STEG_5_6 : GAMLE_STEG_5_6),
+  ...(brukRegelendring2026 ? STEG_ETTER_REGELENDRING_2026 : GAMLE_STEG_FØR_REGELENDRING_2026),
   ...FELLESSTEG_ETTER,
 ];
 
