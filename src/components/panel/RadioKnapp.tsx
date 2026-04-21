@@ -19,8 +19,10 @@ export const RadioKnapp: React.FC<Properties> = ({
   const classNames = [styles.radioPanel, checked ? styles.active : ''].join(' ');
 
   return (
-    <Radio value={value} name={name} checked={checked} onChange={onChange} className={classNames}>
-      {children}
-    </Radio>
+    <div className={classNames}>
+      <Radio value={value} name={name} checked={checked} onChange={onChange}>
+        {children}
+      </Radio>
+    </div>
   );
 };
