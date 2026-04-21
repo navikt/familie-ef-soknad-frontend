@@ -62,22 +62,26 @@ const lagHtmlRouter = (vite?: ViteDevServer): Router => {
     router.use(BASE_PATH, express.static(buildPath, { index: false }));
   }
 
-  router.use(`${BASE_PATH}/{*path}`, htmlRateLimiter, async (_req: Request, res: Response) => {
-    try {
-      if (erUtvikling && vite) {
-        const rawHtml = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
-        const transformertHtml = await vite.transformIndexHtml(_req.originalUrl, rawHtml);
-        const html = await injectDekoratørIHtml(transformertHtml);
-        res.send(html);
-      } else {
-        const html = await hentHtmlMedDekoratør(path.join(buildPath, 'index.html'));
-        res.send(html);
+  router.use(
+    [BASE_PATH, `${BASE_PATH}/{*path}`],
+    htmlRateLimiter,
+    async (_req: Request, res: Response) => {
+      try {
+        if (erUtvikling && vite) {
+          const rawHtml = fs.readFileSync(path.resolve(process.cwd(), 'index.html'), 'utf-8');
+          const transformertHtml = await vite.transformIndexHtml(_req.originalUrl, rawHtml);
+          const html = await injectDekoratørIHtml(transformertHtml);
+          res.send(html);
+        } else {
+          const html = await hentHtmlMedDekoratør(path.join(buildPath, 'index.html'));
+          res.send(html);
+        }
+      } catch (e) {
+        logger.error(e);
+        res.status(500).send('Noe gikk galt');
       }
-    } catch (e) {
-      logger.error(e);
-      res.status(500).send('Noe gikk galt');
     }
-  });
+  );
 
   return router;
 };
