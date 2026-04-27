@@ -15,7 +15,7 @@ import {
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { EHarInntekt, EHvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
-import { hvaSituasjonSpm, harInntektSpm } from './SituasjonConfig';
+import { hvaSituasjonSpm, inntekterSpm } from './SituasjonConfig';
 import { SøkerFraBestemtMånedSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';
 
@@ -49,7 +49,7 @@ export const Situasjon: React.FC = () => {
   const [dinSituasjon, settDinSituasjon] = useState<IDinSituasjon>(søknad.merOmDinSituasjon);
   const [aktivitet, settAktivitet] = useState<IAktivitet>(søknad.aktivitet);
 
-  const { hvaSituasjon, harInntekt, søkerFraBestemtMåned, søknadsdato } = dinSituasjon;
+  const { hvaSituasjon, inntekter, søkerFraBestemtMåned, søknadsdato } = dinSituasjon;
 
   const navigasjonState = kommerFraOppsummering
     ? NavigasjonState.visTilbakeTilOppsummeringKnapp
@@ -111,7 +111,7 @@ export const Situasjon: React.FC = () => {
     };
 
     if (svarHuketAv && svarider.length === 0) {
-      delete endretSituasjon.harInntekt;
+      delete endretSituasjon.inntekter;
       delete endretSituasjon.sagtOppEllerRedusertStilling;
       delete endretSituasjon.begrunnelseSagtOppEllerRedusertStilling;
       delete endretSituasjon.datoSagtOppEllerRedusertStilling;
@@ -123,9 +123,9 @@ export const Situasjon: React.FC = () => {
     settDokumentasjonsbehov(spørsmål, svar, svarHuketAv);
   };
 
-  const settHarInntekt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
+  const settInntekter = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
     const spørsmålTekst = hentTekst(spørsmål.tekstid, intl);
-    const nåværende = dinSituasjon.harInntekt ?? {
+    const nåværende = dinSituasjon.inntekter ?? {
       spørsmålid: spørsmål.søknadid,
       svarid: [],
       label: spørsmålTekst,
@@ -143,7 +143,7 @@ export const Situasjon: React.FC = () => {
 
     const endretSituasjon: IDinSituasjon = {
       ...dinSituasjon,
-      harInntekt: {
+      inntekter: {
         ...nåværende,
         svarid: svarider,
         verdi: avhukedeSvar,
@@ -203,7 +203,7 @@ export const Situasjon: React.FC = () => {
     harValgtMinstEttAlternativ &&
     (!erBarnSærligTilsyn || hvisHarBarnMedSærligeTilsynFritekstUtfylt(søknad));
 
-  const valgteInntekter = harInntekt?.svarid ?? [];
+  const valgteInntekter = inntekter?.svarid ?? [];
   const harValgtMinstEnInntekt = valgteInntekter.length > 0;
   const erSelvstendigNæringsdrivende = valgteInntekter.includes(
     EHarInntekt.selvstendigNæringsdrivende
@@ -262,9 +262,9 @@ export const Situasjon: React.FC = () => {
         {/* Spørsmål 2: Har du inntekt? (flervalg) */}
         {visSpørsmål2 && (
           <CheckboxSpørsmål
-            spørsmål={harInntektSpm(intl)}
-            settValgteSvar={settHarInntekt}
-            valgteSvar={harInntekt?.verdi ?? []}
+            spørsmål={inntekterSpm(intl)}
+            settValgteSvar={settInntekter}
+            valgteSvar={inntekter?.verdi ?? []}
           />
         )}
 

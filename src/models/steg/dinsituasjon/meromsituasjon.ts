@@ -14,7 +14,7 @@ export interface IDinSituasjon {
   datoSagtOppEllerRedusertStilling?: IDatoFelt;
   søkerFraBestemtMåned?: ISpørsmålBooleanFelt;
   hvaSituasjon?: ISpørsmålListeFelt;
-  harInntekt?: ISpørsmålListeFelt;
+  inntekter?: ISpørsmålListeFelt;
 }
 
 export enum ESituasjon {

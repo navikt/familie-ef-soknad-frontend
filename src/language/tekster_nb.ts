@@ -330,7 +330,7 @@ export default {
     'Jeg har barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer',
   'nySituasjon.svar.barnSykdomIkkeVarig': 'Barnet mitt har en sykdom som ikke er varig',
 
-  'nySituasjon.spm.harInntekt': 'Har du inntekt?',
+  'nySituasjon.spm.inntekter': 'Har du inntekt?',
   'nySituasjon.svar.arbeidstaker': 'Ja, jeg har inntekt som arbeidstaker',
   'nySituasjon.svar.selvstendigNæringsdrivende':
     'Ja, jeg har inntekt som selvstendig næringsdrivende',

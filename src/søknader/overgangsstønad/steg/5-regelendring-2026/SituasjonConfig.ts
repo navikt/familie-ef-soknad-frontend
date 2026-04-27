@@ -31,9 +31,9 @@ export const hvaSituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
   ],
 });
 
-export const harInntektSpm = (intl: LokalIntlShape): ISpørsmål => ({
-  søknadid: ENySituasjon.harInntekt,
-  tekstid: 'nySituasjon.spm.harInntekt',
+export const inntekterSpm = (intl: LokalIntlShape): ISpørsmål => ({
+  søknadid: ENySituasjon.inntekter,
+  tekstid: 'nySituasjon.spm.inntekter',
   flersvar: true,
   svaralternativer: [
     {

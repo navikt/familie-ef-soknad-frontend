@@ -2,7 +2,7 @@ import { ISpørsmålFelt } from '../../søknad/søknadsfelter';
 
 export enum ENySituasjon {
   hvaSituasjon = 'hvaSituasjon',
-  harInntekt = 'harInntekt',
+  inntekter = 'inntekter',
 }
 
 export enum EHvaSituasjon {
@@ -20,5 +20,5 @@ export enum EHarInntekt {
 
 export interface INySituasjon {
   hvaSituasjon?: ISpørsmålFelt;
-  harInntekt?: ISpørsmålFelt;
+  inntekter?: ISpørsmålFelt;
 }

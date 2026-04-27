@@ -25,7 +25,7 @@ export interface SøknadOvergangsstønadRegelendring2026 {
   bosituasjon: IBosituasjon;
 
   hvaSituasjon: ISpørsmålListeFelt;
-  harInntekt: ISpørsmålListeFelt;
+  inntekter: ISpørsmålListeFelt;
   firmaer?: IFirma[];
   sagtOppEllerRedusertStilling?: ISpørsmålFelt;
   begrunnelseSagtOppEllerRedusertStilling?: ITekstFelt;
@@ -48,15 +48,15 @@ export const tilSøknadRegelendring2026 = (
     throw new Error('hvaSituasjon mangler i søknaden');
   }
 
-  if (!merOmDinSituasjon.harInntekt) {
-    throw new Error('harInntekt mangler i søknaden');
+  if (!merOmDinSituasjon.inntekter) {
+    throw new Error('inntekter mangler i søknaden');
   }
 
   return {
     ...fellesfelter,
     erRegelendring2026: true,
     hvaSituasjon: merOmDinSituasjon.hvaSituasjon,
-    harInntekt: merOmDinSituasjon.harInntekt,
+    inntekter: merOmDinSituasjon.inntekter,
     firmaer: aktivitet.firmaer,
     sagtOppEllerRedusertStilling: merOmDinSituasjon.sagtOppEllerRedusertStilling,
     begrunnelseSagtOppEllerRedusertStilling:

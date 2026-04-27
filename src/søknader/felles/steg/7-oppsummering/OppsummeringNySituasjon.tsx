@@ -56,9 +56,9 @@ const OppsummeringNySituasjon: React.FC<Props> = ({
         </SeksjonSpacingBottom>
       )}
 
-      {dinSituasjon.harInntekt && (
+      {dinSituasjon.inntekter && (
         <SeksjonSpacingBottom>
-          {visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.harInntekt)}
+          {visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.inntekter)}
         </SeksjonSpacingBottom>
       )}
 

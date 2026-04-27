@@ -23,27 +23,27 @@ const lagFirma = (id: string): IFirma => ({
 });
 
 describe('tilSøknadRegelendring2026', () => {
-  test('mapper hvaSituasjon og harInntekt til flatet struktur', () => {
+  test('mapper hvaSituasjon og inntekter til flatet struktur', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
       [EHvaSituasjon.barnUnder14Måneder],
       [EHvaSituasjon.barnUnder14Måneder]
     );
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
+    const inntekter = lagSpørsmålListeFelt(
+      'inntekter',
       [EHarInntekt.arbeidstaker],
       [EHarInntekt.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
-      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, harInntekt }),
+      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, inntekter }),
     });
 
     const overgangsstønadRegelendring2026 = tilSøknadRegelendring2026(søknad);
 
     expect(overgangsstønadRegelendring2026.erRegelendring2026).toBe(true);
     expect(overgangsstønadRegelendring2026.hvaSituasjon).toEqual(hvaSituasjon);
-    expect(overgangsstønadRegelendring2026.harInntekt).toEqual(harInntekt);
+    expect(overgangsstønadRegelendring2026.inntekter).toEqual(inntekter);
   });
 
   test('mapper firmaer fra aktivitet', () => {
@@ -53,14 +53,14 @@ describe('tilSøknadRegelendring2026', () => {
       [EHvaSituasjon.barnUnder14Måneder],
       [EHvaSituasjon.barnUnder14Måneder]
     );
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
+    const inntekter = lagSpørsmålListeFelt(
+      'inntekter',
       [EHarInntekt.selvstendigNæringsdrivende],
       [EHarInntekt.selvstendigNæringsdrivende]
     );
 
     const søknad = lagSøknadOvergangsstønad({
-      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, harInntekt }),
+      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, inntekter }),
       aktivitet: lagAktivitet({ firmaer }),
     });
 
@@ -75,8 +75,8 @@ describe('tilSøknadRegelendring2026', () => {
       [EHvaSituasjon.barnUnder14Måneder],
       [EHvaSituasjon.barnUnder14Måneder]
     );
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
+    const inntekter = lagSpørsmålListeFelt(
+      'inntekter',
       [EHarInntekt.arbeidstaker],
       [EHarInntekt.arbeidstaker]
     );
@@ -97,7 +97,7 @@ describe('tilSøknadRegelendring2026', () => {
     const søknad = lagSøknadOvergangsstønad({
       merOmDinSituasjon: lagDinSituasjon({
         hvaSituasjon,
-        harInntekt,
+        inntekter,
         sagtOppEllerRedusertStilling,
         begrunnelseSagtOppEllerRedusertStilling: begrunnelse,
         datoSagtOppEllerRedusertStilling: dato,
@@ -125,14 +125,14 @@ describe('tilSøknadRegelendring2026', () => {
       [EHvaSituasjon.barnUnder14Måneder],
       [EHvaSituasjon.barnUnder14Måneder]
     );
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
+    const inntekter = lagSpørsmålListeFelt(
+      'inntekter',
       [EHarInntekt.arbeidstaker],
       [EHarInntekt.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
-      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, harInntekt }),
+      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, inntekter }),
       harBekreftet: true,
     });
 
@@ -147,20 +147,20 @@ describe('tilSøknadRegelendring2026', () => {
   });
 
   test('kaster feil hvis hvaSituasjon mangler', () => {
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
+    const inntekter = lagSpørsmålListeFelt(
+      'inntekter',
       [EHarInntekt.arbeidstaker],
       [EHarInntekt.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
-      merOmDinSituasjon: lagDinSituasjon({ harInntekt }),
+      merOmDinSituasjon: lagDinSituasjon({ inntekter }),
     });
 
     expect(() => tilSøknadRegelendring2026(søknad)).toThrow('hvaSituasjon mangler');
   });
 
-  test('kaster feil hvis harInntekt mangler', () => {
+  test('kaster feil hvis inntekter mangler', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
       [EHvaSituasjon.barnUnder14Måneder],
@@ -171,7 +171,7 @@ describe('tilSøknadRegelendring2026', () => {
       merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon }),
     });
 
-    expect(() => tilSøknadRegelendring2026(søknad)).toThrow('harInntekt mangler');
+    expect(() => tilSøknadRegelendring2026(søknad)).toThrow('inntekter mangler');
   });
 
   test('firmaer er undefined når selvstendig ikke valgt', () => {
@@ -180,14 +180,14 @@ describe('tilSøknadRegelendring2026', () => {
       [EHvaSituasjon.barnUnder14Måneder],
       [EHvaSituasjon.barnUnder14Måneder]
     );
-    const harInntekt = lagSpørsmålListeFelt(
-      'harInntekt',
+    const inntekter = lagSpørsmålListeFelt(
+      'inntekter',
       [EHarInntekt.arbeidstaker],
       [EHarInntekt.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
-      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, harInntekt }),
+      merOmDinSituasjon: lagDinSituasjon({ hvaSituasjon, inntekter }),
       aktivitet: lagAktivitet({ firmaer: undefined }),
     });
 
