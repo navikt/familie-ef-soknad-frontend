@@ -37,7 +37,7 @@ const EOS_LAND: ReadonlySet<string> = new Set([
 
 export const fallbackLandliste = (locale: LocaleType): ILandMedKode[] => {
   const visning = new Intl.DisplayNames([locale], { type: 'region' });
-  const sammenligner = new Intl.Collator(locale).compare;
+  const collator = new Intl.Collator(locale).compare;
 
   return Object.entries(ALPHA3_TIL_ALPHA2)
     .map(([alpha3, alpha2]) => {
@@ -46,5 +46,5 @@ export const fallbackLandliste = (locale: LocaleType): ILandMedKode[] => {
       return { id: alpha3, svar_tekst: navn, erEøsland: EOS_LAND.has(alpha3) };
     })
     .filter((land): land is ILandMedKode => land !== undefined)
-    .sort((a, b) => sammenligner(a.svar_tekst, b.svar_tekst));
+    .sort((a, b) => collator(a.svar_tekst, b.svar_tekst));
 };

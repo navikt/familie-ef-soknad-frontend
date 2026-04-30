@@ -80,7 +80,7 @@ describe('useLandliste', () => {
     expect(result.current.land.map((l) => l.id)).toContain('NOR');
     expect(result.current.land.find((l) => l.id === 'NOR')?.erEøsland).toBe(true);
     expect(Sentry.captureMessage).toHaveBeenCalledWith(
-      expect.stringContaining('api-kall feilet'),
+      expect.stringContaining('api kall feilet'),
       expect.objectContaining({ level: 'warning' })
     );
   });

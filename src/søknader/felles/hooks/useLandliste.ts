@@ -6,47 +6,56 @@ import { ILandMedKode } from '../../../models/steg/omDeg/medlemskap';
 import { hentLandkoder } from '../../../utils/søknad';
 import { fallbackLandliste } from './landkoderFallback';
 
-const sesjonsCache = new Map<LocaleType, ILandMedKode[]>();
-const påvent = new Map<LocaleType, Promise<ILandMedKode[]>>();
-const sentryRapportert = new Set<LocaleType>();
+const landlisteCache = new Map<LocaleType, ILandMedKode[]>();
+const inflightRequests = new Map<LocaleType, Promise<ILandMedKode[]>>();
+const sentryReported = new Set<LocaleType>();
 
-const rapporterFallback = (locale: LocaleType, årsak: string, feil?: unknown) => {
-  if (sentryRapportert.has(locale)) return;
-  sentryRapportert.add(locale);
-  Sentry.captureMessage(`Bruker statisk landliste fallback (${årsak}) for språk=${locale}`, {
-    level: 'warning',
-    extra: { feil: feil instanceof Error ? feil.message : String(feil ?? '') },
-  });
+const reportFallback = (locale: LocaleType, årsak: string, feil?: unknown) => {
+  if (sentryReported.has(locale)) return;
+  sentryReported.add(locale);
+  Sentry.captureMessage(
+    `Bruker statisk landliste fallback med årsak: ${årsak} for språk: ${locale}`,
+    {
+      level: 'warning',
+      extra: { feil: feil instanceof Error ? feil.message : String(feil ?? '') },
+    }
+  );
 };
 
 const hentEllerCache = (locale: LocaleType): Promise<ILandMedKode[]> => {
-  const cached = sesjonsCache.get(locale);
+  const cached = landlisteCache.get(locale);
   if (cached) return Promise.resolve(cached);
 
-  const eksisterende = påvent.get(locale);
-  if (eksisterende) return eksisterende;
+  const pågåendeKall = inflightRequests.get(locale);
+  if (pågåendeKall) return pågåendeKall;
 
   const promise = hentLandkoder(locale)
     .then((data) => {
       if (data.length === 0) {
-        rapporterFallback(locale, 'tom liste fra api');
+        reportFallback(locale, 'tom liste fra api');
         const fallback = fallbackLandliste(locale);
-        sesjonsCache.set(locale, fallback);
-        påvent.delete(locale);
+
+        landlisteCache.set(locale, fallback);
+        inflightRequests.delete(locale);
+
         return fallback;
       }
-      sesjonsCache.set(locale, data);
-      påvent.delete(locale);
+
+      landlisteCache.set(locale, data);
+      inflightRequests.delete(locale);
+
       return data;
     })
     .catch((feil) => {
-      rapporterFallback(locale, 'api kall feilet', feil);
+      reportFallback(locale, 'api kall feilet', feil);
+
       const fallback = fallbackLandliste(locale);
-      sesjonsCache.set(locale, fallback);
-      påvent.delete(locale);
+      landlisteCache.set(locale, fallback);
+      inflightRequests.delete(locale);
+
       return fallback;
     });
-  påvent.set(locale, promise);
+  inflightRequests.set(locale, promise);
   return promise;
 };
 
@@ -58,15 +67,15 @@ export interface UseLandlisteResultat {
 
 export const useLandliste = (): UseLandlisteResultat => {
   const [locale] = useSpråkContext();
-  const [land, settLand] = useState<ILandMedKode[]>(() => sesjonsCache.get(locale) ?? []);
-  const [isLoading, settIsLoading] = useState<boolean>(() => !sesjonsCache.has(locale));
+  const [land, settLand] = useState<ILandMedKode[]>(() => landlisteCache.get(locale) ?? []);
+  const [isLoading, settIsLoading] = useState<boolean>(() => !landlisteCache.has(locale));
   const [error, settError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
-    let aktiv = true;
+    let venterPåSvar = true;
     settError(undefined);
 
-    const cached = sesjonsCache.get(locale);
+    const cached = landlisteCache.get(locale);
     if (cached) {
       settLand(cached);
       settIsLoading(false);
@@ -76,18 +85,18 @@ export const useLandliste = (): UseLandlisteResultat => {
     settIsLoading(true);
     hentEllerCache(locale)
       .then((data) => {
-        if (!aktiv) return;
+        if (!venterPåSvar) return;
         settLand(data);
         settIsLoading(false);
       })
       .catch((feil: Error) => {
-        if (!aktiv) return;
+        if (!venterPåSvar) return;
         settError(feil);
         settIsLoading(false);
       });
 
     return () => {
-      aktiv = false;
+      venterPåSvar = false;
     };
   }, [locale]);
 
@@ -95,7 +104,7 @@ export const useLandliste = (): UseLandlisteResultat => {
 };
 
 export const _resetLandlisteCacheForTest = () => {
-  sesjonsCache.clear();
-  påvent.clear();
-  sentryRapportert.clear();
+  landlisteCache.clear();
+  inflightRequests.clear();
+  sentryReported.clear();
 };
