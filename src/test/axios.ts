@@ -63,6 +63,24 @@ type SøknadStegSkolepenger =
   | '/skolepenger/dokumentasjon'
   | '/skolepenger/kvittering';
 
+const mockedeLandkoder = [
+  { kode: 'DZA', navn: 'Algerie', erEøsland: false },
+  { kode: 'ARG', navn: 'Argentina', erEøsland: false },
+  { kode: 'BEL', navn: 'Belgia', erEøsland: true },
+  { kode: 'BRA', navn: 'Brasil', erEøsland: false },
+  { kode: 'DNK', navn: 'Danmark', erEøsland: true },
+  { kode: 'KWT', navn: 'Kuwait', erEøsland: false },
+  { kode: 'NOR', navn: 'Norge', erEøsland: true },
+  { kode: 'POL', navn: 'Polen', erEøsland: true },
+  { kode: 'GBR', navn: 'Storbritannia', erEøsland: false },
+  { kode: 'SWE', navn: 'Sverige', erEøsland: true },
+  { kode: 'DEU', navn: 'Tyskland', erEøsland: true },
+  { kode: 'USA', navn: 'USA', erEøsland: false },
+];
+
+const erLandkoderUrl = (url: string): boolean =>
+  url.startsWith(`${Environment().apiProxyUrl}/api/oppslag/landkoder`);
+
 export const mockGet = (url: string, stønadType: StønadType) => {
   if (url === `${Environment().apiProxyUrl}/api/innlogget`) {
     return Promise.resolve({ status: 200 });
@@ -81,6 +99,9 @@ export const mockGet = (url: string, stønadType: StønadType) => {
         søker: lagSøker({ forkortetNavn: 'Ola Nordmann' }),
       }),
     });
+  }
+  if (erLandkoderUrl(url)) {
+    return Promise.resolve({ data: mockedeLandkoder });
   }
   if (url === `${Environment().mellomlagerProxyUrl + stønadType}`) {
     return Promise.resolve({

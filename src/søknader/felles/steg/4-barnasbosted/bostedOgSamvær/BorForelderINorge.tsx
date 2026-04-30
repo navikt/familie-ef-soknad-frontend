@@ -9,10 +9,9 @@ import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
 import { erJaNeiSvar, hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
-import { useSpråkContext } from '../../../../../context/SpråkContext';
-import { hentLand } from '../../1-omdeg/medlemskap/MedlemskapConfig';
 import { ILandMedKode } from '../../../../../models/steg/omDeg/medlemskap';
 import { useBarnasBosted } from '../BarnasBostedContext';
+import { useLandliste } from '../../../hooks/useLandliste';
 
 const utledOppholdslandConfig = (land: ILandMedKode[]): ISpørsmål => ({
   søknadid: 'denAndreForelderensOppholdsland',
@@ -28,8 +27,7 @@ interface Props {
 }
 
 export const BorForelderINorge: FC<Props> = ({ settForelder, barn, forelder }) => {
-  const [locale] = useSpråkContext();
-  const land = hentLand(locale);
+  const { land } = useLandliste();
   const oppholdslandConfig = utledOppholdslandConfig(land);
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnasBosted();

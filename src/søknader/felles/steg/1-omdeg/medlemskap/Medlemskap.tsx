@@ -2,7 +2,6 @@ import React from 'react';
 import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import {
   bosattINorgeDeSisteFemÅr,
-  hentLand,
   oppholderSegINorge,
   søkersOppholdsland,
 } from './MedlemskapConfig';
@@ -12,10 +11,10 @@ import { IMedlemskap } from '../../../../../models/steg/omDeg/medlemskap';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import SelectSpørsmål from '../../../../../components/spørsmål/SelectSpørsmål';
-import { useSpråkContext } from '../../../../../context/SpråkContext';
 import { useOmDeg } from '../OmDegContext';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { VStack } from '@navikt/ds-react';
+import { useLandliste } from '../../../hooks/useLandliste';
 
 export const Medlemskap: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -23,7 +22,7 @@ export const Medlemskap: React.FC = () => {
 
   const oppholderSegINorgeConfig = oppholderSegINorge(intl);
 
-  const [locale] = useSpråkContext();
+  const { land } = useLandliste();
 
   if (!medlemskap) return null;
 
@@ -33,7 +32,6 @@ export const Medlemskap: React.FC = () => {
     søkerBosattINorgeSisteTreÅr,
   } = medlemskap;
 
-  const land = hentLand(locale);
   const oppholdslandConfig = søkersOppholdsland(land);
   const harValgtOppholdsland = oppholdsland?.verdi !== undefined;
 

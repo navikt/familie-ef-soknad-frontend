@@ -7,10 +7,17 @@ import { MellomlagredeStønadstyper } from '../models/søknad/stønadstyper';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
 import { skalMappeBarnefeltUtenLabel, standardLabelsBarn } from '../helpers/labels';
 import { IBarn } from '../models/steg/barn';
-import { LokalIntlShape } from '../language/typer';
+import { LocaleType, LokalIntlShape } from '../language/typer';
 import { ForrigeSøknad } from '../søknader/barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
+import { ILandMedKode } from '../models/steg/omDeg/medlemskap';
 import { hentTekst } from './teksthåndtering';
+
+interface LandkodeFraApi {
+  kode: string;
+  navn: string;
+  erEøsland: boolean;
+}
 
 const axiosConfig = {
   withCredentials: true,
@@ -26,6 +33,15 @@ export const hentPersonData = async (): Promise<PersonData> => {
     axiosConfig
   );
   return response && response.data;
+};
+
+export const hentLandkoder = async (locale: LocaleType): Promise<ILandMedKode[]> => {
+  const response = await axios.get(
+    `${Environment().apiProxyUrl}/api/oppslag/landkoder?spraak=${locale}`,
+    axiosConfig
+  );
+  const land: LandkodeFraApi[] = response?.data ?? [];
+  return land.map((l) => ({ id: l.kode, svar_tekst: l.navn, erEøsland: l.erEøsland }));
 };
 
 export const hentPersonDataArbeidssoker = () => {
