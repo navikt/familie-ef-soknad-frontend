@@ -1,6 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import axios from 'axios';
+import * as Sentry from '@sentry/browser';
 import { _resetLandlisteCacheForTest, useLandliste } from './useLandliste';
 
 vi.mock('axios', () => ({
@@ -15,6 +16,11 @@ vi.mock('axios', () => ({
 
 vi.mock('../../../context/SpråkContext', () => ({
   useSpråkContext: () => ['nb', vi.fn()],
+}));
+
+vi.mock('@sentry/browser', () => ({
+  captureMessage: vi.fn(),
+  captureEvent: vi.fn(),
 }));
 
 const apiResponse = [
@@ -63,14 +69,33 @@ describe('useLandliste', () => {
     expect(axios.get).toHaveBeenCalledTimes(1);
   });
 
-  test('eksponerer error når kallet feiler', async () => {
+  test('faller tilbake til statisk liste når kallet feiler', async () => {
     (axios.get as any).mockRejectedValueOnce(new Error('Nettverksfeil'));
 
     const { result } = renderHook(() => useLandliste());
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.error).toBeInstanceOf(Error);
-    expect(result.current.land).toEqual([]);
+    expect(result.current.land.length).toBeGreaterThan(100);
+    expect(result.current.land.map((l) => l.id)).toContain('NOR');
+    expect(result.current.land.find((l) => l.id === 'NOR')?.erEøsland).toBe(true);
+    expect(Sentry.captureMessage).toHaveBeenCalledWith(
+      expect.stringContaining('api-kall feilet'),
+      expect.objectContaining({ level: 'warning' })
+    );
+  });
+
+  test('faller tilbake til statisk liste når api returnerer tom liste', async () => {
+    (axios.get as any).mockResolvedValueOnce({ data: [] });
+
+    const { result } = renderHook(() => useLandliste());
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+    expect(result.current.land.length).toBeGreaterThan(100);
+    expect(Sentry.captureMessage).toHaveBeenCalledWith(
+      expect.stringContaining('tom liste'),
+      expect.objectContaining({ level: 'warning' })
+    );
   });
 });

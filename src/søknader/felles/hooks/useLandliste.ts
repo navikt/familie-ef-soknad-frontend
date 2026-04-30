@@ -1,11 +1,23 @@
 import { useEffect, useState } from 'react';
+import * as Sentry from '@sentry/browser';
 import { useSpråkContext } from '../../../context/SpråkContext';
 import { LocaleType } from '../../../language/typer';
 import { ILandMedKode } from '../../../models/steg/omDeg/medlemskap';
 import { hentLandkoder } from '../../../utils/søknad';
+import { fallbackLandliste } from './landkoderFallback';
 
 const sesjonsCache = new Map<LocaleType, ILandMedKode[]>();
 const påvent = new Map<LocaleType, Promise<ILandMedKode[]>>();
+const sentryRapportert = new Set<LocaleType>();
+
+const rapporterFallback = (locale: LocaleType, årsak: string, feil?: unknown) => {
+  if (sentryRapportert.has(locale)) return;
+  sentryRapportert.add(locale);
+  Sentry.captureMessage(`Bruker statisk landliste fallback (${årsak}) for språk=${locale}`, {
+    level: 'warning',
+    extra: { feil: feil instanceof Error ? feil.message : String(feil ?? '') },
+  });
+};
 
 const hentEllerCache = (locale: LocaleType): Promise<ILandMedKode[]> => {
   const cached = sesjonsCache.get(locale);
@@ -16,13 +28,23 @@ const hentEllerCache = (locale: LocaleType): Promise<ILandMedKode[]> => {
 
   const promise = hentLandkoder(locale)
     .then((data) => {
+      if (data.length === 0) {
+        rapporterFallback(locale, 'tom liste fra api');
+        const fallback = fallbackLandliste(locale);
+        sesjonsCache.set(locale, fallback);
+        påvent.delete(locale);
+        return fallback;
+      }
       sesjonsCache.set(locale, data);
       påvent.delete(locale);
       return data;
     })
     .catch((feil) => {
+      rapporterFallback(locale, 'api kall feilet', feil);
+      const fallback = fallbackLandliste(locale);
+      sesjonsCache.set(locale, fallback);
       påvent.delete(locale);
-      throw feil;
+      return fallback;
     });
   påvent.set(locale, promise);
   return promise;
@@ -75,4 +97,5 @@ export const useLandliste = (): UseLandlisteResultat => {
 export const _resetLandlisteCacheForTest = () => {
   sesjonsCache.clear();
   påvent.clear();
+  sentryRapportert.clear();
 };
