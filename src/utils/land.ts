@@ -5,6 +5,17 @@ export interface Landdata {
   en: string;
 }
 
+/**
+ * Statisk landliste vedlikeholdt manuelt for rettslig sporbarhet — vi må kunne dokumentere
+ * nøyaktig hvilke valg som ble vist en søker på et gitt tidspunkt.
+ *
+ * Søknaden sender alpha3-koden videre til familie-ef-soknad-api, som slår koden opp mot NAVs
+ * kodeverk (felles-integrasjoner: /kodeverk/landkoder) ved visning i familie-ef-sak. Appen familie-ef-mottak validerer
+ * ikke koden — den lagres RAW i JSON og videresendes til ef-sak. Hvis en kode ikke finnes i
+ * kodeverket vises tomt felt i sak.
+ *
+ * Ved tillegg/fjerning av land: verifiser at alpha3-koden finnes i NAVs kodeverk for landkoder.
+ */
 export const landliste: ReadonlyArray<Landdata> = [
   { alpha3: 'AFG', nb: 'Afghanistan', nn: 'Afghanistan', en: 'Afghanistan' },
   { alpha3: 'AGO', nb: 'Angola', nn: 'Angola', en: 'Angola' },
@@ -254,6 +265,13 @@ export const landliste: ReadonlyArray<Landdata> = [
   { alpha3: 'ZWE', nb: 'Zimbabwe', nn: 'Zimbabwe', en: 'Zimbabwe' },
 ];
 
+/**
+ * EØS-medlemsland (EU27 + Island, Liechtenstein, Norge = 30 koder).
+ *
+ * Brukes kun i frontend for å styre hvilke EØS-spørsmål som vises. Sak baserer
+ * EØS-klassifisering på vilkår-svar (ikke landkode), så denne listen påvirker ikke
+ * saksbehandlingen direkte — kun hvilken flyt søkeren ledes gjennom.
+ */
 export const eøsLandKoder: ReadonlyArray<string> = [
   'AUT',
   'BEL',
