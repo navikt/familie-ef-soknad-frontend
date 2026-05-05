@@ -52,7 +52,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+      screen.getByRole('radiogroup', { name: 'Hva slags barnepassordning har GÅEN PC?' })
     ).toBeInTheDocument();
 
     expect(
@@ -130,7 +130,7 @@ describe('Barnepass-Steg', () => {
       screen.queryByRole('button', { name: 'Legg til en barnepassordning' })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).not.toBeInTheDocument();
@@ -140,7 +140,7 @@ describe('Barnepass-Steg', () => {
       screen.getByRole('button', { name: 'Legg til en barnepassordning' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).toBeInTheDocument();
@@ -260,7 +260,7 @@ describe('Barnepass-Steg', () => {
       screen.queryByRole('button', { name: 'Legg til en barnepassordning' })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).not.toBeInTheDocument();
@@ -270,7 +270,7 @@ describe('Barnepass-Steg', () => {
       screen.getByRole('button', { name: 'Legg til en barnepassordning' })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: søkerFraBestemtMånedSpørsmålBarnetilsyn,
       })
     ).toBeInTheDocument();
@@ -412,7 +412,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', { name: 'Hvorfor trenger GÅEN PC pass?' })
+      screen.getByRole('radiogroup', { name: 'Hvorfor trenger GÅEN PC pass?' })
     ).toBeInTheDocument();
 
     expect(
@@ -432,7 +432,7 @@ describe('Barnepass-Steg', () => {
       )
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+      screen.getByRole('radiogroup', { name: 'Hva slags barnepassordning har GÅEN PC?' })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
@@ -453,7 +453,7 @@ describe('Barnepass-Steg', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Du må dokumentere arbeidstiden din')).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+      screen.getByRole('radiogroup', { name: 'Hva slags barnepassordning har GÅEN PC?' })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
@@ -469,7 +469,7 @@ describe('Barnepass-Steg', () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText('Du må dokumentere arbeidstiden din')).toBeInTheDocument();
     expect(
-      screen.getByRole('group', { name: 'Hva slags barnepassordning har GÅEN PC?' })
+      screen.getByRole('radiogroup', { name: 'Hva slags barnepassordning har GÅEN PC?' })
     ).toBeInTheDocument();
 
     expect(
