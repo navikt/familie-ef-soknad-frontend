@@ -68,8 +68,12 @@ const SentryRouteTagger: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const stønadstype = location.pathname.split('/').filter(Boolean)[0] ?? 'ukjent';
-    Sentry.setTag('stønadstype', stønadstype);
+    const første = location.pathname.split('/').filter(Boolean)[0] ?? '';
+    const stønadstype =
+      første === 'barnetilsyn' || første === 'skolepenger' || første === 'arbeidssoker'
+        ? første
+        : 'overgangsstonad';
+    Sentry.setTag('stonadstype', stønadstype);
   }, [location.pathname]);
 
   return null;
