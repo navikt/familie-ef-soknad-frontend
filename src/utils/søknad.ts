@@ -2,7 +2,7 @@ import Environment from '../Environment';
 import axios from 'axios';
 import { hentUid } from './autentiseringogvalidering/uuid';
 import { ISpørsmål } from '../models/felles/spørsmålogsvar';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import { MellomlagredeStønadstyper } from '../models/søknad/stønadstyper';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
 import { skalMappeBarnefeltUtenLabel, standardLabelsBarn } from '../helpers/labels';
@@ -20,11 +20,11 @@ const axiosConfig = {
   },
 };
 
-export const hentPersonData = async (): Promise<PersonData> => {
-  const response = await axios.get(
-    `${Environment().apiProxyUrl}/api/oppslag/sokerinfo`,
-    axiosConfig
-  );
+export const hentPersonData = async (signal?: AbortSignal): Promise<PersonData> => {
+  const response = await axios.get(`${Environment().apiProxyUrl}/api/oppslag/sokerinfo`, {
+    ...axiosConfig,
+    signal,
+  });
   return response && response.data;
 };
 
@@ -37,10 +37,11 @@ export const hentPersonDataArbeidssoker = () => {
 };
 
 export const hentMellomlagretSøknadFraDokument = <T>(
-  stønadstype: MellomlagredeStønadstyper
+  stønadstype: MellomlagredeStønadstyper,
+  signal?: AbortSignal
 ): Promise<T | undefined> => {
   return axios
-    .get(`${Environment().mellomlagerProxyUrl + stønadstype}`, axiosConfig)
+    .get(`${Environment().mellomlagerProxyUrl + stønadstype}`, { ...axiosConfig, signal })
     .then((response: { data?: T }) => {
       return response.data;
     });
@@ -53,10 +54,12 @@ export const mellomlagreSøknadTilDokument = <T>(
   return axios.post(`${Environment().mellomlagerProxyUrl + stønadstype}`, søknad, axiosConfig);
 };
 
-export const hentDataFraForrigeBarnetilsynSøknad = async (): Promise<ForrigeSøknad> => {
+export const hentDataFraForrigeBarnetilsynSøknad = async (
+  signal?: AbortSignal
+): Promise<ForrigeSøknad> => {
   const response = await axios.get(
     `${Environment().apiProxyUrl + '/api/soknad/barnetilsyn/forrige'}`,
-    axiosConfig
+    { ...axiosConfig, signal }
   );
   return response.data;
 };

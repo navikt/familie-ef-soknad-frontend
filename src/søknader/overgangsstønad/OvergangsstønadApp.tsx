@@ -47,13 +47,15 @@ export const OvergangsstønadApp = () => {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
     Promise.all([
       fetchToggles(),
-      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
-      hentMellomlagretOvergangsstønad(),
+      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad, controller.signal),
+      hentMellomlagretOvergangsstønad(controller.signal),
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
+    return () => controller.abort();
   }, []);
 
   if (!fetching && autentisert) {

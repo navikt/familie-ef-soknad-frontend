@@ -80,9 +80,10 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(() 
     }
   }, [mellomlagretSkolepenger, locale, setLocale]);
 
-  const hentMellomlagretSkolepenger = (): Promise<void> => {
+  const hentMellomlagretSkolepenger = (signal?: AbortSignal): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadSkolepenger>(
-      MellomlagredeStønadstyper.skolepenger
+      MellomlagredeStønadstyper.skolepenger,
+      signal
     ).then((mellomlagretVersjon?: MellomlagretSøknadSkolepenger) => {
       if (mellomlagretVersjon) {
         settMellomlagretSkolepenger(mellomlagretVersjon);

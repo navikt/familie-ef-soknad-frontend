@@ -5,7 +5,7 @@ import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg'
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';

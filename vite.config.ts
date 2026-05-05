@@ -19,7 +19,7 @@ export default defineConfig({
             name: process.env.SENTRY_RELEASE,
           },
           errorHandler: (err) => {
-            console.warn('Sentry Vite Plugin: ' + err.message);
+            throw err;
           },
         })
       : undefined,
@@ -28,6 +28,7 @@ export default defineConfig({
     'process.env.PUBLIC_URL': JSON.stringify(basePath.slice(0, -1)),
     'process.env.BRUK_MOCK_LOKALT': JSON.stringify(process.env.BRUK_MOCK_LOKALT || false),
     'process.env.BRUK_DEV_API': JSON.stringify(process.env.BRUK_DEV_API || false),
+    'process.env.SENTRY_RELEASE': JSON.stringify(process.env.SENTRY_RELEASE ?? ''),
   },
   build: {
     outDir: 'build',

@@ -44,13 +44,15 @@ const SkolepengerApp = () => {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
     Promise.all([
       fetchToggles(),
-      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Skolepenger),
-      hentMellomlagretSkolepenger(),
+      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Skolepenger, controller.signal),
+      hentMellomlagretSkolepenger(controller.signal),
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
+    return () => controller.abort();
   }, []);
 
   if (!fetching && autentisert) {

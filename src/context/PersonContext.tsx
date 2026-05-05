@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useState } from 'react';
+import axios from 'axios';
 import { Barn, IPerson, PersonData } from '../models/søknad/person';
 import tomPerson from '../mock/initialState.json';
 import { hentPersonData } from '../utils/søknad';
@@ -25,7 +26,8 @@ type PersonContextType = {
   alvorlighetsgrad: EAlvorlighetsgrad | undefined;
   fetchPersonData: (
     oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[] | IBarn[]) => void,
-    skjemanavn: ESkjemanavn
+    skjemanavn: ESkjemanavn,
+    signal?: AbortSignal
   ) => Promise<void>;
 };
 
@@ -84,9 +86,11 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) 
   };
 
   const fetchPersonData = (
-    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void
+    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void,
+    _skjemanavn?: ESkjemanavn,
+    signal?: AbortSignal
   ) => {
-    return hentPersonData()
+    return hentPersonData(signal)
       .then((response) => {
         settPerson({
           type: PersonActionTypes.HENT_PERSON,
@@ -95,7 +99,10 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) 
 
         oppdaterSøknadMedBarn(response, response.barn);
       })
-      .catch((e) => håndterError(e));
+      .catch((e) => {
+        if (axios.isCancel(e)) return;
+        håndterError(e);
+      });
   };
 
   const value = {

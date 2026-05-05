@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 import Feilside from '../../components/feil/Feilside';
 import hentToggles from '../../toggles/api';
 import { oppdaterBarnMedLabel } from '../../utils/søknad';
@@ -55,19 +56,25 @@ const BarnetilsynApp = () => {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
     Promise.all([
       fetchToggles(),
-      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
-      hentMellomlagretBarnetilsyn(),
+      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn, controller.signal),
+      hentMellomlagretBarnetilsyn(controller.signal),
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
-    if (skalGjenbrukeSøknad) {
-      hentForrigeSøknadBarnetilsyn();
-    }
+    if (!skalGjenbrukeSøknad) return;
+    const controller = new AbortController();
+    hentForrigeSøknadBarnetilsyn(controller.signal).catch((error) => {
+      if (axios.isCancel(error)) return;
+      throw error;
+    });
+    return () => controller.abort();
   }, [fetching, skalGjenbrukeSøknad]);
 
   if (!fetching && autentisert) {

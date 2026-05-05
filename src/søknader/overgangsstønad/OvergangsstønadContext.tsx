@@ -87,9 +87,10 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
     }
   }, [mellomlagretOvergangsstønad, locale, setLocale]);
 
-  const hentMellomlagretOvergangsstønad = (): Promise<void> => {
+  const hentMellomlagretOvergangsstønad = (signal?: AbortSignal): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(
-      MellomlagredeStønadstyper.overgangsstønad
+      MellomlagredeStønadstyper.overgangsstønad,
+      signal
     ).then((mellomlagretVersjon?: MellomlagretSøknadOvergangsstønad) => {
       if (mellomlagretVersjon) {
         settMellomlagretOvergangsstønad(mellomlagretVersjon);

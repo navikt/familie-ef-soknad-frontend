@@ -89,9 +89,10 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
     }
   }, [mellomlagretBarnetilsyn, locale, setLocale]);
 
-  const hentMellomlagretBarnetilsyn = (): Promise<void> => {
+  const hentMellomlagretBarnetilsyn = (signal?: AbortSignal): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadBarnetilsyn>(
-      MellomlagredeStønadstyper.barnetilsyn
+      MellomlagredeStønadstyper.barnetilsyn,
+      signal
     ).then((mellomlagretVersjon?: MellomlagretSøknadBarnetilsyn) => {
       if (mellomlagretVersjon) {
         settMellomlagretBarnetilsyn(mellomlagretVersjon);
@@ -105,9 +106,9 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
     }
   };
 
-  const hentForrigeSøknadBarnetilsyn = async (): Promise<void> => {
-    const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad();
-    const personData = await hentPersonData();
+  const hentForrigeSøknadBarnetilsyn = async (signal?: AbortSignal): Promise<void> => {
+    const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad(signal);
+    const personData = await hentPersonData(signal);
     if (gjenbrukBarnetilsynToggle && forrigeSøknad) {
       settSøknad((prevSøknad) => {
         const aktuelleBarn = forrigeSøknad.person.barn.filter((barn) =>

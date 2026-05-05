@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import '@navikt/ds-css';
 import './index.css';
 import './søknader/overgangsstønad/Forside.css';
@@ -14,28 +14,45 @@ import './søknader/arbeidssøkerskjema/Forside.css';
 import { OvergangsstønadApp } from './søknader/overgangsstønad/OvergangsstønadApp';
 import ArbeidssøkerApp from './søknader/arbeidssøkerskjema/SkjemaApp';
 import BarnetilsynApp from './søknader/barnetilsyn/BarnetilsynApp';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SpråkProvider } from './context/SpråkContext';
 import ContextProviders from './context/ContextProviders';
 import { ScrollToTop } from './utils/visning';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import { isAxiosError } from 'axios';
 import Environment from './Environment';
 import SkolepengerApp from './søknader/skolepenger/SkolepengerApp';
 import { createRoot } from 'react-dom/client';
+import Feilside from './components/feil/Feilside';
 
 if (Environment().sentryUrl) {
   Sentry.init({
     dsn: Environment().sentryUrl,
     environment: Environment().miljø,
+    release: process.env.SENTRY_RELEASE || undefined,
+
+    denyUrls: [
+      /^chrome-extension:\/\//,
+      /^moz-extension:\/\//,
+      /^safari-extension:\/\//,
+      /^safari-web-extension:\/\//,
+      /^webkit-masked-url:\/\//,
+    ],
+
+    ignoreErrors: [
+      'OpsMessages.connectedCallback',
+      'ResizeObserver loop limit exceeded',
+      'ResizeObserver loop completed with undelivered notifications',
+      "evaluating 'response.showSearchResults'",
+    ],
 
     beforeSend(event, hint) {
       const error = hint?.originalException;
 
-      if (isAxiosError(error) && error.code === 'ERR_NETWORK') {
+      if (isAxiosError(error) && (error.code === 'ERR_NETWORK' || error.code === 'ERR_CANCELED')) {
         if (Environment().miljø !== 'production') {
           console.warn(
-            'AxiosError ERR_NETWORK filtrert fra Sentry:',
+            `AxiosError ${error.code} filtrert fra Sentry:`,
             error.message,
             error.config?.url
           );
@@ -46,6 +63,17 @@ if (Environment().sentryUrl) {
     },
   });
 }
+
+const SentryRouteTagger: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const stønadstype = location.pathname.split('/').filter(Boolean)[0] ?? 'ukjent';
+    Sentry.setTag('stønadstype', stønadstype);
+  }, [location.pathname]);
+
+  return null;
+};
 
 const container = document.getElementById('root');
 
@@ -58,15 +86,18 @@ if (container == null) {
   root.render(
     <SpråkProvider>
       <ContextProviders>
-        <Router basename={process.env.PUBLIC_URL}>
-          <ScrollToTop />
-          <Routes>
-            <Route path={'/arbeidssoker/*'} element={<ArbeidssøkerApp />} />
-            <Route path={'/barnetilsyn/*'} element={<BarnetilsynApp />} />
-            <Route path={'/skolepenger/*'} element={<SkolepengerApp />} />
-            <Route path={'*'} element={<OvergangsstønadApp />} />
-          </Routes>
-        </Router>
+        <Sentry.ErrorBoundary fallback={<Feilside />}>
+          <Router basename={process.env.PUBLIC_URL}>
+            <ScrollToTop />
+            <SentryRouteTagger />
+            <Routes>
+              <Route path={'/arbeidssoker/*'} element={<ArbeidssøkerApp />} />
+              <Route path={'/barnetilsyn/*'} element={<BarnetilsynApp />} />
+              <Route path={'/skolepenger/*'} element={<SkolepengerApp />} />
+              <Route path={'*'} element={<OvergangsstønadApp />} />
+            </Routes>
+          </Router>
+        </Sentry.ErrorBoundary>
       </ContextProviders>
     </SpråkProvider>
   );

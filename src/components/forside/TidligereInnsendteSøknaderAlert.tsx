@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert, Heading } from '@navikt/ds-react';
 import { Stønadstype, stønadsTypeTilEngelsk } from '../../models/søknad/stønadstyper';
@@ -30,10 +30,12 @@ export const TidligereInnsendteSøknaderAlert: React.FC<TidligereInnsendteSøkna
 
   const [innsendteSøknader, settInnsendteSøknader] = useState<SistInnsendteSøknad[]>([]);
 
-  const hentInnsendteSøknader = useCallback(() => {
+  useEffect(() => {
+    const controller = new AbortController();
     axios
       .get<SistInnsendteSøknad[]>(
-        `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`
+        `${Environment().apiProxyUrl}/api/soknad/sist-innsendt-per-stonad`,
+        { signal: controller.signal }
       )
       .then((response) => {
         const normalisertSøknad = response.data.map((søknad) => ({
@@ -44,13 +46,11 @@ export const TidligereInnsendteSøknaderAlert: React.FC<TidligereInnsendteSøkna
         settInnsendteSøknader(normalisertSøknad);
       })
       .catch((error) => {
+        if (axios.isCancel(error)) return;
         console.error('Klarte ikke å hente tidligere innsendte søknader.', error);
       });
+    return () => controller.abort();
   }, []);
-
-  useEffect(() => {
-    hentInnsendteSøknader();
-  }, [hentInnsendteSøknader]);
 
   const gjeldeneSøknad = innsendteSøknader.find((søknad) => søknad.stønadType === stønadType);
 
