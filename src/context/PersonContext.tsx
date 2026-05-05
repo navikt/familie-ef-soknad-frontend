@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useState } from 'react';
 import axios from 'axios';
+import * as Sentry from '@sentry/react';
 import { Barn, IPerson, PersonData } from '../models/søknad/person';
 import tomPerson from '../mock/initialState.json';
 import { hentPersonData } from '../utils/søknad';
@@ -87,9 +88,13 @@ const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) 
 
   const fetchPersonData = (
     oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void,
-    _skjemanavn?: ESkjemanavn,
+    skjemanavn?: ESkjemanavn,
     signal?: AbortSignal
   ) => {
+    if (skjemanavn) {
+      Sentry.setTag('skjemanavn', skjemanavn);
+    }
+
     return hentPersonData(signal)
       .then((response) => {
         settPerson({
