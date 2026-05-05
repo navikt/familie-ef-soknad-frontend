@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   erSivilstandSpørsmålBesvart,
@@ -13,6 +13,35 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOmDeg } from './OmDegContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { Button, Heading, VStack } from '@navikt/ds-react';
+
+// TODO: Fjern SentryTestPanel når preprod-verifisering av Sentry-oppsettet er ferdig.
+const SentryTestPanel: FC = () => {
+  const [krasjRender, settKrasjRender] = useState(false);
+  if (krasjRender) {
+    throw new Error('Sentry ErrorBoundary-test ' + Date.now());
+  }
+
+  return (
+    <VStack gap="space-8">
+      <Heading size="xsmall" level="3">
+        Sentry-testknapper (midlertidig — slett etter test)
+      </Heading>
+      <Button
+        variant="secondary"
+        size="small"
+        onClick={() => {
+          throw new Error('Sentry kildekart-test ' + Date.now());
+        }}
+      >
+        Trigg event handler-feil
+      </Button>
+      <Button variant="secondary" size="small" onClick={() => settKrasjRender(true)}>
+        Trigg render-feil (ErrorBoundary)
+      </Button>
+    </VStack>
+  );
+};
 
 const OmDeg: FC = () => {
   const intl = useLokalIntlContext();
@@ -63,6 +92,7 @@ const OmDeg: FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummering}
       mellomlagreSteg={mellomlagreSteg}
     >
+      <SentryTestPanel />
       <Personopplysninger />
       {skalViseSivilstatusdialog && <Sivilstatus />}
       {skalViseMedlemskapsdialog && <Medlemskap />}
