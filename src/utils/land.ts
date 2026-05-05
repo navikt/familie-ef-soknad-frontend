@@ -258,7 +258,7 @@ export const landliste: ReadonlyArray<Landdata> = [
   { alpha3: 'VNM', nb: 'Vietnam', nn: 'Vietnam', en: 'Vietnam' },
   { alpha3: 'VUT', nb: 'Vanuatu', nn: 'Vanuatu', en: 'Vanuatu' },
   { alpha3: 'WSM', nb: 'Samoa', nn: 'Samoa', en: 'Samoa' },
-  { alpha3: 'XKX', nb: 'Kosovo', nn: 'Kosovo', en: 'Kosovo' },
+  { alpha3: 'XXK', nb: 'Kosovo', nn: 'Kosovo', en: 'Kosovo' },
   { alpha3: 'YEM', nb: 'Jemen', nn: 'Jemen', en: 'Yemen' },
   { alpha3: 'ZAF', nb: 'Sør-Afrika', nn: 'Sør-Afrika', en: 'South Africa' },
   { alpha3: 'ZMB', nb: 'Zambia', nn: 'Zambia', en: 'Zambia' },
