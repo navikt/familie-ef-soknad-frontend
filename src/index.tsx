@@ -19,6 +19,7 @@ import { SpråkProvider } from './context/SpråkContext';
 import ContextProviders from './context/ContextProviders';
 import { ScrollToTop } from './utils/visning';
 import * as Sentry from '@sentry/browser';
+import { isAxiosError } from 'axios';
 import Environment from './Environment';
 import SkolepengerApp from './søknader/skolepenger/SkolepengerApp';
 import { createRoot } from 'react-dom/client';
@@ -27,9 +28,27 @@ if (Environment().sentryUrl) {
   Sentry.init({
     dsn: Environment().sentryUrl,
     environment: Environment().miljø,
+
+    beforeSend(event, hint) {
+      const error = hint?.originalException;
+
+      if (isAxiosError(error) && error.code === 'ERR_NETWORK') {
+        if (Environment().miljø !== 'production') {
+          console.warn(
+            'AxiosError ERR_NETWORK filtrert fra Sentry:',
+            error.message,
+            error.config?.url
+          );
+        }
+        return null;
+      }
+      return event;
+    },
   });
 }
+
 const container = document.getElementById('root');
+
 if (container == null) {
   throw new Error('Mangler container for appen');
 } else {
