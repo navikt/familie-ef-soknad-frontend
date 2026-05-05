@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Feilside from '../../components/feil/Feilside';
 import { hentPersonDataArbeidssoker } from '../../utils/søknad';
 import { Route, Routes } from 'react-router-dom';
@@ -36,9 +37,10 @@ const App = () => {
   }, [autentisert]);
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchData = () => {
       const fetchPersonData = () => {
-        hentPersonDataArbeidssoker()
+        hentPersonDataArbeidssoker(controller.signal)
           .then((response) => {
             settIdent(response.ident);
             settVisningsnavn(response.visningsnavn);
@@ -51,7 +53,8 @@ const App = () => {
             settError(false);
             settFeilmelding('');
           })
-          .catch(() => {
+          .catch((error) => {
+            if (axios.isCancel(error)) return;
             settError(true);
             settFeilmelding('skjema.feilmelding.uthenting');
           });
@@ -60,6 +63,7 @@ const App = () => {
       settFetching(false);
     };
     fetchData();
+    return () => controller.abort();
   }, [settToggles]);
 
   if (!fetching && autentisert) {

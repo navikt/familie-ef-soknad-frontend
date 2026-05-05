@@ -28,9 +28,9 @@ export const hentPersonData = async (signal?: AbortSignal): Promise<PersonData> 
   return response && response.data;
 };
 
-export const hentPersonDataArbeidssoker = () => {
+export const hentPersonDataArbeidssoker = (signal?: AbortSignal) => {
   return axios
-    .get(`${Environment().apiProxyUrl}/api/oppslag/sokerminimum`, axiosConfig)
+    .get(`${Environment().apiProxyUrl}/api/oppslag/sokerminimum`, { ...axiosConfig, signal })
     .then((response: { data: any }) => {
       return response && response.data;
     });
