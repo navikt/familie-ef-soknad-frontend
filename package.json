@@ -42,7 +42,7 @@
     "@navikt/fnrvalidator": "^2.2.0",
     "@navikt/nav-dekoratoren-moduler": "^3.6.3",
     "@sentry/react": "^10.44.0",
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "constate": "^3.3.3",
     "date-fns": "^4.1.0",
     "iso-datestring-validator": "^2.2.2",
