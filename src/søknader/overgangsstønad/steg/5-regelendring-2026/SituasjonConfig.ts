@@ -13,6 +13,10 @@ export const hvaSituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: ENySituasjon.hvaSituasjon,
   tekstid: 'nySituasjon.spm.hvaSituasjon',
   flersvar: true,
+  lesmer: {
+    headerTekstid: 'situasjon.hjelpetekst-åpne.begrunnelse',
+    innholdTekstid: 'situasjon.hjelpetekst.innhold',
+  },
   svaralternativer: [
     {
       id: EHvaSituasjon.barnUnder14Måneder,
@@ -35,6 +39,10 @@ export const inntekterSpm = (intl: LokalIntlShape): ISpørsmål => ({
   søknadid: ENySituasjon.inntekter,
   tekstid: 'nySituasjon.spm.inntekter',
   flersvar: true,
+  lesmer: {
+    headerTekstid: 'situasjon.hjelpetekst-åpne.begrunnelse',
+    innholdTekstid: 'inntekter.hjelpetekst.innhold',
+  },
   svaralternativer: [
     {
       id: EHarInntekt.arbeidstaker,
