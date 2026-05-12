@@ -22,6 +22,7 @@ interface Props {
   forelder: IForelder;
   kjennerIkkeIdent: boolean;
   settKjennerIkkeIdent: (kjennerIkkeIdent: boolean) => void;
+  settErGyldigFødselsdato: (gyldig: boolean) => void;
 }
 
 export const OmAndreForelder: React.FC<Props> = ({
@@ -29,6 +30,7 @@ export const OmAndreForelder: React.FC<Props> = ({
   forelder,
   kjennerIkkeIdent,
   settKjennerIkkeIdent,
+  settErGyldigFødselsdato,
 }) => {
   const intl = useLokalIntlContext();
   const { settSisteBarnUtfylt } = useBarnasBosted();
@@ -68,6 +70,7 @@ export const OmAndreForelder: React.FC<Props> = ({
     }
     if (!checked && fødselsdato) {
       delete endretForelder.fødselsdato;
+      settErGyldigFødselsdato(true);
     }
 
     settForelder(endretForelder);
@@ -188,6 +191,7 @@ export const OmAndreForelder: React.FC<Props> = ({
           settIdent={hvisGyldigIdentSettIdent}
           settFødselsdato={settFødselsdato}
           settChecked={settChecked}
+          settErGyldigDato={settErGyldigFødselsdato}
         />
       )}
       {forelder.kanIkkeOppgiAnnenForelderFar?.verdi && (
