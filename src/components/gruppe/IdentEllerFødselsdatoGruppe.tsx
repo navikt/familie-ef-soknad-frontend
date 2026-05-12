@@ -16,6 +16,7 @@ interface Props {
   settIdent: (ident: string) => void;
   settChecked: (checked: boolean) => void;
   settFødselsdato: (date: string) => void;
+  settErGyldigDato?: (gyldig: boolean) => void;
   testIder?: string[];
 }
 
@@ -30,6 +31,7 @@ export const IdentEllerFødselsdatoGruppe: FC<Props> = ({
   settIdent,
   settChecked,
   settFødselsdato,
+  settErGyldigDato,
   testIder,
 }) => {
   const intl = useLokalIntlContext();
@@ -66,6 +68,7 @@ export const IdentEllerFødselsdatoGruppe: FC<Props> = ({
           tekstid={datoLabelId}
           gyldigeDatoer={GyldigeDatoer.Tidligere}
           settDato={(e) => settFødselsdato(e)}
+          settErGyldigDato={settErGyldigDato}
           testId={testIder && testIder[2]}
         />
       )}
