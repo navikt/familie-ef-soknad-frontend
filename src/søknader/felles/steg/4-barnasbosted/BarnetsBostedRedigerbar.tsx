@@ -242,16 +242,16 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
 
         {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) &&
           !harUgyldigFødselsdato && (
-          <div>
-            <Button
-              variant="secondary"
-              onClick={leggTilForelder}
-              data-testid={'leggTilForelderKnapp'}
-            >
-              {hentTekst('knapp.neste', intl)}
-            </Button>
-          </div>
-        )}
+            <div>
+              <Button
+                variant="secondary"
+                onClick={leggTilForelder}
+                data-testid={'leggTilForelderKnapp'}
+              >
+                {hentTekst('knapp.neste', intl)}
+              </Button>
+            </div>
+          )}
       </VStack>
     </div>
   );
