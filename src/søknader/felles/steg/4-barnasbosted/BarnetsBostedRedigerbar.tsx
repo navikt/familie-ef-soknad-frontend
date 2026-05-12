@@ -81,7 +81,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
       !stringHarVerdiOgErIkkeTom(forelder.ident?.verdi)
   );
 
-  const [harUgyldigFødselsdato, settHarUgyldigFødselsdato] = useState<boolean>(false);
+  const [erGyldigFødselsdato, settErGyldigFødselsdato] = useState<boolean>(true);
 
   const { boddSammenFør, flyttetFra, fødselsdato, ident } = forelder;
 
@@ -185,7 +185,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
                 forelder={forelder}
                 kjennerIkkeIdent={kjennerIkkeIdent}
                 settKjennerIkkeIdent={settKjennerIkkeIdent}
-                settHarUgyldigFødselsdato={settHarUgyldigFødselsdato}
+                settErGyldigFødselsdato={settErGyldigFødselsdato}
               />
             )}
 
@@ -241,7 +241,7 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
         )}
 
         {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) &&
-          !harUgyldigFødselsdato && (
+          erGyldigFødselsdato && (
             <div>
               <Button
                 variant="secondary"
