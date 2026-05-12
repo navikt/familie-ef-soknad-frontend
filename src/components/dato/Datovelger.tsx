@@ -12,6 +12,7 @@ interface Props {
   tekstid: string;
   gyldigeDatoer: GyldigeDatoer;
   settDato: (dato: string) => void;
+  settUgyldigDato?: (ugyldig: boolean) => void;
   testId?: string;
 }
 
@@ -20,6 +21,7 @@ export const Datovelger: React.FC<Props> = ({
   gyldigeDatoer,
   valgtDato,
   settDato,
+  settUgyldigDato,
   testId,
 }) => {
   const [locale] = useSpråkContext();
@@ -30,6 +32,10 @@ export const Datovelger: React.FC<Props> = ({
   useEffect(() => {
     settDato(_dato);
   }, [_dato]);
+
+  useEffect(() => {
+    settUgyldigDato?.(feilmelding !== '');
+  }, [feilmelding]);
 
   const datoVisningsverdi = _dato ? new Date(_dato) : undefined;
   const label = hentTekst(tekstid, intl);
