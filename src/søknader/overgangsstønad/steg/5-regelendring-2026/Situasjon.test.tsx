@@ -17,7 +17,7 @@ vi.mock('axios', () => {
 
 describe('Situasjon regelendring 2026', () => {
   test('Viser spørsmål 1 ved oppstart', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getByText('Hva er situasjonen din?')).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Spørsmål 2 vises etter å ha svart på spørsmål 1', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(screen.queryByText('Har du inntekt?')).not.toBeInTheDocument();
@@ -46,7 +46,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Spørsmål 2 er flervalg med alle alternativer', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Jeg har barn under 14 måneder', screen, user);
@@ -66,7 +66,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Viser spørsmål 3 (sagt opp) ved valg av arbeidstaker', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Jeg har barn under 14 måneder', screen, user);
@@ -80,7 +80,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Viser spørsmål 3 ved valg av nei (ingen inntekt)', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Jeg har barn under 14 måneder', screen, user);
@@ -94,7 +94,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Viser IKKE spørsmål 3 ved kun selvstendig næringsdrivende', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Jeg har barn under 14 måneder', screen, user);
@@ -108,7 +108,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Viser IKKE spørsmål 3 når selvstendig + arbeidstaker er valgt uten utfylt firma', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Jeg har barn under 14 måneder', screen, user);
@@ -123,7 +123,7 @@ describe('Situasjon regelendring 2026', () => {
   });
 
   test('Viser dokumentasjons-alert ved sykdom ikke varig', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/aktivitet-og-situasjon', {});
+    mockMellomlagretSøknadOvergangsstønad('/situasjonen-din', {});
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     await klikkCheckbox('Barnet mitt har en sykdom som ikke er varig', screen, user);

@@ -8,7 +8,7 @@ export enum ERouteOvergangsstønad {
   BarnasBosted = 'BarnasBosted',
   Aktivitet = 'Aktivitet',
   DinSituasjon = 'DinSituasjon',
-  AktivitetOgSituasjon = 'AktivitetOgSituasjon',
+  SituasjonenDin = 'SituasjonenDin',
   Oppsummering = 'Oppsummering',
   Dokumentasjon = 'Dokumentasjon',
   Kvittering = 'Kvittering',
@@ -59,9 +59,9 @@ const GAMLE_STEG_FØR_REGELENDRING_2026: IRoute[] = [
 
 const STEG_ETTER_REGELENDRING_2026: IRoute[] = [
   {
-    path: '/aktivitet-og-situasjon',
+    path: '/situasjonen-din',
     label: 'Situasjon',
-    route: ERouteOvergangsstønad.AktivitetOgSituasjon,
+    route: ERouteOvergangsstønad.SituasjonenDin,
     localeTekst: 'stegtittel.situasjonen',
   },
 ];
