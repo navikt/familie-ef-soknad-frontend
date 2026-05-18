@@ -11,7 +11,7 @@
     "@types/express": "^5.0.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.5.1",
+    "express-rate-limit": "^8.5.2",
     "http-proxy-middleware": "^3.0.5",
     "typescript": "^6.0.3",
     "uuid": "^14.0.0",
