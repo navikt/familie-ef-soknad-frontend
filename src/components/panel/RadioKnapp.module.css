@@ -3,7 +3,16 @@
     background-color: var(--ax-bg-default);
     border: 1px solid var(--ax-border-default);
     border-radius: var(--ax-radius-4);
-    padding: var(--ax-space-12) var(--ax-space-16);
+    padding: 0 var(--ax-space-16);
+    position: relative;
+}
+
+.radioPanel :global(.aksel-radio) {
+    width: 100%;
+}
+
+.radioPanel :global(.aksel-radio):focus-within::after {
+    content: none;
 }
 
 .radioPanel:hover {
@@ -13,7 +22,13 @@
 }
 
 .radioPanel:focus-within::after {
+    content: "";
+    position: absolute;
     inset: 0;
+    pointer-events: none;
+    border-radius: var(--ax-radius-4);
+    outline: 3px solid var(--ax-border-focus);
+    outline-offset: 3px;
 }
 
 .active {
