@@ -38,7 +38,7 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       })
     ).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
       })
     ).toBeInTheDocument();
@@ -66,7 +66,7 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har du meldt adresseendring til Folkeregisteret?',
       })
     ).toBeInTheDocument();
@@ -95,7 +95,7 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har du meldt adresseendring til Folkeregisteret?',
       })
     ).toBeInTheDocument();
@@ -111,7 +111,7 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: 'Har du meldt adresseendring til Folkeregisteret?',
       })
     ).not.toBeInTheDocument();
@@ -121,7 +121,7 @@ describe('OmDegSteg, personopplysninger', () => {
       )
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       })
     ).toBeInTheDocument();
@@ -156,12 +156,12 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Har du oppholdt deg i Norge de siste 5 årene?', 'Ja', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).toBeInTheDocument();
@@ -169,12 +169,12 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Nei', screen, user);
 
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).not.toBeInTheDocument();
@@ -182,12 +182,12 @@ describe('OmDegSteg, personopplysninger', () => {
     await klikkRadioknapp('Har du meldt adresseendring til Folkeregisteret?', 'Nei', screen, user);
 
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).not.toBeInTheDocument();
@@ -202,7 +202,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Er du gift uten at det er registrert i folkeregisteret i Norge? Hvorfor spør vi om dette? Vi henter opplysningene våre fra Folkeregisteret. Hvis du har giftet deg etter religiøse eller kulturelle tradisjoner og ekteskapet ikke er godkjent etter norsk ekteskapslov, er ikke giftemålet registrert i Folkeregisteret.',
       })
     ).toBeInTheDocument();
@@ -219,7 +219,7 @@ describe('OmDegSteg, sivilstatus', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       })
     ).toBeInTheDocument();
@@ -236,7 +236,7 @@ describe('OmDegSteg, sivilstatus', () => {
     ).not.toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Er du separert eller skilt uten at dette er registrert i folkeregisteret i Norge?',
       })
     ).toBeInTheDocument();
@@ -249,7 +249,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await klikkRadioknapp('Bor du på denne adressen?', 'Ja', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har dere søkt om separasjon, søkt om skilsmisse eller reist sak for domstolen?',
       })
     ).toBeInTheDocument();
@@ -266,7 +266,7 @@ describe('OmDegSteg, sivilstatus', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       })
     ).toBeInTheDocument();
@@ -296,7 +296,7 @@ describe('OmDegSteg, sivilstatus', () => {
     expect(screen.getByText('Du må legge ved bekreftelse fra Statsforvalteren eller domstolen.'));
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Hvorfor er du alene med barn? Grunnen til at vi spør om dette Vi spør om dette for å vite hvilken informasjon vi trenger fra deg.',
       })
     ).toBeInTheDocument();
@@ -332,7 +332,7 @@ describe('OmDegSteg, sivilstatus', () => {
     await user.type(screen.getByRole('textbox', { name: 'Dato for samlivsbrudd' }), '02.06.2025');
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     );
@@ -409,7 +409,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).toBeInTheDocument();
@@ -478,7 +478,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).toBeInTheDocument();
@@ -512,7 +512,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).toBeInTheDocument();
@@ -553,7 +553,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).toBeInTheDocument();
@@ -606,7 +606,7 @@ describe('OmDegSteg, sivilstatus', () => {
     );
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Oppholder du og barnet/barna dere i Norge?',
       })
     ).toBeInTheDocument();
@@ -640,7 +640,7 @@ describe('OmDegSteg, medlemskap', () => {
 
     await klikkRadioknapp('Oppholder du og barnet/barna dere i Norge?', 'Ja', screen, user);
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).toBeInTheDocument();
@@ -773,7 +773,7 @@ describe('OmDegSteg, medlemskap', () => {
     );
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: 'Har du oppholdt deg i Norge de siste 5 årene?',
       })
     ).toBeInTheDocument();
