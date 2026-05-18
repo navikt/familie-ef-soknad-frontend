@@ -5,8 +5,8 @@ COPY ./build build
 COPY ./server server
 
 WORKDIR /app/server
-ENV NODE_ENV production
-ENV NPM_CONFIG_CACHE /tmp
+ENV NODE_ENV=production
+ENV NPM_CONFIG_CACHE=/tmp
 EXPOSE 8080
 
 CMD ["--import=./build/register.js", "--es-module-specifier-resolution=node", "build/server.js"]
