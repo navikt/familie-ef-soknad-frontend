@@ -31,6 +31,11 @@ export default defineConfig({
     'process.env.BRUK_DEV_API': JSON.stringify(process.env.BRUK_DEV_API || false),
     'process.env.SENTRY_RELEASE': JSON.stringify(process.env.SENTRY_RELEASE ?? ''),
   },
+  server: {
+    hmr: {
+      port: 24679,
+    },
+  },
   build: {
     outDir: 'build',
     sourcemap: true,
