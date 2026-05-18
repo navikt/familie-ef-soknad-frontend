@@ -88,7 +88,7 @@ export const klikkRadioknapp = async (
   screen: Screen,
   user: UserEvent
 ) => {
-  const radioGroup = screen.getByRole('group', { name: spørsmålstekst });
+  const radioGroup = screen.getByRole('radiogroup', { name: spørsmålstekst });
   const radio = within(radioGroup).getByRole('radio', { name: valgtAlternativ });
   await user.click(radio);
 };
