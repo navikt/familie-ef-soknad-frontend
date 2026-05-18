@@ -1,3 +1,5 @@
+import { miljø } from './miljø';
+
 // CSP eller Content-Security-Policy er en HTTP-Header som lar oss spesifisere hvor appen kan kjøre REST-kall mot og hvor den kan hente diverse innhold fra (fonter, bilder, javascript, stylesheets mm).
 export const cspMap = (): Record<string, string[]> => {
   return {
@@ -11,6 +13,7 @@ export const cspMap = (): Record<string, string[]> => {
       '*.psplugin.com',
       '*.taskanalytics.com',
       '*.hotjar.com',
+      '*.skyra.no',
     ],
     // Hvor vi kan hente .css filer fra.
     'style-src': ["'self'", "'unsafe-inline'", '*.nav.no', '*.psplugin.com'],
@@ -23,6 +26,8 @@ export const cspMap = (): Record<string, string[]> => {
       '*.hotjar.io',
       '*.boost.ai',
       '*.taskanalytics.com',
+      '*.skyra.no',
+      ...(miljø.erLokalt ? ['ws://localhost:*'] : []),
     ],
     // Kan kun submitte forms til seg selv.
     'form-action': ["'self'"],

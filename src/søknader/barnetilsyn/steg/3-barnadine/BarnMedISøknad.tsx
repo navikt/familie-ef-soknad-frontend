@@ -4,7 +4,7 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import styled from 'styled-components';
 import { Checkbox } from '@navikt/ds-react';
 
-const StyledCheckbox = styled(Checkbox)`
+const StyledWrapper = styled.div`
   margin: 1rem 0;
   text-align: left;
 `;
@@ -20,13 +20,15 @@ const BarnMedISøknad: FC<Props> = ({ skalHaBarnepass, toggleSkalHaBarnepass, id
   const intl = useLokalIntlContext();
 
   return (
-    <StyledCheckbox
-      data-testid={testId}
-      checked={skalHaBarnepass}
-      onChange={() => toggleSkalHaBarnepass(id)}
-    >
-      {hentTekst('barnadine.knapp.søkBarnetilsyn', intl)}
-    </StyledCheckbox>
+    <StyledWrapper>
+      <Checkbox
+        data-testid={testId}
+        checked={skalHaBarnepass}
+        onChange={() => toggleSkalHaBarnepass(id)}
+      >
+        {hentTekst('barnadine.knapp.søkBarnetilsyn', intl)}
+      </Checkbox>
+    </StyledWrapper>
   );
 };
 
