@@ -3,7 +3,7 @@ import {
   InntekterId,
   HvaSituasjon,
   SituasjonId,
-} from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+} from '../../../../models/steg/dinsituasjon/situasjonTyper';
 import { DokumentasjonBarnetilsynBehov } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { DokumentasjonsConfig } from '../../../felles/DokumentasjonsConfig';
 import { LokalIntlShape } from '../../../../language/typer';

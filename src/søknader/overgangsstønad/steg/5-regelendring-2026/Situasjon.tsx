@@ -14,7 +14,7 @@ import {
   ESøkerFraBestemtMåned,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { InntekterId, HvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+import { InntekterId, HvaSituasjon } from '../../../../models/steg/dinsituasjon/situasjonTyper';
 import { hvaSituasjonSpm, inntekterSpm } from './SituasjonConfig';
 import { SøkerFraBestemtMånedSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';

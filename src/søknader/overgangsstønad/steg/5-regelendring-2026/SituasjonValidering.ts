@@ -1,4 +1,4 @@
-import { HvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+import { HvaSituasjon } from '../../../../models/steg/dinsituasjon/situasjonTyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 
 export const hvisHarBarnMedSærligeTilsynFritekstUtfylt = (
