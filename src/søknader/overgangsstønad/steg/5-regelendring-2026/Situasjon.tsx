@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
+import React, { useEffect, useState } from 'react';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { hentRoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
@@ -8,7 +8,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLocation } from 'react-router-dom';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import { BodyShort, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import {
   ESøkerFraBestemtMåned,
@@ -28,11 +28,13 @@ import { erSisteFirmaUtfylt } from '../../../../helpers/steg/aktivitetvalidering
 import { HarSøkerSagtOppEllerRedusertStilling } from '../6-meromsituasjon/HarSøkerSagtOppEllerRedusertStilling';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { SøknadOvergangsstønad } from '../../models/søknad';
-import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
+import { datoTilStreng } from '../../../../utils/dato';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import { hvisHarBarnMedSærligeTilsynFritekstUtfylt } from './SituasjonValidering';
+import { HjelpetekstSøkerFraBestemtMåned } from '../6-meromsituasjon/HjelpetekstSøkerFraBestemtMåned';
+HjelpetekstSøkerFraBestemtMåned;
 
 export const Situasjon: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -56,28 +58,6 @@ export const Situasjon: React.FC = () => {
     : NavigasjonState.visTilbakeNesteAvbrytKnapp;
 
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
-
-  const hjelpetekstFørsteAvsnitt = hentTekstMedEnVariabel(
-    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
-    intl,
-    formatMånederTilbake(dagensDato, 3)
-  );
-  const hjelpetekstAndreAvsnitt = hentTekstMedEnVariabel(
-    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2',
-    intl,
-    formatMånederTilbake(dagensDato, 5)
-  );
-  const hjelpetekstTredjeAvsnitt = hentTekst(
-    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del3',
-    intl
-  );
-  const hjelpetekst: ReactNode = (
-    <VStack gap={'space-16'}>
-      <BodyShort>{hjelpetekstFørsteAvsnitt}</BodyShort>
-      <BodyShort>{hjelpetekstAndreAvsnitt}</BodyShort>
-      <BodyShort>{hjelpetekstTredjeAvsnitt}</BodyShort>
-    </VStack>
-  );
 
   useEffect(() => {
     settSøknad((prevSøknad: SøknadOvergangsstønad) => ({
@@ -244,7 +224,6 @@ export const Situasjon: React.FC = () => {
       tilbakeTilOppsummeringPath={pathOppsummeringOvergangsstønad}
     >
       <VStack gap={'space-64'}>
-        {/* Spørsmål 1: Hva er situasjonen din? (flervalg) */}
         <CheckboxSpørsmål
           spørsmål={hvaSituasjonSpm(intl)}
           settValgteSvar={settHvaSituasjon}
@@ -259,7 +238,6 @@ export const Situasjon: React.FC = () => {
           </AlertStripeDokumentasjon>
         )}
 
-        {/* Spørsmål 2: Har du inntekt? (flervalg) */}
         {visSpørsmål2 && (
           <CheckboxSpørsmål
             spørsmål={inntekterSpm(intl)}
@@ -276,7 +254,6 @@ export const Situasjon: React.FC = () => {
           />
         )}
 
-        {/* Spørsmål 3: Sagt opp eller redusert arbeidstid? */}
         {visSpørsmål3 && (
           <HarSøkerSagtOppEllerRedusertStilling
             dinSituasjon={dinSituasjon}
@@ -284,7 +261,6 @@ export const Situasjon: React.FC = () => {
           />
         )}
 
-        {/* Spørsmål 4: Søker du fra bestemt måned? */}
         {visSpørsmål4 && (
           <NårSøkerDuStønadFra
             spørsmål={SøkerFraBestemtMånedSpm(intl)}
@@ -293,7 +269,7 @@ export const Situasjon: React.FC = () => {
             settDato={settSøknadsdato}
             valgtDato={dinSituasjon.søknadsdato}
             datovelgerLabel={datovelgerLabel}
-            hjelpetekstInnholdTekst={hjelpetekst}
+            hjelpetekstInnholdTekst={<HjelpetekstSøkerFraBestemtMåned />}
           />
         )}
       </VStack>
