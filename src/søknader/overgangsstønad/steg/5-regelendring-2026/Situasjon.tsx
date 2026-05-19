@@ -14,7 +14,7 @@ import {
   ESøkerFraBestemtMåned,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { EHarInntekt, EHvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+import { Inntekter, HvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
 import { hvaSituasjonSpm, inntekterSpm } from './SituasjonConfig';
 import { SøkerFraBestemtMånedSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';
@@ -135,11 +135,11 @@ export const Situasjon: React.FC = () => {
 
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(nåværende, svarHuketAv, svar);
 
-    const fjernetSelvstendig = svarHuketAv && svar.id === EHarInntekt.selvstendigNæringsdrivende;
+    const fjernetSelvstendig = svarHuketAv && svar.id === Inntekter.selvstendigNæringsdrivende;
     const fjernetAlleUnntattSelvstendig =
       svarHuketAv &&
-      svar.id !== EHarInntekt.selvstendigNæringsdrivende &&
-      !svarider.some((id) => id !== EHarInntekt.selvstendigNæringsdrivende);
+      svar.id !== Inntekter.selvstendigNæringsdrivende &&
+      !svarider.some((id) => id !== Inntekter.selvstendigNæringsdrivende);
 
     const endretSituasjon: IDinSituasjon = {
       ...dinSituasjon,
@@ -196,8 +196,8 @@ export const Situasjon: React.FC = () => {
   const valgteSituasjoner = hvaSituasjon?.svarid ?? [];
   const harValgtMinstEttAlternativ = valgteSituasjoner.length > 0;
 
-  const erBarnSærligTilsyn = valgteSituasjoner.includes(EHvaSituasjon.barnSærligTilsyn);
-  const erBarnSykdomIkkeVarig = valgteSituasjoner.includes(EHvaSituasjon.barnSykdomIkkeVarig);
+  const erBarnSærligTilsyn = valgteSituasjoner.includes(HvaSituasjon.barnSærligTilsyn);
+  const erBarnSykdomIkkeVarig = valgteSituasjoner.includes(HvaSituasjon.barnSykdomIkkeVarig);
 
   const visSpørsmål2 =
     harValgtMinstEttAlternativ &&
@@ -206,10 +206,10 @@ export const Situasjon: React.FC = () => {
   const valgteInntekter = inntekter?.svarid ?? [];
   const harValgtMinstEnInntekt = valgteInntekter.length > 0;
   const erSelvstendigNæringsdrivende = valgteInntekter.includes(
-    EHarInntekt.selvstendigNæringsdrivende
+    Inntekter.selvstendigNæringsdrivende
   );
   const harValgtAnnetEnnSelvstendig = valgteInntekter.some(
-    (id) => id !== EHarInntekt.selvstendigNæringsdrivende
+    (id) => id !== Inntekter.selvstendigNæringsdrivende
   );
 
   const erFirmaUtfylt =

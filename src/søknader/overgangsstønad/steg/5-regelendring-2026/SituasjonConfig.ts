@@ -1,8 +1,8 @@
 import { ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
 import {
-  EHarInntekt,
-  EHvaSituasjon,
-  ENySituasjon,
+  Inntekter,
+  HvaSituasjon,
+  SituasjonId,
 } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
 import { DokumentasjonBarnetilsynBehov } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { DokumentasjonsConfig } from '../../../felles/DokumentasjonsConfig';
@@ -10,7 +10,7 @@ import { LokalIntlShape } from '../../../../language/typer';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 
 export const hvaSituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
-  søknadid: ENySituasjon.hvaSituasjon,
+  søknadid: SituasjonId.hvaSituasjon,
   tekstid: 'nySituasjon.spm.hvaSituasjon',
   flersvar: true,
   lesmer: {
@@ -19,16 +19,16 @@ export const hvaSituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
   },
   svaralternativer: [
     {
-      id: EHvaSituasjon.barnUnder14Måneder,
+      id: HvaSituasjon.barnUnder14Måneder,
       svar_tekst: hentTekst('nySituasjon.svar.barnUnder14Måneder', intl),
     },
     {
-      id: EHvaSituasjon.barnSærligTilsyn,
+      id: HvaSituasjon.barnSærligTilsyn,
       svar_tekst: hentTekst('nySituasjon.svar.barnSærligTilsyn', intl),
       dokumentasjonsbehov: DokumentasjonBarnetilsynBehov,
     },
     {
-      id: EHvaSituasjon.barnSykdomIkkeVarig,
+      id: HvaSituasjon.barnSykdomIkkeVarig,
       svar_tekst: hentTekst('nySituasjon.svar.barnSykdomIkkeVarig', intl),
       dokumentasjonsbehov: DokumentasjonsConfig.DokumentasjonSyktBarn,
     },
@@ -36,7 +36,7 @@ export const hvaSituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
 });
 
 export const inntekterSpm = (intl: LokalIntlShape): ISpørsmål => ({
-  søknadid: ENySituasjon.inntekter,
+  søknadid: SituasjonId.inntekter,
   tekstid: 'nySituasjon.spm.inntekter',
   flersvar: true,
   lesmer: {
@@ -45,19 +45,19 @@ export const inntekterSpm = (intl: LokalIntlShape): ISpørsmål => ({
   },
   svaralternativer: [
     {
-      id: EHarInntekt.arbeidstaker,
+      id: Inntekter.arbeidstaker,
       svar_tekst: hentTekst('nySituasjon.svar.arbeidstaker', intl),
     },
     {
-      id: EHarInntekt.selvstendigNæringsdrivende,
+      id: Inntekter.selvstendigNæringsdrivende,
       svar_tekst: hentTekst('nySituasjon.svar.selvstendigNæringsdrivende', intl),
     },
     {
-      id: EHarInntekt.annenStønadNav,
+      id: Inntekter.annenStønadNav,
       svar_tekst: hentTekst('nySituasjon.svar.annenStønadNav', intl),
     },
     {
-      id: EHarInntekt.nei,
+      id: Inntekter.nei,
       svar_tekst: hentTekst('svar.nei', intl),
     },
   ],

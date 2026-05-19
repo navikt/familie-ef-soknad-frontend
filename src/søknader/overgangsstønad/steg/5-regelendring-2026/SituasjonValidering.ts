@@ -1,4 +1,4 @@
-import { EHvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+import { HvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 
 export const hvisHarBarnMedSærligeTilsynFritekstUtfylt = (
@@ -7,7 +7,7 @@ export const hvisHarBarnMedSærligeTilsynFritekstUtfylt = (
   const { merOmDinSituasjon, person } = søknad;
 
   const harValgtBarnSærligTilsyn = merOmDinSituasjon.hvaSituasjon?.svarid.includes(
-    EHvaSituasjon.barnSærligTilsyn
+    HvaSituasjon.barnSærligTilsyn
   );
 
   const barnMedSærligeTilsyn = person.barn

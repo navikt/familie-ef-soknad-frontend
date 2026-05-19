@@ -1,24 +1,17 @@
-import { ISpørsmålFelt } from '../../søknad/søknadsfelter';
-
-export enum ENySituasjon {
+export enum SituasjonId {
   hvaSituasjon = 'hvaSituasjon',
   inntekter = 'inntekter',
 }
 
-export enum EHvaSituasjon {
+export enum HvaSituasjon {
   barnUnder14Måneder = 'barnUnder14Måneder',
   barnSærligTilsyn = 'barnSærligTilsyn',
   barnSykdomIkkeVarig = 'barnSykdomIkkeVarig',
 }
 
-export enum EHarInntekt {
+export enum Inntekter {
   arbeidstaker = 'arbeidstaker',
   selvstendigNæringsdrivende = 'selvstendigNæringsdrivende',
   annenStønadNav = 'annenStønadNav',
   nei = 'nei',
-}
-
-export interface INySituasjon {
-  hvaSituasjon?: ISpørsmålFelt;
-  inntekter?: ISpørsmålFelt;
 }
