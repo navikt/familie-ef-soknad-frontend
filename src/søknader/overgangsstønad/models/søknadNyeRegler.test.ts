@@ -10,7 +10,7 @@ import {
   lagDatoFelt,
   lagSpørsmålBooleanFelt,
 } from '../../../test/domeneUtils';
-import { HvaSituasjon, InntekterId } from '../../../models/steg/dinsituasjon/SituasjonTyper';
+import { HvaSituasjon, InntekterId } from '../../../models/steg/dinsituasjon/situasjonTyper';
 import { IFirma } from '../../../models/steg/aktivitet/firma';
 
 const lagFirma = (id: string): IFirma => ({
