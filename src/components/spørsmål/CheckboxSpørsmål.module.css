@@ -3,7 +3,16 @@
     background-color: var(--ax-bg-default);
     border: 1px solid var(--ax-border-default);
     border-radius: var(--ax-radius-4);
-    padding: var(--ax-space-12) var(--ax-space-16);
+    padding: 0 var(--ax-space-16);
+    position: relative;
+}
+
+.checkboxPanel :global(.aksel-checkbox) {
+    width: 100%;
+}
+
+.checkboxPanel :global(.aksel-checkbox):focus-within::after {
+    content: none;
 }
 
 .checkboxPanel:hover {
@@ -13,10 +22,16 @@
 }
 
 .checkboxPanel:focus-within::after {
+    content: "";
+    position: absolute;
     inset: 0;
+    pointer-events: none;
+    border-radius: var(--ax-radius-4);
+    outline: 3px solid var(--ax-border-focus);
+    outline-offset: 3px;
 }
 
-.checkboxPanel.active {
+.active {
     background-color: var(--ax-bg-accent-soft);
     border-color: transparent;
 }

@@ -38,22 +38,22 @@ export const CheckboxSpørsmål: React.FC<Props> = ({
           return valgtSvar === svar.svar_tekst || valgtSvar === svar.id;
         });
 
+        const wrapperClass = alleredeHuketAvISøknad
+          ? `${styles.checkboxPanel} ${styles.active}`
+          : styles.checkboxPanel;
+
         return (
-          <Checkbox
-            key={svar.svar_tekst}
-            value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
-            checked={alleredeHuketAvISøknad}
-            onChange={() => {
-              settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
-            }}
-            className={
-              alleredeHuketAvISøknad
-                ? `${styles.checkboxPanel} ${styles.active}`
-                : styles.checkboxPanel
-            }
-          >
-            {hentTekst(svar.svar_tekst, intl)}
-          </Checkbox>
+          <div key={svar.svar_tekst} className={wrapperClass}>
+            <Checkbox
+              value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
+              checked={alleredeHuketAvISøknad}
+              onChange={() => {
+                settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
+              }}
+            >
+              {hentTekst(svar.svar_tekst, intl)}
+            </Checkbox>
+          </div>
         );
       })}
     </CheckboxGroup>
