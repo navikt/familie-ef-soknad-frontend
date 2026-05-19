@@ -10,7 +10,7 @@ import {
   lagDatoFelt,
   lagSpørsmålBooleanFelt,
 } from '../../../test/domeneUtils';
-import { EHvaSituasjon, EHarInntekt } from '../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+import { HvaSituasjon, InntekterId } from '../../../models/steg/dinsituasjon/SituasjonTyper';
 import { IFirma } from '../../../models/steg/aktivitet/firma';
 
 const lagFirma = (id: string): IFirma => ({
@@ -26,13 +26,13 @@ describe('tilSøknadRegelendring2026', () => {
   test('mapper hvaSituasjon og inntekter til flatet struktur', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
+      [HvaSituasjon.barnUnder14Måneder],
+      [HvaSituasjon.barnUnder14Måneder]
     );
     const inntekter = lagSpørsmålListeFelt(
       'inntekter',
-      [EHarInntekt.arbeidstaker],
-      [EHarInntekt.arbeidstaker]
+      [InntekterId.arbeidstaker],
+      [InntekterId.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
@@ -50,13 +50,13 @@ describe('tilSøknadRegelendring2026', () => {
     const firmaer = [lagFirma('1'), lagFirma('2')];
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
+      [HvaSituasjon.barnUnder14Måneder],
+      [HvaSituasjon.barnUnder14Måneder]
     );
     const inntekter = lagSpørsmålListeFelt(
       'inntekter',
-      [EHarInntekt.selvstendigNæringsdrivende],
-      [EHarInntekt.selvstendigNæringsdrivende]
+      [InntekterId.selvstendigNæringsdrivende],
+      [InntekterId.selvstendigNæringsdrivende]
     );
 
     const søknad = lagSøknadOvergangsstønad({
@@ -72,13 +72,13 @@ describe('tilSøknadRegelendring2026', () => {
   test('mapper sagtOpp-felt og søkerFraBestemtMåned', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
+      [HvaSituasjon.barnUnder14Måneder],
+      [HvaSituasjon.barnUnder14Måneder]
     );
     const inntekter = lagSpørsmålListeFelt(
       'inntekter',
-      [EHarInntekt.arbeidstaker],
-      [EHarInntekt.arbeidstaker]
+      [InntekterId.arbeidstaker],
+      [InntekterId.arbeidstaker]
     );
     const sagtOppEllerRedusertStilling = lagSpørsmålFelt({
       spørsmålid: 'sagtOpp',
@@ -122,13 +122,13 @@ describe('tilSøknadRegelendring2026', () => {
   test('beholder fellesfelter fra steg 1-4', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
+      [HvaSituasjon.barnUnder14Måneder],
+      [HvaSituasjon.barnUnder14Måneder]
     );
     const inntekter = lagSpørsmålListeFelt(
       'inntekter',
-      [EHarInntekt.arbeidstaker],
-      [EHarInntekt.arbeidstaker]
+      [InntekterId.arbeidstaker],
+      [InntekterId.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
@@ -149,8 +149,8 @@ describe('tilSøknadRegelendring2026', () => {
   test('kaster feil hvis hvaSituasjon mangler', () => {
     const inntekter = lagSpørsmålListeFelt(
       'inntekter',
-      [EHarInntekt.arbeidstaker],
-      [EHarInntekt.arbeidstaker]
+      [InntekterId.arbeidstaker],
+      [InntekterId.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
@@ -163,8 +163,8 @@ describe('tilSøknadRegelendring2026', () => {
   test('kaster feil hvis inntekter mangler', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
+      [HvaSituasjon.barnUnder14Måneder],
+      [HvaSituasjon.barnUnder14Måneder]
     );
 
     const søknad = lagSøknadOvergangsstønad({
@@ -177,13 +177,13 @@ describe('tilSøknadRegelendring2026', () => {
   test('firmaer er undefined når selvstendig ikke valgt', () => {
     const hvaSituasjon = lagSpørsmålListeFelt(
       'hvaSituasjon',
-      [EHvaSituasjon.barnUnder14Måneder],
-      [EHvaSituasjon.barnUnder14Måneder]
+      [HvaSituasjon.barnUnder14Måneder],
+      [HvaSituasjon.barnUnder14Måneder]
     );
     const inntekter = lagSpørsmålListeFelt(
       'inntekter',
-      [EHarInntekt.arbeidstaker],
-      [EHarInntekt.arbeidstaker]
+      [InntekterId.arbeidstaker],
+      [InntekterId.arbeidstaker]
     );
 
     const søknad = lagSøknadOvergangsstønad({
