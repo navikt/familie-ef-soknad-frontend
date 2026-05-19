@@ -14,7 +14,7 @@ export enum ERouteOvergangsstønad {
   Kvittering = 'Kvittering',
 }
 
-const FELLESSTEG_FØR: IRoute[] = [
+const INNLEDENDE_STEG: IRoute[] = [
   { path: '/', label: 'Forside', route: ERouteOvergangsstønad.Forside },
   {
     path: '/om-deg',
@@ -66,7 +66,7 @@ const STEG_ETTER_REGELENDRING_2026: IRoute[] = [
   },
 ];
 
-const FELLESSTEG_ETTER: IRoute[] = [
+const AVSLUTTENDE_STEG: IRoute[] = [
   {
     path: '/oppsummering',
     label: 'Oppsummering',
@@ -87,9 +87,9 @@ const FELLESSTEG_ETTER: IRoute[] = [
 ];
 
 export const hentRoutesOvergangsstonad = (brukRegelendring2026: boolean): IRoute[] => [
-  ...FELLESSTEG_FØR,
+  ...INNLEDENDE_STEG,
   ...(brukRegelendring2026 ? STEG_ETTER_REGELENDRING_2026 : GAMLE_STEG_FØR_REGELENDRING_2026),
-  ...FELLESSTEG_ETTER,
+  ...AVSLUTTENDE_STEG,
 ];
 
 export const RoutesOvergangsstonad: IRoute[] = hentRoutesOvergangsstonad(false);
