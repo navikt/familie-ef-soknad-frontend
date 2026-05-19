@@ -14,7 +14,7 @@ import {
   ESøkerFraBestemtMåned,
   IDinSituasjon,
 } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { Inntekter, HvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
+import { InntekterId, HvaSituasjon } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
 import { hvaSituasjonSpm, inntekterSpm } from './SituasjonConfig';
 import { SøkerFraBestemtMånedSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
 import { harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';
@@ -115,11 +115,11 @@ export const Situasjon: React.FC = () => {
 
     const { avhukedeSvar, svarider } = returnerAvhukedeSvar(nåværende, svarHuketAv, svar);
 
-    const fjernetSelvstendig = svarHuketAv && svar.id === Inntekter.selvstendigNæringsdrivende;
+    const fjernetSelvstendig = svarHuketAv && svar.id === InntekterId.selvstendigNæringsdrivende;
     const fjernetAlleUnntattSelvstendig =
       svarHuketAv &&
-      svar.id !== Inntekter.selvstendigNæringsdrivende &&
-      !svarider.some((id) => id !== Inntekter.selvstendigNæringsdrivende);
+      svar.id !== InntekterId.selvstendigNæringsdrivende &&
+      !svarider.some((id) => id !== InntekterId.selvstendigNæringsdrivende);
 
     const endretSituasjon: IDinSituasjon = {
       ...dinSituasjon,
@@ -186,10 +186,10 @@ export const Situasjon: React.FC = () => {
   const valgteInntekter = inntekter?.svarid ?? [];
   const harValgtMinstEnInntekt = valgteInntekter.length > 0;
   const erSelvstendigNæringsdrivende = valgteInntekter.includes(
-    Inntekter.selvstendigNæringsdrivende
+    InntekterId.selvstendigNæringsdrivende
   );
   const harValgtAnnetEnnSelvstendig = valgteInntekter.some(
-    (id) => id !== Inntekter.selvstendigNæringsdrivende
+    (id) => id !== InntekterId.selvstendigNæringsdrivende
   );
 
   const erFirmaUtfylt =

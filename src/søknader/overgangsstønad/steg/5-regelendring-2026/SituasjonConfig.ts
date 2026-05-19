@@ -1,6 +1,6 @@
 import { ISpørsmål } from '../../../../models/felles/spørsmålogsvar';
 import {
-  Inntekter,
+  InntekterId,
   HvaSituasjon,
   SituasjonId,
 } from '../../../../models/steg/dinsituasjon/nyeSituasjonTyper';
@@ -45,19 +45,19 @@ export const inntekterSpm = (intl: LokalIntlShape): ISpørsmål => ({
   },
   svaralternativer: [
     {
-      id: Inntekter.arbeidstaker,
+      id: InntekterId.arbeidstaker,
       svar_tekst: hentTekst('nySituasjon.svar.arbeidstaker', intl),
     },
     {
-      id: Inntekter.selvstendigNæringsdrivende,
+      id: InntekterId.selvstendigNæringsdrivende,
       svar_tekst: hentTekst('nySituasjon.svar.selvstendigNæringsdrivende', intl),
     },
     {
-      id: Inntekter.annenStønadNav,
+      id: InntekterId.annenStønadNav,
       svar_tekst: hentTekst('nySituasjon.svar.annenStønadNav', intl),
     },
     {
-      id: Inntekter.nei,
+      id: InntekterId.nei,
       svar_tekst: hentTekst('svar.nei', intl),
     },
   ],

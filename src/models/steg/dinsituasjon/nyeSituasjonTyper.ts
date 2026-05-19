@@ -9,7 +9,7 @@ export enum HvaSituasjon {
   barnSykdomIkkeVarig = 'barnSykdomIkkeVarig',
 }
 
-export enum Inntekter {
+export enum InntekterId {
   arbeidstaker = 'arbeidstaker',
   selvstendigNæringsdrivende = 'selvstendigNæringsdrivende',
   annenStønadNav = 'annenStønadNav',
