@@ -326,7 +326,7 @@ export default {
 
   'situasjon.hjelpetekst-åpne.begrunnelse': 'Grunnen til at vi spør om dette',
   'situasjon.hjelpetekst.innhold':
-    'Fra 1. juli 2026 er det nye regler for å få overgangsstønad. Du må enten ha barn under 14 måneder eller ha barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer. </br></br>Hvis du allerede får overgangsstønad, kan den også forlenges i inntil 2 år hvis barnet ditt har en sykdom som ikke er varig og hindrer deg i å jobbe. At sykdommen ikke er varig betyr i denne sammenhengen at den ikke har vart eller vil bare i mer enn 2 år.',
+    'Fra 1. juli 2026 er det nye regler for å få overgangsstønad. Du må enten ha barn under 14 måneder eller ha barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer. </br></br>Hvis du allerede får overgangsstønad, kan den også forlenges i inntil 2 år hvis barnet ditt har en sykdom som ikke er varig og hindrer deg i å jobbe. At sykdommen ikke er varig betyr i denne sammenhengen at den ikke har vart eller vil vare i mer enn 2 år.',
 
   'nySituasjon.spm.hvaSituasjon': 'Hva er situasjonen din?',
   'nySituasjon.svar.barnUnder14Måneder': 'Jeg har barn under 14 måneder',
