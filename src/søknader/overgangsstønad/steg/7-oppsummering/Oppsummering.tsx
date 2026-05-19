@@ -5,7 +5,7 @@ import OppsummeringBarnasBosituasjon from '../../../felles/steg/7-oppsummering/O
 import OppsummeringBarnaDine from '../../../felles/steg/7-oppsummering/OppsummeringBarnaDine';
 import OppsummeringAktiviteter from '../../../felles/steg/7-oppsummering/OppsummeringAktiviteter';
 import OppsummeringDinSituasjon from '../../../felles/steg/7-oppsummering/OppsummeringDinSituasjon';
-import OppsummeringNySituasjon from '../../../felles/steg/7-oppsummering/OppsummeringNySituasjon';
+import { OppsummeringSituasjon } from '../../../felles/steg/7-oppsummering/OppsummeringSituasjon';
 import OppsummeringBosituasjonenDin from '../../../felles/steg/7-oppsummering/OppsummeringBosituasjon';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import {
@@ -33,6 +33,10 @@ import {
 import { Accordion, Alert, BodyShort } from '@navikt/ds-react';
 import { useToggles } from '../../../../context/TogglesContext';
 import { ToggleName } from '../../../../models/søknad/toggles';
+import { LokalIntlShape } from '../../../../language/typer';
+import { SøknadOvergangsstønad } from '../../models/søknad';
+import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
+import { IRoute } from '../../../../models/routes';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -189,43 +193,21 @@ const Oppsummering: React.FC = () => {
                 />
               </Accordion.Content>
             </Accordion.Item>
+
             {toggleBrukRegelendringer2026 ? (
-              <Accordion.Item>
-                <Accordion.Header>{hentTekst('stegtittel.situasjonen', intl)}</Accordion.Header>
-                <Accordion.Content>
-                  <OppsummeringNySituasjon
-                    dinSituasjon={søknad.merOmDinSituasjon}
-                    aktivitet={søknad.aktivitet}
-                    barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
-                    endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.SituasjonenDin)}
-                  />
-                </Accordion.Content>
-              </Accordion.Item>
+              <SituasjonOppsummering
+                intl={intl}
+                søknad={søknad}
+                barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
+                routes={routes}
+              />
             ) : (
-              <>
-                <Accordion.Item>
-                  <Accordion.Header>
-                    {hentTekst('stegtittel.arbeidssituasjon', intl)}
-                  </Accordion.Header>
-                  <Accordion.Content>
-                    <OppsummeringAktiviteter
-                      aktivitet={søknad.aktivitet}
-                      endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.Aktivitet)}
-                    />
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item>
-                  <Accordion.Header>{hentTekst('stegtittel.dinSituasjon', intl)}</Accordion.Header>
-                  <Accordion.Content>
-                    <OppsummeringDinSituasjon
-                      tittel={hentTekst('stegtittel.dinSituasjon', intl)}
-                      dinSituasjon={søknad.merOmDinSituasjon}
-                      barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
-                      endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.DinSituasjon)}
-                    />
-                  </Accordion.Content>
-                </Accordion.Item>
-              </>
+              <AktivitetOgDinSituasjonOppsummering
+                intl={intl}
+                søknad={søknad}
+                barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
+                routes={routes}
+              />
             )}
           </Accordion>
           {harManglendeFelter && (
@@ -242,3 +224,56 @@ const Oppsummering: React.FC = () => {
 };
 
 export default Oppsummering;
+
+const SituasjonOppsummering: React.FC<{
+  intl: LokalIntlShape;
+  søknad: SøknadOvergangsstønad;
+  barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
+  routes: IRoute[];
+}> = ({ intl, søknad, barnMedsærligeTilsynsbehov, routes }) => {
+  return (
+    <Accordion.Item>
+      <Accordion.Header>{hentTekst('stegtittel.situasjonen', intl)}</Accordion.Header>
+      <Accordion.Content>
+        <OppsummeringSituasjon
+          dinSituasjon={søknad.merOmDinSituasjon}
+          aktivitet={søknad.aktivitet}
+          barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
+          endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.SituasjonenDin)}
+        />
+      </Accordion.Content>
+    </Accordion.Item>
+  );
+};
+
+const AktivitetOgDinSituasjonOppsummering: React.FC<{
+  intl: LokalIntlShape;
+  søknad: SøknadOvergangsstønad;
+  barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
+  routes: IRoute[];
+}> = ({ intl, søknad, barnMedsærligeTilsynsbehov, routes }) => {
+  return (
+    <>
+      <Accordion.Item>
+        <Accordion.Header>{hentTekst('stegtittel.arbeidssituasjon', intl)}</Accordion.Header>
+        <Accordion.Content>
+          <OppsummeringAktiviteter
+            aktivitet={søknad.aktivitet}
+            endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.Aktivitet)}
+          />
+        </Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item>
+        <Accordion.Header>{hentTekst('stegtittel.dinSituasjon', intl)}</Accordion.Header>
+        <Accordion.Content>
+          <OppsummeringDinSituasjon
+            tittel={hentTekst('stegtittel.dinSituasjon', intl)}
+            dinSituasjon={søknad.merOmDinSituasjon}
+            barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
+            endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.DinSituasjon)}
+          />
+        </Accordion.Content>
+      </Accordion.Item>
+    </>
+  );
+};

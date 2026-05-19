@@ -25,7 +25,7 @@ interface Props {
   barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
 }
 
-const OppsummeringNySituasjon: React.FC<Props> = ({
+export const OppsummeringSituasjon: React.FC<Props> = ({
   dinSituasjon,
   aktivitet,
   endreInformasjonPath,
@@ -105,5 +105,3 @@ const OppsummeringNySituasjon: React.FC<Props> = ({
     </StyledOppsummeringMedUndertitler>
   );
 };
-
-export default OppsummeringNySituasjon;
