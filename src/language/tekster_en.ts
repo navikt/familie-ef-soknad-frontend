@@ -364,7 +364,7 @@ export default {
     'I am not in work, education or a job seeker',
   'arbeidssituasjon.svar.harFåttJobbTilbud': 'I have been offered a job',
   'arbeidssituasjon.alert.aktivitetspliktFraEttÅr':
-    '<strong>If your child is under the age of 1 year old, you can receive transitional benefit without having to work, study or seek work. </strong> <br/><br/>To receive transitional benefit after your child has turned 1, you must work, study or seek work.<br/><br/>You can meet the duty to be in work-related activity in one of the following ways:<br/><ul><li>be in at least 50 per cent work</li><li>be registered with Nav as a job seeker</li><li>be in at least 50 per cent education that Nav has assessed as necessary in order for you to be able to get a job and support yourself</li><li>set up your own business</li></ul><br/><br/>It is sensible to start planning child minding and work, education or training as early as possible.<br/><br/>You can nevertheless receive benefit if you are unable to work, study or seek work due to your own illness, or if you have a sick child or do not have child minding, despite applying. The same also applies if your child needs extra supervision due to physical, mental or major social problems.',
+    '<strong>If your child is under the age of 1 year old, you can receive transitional benefit without having to work, study or seek work. </strong> <br/><br/>To receive transitional benefit after your child has turned 1, you must work, study or seek work.<br/><br/>You can meet the duty to be in work-related activity in one of the following ways:<br/><ul><li>be in at least 50 per cent work</li><li>be registered with Nav as a job seeker</li><li>be in at least 50 per cent education that Nav has assessed as necessary in order for you to be able to get a job and support yourself</li><li>set up your own business</li></ul><br/><br/>It is sensible to start planning child minding and work, education or training as early as possible.<br/><br/>You can nevertheless receive benefit if you are unable to work, study or seek work due to your own illness, or if you have a sick child or do not have child minding, despite applying. The same also applies if your child needs extra supervision due to physical, mental or significant social problems.',
   'arbeidsforhold.tittel': 'About your employment',
   'arbeidsforhold.tittel.arbeidsgiver': 'Your employer',
   'arbeidsforhold.tittel.egetAS': 'Limited liability company',
@@ -506,7 +506,7 @@ export default {
   'dinSituasjon.svar.harSøktBarnepassOgVenterEnnå':
     'I have applied for child minding, but have not got a place yet',
   'dinSituasjon.svar.harBarnMedSærligeBehov':
-    'I have a child who needs extra supervision due to physical, mental or major social problems',
+    'I have a child who needs extra supervision due to physical, mental or significant social problems',
   'dinSituasjon.svar.nei': 'No',
   'dinSituasjon.alert.erSyk':
     'If you are not on sick leave and are not receiving work assessment allowance (AAP) or disability benefit, you must provide documentation confirming that you are ill <br/><br/>\nThe documentation from your doctor must state:<ul><li>the reason why you cannot be in occupational activity</li><li>when your illness started</li><li>when your doctor expects you to have recovered</li><li>how much you can work</li></ul>If you are already receiving transitional benefit and are applying for an extension of the benefit period beyond three years because you have a disorder that is not chronic: We will need special documentation from your doctor, even if you are already on sick leave.<br/><br/>In this context, “disorder that is not chronic” means a health disorder that has not lasted more than two years or is not expected to last more than two years.<br/><br/>When you submit your application, you will be given the option to download or print a checklist that you can take with you when you go to your doctor to document this.',
@@ -517,7 +517,7 @@ export default {
   'dinSituasjon.dok.harBarnMedSærligeBehov.tittel':
     'You must provide documentation of your child’s special supervision needs',
   'dinSituasjon.dok.harBarnMedSærligeBehov.beskrivelse':
-    'Documentation from your doctor must confirm:<ul><li>that the child has medical, mental or major social problems and needs supervision</li><li>that this affects your ability to be in occupational activity</li></ul>',
+    'Documentation from your doctor must confirm:<ul><li>that the child has medical, mental or significant social problems and needs supervision</li><li>that this affects your ability to be in occupational activity</li></ul>',
   'dinSituasjon.alert.harBarnMedSærligeBehov.tittel': 'About [0]’s need for special supervision',
   'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse':
     'We need information about:<ul><li>how much supervision your child needs</li><li>what kind of supervision</li><li>how this affects your ability to be in occupational activity</li></ul>',
@@ -645,7 +645,7 @@ export default {
   'dokumentasjon.barnetilsynsbehov.tittel':
     'Documentation of your child’s special supervision needs',
   'dokumentasjon.barnetilsynsbehov.beskrivelse':
-    '<ul><li>Documentation from your doctor confirming that the child has medical, mental or major social problems and needs supervision. <li/><li>Documentation describing how much supervision your child needs, what kind of supervision, and how this affects your ability to be in occupational activity</li></ul>',
+    '<ul><li>Documentation from your doctor confirming that the child has medical, mental or significant social problems and needs supervision. <li/><li>Documentation describing how much supervision your child needs, what kind of supervision, and how this affects your ability to be in occupational activity</li></ul>',
   'dokumentasjon.arbeidskontrakt.tittel':
     'You must submit an employment contract proving that you have been offered a job.',
   'dokumentasjon.arbeidskontrakt.beskrivelse':
