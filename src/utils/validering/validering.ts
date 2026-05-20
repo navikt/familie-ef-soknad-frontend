@@ -9,7 +9,7 @@ export enum ManglendeFelter {
   OM_DEG = 'OM_DEG',
   MER_OM_DIN_SITUASJON = 'MER_OM_DIN_SITUASJON',
   AKTIVITET = 'AKTIVITET',
-  SITUASJONEN_DIN = 'SITUASJONEN_DIN',
+  SITUASJON_REGELENDRING_2026 = 'SITUASJON_REGELENDRING_2026',
 }
 
 export const manglendeFelterTilTekst: Record<ManglendeFelter, string> = {
@@ -17,7 +17,7 @@ export const manglendeFelterTilTekst: Record<ManglendeFelter, string> = {
   OM_DEG: 'Om deg',
   MER_OM_DIN_SITUASJON: 'Mer om din situasjon',
   AKTIVITET: 'Arbeid, utdanning og andre aktiviteter',
-  SITUASJONEN_DIN: 'Om situasjonen din',
+  SITUASJON_REGELENDRING_2026: 'Om situasjonen din',
 };
 
 export const listManglendeFelter = (manglendeFelter: string[]) => {

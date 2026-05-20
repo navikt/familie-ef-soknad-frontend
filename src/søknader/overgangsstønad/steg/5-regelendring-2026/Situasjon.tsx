@@ -179,7 +179,7 @@ export const Situasjon: React.FC = () => {
   const erBarnSærligTilsyn = valgteSituasjoner.includes(HvaSituasjon.barnSærligTilsyn);
   const erBarnSykdomIkkeVarig = valgteSituasjoner.includes(HvaSituasjon.barnSykdomIkkeVarig);
 
-  const visSpørsmål2 =
+  const visSpørsmålInntekter =
     harValgtMinstEttAlternativ &&
     (!erBarnSærligTilsyn || hvisHarBarnMedSærligeTilsynFritekstUtfylt(søknad));
 
@@ -198,18 +198,20 @@ export const Situasjon: React.FC = () => {
     aktivitet.firmaer.length > 0 &&
     erSisteFirmaUtfylt(aktivitet.firmaer);
 
-  const erFirmaDelen = !erSelvstendigNæringsdrivende || erFirmaUtfylt;
+  const kanGåVidereFraFirma = !erSelvstendigNæringsdrivende || erFirmaUtfylt;
 
-  const visSpørsmål3 = harValgtMinstEnInntekt && harValgtAnnetEnnSelvstendig && erFirmaDelen;
+  const visSpørsmålHarSagtOpp =
+    harValgtMinstEnInntekt && harValgtAnnetEnnSelvstendig && kanGåVidereFraFirma;
 
   const erSagtOppBesvart = harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål(dinSituasjon);
 
-  const erSagtOppDelen = !visSpørsmål3 || erSagtOppBesvart;
+  const kanGåVidereFraSagtOpp = !visSpørsmålHarSagtOpp || erSagtOppBesvart;
 
-  const visSpørsmål4 = harValgtMinstEnInntekt && erFirmaDelen && erSagtOppDelen;
+  const visSpørsmålNårSøkerDuFra =
+    harValgtMinstEnInntekt && kanGåVidereFraFirma && kanGåVidereFraSagtOpp;
 
   const erAlleSpørsmålBesvart =
-    visSpørsmål4 &&
+    visSpørsmålNårSøkerDuFra &&
     (søknadsdato?.verdi !== undefined ||
       søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.neiNavKanVurdere);
 
@@ -238,7 +240,7 @@ export const Situasjon: React.FC = () => {
           </AlertStripeDokumentasjon>
         )}
 
-        {visSpørsmål2 && (
+        {visSpørsmålInntekter && (
           <CheckboxSpørsmål
             spørsmål={inntekterSpm(intl)}
             settValgteSvar={settInntekter}
@@ -254,14 +256,14 @@ export const Situasjon: React.FC = () => {
           />
         )}
 
-        {visSpørsmål3 && (
+        {visSpørsmålHarSagtOpp && (
           <HarSøkerSagtOppEllerRedusertStilling
             dinSituasjon={dinSituasjon}
             settDinSituasjon={settDinSituasjon}
           />
         )}
 
-        {visSpørsmål4 && (
+        {visSpørsmålNårSøkerDuFra && (
           <NårSøkerDuStønadFra
             spørsmål={SøkerFraBestemtMånedSpm(intl)}
             settSøkerFraBestemtMåned={settSøkerFraBestemtMåned}

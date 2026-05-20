@@ -41,7 +41,7 @@ type SøknadStegOvergangsstønad =
   | '/barnas-bosted'
   | '/aktivitet'
   | '/din-situasjon'
-  | '/situasjonen-din'
+  | '/situasjon'
   | '/barnepass'
   | '/oppsummering'
   | '/dokumentasjon'
@@ -245,7 +245,7 @@ const utledSøknadOvergangsstønad = (
       return lagSøknadOvergangsstønad({ harBekreftet: true });
     case '/din-situasjon':
       return søknadOvergangsstønadBarnasBosted(søknad);
-    case '/situasjonen-din':
+    case '/situasjon':
       return søknadOvergangsstønadBarnasBosted(søknad);
     case '/oppsummering':
       return lagSøknadOvergangsstønad({ harBekreftet: true, ...søknad });

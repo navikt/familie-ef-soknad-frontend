@@ -94,7 +94,7 @@ const Oppsummering: React.FC = () => {
       .then()
       .catch(() => {
         const felt = toggleBrukRegelendringer2026
-          ? ManglendeFelter.SITUASJONEN_DIN
+          ? ManglendeFelter.SITUASJON_REGELENDRING_2026
           : ManglendeFelter.AKTIVITET;
         if (!manglendeFelter.includes(manglendeFelterTilTekst[felt])) {
           oppdaterManglendeFelter(felt);
@@ -115,7 +115,7 @@ const Oppsummering: React.FC = () => {
       .then()
       .catch(() => {
         const felt = toggleBrukRegelendringer2026
-          ? ManglendeFelter.SITUASJONEN_DIN
+          ? ManglendeFelter.SITUASJON_REGELENDRING_2026
           : ManglendeFelter.MER_OM_DIN_SITUASJON;
         if (feilIkkeRegistrertFor(felt)) {
           oppdaterManglendeFelter(felt);
@@ -239,7 +239,7 @@ const SituasjonOppsummering: React.FC<{
           dinSituasjon={søknad.merOmDinSituasjon}
           aktivitet={søknad.aktivitet}
           barnMedsærligeTilsynsbehov={barnMedsærligeTilsynsbehov}
-          endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.SituasjonenDin)}
+          endreInformasjonPath={hentPath(routes, ERouteOvergangsstønad.SituasjonRegelendring2026)}
         />
       </Accordion.Content>
     </Accordion.Item>

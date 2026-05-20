@@ -116,7 +116,7 @@ const Søknadsdialog: FC = () => {
           }
         />
         <Route
-          path={'/situasjonen-din'}
+          path={'/situasjon'}
           element={
             <RedirectTilStart>
               <AktivitetProvider
