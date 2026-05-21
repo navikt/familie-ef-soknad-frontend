@@ -16,6 +16,8 @@ import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { hentHarTidligereInnvilgetVedtak } from '../../innsending/api';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -23,6 +25,7 @@ export const OvergangsstønadApp = () => {
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
   const { settSøknad, hentMellomlagretOvergangsstønad } = useOvergangsstønadSøknad();
   const { settToggles } = useToggles();
+  const { settTidligereVedtakStatus } = useTidligereVedtak();
 
   const intl = useLokalIntlContext();
   autentiseringsInterceptor();
@@ -46,11 +49,18 @@ export const OvergangsstønadApp = () => {
     });
   };
 
+  const hentTidligereVedtak = () => {
+    return hentHarTidligereInnvilgetVedtak()
+      .then((status) => settTidligereVedtakStatus(status))
+      .catch(() => settTidligereVedtakStatus('VET_IKKE'));
+  };
+
   useEffect(() => {
     Promise.all([
       fetchToggles(),
       fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
       hentMellomlagretOvergangsstønad(),
+      hentTidligereVedtak(),
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));

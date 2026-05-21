@@ -5,20 +5,23 @@ import { TogglesProvider } from './TogglesContext';
 import { BarnetilsynSøknadProvider } from '../søknader/barnetilsyn/BarnetilsynContext';
 import { SkolepengerSøknadProvider } from '../søknader/skolepenger/SkolepengerContext';
 import { GjenbrukProvider } from './GjenbrukContext';
+import { TidligereVedtakProvider } from './TidligereVedtakContext';
 
 const ContextProviders: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   ContextProviders.displayName = 'CONTEXT_PROVIDERS';
   return (
     <TogglesProvider>
-      <GjenbrukProvider>
-        <PersonProvider>
-          <OvergangsstønadSøknadProvider>
-            <BarnetilsynSøknadProvider>
-              <SkolepengerSøknadProvider>{children}</SkolepengerSøknadProvider>
-            </BarnetilsynSøknadProvider>
-          </OvergangsstønadSøknadProvider>
-        </PersonProvider>
-      </GjenbrukProvider>
+      <TidligereVedtakProvider>
+        <GjenbrukProvider>
+          <PersonProvider>
+            <OvergangsstønadSøknadProvider>
+              <BarnetilsynSøknadProvider>
+                <SkolepengerSøknadProvider>{children}</SkolepengerSøknadProvider>
+              </BarnetilsynSøknadProvider>
+            </OvergangsstønadSøknadProvider>
+          </PersonProvider>
+        </GjenbrukProvider>
+      </TidligereVedtakProvider>
     </TogglesProvider>
   );
 };
