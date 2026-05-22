@@ -18,6 +18,7 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { hentHarTidligereInnvilgetVedtak } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -49,19 +50,25 @@ export const OvergangsstønadApp = () => {
     });
   };
 
-  const hentTidligereVedtak = () => {
+  const fetchTidligereVedtakHvisToggleErPå = (toggles: Record<string, boolean> | void) => {
+    if (!toggles || !toggles[ToggleName.overgangsstønadRegelendringer2026]) {
+      settTidligereVedtakStatus('VET_IKKE');
+      return Promise.resolve();
+    }
     return hentHarTidligereInnvilgetVedtak()
       .then((status) => settTidligereVedtakStatus(status))
       .catch(() => settTidligereVedtakStatus('VET_IKKE'));
   };
 
   useEffect(() => {
-    Promise.all([
-      fetchToggles(),
-      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
-      hentMellomlagretOvergangsstønad(),
-      hentTidligereVedtak(),
-    ])
+    fetchToggles()
+      .then((toggles) =>
+        Promise.all([
+          fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
+          hentMellomlagretOvergangsstønad(),
+          fetchTidligereVedtakHvisToggleErPå(toggles),
+        ])
+      )
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
   }, []);
