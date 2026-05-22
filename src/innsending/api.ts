@@ -2,6 +2,16 @@ import axios from 'axios';
 import Environment from '../Environment';
 import { IBarn } from '../models/steg/barn';
 
+export type TidligereVedtakStatus = 'JA' | 'NEI' | 'VET_IKKE';
+
+export const hentHarTidligereInnvilgetVedtak = async (): Promise<TidligereVedtakStatus> => {
+  const response = await axios.get<TidligereVedtakStatus>(
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-tidligere-innvilget-vedtak`,
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
 export const sendInnOvergangstønadSøknad = (søknad: object) => {
   return axios
     .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad`, søknad, {

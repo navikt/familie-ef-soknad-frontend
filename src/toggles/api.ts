@@ -7,8 +7,9 @@ const hentToggles = (settToggles: (toggles: Toggles) => void) => {
     .get(`${Environment().apiProxyUrl}/api/featuretoggle`, {
       withCredentials: true,
     })
-    .then((response: { data: any }) => {
+    .then((response: { data: Toggles }) => {
       settToggles(response.data);
+      return response.data;
     });
 };
 
