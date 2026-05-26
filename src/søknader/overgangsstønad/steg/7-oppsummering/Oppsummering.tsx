@@ -31,8 +31,6 @@ import {
   sivilstatusSchema,
 } from '../../../../utils/validering/validering';
 import { Accordion, Alert, BodyShort } from '@navikt/ds-react';
-import { useToggles } from '../../../../context/TogglesContext';
-import { ToggleName } from '../../../../models/søknad/toggles';
 import { LokalIntlShape } from '../../../../language/typer';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
@@ -40,11 +38,10 @@ import { IRoute } from '../../../../models/routes';
 
 const Oppsummering: React.FC = () => {
   const intl = useLokalIntlContext();
-  const { mellomlagreOvergangsstønad, søknad } = useOvergangsstønadSøknad();
-  const { toggles } = useToggles();
-  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+  const { mellomlagreOvergangsstønad, søknad, skalBrukeRegelendringer2026 } =
+    useOvergangsstønadSøknad();
 
-  const routes = hentRoutesOvergangsstonad(toggleBrukRegelendringer2026);
+  const routes = hentRoutesOvergangsstonad(skalBrukeRegelendringer2026);
   const skjemaId = skjemanavnIdMapping[ESkjemanavn.Overgangsstønad];
 
   const [manglendeFelter, settManglendeFelter] = useState<string[]>([]);
@@ -93,7 +90,7 @@ const Oppsummering: React.FC = () => {
       .validate(søknad.aktivitet)
       .then()
       .catch(() => {
-        const felt = toggleBrukRegelendringer2026
+        const felt = skalBrukeRegelendringer2026
           ? ManglendeFelter.SITUASJON_REGELENDRING_2026
           : ManglendeFelter.AKTIVITET;
         if (!manglendeFelter.includes(manglendeFelterTilTekst[felt])) {
@@ -114,7 +111,7 @@ const Oppsummering: React.FC = () => {
       .validate(søknad.merOmDinSituasjon)
       .then()
       .catch(() => {
-        const felt = toggleBrukRegelendringer2026
+        const felt = skalBrukeRegelendringer2026
           ? ManglendeFelter.SITUASJON_REGELENDRING_2026
           : ManglendeFelter.MER_OM_DIN_SITUASJON;
         if (feilIkkeRegistrertFor(felt)) {
@@ -194,7 +191,7 @@ const Oppsummering: React.FC = () => {
               </Accordion.Content>
             </Accordion.Item>
 
-            {toggleBrukRegelendringer2026 ? (
+            {skalBrukeRegelendringer2026 ? (
               <SituasjonOppsummering
                 intl={intl}
                 søknad={søknad}

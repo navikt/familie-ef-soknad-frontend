@@ -30,6 +30,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadOvergangsstønad => {
@@ -81,14 +82,16 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
   const { toggles } = useToggles();
+  const { tidligereVedtakStatus } = useTidligereVedtak();
 
-  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+  const skalBrukeRegelendringer2026 =
+    tidligereVedtakStatus === 'JA' && toggles[ToggleName.overgangsstønadRegelendringer2026];
 
-  const aktivStønadstype = toggleBrukRegelendringer2026
+  const aktivStønadstype = skalBrukeRegelendringer2026
     ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
     : MellomlagredeStønadstyper.overgangsstønad;
 
-  const aktivModellVersjon = toggleBrukRegelendringer2026
+  const aktivModellVersjon = skalBrukeRegelendringer2026
     ? Environment().modellVersjon.overgangsstønadRegelendring2026
     : Environment().modellVersjon.overgangsstønad;
 
@@ -256,6 +259,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   return {
     søknad,
     settSøknad,
+    skalBrukeRegelendringer2026,
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
     mellomlagretOvergangsstønad,

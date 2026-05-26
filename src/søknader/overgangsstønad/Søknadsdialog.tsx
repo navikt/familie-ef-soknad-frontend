@@ -20,18 +20,15 @@ import { BarnasBosted } from '../felles/steg/4-barnasbosted/BarnasBosted';
 import { BarnasBostedProvider } from '../felles/steg/4-barnasbosted/BarnasBostedContext';
 import { Aktivitet } from './steg/5-aktivitet/Aktivitet';
 import { AktivitetProvider } from './steg/5-aktivitet/AktivitetContext';
-
 import Dokumentasjon from '../felles/steg/8-dokumentasjon/Dokumentasjon';
 import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/DokumentasjonsContext';
-import { useToggles } from '../../context/TogglesContext';
-import { ToggleName } from '../../models/søknad/toggles';
 import { Situasjon } from './steg/5-regelendring-2026/Situasjon';
-import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 const Søknadsdialog: FC = () => {
   const {
     søknad,
     settSøknad,
+    skalBrukeRegelendringer2026,
     mellomlagretOvergangsstønad,
     mellomlagreOvergangsstønad2,
     oppdaterBarnISøknaden,
@@ -39,13 +36,6 @@ const Søknadsdialog: FC = () => {
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
   } = useOvergangsstønadSøknad();
-
-  const { toggles } = useToggles();
-  const { tidligereVedtakStatus } = useTidligereVedtak();
-
-  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
-  const harTidligereVedtakPåEf = tidligereVedtakStatus === 'JA';
-  const skalBrukeRegelendringer2026 = harTidligereVedtakPåEf && toggleBrukRegelendringer2026;
 
   const overgangsstønadRoutes = hentRoutesOvergangsstonad(skalBrukeRegelendringer2026);
 

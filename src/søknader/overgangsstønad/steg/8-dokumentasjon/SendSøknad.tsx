@@ -24,8 +24,6 @@ import { oppdaterBarnLabels } from '../../../../utils/barn';
 import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { useToggles } from '../../../../context/TogglesContext';
-import { ToggleName } from '../../../../models/søknad/toggles';
 import { tilSøknadRegelendring2026 } from '../../models/søknad-regelendring-2026';
 
 interface Innsending {
@@ -35,14 +33,12 @@ interface Innsending {
 }
 
 export const SendSøknadKnapper: FC = () => {
-  const { søknad, settSøknad } = useOvergangsstønadSøknad();
+  const { søknad, settSøknad, skalBrukeRegelendringer2026 } = useOvergangsstønadSøknad();
   const location = useLocation();
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
-  const { toggles } = useToggles();
 
-  const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
-  const routes = hentRoutesOvergangsstonad(toggleBrukRegelendringer2026);
+  const routes = hentRoutesOvergangsstonad(skalBrukeRegelendringer2026);
   const nesteRoute = hentNesteRoute(routes, location.pathname);
   const forrigeRoute = hentForrigeRoute(routes, location.pathname);
   const intl = useLokalIntlContext();
@@ -55,7 +51,7 @@ export const SendSøknadKnapper: FC = () => {
 
   const sendInnSøknad = async (søknadPayload: object) => {
     try {
-      const apiKall = toggleBrukRegelendringer2026
+      const apiKall = skalBrukeRegelendringer2026
         ? sendInnOvergangstønadSøknadRegelendring2026
         : sendInnOvergangstønadSøknad;
       const kvittering = await apiKall(søknadPayload);
@@ -99,7 +95,7 @@ export const SendSøknadKnapper: FC = () => {
 
     settinnsendingState({ ...innsendingState, venter: true });
 
-    if (toggleBrukRegelendringer2026) {
+    if (skalBrukeRegelendringer2026) {
       sendInnSøknad(tilSøknadRegelendring2026(søknadMedFellesTransformasjon));
     } else {
       sendInnSøknad(søknadMedFellesTransformasjon);
