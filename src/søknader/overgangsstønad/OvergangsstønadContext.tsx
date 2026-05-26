@@ -84,8 +84,9 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const { toggles } = useToggles();
   const { tidligereVedtakStatus } = useTidligereVedtak();
 
+  const harIkkeTidligereVedtak = tidligereVedtakStatus !== 'JA';
   const skalBrukeRegelendringer2026 =
-    tidligereVedtakStatus === 'JA' && toggles[ToggleName.overgangsstønadRegelendringer2026];
+    harIkkeTidligereVedtak && toggles[ToggleName.overgangsstønadRegelendringer2026];
 
   const aktivStønadstype = skalBrukeRegelendringer2026
     ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
