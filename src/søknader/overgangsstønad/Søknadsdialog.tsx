@@ -26,6 +26,7 @@ import { DokumentasjonsProvider } from '../felles/steg/8-dokumentasjon/Dokumenta
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
 import { Situasjon } from './steg/5-regelendring-2026/Situasjon';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 const Søknadsdialog: FC = () => {
   const {
@@ -40,10 +41,13 @@ const Søknadsdialog: FC = () => {
   } = useOvergangsstønadSøknad();
 
   const { toggles } = useToggles();
+  const { tidligereVedtakStatus } = useTidligereVedtak();
 
   const toggleBrukRegelendringer2026 = toggles[ToggleName.overgangsstønadRegelendringer2026];
+  const harTidligereVedtakPåEf = tidligereVedtakStatus === 'JA';
+  const skalBrukeRegelendringer2026 = harTidligereVedtakPåEf && toggleBrukRegelendringer2026;
 
-  const overgangsstønadRoutes = hentRoutesOvergangsstonad(toggleBrukRegelendringer2026);
+  const overgangsstønadRoutes = hentRoutesOvergangsstonad(skalBrukeRegelendringer2026);
 
   const oppdaterOvergangsstønadSøknad = (søknad: Søknad) => {
     if (erOvergangsstønadSøknad(søknad)) {
