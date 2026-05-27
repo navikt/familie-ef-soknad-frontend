@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import createUseContext from 'constate';
 import tomPerson from '../../mock/initialState.json';
 import { EArbeidssituasjon } from '../../models/steg/aktivitet/aktivitet';
@@ -28,6 +28,9 @@ import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType, LokalIntlShape } from '../../language/typer';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadOvergangsstønad => {
@@ -78,8 +81,40 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const [locale, setLocale] = useSpråkContext();
   const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
+  const { toggles } = useToggles();
+  const { tidligereVedtakStatus } = useTidligereVedtak();
+
+  const harIkkeTidligereVedtak = tidligereVedtakStatus !== 'JA';
+  const skalBrukeRegelendringer2026 =
+    harIkkeTidligereVedtak && toggles[ToggleName.overgangsstønadRegelendringer2026];
+
+  const aktivStønadstype = skalBrukeRegelendringer2026
+    ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
+    : MellomlagredeStønadstyper.overgangsstønad;
+
+  const aktivModellVersjon = skalBrukeRegelendringer2026
+    ? Environment().modellVersjon.overgangsstønadRegelendring2026
+    : Environment().modellVersjon.overgangsstønad;
+
   const [mellomlagretOvergangsstønad, settMellomlagretOvergangsstønad] =
     useState<MellomlagretSøknadOvergangsstønad>();
+
+  const prevAktivStønadstypeRef = useRef<MellomlagredeStønadstyper | null>(null);
+
+  useEffect(() => {
+    const forrige = prevAktivStønadstypeRef.current;
+    prevAktivStønadstypeRef.current = aktivStønadstype;
+
+    if (forrige !== null && forrige !== aktivStønadstype) {
+      hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(aktivStønadstype)
+        .then((mellomlagretVersjon) => {
+          if (mellomlagretVersjon) {
+            settMellomlagretOvergangsstønad(mellomlagretVersjon);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [aktivStønadstype]);
 
   useEffect(() => {
     if (mellomlagretOvergangsstønad?.locale && mellomlagretOvergangsstønad?.locale !== locale) {
@@ -89,7 +124,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
 
   const hentMellomlagretOvergangsstønad = (): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(
-      MellomlagredeStønadstyper.overgangsstønad
+      aktivStønadstype
     ).then((mellomlagretVersjon?: MellomlagretSøknadOvergangsstønad) => {
       if (mellomlagretVersjon) {
         settMellomlagretOvergangsstønad(mellomlagretVersjon);
@@ -106,27 +141,27 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const mellomlagreOvergangsstønad2 = (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => {
     const utfyltSøknad = {
       søknad: oppdatertSøknad,
-      modellVersjon: Environment().modellVersjon.overgangsstønad,
+      modellVersjon: aktivModellVersjon,
       gjeldendeSteg: steg,
       locale: locale,
     };
-    mellomlagreSøknadTilDokument(utfyltSøknad, MellomlagredeStønadstyper.overgangsstønad);
+    mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
     settMellomlagretOvergangsstønad(utfyltSøknad);
   };
 
   const mellomlagreOvergangsstønad = (steg: string) => {
     const utfyltSøknad = {
       søknad: søknad,
-      modellVersjon: Environment().modellVersjon.overgangsstønad,
+      modellVersjon: aktivModellVersjon,
       gjeldendeSteg: steg,
       locale: locale,
     };
-    mellomlagreSøknadTilDokument(utfyltSøknad, MellomlagredeStønadstyper.overgangsstønad);
+    mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
     settMellomlagretOvergangsstønad(utfyltSøknad);
   };
 
   const nullstillMellomlagretOvergangsstønad = (): Promise<string> => {
-    return nullstillMellomlagretSøknadTilDokument(MellomlagredeStønadstyper.overgangsstønad);
+    return nullstillMellomlagretSøknadTilDokument(aktivStønadstype);
   };
 
   const nullstillSøknadOvergangsstønad = (person: IPerson, barnMedLabels: IBarn[]) => {
@@ -225,9 +260,11 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   return {
     søknad,
     settSøknad,
+    skalBrukeRegelendringer2026,
     settDokumentasjonsbehov,
     settDokumentasjonsbehovForBarn,
     mellomlagretOvergangsstønad,
+    aktivModellVersjon,
     hentMellomlagretOvergangsstønad,
     mellomlagreOvergangsstønad,
     mellomlagreOvergangsstønad2,

@@ -23,6 +23,17 @@ export const sendInnOvergangstønadSøknad = (søknad: object) => {
     });
 };
 
+export const sendInnOvergangstønadSøknadRegelendring2026 = (søknad: object) => {
+  return axios
+    .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad-regelendring-2026`, søknad, {
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      withCredentials: true,
+    })
+    .then((response: { data: any }) => {
+      return response.data;
+    });
+};
+
 export const sendInnBarnetilsynSøknad = (søknad: object) => {
   return axios
     .post(`${Environment().apiProxyUrl}/api/soknad/barnetilsyn`, søknad, {

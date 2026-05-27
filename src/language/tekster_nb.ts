@@ -322,6 +322,26 @@ export default {
   'barnasbosted.medforelder.gjenbrukt':
     'Du har besvart spørsmålene om relasjonen din til den andre forelderen på et annet barn. Siden du har flere barn med samme forelder, trenger du bare å svare på spørsmålene én gang. Hvis du vil endre svarene dine, må du gå tilbake til barnet hvor du svarte på spørsmålene.',
   'stegtittel.arbeidssituasjon': 'Arbeid, utdanning og andre aktiviteter',
+  'stegtittel.situasjonen': 'Situasjonen din',
+
+  'situasjon.hjelpetekst-åpne.begrunnelse': 'Grunnen til at vi spør om dette',
+  'situasjon.hjelpetekst.innhold':
+    'Fra 1. juli 2026 er det nye regler for å få overgangsstønad. Du må enten ha barn under 14 måneder eller ha barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer. <br/><br/>Hvis du allerede får overgangsstønad, kan den også forlenges i inntil 2 år hvis barnet ditt har en sykdom som ikke er varig og hindrer deg i å jobbe. At sykdommen ikke er varig betyr i denne sammenhengen at den ikke har vart eller vil vare i mer enn 2 år.',
+
+  'nySituasjon.spm.hvaSituasjon': 'Hva er situasjonen din?',
+  'nySituasjon.svar.barnUnder14Måneder': 'Jeg har barn under 14 måneder',
+  'nySituasjon.svar.barnSærligTilsyn':
+    'Jeg har barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer',
+  'nySituasjon.svar.barnSykdomIkkeVarig': 'Barnet mitt har en sykdom som ikke er varig',
+
+  'inntekter.hjelpetekst.innhold':
+    'Inntekten din avgjør hvor mye du får utbetalt i overgangsstønad. <br/><br/> Du kan lese mer om hvordan vi beregner inntekten din på <a href="https://www.nav.no/overgangsstonad-enslig#hvor-mye">nav.no/overgangsstonad-enslig#hvor-mye</a>.',
+  'nySituasjon.spm.inntekter': 'Har du inntekt?',
+  'nySituasjon.svar.arbeidstaker': 'Ja, jeg har inntekt som arbeidstaker',
+  'nySituasjon.svar.selvstendigNæringsdrivende':
+    'Ja, jeg har inntekt som selvstendig næringsdrivende',
+  'nySituasjon.svar.annenStønadNav': 'Ja, jeg får annen stønad fra Nav',
+
   'stegtittel.arbeidssituasjon.barnetilsyn': 'Arbeidssituasjonen din',
   'erDuIArbeid.spm': 'Er du i arbeid?',
   'erDuIArbeid.hjelpetekst':

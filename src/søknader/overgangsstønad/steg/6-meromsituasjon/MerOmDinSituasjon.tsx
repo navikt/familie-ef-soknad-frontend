@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckboxSpørsmål } from '../../../../components/spørsmål/CheckboxSpørsmål';
 import { HarSøkerSagtOppEllerRedusertStilling } from './HarSøkerSagtOppEllerRedusertStilling';
 
@@ -6,7 +6,7 @@ import {
   gjelderNoeAvDetteDeg,
   SøkerFraBestemtMånedSpm,
 } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
-import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
@@ -23,7 +23,7 @@ import { useLocation } from 'react-router-dom';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import { SituasjonOppfølgingSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
-import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';
+import { datoTilStreng } from '../../../../utils/dato';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
@@ -31,7 +31,8 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { BodyShort, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
+import { HjelpetekstSøkerFraBestemtMåned } from './HjelpetekstSøkerFraBestemtMåned';
 
 const MerOmDinSituasjon: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -52,28 +53,6 @@ const MerOmDinSituasjon: React.FC = () => {
   const søkerJobberMindreEnnFemtiProsent = harSøkerMindreEnnHalvStilling(søknad);
 
   const datovelgerLabel = 'søkerFraBestemtMåned.datovelger.overgangsstønad';
-
-  const hjelpetekstFørsteAvsnitt = hentTekstMedEnVariabel(
-    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del1',
-    intl,
-    formatMånederTilbake(dagensDato, 3)
-  );
-  const hjelpetekstAndreAvsnitt = hentTekstMedEnVariabel(
-    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del2',
-    intl,
-    formatMånederTilbake(dagensDato, 5)
-  );
-  const hjelpetekstTredjeAvsnitt = hentTekst(
-    'søkerFraBestemtMåned.hjelpetekst-innhold.overgangsstønad-del3',
-    intl
-  );
-  const hjelpetekst: ReactNode = (
-    <VStack gap={'space-16'}>
-      <BodyShort>{hjelpetekstFørsteAvsnitt}</BodyShort>
-      <BodyShort>{hjelpetekstAndreAvsnitt}</BodyShort>
-      <BodyShort>{hjelpetekstTredjeAvsnitt}</BodyShort>
-    </VStack>
-  );
 
   useEffect(() => {
     settSøknad((prevSøknad: SøknadOvergangsstønad) => ({
@@ -184,7 +163,7 @@ const MerOmDinSituasjon: React.FC = () => {
             settDato={settSøknadsdato}
             valgtDato={dinSituasjon.søknadsdato}
             datovelgerLabel={datovelgerLabel}
-            hjelpetekstInnholdTekst={hjelpetekst}
+            hjelpetekstInnholdTekst={<HjelpetekstSøkerFraBestemtMåned />}
           />
         )}
       </VStack>

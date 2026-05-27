@@ -13,12 +13,18 @@ interface EnvironmentProps {
 
 interface IModellversjon {
   overgangsstønad: number;
+  overgangsstønadRegelendring2026: number;
   barnetilsyn: number;
   skolepenger: number;
 }
 
 const Environment = (): EnvironmentProps => {
-  const modellVersjon = { overgangsstønad: 7, barnetilsyn: 2, skolepenger: 2 };
+  const modellVersjon: IModellversjon = {
+    overgangsstønad: 7,
+    overgangsstønadRegelendring2026: 1,
+    barnetilsyn: 2,
+    skolepenger: 2,
+  };
 
   if (window.location.hostname.indexOf('dev.nav.no') > -1) {
     return {

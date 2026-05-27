@@ -6,6 +6,7 @@ import {
   lagIMedforelder,
   lagMellomlagretSøknadBarnetilsyn,
   lagMellomlagretSøknadOvergangsstønad,
+  lagMellomlagretSøknadOvergangsstønadRegelendring2026,
   lagMellomlagretSøknadSkolepenger,
   lagPerson,
   lagPersonData,
@@ -28,7 +29,11 @@ import { dagensIsoDatoMinusMåneder } from '../utils/dato';
 import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 
-type StønadType = 'overgangsstonad' | 'barnetilsyn' | 'skolepenger';
+type StønadType =
+  | 'overgangsstonad'
+  | 'overgangsstonad-regelendring-2026'
+  | 'barnetilsyn'
+  | 'skolepenger';
 type SøknadStegOvergangsstønad =
   | '/om-deg'
   | '/bosituasjon'
@@ -36,6 +41,7 @@ type SøknadStegOvergangsstønad =
   | '/barnas-bosted'
   | '/aktivitet'
   | '/din-situasjon'
+  | '/situasjon'
   | '/barnepass'
   | '/oppsummering'
   | '/dokumentasjon'
@@ -72,6 +78,7 @@ export const mockGet = (url: string, stønadType: StønadType) => {
       data: {
         'familie.ef.soknad.nynorsk': true,
         'familie.ef.soknad.gjenbruk-barnetilsyn': false,
+        'familie.ef.soknad.overgangsstonad-regelendringer-2026': false,
       },
     });
   }
@@ -99,6 +106,8 @@ const utledMellomlagretSøknad = (stønadType: StønadType) => {
   switch (stønadType) {
     case 'overgangsstonad':
       return lagMellomlagretSøknadOvergangsstønad();
+    case 'overgangsstonad-regelendring-2026':
+      return lagMellomlagretSøknadOvergangsstønadRegelendring2026();
     case 'barnetilsyn':
       return lagMellomlagretSøknadBarnetilsyn();
     case 'skolepenger':
@@ -235,6 +244,8 @@ const utledSøknadOvergangsstønad = (
     case '/aktivitet':
       return lagSøknadOvergangsstønad({ harBekreftet: true });
     case '/din-situasjon':
+      return søknadOvergangsstønadBarnasBosted(søknad);
+    case '/situasjon':
       return søknadOvergangsstønadBarnasBosted(søknad);
     case '/oppsummering':
       return lagSøknadOvergangsstønad({ harBekreftet: true, ...søknad });
