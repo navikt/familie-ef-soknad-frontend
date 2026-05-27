@@ -28,9 +28,7 @@ export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
         søknad.merOmDinSituasjon.gjelderDetteDeg.svarid.findIndex(
           (v) => v === DinSituasjonType.harBarnMedSærligeBehov
         ) > -1 ||
-        (søknad.merOmDinSituasjon.hvaSituasjon?.svarid.includes(
-          HvaSituasjon.barnSærligTilsyn
-        ) ??
+        (søknad.merOmDinSituasjon.hvaSituasjon?.svarid.includes(HvaSituasjon.barnSærligTilsyn) ??
           false);
       if (!barn.særligeTilsynsbehov && harSvartJaPåAtHarBarnMedSærligeBehov) {
         const oppdatertBarn = leggTilSærligeBehov(barn, intl);
