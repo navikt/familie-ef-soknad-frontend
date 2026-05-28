@@ -32,6 +32,10 @@ export const hvaSituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
       svar_tekst: hentTekst('nySituasjon.svar.barnSykdomIkkeVarig', intl),
       dokumentasjonsbehov: DokumentasjonsConfig.DokumentasjonSyktBarn,
     },
+    {
+      id: HvaSituasjon.ingenAvDisseGjelderMeg,
+      svar_tekst: hentTekst('nySituasjon.svar.ingenAvDisseGjelderMeg', intl),
+    },
   ],
 });
 

@@ -333,6 +333,9 @@ export default {
   'nySituasjon.svar.barnSærligTilsyn':
     'Jeg har barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer',
   'nySituasjon.svar.barnSykdomIkkeVarig': 'Barnet mitt har en sykdom som ikke er varig',
+  'nySituasjon.svar.ingenAvDisseGjelderMeg': 'Ingen av disse gjelder meg',
+  'nySituasjon.alert-advarsel.ingenAvDisseGjelderMeg':
+    'Hvis ingen av disse gjelder deg, kan det hende du ikke har rett til overgangsstønad til enslig mor eller far',
 
   'inntekter.hjelpetekst.innhold':
     'Inntekten din avgjør hvor mye du får utbetalt i overgangsstønad. <br/><br/> Du kan lese mer om hvordan vi beregner inntekten din på <a href="https://www.nav.no/overgangsstonad-enslig#hvor-mye">nav.no/overgangsstonad-enslig#hvor-mye</a>.',

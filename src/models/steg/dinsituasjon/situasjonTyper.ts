@@ -7,6 +7,7 @@ export enum HvaSituasjon {
   barnUnder14Måneder = 'barnUnder14Måneder',
   barnSærligTilsyn = 'barnSærligTilsyn',
   barnSykdomIkkeVarig = 'barnSykdomIkkeVarig',
+  ingenAvDisseGjelderMeg = 'ingenAvDisseGjelderMeg',
 }
 
 export enum InntekterId {

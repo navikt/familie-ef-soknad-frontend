@@ -8,7 +8,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { useLocation } from 'react-router-dom';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import { VStack } from '@navikt/ds-react';
+import { Alert, VStack } from '@navikt/ds-react';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import {
   ESøkerFraBestemtMåned,
@@ -175,6 +175,8 @@ export const Situasjon: React.FC = () => {
 
   const valgteSituasjoner = hvaSituasjon?.svarid ?? [];
   const harValgtMinstEttAlternativ = valgteSituasjoner.length > 0;
+  const harKunValgtIngenAvDisseGjelderMeg =
+    valgteSituasjoner.length === 1 && valgteSituasjoner[0] === HvaSituasjon.ingenAvDisseGjelderMeg;
 
   const erBarnSærligTilsyn = valgteSituasjoner.includes(HvaSituasjon.barnSærligTilsyn);
   const erBarnSykdomIkkeVarig = valgteSituasjoner.includes(HvaSituasjon.barnSykdomIkkeVarig);
@@ -238,6 +240,12 @@ export const Situasjon: React.FC = () => {
           <AlertStripeDokumentasjon>
             {hentHTMLTekst('dinSituasjon.alert.harSyktBarn', intl)}
           </AlertStripeDokumentasjon>
+        )}
+
+        {harKunValgtIngenAvDisseGjelderMeg && (
+          <Alert variant={'warning'} size={'small'} inline>
+            {hentTekst('nySituasjon.alert-advarsel.ingenAvDisseGjelderMeg', intl)}
+          </Alert>
         )}
 
         {visSpørsmålInntekter && (
