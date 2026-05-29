@@ -120,7 +120,7 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
     if (mellomlagretOvergangsstønad?.locale && mellomlagretOvergangsstønad?.locale !== locale) {
       setLocale(mellomlagretOvergangsstønad.locale as LocaleType);
     }
-  }, [mellomlagretOvergangsstønad, locale, setLocale]);
+  }, [mellomlagretOvergangsstønad, setLocale]);
 
   const hentMellomlagretOvergangsstønad = (): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(

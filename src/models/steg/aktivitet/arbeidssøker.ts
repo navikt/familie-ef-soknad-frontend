@@ -1,11 +1,11 @@
-import { ISpørsmålBooleanFelt, ITekstFelt } from '../../søknad/søknadsfelter';
+import { ISpørsmålBooleanFelt, ISpørsmålFelt } from '../../søknad/søknadsfelter';
 
 export interface IArbeidssøker {
   registrertSomArbeidssøkerNav?: ISpørsmålBooleanFelt;
   villigTilÅTaImotTilbudOmArbeid?: ISpørsmålBooleanFelt;
   kanBegynneInnenEnUke?: ISpørsmålBooleanFelt;
   kanSkaffeBarnepassInnenEnUke?: ISpørsmålBooleanFelt;
-  hvorØnskerSøkerArbeid?: ITekstFelt;
+  hvorØnskerSøkerArbeid?: ISpørsmålFelt;
   ønskerSøker50ProsentStilling?: ISpørsmålBooleanFelt;
 }
 
