@@ -18,6 +18,10 @@ const SpråkContext = createContext<[LocaleType, Dispatch<SetStateAction<LocaleT
 
 const useSpråkContext = () => useContext(SpråkContext);
 
+const erStøttetLocale = (locale: string): locale is LocaleType => {
+  return locale === LocaleType.nb || locale === LocaleType.en;
+};
+
 const SpråkProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const defaultSpråk = LocaleType.nb;
   const [locale, setLocale] = useState(defaultSpråk);
@@ -25,9 +29,13 @@ const SpråkProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) 
 
   SpråkContext.displayName = 'SPRÅK_CONTEXT';
 
-  onLanguageSelect((language) => {
-    setLocale(language.locale as LocaleType);
-  });
+  useEffect(() => {
+    return onLanguageSelect((language) => {
+      if (erStøttetLocale(language.locale)) {
+        setLocale(language.locale);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = locale;

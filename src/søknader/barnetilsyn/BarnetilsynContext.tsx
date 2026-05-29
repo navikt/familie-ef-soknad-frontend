@@ -87,7 +87,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
     if (mellomlagretBarnetilsyn?.locale && mellomlagretBarnetilsyn?.locale !== locale) {
       setLocale(mellomlagretBarnetilsyn.locale as LocaleType);
     }
-  }, [mellomlagretBarnetilsyn, locale, setLocale]);
+  }, [mellomlagretBarnetilsyn, setLocale]);
 
   const hentMellomlagretBarnetilsyn = (): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadBarnetilsyn>(
