@@ -544,6 +544,29 @@ export default {
     'If you have reduced your working hours for no reasonable reason, you will not be entitled to benefit until six months after you handed in your notice.',
   'dinSituasjon.legend.særligTilsyn': 'Which of your children needs special supervision?',
   'dinSituasjon.label.særligTilsyn': 'About [0]’s need for special supervision',
+
+  'stegtittel.situasjonen': 'Your situation',
+
+  'situasjon.hjelpetekst-åpne.begrunnelse': 'The reason we ask this',
+  'situasjon.hjelpetekst.innhold':
+    'From 1 July 2026, new rules apply for transitional benefit. You must either have a child under 14 months old or have a child who needs special supervision due to physical, mental or major social problems. <br/><br/>If you already receive transitional benefit, it can also be extended for up to 2 years if your child has a non-chronic illness that prevents you from working. In this context, non-chronic means that the illness has not lasted, and is not expected to last, more than 2 years.',
+
+  'nySituasjon.spm.hvaSituasjon': 'What is your situation?',
+  'nySituasjon.svar.barnUnder14Måneder': 'I have a child under 14 months old',
+  'nySituasjon.svar.barnSærligTilsyn':
+    'I have a child who needs special supervision due to physical, mental or major social problems',
+  'nySituasjon.svar.barnSykdomIkkeVarig': 'My child has a non-chronic illness',
+  'nySituasjon.svar.ingenAvDisseGjelderMeg': 'None of these apply to me',
+  'nySituasjon.alert-advarsel.ingenAvDisseGjelderMeg':
+    'If none of these apply to you, you may not be entitled to transitional benefit for single parents',
+
+  'inntekter.hjelpetekst.innhold':
+    'Your income determines how much transitional benefit you will be paid. <br/><br/> You can read more about how we calculate your income at <a href="https://www.nav.no/overgangsstonad-enslig#hvor-mye">nav.no/overgangsstonad-enslig#hvor-mye</a>.',
+  'nySituasjon.spm.inntekter': 'Do you have income?',
+  'nySituasjon.svar.arbeidstaker': 'Yes, I have income as an employee',
+  'nySituasjon.svar.selvstendigNæringsdrivende': 'Yes, I have income as a self-employed person',
+  'nySituasjon.svar.annenStønadNav': 'Yes, I receive other benefits from Nav',
+
   'sagtOppEllerRedusertStilling.datovelger.sagtOpp': 'When did you resign?',
   'sagtOppEllerRedusertStilling.datovelger.redusertStilling':
     'When did you reduce your working hours?',
