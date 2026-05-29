@@ -58,6 +58,8 @@
   grid-template-areas:
     'tilbake neste'
     'avbryt avbryt';
+  column-gap: 1rem;
+  justify-self: center;
 }
 .side .treKnapper .hideButton {
   display: none;
@@ -70,6 +72,8 @@
 }
 .side .treKnapper .avbryt {
   grid-area: avbryt;
+  justify-self: center;
+  margin-top: 0.5rem;
 }
 .side .tilbake-til-oppsummering {
   margin: 0 auto;

@@ -4,7 +4,7 @@ import { RoutesArbeidssokerskjema } from '../routes/routesArbeidssokerskjema';
 import { useLocation } from 'react-router-dom';
 import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { BodyShort, Box, Heading } from '@navikt/ds-react';
+import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import { KnappLocaleTekstOgNavigate } from '../../../components/knapper/KnappLocaleTekstOgNavigate';
 import { Stegindikator } from '../../../components/stegindikator/Stegindikator';
 import { stegSomSkalVisesPåStegindikator } from '../../../utils/stegindikator';
@@ -50,13 +50,13 @@ const Side: React.FC<ISide> = ({
           </div>
         </Box>
         {skalViseKnapper && (
-          <>
+          <VStack gap="space-8" align="center" className={'side__knapper'}>
             {!erSpørsmålBesvart && (
               <BodyShort size="small" className={'side__uu-tekst'}>
                 {hentTekst('knapp.uu-tekst', intl)}
               </BodyShort>
             )}
-            <div className={erSpørsmålBesvart ? 'side__knapper treKnapper' : 'side__knapper'}>
+            <HStack gap="space-16" justify="center">
               <KnappLocaleTekstOgNavigate nesteSide={forrigeRoute.path} tekst={'knapp.tilbake'} />
               {erSpørsmålBesvart && (
                 <KnappLocaleTekstOgNavigate
@@ -65,14 +65,13 @@ const Side: React.FC<ISide> = ({
                   tekst={'knapp.neste'}
                 />
               )}
-
-              <KnappLocaleTekstOgNavigate
-                variant="tertiary"
-                nesteSide={RoutesArbeidssokerskjema[0].path}
-                tekst={'knapp.avbryt'}
-              />
-            </div>
-          </>
+            </HStack>
+            <KnappLocaleTekstOgNavigate
+              variant="tertiary"
+              nesteSide={RoutesArbeidssokerskjema[0].path}
+              tekst={'knapp.avbryt'}
+            />
+          </VStack>
         )}
       </div>
     </div>
