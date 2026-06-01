@@ -78,7 +78,7 @@ const [SkolepengerSøknadProvider, useSkolepengerSøknad] = createUseContext(() 
     if (mellomlagretSkolepenger?.locale && mellomlagretSkolepenger?.locale !== locale) {
       setLocale(mellomlagretSkolepenger.locale as LocaleType);
     }
-  }, [mellomlagretSkolepenger, locale, setLocale]);
+  }, [mellomlagretSkolepenger, setLocale]);
 
   const hentMellomlagretSkolepenger = (): Promise<void> => {
     return hentMellomlagretSøknadFraDokument<MellomlagretSøknadSkolepenger>(

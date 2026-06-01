@@ -36,6 +36,59 @@ const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
     settSkjema({ ...skjema, arbeidssøker: arbeidssøker });
   }, [arbeidssøker]);
 
+  React.useEffect(() => {
+    settArbeidssøker((forrigeArbeidssøker) => {
+      const oppdatertArbeidssøker = { ...forrigeArbeidssøker };
+
+      if (oppdatertArbeidssøker.registrertSomArbeidssøkerNav) {
+        oppdatertArbeidssøker.registrertSomArbeidssøkerNav = {
+          ...oppdatertArbeidssøker.registrertSomArbeidssøkerNav,
+          label: hentTekst(erSøkerArbeidssøker(intl).tekstid, intl),
+        };
+      }
+
+      if (oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid) {
+        oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid = {
+          ...oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid,
+          label: hentTekst(erVilligTilÅTaImotTilbud(intl).tekstid, intl),
+        };
+      }
+
+      if (oppdatertArbeidssøker.kanBegynneInnenEnUke) {
+        oppdatertArbeidssøker.kanBegynneInnenEnUke = {
+          ...oppdatertArbeidssøker.kanBegynneInnenEnUke,
+          label: hentTekst(kanBegynneInnenEnUke(intl).tekstid, intl),
+        };
+      }
+
+      if (oppdatertArbeidssøker.hvorØnskerSøkerArbeid) {
+        const spørsmål = ønsketArbeidssted(intl);
+        const nyttSvar = spørsmål.svaralternativer.find(
+          (svaralternativ) =>
+            svaralternativ.id === oppdatertArbeidssøker.hvorØnskerSøkerArbeid?.svarid
+        );
+
+        oppdatertArbeidssøker.hvorØnskerSøkerArbeid = {
+          ...oppdatertArbeidssøker.hvorØnskerSøkerArbeid,
+          label: hentTekst(spørsmål.tekstid, intl),
+          verdi: nyttSvar?.svar_tekst || oppdatertArbeidssøker.hvorØnskerSøkerArbeid.verdi,
+        };
+      }
+
+      if (oppdatertArbeidssøker.ønskerSøker50ProsentStilling) {
+        oppdatertArbeidssøker.ønskerSøker50ProsentStilling = {
+          ...oppdatertArbeidssøker.ønskerSøker50ProsentStilling,
+          label: hentTekst(ønskerHalvStilling(intl).tekstid, intl),
+        };
+      }
+
+      const erLikArbeidssøker =
+        JSON.stringify(oppdatertArbeidssøker) === JSON.stringify(forrigeArbeidssøker);
+
+      return erLikArbeidssøker ? forrigeArbeidssøker : oppdatertArbeidssøker;
+    });
+  }, [intl]);
+
   const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
     const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
 

@@ -1,5 +1,6 @@
 export enum MellomlagredeStønadstyper {
   overgangsstønad = 'overgangsstonad',
+  overgangsstønadRegelendring2026 = 'overgangsstonad-regelendring-2026',
   barnetilsyn = 'barnetilsyn',
   skolepenger = 'skolepenger',
 }

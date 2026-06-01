@@ -13,6 +13,8 @@ export interface IDinSituasjon {
   begrunnelseSagtOppEllerRedusertStilling?: ITekstFelt;
   datoSagtOppEllerRedusertStilling?: IDatoFelt;
   søkerFraBestemtMåned?: ISpørsmålBooleanFelt;
+  hvaSituasjon?: ISpørsmålListeFelt;
+  inntekter?: ISpørsmålListeFelt;
 }
 
 export enum ESituasjon {

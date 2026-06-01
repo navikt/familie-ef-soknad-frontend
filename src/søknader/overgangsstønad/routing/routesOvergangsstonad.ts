@@ -8,12 +8,13 @@ export enum ERouteOvergangsstønad {
   BarnasBosted = 'BarnasBosted',
   Aktivitet = 'Aktivitet',
   DinSituasjon = 'DinSituasjon',
+  SituasjonRegelendring2026 = 'SituasjonRegelendring2026',
   Oppsummering = 'Oppsummering',
   Dokumentasjon = 'Dokumentasjon',
   Kvittering = 'Kvittering',
 }
 
-export const RoutesOvergangsstonad: IRoute[] = [
+const INNLEDENDE_STEG: IRoute[] = [
   { path: '/', label: 'Forside', route: ERouteOvergangsstønad.Forside },
   {
     path: '/om-deg',
@@ -39,6 +40,9 @@ export const RoutesOvergangsstonad: IRoute[] = [
     route: ERouteOvergangsstønad.BarnasBosted,
     localeTekst: 'barnasbosted.sidetittel',
   },
+];
+
+const GAMLE_STEG_FØR_REGELENDRING_2026: IRoute[] = [
   {
     path: '/aktivitet',
     label: 'Arbeid, utdanning og andre aktiviteter',
@@ -51,6 +55,18 @@ export const RoutesOvergangsstonad: IRoute[] = [
     route: ERouteOvergangsstønad.DinSituasjon,
     localeTekst: 'stegtittel.dinSituasjon',
   },
+];
+
+const STEG_ETTER_REGELENDRING_2026: IRoute[] = [
+  {
+    path: '/situasjon',
+    label: 'Situasjon',
+    route: ERouteOvergangsstønad.SituasjonRegelendring2026,
+    localeTekst: 'stegtittel.situasjonen',
+  },
+];
+
+const AVSLUTTENDE_STEG: IRoute[] = [
   {
     path: '/oppsummering',
     label: 'Oppsummering',
@@ -69,6 +85,14 @@ export const RoutesOvergangsstonad: IRoute[] = [
     route: ERouteOvergangsstønad.Kvittering,
   },
 ];
+
+export const hentRoutesOvergangsstonad = (brukRegelendring2026: boolean): IRoute[] => [
+  ...INNLEDENDE_STEG,
+  ...(brukRegelendring2026 ? STEG_ETTER_REGELENDRING_2026 : GAMLE_STEG_FØR_REGELENDRING_2026),
+  ...AVSLUTTENDE_STEG,
+];
+
+export const RoutesOvergangsstonad: IRoute[] = hentRoutesOvergangsstonad(false);
 
 export const overgangsstønadForsideUrl = (): string =>
   window.location.origin + process.env.PUBLIC_URL;
