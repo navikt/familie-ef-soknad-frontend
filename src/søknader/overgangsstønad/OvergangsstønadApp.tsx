@@ -16,7 +16,7 @@ import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { hentTekst } from '../../utils/teksthåndtering';
-import { hentHarTidligereInnvilgetVedtak } from '../../innsending/api';
+import { hentVedtakPåGammeltRegelverk } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 import { ToggleName } from '../../models/søknad/toggles';
 
@@ -50,12 +50,13 @@ export const OvergangsstønadApp = () => {
     });
   };
 
-  const fetchTidligereVedtakHvisToggleErPå = (toggles: Record<string, boolean> | void) => {
+  const hentTidligereVedtakGammeltRegelverk = (toggles: Record<string, boolean> | void) => {
     if (!toggles || !toggles[ToggleName.overgangsstønadRegelendringer2026]) {
       settTidligereVedtakStatus('VET_IKKE');
       return Promise.resolve();
     }
-    return hentHarTidligereInnvilgetVedtak()
+
+    return hentVedtakPåGammeltRegelverk()
       .then((status) => settTidligereVedtakStatus(status))
       .catch(() => settTidligereVedtakStatus('VET_IKKE'));
   };
@@ -66,7 +67,7 @@ export const OvergangsstønadApp = () => {
         Promise.all([
           fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
           hentMellomlagretOvergangsstønad(),
-          fetchTidligereVedtakHvisToggleErPå(toggles),
+          hentTidligereVedtakGammeltRegelverk(toggles),
         ])
       )
       .then(() => settFetching(false))
