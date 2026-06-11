@@ -4,9 +4,9 @@ import { IBarn } from '../models/steg/barn';
 
 export type TidligereVedtakStatus = 'JA' | 'NEI' | 'VET_IKKE';
 
-export const hentHarTidligereInnvilgetVedtak = async (): Promise<TidligereVedtakStatus> => {
+export const hentVedtakPåGammeltRegelverk = async (): Promise<TidligereVedtakStatus> => {
   const response = await axios.get<TidligereVedtakStatus>(
-    `${Environment().apiProxyUrl}/api/saksbehandling/har-tidligere-innvilget-vedtak`,
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-vedtak-pa-gammelt-regelverk`,
     { withCredentials: true }
   );
   return response.data;
