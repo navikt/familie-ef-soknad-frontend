@@ -54,7 +54,7 @@ export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, tidligereVedta
   };
 
   const alertAdvarselTekst =
-    tidligereVedtakStatus === 'NEI'
+    tidligereVedtakStatus === 'JA'
       ? 'barnepass.alert-advarsel.årsak'
       : 'barnepass.alert-advarsel.årsak-regelendring-2026';
 
