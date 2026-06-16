@@ -40,7 +40,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
   barnIndeks,
 }) => {
   const intl = useLokalIntlContext();
-  const { tidligereVedtakStatus } = useTidligereVedtak();
+  const { harTidligereVedtakStatus } = useTidligereVedtak();
   const { hvaSlagsBarnepassOrdning, periode } = barnepassOrdning;
 
   const navnLabel =
@@ -131,7 +131,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
             />
           )}
         </TittelOgSlettKnapp>
-        {erÅrsakBarnepassSpmBesvart(barn, tidligereVedtakStatus) && (
+        {erÅrsakBarnepassSpmBesvart(barn, harTidligereVedtakStatus) && (
           <MultiSvarSpørsmålMedNavn
             spørsmål={HvaSlagsBarnepassOrdningSpm(intl)}
             spørsmålTekst={spørsmålTekstBarnepassOrdning}

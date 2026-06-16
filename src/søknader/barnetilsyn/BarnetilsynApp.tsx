@@ -29,7 +29,7 @@ const BarnetilsynApp = () => {
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
   const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
-  const { settTidligereVedtakStatus } = useTidligereVedtak();
+  const { settHarTidligereVedtakStatus } = useTidligereVedtak();
 
   autentiseringsInterceptor();
 
@@ -59,8 +59,8 @@ const BarnetilsynApp = () => {
 
   const hentOgSettTidligereVedtakStatus = () => {
     return hentVedtakPåGammeltRegelverk()
-      .then((status) => settTidligereVedtakStatus(status))
-      .catch(() => settTidligereVedtakStatus('VET_IKKE'));
+      .then((status) => settHarTidligereVedtakStatus(status))
+      .catch(() => settHarTidligereVedtakStatus('VET_IKKE'));
   };
 
   useEffect(() => {

@@ -46,7 +46,7 @@ export const Barnepass: FC = () => {
     settBarn,
     mellomlagreSteg,
   } = useBarnepass();
-  const { tidligereVedtakStatus } = useTidligereVedtak();
+  const { harTidligereVedtakStatus } = useTidligereVedtak();
   const barnSomSkalHaBarnepass = barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
@@ -121,16 +121,22 @@ export const Barnepass: FC = () => {
             erBarnepassForBarnFørNåværendeUtfylt(
               barn,
               barnSomSkalHaBarnepass,
-              tidligereVedtakStatus
+              harTidligereVedtakStatus
             );
           return (
             visSeksjon && (
               <React.Fragment key={barn.id}>
                 <BarneHeader barn={barn} />
-                {skalViseÅrsakBarnepass(barn, tidligereVedtakStatus) && (
-                  <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
+
+                {skalViseÅrsakBarnepass(barn, harTidligereVedtakStatus) && (
+                  <ÅrsakBarnepass
+                    barn={barn}
+                    settBarnepass={settBarnepass}
+                    tidligereVedtakStatus={harTidligereVedtakStatus}
+                  />
                 )}
-                {erÅrsakBarnepassSpmBesvart(barn, tidligereVedtakStatus) && (
+
+                {erÅrsakBarnepassSpmBesvart(barn, harTidligereVedtakStatus) && (
                   <BarnepassOrdninger barn={barn} settBarnepass={settBarnepass} indeks={index} />
                 )}
               </React.Fragment>
