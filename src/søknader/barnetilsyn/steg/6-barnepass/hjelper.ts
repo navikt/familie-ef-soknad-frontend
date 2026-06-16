@@ -1,3 +1,4 @@
+import { differenceInMonths } from 'date-fns';
 import { IBarn } from '../../../../models/steg/barn';
 import {
   dagensDato,
@@ -10,6 +11,7 @@ import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/me
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
 import { IDatoFelt, ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
+import { TidligereVedtakStatus } from '../../../../innsending/api';
 
 export const harBarnAvsluttetFjerdeKlasse = (fødselsdato: string): boolean => {
   const juniEllerFør = dagensDato.getMonth() < 6;
@@ -23,12 +25,26 @@ export const harBarnAvsluttetFjerdeKlasse = (fødselsdato: string): boolean => {
   }
 };
 
-export const erÅrsakBarnepassSpmBesvart = (barn: IBarn): boolean => {
-  return (
-    (harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi) &&
-      barn.barnepass?.årsakBarnepass?.verdi !== undefined) ||
-    !harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi)
-  );
+export const erBarnMinstFjortenMåneder = (fødselsdato: string): boolean => {
+  return differenceInMonths(dagensDato, strengTilDato(fødselsdato)) >= 14;
+};
+
+export const skalViseÅrsakBarnepass = (
+  barn: IBarn,
+  tidligereVedtakStatus: TidligereVedtakStatus
+): boolean => {
+  if (tidligereVedtakStatus === 'JA') {
+    return harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi);
+  }
+  return erBarnMinstFjortenMåneder(barn.fødselsdato.verdi);
+};
+
+export const erÅrsakBarnepassSpmBesvart = (
+  barn: IBarn,
+  tidligereVedtakStatus: TidligereVedtakStatus
+): boolean => {
+  const skalVise = skalViseÅrsakBarnepass(barn, tidligereVedtakStatus);
+  return !skalVise || barn.barnepass?.årsakBarnepass?.verdi !== undefined;
 };
 
 export const erBarnepassOrdningerUtfylt = (barnepassordninger: BarnepassOrdning[]): boolean => {
@@ -67,10 +83,13 @@ export const erBarnepassForAlleBarnUtfylt = (barn: IBarn[]) => {
   );
 };
 
-export const erSpørsmålSeksjonForBarnFerdigUtfylt = (barn: IBarn) => {
+export const erSpørsmålSeksjonForBarnFerdigUtfylt = (
+  barn: IBarn,
+  tidligereVedtakStatus: TidligereVedtakStatus
+) => {
   const barnepass = barn.barnepass;
   return (
-    erÅrsakBarnepassSpmBesvart(barn) &&
+    erÅrsakBarnepassSpmBesvart(barn, tidligereVedtakStatus) &&
     barnepass?.barnepassordninger &&
     erBarnepassOrdningerUtfylt(barnepass?.barnepassordninger)
   );
@@ -78,13 +97,14 @@ export const erSpørsmålSeksjonForBarnFerdigUtfylt = (barn: IBarn) => {
 
 export const erBarnepassForBarnFørNåværendeUtfylt = (
   barn: IBarn,
-  barnSomSkalHaBarnepass: IBarn[]
+  barnSomSkalHaBarnepass: IBarn[],
+  tidligereVedtakStatus: TidligereVedtakStatus
 ): boolean => {
   const barnIndex: number = barnSomSkalHaBarnepass.indexOf(barn);
 
   return barnSomSkalHaBarnepass
     .filter((barn, index) => index < barnIndex)
-    .every((barn) => erSpørsmålSeksjonForBarnFerdigUtfylt(barn));
+    .every((barn) => erSpørsmålSeksjonForBarnFerdigUtfylt(barn, tidligereVedtakStatus));
 };
 
 const harBarnMedBarbehageOgLignende = (barn: IBarn[]): boolean => {

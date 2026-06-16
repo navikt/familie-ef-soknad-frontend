@@ -12,12 +12,15 @@ import {
   formatMånederTilbake,
 } from '../../../../utils/dato';
 import {
+  lagBarnepass,
   lagIBarn,
   lagPerson,
   lagSpørsmålBooleanFelt,
+  lagSpørsmålFelt,
   lagSøknadBarnetilsyn,
   lagTekstfelt,
 } from '../../../../test/domeneUtils';
+import { EBarnepass, EÅrsakBarnepass } from '../../models/barnepass';
 
 const søkerFraBestemtMånedSpørsmålBarnetilsyn = `Søker du om stønad til barnetilsyn fra en bestemt måned? Om å søke fra et bestemt tidspunkt Du kan få stønad til barnetilsyn fra og med den måneden du har rett til stønaden. Du kan ha rett til stønad i inntil 3 måneder før du søker. Det vil si fra og med ${formatMånederTilbake(dagensDato, 3)}. Selv om du søker fra en bestemt måned vil vi vurdere om du har rett til stønad fra denne måneden eller senere.`;
 
@@ -402,12 +405,7 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt har fullført 4. skoleår.'
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'På dette alderstrinnet er barn normalt blitt tilstrekkelig selvhjulpne og modne slik at de klarer seg utenfor skoletiden både i hjemmet og i sitt vanlige nærmiljø i den tiden du er fraværende på grunn av arbeid.'
+        'Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt er 14 måneder.'
       )
     ).toBeInTheDocument();
 
@@ -525,6 +523,14 @@ describe('Barnepass-Steg', () => {
                 label: '',
                 verdi: true,
               }),
+              barnepass: lagBarnepass({
+                årsakBarnepass: lagSpørsmålFelt({
+                  spørsmålid: EBarnepass.årsakBarnepass,
+                  svarid: EÅrsakBarnepass.myeBortePgaJobb,
+                  label: 'Hvorfor trenger barnet pass?',
+                  verdi: 'Jeg er mye borte.',
+                }),
+              }),
             }),
             lagIBarn({
               navn: lagTekstfelt({ label: 'Navn', verdi: 'BARN TO' }),
@@ -538,6 +544,14 @@ describe('Barnepass-Steg', () => {
                 svarid: '',
                 label: '',
                 verdi: true,
+              }),
+              barnepass: lagBarnepass({
+                årsakBarnepass: lagSpørsmålFelt({
+                  spørsmålid: EBarnepass.årsakBarnepass,
+                  svarid: EÅrsakBarnepass.myeBortePgaJobb,
+                  label: 'Hvorfor trenger barnet pass?',
+                  verdi: 'Jeg er mye borte.',
+                }),
               }),
             }),
           ],

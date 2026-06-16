@@ -13,7 +13,7 @@ import {
   erBarnepassForBarnFørNåværendeUtfylt,
   erBarnepassStegFerdigUtfylt,
   erÅrsakBarnepassSpmBesvart,
-  harBarnAvsluttetFjerdeKlasse,
+  skalViseÅrsakBarnepass,
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
@@ -27,6 +27,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort, VStack } from '@navikt/ds-react';
 import { useBarnepass } from './BarnepassContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
+import { useTidligereVedtak } from '../../../../context/TidligereVedtakContext';
 
 export const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
@@ -45,6 +46,7 @@ export const Barnepass: FC = () => {
     settBarn,
     mellomlagreSteg,
   } = useBarnepass();
+  const { harTidligereVedtakStatus } = useTidligereVedtak();
   const barnSomSkalHaBarnepass = barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
@@ -115,15 +117,26 @@ export const Barnepass: FC = () => {
       <VStack gap={'space-64'}>
         {barnSomSkalHaBarnepass.map((barn: IBarn, index: number) => {
           const visSeksjon =
-            index === 0 || erBarnepassForBarnFørNåværendeUtfylt(barn, barnSomSkalHaBarnepass);
+            index === 0 ||
+            erBarnepassForBarnFørNåværendeUtfylt(
+              barn,
+              barnSomSkalHaBarnepass,
+              harTidligereVedtakStatus
+            );
           return (
             visSeksjon && (
               <React.Fragment key={barn.id}>
                 <BarneHeader barn={barn} />
-                {harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi) && (
-                  <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
+
+                {skalViseÅrsakBarnepass(barn, harTidligereVedtakStatus) && (
+                  <ÅrsakBarnepass
+                    barn={barn}
+                    settBarnepass={settBarnepass}
+                    tidligereVedtakStatus={harTidligereVedtakStatus}
+                  />
                 )}
-                {erÅrsakBarnepassSpmBesvart(barn) && (
+
+                {erÅrsakBarnepassSpmBesvart(barn, harTidligereVedtakStatus) && (
                   <BarnepassOrdninger barn={barn} settBarnepass={settBarnepass} indeks={index} />
                 )}
               </React.Fragment>

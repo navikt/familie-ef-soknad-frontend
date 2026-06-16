@@ -20,6 +20,7 @@ import { Heading, TextField, VStack } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import { useTidligereVedtak } from '../../../../context/TidligereVedtakContext';
 
 interface Props {
   barn: IBarn;
@@ -39,6 +40,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
   barnIndeks,
 }) => {
   const intl = useLokalIntlContext();
+  const { harTidligereVedtakStatus } = useTidligereVedtak();
   const { hvaSlagsBarnepassOrdning, periode } = barnepassOrdning;
 
   const navnLabel =
@@ -129,7 +131,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
             />
           )}
         </TittelOgSlettKnapp>
-        {erÅrsakBarnepassSpmBesvart(barn) && (
+        {erÅrsakBarnepassSpmBesvart(barn, harTidligereVedtakStatus) && (
           <MultiSvarSpørsmålMedNavn
             spørsmål={HvaSlagsBarnepassOrdningSpm(intl)}
             spørsmålTekst={spørsmålTekstBarnepassOrdning}
