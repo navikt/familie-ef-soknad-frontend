@@ -787,6 +787,8 @@ export default {
   'barnepass.spm.årsak': 'Why does [0] need looking after?',
   'barnepass.alert-advarsel.årsak':
     '<b>The main rule is that you can receive child care benefit until your child has completed their fourth year at school.\n </b> <br/><br/>At this stage, children have normally become sufficiently self-reliant and mature that they can cope on their own outside school hours both at home and in their usual local environment while you are absent due to work.',
+  'barnepass.alert-advarsel.årsak-regelendring-2026':
+    '<b>The main rule is that you can receive child care benefit until your child is 14 months old.</b>',
   'barnepass.svar.trengerMerPassEnnJevnaldrede':
     'The child needs significantly more looking after than is usual for children of this age',
   'barnepass.dokumentasjon.trengerMerPassEnnJevnaldrede':

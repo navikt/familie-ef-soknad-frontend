@@ -405,12 +405,7 @@ describe('Barnepass-Steg', () => {
     expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt har fullført 4. skoleår.'
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'På dette alderstrinnet er barn normalt blitt tilstrekkelig selvhjulpne og modne slik at de klarer seg utenfor skoletiden både i hjemmet og i sitt vanlige nærmiljø i den tiden du er fraværende på grunn av arbeid.'
+        'Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt er 14 måneder.'
       )
     ).toBeInTheDocument();
 
