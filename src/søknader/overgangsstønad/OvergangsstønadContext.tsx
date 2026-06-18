@@ -82,9 +82,9 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
   const { toggles } = useToggles();
-  const { harTidligereVedtakStatus } = useTidligereVedtak();
+  const { tidligereVedtakStatus } = useTidligereVedtak();
 
-  const harIkkeTidligereVedtak = harTidligereVedtakStatus !== 'JA';
+  const harIkkeTidligereVedtak = tidligereVedtakStatus !== 'JA';
   const skalBrukeRegelendringer2026 =
     harIkkeTidligereVedtak && toggles[ToggleName.overgangsstønadRegelendringer2026];
 

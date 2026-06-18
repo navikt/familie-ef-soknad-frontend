@@ -1,6 +1,5 @@
 import Environment from '../Environment';
 import {
-  lagBarnepass,
   lagBooleanFelt,
   lagDatoFelt,
   lagIBarn,
@@ -29,7 +28,6 @@ import { isoDatoEnMånedTilbake } from './dato';
 import { dagensIsoDatoMinusMåneder } from '../utils/dato';
 import { SøknadBarnetilsyn } from '../søknader/barnetilsyn/models/søknad';
 import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
-import { EBarnepass, EÅrsakBarnepass } from '../søknader/barnetilsyn/models/barnepass';
 
 type StønadType =
   | 'overgangsstonad'
@@ -100,9 +98,6 @@ export const mockGet = (url: string, stønadType: StønadType) => {
     return Promise.resolve({
       data: [],
     });
-  }
-  if (url === `${Environment().apiProxyUrl}/api/saksbehandling/har-vedtak-pa-gammelt-regelverk`) {
-    return Promise.resolve({ data: 'VET_IKKE' });
   }
   return Promise.resolve({ data: {} });
 };
@@ -549,14 +544,6 @@ const søknadBarnetilsynBarnasBosted = (søknad?: Partial<SøknadBarnetilsyn>) =
             svarid: '',
             label: '',
             verdi: true,
-          }),
-          barnepass: lagBarnepass({
-            årsakBarnepass: lagSpørsmålFelt({
-              spørsmålid: EBarnepass.årsakBarnepass,
-              svarid: EÅrsakBarnepass.myeBortePgaJobb,
-              label: 'Hvorfor trenger barnet pass?',
-              verdi: 'Jeg er mye borte.',
-            }),
           }),
         }),
       ],
