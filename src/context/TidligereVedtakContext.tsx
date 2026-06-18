@@ -2,23 +2,18 @@ import { createContext, useContext, useState } from 'react';
 import { TidligereVedtakStatus } from '../innsending/api';
 
 interface TidligereVedtakContextType {
-  harTidligereVedtakStatus: TidligereVedtakStatus;
-  settHarTidligereVedtakStatus: (status: TidligereVedtakStatus) => void;
+  tidligereVedtakStatus: TidligereVedtakStatus;
+  settTidligereVedtakStatus: (status: TidligereVedtakStatus) => void;
 }
 
 const TidligereVedtakContext = createContext<TidligereVedtakContextType | undefined>(undefined);
 
 const TidligereVedtakProvider = ({ children }: { children: React.ReactNode }) => {
-  const [harTidligereVedtakStatus, settHarTidligereVedtakStatus] =
+  const [tidligereVedtakStatus, settTidligereVedtakStatus] =
     useState<TidligereVedtakStatus>('VET_IKKE');
 
   return (
-    <TidligereVedtakContext.Provider
-      value={{
-        harTidligereVedtakStatus,
-        settHarTidligereVedtakStatus,
-      }}
-    >
+    <TidligereVedtakContext.Provider value={{ tidligereVedtakStatus, settTidligereVedtakStatus }}>
       {children}
     </TidligereVedtakContext.Provider>
   );

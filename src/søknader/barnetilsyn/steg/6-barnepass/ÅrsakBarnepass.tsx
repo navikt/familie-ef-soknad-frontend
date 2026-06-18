@@ -11,15 +11,13 @@ import { Alert, VStack } from '@navikt/ds-react';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
 import { useBarnepass } from './BarnepassContext';
 import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
-import { TidligereVedtakStatus } from '../../../../innsending/api';
 
 interface Props {
   barn: IBarn;
   settBarnepass: (barnepass: IBarnepass, barneid: string) => void;
-  tidligereVedtakStatus: TidligereVedtakStatus;
 }
 
-export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, tidligereVedtakStatus }) => {
+export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const { barnepass } = barn;
@@ -52,16 +50,10 @@ export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, tidligereVedta
     );
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id);
   };
-
-  const alertAdvarselTekst =
-    tidligereVedtakStatus === 'JA'
-      ? 'barnepass.alert-advarsel.årsak'
-      : 'barnepass.alert-advarsel.årsak-regelendring-2026';
-
   return (
     <VStack gap={'space-48'}>
       <Alert size="small" variant="warning" inline>
-        {hentHTMLTekst(alertAdvarselTekst, intl)}
+        {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
       </Alert>
       <MultiSvarSpørsmålMedNavn
         spørsmål={årsakBarnepassConfig}

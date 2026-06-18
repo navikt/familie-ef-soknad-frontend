@@ -17,8 +17,6 @@ import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { hentTekst } from '../../utils/teksthåndtering';
-import { hentVedtakPåGammeltRegelverk } from '../../innsending/api';
-import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 const BarnetilsynApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -29,7 +27,6 @@ const BarnetilsynApp = () => {
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
   const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
-  const { settHarTidligereVedtakStatus } = useTidligereVedtak();
 
   autentiseringsInterceptor();
 
@@ -57,18 +54,11 @@ const BarnetilsynApp = () => {
     });
   };
 
-  const hentOgSettTidligereVedtakStatus = () => {
-    return hentVedtakPåGammeltRegelverk()
-      .then((status) => settHarTidligereVedtakStatus(status))
-      .catch(() => settHarTidligereVedtakStatus('VET_IKKE'));
-  };
-
   useEffect(() => {
     Promise.all([
       fetchToggles(),
       fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
       hentMellomlagretBarnetilsyn(),
-      hentOgSettTidligereVedtakStatus(),
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
