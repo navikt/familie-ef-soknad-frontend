@@ -761,6 +761,8 @@ export default {
   'barnepass.spm.årsak': 'Hvorfor trenger [0] pass?',
   'barnepass.alert-advarsel.årsak':
     '<b>Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt har fullført 4. skoleår. </b> <br/><br/>På dette alderstrinnet er barn normalt blitt tilstrekkelig selvhjulpne og modne slik at de klarer seg utenfor skoletiden både i hjemmet og i sitt vanlige nærmiljø i den tiden du er fraværende på grunn av arbeid.',
+  'barnepass.alert-advarsel.årsak-regelendring-2026':
+    '<b>Hovedregelen er at du kan få stønad til barnetilsyn frem til barnet ditt er 14 måneder.</b>',
   'barnepass.svar.trengerMerPassEnnJevnaldrede':
     'Barnet har behov for vesentlig mer pass enn det som er vanlig for jevnaldrende',
   'barnepass.dokumentasjon.trengerMerPassEnnJevnaldrede':

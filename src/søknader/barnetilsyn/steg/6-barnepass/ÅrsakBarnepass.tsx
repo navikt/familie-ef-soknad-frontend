@@ -15,9 +15,10 @@ import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDoku
 interface Props {
   barn: IBarn;
   settBarnepass: (barnepass: IBarnepass, barneid: string) => void;
+  skalBrukeRegelendringer2026: boolean;
 }
 
-export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
+export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass, skalBrukeRegelendringer2026 }) => {
   const intl = useLokalIntlContext();
   const { settDokumentasjonsbehovForBarn } = useBarnepass();
   const { barnepass } = barn;
@@ -50,10 +51,15 @@ export const ÅrsakBarnepass: FC<Props> = ({ barn, settBarnepass }) => {
     );
     settDokumentasjonsbehovForBarn(spørsmål, svar, barn.id);
   };
+
+  const alertAdvarselTekst = skalBrukeRegelendringer2026
+    ? 'barnepass.alert-advarsel.årsak-regelendring-2026'
+    : 'barnepass.alert-advarsel.årsak';
+
   return (
     <VStack gap={'space-48'}>
       <Alert size="small" variant="warning" inline>
-        {hentHTMLTekst('barnepass.alert-advarsel.årsak', intl)}
+        {hentHTMLTekst(alertAdvarselTekst, intl)}
       </Alert>
       <MultiSvarSpørsmålMedNavn
         spørsmål={årsakBarnepassConfig}

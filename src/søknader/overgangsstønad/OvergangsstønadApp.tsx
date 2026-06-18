@@ -26,7 +26,7 @@ export const OvergangsstønadApp = () => {
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
   const { settSøknad, hentMellomlagretOvergangsstønad } = useOvergangsstønadSøknad();
   const { settToggles } = useToggles();
-  const { settTidligereVedtakStatus } = useTidligereVedtak();
+  const { settHarTidligereVedtakStatus } = useTidligereVedtak();
 
   const intl = useLokalIntlContext();
   autentiseringsInterceptor();
@@ -52,13 +52,13 @@ export const OvergangsstønadApp = () => {
 
   const hentTidligereVedtakGammeltRegelverk = (toggles: Record<string, boolean> | void) => {
     if (!toggles || !toggles[ToggleName.overgangsstønadRegelendringer2026]) {
-      settTidligereVedtakStatus('VET_IKKE');
+      settHarTidligereVedtakStatus('VET_IKKE');
       return Promise.resolve();
     }
 
     return hentVedtakPåGammeltRegelverk()
-      .then((status) => settTidligereVedtakStatus(status))
-      .catch(() => settTidligereVedtakStatus('VET_IKKE'));
+      .then((status) => settHarTidligereVedtakStatus(status))
+      .catch(() => settHarTidligereVedtakStatus('VET_IKKE'));
   };
 
   useEffect(() => {
