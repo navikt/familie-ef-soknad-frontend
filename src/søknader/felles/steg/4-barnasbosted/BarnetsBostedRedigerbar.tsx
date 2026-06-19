@@ -124,15 +124,16 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
     finnesBarnISøknadMedRegistrertAnnenForelder
   );
 
-  const visBorAnnenForelderINorge = skalBorAnnenForelderINorgeVises(
-    barn,
-    typeBarn,
-    barnHarSammeForelder,
-    forelder,
-    ident,
-    fødselsdato,
-    kjennerIkkeIdent
-  );
+  const visBorAnnenForelderINorge =
+    skalBorAnnenForelderINorgeVises(
+      barn,
+      typeBarn,
+      barnHarSammeForelder,
+      forelder,
+      ident,
+      fødselsdato,
+      kjennerIkkeIdent
+    ) && erGyldigFødselsdato;
 
   const skalFylleUtHarBoddSammenFør = harValgtBorISammeHus(forelder) && utfyltBorINorge(forelder);
 
