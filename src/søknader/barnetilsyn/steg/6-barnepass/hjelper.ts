@@ -1,3 +1,4 @@
+import { differenceInMonths } from 'date-fns';
 import { IBarn } from '../../../../models/steg/barn';
 import {
   dagensDato,
@@ -23,12 +24,26 @@ export const harBarnAvsluttetFjerdeKlasse = (fødselsdato: string): boolean => {
   }
 };
 
-export const erÅrsakBarnepassSpmBesvart = (barn: IBarn): boolean => {
-  return (
-    (harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi) &&
-      barn.barnepass?.årsakBarnepass?.verdi !== undefined) ||
-    !harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi)
-  );
+export const erBarnMinstFjortenMåneder = (fødselsdato: string): boolean => {
+  return differenceInMonths(dagensDato, strengTilDato(fødselsdato)) >= 14;
+};
+
+export const skalViseÅrsakBarnepass = (
+  barn: IBarn,
+  skalBrukeRegelendringer2026: boolean
+): boolean => {
+  if (skalBrukeRegelendringer2026) {
+    return erBarnMinstFjortenMåneder(barn.fødselsdato.verdi);
+  }
+  return harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi);
+};
+
+export const erÅrsakBarnepassSpmBesvart = (
+  barn: IBarn,
+  skalBrukeRegelendringer2026: boolean
+): boolean => {
+  const skalVise = skalViseÅrsakBarnepass(barn, skalBrukeRegelendringer2026);
+  return !skalVise || barn.barnepass?.årsakBarnepass?.verdi !== undefined;
 };
 
 export const erBarnepassOrdningerUtfylt = (barnepassordninger: BarnepassOrdning[]): boolean => {
@@ -67,10 +82,13 @@ export const erBarnepassForAlleBarnUtfylt = (barn: IBarn[]) => {
   );
 };
 
-export const erSpørsmålSeksjonForBarnFerdigUtfylt = (barn: IBarn) => {
+export const erSpørsmålSeksjonForBarnFerdigUtfylt = (
+  barn: IBarn,
+  skalBrukeRegelendringer2026: boolean
+) => {
   const barnepass = barn.barnepass;
   return (
-    erÅrsakBarnepassSpmBesvart(barn) &&
+    erÅrsakBarnepassSpmBesvart(barn, skalBrukeRegelendringer2026) &&
     barnepass?.barnepassordninger &&
     erBarnepassOrdningerUtfylt(barnepass?.barnepassordninger)
   );
@@ -78,13 +96,14 @@ export const erSpørsmålSeksjonForBarnFerdigUtfylt = (barn: IBarn) => {
 
 export const erBarnepassForBarnFørNåværendeUtfylt = (
   barn: IBarn,
-  barnSomSkalHaBarnepass: IBarn[]
+  barnSomSkalHaBarnepass: IBarn[],
+  skalBrukeRegelendringer2026: boolean
 ): boolean => {
   const barnIndex: number = barnSomSkalHaBarnepass.indexOf(barn);
 
   return barnSomSkalHaBarnepass
     .filter((barn, index) => index < barnIndex)
-    .every((barn) => erSpørsmålSeksjonForBarnFerdigUtfylt(barn));
+    .every((barn) => erSpørsmålSeksjonForBarnFerdigUtfylt(barn, skalBrukeRegelendringer2026));
 };
 
 const harBarnMedBarbehageOgLignende = (barn: IBarn[]): boolean => {

@@ -13,7 +13,7 @@ import {
   erBarnepassForBarnFørNåværendeUtfylt,
   erBarnepassStegFerdigUtfylt,
   erÅrsakBarnepassSpmBesvart,
-  harBarnAvsluttetFjerdeKlasse,
+  skalViseÅrsakBarnepass,
   skalDokumentereTidligereFakturaer,
 } from './hjelper';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
@@ -27,6 +27,9 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort, VStack } from '@navikt/ds-react';
 import { useBarnepass } from './BarnepassContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
+import { useTidligereVedtak } from '../../../../context/TidligereVedtakContext';
+import { useToggles } from '../../../../context/TogglesContext';
+import { ToggleName } from '../../../../models/søknad/toggles';
 
 export const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
@@ -45,6 +48,10 @@ export const Barnepass: FC = () => {
     settBarn,
     mellomlagreSteg,
   } = useBarnepass();
+  const { harTidligereVedtakStatus } = useTidligereVedtak();
+  const { toggles } = useToggles();
+  const skalBrukeRegelendringer2026 =
+    harTidligereVedtakStatus !== 'JA' && toggles[ToggleName.overgangsstønadRegelendringer2026];
   const barnSomSkalHaBarnepass = barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
@@ -115,15 +122,26 @@ export const Barnepass: FC = () => {
       <VStack gap={'space-64'}>
         {barnSomSkalHaBarnepass.map((barn: IBarn, index: number) => {
           const visSeksjon =
-            index === 0 || erBarnepassForBarnFørNåværendeUtfylt(barn, barnSomSkalHaBarnepass);
+            index === 0 ||
+            erBarnepassForBarnFørNåværendeUtfylt(
+              barn,
+              barnSomSkalHaBarnepass,
+              skalBrukeRegelendringer2026
+            );
           return (
             visSeksjon && (
               <React.Fragment key={barn.id}>
                 <BarneHeader barn={barn} />
-                {harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi) && (
-                  <ÅrsakBarnepass barn={barn} settBarnepass={settBarnepass} />
+
+                {skalViseÅrsakBarnepass(barn, skalBrukeRegelendringer2026) && (
+                  <ÅrsakBarnepass
+                    barn={barn}
+                    settBarnepass={settBarnepass}
+                    skalBrukeRegelendringer2026={skalBrukeRegelendringer2026}
+                  />
                 )}
-                {erÅrsakBarnepassSpmBesvart(barn) && (
+
+                {erÅrsakBarnepassSpmBesvart(barn, skalBrukeRegelendringer2026) && (
                   <BarnepassOrdninger barn={barn} settBarnepass={settBarnepass} indeks={index} />
                 )}
               </React.Fragment>

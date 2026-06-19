@@ -20,6 +20,9 @@ import { Heading, TextField, VStack } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
+import { useTidligereVedtak } from '../../../../context/TidligereVedtakContext';
+import { useToggles } from '../../../../context/TogglesContext';
+import { ToggleName } from '../../../../models/søknad/toggles';
 
 interface Props {
   barn: IBarn;
@@ -39,6 +42,10 @@ export const BarnepassSpørsmål: FC<Props> = ({
   barnIndeks,
 }) => {
   const intl = useLokalIntlContext();
+  const { harTidligereVedtakStatus } = useTidligereVedtak();
+  const { toggles } = useToggles();
+  const skalBrukeRegelendringer2026 =
+    harTidligereVedtakStatus !== 'JA' && toggles[ToggleName.overgangsstønadRegelendringer2026];
   const { hvaSlagsBarnepassOrdning, periode } = barnepassOrdning;
 
   const navnLabel =
@@ -129,7 +136,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
             />
           )}
         </TittelOgSlettKnapp>
-        {erÅrsakBarnepassSpmBesvart(barn) && (
+        {erÅrsakBarnepassSpmBesvart(barn, skalBrukeRegelendringer2026) && (
           <MultiSvarSpørsmålMedNavn
             spørsmål={HvaSlagsBarnepassOrdningSpm(intl)}
             spørsmålTekst={spørsmålTekstBarnepassOrdning}
