@@ -6,6 +6,9 @@ import { SøknadBarnetilsyn } from '../../models/søknad';
 import { useState } from 'react';
 import { sanerBarnepassSteg } from './sanerBarnepassSteg';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
+import { ToggleName } from '../../../../models/søknad/toggles';
+import { useToggles } from '../../../../context/TogglesContext';
+import { useTidligereVedtak } from '../../../../context/TidligereVedtakContext';
 
 export interface Props {
   søknad: SøknadBarnetilsyn;
@@ -27,10 +30,17 @@ export const [BarnepassProvider, useBarnepass] = constate(
     settDokumentasjonsbehovForBarn,
   }: Props) => {
     const location = useLocation();
+    const { toggles } = useToggles();
+    const { harTidligereVedtakStatus, harLøpendeBarnetilsynVedRegelendring2026 } =
+      useTidligereVedtak();
 
     const [barn, settBarn] = useState(søknad.person.barn);
     const [søknadsdato, settSøknadsdato] = useState(søknad.søknadsdato);
     const [søkerFraBestemtMåned, settSøkerFraBestemtMåned] = useState(søknad.søkerFraBestemtMåned);
+
+    const skalBrukeRegelendringer2026 =
+      (harTidligereVedtakStatus !== 'JA' || !harLøpendeBarnetilsynVedRegelendring2026) &&
+      toggles[ToggleName.overgangsstønadRegelendringer2026];
 
     const mellomlagreSteg = () => {
       const oppdatertSøknad = sanerBarnepassSteg(søknad, barn, søknadsdato, søkerFraBestemtMåned);
@@ -47,6 +57,7 @@ export const [BarnepassProvider, useBarnepass] = constate(
       settSøknadsdato,
       søkerFraBestemtMåned,
       settSøkerFraBestemtMåned,
+      skalBrukeRegelendringer2026,
       mellomlagreSteg,
       søknad,
       oppdaterSøknad,
