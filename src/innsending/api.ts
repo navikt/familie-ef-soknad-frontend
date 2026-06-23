@@ -12,6 +12,14 @@ export const hentVedtakPåGammeltRegelverk = async (): Promise<TidligereVedtakSt
   return response.data;
 };
 
+export const hentHarGyldigBarnetilsynVedRegelendring = async (): Promise<boolean> => {
+  const response = await axios.get<boolean>(
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`,
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
 export const sendInnOvergangstønadSøknad = (søknad: object) => {
   return axios
     .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad`, søknad, {

@@ -4,6 +4,8 @@ import { TidligereVedtakStatus } from '../innsending/api';
 interface TidligereVedtakContextType {
   harTidligereVedtakStatus: TidligereVedtakStatus;
   settHarTidligereVedtakStatus: (status: TidligereVedtakStatus) => void;
+  harLøpendeBarnetilsynVedRegelendring2026: boolean;
+  settHarLøpendeBarnetilsynVedRegelendring2026: (harLøpende: boolean) => void;
 }
 
 const TidligereVedtakContext = createContext<TidligereVedtakContextType | undefined>(undefined);
@@ -11,12 +13,16 @@ const TidligereVedtakContext = createContext<TidligereVedtakContextType | undefi
 const TidligereVedtakProvider = ({ children }: { children: React.ReactNode }) => {
   const [harTidligereVedtakStatus, settHarTidligereVedtakStatus] =
     useState<TidligereVedtakStatus>('VET_IKKE');
+  const [harLøpendeBarnetilsynVedRegelendring2026, settHarLøpendeBarnetilsynVedRegelendring2026] =
+    useState<boolean>(false);
 
   return (
     <TidligereVedtakContext.Provider
       value={{
         harTidligereVedtakStatus,
         settHarTidligereVedtakStatus,
+        harLøpendeBarnetilsynVedRegelendring2026: harLøpendeBarnetilsynVedRegelendring2026,
+        settHarLøpendeBarnetilsynVedRegelendring2026: settHarLøpendeBarnetilsynVedRegelendring2026,
       }}
     >
       {children}

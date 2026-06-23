@@ -104,6 +104,12 @@ export const mockGet = (url: string, stønadType: StønadType) => {
   if (url === `${Environment().apiProxyUrl}/api/saksbehandling/har-vedtak-pa-gammelt-regelverk`) {
     return Promise.resolve({ data: 'VET_IKKE' });
   }
+  if (
+    url ===
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`
+  ) {
+    return Promise.resolve({ data: false });
+  }
   return Promise.resolve({ data: {} });
 };
 
