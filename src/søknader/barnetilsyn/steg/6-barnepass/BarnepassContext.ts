@@ -39,7 +39,8 @@ export const [BarnepassProvider, useBarnepass] = constate(
     const [søkerFraBestemtMåned, settSøkerFraBestemtMåned] = useState(søknad.søkerFraBestemtMåned);
 
     const skalBrukeRegelendringer2026 =
-      (harTidligereVedtakStatus !== 'JA' || !harLøpendeBarnetilsynVedRegelendring2026) &&
+      harTidligereVedtakStatus !== 'JA' &&
+      !harLøpendeBarnetilsynVedRegelendring2026 &&
       toggles[ToggleName.overgangsstønadRegelendringer2026];
 
     const mellomlagreSteg = () => {
