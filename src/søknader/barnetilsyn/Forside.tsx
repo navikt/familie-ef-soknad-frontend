@@ -56,7 +56,7 @@ const Forside: React.FC = () => {
             {hentTekst('barnetilsyn.sidetittel', intl)}
           </Heading>
 
-          {erDagensDatoMellomMaiOgAugust && (
+          {erDagensDatoMellomMaiOgAugust && nåværendeÅr !== 2026 && (
             <Alert variant="info" style={{ marginBottom: '2rem' }}>
               <Heading spacing size="small" level="3">
                 {hentTekstMedEnVariabel('barnetilsyn.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
