@@ -2,8 +2,8 @@ import { createContext, useContext, useState } from 'react';
 import { TidligereVedtakStatus } from '../innsending/api';
 
 interface TidligereVedtakContextType {
-  harTidligereVedtakStatus: TidligereVedtakStatus;
-  settHarTidligereVedtakStatus: (status: TidligereVedtakStatus) => void;
+  harTidligereOvergangsstønadStatus: TidligereVedtakStatus;
+  settHarTidligereOvergangsstønadStatus: (status: TidligereVedtakStatus) => void;
   harLøpendeBarnetilsynVedRegelendring2026: boolean;
   settHarLøpendeBarnetilsynVedRegelendring2026: (harLøpende: boolean) => void;
 }
@@ -19,8 +19,8 @@ const TidligereVedtakProvider = ({ children }: { children: React.ReactNode }) =>
   return (
     <TidligereVedtakContext.Provider
       value={{
-        harTidligereVedtakStatus,
-        settHarTidligereVedtakStatus,
+        harTidligereOvergangsstønadStatus: harTidligereVedtakStatus,
+        settHarTidligereOvergangsstønadStatus: settHarTidligereVedtakStatus,
         harLøpendeBarnetilsynVedRegelendring2026: harLøpendeBarnetilsynVedRegelendring2026,
         settHarLøpendeBarnetilsynVedRegelendring2026: settHarLøpendeBarnetilsynVedRegelendring2026,
       }}

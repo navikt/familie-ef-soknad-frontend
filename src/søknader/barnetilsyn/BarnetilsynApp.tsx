@@ -19,7 +19,7 @@ import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { hentTekst } from '../../utils/teksthåndtering';
 import {
   hentHarGyldigBarnetilsynVedRegelendring,
-  hentVedtakPåGammeltRegelverk,
+  hentOvergangsstonadPåGammeltRegelverk,
 } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
@@ -32,7 +32,7 @@ const BarnetilsynApp = () => {
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
   const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
-  const { settHarTidligereVedtakStatus, settHarLøpendeBarnetilsynVedRegelendring2026 } =
+  const { settHarTidligereOvergangsstønadStatus, settHarLøpendeBarnetilsynVedRegelendring2026 } =
     useTidligereVedtak();
 
   autentiseringsInterceptor();
@@ -61,10 +61,10 @@ const BarnetilsynApp = () => {
     });
   };
 
-  const hentOgSettTidligereVedtakStatus = () => {
-    return hentVedtakPåGammeltRegelverk()
-      .then((status) => settHarTidligereVedtakStatus(status))
-      .catch(() => settHarTidligereVedtakStatus('VET_IKKE'));
+  const hentOgSettTidligereOvergangsstønadStatus = () => {
+    return hentOvergangsstonadPåGammeltRegelverk()
+      .then((status) => settHarTidligereOvergangsstønadStatus(status))
+      .catch(() => settHarTidligereOvergangsstønadStatus('VET_IKKE'));
   };
 
   const hentOgSettHarLøpendeBarnetilsynVedRegelendring = () => {
@@ -78,7 +78,7 @@ const BarnetilsynApp = () => {
       fetchToggles(),
       fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
       hentMellomlagretBarnetilsyn(),
-      hentOgSettTidligereVedtakStatus(),
+      hentOgSettTidligereOvergangsstønadStatus(),
       hentOgSettHarLøpendeBarnetilsynVedRegelendring(),
     ])
       .then(() => settFetching(false))

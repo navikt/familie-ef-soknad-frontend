@@ -16,7 +16,7 @@ import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { hentTekst } from '../../utils/teksthåndtering';
-import { hentVedtakPåGammeltRegelverk } from '../../innsending/api';
+import { hentOvergangsstonadPåGammeltRegelverk } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 import { ToggleName } from '../../models/søknad/toggles';
 
@@ -26,7 +26,7 @@ export const OvergangsstønadApp = () => {
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
   const { settSøknad, hentMellomlagretOvergangsstønad } = useOvergangsstønadSøknad();
   const { settToggles } = useToggles();
-  const { settHarTidligereVedtakStatus } = useTidligereVedtak();
+  const { settHarTidligereOvergangsstønadStatus } = useTidligereVedtak();
 
   const intl = useLokalIntlContext();
   autentiseringsInterceptor();
@@ -50,15 +50,17 @@ export const OvergangsstønadApp = () => {
     });
   };
 
-  const hentTidligereVedtakGammeltRegelverk = (toggles: Record<string, boolean> | void) => {
+  const hentTidligereOvergangsstonadGammeltRegelverk = (
+    toggles: Record<string, boolean> | void
+  ) => {
     if (!toggles || !toggles[ToggleName.overgangsstønadRegelendringer2026]) {
-      settHarTidligereVedtakStatus('VET_IKKE');
+      settHarTidligereOvergangsstønadStatus('VET_IKKE');
       return Promise.resolve();
     }
 
-    return hentVedtakPåGammeltRegelverk()
-      .then((status) => settHarTidligereVedtakStatus(status))
-      .catch(() => settHarTidligereVedtakStatus('VET_IKKE'));
+    return hentOvergangsstonadPåGammeltRegelverk()
+      .then((status) => settHarTidligereOvergangsstønadStatus(status))
+      .catch(() => settHarTidligereOvergangsstønadStatus('VET_IKKE'));
   };
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export const OvergangsstønadApp = () => {
         Promise.all([
           fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
           hentMellomlagretOvergangsstønad(),
-          hentTidligereVedtakGammeltRegelverk(toggles),
+          hentTidligereOvergangsstonadGammeltRegelverk(toggles),
         ])
       )
       .then(() => settFetching(false))

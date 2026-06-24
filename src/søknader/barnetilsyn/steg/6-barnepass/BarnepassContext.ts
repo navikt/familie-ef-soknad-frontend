@@ -31,7 +31,7 @@ export const [BarnepassProvider, useBarnepass] = constate(
   }: Props) => {
     const location = useLocation();
     const { toggles } = useToggles();
-    const { harTidligereVedtakStatus, harLøpendeBarnetilsynVedRegelendring2026 } =
+    const { harTidligereOvergangsstønadStatus, harLøpendeBarnetilsynVedRegelendring2026 } =
       useTidligereVedtak();
 
     const [barn, settBarn] = useState(søknad.person.barn);
@@ -39,7 +39,7 @@ export const [BarnepassProvider, useBarnepass] = constate(
     const [søkerFraBestemtMåned, settSøkerFraBestemtMåned] = useState(søknad.søkerFraBestemtMåned);
 
     const skalBrukeRegelendringer2026 =
-      harTidligereVedtakStatus !== 'JA' &&
+      harTidligereOvergangsstønadStatus !== 'JA' &&
       !harLøpendeBarnetilsynVedRegelendring2026 &&
       toggles[ToggleName.overgangsstønadRegelendringer2026];
 
