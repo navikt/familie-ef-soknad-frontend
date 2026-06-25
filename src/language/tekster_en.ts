@@ -854,6 +854,8 @@ export default {
 
   'forside.overgangsstønad.erDuEnsligMorEllerFar':
     'If you are a single parent and have children under the age of 8 years, transitional benefit will ensure you have income for up to three years. In some cases, this period can be extended.\n\nYour income determines how much benefit you are entitled to.',
+  'forside.overgangsstønad.erDuEnsligMorEllerFar.regelendringer2026':
+    'If you are a single parent and have children under the age of 14 months, transitional benefit will ensure you have income for a limited period. In some cases, this period can be extended. \n\n Your income determines how much benefit you are entitled to.',
   'forside.overgangsstønad.sammeSøknad':
     'You use the same application whether you are applying for the first time or seeking an extension or an increase in your benefit period.',
   'forside.overgangsstønad.merOmOvergangsstønad':

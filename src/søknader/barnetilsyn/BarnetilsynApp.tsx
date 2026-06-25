@@ -17,7 +17,10 @@ import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { hentTekst } from '../../utils/teksthåndtering';
-import { hentVedtakPåGammeltRegelverk } from '../../innsending/api';
+import {
+  hentHarGyldigBarnetilsynVedRegelendring,
+  hentOvergangsstonadPåGammeltRegelverk,
+} from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 const BarnetilsynApp = () => {
@@ -29,7 +32,8 @@ const BarnetilsynApp = () => {
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
   const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
-  const { settHarTidligereVedtakStatus } = useTidligereVedtak();
+  const { settHarTidligereOvergangsstønadStatus, settHarLøpendeBarnetilsynVedRegelendring2026 } =
+    useTidligereVedtak();
 
   autentiseringsInterceptor();
 
@@ -57,10 +61,16 @@ const BarnetilsynApp = () => {
     });
   };
 
-  const hentOgSettTidligereVedtakStatus = () => {
-    return hentVedtakPåGammeltRegelverk()
-      .then((status) => settHarTidligereVedtakStatus(status))
-      .catch(() => settHarTidligereVedtakStatus('VET_IKKE'));
+  const hentOgSettTidligereOvergangsstønadStatus = () => {
+    return hentOvergangsstonadPåGammeltRegelverk()
+      .then((status) => settHarTidligereOvergangsstønadStatus(status))
+      .catch(() => settHarTidligereOvergangsstønadStatus('VET_IKKE'));
+  };
+
+  const hentOgSettHarLøpendeBarnetilsynVedRegelendring = () => {
+    return hentHarGyldigBarnetilsynVedRegelendring()
+      .then((harLøpende) => settHarLøpendeBarnetilsynVedRegelendring2026(harLøpende))
+      .catch(() => settHarLøpendeBarnetilsynVedRegelendring2026(false));
   };
 
   useEffect(() => {
@@ -68,7 +78,8 @@ const BarnetilsynApp = () => {
       fetchToggles(),
       fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
       hentMellomlagretBarnetilsyn(),
-      hentOgSettTidligereVedtakStatus(),
+      hentOgSettTidligereOvergangsstønadStatus(),
+      hentOgSettHarLøpendeBarnetilsynVedRegelendring(),
     ])
       .then(() => settFetching(false))
       .catch(() => settFetching(false));

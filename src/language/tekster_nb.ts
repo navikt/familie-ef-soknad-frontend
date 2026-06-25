@@ -824,6 +824,8 @@ export default {
 
   'forside.overgangsstønad.erDuEnsligMorEllerFar':
     'Er du enslig mor eller far og har barn under 8 år, vil overgangsstønaden sikre deg inntekt i inntil 3 år. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.',
+  'forside.overgangsstønad.erDuEnsligMorEllerFar.regelendringer2026':
+    'Er du enslig mor eller far og har barn under 14 måneder, vil overgangsstønaden sikre deg inntekt i en tidsbegrenset periode. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.',
   'forside.overgangsstønad.sammeSøknad':
     'Du bruker samme søknad både hvis du søker for første gang og hvis du søker forlengelse eller utvidelse av stønadstiden din.',
   'forside.overgangsstønad.merOmOvergangsstønad':
