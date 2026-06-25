@@ -28,7 +28,7 @@ import { erSisteFirmaUtfylt } from '../../../../helpers/steg/aktivitetvalidering
 import { HarSøkerSagtOppEllerRedusertStilling } from '../6-meromsituasjon/HarSøkerSagtOppEllerRedusertStilling';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';
 import { SøknadOvergangsstønad } from '../../models/søknad';
-import { datoTilStreng } from '../../../../utils/dato';
+import { datoTilStreng, nullableStrengTilDato, nåværendeÅr } from '../../../../utils/dato';
 import { useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov } from '../../../../utils/hooks';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
@@ -260,7 +260,9 @@ export const Situasjon: React.FC = () => {
           <OmFirmaeneDine
             arbeidssituasjon={aktivitet}
             settArbeidssituasjon={settAktivitet}
-            overskuddsår={new Date().getFullYear() - 1}
+            overskuddsår={
+              nullableStrengTilDato(søknad.datoPåbegyntSøknad)?.getFullYear() || nåværendeÅr
+            }
           />
         )}
 
