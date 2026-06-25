@@ -13,8 +13,8 @@ import {
   erBarnepassForBarnFørNåværendeUtfylt,
   erBarnepassStegFerdigUtfylt,
   erÅrsakBarnepassSpmBesvart,
-  skalViseÅrsakBarnepass,
   skalDokumentereTidligereFakturaer,
+  skalViseÅrsakBarnepass,
 } from './hjelper';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
@@ -27,9 +27,6 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort, VStack } from '@navikt/ds-react';
 import { useBarnepass } from './BarnepassContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
-import { useTidligereVedtak } from '../../../../context/TidligereVedtakContext';
-import { useToggles } from '../../../../context/TogglesContext';
-import { ToggleName } from '../../../../models/søknad/toggles';
 
 export const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
@@ -48,10 +45,7 @@ export const Barnepass: FC = () => {
     settBarn,
     mellomlagreSteg,
   } = useBarnepass();
-  const { harTidligereVedtakStatus } = useTidligereVedtak();
-  const { toggles } = useToggles();
-  const skalBrukeRegelendringer2026 =
-    harTidligereVedtakStatus !== 'JA' && toggles[ToggleName.overgangsstønadRegelendringer2026];
+  const { skalBrukeRegelendringer2026 } = useBarnepass();
   const barnSomSkalHaBarnepass = barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
