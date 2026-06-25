@@ -9,6 +9,9 @@ import { TidligereInnsendteSøknaderAlert } from '../../components/forside/Tidli
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+import { VarselRegelendring2026 } from './VarselRegelendring2026';
+import { useToggles } from '../../context/TogglesContext';
+import { ToggleName } from '../../models/søknad/toggles';
 
 export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -16,10 +19,13 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   settBekreftelse,
 }) => {
   const intl = useLokalIntlContext();
+  const { toggles } = useToggles();
+  const visRegelendring2026Varsel = toggles[ToggleName.overgangsstønadRegelendringer2026];
   const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
 
   return (
     <VStack gap={'space-40'} align={'center'}>
+      {visRegelendring2026Varsel && <VarselRegelendring2026 />}
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
       <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar', intl)}</BodyShort>
