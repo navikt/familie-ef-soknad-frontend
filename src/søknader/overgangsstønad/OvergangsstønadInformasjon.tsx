@@ -23,12 +23,16 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   const visRegelendring2026Varsel = toggles[ToggleName.overgangsstønadRegelendringer2026];
   const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
 
+  const førsteavsnitt = visRegelendring2026Varsel
+    ? hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar.regelendringer2026', intl)
+    : hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar', intl);
+
   return (
     <VStack gap={'space-40'} align={'center'}>
       {visRegelendring2026Varsel && <VarselRegelendring2026 />}
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
       <VStack gap={'space-12'}>
-        <BodyShort>{hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar', intl)}</BodyShort>
+        <BodyShort>{førsteavsnitt}</BodyShort>
         <BodyShort>{hentTekst('forside.overgangsstønad.sammeSøknad', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
       </VStack>
