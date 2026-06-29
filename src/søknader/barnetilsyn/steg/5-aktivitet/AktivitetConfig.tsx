@@ -36,7 +36,10 @@ export const ErDuIArbeidSpm = (intl: LokalIntlShape): ISpørsmål => ({
   ],
 });
 
-export const hvaErDinArbeidssituasjonSpm = (intl: LokalIntlShape): ISpørsmål => ({
+export const hvaErDinArbeidssituasjonSpm = (
+  intl: LokalIntlShape,
+  er2026regelverk?: boolean
+): ISpørsmål => ({
   søknadid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
   tekstid: 'arbeidssituasjon.spm',
   lesmer: {
@@ -63,10 +66,14 @@ export const hvaErDinArbeidssituasjonSpm = (intl: LokalIntlShape): ISpørsmål =
       id: EAktivitet.erAnsattIEgetAS,
       svar_tekst: hentTekst('arbeidssituasjon.svar.erAnsattIEgetAS', intl),
     },
-    {
-      id: EAktivitet.etablererEgenVirksomhet,
-      svar_tekst: hentTekst('arbeidssituasjon.svar.etablererEgenVirksomhet', intl),
-      dokumentasjonsbehov: DokumentasjonOmVirksomhetenDuEtablerer,
-    },
+    ...(!er2026regelverk
+      ? [
+          {
+            id: EAktivitet.etablererEgenVirksomhet,
+            svar_tekst: hentTekst('arbeidssituasjon.svar.etablererEgenVirksomhet', intl),
+            dokumentasjonsbehov: DokumentasjonOmVirksomhetenDuEtablerer,
+          },
+        ]
+      : []),
   ],
 });

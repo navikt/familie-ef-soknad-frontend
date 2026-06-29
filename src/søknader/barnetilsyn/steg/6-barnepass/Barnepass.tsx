@@ -27,6 +27,7 @@ import { kommerFraOppsummeringen } from '../../../../utils/locationState';
 import { BodyShort, VStack } from '@navikt/ds-react';
 import { useBarnepass } from './BarnepassContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
+import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 
 export const Barnepass: FC = () => {
   const intl = useLokalIntlContext();
@@ -45,7 +46,7 @@ export const Barnepass: FC = () => {
     settBarn,
     mellomlagreSteg,
   } = useBarnepass();
-  const { skalBrukeRegelendringer2026 } = useBarnepass();
+  const { skalBrukeRegelendringer2026 } = useBarnetilsynSøknad();
   const barnSomSkalHaBarnepass = barn.filter((barn: IBarn) => barn.skalHaBarnepass?.verdi);
 
   const datovelgerLabel = 'søkerStønadFraBestemtMnd.datovelger.barnepass';
