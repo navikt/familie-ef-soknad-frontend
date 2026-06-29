@@ -190,9 +190,6 @@ export const Situasjon: React.FC = () => {
   const erSelvstendigNæringsdrivende = valgteInntekter.includes(
     InntekterId.selvstendigNæringsdrivende
   );
-  const harValgtAnnetEnnSelvstendig = valgteInntekter.some(
-    (id) => id !== InntekterId.selvstendigNæringsdrivende
-  );
 
   const erFirmaUtfylt =
     erSelvstendigNæringsdrivende &&
@@ -202,8 +199,7 @@ export const Situasjon: React.FC = () => {
 
   const kanGåVidereFraFirma = !erSelvstendigNæringsdrivende || erFirmaUtfylt;
 
-  const visSpørsmålHarSagtOpp =
-    harValgtMinstEnInntekt && harValgtAnnetEnnSelvstendig && kanGåVidereFraFirma;
+  const visSpørsmålHarSagtOpp = harValgtMinstEnInntekt && kanGåVidereFraFirma;
 
   const erSagtOppBesvart = harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål(dinSituasjon);
 
