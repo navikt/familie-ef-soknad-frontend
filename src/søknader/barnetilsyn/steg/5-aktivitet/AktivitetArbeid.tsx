@@ -12,10 +12,12 @@ import { hvaErDinArbeidssituasjonSpm } from './AktivitetConfig';
 import { AktivitetOppfølgingSpørsmål } from './AktivitetOppfølgingSpørsmål';
 import { useAktivitet } from './AktivitetContext';
 import { VStack } from '@navikt/ds-react';
+import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 
 export const AktivitetArbeid: React.FC = () => {
   const intl = useLokalIntlContext();
   const { søknad, aktivitet, settAktivitet, settDokumentasjonsbehov } = useAktivitet();
+  const { skalBrukeRegelendringer2026 } = useBarnetilsynSøknad();
   const { hvaErDinArbeidssituasjon } = aktivitet;
 
   const settArbeidssituasjonFelt = (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => {
@@ -44,7 +46,7 @@ export const AktivitetArbeid: React.FC = () => {
       <CheckboxSpørsmål
         spørsmål={filtrerAktivitetSvaralternativer(
           søknad.person,
-          hvaErDinArbeidssituasjonSpm(intl)
+          hvaErDinArbeidssituasjonSpm(intl, skalBrukeRegelendringer2026)
         )}
         settValgteSvar={settArbeidssituasjonFelt}
         valgteSvar={hvaErDinArbeidssituasjon?.verdi ? hvaErDinArbeidssituasjon?.verdi : []}
