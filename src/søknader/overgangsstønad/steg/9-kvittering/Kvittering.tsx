@@ -25,6 +25,7 @@ import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentFilePath } from '../../../../utils/språk';
 import { Alert, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
+import { InntekterId } from '../../../../models/steg/dinsituasjon/situasjonTyper';
 
 const Kvittering: React.FC = () => {
   const intl = useLokalIntlContext();
@@ -58,6 +59,13 @@ const Kvittering: React.FC = () => {
 
   const erklæringSamlivsbrudd =
     søknad.sivilstatus.årsakEnslig?.svarid === EBegrunnelse.samlivsbruddForeldre;
+
+  const inntekter = søknad.merOmDinSituasjon?.inntekter?.svarid ?? [];
+  const harAktivitetFraAktivitetsfelter =
+    arbeidsforhold || firmaer || etablererEgenVirksomhet || egetAS;
+  const harAktivitetFraInntekter = inntekter.includes(InntekterId.arbeidstaker);
+  const skalViseTilleggsstønaderHarAktivitet =
+    harAktivitetFraAktivitetsfelter || harAktivitetFraInntekter;
 
   return søknad.innsendingsdato ? (
     <Side
@@ -94,9 +102,8 @@ const Kvittering: React.FC = () => {
         {underUtdanning && (
           <TilleggsstønaderUnderUtdanning stønadstype={Stønadstype.overgangsstønad} />
         )}
-        {(arbeidsforhold || firmaer || etablererEgenVirksomhet || egetAS) && (
-          <TilleggsstønaderHarAktivitet />
-        )}
+
+        {skalViseTilleggsstønaderHarAktivitet && <TilleggsstønaderHarAktivitet />}
       </VStack>
     </Side>
   ) : (
