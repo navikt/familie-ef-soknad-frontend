@@ -895,6 +895,8 @@ export default {
     'This benefit covers part of the cost of child minding for working single parents who have sole care of a child.',
   'forside.barnetilsyn.fåStønadSkoleår':
     'You can receive this benefit until the child finishes their fourth year of school. In some cases, you may be entitled to receive it after the child has completed their fourth year of school.',
+  'forside.barnetilsyn.fåStønadSkoleår.2026regelendring':
+    'As a general rule, you can receive the benefit until your child turns 14 months old. In some cases, you may be able to receive the benefit beyond this point.',
   'forside.barnetilsyn.merOmStønad':
     '<a className="lenkte-tekst" href="https://www.nav.no/barnetilsyn-enslig/en">Child minding benefit in more detail</a>',
   'forside.barnetilsyn.arbeidssøkerUtdanning':

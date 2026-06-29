@@ -65,13 +65,17 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';
   const gjenbrukSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
 
+  const andreAvsnitt = toggles[ToggleName.overgangsstønadRegelendringer2026]
+    ? 'forside.barnetilsyn.fåStønadSkoleår.2026regelendring'
+    : 'forside.barnetilsyn.fåStønadSkoleår';
+
   return (
     <VStack gap={'space-40'} align={'center'}>
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
 
       <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.barnetilsyn.info', intl)}</BodyShort>
-        <BodyShort>{hentTekst('forside.barnetilsyn.fåStønadSkoleår', intl)}</BodyShort>
+        <BodyShort>{hentTekst(andreAvsnitt, intl)}</BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.merOmStønad', intl)}
       </VStack>
       <VStack gap={'space-12'}>
