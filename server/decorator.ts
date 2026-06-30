@@ -19,7 +19,6 @@ const hentDekoratørConfig = () => {
     simple: true,
     redirectToApp: true,
     level: 'Level4',
-    logoutWarning: false,
   };
 
   return {
