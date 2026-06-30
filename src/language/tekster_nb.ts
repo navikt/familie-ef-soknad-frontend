@@ -868,6 +868,8 @@ export default {
     'Stønaden dekker deler av utgiftene til barnepass, når du er enslig mor eller far som er alene om omsorgen for barnet ditt og er i arbeid.',
   'forside.barnetilsyn.fåStønadSkoleår':
     'Du kan få stønaden til barnet er ferdig med 4. skoleår. I noen tilfeller kan du få stønad etter at barnet er ferdig med 4. skoleår.',
+  'forside.barnetilsyn.fåStønadSkoleår.2026regelendring':
+    'Du kan som hovedregel få stønaden til barnet ditt fyller 14 måneder. I noen tilfeller kan du få stønad utover dette tidspunktet.',
   'forside.barnetilsyn.merOmStønad':
     '<a className="lenkte-tekst" href="https://www.nav.no/barnetilsyn-enslig">Mer om stønad til barnetilsyn</a>',
   'forside.barnetilsyn.arbeidssøkerUtdanning':

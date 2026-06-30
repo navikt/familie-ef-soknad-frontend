@@ -20,7 +20,7 @@ import { Heading, TextField, VStack } from '@navikt/ds-react';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { TittelOgSlettKnapp } from '../../../../components/knapper/TittelOgSlettKnapp';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
-import { useBarnepass } from './BarnepassContext';
+import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 
 interface Props {
   barn: IBarn;
@@ -40,7 +40,7 @@ export const BarnepassSpørsmål: FC<Props> = ({
   barnIndeks,
 }) => {
   const intl = useLokalIntlContext();
-  const { skalBrukeRegelendringer2026 } = useBarnepass();
+  const { skalBrukeRegelendringer2026 } = useBarnetilsynSøknad();
   const { hvaSlagsBarnepassOrdning, periode } = barnepassOrdning;
 
   const navnLabel =

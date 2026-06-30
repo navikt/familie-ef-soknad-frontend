@@ -40,6 +40,7 @@ import { stringHarVerdiOgErIkkeTom } from '../../utils/typer';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 const initialState = (intl: LokalIntlShape): SøknadBarnetilsyn => {
   return {
@@ -82,6 +83,13 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
 
   const { toggles } = useToggles();
   const gjenbrukBarnetilsynToggle = toggles[ToggleName.gjenbrukBarnetilsyn];
+  const { harTidligereOvergangsstønadStatus, harLøpendeBarnetilsynVedRegelendring2026 } =
+    useTidligereVedtak();
+
+  const skalBrukeRegelendringer2026 =
+    harTidligereOvergangsstønadStatus !== 'JA' &&
+    !harLøpendeBarnetilsynVedRegelendring2026 &&
+    toggles[ToggleName.overgangsstønadRegelendringer2026];
 
   useEffect(() => {
     if (mellomlagretBarnetilsyn?.locale && mellomlagretBarnetilsyn?.locale !== locale) {
@@ -440,6 +448,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
     nullstillSøknadBarnetilsyn,
     oppdaterBarnISøknaden,
     oppdaterFlereBarnISøknaden,
+    skalBrukeRegelendringer2026,
   };
 });
 
