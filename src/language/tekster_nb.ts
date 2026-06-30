@@ -1,4 +1,5 @@
 // sist redigert 20.12.2021 12:29
+
 export default {
   'språk.bokmål': 'Bokmål',
   'språk.engelsk': 'English',
@@ -821,6 +822,15 @@ export default {
   'skjema.oppsummering.omdeg': 'Om deg som arbeidssøker',
   'skjema.takk': 'Takk',
   'skjema.alert.mottatt': 'Opplysningene om deg som arbeidssøker er mottatt',
+
+  'forside.overgangsstønad.varselRegelendring2026.tittel':
+    'Endringer i stønadene til enslig mor eller far fra 1. juli 2026',
+  'forside.overgangsstønad.varselRegelendring2026.førsteAvsnitt':
+    'Stortinget har vedtatt endringer i stønadene til enslig mor eller far . Endringene innebærer at overgangsstønad og andre stønader knyttet til det å være enslig mor eller far blir faset ut for hovedgruppen av mottakere.',
+  'forside.overgangsstønad.varselRegelendring2026.andreAvsnitt':
+    'I en overgangsfase gjelder 2 ulike regelverk for overgangsstønad. Hvilket regelverk som gjelder for deg , avhenger av om du har hatt stønad til enslig mor eller far tidligere, og om du har stønadstid til gode.',
+  'forside.overgangsstønad.varselRegelendring2026.tredjeAvsnitt':
+    'Noen av spørsmålene du får i søknaden blir bestemt ut fra om du har fått overgangsstønad tidligere. Uansett hvilke spørsmål du får, vil Nav vurdere hvilket regelverk som gjelder for deg. Hvis vi trenger flere opplysninger fra deg, vil vi gi deg beskjed om dette.',
 
   'forside.overgangsstønad.erDuEnsligMorEllerFar':
     'Er du enslig mor eller far og har barn under 8 år, vil overgangsstønaden sikre deg inntekt i inntil 3 år. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.',
