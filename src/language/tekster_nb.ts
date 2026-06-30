@@ -874,6 +874,15 @@ export default {
   'forside.overgangsstønad.disclaimerTekst':
     'Jeg er klar over at jeg kan miste retten til overgangsstønad dersom jeg ikke har gitt riktige opplysninger. Jeg er også klar over at jeg må betale tilbake dersom jeg får penger jeg ikke har rett til og som skyldes at jeg har latt være å informere eller gitt feil opplysninger.',
 
+  'forside.barnetilsyn.varselRegelendring2026.tittel':
+    'Endringer i stønadene til enslig mor eller far fra 1. juli 2026',
+  'forside.barnetilsyn.varselRegelendring2026.førsteAvsnitt':
+    'Stortinget har vedtatt endringer i stønadene til enslig mor eller far . Endringene innebærer at overgangsstønad og andre stønader knyttet til det å være enslig mor eller far blir faset ut for hovedgruppen av mottakere.',
+  'forside.barnetilsyn.varselRegelendring2026.andreAvsnitt':
+    'I en overgangsfase gjelder 2 ulike regelverk for stønad til barnetilsyn. Hvilket regelverk som gjelder for deg, er blant annet avhengig av om du har hatt stønad til enslig mor eller far tidligere.',
+  'forside.barnetilsyn.varselRegelendring2026.tredjeAvsnitt':
+    'Noen av spørsmålene du får i søknaden blir bestemt ut fra om du har fått stønad  tidligere. Uansett hvilke spørsmål du får, vil Nav vurdere hvilket regelverk som gjelder for deg. Hvis vi trenger flere opplysninger fra deg, vil vi gi deg beskjed om dette.',
+
   'forside.barnetilsyn.info':
     'Stønaden dekker deler av utgiftene til barnepass, når du er enslig mor eller far som er alene om omsorgen for barnet ditt og er i arbeid.',
   'forside.barnetilsyn.fåStønadSkoleår':

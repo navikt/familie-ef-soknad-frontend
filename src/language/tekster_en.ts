@@ -900,6 +900,15 @@ export default {
   'forside.overgangsstønad.disclaimerTekst':
     'I am aware that I may lose my right to transitional benefit if I have not provided the correct information. I am also aware that I will have to pay back any money I receive that I am not entitled to and that I have received because I have failed to provide information or have provided incorrect information.',
 
+  'forside.barnetilsyn.varselRegelendring2026.tittel':
+    'Changes to benefits for single parents effective 1 July 2026',
+  'forside.barnetilsyn.varselRegelendring2026.førsteAvsnitt':
+    'The Storting has approved changes to the benefits for single parents. The changes mean that the transitional benefit and other benefits related to being a single parent will be phased out for the main group of recipients.',
+  'forside.barnetilsyn.varselRegelendring2026.andreAvsnitt':
+    'During a transitional period, two different sets of rules apply to child care benefit. Which set of rules applies to you depends on whether you have previously received benefits for single parents.',
+  'forside.barnetilsyn.varselRegelendring2026.tredjeAvsnitt':
+    'Some of the questions you are asked in the application are determined by whether you have received benefits for single parents previously. Regardless of the questions you are asked, Nav will assess which set of rules applies to you. If we need further information from you, we will let you know.',
+
   'forside.barnetilsyn.info':
     'This benefit covers part of the cost of child minding for working single parents who have sole care of a child.',
   'forside.barnetilsyn.fåStønadSkoleår':

@@ -15,6 +15,7 @@ import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { useToggles } from '../../context/TogglesContext';
 import { ToggleName } from '../../models/søknad/toggles';
+import { VarselRegelendring2026 } from '../overgangsstønad/VarselRegelendring2026';
 
 export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -28,6 +29,7 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
 
   const { toggles } = useToggles();
   const gjenbrukBarnetilsynToggle = toggles[ToggleName.gjenbrukBarnetilsyn];
+  const visRegelendring2026Varsel = toggles[ToggleName.overgangsstønadRegelendringer2026];
 
   const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (forrigeSøknad?: ForrigeSøknad) => {
     if (forrigeSøknad) {
@@ -71,6 +73,9 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <VStack gap={'space-40'} align={'center'}>
+      {visRegelendring2026Varsel && (
+        <VarselRegelendring2026 stønadstype={Stønadstype.barnetilsyn} />
+      )}
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
 
       <VStack gap={'space-12'}>

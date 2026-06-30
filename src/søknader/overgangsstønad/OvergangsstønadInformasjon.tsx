@@ -29,7 +29,9 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
 
   return (
     <VStack gap={'space-40'} align={'center'}>
-      {visRegelendring2026Varsel && <VarselRegelendring2026 />}
+      {visRegelendring2026Varsel && (
+        <VarselRegelendring2026 stønadstype={Stønadstype.overgangsstønad} />
+      )}
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
       <VStack gap={'space-12'}>
         <BodyShort>{førsteavsnitt}</BodyShort>
