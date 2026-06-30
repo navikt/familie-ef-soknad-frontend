@@ -852,6 +852,15 @@ export default {
   'alert.warning.oversettingUnderArbeid':
     "We are in the process of translating this application. The few missingtranslations will appear in Norwegian until we've translated them.",
 
+  'forside.overgangsstønad.varselRegelendring2026.tittel':
+    'Changes to benefits for single parents effective 1. July 2026',
+  'forside.overgangsstønad.varselRegelendring2026.førsteAvsnitt':
+    'The Storting has approved changes to the benefits for single parents. These changes mean that the transitional benefit and other benefits related to being a single parent will be phased out for the majority of recipients.',
+  'forside.overgangsstønad.varselRegelendring2026.andreAvsnitt':
+    'During a transitional period, two different sets of rules apply to the transitional benefit. Which set of rules applies to you depends on whether you have previously received benefits for single parents, and whether you have any remaining benefit entitlement.',
+  'forside.overgangsstønad.varselRegelendring2026.tredjeAvsnitt':
+    'Some of the questions you are asked in the application are determined by whether you have received transitional benefit previously. Regardless of the questions you are asked, Nav will assess which set of rules applies to you. If we need further information from you, we will let you know.',
+
   'forside.overgangsstønad.erDuEnsligMorEllerFar':
     'If you are a single parent and have children under the age of 8 years, transitional benefit will ensure you have income for up to three years. In some cases, this period can be extended.\n\nYour income determines how much benefit you are entitled to.',
   'forside.overgangsstønad.erDuEnsligMorEllerFar.regelendringer2026':
