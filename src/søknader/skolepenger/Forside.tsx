@@ -6,12 +6,14 @@ import FortsettSøknad from '../../components/forside/FortsettSøknad';
 import { useSpråkValg } from '../../utils/hooks';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Alert, Box, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Box, Heading } from '@navikt/ds-react';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
-import { hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
+import { hentHTMLTekst, hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
+import { ToggleName } from '../../models/søknad/toggles';
+import { useToggles } from '../../context/TogglesContext';
 
 const Forside: React.FC = () => {
   const { person } = usePersonContext();
@@ -24,6 +26,8 @@ const Forside: React.FC = () => {
     settSøknad,
   } = useSkolepengerSøknad();
   const erDagensDatoMellomMaiOgAugust = erNåværendeMånedMellomMåneder(5, 8);
+  const { toggles } = useToggles();
+  const visRegelendring2026Varsel = toggles[ToggleName.overgangsstønadRegelendringer2026];
 
   const settBekreftelse = (bekreftelse: boolean) => {
     settSøknad({
@@ -55,12 +59,23 @@ const Forside: React.FC = () => {
             {hentTekst('skolepenger.overskrift', intl)}
           </Heading>
 
-          {erDagensDatoMellomMaiOgAugust && (
+          {erDagensDatoMellomMaiOgAugust && !visRegelendring2026Varsel && (
             <Alert variant="info" style={{ marginBottom: '2rem' }}>
               <Heading spacing size="small" level="3">
                 {hentTekstMedEnVariabel('skolepenger.søkerFraAugustTittel', intl, `${nåværendeÅr}`)}
               </Heading>
               {hentTekst('skolepenger.søkerFraAugustInnhold', intl)}
+            </Alert>
+          )}
+
+          {visRegelendring2026Varsel && (
+            <Alert variant="info" style={{ marginBottom: '2rem' }}>
+              <Heading spacing size="small" level="3">
+                {hentTekst('skolepenger.skolepengerRegelendringInfoTittel', intl)}
+              </Heading>
+              <BodyShort>
+                {hentHTMLTekst('skolepenger.skolepengerRegelendringInfoInnhold', intl)}
+              </BodyShort>
             </Alert>
           )}
 

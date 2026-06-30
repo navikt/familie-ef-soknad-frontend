@@ -799,6 +799,10 @@ export default {
   'skolepenger.søkerFraAugustTittel': 'Søker du om stønad til skolepenger fra august [0]?',
   'skolepenger.søkerFraAugustInnhold':
     'For å få stønad for nytt skoleår må du kunne dokumentere utgiftene til skolepenger med faktura. Vi anbefaler derfor at du venter med å søke frem til du får fakturaen.',
+  'skolepenger.skolepengerRegelendringInfoTittel':
+    'Endringer i stønadene til enslig mor eller far fra 1. juli 2026',
+  'skolepenger.skolepengerRegelendringInfoInnhold':
+    'Stortinget har vedtatt endringer i stønadene til enslig mor eller far. Endringene innebærer at stønad til skolepenger blir avviklet. I tillegg blir overgangsstønad og stønad til barnetilsyn faset ut for hovedgruppen av mottakere. <br/><br/> For å få stønad til skolepenger må du ha rett til overgangsstønad etter reglene som gjaldt før 1. juli 2026. Hvis du har rett til overgangsstønad etter de nye reglene som gjelder fra 1. juli 2026, har du ikke rett til stønad til skolepenger.',
   'skolepenger.overskrift': 'Søknad om stønad til skolepenger',
   'banner.tittel.skolepenger': 'Søknad om skolepenger',
   'barnadine.skolepenger.info.brukpdf':

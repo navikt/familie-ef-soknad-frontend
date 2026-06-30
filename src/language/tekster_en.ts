@@ -825,6 +825,10 @@ export default {
   'skolepenger.søkerFraAugustTittel': 'Are you applying for a school fee benefit from August [0]?',
   'skolepenger.søkerFraAugustInnhold':
     'In order to receive benefits for a new school year, you must be able to document your school fees with an invoice. We recommend that you wait to apply until you receive the invoice.',
+  'skolepenger.skolepengerRegelendringInfoTittel':
+    'Changes to benefits for single parents effective 1 July 2026',
+  'skolepenger.skolepengerRegelendringInfoInnhold':
+    'The Storting has approved changes to the benefits for single parents. These changes mean that the support for school fees will be discontinued. In addition, the transitional benefit and the child care benefit will be phased out for the majority of recipients. <br/><br/> To be eligible for support for school fees, you must be entitled to a transitional benefit under the rules that applied before 1 July 2026. If you are entitled to a transitional benefit under the new rules that apply from 1 July 2026, you are not entitled to support for school fees.',
   'skolepenger.overskrift': 'Application for support for school fees',
   'banner.tittel.skolepenger': 'Application for support for school fees',
   'barnadine.skolepenger.info.brukpdf':
