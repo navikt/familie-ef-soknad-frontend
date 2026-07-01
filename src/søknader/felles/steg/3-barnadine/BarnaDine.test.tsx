@@ -103,7 +103,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
     expect(screen.getByRole('textbox', { name: 'Termindato' })).toBeInTheDocument();
 
     await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    expect(screen.getByRole('radiogroup', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
 
     await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
     expect(
@@ -171,7 +171,7 @@ describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
 
     expect(screen.getByRole('textbox', { name: 'Termindato' })).toHaveValue('');
     expect(screen.getByText('Du må legge ved terminbekreftelse')).toBeInTheDocument();
-    expect(screen.getByRole('radiogroup', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
 
     await user.type(
       screen.getByRole('textbox', { name: 'Termindato' }),

@@ -75,7 +75,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -127,7 +127,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -137,7 +137,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -177,7 +177,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -187,7 +187,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -215,7 +215,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -225,7 +225,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -279,7 +279,7 @@ describe('Mer om din situasjon', () => {
     await skrivFritekst('Om tilsynsbehovet til Gåen Pc', 'Trenger tilsyn', screen, user);
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -289,7 +289,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -297,7 +297,7 @@ describe('Mer om din situasjon', () => {
     await klikkCheckbox('Nei', screen, user);
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -308,7 +308,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -316,7 +316,7 @@ describe('Mer om din situasjon', () => {
     await klikkCheckbox('Nei', screen, user);
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -361,7 +361,7 @@ describe('Mer om din situasjon', () => {
     expect(screen.getByRole('textbox', { name: 'Når sa du opp?' })).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).not.toBeInTheDocument();
@@ -377,7 +377,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).toBeInTheDocument();
@@ -387,7 +387,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -395,7 +395,7 @@ describe('Mer om din situasjon', () => {
     await klikkCheckbox('Nei', screen, user);
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
@@ -434,7 +434,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).not.toBeInTheDocument();
@@ -450,7 +450,7 @@ describe('Mer om din situasjon', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).toBeInTheDocument();
@@ -460,7 +460,7 @@ describe('Mer om din situasjon', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).not.toBeInTheDocument();
@@ -468,13 +468,13 @@ describe('Mer om din situasjon', () => {
     await klikkCheckbox('Nei', screen, user);
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene? Grunnen til at vi spør om dette Har du sagt opp jobben uten rimelig grunn, kan du som hovedregel først ha rett til stønaden 6 måneder etter at du sa opp. Det samme gjelder hvis du har redusert arbeidstiden til under 50 prosent.',
       })
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).not.toBeInTheDocument();
@@ -487,7 +487,7 @@ describe('Mer om din situasjon', () => {
     );
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: søkerFraBestemtMånedSpørsmålOvergangsstønad,
       })
     ).toBeInTheDocument();

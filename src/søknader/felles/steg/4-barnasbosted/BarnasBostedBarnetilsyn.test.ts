@@ -126,7 +126,7 @@ describe('Barnetilsyn', () => {
       expect(screen.getByText('Navn')).toBeInTheDocument();
       expect(screen.getByText('GÅEN SKADE')).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', { name: 'Bor GÅEN PCs andre forelder i Norge?' })
+        screen.getByRole('group', { name: 'Bor GÅEN PCs andre forelder i Norge?' })
       ).toBeInTheDocument();
     });
 
@@ -135,7 +135,7 @@ describe('Barnetilsyn', () => {
       const { screen, user } = await navigerTilStegBarnetilsyn();
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
@@ -146,7 +146,7 @@ describe('Barnetilsyn', () => {
         screen.getByRole('combobox', { name: 'Hvilket land bor den andre forelderen i?' })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
@@ -159,7 +159,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
@@ -170,7 +170,7 @@ describe('Barnetilsyn', () => {
       const { screen, user } = await navigerTilStegBarnetilsyn();
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
@@ -178,7 +178,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
@@ -196,12 +196,12 @@ describe('Barnetilsyn', () => {
         )
       );
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -229,7 +229,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -247,12 +247,12 @@ describe('Barnetilsyn', () => {
         )
       );
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -300,7 +300,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -313,7 +313,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -338,7 +338,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -351,7 +351,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -379,7 +379,7 @@ describe('Barnetilsyn', () => {
       ).toBeInTheDocument();
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -392,7 +392,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -429,7 +429,7 @@ describe('Barnetilsyn', () => {
       );
       expect(screen.getByTestId('hvordanPraktiseresSamværet')).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
@@ -437,7 +437,7 @@ describe('Barnetilsyn', () => {
       await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'Ved å være sammen');
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -450,7 +450,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -487,7 +487,7 @@ describe('Barnetilsyn', () => {
       );
       expect(screen.getByTestId('hvordanPraktiseresSamværet')).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
@@ -495,7 +495,7 @@ describe('Barnetilsyn', () => {
       await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'Ved å være sammen');
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -508,7 +508,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GÅEN PCs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.?',
         })
       ).not.toBeInTheDocument();
@@ -521,12 +521,12 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GÅEN PC? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -559,7 +559,7 @@ describe('Barnetilsyn', () => {
         screen.getByRole('textbox', { name: 'Hvordan bor dere nærme hverandre?' })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).not.toBeInTheDocument();
@@ -570,7 +570,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).toBeInTheDocument();
@@ -589,7 +589,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).not.toBeInTheDocument();
@@ -602,7 +602,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).toBeInTheDocument();
@@ -621,7 +621,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).not.toBeInTheDocument();
@@ -634,7 +634,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).toBeInTheDocument();
@@ -658,7 +658,7 @@ describe('Barnetilsyn', () => {
         user
       );
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).not.toBeInTheDocument();
@@ -686,7 +686,7 @@ describe('Barnetilsyn', () => {
       await skrivFritekst('Når flyttet dere fra hverandre?', '02.06.2025', screen, user);
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
@@ -721,7 +721,7 @@ describe('Barnetilsyn', () => {
         user
       );
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).not.toBeInTheDocument();
@@ -739,7 +739,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
@@ -1030,7 +1030,7 @@ describe('Barnetilsyn', () => {
         )
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
@@ -1071,7 +1071,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
@@ -1079,7 +1079,7 @@ describe('Barnetilsyn', () => {
       await user.click(screen.getByRole('button', { name: 'Neste' }));
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
@@ -1092,7 +1092,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).toBeInTheDocument();
@@ -1215,7 +1215,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
@@ -1398,7 +1398,7 @@ describe('Barnetilsyn', () => {
 
       expect(screen.getByText('GAMMEL TRUBADUR')).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
+        screen.getByRole('group', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
       ).toBeInTheDocument();
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
     });
@@ -1436,7 +1436,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
@@ -1444,12 +1444,12 @@ describe('Barnetilsyn', () => {
       await user.click(screen.getByRole('button', { name: 'Neste' }));
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
+        screen.getByRole('group', { name: 'Bor GAMMEL TRUBADURs andre forelder i Norge?' })
       ).toBeInTheDocument();
 
       await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Nei', screen, user);
@@ -1458,7 +1458,7 @@ describe('Barnetilsyn', () => {
         screen.getByRole('combobox', { name: 'Hvilket land bor den andre forelderen i?' })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).not.toBeInTheDocument();
@@ -1471,7 +1471,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
@@ -1479,7 +1479,7 @@ describe('Barnetilsyn', () => {
       await klikkRadioknapp('Bor GAMMEL TRUBADURs andre forelder i Norge?', 'Ja', screen, user);
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GAMMEL TRUBADUR? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
@@ -1492,7 +1492,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).toBeInTheDocument();
@@ -1502,7 +1502,7 @@ describe('Barnetilsyn', () => {
       expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
       expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
@@ -1516,7 +1516,7 @@ describe('Barnetilsyn', () => {
 
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1530,7 +1530,7 @@ describe('Barnetilsyn', () => {
 
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1544,7 +1544,7 @@ describe('Barnetilsyn', () => {
 
       expect(screen.queryByText('Du må legge ved samværsavtalen')).not.toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1564,7 +1564,7 @@ describe('Barnetilsyn', () => {
 
       expect(screen.getByText('Du må legge ved samværsavtalen')).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1582,7 +1582,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
@@ -1606,7 +1606,7 @@ describe('Barnetilsyn', () => {
       await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'Ved å være sammen');
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1619,7 +1619,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).not.toBeInTheDocument();
@@ -1641,7 +1641,7 @@ describe('Barnetilsyn', () => {
       await user.type(screen.getByTestId('hvordanPraktiseresSamværet'), 'ikke ha samværsavtale');
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1654,13 +1654,13 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har dere skriftlig samværsavtale for GAMMEL TRUBADUR? Opplysninger vi trenger i samværsavtalen Vi trenger opplysninger om hvor mange dager og netter barnet oppholder barnet seg hos den andre forelderen i minst en to ukers-periode når barnet reiser til og fra den andre forelderen',
         })
       ).not.toBeInTheDocument();
       expect(screen.queryByTestId('hvordanPraktiseresSamværet')).not.toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GAMMEL TRUBADUR i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
@@ -1676,7 +1676,7 @@ describe('Barnetilsyn', () => {
         screen.getByRole('textbox', { name: 'Hvordan bor dere nærme hverandre?' })
       ).toBeInTheDocument();
       expect(
-        screen.queryByRole('radiogroup', {
+        screen.queryByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
         })
       ).not.toBeInTheDocument();
@@ -1687,7 +1687,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
         })
       ).toBeInTheDocument();
@@ -1704,7 +1704,7 @@ describe('Barnetilsyn', () => {
         user
       );
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
@@ -1772,7 +1772,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GAMMEL TRUBADUR? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();
@@ -1785,7 +1785,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
         })
       ).toBeInTheDocument();
@@ -1798,7 +1798,7 @@ describe('Barnetilsyn', () => {
       );
 
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GAMMEL TRUBADUR før?',
         })
       ).toBeInTheDocument();
@@ -2885,22 +2885,22 @@ describe('Barnetilsyn', () => {
       expect(screen.getByText('Navn')).toBeInTheDocument();
       expect(screen.getByText('SPRUDLENDE MEDFORELDER')).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har den andre forelderen samvær med GÅEN PC? Med samvær mener vi all tid som barnet tilbringer sammen med den andre forelderen, også dersom du er til stede. Det gjelder både hvis samværet foregår hos den andre forelderen, hjemme hos deg eller andre steder. Hvis den andre forelderen treffer barnet sjelden og/eller under tilsyn, regnes dette også som samvær.',
         })
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Bor du og den andre forelderen til GÅEN PC i samme hus, blokk, gårdstun, kvartal eller vei/gate? Grunnen til at vi spør om dette Når du bor svært nær den andre forelderen, regnes du ikke for å være alene om omsorgen for barn.',
         })
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Har du bodd sammen med den andre forelderen til GÅEN PC før?',
         })
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('radiogroup', {
+        screen.getByRole('group', {
           name: 'Hvor mye er du sammen med den andre forelderen til GÅEN PC? Grunnen til at vi spør om dette Vi spør om dette for å kunne vurdere om du er så mye sammen med den andre av barnets foreldre at du ikke regnes som enslig mor eller far.',
         })
       ).toBeInTheDocument();

@@ -167,7 +167,7 @@ describe('BosituasjonSteg', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
       })
     ).not.toBeInTheDocument();
@@ -178,7 +178,7 @@ describe('BosituasjonSteg', () => {
       user
     );
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
       })
     ).toBeInTheDocument();
@@ -287,13 +287,13 @@ describe('BosituasjonSteg', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
       })
     ).not.toBeInTheDocument();
     await skrivFritekst('Når flyttet dere fra hverandre?', '01.06.2025', screen, user);
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
       })
     ).toBeInTheDocument();
@@ -385,7 +385,7 @@ describe('BosituasjonSteg', () => {
     const { screen, user } = await navigerTilStegOvergangsstønad();
 
     expect(
-      screen.queryByRole('radiogroup', {
+      screen.queryByRole('group', {
         name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
       })
     ).not.toBeInTheDocument();
@@ -396,7 +396,7 @@ describe('BosituasjonSteg', () => {
       user
     );
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du konkrete planer om å gifte deg eller bli samboer?',
       })
     ).toBeInTheDocument();

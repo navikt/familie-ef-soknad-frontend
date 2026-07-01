@@ -126,7 +126,7 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
       )
     );
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Er utdanningen offentlig eller privat? Om godkjenning av privat utdanning Vi godkjenner kun privat utdanning dersom det offentlige skoleverket ikke har det samme tilbudet. Vi kan godta privat utdanning dersom det er særlige grunner, for eksempel at du ikke har kommet inn ved offentlig skole eller at du har begynt på den private utdanningen før du ble enslig mor eller far.',
       })
     ).toBeInTheDocument();
@@ -192,7 +192,7 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     await skrivFritekst('Til', '01.08.2024', screen, user);
 
     expect(
-      screen.getByRole('radiogroup', { name: 'Er utdanningen på heltid eller deltid?' })
+      screen.getByRole('group', { name: 'Er utdanningen på heltid eller deltid?' })
     ).toBeInTheDocument();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
@@ -572,7 +572,7 @@ describe('Utdanningen-Steg for barnetilsyn', () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Har du tatt utdanning etter grunnskolen? Dette regnes som grunnskolen Grunnskolen er barne- og ungdomsskole, det vil si til og med 10. klasse.',
       })
     ).toBeInTheDocument();
