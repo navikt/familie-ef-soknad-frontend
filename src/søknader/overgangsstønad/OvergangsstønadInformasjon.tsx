@@ -10,8 +10,6 @@ import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import { VarselRegelendring2026 } from './VarselRegelendring2026';
-import { useToggles } from '../../context/TogglesContext';
-import { ToggleName } from '../../models/søknad/toggles';
 
 export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   person,
@@ -19,22 +17,16 @@ export const OvergangsstønadInformasjon: React.FC<InformasjonProps> = ({
   settBekreftelse,
 }) => {
   const intl = useLokalIntlContext();
-  const { toggles } = useToggles();
-  const visRegelendring2026Varsel = toggles[ToggleName.overgangsstønadRegelendringer2026];
   const nesteSide = hentPath(RoutesOvergangsstonad, ERouteOvergangsstønad.OmDeg) || '';
-
-  const førsteavsnitt = visRegelendring2026Varsel
-    ? hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar.regelendringer2026', intl)
-    : hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar', intl);
 
   return (
     <VStack gap={'space-40'} align={'center'}>
-      {visRegelendring2026Varsel && (
-        <VarselRegelendring2026 stønadstype={Stønadstype.overgangsstønad} />
-      )}
+      <VarselRegelendring2026 stønadstype={Stønadstype.overgangsstønad} />
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.overgangsstønad} />
       <VStack gap={'space-12'}>
-        <BodyShort>{førsteavsnitt}</BodyShort>
+        <BodyShort>
+          {hentTekst('forside.overgangsstønad.erDuEnsligMorEllerFar.regelendringer2026', intl)}
+        </BodyShort>
         <BodyShort>{hentTekst('forside.overgangsstønad.sammeSøknad', intl)}</BodyShort>
         {hentHTMLTekst('forside.overgangsstønad.merOmOvergangsstønad', intl)}
       </VStack>

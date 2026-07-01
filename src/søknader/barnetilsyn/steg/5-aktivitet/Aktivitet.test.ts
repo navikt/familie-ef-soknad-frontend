@@ -36,7 +36,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     const { screen } = await navigerTilStegBarnetilsyn();
 
     expect(
-      screen.getByRole('radiogroup', {
+      screen.getByRole('group', {
         name: 'Er du i arbeid? Hvis du ikke er i arbeid, men er registrert som arbeidssøker hos Nav eller tar utdanning som Nav har godkjent, har du som hovedregel ikke rett til denne stønaden. Da kan du i stedet søke om stønad til pass av barn .',
       })
     ).toBeInTheDocument();
@@ -200,7 +200,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('radiogroup', { name: 'Hva slags ansettelsesforhold har du?' })
+      screen.getByRole('group', { name: 'Hva slags ansettelsesforhold har du?' })
     ).toBeInTheDocument();
 
     await klikkRadioknapp('Hva slags ansettelsesforhold har du?', 'Fast stilling', screen, user);
@@ -248,7 +248,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('radiogroup', { name: 'Hva slags ansettelsesforhold har du?' })
+      screen.getByRole('group', { name: 'Hva slags ansettelsesforhold har du?' })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(
@@ -258,7 +258,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       user
     );
 
-    expect(screen.getByRole('radiogroup', { name: 'Har du en sluttdato?' }));
+    expect(screen.getByRole('group', { name: 'Har du en sluttdato?' }));
 
     await klikkRadioknapp('Har du en sluttdato?', 'Nei', screen, user);
 
@@ -326,7 +326,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('radiogroup', { name: 'Hva slags ansettelsesforhold har du?' })
+      screen.getByRole('group', { name: 'Hva slags ansettelsesforhold har du?' })
     ).toBeInTheDocument();
 
     await klikkRadioknapp('Hva slags ansettelsesforhold har du?', 'Lærling', screen, user);
@@ -375,7 +375,7 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('radiogroup', { name: 'Hva slags ansettelsesforhold har du?' })
+      screen.getByRole('group', { name: 'Hva slags ansettelsesforhold har du?' })
     ).toBeInTheDocument();
 
     await klikkRadioknapp(

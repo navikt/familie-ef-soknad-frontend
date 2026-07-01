@@ -87,9 +87,7 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
     useTidligereVedtak();
 
   const skalBrukeRegelendringer2026 =
-    harTidligereOvergangsstønadStatus !== 'JA' &&
-    !harLøpendeBarnetilsynVedRegelendring2026 &&
-    toggles[ToggleName.overgangsstønadRegelendringer2026];
+    harTidligereOvergangsstønadStatus !== 'JA' && !harLøpendeBarnetilsynVedRegelendring2026;
 
   useEffect(() => {
     if (mellomlagretBarnetilsyn?.locale && mellomlagretBarnetilsyn?.locale !== locale) {

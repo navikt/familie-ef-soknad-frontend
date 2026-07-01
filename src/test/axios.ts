@@ -101,8 +101,11 @@ export const mockGet = (url: string, stønadType: StønadType) => {
       data: [],
     });
   }
-  if (url === `${Environment().apiProxyUrl}/api/saksbehandling/har-vedtak-pa-gammelt-regelverk`) {
-    return Promise.resolve({ data: 'VET_IKKE' });
+  if (
+    url ===
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-overgangsstonad-pa-gammelt-regelverk`
+  ) {
+    return Promise.resolve({ data: 'JA' });
   }
   if (
     url ===
@@ -147,7 +150,10 @@ export const mockMellomlagretSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
 ) => {
   (axios.get as any).mockImplementation((url: string) => {
-    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+    if (
+      url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}` ||
+      url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`
+    ) {
       return gjeldendeSteg
         ? Promise.resolve({
             data: lagMellomlagretSøknadOvergangsstønad({
