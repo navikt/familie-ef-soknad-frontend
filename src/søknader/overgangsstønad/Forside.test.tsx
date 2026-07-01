@@ -23,7 +23,10 @@ vi.mock('axios', () => {
 
 describe('Forside for overgangsstønad', () => {
   (axios.get as any).mockImplementation((url: string) => {
-    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+    if (
+      url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}` ||
+      url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`
+    ) {
       return Promise.resolve({
         data: undefined,
       });
@@ -50,7 +53,7 @@ describe('Forside for overgangsstønad', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Er du enslig mor eller far og har barn under 8 år, vil overgangsstønaden sikre deg inntekt i inntil 3 år. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.'
+        'Er du enslig mor eller far og har barn under 14 måneder, vil overgangsstønaden sikre deg inntekt i en tidsbegrenset periode. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.'
       )
     ).toBeInTheDocument();
   });
@@ -64,7 +67,10 @@ describe('Forside for overgangsstønad', () => {
           }),
         });
       }
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      if (
+        url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}` ||
+        url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`
+      ) {
         return Promise.resolve({
           data: undefined,
         });
@@ -106,7 +112,10 @@ describe('Forside for overgangsstønad', () => {
           data: [lagSistInnsendteSøknad({ søknadsdato: '2025-05-17' })],
         });
       }
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      if (
+        url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}` ||
+        url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`
+      ) {
         return Promise.resolve({
           data: undefined,
         });
@@ -134,14 +143,17 @@ describe('Forside for overgangsstønad', () => {
 
     expect(
       screen.getByText(
-        'Er du enslig mor eller far og har barn under 8 år, vil overgangsstønaden sikre deg inntekt i inntil 3 år. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.'
+        'Er du enslig mor eller far og har barn under 14 måneder, vil overgangsstønaden sikre deg inntekt i en tidsbegrenset periode. I noen tilfeller kan vi forlenge denne perioden. Inntekten din avgjør hvor mye du har rett til i stønad.'
       )
     ).toBeInTheDocument();
   });
 
   test('skal navigere videre til neste steg', async () => {
     (axios.get as any).mockImplementation((url: string) => {
-      if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}`) {
+      if (
+        url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}` ||
+        url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`
+      ) {
         return Promise.resolve({
           data: undefined,
         });
