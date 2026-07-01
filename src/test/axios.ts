@@ -101,7 +101,10 @@ export const mockGet = (url: string, stønadType: StønadType) => {
       data: [],
     });
   }
-  if (url === `${Environment().apiProxyUrl}/api/saksbehandling/har-vedtak-pa-gammelt-regelverk`) {
+  if (
+    url ===
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-overgangsstonad-pa-gammelt-regelverk`
+  ) {
     return Promise.resolve({ data: 'VET_IKKE' });
   }
   if (
