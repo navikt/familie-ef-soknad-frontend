@@ -73,7 +73,7 @@ describe('Situasjon regelendring 2026', () => {
     await klikkCheckbox('Ja, jeg har inntekt som arbeidstaker', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: /Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene/,
       })
     ).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('Situasjon regelendring 2026', () => {
     await klikkCheckbox('Nei', screen, user);
 
     expect(
-      screen.getByRole('group', {
+      screen.getByRole('radiogroup', {
         name: /Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene/,
       })
     ).toBeInTheDocument();
@@ -101,7 +101,7 @@ describe('Situasjon regelendring 2026', () => {
     await klikkCheckbox('Ja, jeg har inntekt som selvstendig næringsdrivende', screen, user);
 
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: /Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene/,
       })
     ).not.toBeInTheDocument();
@@ -116,7 +116,7 @@ describe('Situasjon regelendring 2026', () => {
     await klikkCheckbox('Ja, jeg har inntekt som arbeidstaker', screen, user);
 
     expect(
-      screen.queryByRole('group', {
+      screen.queryByRole('radiogroup', {
         name: /Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene/,
       })
     ).not.toBeInTheDocument();
