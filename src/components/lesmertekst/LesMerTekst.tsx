@@ -9,6 +9,7 @@ interface Props {
   innholdTekst?: string | React.ReactNode;
   html?: boolean;
   testID?: string;
+  onÅpneEndret?: (åpen: boolean, headerTekst: string) => void;
 }
 
 export const LesMerTekst: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const LesMerTekst: React.FC<Props> = ({
   innholdTekst,
   html,
   testID,
+  onÅpneEndret,
 }) => {
   const intl = useLokalIntlContext();
 
@@ -28,8 +30,13 @@ export const LesMerTekst: React.FC<Props> = ({
       </BodyShort>
     );
   } else {
+    const headerTekst = hentTekst(åpneTekstid, intl);
     return (
-      <ReadMore header={hentTekst(åpneTekstid, intl)} data-testid={testID}>
+      <ReadMore
+        header={headerTekst}
+        data-testid={testID}
+        onOpenChange={(åpen) => onÅpneEndret?.(åpen, headerTekst)}
+      >
         <BodyShort>
           {innholdTekst && innholdTekst}
           {!innholdTekst && innholdTekstid && html && hentHTMLTekst(innholdTekstid, intl)}

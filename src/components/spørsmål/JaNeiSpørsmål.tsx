@@ -5,6 +5,7 @@ import { RadioKnapp } from '../panel/RadioKnapp';
 import { RadioGroup } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
+import { loggLesMerÅpnet, loggLesMerLukket } from '../../utils/analytics';
 import styles from './Spørsmål.module.css';
 
 interface Props {
@@ -17,6 +18,14 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
   const intl = useLokalIntlContext();
 
   const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
+
+  const håndterLesMerEndret = (åpen: boolean, headerTekst: string) => {
+    if (åpen) {
+      loggLesMerÅpnet(headerTekst, spørsmålTekst);
+    } else {
+      loggLesMerLukket(headerTekst, spørsmålTekst);
+    }
+  };
 
   const onClickHandle = (
     e: SyntheticEvent<EventTarget, Event>,
@@ -53,6 +62,7 @@ const JaNeiSpørsmål: React.FC<Props> = ({ spørsmål, onChange, valgtSvar }) =
             <LesMerTekst
               åpneTekstid={spørsmål.lesmer.headerTekstid}
               innholdTekstid={spørsmål.lesmer.innholdTekstid}
+              onÅpneEndret={håndterLesMerEndret}
             />
           )
         }
