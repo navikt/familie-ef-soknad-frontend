@@ -4,10 +4,7 @@ import { ERouteArbeidssøkerskjema } from '../søknader/arbeidssøkerskjema/rout
 import { ERouteOvergangsstønad } from '../søknader/overgangsstønad/routing/routesOvergangsstonad';
 
 export type RouteType =
-  | ERouteSkolepenger
-  | ERouteBarnetilsyn
-  | ERouteOvergangsstønad
-  | ERouteArbeidssøkerskjema;
+  ERouteSkolepenger | ERouteBarnetilsyn | ERouteOvergangsstønad | ERouteArbeidssøkerskjema;
 
 export interface IRoute {
   route: RouteType;

@@ -32,10 +32,7 @@ import { SøknadSkolepenger } from '../søknader/skolepenger/models/søknad';
 import { EBarnepass, EÅrsakBarnepass } from '../søknader/barnetilsyn/models/barnepass';
 
 type StønadType =
-  | 'overgangsstonad'
-  | 'overgangsstonad-regelendring-2026'
-  | 'barnetilsyn'
-  | 'skolepenger';
+  'overgangsstonad' | 'overgangsstonad-regelendring-2026' | 'barnetilsyn' | 'skolepenger';
 type SøknadStegOvergangsstønad =
   | '/om-deg'
   | '/bosituasjon'

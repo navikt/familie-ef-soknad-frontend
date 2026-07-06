@@ -8,9 +8,7 @@ import { MellomlagretSøknadSkolepenger } from '../../søknader/skolepenger/mode
 export type Søknad = SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger;
 
 export type MellomlagretSøknad =
-  | MellomlagretSøknadOvergangsstønad
-  | MellomlagretSøknadBarnetilsyn
-  | MellomlagretSøknadSkolepenger;
+  MellomlagretSøknadOvergangsstønad | MellomlagretSøknadBarnetilsyn | MellomlagretSøknadSkolepenger;
 
 export const erOvergangsstønadSøknad = (søknad: Søknad): søknad is SøknadOvergangsstønad =>
   'merOmDinSituasjon' in søknad;
