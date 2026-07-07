@@ -29,7 +29,6 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
 
   const { toggles } = useToggles();
   const gjenbrukBarnetilsynToggle = toggles[ToggleName.gjenbrukBarnetilsyn];
-  const visRegelendring2026Varsel = toggles[ToggleName.overgangsstønadRegelendringer2026];
 
   const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (forrigeSøknad?: ForrigeSøknad) => {
     if (forrigeSøknad) {
@@ -67,20 +66,16 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';
   const gjenbrukSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
 
-  const andreAvsnitt = toggles[ToggleName.overgangsstønadRegelendringer2026]
-    ? 'forside.barnetilsyn.fåStønadSkoleår.2026regelendring'
-    : 'forside.barnetilsyn.fåStønadSkoleår';
-
   return (
     <VStack gap={'space-40'} align={'center'}>
-      {visRegelendring2026Varsel && (
-        <VarselRegelendring2026 stønadstype={Stønadstype.barnetilsyn} />
-      )}
+      <VarselRegelendring2026 stønadstype={Stønadstype.barnetilsyn} />
       <TidligereInnsendteSøknaderAlert stønadType={Stønadstype.barnetilsyn} />
 
       <VStack gap={'space-12'}>
         <BodyShort>{hentTekst('forside.barnetilsyn.info', intl)}</BodyShort>
-        <BodyShort>{hentTekst(andreAvsnitt, intl)}</BodyShort>
+        <BodyShort>
+          {hentTekst('forside.barnetilsyn.fåStønadSkoleår.2026regelendring', intl)}
+        </BodyShort>
         {hentHTMLTekst('forside.barnetilsyn.merOmStønad', intl)}
       </VStack>
       <VStack gap={'space-12'}>
