@@ -7,14 +7,14 @@
     "build": "tsc --build --verbose"
   },
   "dependencies": {
-    "@navikt/nav-dekoratoren-moduler": "^4.0.0",
+    "@navikt/nav-dekoratoren-moduler": "^4.2.2",
     "@types/express": "^5.0.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
     "http-proxy-middleware": "^3.0.5",
     "typescript": "^6.0.3",
-    "uuid": "^14.0.0",
+    "uuid": "^14.0.1",
     "winston": "^3.19.0"
   },
   "devDependencies": {
