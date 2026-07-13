@@ -18,7 +18,6 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { hentOvergangsstonadPåGammeltRegelverk } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
-import { ToggleName } from '../../models/søknad/toggles';
 
 export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -53,7 +52,7 @@ export const OvergangsstønadApp = () => {
   const hentTidligereOvergangsstonadGammeltRegelverk = (
     toggles: Record<string, boolean> | void
   ) => {
-    if (!toggles || !toggles[ToggleName.overgangsstønadRegelendringer2026]) {
+    if (!toggles) {
       settHarTidligereOvergangsstønadStatus('VET_IKKE');
       return Promise.resolve();
     }
