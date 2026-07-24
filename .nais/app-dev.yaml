@@ -62,7 +62,7 @@ spec:
       value: dev
   resources:
     limits:
-      memory: 512Mi
+      memory: 256Mi
     requests:
-      memory: 512Mi
-      cpu: 20m
+      memory: 256Mi
+      cpu: 50m
