@@ -2,12 +2,8 @@ import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { InformasjonProps } from '../../components/forside/typer';
 import { hentPath } from '../../utils/routing';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from './routing/routesBarnetilsyn';
-import { hentDataFraForrigeBarnetilsynSøknad } from '../../utils/søknad';
-import React, { useContext, useEffect, useState } from 'react';
-import { GjenbrukContext } from '../../context/GjenbrukContext';
-import { useSpråkContext } from '../../context/SpråkContext';
+import React from 'react';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
-import { ForrigeSøknad } from './models/søknad';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { TidligereInnsendteSøknaderAlert } from '../../components/forside/TidligereInnsendteSøknaderAlert';
 import { Stønadstype } from '../../models/søknad/stønadstyper';
@@ -22,46 +18,13 @@ export const BarnetilsynInformasjon: React.FC<InformasjonProps> = ({
   harBekreftet,
   settBekreftelse,
 }) => {
-  const [kanGjenbrukeForrigeSøknad, settKanGjenbrukeForrigeSøknad] = useState(false);
-  const { settSkalGjenbrukeSøknad } = useContext(GjenbrukContext);
-  const [locale] = useSpråkContext();
+  // Gjenbruk av forrige søknad er skrudd av (kallene mot "forrige"-endepunktet er fjernet),
+  // så gjenbrukssteget kan ikke lenger foreslås.
+  const kanGjenbrukeForrigeSøknad = false;
   const intl = useLokalIntlContext();
 
   const { toggles } = useToggles();
   const gjenbrukBarnetilsynToggle = toggles[ToggleName.gjenbrukBarnetilsyn];
-
-  const finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt = (forrigeSøknad?: ForrigeSøknad) => {
-    if (forrigeSøknad) {
-      return (
-        forrigeSøknad.sivilstatus?.årsakEnslig?.label ===
-        hentTekst('sivilstatus.spm.begrunnelse', intl)
-      );
-    }
-    return false;
-  };
-
-  const hentOgSjekkForrigeSøknad = async () => {
-    const forrigeSøknad = await hentDataFraForrigeBarnetilsynSøknad();
-
-    if (finnesForrigeSøknadOgErBesvartPåSammeSpråkSomErValgt(forrigeSøknad)) {
-      settKanGjenbrukeForrigeSøknad(true);
-    } else {
-      settKanGjenbrukeForrigeSøknad(false);
-      settSkalGjenbrukeSøknad(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!gjenbrukBarnetilsynToggle) {
-      return;
-    }
-
-    const fetchHentOgSjekkForrigeSøknad = async () => {
-      await hentOgSjekkForrigeSøknad();
-    };
-
-    fetchHentOgSjekkForrigeSøknad();
-  }, [locale]);
 
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';
   const gjenbrukSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.Gjenbruk) || '';
