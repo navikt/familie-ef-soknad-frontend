@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Feilside from '../../components/feil/Feilside';
 import hentToggles from '../../toggles/api';
 import { oppdaterBarnMedLabel } from '../../utils/søknad';
@@ -15,7 +15,6 @@ import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
-import { GjenbrukContext } from '../../context/GjenbrukContext';
 import { hentTekst } from '../../utils/teksthåndtering';
 import {
   hentHarGyldigBarnetilsynVedRegelendring,
@@ -27,11 +26,9 @@ const BarnetilsynApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
   const [fetching, settFetching] = useState<boolean>(true);
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
-  const { settSøknad, hentMellomlagretBarnetilsyn, hentForrigeSøknadBarnetilsyn } =
-    useBarnetilsynSøknad();
+  const { settSøknad, hentMellomlagretBarnetilsyn } = useBarnetilsynSøknad();
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
-  const { skalGjenbrukeSøknad } = useContext(GjenbrukContext);
   const { settHarTidligereOvergangsstønadStatus, settHarLøpendeBarnetilsynVedRegelendring2026 } =
     useTidligereVedtak();
 
@@ -84,12 +81,6 @@ const BarnetilsynApp = () => {
       .then(() => settFetching(false))
       .catch(() => settFetching(false));
   }, []);
-
-  useEffect(() => {
-    if (skalGjenbrukeSøknad) {
-      hentForrigeSøknadBarnetilsyn();
-    }
-  }, [fetching, skalGjenbrukeSøknad]);
 
   if (!fetching && autentisert) {
     if (!error) {
