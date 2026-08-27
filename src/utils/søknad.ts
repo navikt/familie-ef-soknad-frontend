@@ -8,7 +8,6 @@ import { IDokumentasjon } from '../models/steg/dokumentasjon';
 import { skalMappeBarnefeltUtenLabel, standardLabelsBarn } from '../helpers/labels';
 import { IBarn } from '../models/steg/barn';
 import { LokalIntlShape } from '../language/typer';
-import { ForrigeSøknad } from '../søknader/barnetilsyn/models/søknad';
 import { PersonData } from '../models/søknad/person';
 import { hentTekst } from './teksthåndtering';
 
@@ -51,14 +50,6 @@ export const mellomlagreSøknadTilDokument = <T>(
   stønadstype: MellomlagredeStønadstyper
 ): Promise<T> => {
   return axios.post(`${Environment().mellomlagerProxyUrl + stønadstype}`, søknad, axiosConfig);
-};
-
-export const hentDataFraForrigeBarnetilsynSøknad = async (): Promise<ForrigeSøknad> => {
-  const response = await axios.get(
-    `${Environment().apiProxyUrl + '/api/soknad/barnetilsyn/forrige'}`,
-    axiosConfig
-  );
-  return response.data;
 };
 
 export const nullstillMellomlagretSøknadTilDokument = (
