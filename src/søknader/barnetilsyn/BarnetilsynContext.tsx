@@ -67,11 +67,9 @@ const [BarnetilsynSøknadProvider, useBarnetilsynSøknad] = createUseContext(() 
   const [mellomlagretBarnetilsyn, settMellomlagretBarnetilsyn] =
     useState<MellomlagretSøknadBarnetilsyn>();
 
-  const { harTidligereOvergangsstønadStatus, harLøpendeBarnetilsynVedRegelendring2026 } =
-    useTidligereVedtak();
+  const { harLøpendeBarnetilsynVedRegelendring2026 } = useTidligereVedtak();
 
-  const skalBrukeRegelendringer2026 =
-    harTidligereOvergangsstønadStatus !== 'JA' && !harLøpendeBarnetilsynVedRegelendring2026;
+  const skalBrukeRegelendringer2026 = !harLøpendeBarnetilsynVedRegelendring2026;
 
   useEffect(() => {
     if (mellomlagretBarnetilsyn?.locale && mellomlagretBarnetilsyn?.locale !== locale) {
