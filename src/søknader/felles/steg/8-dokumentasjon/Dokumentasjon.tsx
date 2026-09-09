@@ -5,7 +5,6 @@ import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg'
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
-import * as Sentry from '@sentry/browser';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
@@ -47,10 +46,6 @@ const Dokumentasjon: React.FC = () => {
           erVedleggstidspunktGyldig(vedlegg.tidspunkt)
         );
         if (gyldigeVedlegg.length !== dokBehov.opplastedeVedlegg.length) {
-          Sentry.captureEvent({
-            message: `Fjernet ugyldig vedlegg fra søknaden.`,
-            level: 'warning',
-          });
           oppdaterDokumentasjon(dokBehov.id, gyldigeVedlegg, dokBehov.harSendtInn);
         }
       }
