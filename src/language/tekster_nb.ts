@@ -770,6 +770,7 @@ export default {
     'Du må dokumentere behovet med uttalelse fra lege, spesialist eller annet helsepersonell.',
   'barnepass.svar.myeBortePgaJobb':
     'Jeg må være borte fra hjemmet i lengre perioder på grunn av jobb',
+  'barnepass.svar.ingenAlternativPasserMeg': 'Ingen av alternativene gjelder meg',
   'barnepass.alert-info.myeBortePgaJobb':
     'For at fraværet skal anses som mer langvarig enn vanlig, må det overstige 10 timer per dag',
   'barnepass.svar.utenomVanligArbeidstid':
