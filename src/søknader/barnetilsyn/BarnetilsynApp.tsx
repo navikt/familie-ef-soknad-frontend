@@ -16,10 +16,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { hentTekst } from '../../utils/teksthåndtering';
-import {
-  hentHarGyldigBarnetilsynVedRegelendring,
-  hentOvergangsstonadPåGammeltRegelverk,
-} from '../../innsending/api';
+import { hentHarGyldigBarnetilsynVedRegelendring } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 const BarnetilsynApp = () => {
@@ -29,8 +26,7 @@ const BarnetilsynApp = () => {
   const { settSøknad, hentMellomlagretBarnetilsyn } = useBarnetilsynSøknad();
   const { settToggles } = useToggles();
   const intl = useLokalIntlContext();
-  const { settHarTidligereOvergangsstønadStatus, settHarLøpendeBarnetilsynVedRegelendring2026 } =
-    useTidligereVedtak();
+  const { settHarLøpendeBarnetilsynVedRegelendring2026 } = useTidligereVedtak();
 
   autentiseringsInterceptor();
 
@@ -58,12 +54,6 @@ const BarnetilsynApp = () => {
     });
   };
 
-  const hentOgSettTidligereOvergangsstønadStatus = () => {
-    return hentOvergangsstonadPåGammeltRegelverk()
-      .then((status) => settHarTidligereOvergangsstønadStatus(status))
-      .catch(() => settHarTidligereOvergangsstønadStatus('VET_IKKE'));
-  };
-
   const hentOgSettHarLøpendeBarnetilsynVedRegelendring = () => {
     return hentHarGyldigBarnetilsynVedRegelendring()
       .then((harLøpende) => settHarLøpendeBarnetilsynVedRegelendring2026(harLøpende))
@@ -75,7 +65,6 @@ const BarnetilsynApp = () => {
       fetchToggles(),
       fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
       hentMellomlagretBarnetilsyn(),
-      hentOgSettTidligereOvergangsstønadStatus(),
       hentOgSettHarLøpendeBarnetilsynVedRegelendring(),
     ])
       .then(() => settFetching(false))
