@@ -100,12 +100,6 @@ export const mockGet = (url: string, stønadType: StønadType) => {
   }
   if (
     url ===
-    `${Environment().apiProxyUrl}/api/saksbehandling/har-overgangsstonad-pa-gammelt-regelverk`
-  ) {
-    return Promise.resolve({ data: 'JA' });
-  }
-  if (
-    url ===
     `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`
   ) {
     return Promise.resolve({ data: false });
