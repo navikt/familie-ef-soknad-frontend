@@ -152,10 +152,10 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
       })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('checkbox', {
+      screen.queryByRole('checkbox', {
         name: 'Jeg etablerer egen virksomhet',
       })
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
 
     expect(
       screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
@@ -529,8 +529,8 @@ describe('Aktivitet-Steg for barnetilsyn', () => {
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
   });
 
-  test('Søker etablerer egen virksomhet', async () => {
-    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {});
+  test('Søker etablerer egen virksomhet, søker har løpende barnetilsyn', async () => {
+    mockMellomlagretSøknadBarnetilsyn('/barnetilsyn/aktivitet', {}, undefined, true);
     const { screen, user } = await navigerTilStegBarnetilsyn();
 
     expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
