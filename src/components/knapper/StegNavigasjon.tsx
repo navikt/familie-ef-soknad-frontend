@@ -5,6 +5,7 @@ import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { IRoute } from '../../models/routes';
+import { captureMessage } from '@nais/apm';
 
 interface Props {
   routesStønad: IRoute[];
@@ -29,6 +30,7 @@ export const StegNavigasjon: FC<Props> = ({
   const forrigeRoute = hentForrigeRoute(routesStønad, location.pathname);
 
   const onNeste = () => {
+    captureMessage('Kristian tester', 'error');
     if (mellomlagreSteg) {
       mellomlagreSteg();
     } else if (mellomlagreStønad) {

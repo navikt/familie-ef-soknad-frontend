@@ -36,12 +36,12 @@
     ]
   },
   "dependencies": {
-    "@nais/apm": "^0.6.3",
     "@navikt/ds-css": "^8.14.0",
     "@navikt/ds-react": "^8.14.0",
     "@navikt/ds-tokens": "^8.14.0",
     "@navikt/fnrvalidator": "^2.2.1",
     "@navikt/nav-dekoratoren-moduler": "^4.2.2",
+    "@nais/apm": "^0.6.3",
     "axios": "^1.18.1",
     "constate": "^4.0.0",
     "date-fns": "^4.4.0",
