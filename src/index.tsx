@@ -24,7 +24,12 @@ import { createRoot } from 'react-dom/client';
 import { init } from '@nais/apm';
 
 if (Environment().isApmEnabled) {
-  init();
+  init({
+    tracing: true,
+    app: 'familie-ef-soknad-frontend',
+    environment: Environment().miljø,
+    namespace: 'teamfamilie',
+  });
 }
 const container = document.getElementById('root');
 if (container == null) {
