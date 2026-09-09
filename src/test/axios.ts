@@ -141,13 +141,10 @@ export const mockMellomlagretSøknadOvergangsstønad = (
   søknad?: Partial<SøknadOvergangsstønad>
 ) => {
   (axios.get as any).mockImplementation((url: string) => {
-    if (
-      url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad'}` ||
-      url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`
-    ) {
+    if (url === `${Environment().mellomlagerProxyUrl + 'overgangsstonad-regelendring-2026'}`) {
       return gjeldendeSteg
         ? Promise.resolve({
-            data: lagMellomlagretSøknadOvergangsstønad({
+            data: lagMellomlagretSøknadOvergangsstønadRegelendring2026({
               søknad: utledSøknadOvergangsstønad(gjeldendeSteg, søknad),
               gjeldendeSteg: gjeldendeSteg,
             }),
@@ -163,16 +160,24 @@ export const mockMellomlagretSøknadOvergangsstønad = (
       });
     }
 
-    return mockGet(url, 'overgangsstonad');
+    return mockGet(url, 'overgangsstonad-regelendring-2026');
   });
 };
 
 export const mockMellomlagretSøknadBarnetilsyn = (
   gjeldendeSteg?: SøknadStegBarnetilsyn,
   søker?: Partial<Søker>,
-  søknad?: Partial<SøknadBarnetilsyn>
+  søknad?: Partial<SøknadBarnetilsyn>,
+  harLøpendeBarnetilsynVedRegelendring?: boolean
 ) => {
   (axios.get as any).mockImplementation((url: string) => {
+    if (
+      url ===
+      `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`
+    ) {
+      return Promise.resolve({ data: harLøpendeBarnetilsynVedRegelendring === true });
+    }
+
     if (url === `${Environment().mellomlagerProxyUrl + 'barnetilsyn'}`) {
       return gjeldendeSteg
         ? Promise.resolve({
