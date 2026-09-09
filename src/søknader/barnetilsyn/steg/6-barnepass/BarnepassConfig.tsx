@@ -44,6 +44,10 @@ export const årsakBarnepass = (intl: LokalIntlShape): ISpørsmål => ({
       alert_tekstid: 'barnepass.dokumentasjon.arbeidstid',
       dokumentasjonsbehov: DokumentasjonUtenomVanligArbeidstid,
     },
+    {
+      id: EÅrsakBarnepass.ingenAlternativPasserMeg,
+      svar_tekst: hentTekst('barnepass.svar.ingenAlternativPasserMeg', intl),
+    },
   ],
 });
 

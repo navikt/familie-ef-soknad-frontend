@@ -841,6 +841,7 @@ export default {
 
   'barnepass.svar.myeBortePgaJobb':
     'I have to be away from home for extended periods of time for work',
+  'barnepass.svar.ingenAlternativPasserMeg': 'Ingen av alternativene gjelder meg',
   'barnepass.alert-info.myeBortePgaJobb':
     'In order for an absence to be considered longer than usual, it must exceed ten hours per day. ',
   'barnepass.svar.utenomVanligArbeidstid':

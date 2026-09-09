@@ -799,6 +799,7 @@ export default {
     'In order for an absence to be considered longer than usual, it must exceed ten hours per day. ',
   'barnepass.svar.utenomVanligArbeidstid':
     'I work shifts and work at times outside normal working hours',
+  'barnepass.svar.ingenAlternativPasserMeg': 'None of the alternatives above apply to me',
   'barnepass.dokumentasjon.arbeidstid': 'You must provide documentation of your working hours.',
   'barnepass.spm.hvaSlagsOrdning': 'What kind of child minding arrangements does [0] have?',
   'hvaSlagsOrdning.svar.barnehageOgLiknende':

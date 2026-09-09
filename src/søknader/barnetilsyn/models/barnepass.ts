@@ -32,4 +32,5 @@ export enum EÅrsakBarnepass {
   trengerMerPassEnnJevnaldrede = 'trengerMerPassEnnJevnaldrede',
   myeBortePgaJobb = 'myeBortePgaJobb',
   utenomVanligArbeidstid = 'utenomVanligArbeidstid',
+  ingenAlternativPasserMeg = 'ingenAlternativPasserMeg',
 }
