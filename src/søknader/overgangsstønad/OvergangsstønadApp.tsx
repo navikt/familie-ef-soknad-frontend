@@ -16,6 +16,8 @@ import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import { hentTekst } from '../../utils/teksthåndtering';
+import { hentOvergangsstonadPåGammeltRegelverk } from '../../innsending/api';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 export const OvergangsstønadApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -23,6 +25,7 @@ export const OvergangsstønadApp = () => {
   const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
   const { settSøknad, hentMellomlagretOvergangsstønad } = useOvergangsstønadSøknad();
   const { settToggles } = useToggles();
+  const { settHarTidligereOvergangsstønadStatus } = useTidligereVedtak();
 
   const intl = useLokalIntlContext();
   autentiseringsInterceptor();
@@ -46,12 +49,26 @@ export const OvergangsstønadApp = () => {
     });
   };
 
+  const hentTidligereOvergangsstonadGammeltRegelverk = (
+    toggles: Record<string, boolean> | void
+  ) => {
+    if (!toggles) {
+      settHarTidligereOvergangsstønadStatus('VET_IKKE');
+      return Promise.resolve();
+    }
+
+    return hentOvergangsstonadPåGammeltRegelverk()
+      .then((status) => settHarTidligereOvergangsstønadStatus(status))
+      .catch(() => settHarTidligereOvergangsstønadStatus('VET_IKKE'));
+  };
+
   useEffect(() => {
     fetchToggles()
-      .then(() =>
+      .then((toggles) =>
         Promise.all([
           fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Overgangsstønad),
           hentMellomlagretOvergangsstønad(),
+          hentTidligereOvergangsstonadGammeltRegelverk(toggles),
         ])
       )
       .then(() => settFetching(false))

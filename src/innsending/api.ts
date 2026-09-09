@@ -2,6 +2,16 @@ import axios from 'axios';
 import Environment from '../Environment';
 import { IBarn } from '../models/steg/barn';
 
+export type TidligereVedtakStatus = 'JA' | 'NEI' | 'VET_IKKE';
+
+export const hentOvergangsstonadPåGammeltRegelverk = async (): Promise<TidligereVedtakStatus> => {
+  const response = await axios.get<TidligereVedtakStatus>(
+    `${Environment().apiProxyUrl}/api/saksbehandling/har-overgangsstonad-pa-gammelt-regelverk`,
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
 export const hentHarGyldigBarnetilsynVedRegelendring = async (): Promise<boolean> => {
   const response = await axios.get<boolean>(
     `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`,
