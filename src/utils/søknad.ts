@@ -2,7 +2,7 @@ import Environment from '../Environment';
 import axios from 'axios';
 import { hentUid } from './autentiseringogvalidering/uuid';
 import { ISpørsmål } from '../models/felles/spørsmålogsvar';
-import * as Sentry from '@sentry/browser';
+import { captureMessage } from '@nais/apm';
 import { MellomlagredeStønadstyper } from '../models/søknad/stønadstyper';
 import { IDokumentasjon } from '../models/steg/dokumentasjon';
 import { skalMappeBarnefeltUtenLabel, standardLabelsBarn } from '../helpers/labels';
@@ -86,10 +86,10 @@ export const settBarnMedLabelOgVerdi = (barn: IBarn) => {
     } else if (skalMappeBarnefeltUtenLabel(key)) {
       nyttObjekt[key] = verdi;
     } else {
-      Sentry.captureEvent({
-        message: `Oppdatering av barnefelt feilet med key=${key} og verdi=${verdi} uten tilhørende label.`,
-        level: 'warning',
-      });
+      captureMessage(
+        `Oppdatering av barnefelt feilet med key=${key} og verdi=${verdi} uten tilhørende label.`,
+        'warning'
+      );
     }
   }
 
