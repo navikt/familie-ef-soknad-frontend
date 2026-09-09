@@ -25,9 +25,6 @@ jobs:
       - name: Npm run test
         run: npm run test
       - name: Npm run build
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: ${{ github.sha }}
         run: npm run build
       - name: Npm build server
         working-directory: ./server
