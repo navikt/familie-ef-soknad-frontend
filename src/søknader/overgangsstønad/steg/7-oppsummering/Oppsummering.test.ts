@@ -48,10 +48,7 @@ describe('Oppsumering-Steg for overgangsstønad', () => {
     expect(
       screen.getByRole('button', { name: 'Den andre forelderen og samvær' })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: 'Arbeid, utdanning og andre aktiviteter' })
-    ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Mer om situasjonen din' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Situasjonen din' })).toBeInTheDocument();
 
     expect(screen.getByRole('button', { name: 'Neste' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Tilbake' })).toBeInTheDocument();
@@ -237,6 +234,30 @@ describe('Oppsumering-Steg for overgangsstønad', () => {
             svarid: ['erSyk'],
             verdi: ['Jeg er syk'],
           },
+          hvaSituasjon: {
+            alternativer: [
+              'Jeg har barn under 14 måneder',
+              'Jeg har barn som trenger særlig tilsyn på grunn av fysiske, psykiske eller store sosiale problemer',
+              'Barnet mitt har en sykdom som ikke er varig',
+              'Ingen av disse gjelder meg',
+            ],
+            label: 'Hva er situasjonen din?',
+            spørsmålid: 'hvaSituasjon',
+            svarid: ['barnUnder14Måneder'],
+            verdi: ['Jeg har barn under 14 måneder'],
+          },
+          inntekter: {
+            alternativer: [
+              'Ja, jeg har inntekt som arbeidstaker',
+              'Ja, jeg har inntekt som selvstendig næringsdrivende',
+              'Ja, jeg får annen stønad fra Nav',
+              'Nei',
+            ],
+            label: 'Har du inntekt?',
+            spørsmålid: 'inntekter',
+            svarid: ['arbeidstaker'],
+            verdi: ['Ja, jeg har inntekt som arbeidstaker'],
+          },
           sagtOppEllerRedusertStilling: {
             label: 'Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?',
             spørsmålid: 'sagtOppEllerRedusertStilling',
@@ -380,7 +401,7 @@ describe('Oppsumering-Steg for overgangsstønad', () => {
     const { screen } = await navigerTilStegOvergangsstønad();
 
     expect(screen.getAllByText('Ja')).toHaveLength(5);
-    expect(screen.getAllByText('Nei')).toHaveLength(11);
+    expect(screen.getAllByText('Nei')).toHaveLength(7);
     expect(screen.getAllByText('4')).toHaveLength(2);
     expect(screen.getAllByText('2024-08-01')).toHaveLength(4);
     expect(screen.getAllByText('Belgia')).toHaveLength(2);
@@ -494,35 +515,12 @@ describe('Oppsumering-Steg for overgangsstønad', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Vi møtes ikke')).toBeInTheDocument();
 
-    //Arbeidssituasjonen din
-    expect(
-      screen.getByRole('button', { name: 'Arbeid, utdanning og andre aktiviteter' })
-    ).toBeInTheDocument();
-    expect(screen.getByText('Hvordan er situasjonen din?')).toBeInTheDocument();
-    expect(screen.getByText('Jeg er arbeidssøker')).toBeInTheDocument();
-    expect(screen.getByText('Når du er arbeidssøker')).toBeInTheDocument();
-    expect(screen.getByText('Er du registrert som arbeidssøker hos Nav?')).toBeInTheDocument();
-    // Nei
-    expect(
-      screen.getByText('Er du villig til å ta imot tilbud om arbeid eller arbeidsmarkedstiltak?')
-    ).toBeInTheDocument();
-    // Nei
-    expect(
-      screen.getByText('Kan du begynne i arbeid senest én uke etter at du har fått tilbud om jobb?')
-    ).toBeInTheDocument(); // Nei
-    expect(screen.getByText('Hvor ønsker du å søke arbeid?')).toBeInTheDocument();
-    expect(
-      screen.getByText('Kun i bodistriktet mitt, ikke mer enn 1 times reisevei hver vei')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText('Ønsker du å stå som arbeidssøker til minst 50 prosent stilling?')
-    ).toBeInTheDocument();
-    // Nei
-
-    //Mer om situasjonen din
-    expect(screen.getByRole('button', { name: 'Mer om situasjonen din' })).toBeInTheDocument();
-    expect(screen.getByText('Gjelder noe av dette deg?')).toBeInTheDocument();
-    expect(screen.getByText('Jeg er syk')).toBeInTheDocument();
+    //Situasjonen din
+    expect(screen.getByRole('button', { name: 'Situasjonen din' })).toBeInTheDocument();
+    expect(screen.getByText('Hva er situasjonen din?')).toBeInTheDocument();
+    expect(screen.getByText('Jeg har barn under 14 måneder')).toBeInTheDocument();
+    expect(screen.getByText('Har du inntekt?')).toBeInTheDocument();
+    expect(screen.getByText('Ja, jeg har inntekt som arbeidstaker')).toBeInTheDocument();
     expect(
       screen.getByText('Har du sagt opp jobben eller redusert arbeidstiden de siste 6 månedene?')
     ).toBeInTheDocument();
