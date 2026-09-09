@@ -28,6 +28,7 @@ import { useSpråkContext } from '../../context/SpråkContext';
 import { LocaleType, LokalIntlShape } from '../../language/typer';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadOvergangsstønad => {
@@ -78,7 +79,10 @@ const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseC
   const [locale, setLocale] = useSpråkContext();
   const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
-  const skalBrukeRegelendringer2026 = true;
+  const { harTidligereOvergangsstønadStatus } = useTidligereVedtak();
+
+  const harIkkeTidligereVedtak = harTidligereOvergangsstønadStatus !== 'JA';
+  const skalBrukeRegelendringer2026 = harIkkeTidligereVedtak;
 
   const aktivStønadstype = skalBrukeRegelendringer2026
     ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
