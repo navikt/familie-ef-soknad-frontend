@@ -18,9 +18,14 @@ import React from 'react';
 import { SpråkProvider } from './context/SpråkContext';
 import ContextProviders from './context/ContextProviders';
 import { ScrollToTop } from './utils/visning';
+import Environment from './Environment';
 import SkolepengerApp from './søknader/skolepenger/SkolepengerApp';
 import { createRoot } from 'react-dom/client';
+import { init } from '@nais/apm';
 
+if (Environment().isApmEnabled) {
+  init({ tracing: true });
+}
 const container = document.getElementById('root');
 if (container == null) {
   throw new Error('Mangler container for appen');

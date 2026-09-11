@@ -5,6 +5,7 @@ import LastOppVedlegg from '../../../felles/steg/8-dokumentasjon/LastOppVedlegg'
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { IDokumentasjon } from '../../../../models/steg/dokumentasjon';
 import { erVedleggstidspunktGyldig } from '../../../../utils/dato';
+import { captureMessage } from '@nais/apm';
 import { useDebouncedCallback } from 'use-debounce';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
@@ -41,11 +42,13 @@ const Dokumentasjon: React.FC = () => {
   // Fjern vedlegg som evt. har blitt slettet i familie-dokument
   useEffect(() => {
     dokumentasjonsbehov.forEach((dokBehov: IDokumentasjon) => {
+      captureMessage('Zubaier tester', 'error');
       if (dokBehov.opplastedeVedlegg) {
         const gyldigeVedlegg = dokBehov.opplastedeVedlegg.filter((vedlegg) =>
           erVedleggstidspunktGyldig(vedlegg.tidspunkt)
         );
         if (gyldigeVedlegg.length !== dokBehov.opplastedeVedlegg.length) {
+          captureMessage(`Fjernet ugyldig vedlegg fra søknaden.`, 'warning');
           oppdaterDokumentasjon(dokBehov.id, gyldigeVedlegg, dokBehov.harSendtInn);
         }
       }
