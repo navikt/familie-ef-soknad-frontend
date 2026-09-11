@@ -33,7 +33,7 @@ const naisMetaTags = (): string => {
     ['nais-team', process.env.NAIS_NAMESPACE ?? process.env.NAIS_TEAM],
     ['nais-cluster', process.env.NAIS_CLUSTER_NAME],
     ['nais-version', process.env.APP_VERSION],
-    ['nais-telemetry-url', process.env.NAIS_TELEMETRY_URL],
+    ['nais-telemetry-url', process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL],
   ];
 
   return metadata
