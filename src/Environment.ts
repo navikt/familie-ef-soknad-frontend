@@ -6,6 +6,7 @@ interface EnvironmentProps {
   wonderwallUrl: string;
   dokumentProxyUrl: string;
   mellomlagerProxyUrl: string;
+  isApmEnabled?: boolean;
   miljø: string;
   modellVersjon: IModellversjon;
 }
@@ -37,6 +38,7 @@ const Environment = (): EnvironmentProps => {
         'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/',
       miljø: 'preprod',
       modellVersjon: modellVersjon,
+      isApmEnabled: true,
     };
   } else if (window.location.hostname.indexOf('www') > -1) {
     return {
@@ -47,6 +49,7 @@ const Environment = (): EnvironmentProps => {
       mellomlagerProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/`,
       miljø: 'production',
       modellVersjon: modellVersjon,
+      isApmEnabled: true,
     };
   } else if (erLokaltMotPreprod()) {
     return {
@@ -57,6 +60,7 @@ const Environment = (): EnvironmentProps => {
       mellomlagerProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/soknad/`,
       miljø: 'local',
       modellVersjon: modellVersjon,
+      isApmEnabled: false,
     };
   } else {
     return {
@@ -67,6 +71,7 @@ const Environment = (): EnvironmentProps => {
       mellomlagerProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/soknad/`,
       miljø: 'local',
       modellVersjon: modellVersjon,
+      isApmEnabled: false,
     };
   }
 };

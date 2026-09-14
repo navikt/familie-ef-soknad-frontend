@@ -41,6 +41,8 @@
     "@navikt/ds-tokens": "^8.14.0",
     "@navikt/fnrvalidator": "^2.2.1",
     "@navikt/nav-dekoratoren-moduler": "^4.2.2",
+    "@nais/apm": "^0.6.3",
+    "@grafana/faro-web-tracing": "^2.11.0",
     "axios": "^1.18.1",
     "constate": "^4.0.0",
     "date-fns": "^4.4.0",
