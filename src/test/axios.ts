@@ -176,9 +176,17 @@ export const mockMellomlagretSøknadOvergangsstønad = (
 export const mockMellomlagretSøknadBarnetilsyn = (
   gjeldendeSteg?: SøknadStegBarnetilsyn,
   søker?: Partial<Søker>,
-  søknad?: Partial<SøknadBarnetilsyn>
+  søknad?: Partial<SøknadBarnetilsyn>,
+  harLøpendeBarnetilsynVedRegelendring?: boolean
 ) => {
   (axios.get as any).mockImplementation((url: string) => {
+    if (
+      url ===
+      `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`
+    ) {
+      return Promise.resolve({ data: harLøpendeBarnetilsynVedRegelendring === true });
+    }
+
     if (url === `${Environment().mellomlagerProxyUrl + 'barnetilsyn'}`) {
       return gjeldendeSteg
         ? Promise.resolve({
