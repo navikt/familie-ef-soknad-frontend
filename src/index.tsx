@@ -18,18 +18,9 @@ import React from 'react';
 import { SpråkProvider } from './context/SpråkContext';
 import ContextProviders from './context/ContextProviders';
 import { ScrollToTop } from './utils/visning';
-import * as Sentry from '@sentry/react';
-import Environment from './Environment';
 import SkolepengerApp from './søknader/skolepenger/SkolepengerApp';
 import { createRoot } from 'react-dom/client';
 
-if (Environment().sentryUrl) {
-  Sentry.init({
-    dsn: Environment().sentryUrl,
-    environment: Environment().miljø,
-    release: process.env.SENTRY_RELEASE || undefined,
-  });
-}
 const container = document.getElementById('root');
 if (container == null) {
   throw new Error('Mangler container for appen');

@@ -6,7 +6,6 @@ interface EnvironmentProps {
   wonderwallUrl: string;
   dokumentProxyUrl: string;
   mellomlagerProxyUrl: string;
-  sentryUrl?: string;
   miljø: string;
   modellVersjon: IModellversjon;
 }
@@ -36,7 +35,6 @@ const Environment = (): EnvironmentProps => {
         'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING', //Vil uansett gå til bucket "familievedlegg" enn så lenge
       mellomlagerProxyUrl:
         'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/',
-      sentryUrl: 'https://88f5ed8ed0fc42139eaf7061abfedb19@sentry.gc.nav.no/36',
       miljø: 'preprod',
       modellVersjon: modellVersjon,
     };
@@ -47,7 +45,6 @@ const Environment = (): EnvironmentProps => {
       wonderwallUrl: 'https://www.nav.no/familie/alene-med-barn/soknad/oauth2/login?redirect=',
       dokumentProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`, //Vil uansett gå til bucket "familievedlegg" enn så lenge,
       mellomlagerProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/`,
-      sentryUrl: 'https://88f5ed8ed0fc42139eaf7061abfedb19@sentry.gc.nav.no/36',
       miljø: 'production',
       modellVersjon: modellVersjon,
     };
