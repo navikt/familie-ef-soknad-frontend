@@ -24,6 +24,9 @@ spec:
     autoInstrumentation:
         enabled: true
         runtime: nodejs
+  frontend:
+    generatedConfig:
+      mountPath: /app/build/nais.js
   liveness:
     path: /familie/alene-med-barn/soknad/internal/isAlive
     initialDelay: 5
