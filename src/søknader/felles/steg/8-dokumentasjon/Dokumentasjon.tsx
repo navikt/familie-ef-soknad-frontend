@@ -42,7 +42,6 @@ const Dokumentasjon: React.FC = () => {
   // Fjern vedlegg som evt. har blitt slettet i familie-dokument
   useEffect(() => {
     dokumentasjonsbehov.forEach((dokBehov: IDokumentasjon) => {
-      captureMessage('Zubaier tester', 'error');
       if (dokBehov.opplastedeVedlegg) {
         const gyldigeVedlegg = dokBehov.opplastedeVedlegg.filter((vedlegg) =>
           erVedleggstidspunktGyldig(vedlegg.tidspunkt)

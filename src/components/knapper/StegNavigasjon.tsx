@@ -30,7 +30,6 @@ export const StegNavigasjon: FC<Props> = ({
   const forrigeRoute = hentForrigeRoute(routesStønad, location.pathname);
 
   const onNeste = () => {
-    captureMessage('Kristian tester', 'error');
     if (mellomlagreSteg) {
       mellomlagreSteg();
     } else if (mellomlagreStønad) {
