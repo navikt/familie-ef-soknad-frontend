@@ -4,7 +4,7 @@ Frontend - søknad for enslig forsørger.
 
 ## Kjør lokalt
 Lokal kjøring krever internett da tokenet hentes fra fakedings: `https://github.com/navikt/fakedings` 
-
+3
 1. `npm install`
 2. `npm run start`
 3. Kjør opp `familie-ef-soknad-api`
