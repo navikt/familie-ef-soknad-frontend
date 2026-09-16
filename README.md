@@ -23,7 +23,7 @@ Du kan også hente token ved å kjøre `npm run dev:hent-tokens` med personident
 3. `npm install` 
 4. `npm run dev` 
 5. Gå til url: `http://localhost:3000/familie/alene-med-barn/soknad/`
-
+test
 * Hvis man ønsker å kjøre med mock-api
 1. `node mock/mock-server.js`
 2. `npm run start:mock`
