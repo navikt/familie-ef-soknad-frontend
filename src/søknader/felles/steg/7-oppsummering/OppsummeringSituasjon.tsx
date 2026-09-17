@@ -43,41 +43,30 @@ export const OppsummeringSituasjon: React.FC<Props> = ({
   return (
     <StyledOppsummeringMedUndertitler>
       <VStack gap={'space-16'}>
-        {dinSituasjon.hvaSituasjon && (
-          <div>{visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.hvaSituasjon)}</div>
-        )}
+        {dinSituasjon.hvaSituasjon &&
+          visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.hvaSituasjon)}
 
-        {Object.keys(barnMedsærligeTilsynsbehovlabelOgSvar).length > 0 && (
-          <div>{VisLabelOgSvar(barnMedsærligeTilsynsbehovlabelOgSvar)}</div>
-        )}
+        {Object.keys(barnMedsærligeTilsynsbehovlabelOgSvar).length > 0 &&
+          VisLabelOgSvar(barnMedsærligeTilsynsbehovlabelOgSvar)}
 
-        {dinSituasjon.inntekter && (
-          <div>{visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.inntekter)}</div>
-        )}
+        {dinSituasjon.inntekter && visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.inntekter)}
 
-        {aktivitet.firmaer && (
-          <div>{visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}</div>
-        )}
+        {aktivitet.firmaer &&
+          visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}
 
         {dinSituasjon.sagtOppEllerRedusertStilling &&
           visLabelOgVerdiForSpørsmålFelt(dinSituasjon.sagtOppEllerRedusertStilling, intl)}
 
-        {dinSituasjon.begrunnelseSagtOppEllerRedusertStilling && (
-          <div>
-            {VisLabelOgSvar({ begrunnelse: dinSituasjon.begrunnelseSagtOppEllerRedusertStilling })}
-          </div>
-        )}
+        {dinSituasjon.begrunnelseSagtOppEllerRedusertStilling &&
+          VisLabelOgSvar({ begrunnelse: dinSituasjon.begrunnelseSagtOppEllerRedusertStilling })}
 
-        {dinSituasjon.datoSagtOppEllerRedusertStilling && (
-          <div>{VisLabelOgSvar({ dato: dinSituasjon.datoSagtOppEllerRedusertStilling })}</div>
-        )}
+        {dinSituasjon.datoSagtOppEllerRedusertStilling &&
+          VisLabelOgSvar({ dato: dinSituasjon.datoSagtOppEllerRedusertStilling })}
 
         {dinSituasjon.søkerFraBestemtMåned &&
           visLabelOgVerdiForSpørsmålFelt(dinSituasjon.søkerFraBestemtMåned, intl)}
 
-        {dinSituasjon.søknadsdato && (
-          <div>{VisLabelOgSvar({ søknadsdato: dinSituasjon.søknadsdato })}</div>
-        )}
+        {dinSituasjon.søknadsdato && VisLabelOgSvar({ søknadsdato: dinSituasjon.søknadsdato })}
 
         <LenkeMedIkon
           onClick={() =>

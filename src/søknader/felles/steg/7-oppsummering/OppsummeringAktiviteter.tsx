@@ -28,41 +28,27 @@ const OppsummeringAktiviteter: React.FC<Props> = ({ aktivitet, endreInformasjonP
       <VStack gap={'space-16'}>
         {aktivitet.erIArbeid && visLabelOgVerdiForSpørsmålFelt(aktivitet?.erIArbeid, intl)}
 
-        {aktivitet.hvaErDinArbeidssituasjon && (
-          <div>{visLabelOgVerdiForSpørsmålListeFelt(aktivitet.hvaErDinArbeidssituasjon)}</div>
-        )}
+        {aktivitet.hvaErDinArbeidssituasjon &&
+          visLabelOgVerdiForSpørsmålListeFelt(aktivitet.hvaErDinArbeidssituasjon)}
 
-        {aktivitet.etablererEgenVirksomhet && (
-          <div>
-            {visLabelOgVerdiForSpørsmålFelt(
-              aktivitet.etablererEgenVirksomhet,
-              intl,
-              hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)
-            )}
-          </div>
-        )}
+        {aktivitet.etablererEgenVirksomhet &&
+          visLabelOgVerdiForSpørsmålFelt(
+            aktivitet.etablererEgenVirksomhet,
+            intl,
+            hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)
+          )}
 
-        {aktivitet.arbeidsforhold && (
-          <div>
-            {visListeAvLabelOgSvar(
-              aktivitet.arbeidsforhold,
-              hentTekst('arbeidsforhold.tittel.arbeidsgiver', intl)
-            )}
-          </div>
-        )}
+        {aktivitet.arbeidsforhold &&
+          visListeAvLabelOgSvar(
+            aktivitet.arbeidsforhold,
+            hentTekst('arbeidsforhold.tittel.arbeidsgiver', intl)
+          )}
 
-        {aktivitet.firmaer && (
-          <div>{visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}</div>
-        )}
+        {aktivitet.firmaer &&
+          visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}
 
-        {aktivitet.egetAS && (
-          <div>
-            {visListeAvLabelOgSvar(
-              aktivitet.egetAS,
-              hentTekst('arbeidsforhold.tittel.egetAS', intl)
-            )}
-          </div>
-        )}
+        {aktivitet.egetAS &&
+          visListeAvLabelOgSvar(aktivitet.egetAS, hentTekst('arbeidsforhold.tittel.egetAS', intl))}
 
         {aktivitet.arbeidssøker && (
           <div>
@@ -77,14 +63,11 @@ const OppsummeringAktiviteter: React.FC<Props> = ({ aktivitet, endreInformasjonP
               <Ingress>{hentTekst('utdanning.tittel', intl)}</Ingress>
               {VisLabelOgSvar(aktivitet.underUtdanning)}
             </div>
-            {aktivitet.underUtdanning?.tidligereUtdanning && (
-              <div>
-                {visListeAvLabelOgSvar(
-                  aktivitet.underUtdanning.tidligereUtdanning,
-                  hentTekst('utdanning.tittel.tidligere', intl)
-                )}
-              </div>
-            )}
+            {aktivitet.underUtdanning?.tidligereUtdanning &&
+              visListeAvLabelOgSvar(
+                aktivitet.underUtdanning.tidligereUtdanning,
+                hentTekst('utdanning.tittel.tidligere', intl)
+              )}
           </VStack>
         )}
 
