@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { StyledKnapper } from '../../../../components/knapper/StyledKnapper';
 import { ERouteSkolepenger, RoutesSkolepenger } from '../../routing/routes';
 import {
   mapBarnTilEntenIdentEllerFødselsdato,
@@ -15,7 +14,7 @@ import { unikeDokumentasjonsbehov } from '../../../../utils/søknad';
 import { SøknadSkolepenger } from '../../models/søknad';
 import { useSkolepengerSøknad } from '../../SkolepengerContext';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { Alert, BodyShort, Button, HStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, HGrid, HStack, VStack } from '@navikt/ds-react';
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { useSpråkContext } from '../../../../context/SpråkContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
@@ -108,33 +107,26 @@ export const SendSøknadKnapper: FC = () => {
         </>
       )}
       <HStack justify={'center'}>
-        <StyledKnapper>
-          <Button
-            className={'tilbake'}
-            variant="secondary"
-            onClick={() => navigate(forrigeRoute.path)}
-          >
-            {hentTekst('knapp.tilbake', intl)}
-          </Button>
-
-          {validerSøkerBosattINorgeSisteFemÅr(søknad) && (
-            <Button
-              variant="primary"
-              onClick={() => !innsendingState.venter && sendSøknad(søknad)}
-              className={'neste'}
-              loading={innsendingState.venter}
-            >
-              {hentTekst('knapp.sendSøknad', intl)}
+        <VStack gap={'space-16'} style={{ maxWidth: '500px' }}>
+          <HGrid columns={2} gap={'space-16'}>
+            <Button variant="secondary" onClick={() => navigate(forrigeRoute.path)}>
+              {hentTekst('knapp.tilbake', intl)}
             </Button>
-          )}
-          <Button
-            className={'avbryt'}
-            variant="tertiary"
-            onClick={() => navigate(RoutesSkolepenger[0].path)}
-          >
+
+            {validerSøkerBosattINorgeSisteFemÅr(søknad) && (
+              <Button
+                variant="primary"
+                onClick={() => !innsendingState.venter && sendSøknad(søknad)}
+                loading={innsendingState.venter}
+              >
+                {hentTekst('knapp.sendSøknad', intl)}
+              </Button>
+            )}
+          </HGrid>
+          <Button variant="tertiary" onClick={() => navigate(RoutesSkolepenger[0].path)}>
             {hentTekst('knapp.avbryt', intl)}
           </Button>
-        </StyledKnapper>
+        </VStack>
       </HStack>
     </>
   );
