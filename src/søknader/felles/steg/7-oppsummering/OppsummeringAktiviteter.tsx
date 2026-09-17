@@ -10,9 +10,9 @@ import {
   visLabelOgVerdiForSpørsmålListeFelt,
   visListeAvLabelOgSvar,
 } from '../../../../utils/visning';
-import { StyledOppsummeringMedUndertitler } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
 import { Ingress, VStack } from '@navikt/ds-react';
+import styles from './OppsummeringAktiviteter.module.css';
 
 interface Props {
   aktivitet: IAktivitet;
@@ -24,7 +24,7 @@ const OppsummeringAktiviteter: React.FC<Props> = ({ aktivitet, endreInformasjonP
   const intl = useLokalIntlContext();
 
   return (
-    <StyledOppsummeringMedUndertitler>
+    <div className={styles.oppsummeringMedUndertitler}>
       <VStack gap={'space-16'}>
         {aktivitet.erIArbeid && visLabelOgVerdiForSpørsmålFelt(aktivitet?.erIArbeid, intl)}
 
@@ -82,7 +82,7 @@ const OppsummeringAktiviteter: React.FC<Props> = ({ aktivitet, endreInformasjonP
           ikon={endre}
         />
       </VStack>
-    </StyledOppsummeringMedUndertitler>
+    </div>
   );
 };
 

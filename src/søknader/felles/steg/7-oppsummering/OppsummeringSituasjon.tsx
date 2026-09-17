@@ -8,13 +8,13 @@ import {
   visLabelOgVerdiForSpørsmålListeFelt,
   visListeAvLabelOgSvar,
 } from '../../../../utils/visning';
-import { StyledOppsummeringMedUndertitler } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
 import { VStack } from '@navikt/ds-react';
+import styles from './OppsummeringSituasjon.module.css';
 
 interface Props {
   dinSituasjon: IDinSituasjon;
@@ -41,7 +41,7 @@ export const OppsummeringSituasjon: React.FC<Props> = ({
   );
 
   return (
-    <StyledOppsummeringMedUndertitler>
+    <div className={styles.oppsummeringMedUndertitler}>
       <VStack gap={'space-16'}>
         {dinSituasjon.hvaSituasjon &&
           visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.hvaSituasjon)}
@@ -79,6 +79,6 @@ export const OppsummeringSituasjon: React.FC<Props> = ({
           ikon={endre}
         />
       </VStack>
-    </StyledOppsummeringMedUndertitler>
+    </div>
   );
 };
