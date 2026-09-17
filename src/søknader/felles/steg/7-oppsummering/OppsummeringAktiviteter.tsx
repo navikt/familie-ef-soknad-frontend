@@ -10,13 +10,9 @@ import {
   visLabelOgVerdiForSpørsmålListeFelt,
   visListeAvLabelOgSvar,
 } from '../../../../utils/visning';
-import {
-  SeksjonSpacingBottom,
-  SeksjonSpacingTop,
-  StyledOppsummeringMedUndertitler,
-} from '../../../../components/stegKomponenter/StyledOppsummering';
+import { StyledOppsummeringMedUndertitler } from '../../../../components/stegKomponenter/StyledOppsummering';
 import { useNavigate } from 'react-router-dom';
-import { Ingress } from '@navikt/ds-react';
+import { Ingress, VStack } from '@navikt/ds-react';
 
 interface Props {
   aktivitet: IAktivitet;
@@ -29,76 +25,80 @@ const OppsummeringAktiviteter: React.FC<Props> = ({ aktivitet, endreInformasjonP
 
   return (
     <StyledOppsummeringMedUndertitler>
-      {aktivitet.erIArbeid && visLabelOgVerdiForSpørsmålFelt(aktivitet?.erIArbeid, intl)}
+      <VStack gap={'space-16'}>
+        {aktivitet.erIArbeid && visLabelOgVerdiForSpørsmålFelt(aktivitet?.erIArbeid, intl)}
 
-      {aktivitet.hvaErDinArbeidssituasjon && (
-        <SeksjonSpacingBottom>
-          {visLabelOgVerdiForSpørsmålListeFelt(aktivitet.hvaErDinArbeidssituasjon)}
-        </SeksjonSpacingBottom>
-      )}
+        {aktivitet.hvaErDinArbeidssituasjon && (
+          <div>{visLabelOgVerdiForSpørsmålListeFelt(aktivitet.hvaErDinArbeidssituasjon)}</div>
+        )}
 
-      {aktivitet.etablererEgenVirksomhet && (
-        <SeksjonSpacingBottom>
-          {visLabelOgVerdiForSpørsmålFelt(
-            aktivitet.etablererEgenVirksomhet,
-            intl,
-            hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)
-          )}
-        </SeksjonSpacingBottom>
-      )}
+        {aktivitet.etablererEgenVirksomhet && (
+          <div>
+            {visLabelOgVerdiForSpørsmålFelt(
+              aktivitet.etablererEgenVirksomhet,
+              intl,
+              hentTekst('arbeidssituasjon.tittel.etablererEgenVirksomhet', intl)
+            )}
+          </div>
+        )}
 
-      {aktivitet.arbeidsforhold && (
-        <SeksjonSpacingBottom>
-          {visListeAvLabelOgSvar(
-            aktivitet.arbeidsforhold,
-            hentTekst('arbeidsforhold.tittel.arbeidsgiver', intl)
-          )}
-        </SeksjonSpacingBottom>
-      )}
+        {aktivitet.arbeidsforhold && (
+          <div>
+            {visListeAvLabelOgSvar(
+              aktivitet.arbeidsforhold,
+              hentTekst('arbeidsforhold.tittel.arbeidsgiver', intl)
+            )}
+          </div>
+        )}
 
-      {aktivitet.firmaer && (
-        <SeksjonSpacingBottom>
-          {visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}
-        </SeksjonSpacingBottom>
-      )}
+        {aktivitet.firmaer && (
+          <div>{visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}</div>
+        )}
 
-      {aktivitet.egetAS && (
-        <SeksjonSpacingBottom>
-          {visListeAvLabelOgSvar(aktivitet.egetAS, hentTekst('arbeidsforhold.tittel.egetAS', intl))}
-        </SeksjonSpacingBottom>
-      )}
+        {aktivitet.egetAS && (
+          <div>
+            {visListeAvLabelOgSvar(
+              aktivitet.egetAS,
+              hentTekst('arbeidsforhold.tittel.egetAS', intl)
+            )}
+          </div>
+        )}
 
-      {aktivitet.arbeidssøker && (
-        <SeksjonSpacingBottom>
-          <Ingress>{hentTekst('arbeidssøker.tittel', intl)}</Ingress>
-          {VisLabelOgSvar(aktivitet.arbeidssøker)}
-        </SeksjonSpacingBottom>
-      )}
+        {aktivitet.arbeidssøker && (
+          <div>
+            <Ingress>{hentTekst('arbeidssøker.tittel', intl)}</Ingress>
+            {VisLabelOgSvar(aktivitet.arbeidssøker)}
+          </div>
+        )}
 
-      {aktivitet.underUtdanning && (
-        <SeksjonSpacingBottom>
-          <Ingress>{hentTekst('utdanning.tittel', intl)}</Ingress>
-          {VisLabelOgSvar(aktivitet.underUtdanning)}
-          {aktivitet.underUtdanning?.tidligereUtdanning && (
-            <SeksjonSpacingTop>
-              {visListeAvLabelOgSvar(
-                aktivitet.underUtdanning.tidligereUtdanning,
-                hentTekst('utdanning.tittel.tidligere', intl)
-              )}
-            </SeksjonSpacingTop>
-          )}
-        </SeksjonSpacingBottom>
-      )}
-      <LenkeMedIkon
-        onClick={() =>
-          navigate(
-            { pathname: endreInformasjonPath },
-            { state: { kommerFraOppsummering: true }, replace: true }
-          )
-        }
-        tekst_id="barnasbosted.knapp.endre"
-        ikon={endre}
-      />
+        {aktivitet.underUtdanning && (
+          <VStack gap={'space-48'}>
+            <div>
+              <Ingress>{hentTekst('utdanning.tittel', intl)}</Ingress>
+              {VisLabelOgSvar(aktivitet.underUtdanning)}
+            </div>
+            {aktivitet.underUtdanning?.tidligereUtdanning && (
+              <div>
+                {visListeAvLabelOgSvar(
+                  aktivitet.underUtdanning.tidligereUtdanning,
+                  hentTekst('utdanning.tittel.tidligere', intl)
+                )}
+              </div>
+            )}
+          </VStack>
+        )}
+
+        <LenkeMedIkon
+          onClick={() =>
+            navigate(
+              { pathname: endreInformasjonPath },
+              { state: { kommerFraOppsummering: true }, replace: true }
+            )
+          }
+          tekst_id="barnasbosted.knapp.endre"
+          ikon={endre}
+        />
+      </VStack>
     </StyledOppsummeringMedUndertitler>
   );
 };
