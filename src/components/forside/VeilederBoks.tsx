@@ -16,8 +16,7 @@ export const VeilederBoks: React.FC<VeilederBoksProps> = ({ navn }) => {
   return (
     <div style={{ marginBottom: '4rem', display: 'flex', justifyContent: 'center' }}>
       {/*
-      z-index er lagt på for at språkvelgeren skal legge seg over GuidePanel
-      slik at det er mulig å velge språk på mindre skjermer.
+      z-index er -1 slik at språkvelgeren legger seg øverst, så det er mulig å velge språk på mindre skjermer.
       */}
       <GuidePanel poster={true} style={{ zIndex: -1 }}>
         {hentTekstMedEnVariabel('skjema.hei', intl, søkerNavn)}
