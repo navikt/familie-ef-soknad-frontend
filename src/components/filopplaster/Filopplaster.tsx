@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import opplasting from '../../assets/opplasting.svg';
 import OpplastedeFiler from './OpplastedeFiler';
 import { formaterFilstørrelse } from './utils';
 import { IVedlegg } from '../../models/steg/vedlegg';
@@ -10,10 +9,10 @@ import { IDokumentasjon } from '../../models/steg/dokumentasjon';
 import { dagensDatoMedTidspunktStreng } from '../../utils/dato';
 import { getFeilmelding } from '../../utils/feil';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert, BodyShort, Box, HStack, VStack } from '@navikt/ds-react';
 import { ModalWrapper } from '../Modal/ModalWrapper';
-import styled from 'styled-components';
-import { Accent500, BgAccentSoft, Neutral700 } from '@navikt/ds-tokens/dist/tokens';
+import { UploadIcon } from '@navikt/aksel-icons';
+import { Accent500 } from '@navikt/ds-tokens/dist/tokens';
 import {
   hentTekst,
   hentTekstMedEnVariabel,
@@ -39,34 +38,6 @@ interface OpplastetVedlegg {
   dokumentId: string;
   filnavn: string;
 }
-
-const FilopplastingFelt = styled.div`
-  font-weight: bold;
-  border: 2px dashed ${Neutral700};
-  border-radius: 4px;
-  background-color: ${BgAccentSoft};
-  color: ${Accent500};
-  margin: 0 auto;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
-
-const IkonOgTekstWrapper = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const FeilmeldingModalInnhold = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-
-  div {
-    font-weight: bold;
-  }
-`;
 
 export const Filopplaster: React.FC<Props> = ({
   oppdaterDokumentasjon,
@@ -185,30 +156,47 @@ export const Filopplaster: React.FC<Props> = ({
         slettVedlegg={slettVedlegg}
       />
 
-      <FilopplastingFelt>
+      <Box
+        background="accent-soft"
+        borderColor="neutral-strong"
+        borderWidth="2"
+        borderRadius="4"
+        height="64px"
+        style={{
+          borderStyle: 'dashed',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto',
+          cursor: 'pointer',
+          color: Accent500,
+        }}
+      >
         {åpenModal && (
           <ModalWrapper tittel="Noe har gått galt" visModal={åpenModal} onClose={() => lukkModal()}>
-            <FeilmeldingModalInnhold>
+            <VStack gap={'space-16'} style={{ marginTop: '2rem', marginBottom: '1rem' }}>
               {feilmeldinger.map((feilmelding) => (
                 <Alert size="small" key={feilmelding} variant="error" inline>
-                  {feilmelding}
+                  <BodyShort weight="semibold" size={'small'}>
+                    {feilmelding}
+                  </BodyShort>
                 </Alert>
               ))}
-            </FeilmeldingModalInnhold>
+            </VStack>
           </ModalWrapper>
         )}
         <div {...getRootProps()}>
           <input {...getInputProps()} />
-          <IkonOgTekstWrapper>
-            <img src={opplasting} alt="Opplastingsikon" />
+          <HStack gap={'space-16'} align={'center'}>
+            <UploadIcon title={'Opplastingsikon'} fontSize={'1.5rem'} />
             <BodyShort>
               {isDragActive
                 ? hentTekst('filopplaster.slipp', intl)
                 : hentTekst('filopplaster.dra', intl)}
             </BodyShort>
-          </IkonOgTekstWrapper>
+          </HStack>
         </div>
-      </FilopplastingFelt>
+      </Box>
     </div>
   );
 };

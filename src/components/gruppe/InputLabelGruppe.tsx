@@ -1,40 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import { IHjelpetekst } from '../../models/felles/hjelpetekst';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 import { TextFieldMedBredde } from '../TextFieldMedBredde';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentHTMLTekst } from '../../utils/teksthåndtering';
 import { LesMerTekst } from '../lesmertekst/LesMerTekst';
-
-const StyledComponent = styled.div`
-  display: grid;
-  grid-template-columns: min-content auto;
-  grid-template-rows: repeat(3, min-content);
-  grid-template-areas:
-    'label label'
-    'hjelpetekst hjelpetekst'
-    'input tegn';
-
-  .aksel-label {
-    grid-area: label;
-  }
-
-  .aksel-form-field {
-    grid-area: input;
-  }
-
-  .beskrivendeTekst {
-    padding-left: 0.5rem;
-    grid-area: tegn;
-    align-self: center;
-  }
-`;
-
-const HjelpetekstContainer = styled.div`
-  grid-area: hjelpetekst;
-  margin-bottom: 0.5rem;
-`;
 
 interface Props {
   label: string;
@@ -69,42 +39,40 @@ const InputLabelGruppe: React.FC<Props> = ({
   const ignorerScrollForTallInput = (e: any) => e.target.blur();
 
   return (
-    <StyledComponent aria-live="polite">
+    <VStack gap={'space-4'}>
       <Label as={'label'} htmlFor={label}>
         {label}
       </Label>
       {hjelpetekst && (
-        <HjelpetekstContainer>
-          <LesMerTekst
-            åpneTekstid={hjelpetekst.headerTekstid}
-            innholdTekstid={hjelpetekst.innholdTekstid}
-          />
-        </HjelpetekstContainer>
+        <LesMerTekst
+          åpneTekstid={hjelpetekst.headerTekstid}
+          innholdTekstid={hjelpetekst.innholdTekstid}
+        />
       )}
       {utvidetTekstNøkkel && (
-        <HjelpetekstContainer>
-          <BodyShort as={'span'} size={'small'}>
-            {hentHTMLTekst(utvidetTekstNøkkel, intl)}
-          </BodyShort>
-        </HjelpetekstContainer>
+        <BodyShort as={'span'} size={'small'}>
+          {hentHTMLTekst(utvidetTekstNøkkel, intl)}
+        </BodyShort>
       )}
-      <TextFieldMedBredde
-        label={label}
-        hideLabel
-        aria-label={label}
-        id={label}
-        key={label}
-        type={type}
-        bredde={bredde}
-        onChange={(e) => settInputFelt(e, nøkkel, label)}
-        value={value}
-        error={feil}
-        placeholder={placeholder}
-        onWheel={ignorerScrollForTallInput}
-        data-testid={testId}
-      />
-      <BodyShort className={'beskrivendeTekst'}>{beskrivendeTekst}</BodyShort>
-    </StyledComponent>
+      <HStack align={'center'} gap={'space-4'}>
+        <TextFieldMedBredde
+          label={label}
+          hideLabel
+          aria-label={label}
+          id={label}
+          key={label}
+          type={type}
+          bredde={bredde}
+          onChange={(e) => settInputFelt(e, nøkkel, label)}
+          value={value}
+          error={feil}
+          placeholder={placeholder}
+          onWheel={ignorerScrollForTallInput}
+          data-testid={testId}
+        />
+        <BodyShort className={'beskrivendeTekst'}>{beskrivendeTekst}</BodyShort>
+      </HStack>
+    </VStack>
   );
 };
 

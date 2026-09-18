@@ -1,19 +1,17 @@
-import styled, { CSSProp } from 'styled-components';
-import { TextField } from '@navikt/ds-react';
+import { CSSProperties } from 'react';
+import { TextField, TextFieldProps } from '@navikt/ds-react';
 
 type bredde = 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
 
-interface Props {
+interface Props extends TextFieldProps {
   bredde?: bredde;
 }
 
-export const TextFieldMedBredde = styled(TextField)<Props>`
-  input {
-    ${(props) => (props.bredde ? breddeTilStyle[props.bredde] : '')}
-  }
-`;
+export const TextFieldMedBredde = ({ bredde, style, ...props }: Props) => (
+  <TextField style={bredde ? { ...breddeTilStyle[bredde], ...style } : style} {...props} />
+);
 
-const breddeTilStyle: Record<bredde, CSSProp> = {
+const breddeTilStyle: Record<bredde, CSSProperties> = {
   L: {
     width: '100%',
     maxWidth: '315px',

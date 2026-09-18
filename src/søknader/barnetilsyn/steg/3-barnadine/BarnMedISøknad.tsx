@@ -1,13 +1,7 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import styled from 'styled-components';
-import { Checkbox } from '@navikt/ds-react';
-
-const StyledWrapper = styled.div`
-  margin: 1rem 0;
-  text-align: left;
-`;
+import { BodyShort, Checkbox } from '@navikt/ds-react';
 
 interface Props {
   skalHaBarnepass?: boolean;
@@ -20,15 +14,13 @@ const BarnMedISøknad: FC<Props> = ({ skalHaBarnepass, toggleSkalHaBarnepass, id
   const intl = useLokalIntlContext();
 
   return (
-    <StyledWrapper>
-      <Checkbox
-        data-testid={testId}
-        checked={skalHaBarnepass}
-        onChange={() => toggleSkalHaBarnepass(id)}
-      >
-        {hentTekst('barnadine.knapp.søkBarnetilsyn', intl)}
-      </Checkbox>
-    </StyledWrapper>
+    <Checkbox
+      data-testid={testId}
+      checked={skalHaBarnepass}
+      onChange={() => toggleSkalHaBarnepass(id)}
+    >
+      <BodyShort align={'start'}>{hentTekst('barnadine.knapp.søkBarnetilsyn', intl)}</BodyShort>
+    </Checkbox>
   );
 };
 
