@@ -36,7 +36,11 @@ const OpplastedeFiler: React.FC<Props> = ({ filliste, slettVedlegg }) => {
               {hentTekst('dokumentasjon.knapp.slett', intl)}
             </Button>
           </HStack>
-          {index === filliste.length - 1 ? <br /> : <hr />}
+          {index === filliste.length - 1 ? (
+            <br />
+          ) : (
+            <hr style={{ width: '100%', marginLeft: 0, marginRight: 0 }} />
+          )}
         </VStack>
       ))}
     </>
