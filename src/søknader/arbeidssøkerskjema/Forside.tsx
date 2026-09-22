@@ -35,13 +35,14 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
     <div className={'forside'}>
       <div className={'forside__innhold'}>
         <Box padding="space-16" className={'forside__panel'}>
-          <VedlikeholdsvarselAlert />
-
           <VeilederBoks navn={visningsnavn} />
 
           <Heading level="1" size="xlarge">
             {hentTekst('skjema.sidetittel', intl)}
           </Heading>
+
+          <VedlikeholdsvarselAlert />
+
           <VStack gap={'space-40'}>
             <VStack gap={'space-12'}>
               <BodyShort>{hentTekst('forside.arbeidssøker.info', intl)}</BodyShort>
