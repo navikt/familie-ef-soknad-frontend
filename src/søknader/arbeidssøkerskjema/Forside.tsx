@@ -8,6 +8,7 @@ import { useSpråkValg } from '../../utils/hooks';
 import { hentPath } from '../../utils/routing';
 import { BodyShort, Box, Heading, VStack } from '@navikt/ds-react';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
+import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 import { DisclaimerBoks } from '../../components/forside/DisclaimerBoks';
 import { KnappLocaleTekstOgNavigate } from '../../components/knapper/KnappLocaleTekstOgNavigate';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
@@ -34,6 +35,8 @@ const Forside: React.FC<{ visningsnavn: string }> = ({ visningsnavn }) => {
     <div className={'forside'}>
       <div className={'forside__innhold'}>
         <Box padding="space-16" className={'forside__panel'}>
+          <VedlikeholdsvarselAlert />
+
           <VeilederBoks navn={visningsnavn} />
 
           <Heading level="1" size="xlarge">

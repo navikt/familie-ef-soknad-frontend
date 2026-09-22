@@ -9,6 +9,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Heading } from '@navikt/ds-react';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
+import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
 import { hentHTMLTekst, hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
@@ -47,6 +48,8 @@ const Forside: React.FC = () => {
     <div className={'forside'}>
       <div className={'forside__innhold'}>
         <Box padding="space-16" className={'forside__panel'}>
+          <VedlikeholdsvarselAlert />
+
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}
