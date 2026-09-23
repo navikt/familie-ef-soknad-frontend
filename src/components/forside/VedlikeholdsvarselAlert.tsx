@@ -33,7 +33,18 @@ export const VedlikeholdsvarselAlert: React.FC = () => {
         };
 
   return (
-    <GlobalAlert status="announcement" style={{ marginBottom: '2rem' }}>
+    <GlobalAlert
+      status="announcement"
+      style={{
+        marginBottom: '2rem',
+        width: '100vw',
+        position: 'relative',
+        left: '50%',
+        right: '50%',
+        marginLeft: '-50vw',
+        marginRight: '-50vw',
+      }}
+    >
       <GlobalAlert.Header>
         <GlobalAlert.Title as="h2">{tekst.tittel}</GlobalAlert.Title>
       </GlobalAlert.Header>
