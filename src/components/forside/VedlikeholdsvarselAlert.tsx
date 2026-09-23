@@ -37,7 +37,7 @@ export const VedlikeholdsvarselAlert: React.FC = () => {
       status="announcement"
       style={{
         marginBottom: '2rem',
-        width: '100vw',
+        width: '80vw',
         position: 'relative',
         left: '50%',
         right: '50%',
