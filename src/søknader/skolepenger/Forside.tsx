@@ -48,6 +48,8 @@ const Forside: React.FC = () => {
     <div className={'forside'}>
       <div className={'forside__innhold'}>
         <Box padding="space-16" className={'forside__panel'}>
+          <VedlikeholdsvarselAlert />
+
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}
@@ -55,8 +57,6 @@ const Forside: React.FC = () => {
           <Heading level="1" size="xlarge">
             {hentTekst('skolepenger.overskrift', intl)}
           </Heading>
-
-          <VedlikeholdsvarselAlert />
 
           {erDagensDatoMellomMaiOgAugust && !(nåværendeÅr === 2026) && (
             <Alert variant="info" style={{ marginBottom: '2rem' }}>

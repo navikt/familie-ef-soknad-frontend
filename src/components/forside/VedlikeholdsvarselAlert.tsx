@@ -37,12 +37,12 @@ export const VedlikeholdsvarselAlert: React.FC = () => {
       status="announcement"
       style={{
         marginBottom: '2rem',
-        width: '80vw',
+        width: '99vw',
         position: 'relative',
         left: '50%',
         right: '50%',
-        marginLeft: '-40vw',
-        marginRight: '-40vw',
+        marginLeft: '-49.5vw',
+        marginRight: '-49.5vw',
       }}
     >
       <GlobalAlert.Header>
