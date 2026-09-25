@@ -39,7 +39,7 @@ const InputLabelGruppe: React.FC<Props> = ({
   const ignorerScrollForTallInput = (e: any) => e.target.blur();
 
   return (
-    <VStack gap={'space-4'}>
+    <VStack gap={'space-4'} aria-live="polite">
       <Label as={'label'} htmlFor={label}>
         {label}
       </Label>
