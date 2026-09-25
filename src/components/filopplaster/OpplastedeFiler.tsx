@@ -19,7 +19,7 @@ const OpplastedeFiler: React.FC<Props> = ({ filliste, slettVedlegg }) => {
         <VStack key={fil.dokumentId}>
           <HStack key={fil.dokumentId} align={'center'} justify={'space-between'}>
             <HStack gap={'space-8'}>
-              <PaperclipIcon title="a11y-title" fontSize="1.5rem" />
+              <PaperclipIcon aria-hidden={'true'} fontSize="1.5rem" />
               <BodyShort size="small" style={{ wordBreak: 'break-all' }}>
                 {fil.navn} ({formaterFilstørrelse(fil.størrelse)})
               </BodyShort>
