@@ -113,7 +113,7 @@ export const SendSøknadKnapper: FC = () => {
       )}
       <HStack justify={'center'}>
         <VStack gap={'space-16'} style={{ maxWidth: '500px' }}>
-          <HGrid columns={2} gap={'space-16'}>
+          <HGrid columns={{ xs: 1, sm: 2 }} gap={'space-16'}>
             <Button variant={'secondary'} onClick={() => navigate(forrigeRoute.path)}>
               {hentTekst('knapp.tilbake', intl)}
             </Button>
