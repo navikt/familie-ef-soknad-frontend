@@ -1,10 +1,8 @@
 import React from 'react';
-import vedlegg from '../../assets/vedlegg.svg';
 import { formaterFilstørrelse } from './utils';
 import { IVedlegg } from '../../models/steg/vedlegg';
-import { BodyShort, Button } from '@navikt/ds-react';
-import styled from 'styled-components';
-import { TrashFillIcon } from '@navikt/aksel-icons';
+import { BodyShort, Button, HStack, VStack } from '@navikt/ds-react';
+import { PaperclipIcon, TrashFillIcon } from '@navikt/aksel-icons';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 
@@ -13,25 +11,19 @@ interface Props {
   slettVedlegg: (vedlegg: IVedlegg) => void;
 }
 
-const Filrad = styled.div`
-  display: grid;
-  grid-template-columns: 1.5rem 1fr auto;
-  gap: 1rem;
-  align-items: center;
-  word-break: break-all;
-`;
-
 const OpplastedeFiler: React.FC<Props> = ({ filliste, slettVedlegg }) => {
   const intl = useLokalIntlContext();
   return (
     <>
       {filliste.map((fil: IVedlegg, index: number) => (
-        <div key={fil.dokumentId}>
-          <Filrad>
-            <img src={vedlegg} alt="Vedleggsikon" />
-            <BodyShort size="small">
-              {fil.navn} ({formaterFilstørrelse(fil.størrelse)})
-            </BodyShort>
+        <VStack key={fil.dokumentId}>
+          <HStack key={fil.dokumentId} align={'center'} justify={'space-between'}>
+            <HStack gap={'space-8'}>
+              <PaperclipIcon aria-hidden={'true'} fontSize="1.5rem" />
+              <BodyShort size="small" style={{ wordBreak: 'break-all' }}>
+                {fil.navn} ({formaterFilstørrelse(fil.størrelse)})
+              </BodyShort>
+            </HStack>
             <Button
               size="small"
               variant="tertiary"
@@ -43,9 +35,13 @@ const OpplastedeFiler: React.FC<Props> = ({ filliste, slettVedlegg }) => {
             >
               {hentTekst('dokumentasjon.knapp.slett', intl)}
             </Button>
-          </Filrad>
-          {index === filliste.length - 1 ? <br /> : <hr />}
-        </div>
+          </HStack>
+          {index === filliste.length - 1 ? (
+            <br />
+          ) : (
+            <hr style={{ width: '100%', marginLeft: 0, marginRight: 0 }} />
+          )}
+        </VStack>
       ))}
     </>
   );

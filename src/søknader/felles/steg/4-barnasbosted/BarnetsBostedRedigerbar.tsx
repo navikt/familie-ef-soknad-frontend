@@ -21,7 +21,6 @@ import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
 import { erGyldigDato } from '../../../../utils/dato';
 import { TypeBarn } from '../../../../models/steg/barnasbosted';
 import { Alert, BodyShort, Button, Heading, Label, VStack } from '@navikt/ds-react';
-import styled from 'styled-components';
 import {
   finnFørsteBarnTilHverForelder,
   finnTypeBarnForMedForelder,
@@ -35,10 +34,6 @@ import { useBarnasBosted } from './BarnasBostedContext';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 import { førsteBokstavStor } from '../../../../utils/språk';
 import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
-
-const AlertMedTopMargin = styled(Alert)`
-  margin-top: 1rem;
-`;
 
 const visBostedOgSamværSeksjon = (forelder: IForelder, visesBorINorgeSpørsmål: boolean) => {
   return visesBorINorgeSpørsmål
@@ -204,9 +199,9 @@ export const BarnetsBostedRedigerbar: React.FC<Props> = ({
             )}
 
             {barnHarSammeForelder && (
-              <AlertMedTopMargin variant={'info'} inline>
+              <Alert variant={'info'} inline style={{ marginTop: '1rem' }}>
                 {hentTekst('barnasbosted.medforelder.gjenbrukt', intl)}
-              </AlertMedTopMargin>
+              </Alert>
             )}
           </VStack>
         )}

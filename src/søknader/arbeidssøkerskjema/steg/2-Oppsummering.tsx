@@ -14,11 +14,10 @@ import { IArbeidssøker } from '../../../models/steg/aktivitet/arbeidssøker';
 import { LenkeMedIkon } from '../../../components/knapper/LenkeMedIkon';
 import { sendInnArbeidssøkerSkjema } from '../innsending/api';
 import { IStatus } from '../innsending/typer';
-import { StyledKnapper } from '../../../components/knapper/StyledKnapper';
 import { parseISO } from 'date-fns';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Alert, BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
 
 interface Innsending {
   status: IStatus;
@@ -98,32 +97,25 @@ const Oppsummering: React.FC = () => {
           </Alert>
         )}
         <HStack justify={'center'}>
-          <StyledKnapper>
-            <Button
-              className={'tilbake'}
-              variant={'secondary'}
-              onClick={() => navigate(forrigeRoute.path)}
-            >
-              {hentTekst('knapp.tilbake', intl)}
-            </Button>
+          <VStack gap={'space-16'} style={{ maxWidth: '500px' }}>
+            <HGrid columns={{ xs: 1, sm: 2 }} gap={'space-16'}>
+              <Button variant={'secondary'} onClick={() => navigate(forrigeRoute.path)}>
+                {hentTekst('knapp.tilbake', intl)}
+              </Button>
 
-            <Button
-              variant={'primary'}
-              onClick={() => !innsendingState.venter && sendSkjema(skjema.arbeidssøker)}
-              className={'neste'}
-              loading={innsendingState.venter}
-            >
-              {hentTekst('skjema.send', intl)}
-            </Button>
+              <Button
+                variant={'primary'}
+                onClick={() => !innsendingState.venter && sendSkjema(skjema.arbeidssøker)}
+                loading={innsendingState.venter}
+              >
+                {hentTekst('skjema.send', intl)}
+              </Button>
+            </HGrid>
 
-            <Button
-              className={'avbryt'}
-              variant={'tertiary'}
-              onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}
-            >
+            <Button variant={'tertiary'} onClick={() => navigate(RoutesArbeidssokerskjema[0].path)}>
               {hentTekst('knapp.avbryt', intl)}
             </Button>
-          </StyledKnapper>
+          </VStack>
         </HStack>
       </VStack>
     </Side>

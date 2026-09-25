@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { BodyShort, Box, GuidePanel } from '@navikt/ds-react';
+import { BodyShort, Box, GuidePanel, VStack } from '@navikt/ds-react';
 import { hentPath } from '../../../../utils/routing';
 import { useBarnetilsynSøknad } from '../../BarnetilsynContext';
 import { GjenbrukKnapp } from './GjenbrukKnapp';
-import styled from 'styled-components';
 import { KnappLocaleTekstOgNavigate } from '../../../../components/knapper/KnappLocaleTekstOgNavigate';
 import { hentTekst, hentTekstMedEnVariabel } from '../../../../utils/teksthåndtering';
 import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
@@ -19,33 +18,13 @@ const Gjenbruk: FC = () => {
     return null;
   }
 
-  const BodyShortContainer = styled.div`
-    & > *:not(:last-child) {
-      margin-bottom: 1.5rem;
-    }
-  `;
-
-  const KnappContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  `;
-
-  const SenterContainer = styled.div`
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  `;
-
   const nesteSide = hentPath(RoutesBarnetilsyn, ERouteBarnetilsyn.OmDeg) || '';
   return (
     <div className={'forside'}>
       <div className={'forside__innhold'}>
         <Box padding="space-16" className={'forside__panel'}>
           <GuidePanel poster>
-            <BodyShortContainer>
+            <VStack gap={'space-16'} style={{ marginBottom: '2rem' }}>
               <BodyShort>
                 {hentTekstMedEnVariabel('skjema.hei', intl, søknad.person.søker.forkortetNavn)}
               </BodyShort>
@@ -53,17 +32,15 @@ const Gjenbruk: FC = () => {
               <BodyShort>{hentTekst('tidligere.barnetilsyn.søknad.finnes', intl)}</BodyShort>
 
               <BodyShort>{hentTekst('gjenbruk.tidligere.barnetilsyn.søknad', intl)}</BodyShort>
-            </BodyShortContainer>
-            <SenterContainer>
-              <KnappContainer>
-                <GjenbrukKnapp nesteSide={nesteSide} />
-                <KnappLocaleTekstOgNavigate
-                  nesteSide={nesteSide}
-                  tekst="knapp.startTom"
-                  variant="secondary"
-                />
-              </KnappContainer>
-            </SenterContainer>
+            </VStack>
+            <VStack gap={'space-16'}>
+              <GjenbrukKnapp nesteSide={nesteSide} />
+              <KnappLocaleTekstOgNavigate
+                nesteSide={nesteSide}
+                tekst="knapp.startTom"
+                variant="secondary"
+              />
+            </VStack>
           </GuidePanel>
         </Box>
       </div>
