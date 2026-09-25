@@ -3,6 +3,7 @@ import React from 'react';
 import Environment from '../../Environment';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import FortsettSøknad from '../../components/forside/FortsettSøknad';
+import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { usePersonContext } from '../../context/PersonContext';
@@ -48,6 +49,8 @@ const Forside: React.FC = () => {
     <div className={'forside'}>
       <div className={'forside__innhold'}>
         <Box padding="space-16" className={'forside__panel'}>
+          <VedlikeholdsvarselAlert />
+
           <VeilederBoks />
 
           {alder < 18 && <AlertUnderAtten />}
