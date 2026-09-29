@@ -18,7 +18,6 @@ import { IBarn } from '../../models/steg/barn';
 import { hentTekst } from '../../utils/teksthåndtering';
 import { hentHarGyldigBarnetilsynVedRegelendring } from '../../innsending/api';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
-import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 
 const BarnetilsynApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -77,7 +76,6 @@ const BarnetilsynApp = () => {
       return (
         <>
           <title>{hentTekst('banner.tittel.barnetilsyn', intl)}</title>
-          <VedlikeholdsvarselAlert />
           <SøknadsdialogBarnetilsyn />
         </>
       );

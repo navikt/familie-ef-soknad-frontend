@@ -16,7 +16,6 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Loader } from '@navikt/ds-react';
 import { IBarn } from '../../models/steg/barn';
 import { hentTekst } from '../../utils/teksthåndtering';
-import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 
 const SkolepengerApp = () => {
   const [autentisert, settAutentisering] = useState<boolean>(false);
@@ -59,7 +58,6 @@ const SkolepengerApp = () => {
       return (
         <>
           <title>{hentTekst('skolepenger.sidetittel', intl)}</title>
-          <VedlikeholdsvarselAlert />
           <SøknadsdialogSkolepenger />
         </>
       );

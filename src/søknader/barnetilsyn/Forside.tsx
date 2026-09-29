@@ -3,6 +3,7 @@ import React from 'react';
 import Environment from '../../Environment';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
 import FortsettSøknad from '../../components/forside/FortsettSøknad';
+import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { usePersonContext } from '../../context/PersonContext';
@@ -55,6 +56,8 @@ const Forside: React.FC = () => {
           <Heading level="1" size="xlarge">
             {hentTekst('barnetilsyn.sidetittel', intl)}
           </Heading>
+
+          <VedlikeholdsvarselAlert />
 
           {erDagensDatoMellomMaiOgAugust && nåværendeÅr !== 2026 && (
             <Alert variant="info" style={{ marginBottom: '2rem' }}>

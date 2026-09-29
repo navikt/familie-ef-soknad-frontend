@@ -9,6 +9,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Alert, BodyShort, Box, Heading } from '@navikt/ds-react';
 import { erNåværendeMånedMellomMåneder, nåværendeÅr } from '../../utils/dato';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
+import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import SkolepengerInformasjon from './SkolepengerInformasjon';
 import { hentHTMLTekst, hentTekst, hentTekstMedEnVariabel } from '../../utils/teksthåndtering';
@@ -54,6 +55,8 @@ const Forside: React.FC = () => {
           <Heading level="1" size="xlarge">
             {hentTekst('skolepenger.overskrift', intl)}
           </Heading>
+
+          <VedlikeholdsvarselAlert />
 
           {erDagensDatoMellomMaiOgAugust && !(nåværendeÅr === 2026) && (
             <Alert variant="info" style={{ marginBottom: '2rem' }}>

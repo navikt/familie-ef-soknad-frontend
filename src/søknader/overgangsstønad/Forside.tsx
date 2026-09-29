@@ -8,6 +8,7 @@ import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Box, Heading } from '@navikt/ds-react';
 import { OvergangsstønadInformasjon } from './OvergangsstønadInformasjon';
 import { AlertUnderAtten } from '../../components/forside/AlertUnderAtten';
+import { VedlikeholdsvarselAlert } from '../../components/forside/VedlikeholdsvarselAlert';
 import { VeilederBoks } from '../../components/forside/VeilederBoks';
 import { hentTekst } from '../../utils/teksthåndtering';
 
@@ -52,6 +53,8 @@ const Forside: React.FC = () => {
           <Heading level="1" size="xlarge">
             {hentTekst('banner.tittel.overgangsstønad', intl)}
           </Heading>
+
+          <VedlikeholdsvarselAlert />
 
           {kanBrukeMellomlagretSøknad && mellomlagretOvergangsstønad ? (
             <FortsettSøknad
