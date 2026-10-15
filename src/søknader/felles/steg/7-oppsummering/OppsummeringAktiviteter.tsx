@@ -10,7 +10,7 @@ import {
   visLabelOgVerdiForSpørsmålListeFelt,
   visListeAvLabelOgSvar,
 } from '../../../../utils/visning';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Ingress, VStack } from '@navikt/ds-react';
 import styles from './OppsummeringAktiviteter.module.css';
 

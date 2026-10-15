@@ -5,7 +5,7 @@ import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar } from '../../../../utils/visning';
 import endre from '../../../../assets/endre.svg';
 import { DetaljertUtdanning } from '../../../skolepenger/models/detaljertUtdanning';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Heading, VStack } from '@navikt/ds-react';
 
 interface Props {

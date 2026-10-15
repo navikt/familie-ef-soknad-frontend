@@ -1,6 +1,6 @@
 import constate from 'constate';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
 import { IRoute } from '../../../../models/routes';

@@ -5,7 +5,7 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import { ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { VisLabelOgSvar } from '../../../../utils/visning';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Heading, VStack } from '@navikt/ds-react';
 
 interface Props {

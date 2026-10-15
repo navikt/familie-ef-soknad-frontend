@@ -5,7 +5,7 @@ import { IBarn } from '../../../../models/steg/barn';
 import { VisLabelOgSvar } from '../../../../utils/visning';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 import { VStack } from '@navikt/ds-react';
