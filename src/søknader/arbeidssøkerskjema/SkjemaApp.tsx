@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Feilside from '../../components/feil/Feilside';
 import { hentPersonDataArbeidssoker } from '../../utils/søknad';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import {
   autentiseringsInterceptor,
   verifiserAtBrukerErAutentisert,

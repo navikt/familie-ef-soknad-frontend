@@ -19,7 +19,7 @@ import {
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import { pathOppsummeringBarnetilsyn } from '../../utils';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IBarn } from '../../../../models/steg/barn';
 import { dagensDato, datoTilStreng, formatMånederTilbake } from '../../../../utils/dato';

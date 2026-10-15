@@ -5,7 +5,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { hentRoutesOvergangsstonad } from '../../routing/routesOvergangsstonad';
 import { pathOppsummeringOvergangsstønad } from '../../utils';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { Alert, VStack } from '@navikt/ds-react';

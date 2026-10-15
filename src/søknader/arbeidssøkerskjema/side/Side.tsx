@@ -1,7 +1,7 @@
 import React from 'react';
 import { SøknadBanner } from '../../../components/SøknadBanner';
 import { RoutesArbeidssokerskjema } from '../routes/routesArbeidssokerskjema';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { hentForrigeRoute, hentNesteRoute } from '../../../utils/routing';
 import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';

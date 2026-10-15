@@ -1,6 +1,6 @@
 import React from 'react';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { kommerFraOppsummeringen } from '../../../../utils/locationState';
