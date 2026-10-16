@@ -7,7 +7,7 @@
     "build": "tsc --build --verbose"
   },
   "dependencies": {
-    "@navikt/nav-dekoratoren-moduler": "^4.2.2",
+    "@navikt/nav-dekoratoren-moduler": "^4.5.0",
     "@types/express": "^5.0.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
