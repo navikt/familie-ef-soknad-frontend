@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Button, VStack } from '@navikt/ds-react';
 import { ESkjemanavn } from '../../utils/skjemanavn';
 import React from 'react';

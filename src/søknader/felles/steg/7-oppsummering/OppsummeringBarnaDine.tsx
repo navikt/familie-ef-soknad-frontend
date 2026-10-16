@@ -6,7 +6,7 @@ import { hentTekst } from '../../../../utils/teksthåndtering';
 import { IBarn } from '../../../../models/steg/barn';
 import OppsummeringBarn from './OppsummeringBarn';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 import { VStack } from '@navikt/ds-react';
 

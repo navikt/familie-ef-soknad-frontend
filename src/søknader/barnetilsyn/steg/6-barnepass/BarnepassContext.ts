@@ -1,7 +1,7 @@
 import constate from 'constate';
 import { MellomlagretSøknad } from '../../../../models/søknad/søknad';
 import { IRoute } from '../../../../models/routes';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { useState } from 'react';
 import { sanerBarnepassSteg } from './sanerBarnepassSteg';

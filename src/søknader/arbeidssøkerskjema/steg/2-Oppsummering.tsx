@@ -6,7 +6,7 @@ import {
   RoutesArbeidssokerskjema,
 } from '../routes/routesArbeidssokerskjema';
 import { mapDataTilLabelOgVerdiTyper } from '../utils/innsending';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { hentTekst } from '../../../utils/teksthåndtering';
 import { useSkjema } from '../SkjemaContext';
 import { VisLabelOgSvar } from '../../../utils/visning';

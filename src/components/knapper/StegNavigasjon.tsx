@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { Button, HStack, VStack } from '@navikt/ds-react';
 import { hentForrigeRoute, hentNesteRoute } from '../../utils/routing';
 import { hentTekst } from '../../utils/teksthåndtering';

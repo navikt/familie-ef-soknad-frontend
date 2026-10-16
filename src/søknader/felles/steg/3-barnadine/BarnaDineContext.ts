@@ -4,7 +4,7 @@ import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IRoute } from '../../../../models/routes';
 import { useState } from 'react';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 export interface Props<T extends Søknad> {
   stønadstype: Stønadstype;
