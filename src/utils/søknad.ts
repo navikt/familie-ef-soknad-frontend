@@ -1,5 +1,5 @@
 import Environment from '../Environment';
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import { hentUid } from './autentiseringogvalidering/uuid';
 import { ISpørsmål } from '../models/felles/spørsmålogsvar';
 import { captureMessage } from '@nais/apm';
@@ -48,8 +48,12 @@ export const hentMellomlagretSøknadFraDokument = <T>(
 export const mellomlagreSøknadTilDokument = <T>(
   søknad: T,
   stønadstype: MellomlagredeStønadstyper
-): Promise<T> => {
-  return axios.post(`${Environment().mellomlagerProxyUrl + stønadstype}`, søknad, axiosConfig);
+): Promise<AxiosResponse<unknown, T>> => {
+  return axios.post<unknown, AxiosResponse<unknown, T>, T>(
+    `${Environment().mellomlagerProxyUrl + stønadstype}`,
+    søknad,
+    axiosConfig
+  );
 };
 
 export const nullstillMellomlagretSøknadTilDokument = (
