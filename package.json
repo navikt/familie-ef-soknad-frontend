@@ -13,7 +13,7 @@
     "vitest": "vitest",
     "lint": "tsc --project ./tsconfig.json --noEmit && eslint './src/**/*.{js,ts,tsx}'",
     "dev:hent-tokens": "npx tsx scripts/hent-dev-token.ts",
-    "build:dev-server": "cd server && tsc --build --verbose && cd ..",
+    "build:dev-server": "npm --prefix server run build",
     "postinstall": "cd server && npm ci && cd ..",
     "set-node-options": "NODE_OPTIONS='--import=./server/build/register.js --es-module-specifier-resolution=node'"
   },
