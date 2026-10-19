@@ -55,13 +55,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Deploy til dev-gcp
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@v3
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/app-dev.yaml
           IMAGE: ${{ needs.build.outputs.image }}
       - name: Deploy til prod-gcp
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@v3
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/app-prod.yaml
