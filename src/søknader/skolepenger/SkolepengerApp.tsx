@@ -58,7 +58,6 @@ const SkolepengerApp = () => {
       return (
         <>
           <title>{hentTekst('skolepenger.sidetittel', intl)}</title>
-
           <SøknadsdialogSkolepenger />
         </>
       );
