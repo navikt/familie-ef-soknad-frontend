@@ -1,6 +1,6 @@
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import constate from 'constate';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { SøknadBarnetilsyn } from '../../models/søknad';
 import { useState } from 'react';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { erAktivitetSeksjonFerdigUtfylt } from '../../../../helpers/steg/aktivitetvalidering';
 import { ErDuIArbeidSpm } from './AktivitetConfig';
 import { EArbeidssituasjon, ErIArbeid } from '../../../../models/steg/aktivitet/aktivitet';
