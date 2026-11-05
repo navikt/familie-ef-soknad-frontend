@@ -18,7 +18,7 @@ export const VedlikeholdsvarselAlert: React.FC = () => {
       ? {
           tittel: 'Information about planned maintenance',
           avsnitt1:
-            'On the 30th of September 2026, from 15.30 to 21.00, the application will be unavailable due to planned maintenance.',
+            'On the 5th of november 2026, from 15.30 to 21.00, the application will be unavailable due to planned maintenance.',
           avsnitt2:
             'If you need to apply during this period, we recommend that you submit your application before the downtime starts.',
           avsnitt3: 'We apologise for any inconvenience this may cause.',
@@ -26,7 +26,7 @@ export const VedlikeholdsvarselAlert: React.FC = () => {
       : {
           tittel: 'Informasjon om planlagt vedlikehold',
           avsnitt1:
-            'Den 30. september 2026 fra kl. 15.30 til kl. 21.00 vil søknaden være utilgjengelig på grunn av planlagt vedlikehold.',
+            'Den 5. november 2026 fra kl. 15.30 til kl. 21.00 vil søknaden være utilgjengelig på grunn av planlagt vedlikehold.',
           avsnitt2:
             'Hvis du skal søke i denne perioden, anbefaler vi at du sender inn søknaden før nedetiden starter.',
           avsnitt3: 'Vi beklager ulempene dette medfører.',
