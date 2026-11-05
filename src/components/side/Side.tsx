@@ -12,6 +12,7 @@ import { Stønadstype } from '../../models/søknad/stønadstyper';
 import styles from './Side.module.css';
 import { hentBannerKeyForStønad } from '../../utils/stønadstype';
 import { StegNavigasjon } from '../knapper/StegNavigasjon';
+import { VedlikeholdsvarselAlert } from '../forside/VedlikeholdsvarselAlert';
 
 export enum NavigasjonState {
   visTilbakeNesteAvbrytKnapp = 'visTilbakeNesteAvbrytKnapp',
@@ -76,6 +77,7 @@ export const Side: React.FC<Props> = ({
   return (
     <VStack gap="space-24">
       <SøknadBanner bannerKey={hentBannerKeyForStønad(stønadstype)} />
+      <VedlikeholdsvarselAlert />
 
       <VStack gap="space-24" className={styles.innhold}>
         {skalViseStegindikator && <Stegindikator steg={stegobjekter} aktivtSteg={aktivtSteg} />}
