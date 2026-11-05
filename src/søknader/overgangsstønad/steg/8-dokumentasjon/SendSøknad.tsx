@@ -75,7 +75,7 @@ export const SendSøknadKnapper: FC = () => {
         ...innsendingState,
         status: IStatus.FEILET,
         melding: toggles[ToggleName.vedlikeholdsvarsel]
-          ? 'Søknaden kan ikke sendes inn. Dette skyldes planlagt vedlikehold 30. september fra kl. 15.30 til kl. 21.00. Vi lagrer søknaden din i 48 timer. Prøv igjen etter kl. 21.00.'
+          ? 'Søknaden kan ikke sendes inn. Dette skyldes planlagt vedlikehold 5. november fra kl. 15.30 til kl. 21.00. Vi lagrer søknaden din i 48 timer. Prøv igjen etter kl. 21.00.'
           : `Noe gikk galt: ${e}`,
         venter: false,
       });
