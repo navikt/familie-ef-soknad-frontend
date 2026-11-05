@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { erAllUtdanningFerdigUtfyltForSkolepenger } from '../../../../helpers/steg/aktivitetvalidering';
 import { NavigasjonState, Side } from '../../../../components/side/Side';
 import { RoutesSkolepenger } from '../../routing/routes';

@@ -8,7 +8,7 @@ import {
   visLabelOgVerdiForSpørsmålListeFelt,
   visListeAvLabelOgSvar,
 } from '../../../../utils/visning';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { hentTekst } from '../../../../utils/teksthåndtering';

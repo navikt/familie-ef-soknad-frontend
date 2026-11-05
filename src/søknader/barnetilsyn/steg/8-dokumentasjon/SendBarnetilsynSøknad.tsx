@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { parseISO } from 'date-fns';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { ERouteBarnetilsyn, RoutesBarnetilsyn } from '../../routing/routesBarnetilsyn';
 import { useBarnetilsynRoutes } from '../../routing/useBarnetilsynRoutes';
 import {

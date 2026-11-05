@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { erFerdigUtfylt } from '../../../../helpers/steg/bosituasjon';
 import { BosituasjonSpørsmål } from './BosituasjonSpørsmål';
 import { Side, NavigasjonState } from '../../../../components/side/Side';

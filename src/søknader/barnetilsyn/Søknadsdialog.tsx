@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import Forside from './Forside';
 import { BarnaDine } from './steg/3-barnadine/BarnaDine';
 import Oppsummering from './steg/7-oppsummering/Oppsummering';

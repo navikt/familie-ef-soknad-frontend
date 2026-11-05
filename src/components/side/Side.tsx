@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { Alert, BodyShort, Button, Heading, VStack } from '@navikt/ds-react';
 import { SøknadBanner } from '../SøknadBanner';
 import SendBrevSVG from '../../assets/SendSøknadSVG';

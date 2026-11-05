@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import ContextProviders from '../context/ContextProviders';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import { SpråkProvider } from '../context/SpråkContext';
 
 interface Props {

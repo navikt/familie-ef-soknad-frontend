@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { LokalIntlShape } from '../../language/typer';
 import { BodyShort, Button, VStack } from '@navikt/ds-react';
 import { hentTekst } from '../../utils/teksthåndtering';

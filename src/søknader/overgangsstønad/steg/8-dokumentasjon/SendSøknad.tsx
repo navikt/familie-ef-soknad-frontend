@@ -3,7 +3,7 @@ import { IStatus } from '../../../arbeidssøkerskjema/innsending/typer';
 import { SøknadOvergangsstønad } from '../../models/søknad';
 import { parseISO } from 'date-fns';
 import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { hentForrigeRoute, hentNesteRoute, hentPath } from '../../../../utils/routing';
 import {
   ERouteOvergangsstønad,

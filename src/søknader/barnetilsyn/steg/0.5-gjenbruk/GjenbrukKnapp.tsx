@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Button, VStack } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { GjenbrukContext } from '../../../../context/GjenbrukContext';

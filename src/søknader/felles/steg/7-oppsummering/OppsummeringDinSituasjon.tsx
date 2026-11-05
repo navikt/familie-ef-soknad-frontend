@@ -4,7 +4,7 @@ import endre from '../../../../assets/endre.svg';
 import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
 import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
 import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { VStack } from '@navikt/ds-react';
 
 interface Props {

@@ -9,7 +9,7 @@ import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/me
 
 import { formatDate, strengTilDato } from '../../../../utils/dato';
 import { VisLabelOgSvar, visLabelOgVerdiForSpørsmålFelt } from '../../../../utils/visning';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { BodyShort, Label, VStack } from '@navikt/ds-react';
 import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 

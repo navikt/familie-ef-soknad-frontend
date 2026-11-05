@@ -19,7 +19,7 @@ import {
   harValgtSvarPåSagtOppEllerRedusertArbeidstidSpørsmål,
   hvisHarBarnMedSærligeTilsynMåHaFyltUtFritekst,
 } from '../../../felles/steg/6-meromsituasjon/SituasjonUtil';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import { SituasjonOppfølgingSpørsmål } from '../../../felles/steg/6-meromsituasjon/SituasjonOppfølgingSpørsmål';
 import NårSøkerDuStønadFra from '../../../../components/stegKomponenter/NårSøkerDuStønadFraGruppe';

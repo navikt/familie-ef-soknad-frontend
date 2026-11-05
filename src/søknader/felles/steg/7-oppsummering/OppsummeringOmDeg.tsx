@@ -7,7 +7,7 @@ import { IMedlemskap, IUtenlandsopphold } from '../../../../models/steg/omDeg/me
 import { ISivilstatus } from '../../../../models/steg/omDeg/sivilstatus';
 import { Søker } from '../../../../models/søknad/person';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 import { ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 

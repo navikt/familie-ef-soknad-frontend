@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import Forside from './Forside';
 import RedirectTilStart from './RedirectTilStart';
 import UtdanningSituasjon from './steg/5-aktivitet/UtdanningSituasjon';

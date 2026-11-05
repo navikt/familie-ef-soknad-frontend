@@ -5,7 +5,7 @@ import { hvaErDinArbeidssituasjonSpm } from '../../../felles/steg/5-aktivitet/Ak
 import { EAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
 import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { returnerAvhukedeSvar } from '../../../../utils/spørsmålogsvar';
 import {
   filtrerAktivitetSvaralternativer,

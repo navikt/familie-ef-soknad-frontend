@@ -2,7 +2,7 @@ import { Søknad } from '../../../../models/søknad/søknad';
 import { Stønadstype } from '../../../../models/søknad/stønadstyper';
 import { IRoute } from '../../../../models/routes';
 import constate from 'constate';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { IBarn } from '../../../../models/steg/barn';
 import { SettDokumentasjonsbehovBarn } from '../../../overgangsstønad/models/søknad';
 import { useState } from 'react';

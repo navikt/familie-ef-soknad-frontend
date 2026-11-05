@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import '@navikt/ds-css';
 import './index.css';
 import './søknader/overgangsstønad/Forside.css';

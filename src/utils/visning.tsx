@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { formatDate, strengTilDato } from '../utils/dato';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { isValidISODateString } from 'iso-datestring-validator';
 import {
   ISpørsmålBooleanFelt,
