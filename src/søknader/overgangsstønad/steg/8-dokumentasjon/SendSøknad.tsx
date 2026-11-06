@@ -24,8 +24,6 @@ import { Alert, BodyShort, Button, HGrid, HStack, VStack } from '@navikt/ds-reac
 import { validerSøkerBosattINorgeSisteFemÅr } from '../../../../helpers/steg/omdeg';
 import { hentTekst } from '../../../../utils/teksthåndtering';
 import { tilSøknadRegelendring2026 } from '../../models/søknad-regelendring-2026';
-import { useToggles } from '../../../../context/TogglesContext';
-import { ToggleName } from '../../../../models/søknad/toggles';
 
 interface Innsending {
   status: string;
@@ -38,7 +36,6 @@ export const SendSøknadKnapper: FC = () => {
   const location = useLocation();
   const [locale] = useSpråkContext();
   const navigate = useNavigate();
-  const { toggles } = useToggles();
 
   const routes = hentRoutesOvergangsstonad(skalBrukeRegelendringer2026);
   const nesteRoute = hentNesteRoute(routes, location.pathname);
@@ -74,9 +71,7 @@ export const SendSøknadKnapper: FC = () => {
       settinnsendingState({
         ...innsendingState,
         status: IStatus.FEILET,
-        melding: toggles[ToggleName.vedlikeholdsvarsel]
-          ? 'Søknaden kan ikke sendes inn. Dette skyldes planlagt vedlikehold 5. november fra kl. 15.30 til kl. 21.00. Vi lagrer søknaden din i 48 timer. Prøv igjen etter kl. 21.00.'
-          : `Noe gikk galt: ${e}`,
+        melding: `Noe gikk galt: ${e}`,
         venter: false,
       });
     }
