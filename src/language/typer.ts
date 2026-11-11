@@ -1,12 +1,12 @@
-import { OversettProps } from '../context/LokalIntlContext';
+import type { OversettProps } from '../context/LokalIntlContext';
 
 export enum LocaleType {
-  en = 'en',
-  nb = 'nb',
-  nn = 'nn',
+    en = 'en',
+    nb = 'nb',
+    nn = 'nn',
 }
 
 export interface LokalIntlShape {
-  formatMessage: (props: OversettProps, parametre?: Record<string, string>) => string;
-  messages: Record<string, string>;
+    formatMessage: (props: OversettProps, parametre?: Record<string, string>) => string;
+    messages: Record<string, string>;
 }

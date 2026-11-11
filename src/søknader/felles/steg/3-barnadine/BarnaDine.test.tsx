@@ -1,260 +1,253 @@
-import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
-import { klikkRadioknapp, navigerTilStegOvergangsstønad } from '../../../../test/aksjoner';
+import { addDays } from 'date-fns';
 import { expect } from 'vitest';
+import { klikkRadioknapp, navigerTilStegOvergangsstønad } from '../../../../test/aksjoner';
+import { mockGet, mockMellomlagretSøknadOvergangsstønad } from '../../../../test/axios';
 import {
-  lagBooleanFelt,
-  lagIBarn,
-  lagIMedforelder,
-  lagPerson,
-  lagSpørsmålBooleanFelt,
-  lagTekstfelt,
+    lagBooleanFelt,
+    lagIBarn,
+    lagIMedforelder,
+    lagPerson,
+    lagSpørsmålBooleanFelt,
+    lagTekstfelt,
 } from '../../../../test/domeneUtils';
 import { dagensDato, dagensIsoDatoMinusMåneder, formatDate } from '../../../../utils/dato';
-import { addDays } from 'date-fns';
 
 vi.mock('axios', () => {
-  return {
-    default: {
-      get: vi.fn((url: string) => mockGet(url, 'overgangsstonad')),
-      interceptors: {
-        request: { use: vi.fn() },
-        response: { use: vi.fn() },
-      },
-    },
-  };
+    return {
+        default: {
+            get: vi.fn((url: string) => mockGet(url, 'overgangsstonad')),
+            interceptors: {
+                request: { use: vi.fn() },
+                response: { use: vi.fn() },
+            },
+        },
+    };
 });
 
 describe('BarnaDine-Steg for overgangsstønad og skolepenger', () => {
-  test('Skal navigere til BarnaDine-steg fra mellomlagret søknad', async () => {
-    mockMellomlagretSøknadOvergangsstønad('/barn', {});
-    const { screen } = await navigerTilStegOvergangsstønad();
+    test('Skal navigere til BarnaDine-steg fra mellomlagret søknad', async () => {
+        mockMellomlagretSøknadOvergangsstønad('/barn', {});
+        const { screen } = await navigerTilStegOvergangsstønad();
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
-  });
+        expect(screen.getByRole('heading', { level: 2, name: 'Barna dine' })).toBeInTheDocument();
+    });
 
-  test('Skal rendre riktig data fra barn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      '/barn',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
-    const { screen } = await navigerTilStegOvergangsstønad();
+    test('Skal rendre riktig data fra barn', async () => {
+        mockMellomlagretSøknadOvergangsstønad(
+            '/barn',
+            {},
+            {
+                person: lagPerson({
+                    barn: [
+                        lagIBarn({
+                            navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+                            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+                            ident: lagTekstfelt({ verdi: '18877598140' }),
+                            født: lagSpørsmålBooleanFelt({ verdi: true }),
+                            alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+                            harSammeAdresse: lagBooleanFelt('', true),
+                            medforelder: {
+                                label: '',
+                                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+                            },
+                        }),
+                    ],
+                }),
+            }
+        );
+        const { screen } = await navigerTilStegOvergangsstønad();
 
-    expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { level: 3, name: 'GÅEN PC' })).toBeInTheDocument();
 
-    expect(screen.getByText('Fødselsnummer')).toBeInTheDocument();
-    expect(screen.getByText('188775 98140')).toBeInTheDocument();
+        expect(screen.getByText('Fødselsnummer')).toBeInTheDocument();
+        expect(screen.getByText('188775 98140')).toBeInTheDocument();
 
-    expect(screen.getByText('Alder')).toBeInTheDocument();
-    expect(screen.getByText('5 år')).toBeInTheDocument();
+        expect(screen.getByText('Alder')).toBeInTheDocument();
+        expect(screen.getByText('5 år')).toBeInTheDocument();
 
-    expect(screen.getByText('Bosted')).toBeInTheDocument();
-    expect(screen.getByText('Registrert på adressen din')).toBeInTheDocument();
+        expect(screen.getByText('Bosted')).toBeInTheDocument();
+        expect(screen.getByText('Registrert på adressen din')).toBeInTheDocument();
 
-    expect(screen.getByText('Annen forelder')).toBeInTheDocument();
-    expect(screen.getByText('GÅEN SKADE')).toBeInTheDocument();
+        expect(screen.getByText('Annen forelder')).toBeInTheDocument();
+        expect(screen.getByText('GÅEN SKADE')).toBeInTheDocument();
 
-    expect(screen.queryByRole('button', { name: 'Neste' })).toBeInTheDocument();
-  });
+        expect(screen.queryByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    });
 
-  test('Legge til nytt barn lager nytt barnekort', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      '/barn',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
-    const { screen, user } = await navigerTilStegOvergangsstønad();
+    test('Legge til nytt barn lager nytt barnekort', async () => {
+        mockMellomlagretSøknadOvergangsstønad(
+            '/barn',
+            {},
+            {
+                person: lagPerson({
+                    barn: [
+                        lagIBarn({
+                            navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+                            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+                            ident: lagTekstfelt({ verdi: '18877598140' }),
+                            født: lagSpørsmålBooleanFelt({ verdi: true }),
+                            alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+                            harSammeAdresse: lagBooleanFelt('', true),
+                            medforelder: {
+                                label: '',
+                                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+                            },
+                        }),
+                    ],
+                }),
+            }
+        );
+        const { screen, user } = await navigerTilStegOvergangsstønad();
 
-    await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
-    expect(screen.getByRole('textbox', { name: 'Termindato' })).toBeInTheDocument();
+        await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
+        expect(screen.getByRole('textbox', { name: 'Termindato' })).toBeInTheDocument();
 
-    await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    expect(screen.getByRole('radiogroup', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
+        await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
+        expect(screen.getByRole('radiogroup', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
 
-    await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
-    expect(
-      screen.getByText(
-        'Når barnet ikke skal bo hos deg, har du ikke rett til stønad til enslig mor eller far'
-      )
-    ).toBeInTheDocument();
-    expect(screen.getByTestId('leggTilBarnModal')).toBeInTheDocument();
+        await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
+        expect(
+            screen.getByText('Når barnet ikke skal bo hos deg, har du ikke rett til stønad til enslig mor eller far')
+        ).toBeInTheDocument();
+        expect(screen.getByTestId('leggTilBarnModal')).toBeInTheDocument();
 
-    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
-    expect(
-      screen.queryByText(
-        'Når barnet ikke skal bo hos deg, har du ikke rett til stønad til enslig mor eller far'
-      )
-    ).not.toBeInTheDocument();
-    expect(screen.getByTestId('leggTilBarnModal')).toBeInTheDocument();
+        await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+        expect(
+            screen.queryByText('Når barnet ikke skal bo hos deg, har du ikke rett til stønad til enslig mor eller far')
+        ).not.toBeInTheDocument();
+        expect(screen.getByTestId('leggTilBarnModal')).toBeInTheDocument();
 
-    await user.click(screen.getByTestId('leggTilBarnModal'));
+        await user.click(screen.getByTestId('leggTilBarnModal'));
 
-    expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
-    expect(screen.getAllByText('Alder').length).equal(2);
-    expect(screen.getByText('Ufødt')).toBeInTheDocument();
-    expect(screen.getAllByText('Bosted').length).equal(2);
-    expect(screen.getByText('Skal bo hos deg')).toBeInTheDocument();
-  });
+        expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
+        expect(screen.getAllByText('Alder').length).equal(2);
+        expect(screen.getByText('Ufødt')).toBeInTheDocument();
+        expect(screen.getAllByText('Bosted').length).equal(2);
+        expect(screen.getByText('Skal bo hos deg')).toBeInTheDocument();
+    });
 
-  test('Endre terminbarn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      '/barn',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
-    const { screen, user } = await navigerTilStegOvergangsstønad();
+    test('Endre terminbarn', async () => {
+        mockMellomlagretSøknadOvergangsstønad(
+            '/barn',
+            {},
+            {
+                person: lagPerson({
+                    barn: [
+                        lagIBarn({
+                            navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+                            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+                            ident: lagTekstfelt({ verdi: '18877598140' }),
+                            født: lagSpørsmålBooleanFelt({ verdi: true }),
+                            alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+                            harSammeAdresse: lagBooleanFelt('', true),
+                            medforelder: {
+                                label: '',
+                                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+                            },
+                        }),
+                    ],
+                }),
+            }
+        );
+        const { screen, user } = await navigerTilStegOvergangsstønad();
 
-    await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
-    await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
-    await user.click(screen.getByTestId('leggTilBarnModal'));
+        await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
+        await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
+        await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+        await user.click(screen.getByTestId('leggTilBarnModal'));
 
-    expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
-    expect(screen.getByText(formatDate(dagensDato))).toBeInTheDocument();
-    expect(screen.getAllByText('Alder').length).equal(2);
-    expect(screen.getByText('Ufødt')).toBeInTheDocument();
-    expect(screen.getAllByText('Bosted').length).equal(2);
-    expect(screen.getByText('Skal bo hos deg')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
+        expect(screen.getByText(formatDate(dagensDato))).toBeInTheDocument();
+        expect(screen.getAllByText('Alder').length).equal(2);
+        expect(screen.getByText('Ufødt')).toBeInTheDocument();
+        expect(screen.getAllByText('Bosted').length).equal(2);
+        expect(screen.getByText('Skal bo hos deg')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Endre' }));
+        await user.click(screen.getByRole('button', { name: 'Endre' }));
 
-    expect(screen.getByRole('textbox', { name: 'Termindato' })).toHaveValue('');
-    expect(screen.getByText('Du må legge ved terminbekreftelse')).toBeInTheDocument();
-    expect(screen.getByRole('radiogroup', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: 'Termindato' })).toHaveValue('');
+        expect(screen.getByText('Du må legge ved terminbekreftelse')).toBeInTheDocument();
+        expect(screen.getByRole('radiogroup', { name: 'Skal barnet bo hos deg?' })).toBeInTheDocument();
 
-    await user.type(
-      screen.getByRole('textbox', { name: 'Termindato' }),
-      formatDate(addDays(dagensDato, 1))
-    );
-    await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
-    await user.click(screen.getByTestId('leggTilBarnModal'));
+        await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(addDays(dagensDato, 1)));
+        await klikkRadioknapp('Skal barnet bo hos deg?', 'Nei', screen, user);
+        await user.click(screen.getByTestId('leggTilBarnModal'));
 
-    expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
-    expect(screen.getByText(formatDate(addDays(dagensDato, 1)))).toBeInTheDocument();
-    expect(screen.getAllByText('Alder').length).equal(2);
-    expect(screen.getByText('Ufødt')).toBeInTheDocument();
-    expect(screen.getAllByText('Bosted').length).equal(2);
-    expect(screen.getByText('Skal ikke bo hos deg')).toBeInTheDocument();
-  });
+        expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
+        expect(screen.getByText(formatDate(addDays(dagensDato, 1)))).toBeInTheDocument();
+        expect(screen.getAllByText('Alder').length).equal(2);
+        expect(screen.getByText('Ufødt')).toBeInTheDocument();
+        expect(screen.getAllByText('Bosted').length).equal(2);
+        expect(screen.getByText('Skal ikke bo hos deg')).toBeInTheDocument();
+    });
 
-  test('Fjerne terminbarn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      '/barn',
-      {},
-      {
-        person: lagPerson({
-          barn: [
-            lagIBarn({
-              navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
-              fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
-              ident: lagTekstfelt({ verdi: '18877598140' }),
-              født: lagSpørsmålBooleanFelt({ verdi: true }),
-              alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
-              harSammeAdresse: lagBooleanFelt('', true),
-              medforelder: {
-                label: '',
-                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
-              },
-            }),
-          ],
-        }),
-      }
-    );
-    const { screen, user } = await navigerTilStegOvergangsstønad();
+    test('Fjerne terminbarn', async () => {
+        mockMellomlagretSøknadOvergangsstønad(
+            '/barn',
+            {},
+            {
+                person: lagPerson({
+                    barn: [
+                        lagIBarn({
+                            navn: lagTekstfelt({ label: 'Navn', verdi: 'GÅEN PC' }),
+                            fødselsdato: lagTekstfelt({ verdi: dagensIsoDatoMinusMåneder(65) }),
+                            ident: lagTekstfelt({ verdi: '18877598140' }),
+                            født: lagSpørsmålBooleanFelt({ verdi: true }),
+                            alder: lagTekstfelt({ label: 'Alder', verdi: '5' }),
+                            harSammeAdresse: lagBooleanFelt('', true),
+                            medforelder: {
+                                label: '',
+                                verdi: lagIMedforelder({ navn: 'GÅEN SKADE' }),
+                            },
+                        }),
+                    ],
+                }),
+            }
+        );
+        const { screen, user } = await navigerTilStegOvergangsstønad();
 
-    await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
-    await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
-    await user.click(screen.getByTestId('leggTilBarnModal'));
+        await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
+        await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
+        await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+        await user.click(screen.getByTestId('leggTilBarnModal'));
 
-    expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
-    expect(screen.getAllByText('Alder').length).equal(2);
-    expect(screen.getByText('Ufødt')).toBeInTheDocument();
-    expect(screen.getAllByText('Bosted').length).equal(2);
-    expect(screen.getByText('Skal bo hos deg')).toBeInTheDocument();
+        expect(screen.getByRole('heading', { level: 3, name: 'Barn' })).toBeInTheDocument();
+        expect(screen.getAllByText('Alder').length).equal(2);
+        expect(screen.getByText('Ufødt')).toBeInTheDocument();
+        expect(screen.getAllByText('Bosted').length).equal(2);
+        expect(screen.getByText('Skal bo hos deg')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Fjern fra søknad' }));
+        await user.click(screen.getByRole('button', { name: 'Fjern fra søknad' }));
 
-    expect(screen.queryByRole('heading', { level: 3, name: 'Barn' })).not.toBeInTheDocument();
-    expect(screen.getAllByText('Alder').length).equal(1);
-    expect(screen.queryByText('Ufødt')).not.toBeInTheDocument();
-    expect(screen.getAllByText('Bosted').length).equal(1);
-    expect(screen.queryByText('Skal bo hos deg')).not.toBeInTheDocument();
-  });
+        expect(screen.queryByRole('heading', { level: 3, name: 'Barn' })).not.toBeInTheDocument();
+        expect(screen.getAllByText('Alder').length).equal(1);
+        expect(screen.queryByText('Ufødt')).not.toBeInTheDocument();
+        expect(screen.getAllByText('Bosted').length).equal(1);
+        expect(screen.queryByText('Skal bo hos deg')).not.toBeInTheDocument();
+    });
 
-  test('Ikke vise neste-knapp dersom bruker ikke har barn, vise den dersom de har terminbarn', async () => {
-    mockMellomlagretSøknadOvergangsstønad(
-      '/barn',
-      {},
-      {
-        person: lagPerson({
-          barn: [],
-        }),
-      }
-    );
-    const { screen, user } = await navigerTilStegOvergangsstønad();
+    test('Ikke vise neste-knapp dersom bruker ikke har barn, vise den dersom de har terminbarn', async () => {
+        mockMellomlagretSøknadOvergangsstønad(
+            '/barn',
+            {},
+            {
+                person: lagPerson({
+                    barn: [],
+                }),
+            }
+        );
+        const { screen, user } = await navigerTilStegOvergangsstønad();
 
-    expect(
-      screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
-    ).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
+        expect(
+            screen.getByText('Du må svare på alle spørsmålene før du kan gå videre til neste steg')
+        ).toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Neste' })).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
-    await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
-    await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
-    await user.click(screen.getByTestId('leggTilBarnModal'));
+        await user.click(screen.getByRole('button', { name: 'Legg til barn' }));
+        await user.type(screen.getByRole('textbox', { name: 'Termindato' }), formatDate(dagensDato));
+        await klikkRadioknapp('Skal barnet bo hos deg?', 'Ja', screen, user);
+        await user.click(screen.getByTestId('leggTilBarnModal'));
 
-    expect(screen.queryByRole('button', { name: 'Neste' })).toBeInTheDocument();
-  });
+        expect(screen.queryByRole('button', { name: 'Neste' })).toBeInTheDocument();
+    });
 });

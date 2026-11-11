@@ -1,92 +1,92 @@
+import { Loader } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import Feilside from '../../components/feil/Feilside';
-import hentToggles from '../../toggles/api';
-import { oppdaterBarnMedLabel } from '../../utils/søknad';
-import { usePersonContext } from '../../context/PersonContext';
-import {
-  autentiseringsInterceptor,
-  verifiserAtBrukerErAutentisert,
-} from '../../utils/autentiseringogvalidering/autentisering';
-import { useBarnetilsynSøknad } from './BarnetilsynContext';
-import { useToggles } from '../../context/TogglesContext';
-import { Barn, PersonData } from '../../models/søknad/person';
-import SøknadsdialogBarnetilsyn from './Søknadsdialog';
-import { ESkjemanavn } from '../../utils/skjemanavn';
 import { useLokalIntlContext } from '../../context/LokalIntlContext';
-import { Loader } from '@navikt/ds-react';
-import { IBarn } from '../../models/steg/barn';
-import { hentTekst } from '../../utils/teksthåndtering';
-import { hentHarGyldigBarnetilsynVedRegelendring } from '../../innsending/api';
+import { usePersonContext } from '../../context/PersonContext';
 import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
+import { useToggles } from '../../context/TogglesContext';
+import { hentHarGyldigBarnetilsynVedRegelendring } from '../../innsending/api';
+import type { IBarn } from '../../models/steg/barn';
+import type { Barn, PersonData } from '../../models/søknad/person';
+import hentToggles from '../../toggles/api';
+import {
+    autentiseringsInterceptor,
+    verifiserAtBrukerErAutentisert,
+} from '../../utils/autentiseringogvalidering/autentisering';
+import { ESkjemanavn } from '../../utils/skjemanavn';
+import { oppdaterBarnMedLabel } from '../../utils/søknad';
+import { hentTekst } from '../../utils/teksthåndtering';
+import { useBarnetilsynSøknad } from './BarnetilsynContext';
+import SøknadsdialogBarnetilsyn from './Søknadsdialog';
 
 const BarnetilsynApp = () => {
-  const [autentisert, settAutentisering] = useState<boolean>(false);
-  const [fetching, settFetching] = useState<boolean>(true);
-  const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
-  const { settSøknad, hentMellomlagretBarnetilsyn } = useBarnetilsynSøknad();
-  const { settToggles } = useToggles();
-  const intl = useLokalIntlContext();
-  const { settHarLøpendeBarnetilsynVedRegelendring2026 } = useTidligereVedtak();
+    const [autentisert, settAutentisering] = useState<boolean>(false);
+    const [fetching, settFetching] = useState<boolean>(true);
+    const { fetchPersonData, error, settError, feilmelding, alvorlighetsgrad } = usePersonContext();
+    const { settSøknad, hentMellomlagretBarnetilsyn } = useBarnetilsynSøknad();
+    const { settToggles } = useToggles();
+    const intl = useLokalIntlContext();
+    const { settHarLøpendeBarnetilsynVedRegelendring2026 } = useTidligereVedtak();
 
-  autentiseringsInterceptor();
+    autentiseringsInterceptor();
 
-  useEffect(() => {
-    verifiserAtBrukerErAutentisert(settAutentisering);
-  }, [autentisert]);
+    useEffect(() => {
+        verifiserAtBrukerErAutentisert(settAutentisering);
+    }, [autentisert]);
 
-  const oppdaterSøknadMedBarn = (person: PersonData, barneliste: Barn[] | IBarn[]) => {
-    const barnMedLabels = oppdaterBarnMedLabel(barneliste as IBarn[], intl);
+    const oppdaterSøknadMedBarn = (person: PersonData, barneliste: Barn[] | IBarn[]) => {
+        const barnMedLabels = oppdaterBarnMedLabel(barneliste as IBarn[], intl);
 
-    settSøknad((prevSøknad) => {
-      const prevBarn = prevSøknad.person.barn;
+        settSøknad(prevSøknad => {
+            const prevBarn = prevSøknad.person.barn;
 
-      const sortertBarnelistePåMedforelder = [...prevBarn, ...barnMedLabels];
-      return {
-        ...prevSøknad,
-        person: { ...person, barn: sortertBarnelistePåMedforelder },
-      };
-    });
-  };
+            const sortertBarnelistePåMedforelder = [...prevBarn, ...barnMedLabels];
+            return {
+                ...prevSøknad,
+                person: { ...person, barn: sortertBarnelistePåMedforelder },
+            };
+        });
+    };
 
-  const fetchToggles = () => {
-    return hentToggles(settToggles).catch(() => {
-      settError(true);
-    });
-  };
+    const fetchToggles = () => {
+        return hentToggles(settToggles).catch(() => {
+            settError(true);
+        });
+    };
 
-  const hentOgSettHarLøpendeBarnetilsynVedRegelendring = () => {
-    return hentHarGyldigBarnetilsynVedRegelendring()
-      .then((harLøpende) => settHarLøpendeBarnetilsynVedRegelendring2026(harLøpende))
-      .catch(() => settHarLøpendeBarnetilsynVedRegelendring2026(false));
-  };
+    const hentOgSettHarLøpendeBarnetilsynVedRegelendring = () => {
+        return hentHarGyldigBarnetilsynVedRegelendring()
+            .then(harLøpende => settHarLøpendeBarnetilsynVedRegelendring2026(harLøpende))
+            .catch(() => settHarLøpendeBarnetilsynVedRegelendring2026(false));
+    };
 
-  useEffect(() => {
-    Promise.all([
-      fetchToggles(),
-      fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
-      hentMellomlagretBarnetilsyn(),
-      hentOgSettHarLøpendeBarnetilsynVedRegelendring(),
-    ])
-      .then(() => settFetching(false))
-      .catch(() => settFetching(false));
-  }, []);
+    useEffect(() => {
+        Promise.all([
+            fetchToggles(),
+            fetchPersonData(oppdaterSøknadMedBarn, ESkjemanavn.Barnetilsyn),
+            hentMellomlagretBarnetilsyn(),
+            hentOgSettHarLøpendeBarnetilsynVedRegelendring(),
+        ])
+            .then(() => settFetching(false))
+            .catch(() => settFetching(false));
+    }, []);
 
-  if (!fetching && autentisert) {
-    if (!error) {
-      return (
-        <>
-          <title>{hentTekst('banner.tittel.barnetilsyn', intl)}</title>
-          <SøknadsdialogBarnetilsyn />
-        </>
-      );
-    } else if (error) {
-      return <Feilside tekstId={feilmelding} alvorlighetsgrad={alvorlighetsgrad} />;
+    if (!fetching && autentisert) {
+        if (!error) {
+            return (
+                <>
+                    <title>{hentTekst('banner.tittel.barnetilsyn', intl)}</title>
+                    <SøknadsdialogBarnetilsyn />
+                </>
+            );
+        } else if (error) {
+            return <Feilside tekstId={feilmelding} alvorlighetsgrad={alvorlighetsgrad} />;
+        } else {
+            return <Loader variant="neutral" size="xlarge" title="venter..." />;
+        }
     } else {
-      return <Loader variant="neutral" size="xlarge" title="venter..." />;
+        return <Loader variant="neutral" size="xlarge" title="venter..." />;
     }
-  } else {
-    return <Loader variant="neutral" size="xlarge" title="venter..." />;
-  }
 };
 
 export default BarnetilsynApp;

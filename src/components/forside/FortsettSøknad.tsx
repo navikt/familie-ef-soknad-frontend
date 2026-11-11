@@ -1,55 +1,55 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
-import { LokalIntlShape } from '../../language/typer';
 import { BodyShort, Button, VStack } from '@navikt/ds-react';
+import type React from 'react';
+import { useNavigate } from 'react-router';
+import type { LokalIntlShape } from '../../language/typer';
 import { hentTekst } from '../../utils/teksthåndtering';
 
 interface FortsettSøknadProps {
-  intl: LokalIntlShape;
-  gjeldendeSteg: string;
-  brukMellomlagretSøknad: () => void;
-  nullstillMellomlagretSøknad: () => Promise<string>;
-  skjemanavn?: string;
+    intl: LokalIntlShape;
+    gjeldendeSteg: string;
+    brukMellomlagretSøknad: () => void;
+    nullstillMellomlagretSøknad: () => Promise<string>;
+    skjemanavn?: string;
 }
 
 const FortsettSøknad: React.FC<FortsettSøknadProps> = ({
-  intl,
-  gjeldendeSteg,
-  brukMellomlagretSøknad,
-  nullstillMellomlagretSøknad,
+    intl,
+    gjeldendeSteg,
+    brukMellomlagretSøknad,
+    nullstillMellomlagretSøknad,
 }) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  return (
-    <>
-      <div className="seksjon">
-        <BodyShort>{hentTekst('side.fortsettSøknad.påbegyntSøknad', intl)}</BodyShort>
-      </div>
-      <VStack gap={'space-16'} align={'center'}>
-        <Button
-          onClick={() => {
-            brukMellomlagretSøknad();
-            navigate(gjeldendeSteg);
-          }}
-          variant="primary"
-          className={'fortsett'}
-        >
-          {hentTekst('side.fortsettSøknad.knapp.fortsett', intl)}
-        </Button>
-        <Button
-          onClick={() => {
-            nullstillMellomlagretSøknad().then(() => {
-              window.location.reload();
-            });
-          }}
-          variant="secondary"
-          className={'start-ny'}
-        >
-          {hentTekst('side.fortsettSøknad.knapp.startPåNytt', intl)}
-        </Button>
-      </VStack>
-    </>
-  );
+    return (
+        <>
+            <div className="seksjon">
+                <BodyShort>{hentTekst('side.fortsettSøknad.påbegyntSøknad', intl)}</BodyShort>
+            </div>
+            <VStack gap={'space-16'} align={'center'}>
+                <Button
+                    onClick={() => {
+                        brukMellomlagretSøknad();
+                        navigate(gjeldendeSteg);
+                    }}
+                    variant="primary"
+                    className={'fortsett'}
+                >
+                    {hentTekst('side.fortsettSøknad.knapp.fortsett', intl)}
+                </Button>
+                <Button
+                    onClick={() => {
+                        nullstillMellomlagretSøknad().then(() => {
+                            window.location.reload();
+                        });
+                    }}
+                    variant="secondary"
+                    className={'start-ny'}
+                >
+                    {hentTekst('side.fortsettSøknad.knapp.startPåNytt', intl)}
+                </Button>
+            </VStack>
+        </>
+    );
 };
 
 export default FortsettSøknad;

@@ -1,79 +1,79 @@
 import constate from 'constate';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
-import { Stønadstype } from '../../../../models/søknad/stønadstyper';
-import { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
-import { IRoute } from '../../../../models/routes';
-import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { sanerBosituasjonSteg } from './sanering';
-import { IBosituasjon } from '../../../../models/steg/bosituasjon';
-import { hentTekst } from '../../../../utils/teksthåndtering';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import type { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
+import type { IRoute } from '../../../../models/routes';
+import type { IBosituasjon } from '../../../../models/steg/bosituasjon';
+import type { Stønadstype } from '../../../../models/søknad/stønadstyper';
+import type { MellomlagretSøknad, Søknad } from '../../../../models/søknad/søknad';
+import { hentTekst } from '../../../../utils/teksthåndtering';
 import { delerSøkerBoligMedAndreVoksne } from './BosituasjonConfig';
+import { sanerBosituasjonSteg } from './sanering';
 
 interface Props<T extends Søknad> {
-  stønadstype: Stønadstype;
-  søknad: T;
-  oppdaterSøknad: (søknad: T) => void;
-  mellomlagretSøknad: MellomlagretSøknad | undefined;
-  mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
-  routes: IRoute[];
-  pathOppsummering: string | undefined;
-  settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
+    stønadstype: Stønadstype;
+    søknad: T;
+    oppdaterSøknad: (søknad: T) => void;
+    mellomlagretSøknad: MellomlagretSøknad | undefined;
+    mellomlagreSøknad: (steg: string, oppdatertSøknad: T) => void;
+    routes: IRoute[];
+    pathOppsummering: string | undefined;
+    settDokumentasjonsbehov: (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => void;
 }
 
 export const [BosituasjonProvider, useBosituasjon] = constate(
-  ({
-    stønadstype,
-    søknad,
-    oppdaterSøknad,
-    mellomlagreSøknad,
-    routes,
-    pathOppsummering,
-    settDokumentasjonsbehov,
-  }: Props<Søknad>) => {
-    const location = useLocation();
-    const intl = useLokalIntlContext();
+    ({
+        stønadstype,
+        søknad,
+        oppdaterSøknad,
+        mellomlagreSøknad,
+        routes,
+        pathOppsummering,
+        settDokumentasjonsbehov,
+    }: Props<Søknad>) => {
+        const location = useLocation();
+        const intl = useLokalIntlContext();
 
-    const [bosituasjon, settBosituasjon] = useState<IBosituasjon>(søknad.bosituasjon);
+        const [bosituasjon, settBosituasjon] = useState<IBosituasjon>(søknad.bosituasjon);
 
-    const hovedSpørsmål: ISpørsmål = delerSøkerBoligMedAndreVoksne(intl);
+        const hovedSpørsmål: ISpørsmål = delerSøkerBoligMedAndreVoksne(intl);
 
-    const mellomlagreSteg = () => {
-      const oppdatertSøknad = sanerBosituasjonSteg(søknad, bosituasjon);
+        const mellomlagreSteg = () => {
+            const oppdatertSøknad = sanerBosituasjonSteg(søknad, bosituasjon);
 
-      oppdaterSøknad(oppdatertSøknad);
+            oppdaterSøknad(oppdatertSøknad);
 
-      return mellomlagreSøknad(location.pathname, oppdatertSøknad);
-    };
+            return mellomlagreSøknad(location.pathname, oppdatertSøknad);
+        };
 
-    const oppdaterDelerBoligMedAndreVoksne = (spørsmål: ISpørsmål, svar: ISvar) => {
-      const svarTekst: string = svar.svar_tekst;
-      const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
+        const oppdaterDelerBoligMedAndreVoksne = (spørsmål: ISpørsmål, svar: ISvar) => {
+            const svarTekst: string = svar.svar_tekst;
+            const spørsmålTekst: string = hentTekst(spørsmål.tekstid, intl);
 
-      const nyBosituasjon = {
-        delerBoligMedAndreVoksne: {
-          spørsmålid: spørsmål.søknadid,
-          svarid: svar.id,
-          label: spørsmålTekst,
-          verdi: svarTekst,
-        },
-      };
+            const nyBosituasjon = {
+                delerBoligMedAndreVoksne: {
+                    spørsmålid: spørsmål.søknadid,
+                    svarid: svar.id,
+                    label: spørsmålTekst,
+                    verdi: svarTekst,
+                },
+            };
 
-      settBosituasjon(nyBosituasjon);
-      settDokumentasjonsbehov(spørsmål, svar);
-    };
+            settBosituasjon(nyBosituasjon);
+            settDokumentasjonsbehov(spørsmål, svar);
+        };
 
-    return {
-      stønadstype,
-      bosituasjon,
-      routes,
-      pathOppsummering,
-      settDokumentasjonsbehov,
-      settBosituasjon,
-      mellomlagreSteg,
-      oppdaterDelerBoligMedAndreVoksne,
-      hovedSpørsmål,
-    };
-  }
+        return {
+            stønadstype,
+            bosituasjon,
+            routes,
+            pathOppsummering,
+            settDokumentasjonsbehov,
+            settBosituasjon,
+            mellomlagreSteg,
+            oppdaterDelerBoligMedAndreVoksne,
+            hovedSpørsmål,
+        };
+    }
 );

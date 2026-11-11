@@ -1,94 +1,93 @@
+import { setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect, useRef, useState } from 'react';
+import type { LokalIntlShape } from '../language/typer';
+import type { IBarn } from '../models/steg/barn';
 import { DinSituasjonType } from '../models/steg/dinsituasjon/meromsituasjon';
 import { HvaSituasjon } from '../models/steg/dinsituasjon/situasjonTyper';
 import { leggTilSærligeBehov } from '../søknader/felles/steg/6-meromsituasjon/SituasjonUtil';
-import { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
-import { IBarn } from '../models/steg/barn';
-import { LokalIntlShape } from '../language/typer';
+import type { SøknadOvergangsstønad } from '../søknader/overgangsstønad/models/søknad';
 import { byteTilKilobyte, filtypeOgFilstørrelseStreng } from './nedlastningFilformater';
-import { setAvailableLanguages } from '@navikt/nav-dekoratoren-moduler';
 
 export const usePrevious = (value: any) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
+    const ref = useRef(null);
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 };
 
 export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
-  søknad: SøknadOvergangsstønad,
-  intl: LokalIntlShape,
-  oppdaterBarnISoknaden: (barn: IBarn) => void
+    søknad: SøknadOvergangsstønad,
+    intl: LokalIntlShape,
+    oppdaterBarnISoknaden: (barn: IBarn) => void
 ): void => {
-  useEffect(() => {
-    if (søknad.person.barn.length === 1) {
-      const barn = søknad.person.barn[0];
-      const harSvartJaPåAtHarBarnMedSærligeBehov =
-        søknad.merOmDinSituasjon.gjelderDetteDeg.svarid.findIndex(
-          (v) => v === DinSituasjonType.harBarnMedSærligeBehov
-        ) > -1 ||
-        (søknad.merOmDinSituasjon.hvaSituasjon?.svarid.includes(HvaSituasjon.barnSærligTilsyn) ??
-          false);
-      if (!barn.særligeTilsynsbehov && harSvartJaPåAtHarBarnMedSærligeBehov) {
-        const oppdatertBarn = leggTilSærligeBehov(barn, intl);
-        oppdaterBarnISoknaden(oppdatertBarn);
-      }
-      if (barn.særligeTilsynsbehov && !harSvartJaPåAtHarBarnMedSærligeBehov) {
-        // biome-ignore lint/correctness/noUnusedVariables: Remove særligeTilsynsbehov from the updated child.
-        const { særligeTilsynsbehov, ...rest } = barn;
-        oppdaterBarnISoknaden(rest);
-      }
-    }
-  }, [
-    søknad.person.barn,
-    oppdaterBarnISoknaden,
-    søknad.merOmDinSituasjon.gjelderDetteDeg.svarid,
-    søknad.merOmDinSituasjon.hvaSituasjon?.svarid,
-    intl,
-  ]);
+    useEffect(() => {
+        if (søknad.person.barn.length === 1) {
+            const barn = søknad.person.barn[0];
+            const harSvartJaPåAtHarBarnMedSærligeBehov =
+                søknad.merOmDinSituasjon.gjelderDetteDeg.svarid.findIndex(
+                    v => v === DinSituasjonType.harBarnMedSærligeBehov
+                ) > -1 ||
+                (søknad.merOmDinSituasjon.hvaSituasjon?.svarid.includes(HvaSituasjon.barnSærligTilsyn) ?? false);
+            if (!barn.særligeTilsynsbehov && harSvartJaPåAtHarBarnMedSærligeBehov) {
+                const oppdatertBarn = leggTilSærligeBehov(barn, intl);
+                oppdaterBarnISoknaden(oppdatertBarn);
+            }
+            if (barn.særligeTilsynsbehov && !harSvartJaPåAtHarBarnMedSærligeBehov) {
+                // biome-ignore lint/correctness/noUnusedVariables: Remove særligeTilsynsbehov from the updated child.
+                const { særligeTilsynsbehov, ...rest } = barn;
+                oppdaterBarnISoknaden(rest);
+            }
+        }
+    }, [
+        søknad.person.barn,
+        oppdaterBarnISoknaden,
+        søknad.merOmDinSituasjon.gjelderDetteDeg.svarid,
+        søknad.merOmDinSituasjon.hvaSituasjon?.svarid,
+        intl,
+    ]);
 };
 
 export const useMount = (fn: () => void) => {
-  useEffect(() => {
-    fn();
-  }, []);
+    useEffect(() => {
+        fn();
+    }, []);
 };
 
 export const useHentFilInformasjon = (path: string) => {
-  const [filInformasjon, settFilInformasjon] = useState('');
+    const [filInformasjon, settFilInformasjon] = useState('');
 
-  useEffect(() => {
-    const hentFilInformasjon = (url: string) => {
-      fetch(url, { method: 'HEAD' }).then((res) => {
-        const filStørrelse = byteTilKilobyte(res.headers.get('Content-Length') ?? 0);
-        const filType = res.headers.get('Content-Type') ?? '';
-        settFilInformasjon(filtypeOgFilstørrelseStreng(filType, Number(filStørrelse)));
-      });
-    };
-    hentFilInformasjon(path);
-  }, []);
+    useEffect(() => {
+        const hentFilInformasjon = (url: string) => {
+            fetch(url, { method: 'HEAD' }).then(res => {
+                const filStørrelse = byteTilKilobyte(res.headers.get('Content-Length') ?? 0);
+                const filType = res.headers.get('Content-Type') ?? '';
+                settFilInformasjon(filtypeOgFilstørrelseStreng(filType, Number(filStørrelse)));
+            });
+        };
+        hentFilInformasjon(path);
+    }, []);
 
-  return { filInformasjon };
+    return { filInformasjon };
 };
 
 export const useSpråkValg = (skalViseSpråkvalg: boolean) => {
-  useEffect(() => {
-    if (skalViseSpråkvalg) {
-      setAvailableLanguages([
-        {
-          locale: 'nb',
-          handleInApp: true,
-        },
-        {
-          locale: 'en',
-          handleInApp: true,
-        },
-      ]);
-    }
+    useEffect(() => {
+        if (skalViseSpråkvalg) {
+            setAvailableLanguages([
+                {
+                    locale: 'nb',
+                    handleInApp: true,
+                },
+                {
+                    locale: 'en',
+                    handleInApp: true,
+                },
+            ]);
+        }
 
-    return () => {
-      setAvailableLanguages([]);
-    };
-  }, []);
+        return () => {
+            setAvailableLanguages([]);
+        };
+    }, []);
 };

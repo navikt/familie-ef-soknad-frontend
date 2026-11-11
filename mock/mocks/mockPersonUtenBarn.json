@@ -1,16 +1,16 @@
 {
-  "hash": "",
-  "søker": {
-    "fnr": "01018212345",
-    "forkortetNavn": "Nyan Cat",
-    "adresse": {
-      "adresse": "Meowt street 1",
-      "postnummer": "1533",
-      "poststed": ""
+    "hash": "",
+    "søker": {
+        "fnr": "01018212345",
+        "forkortetNavn": "Nyan Cat",
+        "adresse": {
+            "adresse": "Meowt street 1",
+            "postnummer": "1533",
+            "poststed": ""
+        },
+        "sivilstand": "GIFT",
+        "statsborgerskap": "NOR",
+        "erStrengtFortrolig": false
     },
-    "sivilstand": "GIFT",
-    "statsborgerskap": "NOR",
-    "erStrengtFortrolig": false
-  },
-  "barn": []
+    "barn": []
 }

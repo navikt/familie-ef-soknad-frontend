@@ -1,8 +1,4 @@
-import {
-  dagensIsoDatoMinusMåneder,
-  dagensIsoDatoPlussMåneder,
-  formatIsoToStandardFormat,
-} from '../utils/dato';
+import { dagensIsoDatoMinusMåneder, dagensIsoDatoPlussMåneder, formatIsoToStandardFormat } from '../utils/dato';
 
 export const dagensDato = formatIsoToStandardFormat(dagensIsoDatoPlussMåneder(0));
 export const datoEnMånedFrem = formatIsoToStandardFormat(dagensIsoDatoPlussMåneder(1));

@@ -1,23 +1,23 @@
 export enum MellomlagredeStønadstyper {
-  overgangsstønad = 'overgangsstonad',
-  overgangsstønadRegelendring2026 = 'overgangsstonad-regelendring-2026',
-  barnetilsyn = 'barnetilsyn',
-  skolepenger = 'skolepenger',
+    overgangsstønad = 'overgangsstonad',
+    overgangsstønadRegelendring2026 = 'overgangsstonad-regelendring-2026',
+    barnetilsyn = 'barnetilsyn',
+    skolepenger = 'skolepenger',
 }
 
 export enum Stønadstype {
-  overgangsstønad = 'OVERGANGSSTØNAD',
-  barnetilsyn = 'BARNETILSYN',
-  skolepenger = 'SKOLEPENGER',
+    overgangsstønad = 'OVERGANGSSTØNAD',
+    barnetilsyn = 'BARNETILSYN',
+    skolepenger = 'SKOLEPENGER',
 }
 
 export const stønadsTypeTilEngelsk = (stønadstype: Stønadstype): string => {
-  switch (stønadstype) {
-    case Stønadstype.overgangsstønad:
-      return 'transitional benefit';
-    case Stønadstype.barnetilsyn:
-      return 'child care benefit';
-    case Stønadstype.skolepenger:
-      return 'school fees';
-  }
+    switch (stønadstype) {
+        case Stønadstype.overgangsstønad:
+            return 'transitional benefit';
+        case Stønadstype.barnetilsyn:
+            return 'child care benefit';
+        case Stønadstype.skolepenger:
+            return 'school fees';
+    }
 };

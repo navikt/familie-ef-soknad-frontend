@@ -1,7 +1,7 @@
-import { IPerson } from '../../models/søknad/person';
+import type { IPerson } from '../../models/søknad/person';
 
 export interface InformasjonProps {
-  person: IPerson;
-  harBekreftet: boolean;
-  settBekreftelse: (bekreftet: boolean) => void;
+    person: IPerson;
+    harBekreftet: boolean;
+    settBekreftelse: (bekreftet: boolean) => void;
 }

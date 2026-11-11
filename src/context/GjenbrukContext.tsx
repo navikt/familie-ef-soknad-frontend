@@ -1,24 +1,24 @@
-import React, { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import React, { createContext, type Dispatch, type ReactNode, type SetStateAction, useState } from 'react';
 
 export const GjenbrukContext = createContext<{
-  skalGjenbrukeSøknad: boolean;
-  settSkalGjenbrukeSøknad: Dispatch<SetStateAction<boolean>>;
+    skalGjenbrukeSøknad: boolean;
+    settSkalGjenbrukeSøknad: Dispatch<SetStateAction<boolean>>;
 }>({
-  skalGjenbrukeSøknad: false,
-  settSkalGjenbrukeSøknad: () => {},
+    skalGjenbrukeSøknad: false,
+    settSkalGjenbrukeSøknad: () => {},
 });
 
 export const GjenbrukProvider = ({ children }: { children: ReactNode }) => {
-  const [skalGjenbrukeSøknad, settSkalGjenbrukeSøknad] = useState<boolean>(false);
+    const [skalGjenbrukeSøknad, settSkalGjenbrukeSøknad] = useState<boolean>(false);
 
-  return (
-    <GjenbrukContext.Provider
-      value={{
-        skalGjenbrukeSøknad,
-        settSkalGjenbrukeSøknad,
-      }}
-    >
-      {children}
-    </GjenbrukContext.Provider>
-  );
+    return (
+        <GjenbrukContext.Provider
+            value={{
+                skalGjenbrukeSøknad,
+                settSkalGjenbrukeSøknad,
+            }}
+        >
+            {children}
+        </GjenbrukContext.Provider>
+    );
 };

@@ -1,207 +1,179 @@
-import { EBegrunnelse, ESivilstand, ISivilstatus } from '../../models/steg/omDeg/sivilstatus';
-import { IPeriode } from '../../models/felles/periode';
-import { IMedlemskap, IUtenlandsopphold } from '../../models/steg/omDeg/medlemskap';
-import { harFyltUtSamboerDetaljer } from '../../utils/person';
+import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
+import type { IPeriode } from '../../models/felles/periode';
+import type { IMedlemskap, IUtenlandsopphold } from '../../models/steg/omDeg/medlemskap';
+import { EBegrunnelse, ESivilstand, type ISivilstatus } from '../../models/steg/omDeg/sivilstatus';
+import type { IDatoFelt } from '../../models/søknad/søknadsfelter';
+import type { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
+import type { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';
+import type { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { erDatoGyldigOgInnenforBegrensning } from '../../utils/gyldigeDatoerUtils';
-import { IDatoFelt } from '../../models/søknad/søknadsfelter';
+import { harFyltUtSamboerDetaljer } from '../../utils/person';
 import { erSøkerGift, erSøkerUGiftSkiltSeparertEllerEnke } from '../../utils/sivilstatus';
-import { SøknadOvergangsstønad } from '../../søknader/overgangsstønad/models/søknad';
-import { SøknadBarnetilsyn } from '../../søknader/barnetilsyn/models/søknad';
-import { SøknadSkolepenger } from '../../søknader/skolepenger/models/søknad';
 import { stringErNullEllerTom } from '../../utils/typer';
 import { identErGyldig } from '../../utils/validering/validering';
-import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
 
 export const hentSivilstatus = (statuskode?: string) => {
-  switch (statuskode) {
-    case ESivilstand.UOPPGITT:
-    case ESivilstand.UGIFT:
-    case ESivilstand.GIFT:
-    case ESivilstand.ENKE_ELLER_ENKEMANN:
-    case ESivilstand.SKILT:
-    case ESivilstand.SEPARERT:
-    case ESivilstand.REGISTRERT_PARTNER:
-    case ESivilstand.SEPARERT_PARTNER:
-    case ESivilstand.SKILT_PARTNER:
-    case ESivilstand.GJENLEVENDE_PARTNER:
-      return `sivilstatus.kode.${statuskode}`;
-    //TPS
-    //case ESivilstand.GIFT:
-    case ESivilstand.REPA:
-    case ESivilstand.UGIF:
-    case ESivilstand.SAMB:
-    case ESivilstand.SEPA:
-    case ESivilstand.SEPR:
-    case ESivilstand.SKIL:
-    case ESivilstand.GJPA:
-    case ESivilstand.ENKE:
-      return `sivilstatus.kode.${statuskode}`;
+    switch (statuskode) {
+        case ESivilstand.UOPPGITT:
+        case ESivilstand.UGIFT:
+        case ESivilstand.GIFT:
+        case ESivilstand.ENKE_ELLER_ENKEMANN:
+        case ESivilstand.SKILT:
+        case ESivilstand.SEPARERT:
+        case ESivilstand.REGISTRERT_PARTNER:
+        case ESivilstand.SEPARERT_PARTNER:
+        case ESivilstand.SKILT_PARTNER:
+        case ESivilstand.GJENLEVENDE_PARTNER:
+            return `sivilstatus.kode.${statuskode}`;
+        //TPS
+        //case ESivilstand.GIFT:
+        case ESivilstand.REPA:
+        case ESivilstand.UGIF:
+        case ESivilstand.SAMB:
+        case ESivilstand.SEPA:
+        case ESivilstand.SEPR:
+        case ESivilstand.SKIL:
+        case ESivilstand.GJPA:
+        case ESivilstand.ENKE:
+            return `sivilstatus.kode.${statuskode}`;
 
-    default:
-      return 'sivilstatus.kode.ANNET';
-  }
+        default:
+            return 'sivilstatus.kode.ANNET';
+    }
 };
 
 export const erÅrsakEnsligBesvart = (sivilstatus: ISivilstatus) => {
-  const {
-    datoForSamlivsbrudd,
-    datoFlyttetFraHverandre,
-    datoEndretSamvær,
-    årsakEnslig,
-    tidligereSamboerDetaljer,
-  } = sivilstatus;
+    const { datoForSamlivsbrudd, datoFlyttetFraHverandre, datoEndretSamvær, årsakEnslig, tidligereSamboerDetaljer } =
+        sivilstatus;
 
-  const valgtBegrunnelse = årsakEnslig?.svarid;
+    const valgtBegrunnelse = årsakEnslig?.svarid;
 
-  switch (valgtBegrunnelse) {
-    case EBegrunnelse.samlivsbruddForeldre:
-      return (
-        datoForSamlivsbrudd?.verdi !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoForSamlivsbrudd.verdi, GyldigeDatoer.Tidligere)
-      );
-    case EBegrunnelse.samlivsbruddAndre:
-      return (
-        tidligereSamboerDetaljer &&
-        harFyltUtSamboerDetaljer(tidligereSamboerDetaljer, false) &&
-        datoFlyttetFraHverandre?.verdi !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre.verdi, GyldigeDatoer.Alle) &&
-        (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
-          sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
-      );
-    case EBegrunnelse.endringISamværsordning:
-      return (
-        datoEndretSamvær?.verdi !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoEndretSamvær?.verdi, GyldigeDatoer.Alle)
-      );
-    case EBegrunnelse.aleneFraFødsel:
-      return true;
-    case EBegrunnelse.dødsfall:
-      return true;
-  }
+    switch (valgtBegrunnelse) {
+        case EBegrunnelse.samlivsbruddForeldre:
+            return (
+                datoForSamlivsbrudd?.verdi !== undefined &&
+                erDatoGyldigOgInnenforBegrensning(datoForSamlivsbrudd.verdi, GyldigeDatoer.Tidligere)
+            );
+        case EBegrunnelse.samlivsbruddAndre:
+            return (
+                tidligereSamboerDetaljer &&
+                harFyltUtSamboerDetaljer(tidligereSamboerDetaljer, false) &&
+                datoFlyttetFraHverandre?.verdi !== undefined &&
+                erDatoGyldigOgInnenforBegrensning(datoFlyttetFraHverandre.verdi, GyldigeDatoer.Alle) &&
+                (identErGyldig(sivilstatus.tidligereSamboerDetaljer?.ident?.verdi ?? '') ||
+                    sivilstatus.tidligereSamboerDetaljer?.kjennerIkkeIdent)
+            );
+        case EBegrunnelse.endringISamværsordning:
+            return (
+                datoEndretSamvær?.verdi !== undefined &&
+                erDatoGyldigOgInnenforBegrensning(datoEndretSamvær?.verdi, GyldigeDatoer.Alle)
+            );
+        case EBegrunnelse.aleneFraFødsel:
+            return true;
+        case EBegrunnelse.dødsfall:
+            return true;
+    }
 };
 
 export const erPeriodeDatoerValgt = (periode: IPeriode) => {
-  const fom = periode.fra.verdi && periode.fra.verdi !== '';
-  const tom = periode.til.verdi && periode.til.verdi !== '';
-  return fom && tom;
+    const fom = periode.fra.verdi && periode.fra.verdi !== '';
+    const tom = periode.til.verdi && periode.til.verdi !== '';
+    return fom && tom;
 };
 
 const erMedlemskapSpørsmålBesvart = (medlemskap: IMedlemskap): boolean => {
-  const {
-    søkerBosattINorgeSisteTreÅr,
-    perioderBoddIUtlandet,
-    søkerOppholderSegINorge,
-    oppholdsland,
-  } = medlemskap;
+    const { søkerBosattINorgeSisteTreÅr, perioderBoddIUtlandet, søkerOppholderSegINorge, oppholdsland } = medlemskap;
 
-  if (søkerOppholderSegINorge?.verdi === false) {
-    if (!oppholdsland?.verdi || stringErNullEllerTom(oppholdsland.verdi)) {
-      return false;
+    if (søkerOppholderSegINorge?.verdi === false) {
+        if (!oppholdsland?.verdi || stringErNullEllerTom(oppholdsland.verdi)) {
+            return false;
+        }
     }
-  }
 
-  if (søkerBosattINorgeSisteTreÅr?.verdi === false) {
-    return harGyldigeUtfylteUtenlandsperioder(perioderBoddIUtlandet);
-  }
+    if (søkerBosattINorgeSisteTreÅr?.verdi === false) {
+        return harGyldigeUtfylteUtenlandsperioder(perioderBoddIUtlandet);
+    }
 
-  return !!søkerBosattINorgeSisteTreÅr?.verdi;
+    return !!søkerBosattINorgeSisteTreÅr?.verdi;
 };
 
 const harGyldigeUtfylteUtenlandsperioder = (utenlandsperioder: IUtenlandsopphold[] | undefined) =>
-  utenlandsperioder !== undefined
-    ? utenlandsperioder?.every((utenlandsopphold) => {
-        const {
-          begrunnelse,
-          periode,
-          personidentEøsLand,
-          kanIkkeOppgiPersonident,
-          erEøsLand,
-          adresseEøsLand,
-        } = utenlandsopphold;
+    utenlandsperioder !== undefined
+        ? utenlandsperioder?.every(utenlandsopphold => {
+              const { begrunnelse, periode, personidentEøsLand, kanIkkeOppgiPersonident, erEøsLand, adresseEøsLand } =
+                  utenlandsopphold;
 
-        const harBegrunnelse = !stringErNullEllerTom(begrunnelse.verdi);
-        const harPeriode =
-          !stringErNullEllerTom(periode.fra.verdi) && !stringErNullEllerTom(periode.til.verdi);
-        const harAdresseEøsLand = !stringErNullEllerTom(adresseEøsLand?.verdi);
-        const harPersonidentEøsLand =
-          !stringErNullEllerTom(personidentEøsLand?.verdi) || !!kanIkkeOppgiPersonident;
+              const harBegrunnelse = !stringErNullEllerTom(begrunnelse.verdi);
+              const harPeriode = !stringErNullEllerTom(periode.fra.verdi) && !stringErNullEllerTom(periode.til.verdi);
+              const harAdresseEøsLand = !stringErNullEllerTom(adresseEøsLand?.verdi);
+              const harPersonidentEøsLand =
+                  !stringErNullEllerTom(personidentEøsLand?.verdi) || !!kanIkkeOppgiPersonident;
 
-        return (
-          harBegrunnelse &&
-          harPeriode &&
-          (!erEøsLand || (harAdresseEøsLand && harPersonidentEøsLand))
-        );
-      })
-    : false;
+              return harBegrunnelse && harPeriode && (!erEøsLand || (harAdresseEøsLand && harPersonidentEøsLand));
+          })
+        : false;
 
 const erDatoSøktSeparasjonGyldig = (datoSøktSeparasjon: IDatoFelt | undefined): boolean => {
-  return !!(
-    datoSøktSeparasjon?.verdi &&
-    erDatoGyldigOgInnenforBegrensning(datoSøktSeparasjon?.verdi, GyldigeDatoer.Tidligere)
-  );
+    return !!(
+        datoSøktSeparasjon?.verdi &&
+        erDatoGyldigOgInnenforBegrensning(datoSøktSeparasjon?.verdi, GyldigeDatoer.Tidligere)
+    );
 };
 
 const erSpørsmålOmUformeltGiftBesvart = (sivilstatus: ISivilstatus): boolean => {
-  return sivilstatus.erUformeltGift?.verdi !== undefined;
+    return sivilstatus.erUformeltGift?.verdi !== undefined;
 };
 
 const erSpørsmålOmUformeltSeparertEllerSkiltBesvart = (sivilstatus: ISivilstatus): boolean => {
-  return sivilstatus.erUformeltSeparertEllerSkilt?.verdi !== undefined;
+    return sivilstatus.erUformeltSeparertEllerSkilt?.verdi !== undefined;
 };
 
 const erSpørsmålOmSøktSeparasjonUtfylt = (sivilstatus: ISivilstatus): boolean => {
-  const { harSøktSeparasjon, datoSøktSeparasjon } = sivilstatus;
+    const { harSøktSeparasjon, datoSøktSeparasjon } = sivilstatus;
 
-  const datoSøktSeparasjonerUtfyltOgGyldig = erDatoSøktSeparasjonGyldig(datoSøktSeparasjon);
+    const datoSøktSeparasjonerUtfyltOgGyldig = erDatoSøktSeparasjonGyldig(datoSøktSeparasjon);
 
-  return (
-    (harSøktSeparasjon?.verdi && datoSøktSeparasjonerUtfyltOgGyldig) ||
-    harSøktSeparasjon?.verdi === false
-  );
+    return (harSøktSeparasjon?.verdi && datoSøktSeparasjonerUtfyltOgGyldig) || harSøktSeparasjon?.verdi === false;
 };
 
-export const erSivilstandSpørsmålBesvart = (
-  sivilstand: string,
-  sivilstatus: ISivilstatus
-): boolean => {
-  if (erSøkerUGiftSkiltSeparertEllerEnke(sivilstand)) {
-    return (
-      erSpørsmålOmUformeltGiftBesvart(sivilstatus) &&
-      erSpørsmålOmUformeltSeparertEllerSkiltBesvart(sivilstatus)
-    );
-  } else if (erSøkerGift(sivilstand)) {
-    return erSpørsmålOmSøktSeparasjonUtfylt(sivilstatus);
-  }
+export const erSivilstandSpørsmålBesvart = (sivilstand: string, sivilstatus: ISivilstatus): boolean => {
+    if (erSøkerUGiftSkiltSeparertEllerEnke(sivilstand)) {
+        return (
+            erSpørsmålOmUformeltGiftBesvart(sivilstatus) && erSpørsmålOmUformeltSeparertEllerSkiltBesvart(sivilstatus)
+        );
+    } else if (erSøkerGift(sivilstand)) {
+        return erSpørsmålOmSøktSeparasjonUtfylt(sivilstatus);
+    }
 
-  return true;
+    return true;
 };
 
 export const søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring = (
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
+    søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {
-  return (
-    søknad.person.søker?.erStrengtFortrolig ||
-    søknad.søkerBorPåRegistrertAdresse?.verdi === true ||
-    søknad.adresseopplysninger?.harMeldtAdresseendring?.verdi === true
-  );
+    return (
+        søknad.person.søker?.erStrengtFortrolig ||
+        søknad.søkerBorPåRegistrertAdresse?.verdi === true ||
+        søknad.adresseopplysninger?.harMeldtAdresseendring?.verdi === true
+    );
 };
 
 export const validerSøkerBosattINorgeSisteFemÅr = (
-  søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
+    søknad: SøknadOvergangsstønad | SøknadBarnetilsyn | SøknadSkolepenger
 ) => {
-  return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
+    return søknad.medlemskap.søkerBosattINorgeSisteTreÅr;
 };
 
 export const erStegFerdigUtfylt = (
-  sivilstatus: ISivilstatus,
-  sivilstand: string,
-  medlemskap: IMedlemskap,
-  søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring: boolean
+    sivilstatus: ISivilstatus,
+    sivilstand: string,
+    medlemskap: IMedlemskap,
+    søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring: boolean
 ): boolean => {
-  return !!(
-    søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring &&
-    erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) &&
-    erÅrsakEnsligBesvart(sivilstatus) &&
-    erMedlemskapSpørsmålBesvart(medlemskap)
-  );
+    return !!(
+        søkerBorPåRegistrertAdresseEllerHarMeldtAdresseendring &&
+        erSivilstandSpørsmålBesvart(sivilstand, sivilstatus) &&
+        erÅrsakEnsligBesvart(sivilstatus) &&
+        erMedlemskapSpørsmålBesvart(medlemskap)
+    );
 };

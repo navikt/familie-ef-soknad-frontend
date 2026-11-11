@@ -1,195 +1,190 @@
-import React, { FC } from 'react';
-import Side from '../side/Side';
-import { useLocation, useNavigate } from 'react-router';
-import { hentTekst } from '../../../utils/teksthåndtering';
-import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
-import {
-  erSøkerArbeidssøker,
-  erVilligTilÅTaImotTilbud,
-  kanBegynneInnenEnUke,
-  ønskerHalvStilling,
-  ønsketArbeidssted,
-} from '../../felles/steg/5-aktivitet/arbeidssøker/ArbeidssøkerConfig';
-import { ESvar, ISpørsmål, ISvar } from '../../../models/felles/spørsmålogsvar';
-import { hentBooleanFraValgtSvar } from '../../../utils/spørsmålogsvar';
-import { useSkjema } from '../SkjemaContext';
-import MultiSvarSpørsmål from '../../../components/spørsmål/MultiSvarSpørsmål';
-import {
-  ERouteArbeidssøkerskjema,
-  RoutesArbeidssokerskjema,
-} from '../routes/routesArbeidssokerskjema';
-import { hentPath } from '../../../utils/routing';
-import { kommerFraOppsummeringen } from '../../../utils/locationState';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { Alert, BodyShort, Button, Label, VStack } from '@navikt/ds-react';
+import React, { type FC } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import JaNeiSpørsmål from '../../../components/spørsmål/JaNeiSpørsmål';
+import MultiSvarSpørsmål from '../../../components/spørsmål/MultiSvarSpørsmål';
+import { useLokalIntlContext } from '../../../context/LokalIntlContext';
+import { ESvar, type ISpørsmål, type ISvar } from '../../../models/felles/spørsmålogsvar';
+import { kommerFraOppsummeringen } from '../../../utils/locationState';
+import { hentPath } from '../../../utils/routing';
+import { hentBooleanFraValgtSvar } from '../../../utils/spørsmålogsvar';
+import { hentTekst } from '../../../utils/teksthåndtering';
+import {
+    erSøkerArbeidssøker,
+    erVilligTilÅTaImotTilbud,
+    kanBegynneInnenEnUke,
+    ønskerHalvStilling,
+    ønsketArbeidssted,
+} from '../../felles/steg/5-aktivitet/arbeidssøker/ArbeidssøkerConfig';
+import { ERouteArbeidssøkerskjema, RoutesArbeidssokerskjema } from '../routes/routesArbeidssokerskjema';
+import { useSkjema } from '../SkjemaContext';
+import Side from '../side/Side';
 
 const Spørsmål: FC<{ ident: string }> = ({ ident }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const intl = useLokalIntlContext();
-  const { skjema, settSkjema } = useSkjema();
-  const [arbeidssøker, settArbeidssøker] = React.useState(skjema.arbeidssøker);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const intl = useLokalIntlContext();
+    const { skjema, settSkjema } = useSkjema();
+    const [arbeidssøker, settArbeidssøker] = React.useState(skjema.arbeidssøker);
 
-  const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
+    const kommerFraOppsummering = kommerFraOppsummeringen(location.state);
 
-  React.useEffect(() => {
-    settSkjema({ ...skjema, arbeidssøker: arbeidssøker });
-  }, [arbeidssøker]);
+    React.useEffect(() => {
+        settSkjema({ ...skjema, arbeidssøker: arbeidssøker });
+    }, [arbeidssøker]);
 
-  React.useEffect(() => {
-    settArbeidssøker((forrigeArbeidssøker) => {
-      const oppdatertArbeidssøker = { ...forrigeArbeidssøker };
+    React.useEffect(() => {
+        settArbeidssøker(forrigeArbeidssøker => {
+            const oppdatertArbeidssøker = { ...forrigeArbeidssøker };
 
-      if (oppdatertArbeidssøker.registrertSomArbeidssøkerNav) {
-        oppdatertArbeidssøker.registrertSomArbeidssøkerNav = {
-          ...oppdatertArbeidssøker.registrertSomArbeidssøkerNav,
-          label: hentTekst(erSøkerArbeidssøker(intl).tekstid, intl),
-        };
-      }
+            if (oppdatertArbeidssøker.registrertSomArbeidssøkerNav) {
+                oppdatertArbeidssøker.registrertSomArbeidssøkerNav = {
+                    ...oppdatertArbeidssøker.registrertSomArbeidssøkerNav,
+                    label: hentTekst(erSøkerArbeidssøker(intl).tekstid, intl),
+                };
+            }
 
-      if (oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid) {
-        oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid = {
-          ...oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid,
-          label: hentTekst(erVilligTilÅTaImotTilbud(intl).tekstid, intl),
-        };
-      }
+            if (oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid) {
+                oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid = {
+                    ...oppdatertArbeidssøker.villigTilÅTaImotTilbudOmArbeid,
+                    label: hentTekst(erVilligTilÅTaImotTilbud(intl).tekstid, intl),
+                };
+            }
 
-      if (oppdatertArbeidssøker.kanBegynneInnenEnUke) {
-        oppdatertArbeidssøker.kanBegynneInnenEnUke = {
-          ...oppdatertArbeidssøker.kanBegynneInnenEnUke,
-          label: hentTekst(kanBegynneInnenEnUke(intl).tekstid, intl),
-        };
-      }
+            if (oppdatertArbeidssøker.kanBegynneInnenEnUke) {
+                oppdatertArbeidssøker.kanBegynneInnenEnUke = {
+                    ...oppdatertArbeidssøker.kanBegynneInnenEnUke,
+                    label: hentTekst(kanBegynneInnenEnUke(intl).tekstid, intl),
+                };
+            }
 
-      if (oppdatertArbeidssøker.hvorØnskerSøkerArbeid) {
-        const spørsmål = ønsketArbeidssted(intl);
-        const nyttSvar = spørsmål.svaralternativer.find(
-          (svaralternativ) =>
-            svaralternativ.id === oppdatertArbeidssøker.hvorØnskerSøkerArbeid?.svarid
-        );
+            if (oppdatertArbeidssøker.hvorØnskerSøkerArbeid) {
+                const spørsmål = ønsketArbeidssted(intl);
+                const nyttSvar = spørsmål.svaralternativer.find(
+                    svaralternativ => svaralternativ.id === oppdatertArbeidssøker.hvorØnskerSøkerArbeid?.svarid
+                );
 
-        oppdatertArbeidssøker.hvorØnskerSøkerArbeid = {
-          ...oppdatertArbeidssøker.hvorØnskerSøkerArbeid,
-          label: hentTekst(spørsmål.tekstid, intl),
-          verdi: nyttSvar?.svar_tekst || oppdatertArbeidssøker.hvorØnskerSøkerArbeid.verdi,
-        };
-      }
+                oppdatertArbeidssøker.hvorØnskerSøkerArbeid = {
+                    ...oppdatertArbeidssøker.hvorØnskerSøkerArbeid,
+                    label: hentTekst(spørsmål.tekstid, intl),
+                    verdi: nyttSvar?.svar_tekst || oppdatertArbeidssøker.hvorØnskerSøkerArbeid.verdi,
+                };
+            }
 
-      if (oppdatertArbeidssøker.ønskerSøker50ProsentStilling) {
-        oppdatertArbeidssøker.ønskerSøker50ProsentStilling = {
-          ...oppdatertArbeidssøker.ønskerSøker50ProsentStilling,
-          label: hentTekst(ønskerHalvStilling(intl).tekstid, intl),
-        };
-      }
+            if (oppdatertArbeidssøker.ønskerSøker50ProsentStilling) {
+                oppdatertArbeidssøker.ønskerSøker50ProsentStilling = {
+                    ...oppdatertArbeidssøker.ønskerSøker50ProsentStilling,
+                    label: hentTekst(ønskerHalvStilling(intl).tekstid, intl),
+                };
+            }
 
-      const erLikArbeidssøker =
-        JSON.stringify(oppdatertArbeidssøker) === JSON.stringify(forrigeArbeidssøker);
+            const erLikArbeidssøker = JSON.stringify(oppdatertArbeidssøker) === JSON.stringify(forrigeArbeidssøker);
 
-      return erLikArbeidssøker ? forrigeArbeidssøker : oppdatertArbeidssøker;
-    });
-  }, [intl]);
+            return erLikArbeidssøker ? forrigeArbeidssøker : oppdatertArbeidssøker;
+        });
+    }, [intl]);
 
-  const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+    const settJaNeiSpørsmål = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+        const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
 
-    settArbeidssøker({
-      ...arbeidssøker,
-      [spørsmål.søknadid]: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: svar,
-      },
-    });
-  };
+        settArbeidssøker({
+            ...arbeidssøker,
+            [spørsmål.søknadid]: {
+                spørsmålid: spørsmål.søknadid,
+                svarid: valgtSvar.id,
+                label: hentTekst(spørsmål.tekstid, intl),
+                verdi: svar,
+            },
+        });
+    };
 
-  const settMultiSvarSpørsmål = (spørsmål: ISpørsmål, svar: ISvar) => {
-    settArbeidssøker({
-      ...arbeidssøker,
-      [spørsmål.søknadid]: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: svar.id,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: svar.svar_tekst,
-      },
-    });
-  };
+    const settMultiSvarSpørsmål = (spørsmål: ISpørsmål, svar: ISvar) => {
+        settArbeidssøker({
+            ...arbeidssøker,
+            [spørsmål.søknadid]: {
+                spørsmålid: spørsmål.søknadid,
+                svarid: svar.id,
+                label: hentTekst(spørsmål.tekstid, intl),
+                verdi: svar.svar_tekst,
+            },
+        });
+    };
 
-  return (
-    <Side
-      tittel={hentTekst('skjema.tittel.omarbeidssøker', intl)}
-      erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
-      skalViseKnapper={!kommerFraOppsummering}
-    >
-      <VStack gap={'space-64'}>
-        <VStack>
-          <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
-          <BodyShort>{ident}</BodyShort>
-        </VStack>
-        <VStack gap={'space-16'}>
-          <JaNeiSpørsmål
-            spørsmål={erSøkerArbeidssøker(intl)}
-            onChange={settJaNeiSpørsmål}
-            valgtSvar={arbeidssøker.registrertSomArbeidssøkerNav?.verdi}
-          />
-          {arbeidssøker.registrertSomArbeidssøkerNav?.verdi === false && (
-            <Alert size="small" variant={'info'} inline>
-              {hentTekst('skjema.alert.registrert', intl)}
-            </Alert>
-          )}
-        </VStack>
-
-        {arbeidssøker.registrertSomArbeidssøkerNav && (
-          <VStack gap={'space-16'}>
-            <JaNeiSpørsmål
-              spørsmål={erVilligTilÅTaImotTilbud(intl)}
-              onChange={settJaNeiSpørsmål}
-              valgtSvar={arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.verdi}
-            />
-            {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid === ESvar.NEI && (
-              <Alert size="small" variant={'warning'} inline>
-                {hentTekst('arbeidssøker.alert.villig', intl)}
-              </Alert>
-            )}
-          </VStack>
-        )}
-        {arbeidssøker.villigTilÅTaImotTilbudOmArbeid && (
-          <JaNeiSpørsmål
-            spørsmål={kanBegynneInnenEnUke(intl)}
-            onChange={settJaNeiSpørsmål}
-            valgtSvar={arbeidssøker.kanBegynneInnenEnUke?.verdi}
-          />
-        )}
-        {arbeidssøker.kanBegynneInnenEnUke && (
-          <MultiSvarSpørsmål
-            spørsmål={ønsketArbeidssted(intl)}
-            settSpørsmålOgSvar={settMultiSvarSpørsmål}
-            valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
-          />
-        )}
-        {arbeidssøker.hvorØnskerSøkerArbeid && (
-          <JaNeiSpørsmål
-            spørsmål={ønskerHalvStilling(intl)}
-            onChange={settJaNeiSpørsmål}
-            valgtSvar={arbeidssøker.ønskerSøker50ProsentStilling?.verdi}
-          />
-        )}
-      </VStack>
-      {kommerFraOppsummering ? (
-        <Button
-          variant="primary"
-          className="tilbake-til-oppsummering"
-          onClick={() =>
-            navigate({
-              pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Oppsummering),
-            })
-          }
+    return (
+        <Side
+            tittel={hentTekst('skjema.tittel.omarbeidssøker', intl)}
+            erSpørsmålBesvart={arbeidssøker.ønskerSøker50ProsentStilling?.verdi !== undefined}
+            skalViseKnapper={!kommerFraOppsummering}
         >
-          {hentTekst('oppsummering.tilbake', intl)}
-        </Button>
-      ) : null}
-    </Side>
-  );
+            <VStack gap={'space-64'}>
+                <VStack>
+                    <Label as="p">{hentTekst('person.ident.visning', intl)}</Label>
+                    <BodyShort>{ident}</BodyShort>
+                </VStack>
+                <VStack gap={'space-16'}>
+                    <JaNeiSpørsmål
+                        spørsmål={erSøkerArbeidssøker(intl)}
+                        onChange={settJaNeiSpørsmål}
+                        valgtSvar={arbeidssøker.registrertSomArbeidssøkerNav?.verdi}
+                    />
+                    {arbeidssøker.registrertSomArbeidssøkerNav?.verdi === false && (
+                        <Alert size="small" variant={'info'} inline>
+                            {hentTekst('skjema.alert.registrert', intl)}
+                        </Alert>
+                    )}
+                </VStack>
+
+                {arbeidssøker.registrertSomArbeidssøkerNav && (
+                    <VStack gap={'space-16'}>
+                        <JaNeiSpørsmål
+                            spørsmål={erVilligTilÅTaImotTilbud(intl)}
+                            onChange={settJaNeiSpørsmål}
+                            valgtSvar={arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.verdi}
+                        />
+                        {arbeidssøker.villigTilÅTaImotTilbudOmArbeid?.svarid === ESvar.NEI && (
+                            <Alert size="small" variant={'warning'} inline>
+                                {hentTekst('arbeidssøker.alert.villig', intl)}
+                            </Alert>
+                        )}
+                    </VStack>
+                )}
+                {arbeidssøker.villigTilÅTaImotTilbudOmArbeid && (
+                    <JaNeiSpørsmål
+                        spørsmål={kanBegynneInnenEnUke(intl)}
+                        onChange={settJaNeiSpørsmål}
+                        valgtSvar={arbeidssøker.kanBegynneInnenEnUke?.verdi}
+                    />
+                )}
+                {arbeidssøker.kanBegynneInnenEnUke && (
+                    <MultiSvarSpørsmål
+                        spørsmål={ønsketArbeidssted(intl)}
+                        settSpørsmålOgSvar={settMultiSvarSpørsmål}
+                        valgtSvar={arbeidssøker.hvorØnskerSøkerArbeid?.verdi}
+                    />
+                )}
+                {arbeidssøker.hvorØnskerSøkerArbeid && (
+                    <JaNeiSpørsmål
+                        spørsmål={ønskerHalvStilling(intl)}
+                        onChange={settJaNeiSpørsmål}
+                        valgtSvar={arbeidssøker.ønskerSøker50ProsentStilling?.verdi}
+                    />
+                )}
+            </VStack>
+            {kommerFraOppsummering ? (
+                <Button
+                    variant="primary"
+                    className="tilbake-til-oppsummering"
+                    onClick={() =>
+                        navigate({
+                            pathname: hentPath(RoutesArbeidssokerskjema, ERouteArbeidssøkerskjema.Oppsummering),
+                        })
+                    }
+                >
+                    {hentTekst('oppsummering.tilbake', intl)}
+                </Button>
+            ) : null}
+        </Side>
+    );
 };
 
 export default Spørsmål;

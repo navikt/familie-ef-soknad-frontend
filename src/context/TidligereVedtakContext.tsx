@@ -1,41 +1,41 @@
 import { createContext, useContext, useState } from 'react';
-import { TidligereVedtakStatus } from '../innsending/api';
+import type { TidligereVedtakStatus } from '../innsending/api';
 
 interface TidligereVedtakContextType {
-  harTidligereOvergangsstønadStatus: TidligereVedtakStatus;
-  settHarTidligereOvergangsstønadStatus: (status: TidligereVedtakStatus) => void;
-  harLøpendeBarnetilsynVedRegelendring2026: boolean;
-  settHarLøpendeBarnetilsynVedRegelendring2026: (harLøpende: boolean) => void;
+    harTidligereOvergangsstønadStatus: TidligereVedtakStatus;
+    settHarTidligereOvergangsstønadStatus: (status: TidligereVedtakStatus) => void;
+    harLøpendeBarnetilsynVedRegelendring2026: boolean;
+    settHarLøpendeBarnetilsynVedRegelendring2026: (harLøpende: boolean) => void;
 }
 
 const TidligereVedtakContext = createContext<TidligereVedtakContextType | undefined>(undefined);
 
 const TidligereVedtakProvider = ({ children }: { children: React.ReactNode }) => {
-  const [harTidligereOvergangsstønadStatus, settHarTidligereOvergangsstønadStatus] =
-    useState<TidligereVedtakStatus>('VET_IKKE');
-  const [harLøpendeBarnetilsynVedRegelendring2026, settHarLøpendeBarnetilsynVedRegelendring2026] =
-    useState<boolean>(false);
+    const [harTidligereOvergangsstønadStatus, settHarTidligereOvergangsstønadStatus] =
+        useState<TidligereVedtakStatus>('VET_IKKE');
+    const [harLøpendeBarnetilsynVedRegelendring2026, settHarLøpendeBarnetilsynVedRegelendring2026] =
+        useState<boolean>(false);
 
-  return (
-    <TidligereVedtakContext.Provider
-      value={{
-        harTidligereOvergangsstønadStatus: harTidligereOvergangsstønadStatus,
-        settHarTidligereOvergangsstønadStatus: settHarTidligereOvergangsstønadStatus,
-        harLøpendeBarnetilsynVedRegelendring2026: harLøpendeBarnetilsynVedRegelendring2026,
-        settHarLøpendeBarnetilsynVedRegelendring2026: settHarLøpendeBarnetilsynVedRegelendring2026,
-      }}
-    >
-      {children}
-    </TidligereVedtakContext.Provider>
-  );
+    return (
+        <TidligereVedtakContext.Provider
+            value={{
+                harTidligereOvergangsstønadStatus: harTidligereOvergangsstønadStatus,
+                settHarTidligereOvergangsstønadStatus: settHarTidligereOvergangsstønadStatus,
+                harLøpendeBarnetilsynVedRegelendring2026: harLøpendeBarnetilsynVedRegelendring2026,
+                settHarLøpendeBarnetilsynVedRegelendring2026: settHarLøpendeBarnetilsynVedRegelendring2026,
+            }}
+        >
+            {children}
+        </TidligereVedtakContext.Provider>
+    );
 };
 
 const useTidligereVedtak = (): TidligereVedtakContextType => {
-  const context = useContext(TidligereVedtakContext);
-  if (!context) {
-    throw new Error('useTidligereVedtak må brukes innenfor TidligereVedtakProvider');
-  }
-  return context;
+    const context = useContext(TidligereVedtakContext);
+    if (!context) {
+        throw new Error('useTidligereVedtak må brukes innenfor TidligereVedtakProvider');
+    }
+    return context;
 };
 
 export { TidligereVedtakProvider, useTidligereVedtak };

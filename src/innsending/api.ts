@@ -1,88 +1,88 @@
 import axios from 'axios';
 import Environment from '../Environment';
-import { IBarn } from '../models/steg/barn';
+import type { IBarn } from '../models/steg/barn';
 
 export type TidligereVedtakStatus = 'JA' | 'NEI' | 'VET_IKKE';
 
 export const hentOvergangsstonadPåGammeltRegelverk = async (): Promise<TidligereVedtakStatus> => {
-  const response = await axios.get<TidligereVedtakStatus>(
-    `${Environment().apiProxyUrl}/api/saksbehandling/har-overgangsstonad-pa-gammelt-regelverk`,
-    { withCredentials: true }
-  );
-  return response.data;
+    const response = await axios.get<TidligereVedtakStatus>(
+        `${Environment().apiProxyUrl}/api/saksbehandling/har-overgangsstonad-pa-gammelt-regelverk`,
+        { withCredentials: true }
+    );
+    return response.data;
 };
 
 export const hentHarGyldigBarnetilsynVedRegelendring = async (): Promise<boolean> => {
-  const response = await axios.get<boolean>(
-    `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`,
-    { withCredentials: true }
-  );
-  return response.data;
+    const response = await axios.get<boolean>(
+        `${Environment().apiProxyUrl}/api/saksbehandling/har-gyldig-barnetilsyn-ved-regelendring`,
+        { withCredentials: true }
+    );
+    return response.data;
 };
 
 export const sendInnOvergangstønadSøknad = (søknad: object) => {
-  return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
+    return axios
+        .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad`, søknad, {
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            withCredentials: true,
+        })
+        .then((response: { data: any }) => {
+            return response.data;
+        });
 };
 
 export const sendInnOvergangstønadSøknadRegelendring2026 = (søknad: object) => {
-  return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad-regelendring-2026`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
+    return axios
+        .post(`${Environment().apiProxyUrl}/api/soknad/overgangsstonad-regelendring-2026`, søknad, {
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            withCredentials: true,
+        })
+        .then((response: { data: any }) => {
+            return response.data;
+        });
 };
 
 export const sendInnBarnetilsynSøknad = (søknad: object) => {
-  return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad/barnetilsyn`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
+    return axios
+        .post(`${Environment().apiProxyUrl}/api/soknad/barnetilsyn`, søknad, {
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            withCredentials: true,
+        })
+        .then((response: { data: any }) => {
+            return response.data;
+        });
 };
 
 export const sendInnSkolepengerSøknad = (søknad: object) => {
-  return axios
-    .post(`${Environment().apiProxyUrl}/api/soknad/skolepenger`, søknad, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      withCredentials: true,
-    })
-    .then((response: { data: any }) => {
-      return response.data;
-    });
+    return axios
+        .post(`${Environment().apiProxyUrl}/api/soknad/skolepenger`, søknad, {
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            withCredentials: true,
+        })
+        .then((response: { data: any }) => {
+            return response.data;
+        });
 };
 
 export const mapBarnUtenBarnepass = (barneliste: IBarn[]) => {
-  return barneliste.map((barn) => {
-    const kopiAvBarn = { ...barn };
-    delete kopiAvBarn.skalHaBarnepass;
-    return kopiAvBarn;
-  });
+    return barneliste.map(barn => {
+        const kopiAvBarn = { ...barn };
+        delete kopiAvBarn.skalHaBarnepass;
+        return kopiAvBarn;
+    });
 };
 
 export const mapBarnTilEntenIdentEllerFødselsdato = (barneliste: IBarn[]) => {
-  return barneliste.map((barn) => {
-    if (barn.lagtTil) {
-      if (barn.fødselsdato && !barn.fødselsdato.verdi) {
-        const endretBarn: IBarn = {
-          ...barn,
-          fødselsdato: { ...barn.fødselsdato, verdi: '' },
-        };
-        return endretBarn;
-      }
-    }
-    return barn;
-  });
+    return barneliste.map(barn => {
+        if (barn.lagtTil) {
+            if (barn.fødselsdato && !barn.fødselsdato.verdi) {
+                const endretBarn: IBarn = {
+                    ...barn,
+                    fødselsdato: { ...barn.fødselsdato, verdi: '' },
+                };
+                return endretBarn;
+            }
+        }
+        return barn;
+    });
 };

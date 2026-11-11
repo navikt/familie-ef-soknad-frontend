@@ -1,77 +1,77 @@
 .barnas-bosted {
-  border-bottom: 1px solid grey;
-  padding-bottom: 5rem;
-  margin-bottom: 5rem;
-  border-radius: 5px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 5rem;
+    margin-bottom: 5rem;
+    border-radius: 5px;
 }
 .barnas-bosted__innhold {
-  margin-left: 2rem;
-  margin-right: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 .barnas-bosted__innhold {
-  margin-left: 2rem;
-  margin-right: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 .barnas-bosted .fødselsnummer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 .barnas-bosted .barn-datovelger {
-  margin-bottom: 1rem;
-  padding: 4px;
-  display: inline-block;
-  border: 2px solid #000;
+    margin-bottom: 1rem;
+    padding: 4px;
+    display: inline-block;
+    border: 2px solid #000;
 }
 .barnas-bosted .hvordan-praktiseres-samværet .aksel-label {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 .barnas-bosted .innskutt {
-  margin-left: 2.2rem;
+    margin-left: 2.2rem;
 }
 .barnas-bosted ul.dokumentere-bosted {
-  margin-left: 0.8rem;
+    margin-left: 0.8rem;
 }
 .barnas-bosted .andre-forelder-valg {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: min-content;
-  grid-gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    grid-gap: 1rem;
 }
 
 @media (max-width: 767px) {
-  .barnas-bosted .andre-forelder-valg {
-    grid-template-columns: 1fr;
-  }
+    .barnas-bosted .andre-forelder-valg {
+        grid-template-columns: 1fr;
+    }
 }
 
 .barnas-bosted-lagt-til {
-  padding-bottom: 3rem;
-  width: 90%;
-  margin: 0 auto;
-  background-color: #e7e9e9;
-  margin-bottom: 6rem;
+    padding-bottom: 3rem;
+    width: 90%;
+    margin: 0 auto;
+    background-color: #e7e9e9;
+    margin-bottom: 6rem;
 }
 .barnas-bosted-lagt-til__svar {
-  padding-left: 3rem;
-  padding-right: 2rem;
+    padding-left: 3rem;
+    padding-right: 2rem;
 }
 .spørsmål-og-svar {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 .spørsmål-og-svar .aksel-body-short {
-  margin-top: 0.5rem;
+    margin-top: 0.5rem;
 }
 .lenke-knapp {
-  display: flex;
-  margin-top: 2rem;
-  color: #0067c5;
-  text-decoration: underline;
+    display: flex;
+    margin-top: 2rem;
+    color: #0067c5;
+    text-decoration: underline;
 }
 .lenke-knapp .aksel-body-short {
-  margin-left: 1rem;
+    margin-left: 1rem;
 }
 .lenke-knapp:hover {
-  text-decoration: none;
-  cursor: pointer;
+    text-decoration: none;
+    cursor: pointer;
 }

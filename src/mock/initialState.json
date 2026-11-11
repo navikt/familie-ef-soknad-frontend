@@ -1,17 +1,17 @@
 {
-  "hash": "",
-  "søker": {
-    "fnr": "",
-    "alder": 0,
-    "forkortetNavn": "",
-    "adresse": {
-      "adresse": "",
-      "postnummer": "",
-      "poststed": ""
+    "hash": "",
+    "søker": {
+        "fnr": "",
+        "alder": 0,
+        "forkortetNavn": "",
+        "adresse": {
+            "adresse": "",
+            "postnummer": "",
+            "poststed": ""
+        },
+        "sivilstand": "",
+        "statsborgerskap": "",
+        "erStrengtFortrolig": false
     },
-    "sivilstand": "",
-    "statsborgerskap": "",
-    "erStrengtFortrolig": false
-  },
-  "barn": []
+    "barn": []
 }

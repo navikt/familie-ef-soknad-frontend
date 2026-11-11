@@ -1,50 +1,50 @@
-import React from 'react';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
-import { SøkerHarSøktSeparasjon } from './SøkerHarSøktSeparasjon';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Alert, VStack } from '@navikt/ds-react';
-import { useOmDeg } from '../OmDegContext';
+import type React from 'react';
+import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import type { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
 import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { useOmDeg } from '../OmDegContext';
+import { harSøktSeparasjonSpørsmål } from './SivilstatusConfig';
+import { SøkerHarSøktSeparasjon } from './SøkerHarSøktSeparasjon';
 
 export const SøkerErGift: React.FC = () => {
-  const intl = useLokalIntlContext();
-  const separasjonsSpørsmål: ISpørsmål = harSøktSeparasjonSpørsmål(intl);
-  const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
-  const { harSøktSeparasjon } = sivilstatus;
+    const intl = useLokalIntlContext();
+    const separasjonsSpørsmål: ISpørsmål = harSøktSeparasjonSpørsmål(intl);
+    const { sivilstatus, settSivilstatus, settDokumentasjonsbehov } = useOmDeg();
+    const { harSøktSeparasjon } = sivilstatus;
 
-  const settHarSøktSeparasjon = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    settSivilstatus({
-      ...sivilstatus,
-      harSøktSeparasjon: {
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: hentBooleanFraValgtSvar(valgtSvar),
-      },
-    });
+    const settHarSøktSeparasjon = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+        settSivilstatus({
+            ...sivilstatus,
+            harSøktSeparasjon: {
+                label: hentTekst(spørsmål.tekstid, intl),
+                verdi: hentBooleanFraValgtSvar(valgtSvar),
+            },
+        });
 
-    settDokumentasjonsbehov(spørsmål, valgtSvar);
-  };
+        settDokumentasjonsbehov(spørsmål, valgtSvar);
+    };
 
-  const visSøkerHarSøktSeperasjonSpørsmål = harSøktSeparasjon?.verdi;
-  const visSøktSeperasjonAlert = harSøktSeparasjon?.verdi === false;
+    const visSøkerHarSøktSeperasjonSpørsmål = harSøktSeparasjon?.verdi;
+    const visSøktSeperasjonAlert = harSøktSeparasjon?.verdi === false;
 
-  return (
-    <VStack gap={'space-24'}>
-      <JaNeiSpørsmål
-        spørsmål={separasjonsSpørsmål}
-        onChange={settHarSøktSeparasjon}
-        valgtSvar={harSøktSeparasjon ? harSøktSeparasjon.verdi : undefined}
-      />
+    return (
+        <VStack gap={'space-24'}>
+            <JaNeiSpørsmål
+                spørsmål={separasjonsSpørsmål}
+                onChange={settHarSøktSeparasjon}
+                valgtSvar={harSøktSeparasjon ? harSøktSeparasjon.verdi : undefined}
+            />
 
-      {visSøkerHarSøktSeperasjonSpørsmål && <SøkerHarSøktSeparasjon />}
+            {visSøkerHarSøktSeperasjonSpørsmål && <SøkerHarSøktSeparasjon />}
 
-      {visSøktSeperasjonAlert && (
-        <Alert variant={'warning'} size={'small'} inline>
-          {hentTekst('sivilstatus.alert-advarsel.søktSeparasjon', intl)}
-        </Alert>
-      )}
-    </VStack>
-  );
+            {visSøktSeperasjonAlert && (
+                <Alert variant={'warning'} size={'small'} inline>
+                    {hentTekst('sivilstatus.alert-advarsel.søktSeparasjon', intl)}
+                </Alert>
+            )}
+        </VStack>
+    );
 };

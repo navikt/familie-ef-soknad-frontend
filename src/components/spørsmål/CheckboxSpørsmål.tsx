@@ -1,61 +1,56 @@
-import React from 'react';
-import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
+import type React from 'react';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import type { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { hentHTMLTekst, hentTekst } from '../../utils/teksthåndtering';
 import styles from './CheckboxSpørsmål.module.css';
 
 interface Props {
-  spørsmål: ISpørsmål;
-  settValgteSvar: (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => void;
-  valgteSvar: string[];
-  brukSvarIdSomVerdi?: boolean;
+    spørsmål: ISpørsmål;
+    settValgteSvar: (spørsmål: ISpørsmål, svarHuketAv: boolean, svar: ISvar) => void;
+    valgteSvar: string[];
+    brukSvarIdSomVerdi?: boolean;
 }
 
-export const CheckboxSpørsmål: React.FC<Props> = ({
-  spørsmål,
-  settValgteSvar,
-  valgteSvar,
-  brukSvarIdSomVerdi,
-}) => {
-  const intl = useLokalIntlContext();
+export const CheckboxSpørsmål: React.FC<Props> = ({ spørsmål, settValgteSvar, valgteSvar, brukSvarIdSomVerdi }) => {
+    const intl = useLokalIntlContext();
 
-  return (
-    <CheckboxGroup
-      legend={hentTekst(spørsmål.tekstid, intl)}
-      value={valgteSvar}
-      className={styles.checkboxGroup}
-      description={
-        spørsmål.lesmer && (
-          <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>
-            {hentHTMLTekst(spørsmål.lesmer.innholdTekstid, intl)}
-          </ReadMore>
-        )
-      }
-    >
-      {spørsmål.svaralternativer.map((svar) => {
-        const alleredeHuketAvISøknad = valgteSvar.some((valgtSvar) => {
-          return valgtSvar === svar.svar_tekst || valgtSvar === svar.id;
-        });
+    return (
+        <CheckboxGroup
+            legend={hentTekst(spørsmål.tekstid, intl)}
+            value={valgteSvar}
+            className={styles.checkboxGroup}
+            description={
+                spørsmål.lesmer && (
+                    <ReadMore header={hentTekst(spørsmål.lesmer.headerTekstid, intl)} size={'small'}>
+                        {hentHTMLTekst(spørsmål.lesmer.innholdTekstid, intl)}
+                    </ReadMore>
+                )
+            }
+        >
+            {spørsmål.svaralternativer.map(svar => {
+                const alleredeHuketAvISøknad = valgteSvar.some(valgtSvar => {
+                    return valgtSvar === svar.svar_tekst || valgtSvar === svar.id;
+                });
 
-        const wrapperClass = alleredeHuketAvISøknad
-          ? `${styles.checkboxPanel} ${styles.active}`
-          : styles.checkboxPanel;
+                const wrapperClass = alleredeHuketAvISøknad
+                    ? `${styles.checkboxPanel} ${styles.active}`
+                    : styles.checkboxPanel;
 
-        return (
-          <div key={svar.svar_tekst} className={wrapperClass}>
-            <Checkbox
-              value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
-              checked={alleredeHuketAvISøknad}
-              onChange={() => {
-                settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
-              }}
-            >
-              {hentTekst(svar.svar_tekst, intl)}
-            </Checkbox>
-          </div>
-        );
-      })}
-    </CheckboxGroup>
-  );
+                return (
+                    <div key={svar.svar_tekst} className={wrapperClass}>
+                        <Checkbox
+                            value={brukSvarIdSomVerdi ? svar.id : svar.svar_tekst}
+                            checked={alleredeHuketAvISøknad}
+                            onChange={() => {
+                                settValgteSvar(spørsmål, alleredeHuketAvISøknad, svar);
+                            }}
+                        >
+                            {hentTekst(svar.svar_tekst, intl)}
+                        </Checkbox>
+                    </div>
+                );
+            })}
+        </CheckboxGroup>
+    );
 };

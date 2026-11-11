@@ -1,6 +1,6 @@
 import express from 'express';
-import { sikkerhetsheadere } from './sikkerhetsheadere';
 import { lagRoutes } from './routes';
+import { sikkerhetsheadere } from './sikkerhetsheadere';
 
 const app = express();
 

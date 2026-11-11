@@ -1,114 +1,111 @@
-import React, { createContext, useContext, useReducer, useState } from 'react';
-import { Barn, IPerson, PersonData } from '../models/søknad/person';
+import type React from 'react';
+import { createContext, useContext, useReducer, useState } from 'react';
 import tomPerson from '../mock/initialState.json';
-import { hentPersonData } from '../utils/søknad';
 import { EAlvorlighetsgrad } from '../models/felles/feilmelding';
-import { IBarn } from '../models/steg/barn';
-import { ESkjemanavn } from '../utils/skjemanavn';
+import type { IBarn } from '../models/steg/barn';
+import type { Barn, IPerson, PersonData } from '../models/søknad/person';
+import type { ESkjemanavn } from '../utils/skjemanavn';
+import { hentPersonData } from '../utils/søknad';
 import { useLokalIntlContext } from './LokalIntlContext';
 
 export enum PersonActionTypes {
-  HENT_PERSON = 'HENT_PERSON',
+    HENT_PERSON = 'HENT_PERSON',
 }
 
 type IPersonAction = {
-  type: PersonActionTypes;
-  payload: IPerson;
+    type: PersonActionTypes;
+    payload: IPerson;
 };
 
 type PersonContextType = {
-  person: IPerson;
-  settPerson: (action: IPersonAction) => void;
-  error: boolean;
-  settError: React.Dispatch<React.SetStateAction<boolean>>;
-  feilmelding: string;
-  alvorlighetsgrad: EAlvorlighetsgrad | undefined;
-  fetchPersonData: (
-    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[] | IBarn[]) => void,
-    skjemanavn: ESkjemanavn
-  ) => Promise<void>;
+    person: IPerson;
+    settPerson: (action: IPersonAction) => void;
+    error: boolean;
+    settError: React.Dispatch<React.SetStateAction<boolean>>;
+    feilmelding: string;
+    alvorlighetsgrad: EAlvorlighetsgrad | undefined;
+    fetchPersonData: (
+        oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[] | IBarn[]) => void,
+        skjemanavn: ESkjemanavn
+    ) => Promise<void>;
 };
 
 const reducer = (state: IPerson, action: IPersonAction) => {
-  const person: IPerson = action.payload;
+    const person: IPerson = action.payload;
 
-  switch (action.type) {
-    case PersonActionTypes.HENT_PERSON: {
-      return { ...person };
+    switch (action.type) {
+        case PersonActionTypes.HENT_PERSON: {
+            return { ...person };
+        }
+
+        default:
+            return state;
     }
-
-    default:
-      return state;
-  }
 };
 
 const initialState: IPerson = tomPerson;
 
 const PersonContext = createContext<PersonContextType>({
-  person: initialState,
-  settPerson: () => {},
-  error: false,
-  settError: () => {},
-  feilmelding: '',
-  alvorlighetsgrad: undefined,
-  fetchPersonData: () => Promise.resolve(),
+    person: initialState,
+    settPerson: () => {},
+    error: false,
+    settError: () => {},
+    feilmelding: '',
+    alvorlighetsgrad: undefined,
+    fetchPersonData: () => Promise.resolve(),
 });
 
 const usePersonContext = () => useContext(PersonContext);
 
 const PersonProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  PersonProvider.displayName = 'PERSON_PROVIDER';
-  const [person, settPerson] = useReducer(reducer, initialState);
-  const [error, settError] = useState<boolean>(false);
-  const [feilmelding, settFeilmelding] = useState<string>('');
-  const [alvorlighetsgrad, settAlvorlighetsgrad] = useState<EAlvorlighetsgrad | undefined>(
-    undefined
-  );
-  const intl = useLokalIntlContext();
+    PersonProvider.displayName = 'PERSON_PROVIDER';
+    const [person, settPerson] = useReducer(reducer, initialState);
+    const [error, settError] = useState<boolean>(false);
+    const [feilmelding, settFeilmelding] = useState<string>('');
+    const [alvorlighetsgrad, settAlvorlighetsgrad] = useState<EAlvorlighetsgrad | undefined>(undefined);
+    const intl = useLokalIntlContext();
 
-  const håndterError = (e: any) => {
-    const feil = e.response?.data?.feil;
+    const håndterError = (e: any) => {
+        const feil = e.response?.data?.feil;
 
-    if (feil === 'adressesperre') {
-      settAlvorlighetsgrad(EAlvorlighetsgrad.INFO);
-      settFeilmelding(
-        intl.formatMessage({
-          id: 'barnasbosted.feilmelding.adressebeskyttelse',
-        })
-      );
-    } else {
-      settFeilmelding(feil);
-    }
+        if (feil === 'adressesperre') {
+            settAlvorlighetsgrad(EAlvorlighetsgrad.INFO);
+            settFeilmelding(
+                intl.formatMessage({
+                    id: 'barnasbosted.feilmelding.adressebeskyttelse',
+                })
+            );
+        } else {
+            settFeilmelding(feil);
+        }
 
-    settError(true);
-  };
+        settError(true);
+    };
 
-  const fetchPersonData = (
-    oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void
-  ) => {
-    return hentPersonData()
-      .then((response) => {
-        settPerson({
-          type: PersonActionTypes.HENT_PERSON,
-          payload: response as unknown as IPerson,
-        });
+    const fetchPersonData = (oppdaterSøknadMedBarn: (person: PersonData, barneliste: Barn[]) => void) => {
+        return hentPersonData()
+            .then(response => {
+                settPerson({
+                    type: PersonActionTypes.HENT_PERSON,
+                    payload: response as unknown as IPerson,
+                });
 
-        oppdaterSøknadMedBarn(response, response.barn);
-      })
-      .catch((e) => håndterError(e));
-  };
+                oppdaterSøknadMedBarn(response, response.barn);
+            })
+            .catch(e => håndterError(e));
+    };
 
-  const value = {
-    person,
-    settPerson,
-    error,
-    settError,
-    feilmelding,
-    alvorlighetsgrad,
-    fetchPersonData,
-  };
+    const value = {
+        person,
+        settPerson,
+        error,
+        settError,
+        feilmelding,
+        alvorlighetsgrad,
+        fetchPersonData,
+    };
 
-  return <PersonContext.Provider value={value}>{children}</PersonContext.Provider>;
+    return <PersonContext.Provider value={value}>{children}</PersonContext.Provider>;
 };
 
-export { usePersonContext, PersonProvider };
+export { PersonProvider, usePersonContext };

@@ -1,36 +1,36 @@
 {
-  "hash": "",
-  "søker": {
-    "fnr": "01018212345",
-    "alder": "30",
-    "forkortetNavn": "Nyan Cat",
-    "adresse": {
-      "adresse": "Meowt street 1",
-      "postnummer": "1533",
-      "poststed": ""
+    "hash": "",
+    "søker": {
+        "fnr": "01018212345",
+        "alder": "30",
+        "forkortetNavn": "Nyan Cat",
+        "adresse": {
+            "adresse": "Meowt street 1",
+            "postnummer": "1533",
+            "poststed": ""
+        },
+        "sivilstand": "SKIL",
+        "statsborgerskap": "NOR",
+        "erStrengtFortrolig": false
     },
-    "sivilstand": "SKIL",
-    "statsborgerskap": "NOR",
-    "erStrengtFortrolig": false
-  },
-  "barn": [
-    {
-      "id": "12345",
-      "fnr": "28021078036",
-      "navn": "SHIBA INU",
-      "alder": 9,
-      "fødselsdato": "2010-02-28",
-      "harSammeAdresse": true,
-      "født": true
-    },
-    {
-      "id": "123456",
-      "fnr": "25901997848",
-      "navn": "LILLE BROR",
-      "alder": 2,
-      "fødselsdato": "2021-02-28",
-      "harSammeAdresse": true,
-      "født": true
-    }
-  ]
+    "barn": [
+        {
+            "id": "12345",
+            "fnr": "28021078036",
+            "navn": "SHIBA INU",
+            "alder": 9,
+            "fødselsdato": "2010-02-28",
+            "harSammeAdresse": true,
+            "født": true
+        },
+        {
+            "id": "123456",
+            "fnr": "25901997848",
+            "navn": "LILLE BROR",
+            "alder": 2,
+            "fødselsdato": "2021-02-28",
+            "harSammeAdresse": true,
+            "født": true
+        }
+    ]
 }

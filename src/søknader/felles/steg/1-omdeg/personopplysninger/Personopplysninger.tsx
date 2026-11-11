@@ -1,93 +1,92 @@
-import React from 'react';
-import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
-import { SøkerBorIkkePåAdresse } from './SøkerBorIkkePåAdresse';
-import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
-import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
-import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
-import { hentTekst } from '../../../../../utils/teksthåndtering';
-import { PersonopplysningerVisning } from './PersonopplysningerVisning';
 import { Alert, VStack } from '@navikt/ds-react';
+import type React from 'react';
+import JaNeiSpørsmål from '../../../../../components/spørsmål/JaNeiSpørsmål';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import type { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
+import { hentBooleanFraValgtSvar } from '../../../../../utils/spørsmålogsvar';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
 import { useOmDeg } from '../OmDegContext';
+import { borDuPåDenneAdressen, harMeldtAdresseendringSpørsmål } from './PersonopplysningerConfig';
+import { PersonopplysningerVisning } from './PersonopplysningerVisning';
+import { SøkerBorIkkePåAdresse } from './SøkerBorIkkePåAdresse';
 
 export const Personopplysninger: React.FC = () => {
-  const intl = useLokalIntlContext();
-  const {
-    søknad,
-    settDokumentasjonsbehov,
-    søkerBorPåRegistrertAdresse,
-    settSøkerBorPåRegistrertAdresse,
-    adresseopplysninger,
-    settAdresseopplysninger,
-    stønadstype,
-  } = useOmDeg();
-  const { søker } = søknad.person;
+    const intl = useLokalIntlContext();
+    const {
+        søknad,
+        settDokumentasjonsbehov,
+        søkerBorPåRegistrertAdresse,
+        settSøkerBorPåRegistrertAdresse,
+        adresseopplysninger,
+        settAdresseopplysninger,
+        stønadstype,
+    } = useOmDeg();
+    const { søker } = søknad.person;
 
-  const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    settSøkerBorPåRegistrertAdresse({
-      spørsmålid: spørsmål.søknadid,
-      svarid: valgtSvar.id,
-      label: hentTekst(spørsmål.tekstid, intl),
-      verdi: hentBooleanFraValgtSvar(valgtSvar),
-    });
+    const settSøkerBorPåRegistrertAdr = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+        settSøkerBorPåRegistrertAdresse({
+            spørsmålid: spørsmål.søknadid,
+            svarid: valgtSvar.id,
+            label: hentTekst(spørsmål.tekstid, intl),
+            verdi: hentBooleanFraValgtSvar(valgtSvar),
+        });
 
-    settDokumentasjonsbehov(spørsmål, valgtSvar);
-  };
+        settDokumentasjonsbehov(spørsmål, valgtSvar);
+    };
 
-  const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-    settAdresseopplysninger({
-      harMeldtAdresseendring: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: svar,
-      },
-    });
-    settDokumentasjonsbehov(spørsmål, valgtSvar);
-  };
+    const settMeldtAdresseendring = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+        const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+        settAdresseopplysninger({
+            harMeldtAdresseendring: {
+                spørsmålid: spørsmål.søknadid,
+                svarid: valgtSvar.id,
+                label: hentTekst(spørsmål.tekstid, intl),
+                verdi: svar,
+            },
+        });
+        settDokumentasjonsbehov(spørsmål, valgtSvar);
+    };
 
-  const visAdresseSpørsmål = !søker?.erStrengtFortrolig;
-  const visMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse?.verdi === false;
-  const visMeldtAdresseEndringAlert = adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
-  const visSøkerBorIkkePåAdresse =
-    adresseopplysninger?.harMeldtAdresseendring?.verdi === false &&
-    søkerBorPåRegistrertAdresse?.verdi === false;
+    const visAdresseSpørsmål = !søker?.erStrengtFortrolig;
+    const visMeldtAdresseEndringSpørsmål = søkerBorPåRegistrertAdresse?.verdi === false;
+    const visMeldtAdresseEndringAlert = adresseopplysninger?.harMeldtAdresseendring?.verdi === true;
+    const visSøkerBorIkkePåAdresse =
+        adresseopplysninger?.harMeldtAdresseendring?.verdi === false && søkerBorPåRegistrertAdresse?.verdi === false;
 
-  return (
-    <VStack gap={'space-32'}>
-      <PersonopplysningerVisning
-        personIdent={søker.fnr}
-        statsborgerskap={søker.statsborgerskap}
-        sivilstand={søker.sivilstand}
-        adresse={søker.adresse}
-      />
-
-      {visAdresseSpørsmål && (
+    return (
         <VStack gap={'space-32'}>
-          <JaNeiSpørsmål
-            spørsmål={borDuPåDenneAdressen(intl)}
-            valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
-            onChange={settSøkerBorPåRegistrertAdr}
-          />
-
-          {visMeldtAdresseEndringSpørsmål && (
-            <JaNeiSpørsmål
-              spørsmål={harMeldtAdresseendringSpørsmål(intl)}
-              valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
-              onChange={settMeldtAdresseendring}
+            <PersonopplysningerVisning
+                personIdent={søker.fnr}
+                statsborgerskap={søker.statsborgerskap}
+                sivilstand={søker.sivilstand}
+                adresse={søker.adresse}
             />
-          )}
 
-          {visMeldtAdresseEndringAlert && (
-            <Alert variant={'warning'} size={'small'} inline>
-              {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
-            </Alert>
-          )}
+            {visAdresseSpørsmål && (
+                <VStack gap={'space-32'}>
+                    <JaNeiSpørsmål
+                        spørsmål={borDuPåDenneAdressen(intl)}
+                        valgtSvar={søkerBorPåRegistrertAdresse?.verdi}
+                        onChange={settSøkerBorPåRegistrertAdr}
+                    />
 
-          {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
+                    {visMeldtAdresseEndringSpørsmål && (
+                        <JaNeiSpørsmål
+                            spørsmål={harMeldtAdresseendringSpørsmål(intl)}
+                            valgtSvar={adresseopplysninger?.harMeldtAdresseendring?.verdi}
+                            onChange={settMeldtAdresseendring}
+                        />
+                    )}
+
+                    {visMeldtAdresseEndringAlert && (
+                        <Alert variant={'warning'} size={'small'} inline>
+                            {hentTekst('personopplysninger.alert.meldtAdresseendring', intl)}
+                        </Alert>
+                    )}
+
+                    {visSøkerBorIkkePåAdresse && <SøkerBorIkkePåAdresse stønadstype={stønadstype} />}
+                </VStack>
+            )}
         </VStack>
-      )}
-    </VStack>
-  );
+    );
 };

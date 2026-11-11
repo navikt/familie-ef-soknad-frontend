@@ -1,64 +1,58 @@
-import React from 'react';
+import { MonthPicker, useMonthpicker } from '@navikt/ds-react';
+import type React from 'react';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { useSpråkContext } from '../../context/SpråkContext';
 import { hentUid } from '../../utils/autentiseringogvalidering/uuid';
-import { MonthPicker, useMonthpicker } from '@navikt/ds-react';
-import { hentTekst } from '../../utils/teksthåndtering';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { hentDatobegrensninger } from '../../utils/dato';
-import { GyldigeDatoer } from './GyldigeDatoer';
+import { hentTekst } from '../../utils/teksthåndtering';
+import type { GyldigeDatoer } from './GyldigeDatoer';
 
 interface Props {
-  valgtDato: Date | undefined;
-  tekstid: string;
-  gyldigeDatoer: GyldigeDatoer;
-  settDato: (date: Date | null) => void;
-  testId?: string;
+    valgtDato: Date | undefined;
+    tekstid: string;
+    gyldigeDatoer: GyldigeDatoer;
+    settDato: (date: Date | null) => void;
+    testId?: string;
 }
 
-const MånedÅrVelger: React.FC<Props> = ({
-  tekstid,
-  gyldigeDatoer,
-  valgtDato,
-  settDato,
-  testId,
-}) => {
-  const [locale] = useSpråkContext();
-  const intl = useLokalIntlContext();
-  const datolabelid = hentUid();
-  const begrensninger = hentDatobegrensninger(gyldigeDatoer);
+const MånedÅrVelger: React.FC<Props> = ({ tekstid, gyldigeDatoer, valgtDato, settDato, testId }) => {
+    const [locale] = useSpråkContext();
+    const intl = useLokalIntlContext();
+    const datolabelid = hentUid();
+    const begrensninger = hentDatobegrensninger(gyldigeDatoer);
 
-  const handleSettDato = (dato: Date | undefined): void => {
-    if (dato) {
-      settDato(dato as Date | null);
-    } else {
-      settDato(null);
-    }
-  };
+    const handleSettDato = (dato: Date | undefined): void => {
+        if (dato) {
+            settDato(dato as Date | null);
+        } else {
+            settDato(null);
+        }
+    };
 
-  const { monthpickerProps, inputProps } = useMonthpicker({
-    defaultSelected: valgtDato,
-    onMonthChange: handleSettDato,
-    fromDate: begrensninger?.minDate,
-    toDate: begrensninger?.maxDate,
-  });
+    const { monthpickerProps, inputProps } = useMonthpicker({
+        defaultSelected: valgtDato,
+        onMonthChange: handleSettDato,
+        fromDate: begrensninger?.minDate,
+        toDate: begrensninger?.maxDate,
+    });
 
-  return (
-    <MonthPicker
-      {...monthpickerProps}
-      id={datolabelid}
-      locale={locale}
-      dropdownCaption={begrensninger.minDate && begrensninger.maxDate ? true : false}
-      fromDate={begrensninger?.minDate}
-      toDate={begrensninger?.maxDate}
-    >
-      <MonthPicker.Input
-        {...inputProps}
-        label={hentTekst(tekstid, intl)}
-        placeholder={hentTekst('datovelger.månedÅrPlaceholder', intl)}
-        data-testid={testId}
-      />
-    </MonthPicker>
-  );
+    return (
+        <MonthPicker
+            {...monthpickerProps}
+            id={datolabelid}
+            locale={locale}
+            dropdownCaption={begrensninger.minDate && begrensninger.maxDate ? true : false}
+            fromDate={begrensninger?.minDate}
+            toDate={begrensninger?.maxDate}
+        >
+            <MonthPicker.Input
+                {...inputProps}
+                label={hentTekst(tekstid, intl)}
+                placeholder={hentTekst('datovelger.månedÅrPlaceholder', intl)}
+                data-testid={testId}
+            />
+        </MonthPicker>
+    );
 };
 
 export default MånedÅrVelger;

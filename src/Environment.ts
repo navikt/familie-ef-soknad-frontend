@@ -1,79 +1,78 @@
 import { erLokaltMotPreprod } from './utils/miljø';
 
 interface EnvironmentProps {
-  veiviserUrl: string;
-  apiProxyUrl: string;
-  wonderwallUrl: string;
-  dokumentProxyUrl: string;
-  mellomlagerProxyUrl: string;
-  isApmEnabled?: boolean;
-  miljø: string;
-  modellVersjon: IModellversjon;
+    veiviserUrl: string;
+    apiProxyUrl: string;
+    wonderwallUrl: string;
+    dokumentProxyUrl: string;
+    mellomlagerProxyUrl: string;
+    isApmEnabled?: boolean;
+    miljø: string;
+    modellVersjon: IModellversjon;
 }
 
 interface IModellversjon {
-  overgangsstønad: number;
-  overgangsstønadRegelendring2026: number;
-  barnetilsyn: number;
-  skolepenger: number;
+    overgangsstønad: number;
+    overgangsstønadRegelendring2026: number;
+    barnetilsyn: number;
+    skolepenger: number;
 }
 
 const Environment = (): EnvironmentProps => {
-  const modellVersjon: IModellversjon = {
-    overgangsstønad: 7,
-    overgangsstønadRegelendring2026: 1,
-    barnetilsyn: 2,
-    skolepenger: 2,
-  };
+    const modellVersjon: IModellversjon = {
+        overgangsstønad: 7,
+        overgangsstønadRegelendring2026: 1,
+        barnetilsyn: 2,
+        skolepenger: 2,
+    };
 
-  if (window.location.hostname.indexOf('dev.nav.no') > -1) {
-    return {
-      veiviserUrl: 'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/veiviser',
-      apiProxyUrl: 'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/api',
-      wonderwallUrl:
-        'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/oauth2/login?redirect=',
-      dokumentProxyUrl:
-        'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING', //Vil uansett gå til bucket "familievedlegg" enn så lenge
-      mellomlagerProxyUrl:
-        'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/',
-      miljø: 'preprod',
-      modellVersjon: modellVersjon,
-      isApmEnabled: true,
-    };
-  } else if (window.location.hostname.indexOf('www') > -1) {
-    return {
-      veiviserUrl: 'https://www.nav.no/familie/alene-med-barn/veiviser',
-      apiProxyUrl: 'https://www.nav.no/familie/alene-med-barn/soknad/api',
-      wonderwallUrl: 'https://www.nav.no/familie/alene-med-barn/soknad/oauth2/login?redirect=',
-      dokumentProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`, //Vil uansett gå til bucket "familievedlegg" enn så lenge,
-      mellomlagerProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/`,
-      miljø: 'production',
-      modellVersjon: modellVersjon,
-      isApmEnabled: true,
-    };
-  } else if (erLokaltMotPreprod()) {
-    return {
-      veiviserUrl: '',
-      apiProxyUrl: 'http://localhost:3000/familie/alene-med-barn/soknad/api',
-      wonderwallUrl: `https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-ef-soknad-api&redirect=`, // forventet i api ved innsending (local) - syntetisk fnr
-      dokumentProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`,
-      mellomlagerProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/soknad/`,
-      miljø: 'local',
-      modellVersjon: modellVersjon,
-      isApmEnabled: false,
-    };
-  } else {
-    return {
-      veiviserUrl: '',
-      apiProxyUrl: 'http://localhost:3000/familie/alene-med-barn/soknad/api',
-      wonderwallUrl: '',
-      dokumentProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`,
-      mellomlagerProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/soknad/`,
-      miljø: 'local',
-      modellVersjon: modellVersjon,
-      isApmEnabled: false,
-    };
-  }
+    if (window.location.hostname.indexOf('dev.nav.no') > -1) {
+        return {
+            veiviserUrl: 'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/veiviser',
+            apiProxyUrl: 'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/api',
+            wonderwallUrl: 'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/oauth2/login?redirect=',
+            dokumentProxyUrl:
+                'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING', //Vil uansett gå til bucket "familievedlegg" enn så lenge
+            mellomlagerProxyUrl:
+                'https://familie.ekstern.dev.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/',
+            miljø: 'preprod',
+            modellVersjon: modellVersjon,
+            isApmEnabled: true,
+        };
+    } else if (window.location.hostname.indexOf('www') > -1) {
+        return {
+            veiviserUrl: 'https://www.nav.no/familie/alene-med-barn/veiviser',
+            apiProxyUrl: 'https://www.nav.no/familie/alene-med-barn/soknad/api',
+            wonderwallUrl: 'https://www.nav.no/familie/alene-med-barn/soknad/oauth2/login?redirect=',
+            dokumentProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`, //Vil uansett gå til bucket "familievedlegg" enn så lenge,
+            mellomlagerProxyUrl: `https://www.nav.no/familie/alene-med-barn/soknad/dokument/api/soknad/`,
+            miljø: 'production',
+            modellVersjon: modellVersjon,
+            isApmEnabled: true,
+        };
+    } else if (erLokaltMotPreprod()) {
+        return {
+            veiviserUrl: '',
+            apiProxyUrl: 'http://localhost:3000/familie/alene-med-barn/soknad/api',
+            wonderwallUrl: `https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=dev-gcp:teamfamilie:familie-ef-soknad-api&redirect=`, // forventet i api ved innsending (local) - syntetisk fnr
+            dokumentProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`,
+            mellomlagerProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/soknad/`,
+            miljø: 'local',
+            modellVersjon: modellVersjon,
+            isApmEnabled: false,
+        };
+    } else {
+        return {
+            veiviserUrl: '',
+            apiProxyUrl: 'http://localhost:3000/familie/alene-med-barn/soknad/api',
+            wonderwallUrl: '',
+            dokumentProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/mapper/ANYTHING`,
+            mellomlagerProxyUrl: `http://localhost:3000/familie/alene-med-barn/soknad/dokument/api/soknad/`,
+            miljø: 'local',
+            modellVersjon: modellVersjon,
+            isApmEnabled: false,
+        };
+    }
 };
 
 export default Environment;

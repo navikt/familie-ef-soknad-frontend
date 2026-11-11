@@ -1,254 +1,232 @@
-import React, { useState } from 'react';
-import { AnnenForelderKnapper } from './AnnenForelderKnapper';
-import { BostedOgSamvær } from './bostedOgSamvær/BostedOgSamvær';
-import { OmAndreForelder } from './OmAndreForelder';
-import { SkalBarnetBoHosSøker } from './SkalBarnetBoHosSøker';
-import { IBarn } from '../../../../models/steg/barn';
-import { IForelder } from '../../../../models/steg/forelder';
+import { Alert, BodyShort, Button, Heading, Label, VStack } from '@navikt/ds-react';
+import type React from 'react';
+import { useState } from 'react';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import {
+    finnFørsteBarnTilHverForelder,
+    finnTypeBarnForMedForelder,
+    harValgtBorISammeHus,
+    skalAnnenForelderRedigeres,
+    skalBorAnnenForelderINorgeVises,
+} from '../../../../helpers/steg/barnetsBostedEndre';
+import { erForelderUtfylt, utfyltBorINorge, visSpørsmålHvisIkkeSammeForelder } from '../../../../helpers/steg/forelder';
+import type { IBarn } from '../../../../models/steg/barn';
+import { TypeBarn } from '../../../../models/steg/barnasbosted';
+import type { IForelder } from '../../../../models/steg/forelder';
+import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
+import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
+import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
+import { erGyldigDato } from '../../../../utils/dato';
+import { førsteBokstavStor } from '../../../../utils/språk';
 import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import {
-  erForelderUtfylt,
-  utfyltBorINorge,
-  visSpørsmålHvisIkkeSammeForelder,
-} from '../../../../helpers/steg/forelder';
-import { BorForelderINorge } from './bostedOgSamvær/BorForelderINorge';
-import { BorAnnenForelderISammeHus } from './ikkesammeforelder/BorAnnenForelderISammeHus';
-import { BoddSammenFør } from './ikkesammeforelder/BoddSammenFør';
-import { HvorMyeSammen } from './ikkesammeforelder/HvorMyeSammen';
-import { hentUid } from '../../../../utils/autentiseringogvalidering/uuid';
-import { erGyldigDato } from '../../../../utils/dato';
-import { TypeBarn } from '../../../../models/steg/barnasbosted';
-import { Alert, BodyShort, Button, Heading, Label, VStack } from '@navikt/ds-react';
-import {
-  finnFørsteBarnTilHverForelder,
-  finnTypeBarnForMedForelder,
-  harValgtBorISammeHus,
-  skalAnnenForelderRedigeres,
-  skalBorAnnenForelderINorgeVises,
-} from '../../../../helpers/steg/barnetsBostedEndre';
 import { stringHarVerdiOgErIkkeTom } from '../../../../utils/typer';
-import { erBarnetilsynSøknad } from '../../../../models/søknad/søknad';
+import { AnnenForelderKnapper } from './AnnenForelderKnapper';
 import { useBarnasBosted } from './BarnasBostedContext';
-import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
-import { førsteBokstavStor } from '../../../../utils/språk';
-import { hentBarnNavnEllerBarnet } from '../../../../utils/barn';
+import { BorForelderINorge } from './bostedOgSamvær/BorForelderINorge';
+import { BostedOgSamvær } from './bostedOgSamvær/BostedOgSamvær';
+import { BoddSammenFør } from './ikkesammeforelder/BoddSammenFør';
+import { BorAnnenForelderISammeHus } from './ikkesammeforelder/BorAnnenForelderISammeHus';
+import { HvorMyeSammen } from './ikkesammeforelder/HvorMyeSammen';
+import { OmAndreForelder } from './OmAndreForelder';
+import { SkalBarnetBoHosSøker } from './SkalBarnetBoHosSøker';
 
 const visBostedOgSamværSeksjon = (forelder: IForelder, visesBorINorgeSpørsmål: boolean) => {
-  return visesBorINorgeSpørsmål
-    ? utfyltBorINorge(forelder)
-    : erGyldigDato(forelder.fødselsdato?.verdi);
+    return visesBorINorgeSpørsmål ? utfyltBorINorge(forelder) : erGyldigDato(forelder.fødselsdato?.verdi);
 };
 
 interface Props {
-  barn: IBarn;
-  settAktivIndex: React.Dispatch<React.SetStateAction<number>>;
-  aktivIndex: number;
-  scrollTilLagtTilBarn: () => void;
+    barn: IBarn;
+    settAktivIndex: React.Dispatch<React.SetStateAction<number>>;
+    aktivIndex: number;
+    scrollTilLagtTilBarn: () => void;
 }
 
 export const BarnetsBostedRedigerbar: React.FC<Props> = ({
-  barn,
-  settAktivIndex,
-  aktivIndex,
-  scrollTilLagtTilBarn,
+    barn,
+    settAktivIndex,
+    aktivIndex,
+    scrollTilLagtTilBarn,
 }) => {
-  const intl = useLokalIntlContext();
-  const { søknad, barnISøknad, forelderIdenterMedBarn, oppdaterBarnMedNyForelderInformasjon } =
-    useBarnasBosted();
-  const [forelder, settForelder] = useState<IForelder>(
-    barn.forelder
-      ? {
-          ...barn.forelder,
-          kanIkkeOppgiAnnenForelderFar: {
-            label: hentTekst('barnasbosted.kanikkeoppgiforelder', intl),
-            verdi: barn.forelder.kanIkkeOppgiAnnenForelderFar?.verdi || false,
-          },
-        }
-      : {
-          id: hentUid(),
-        }
-  );
-
-  const [kjennerIkkeIdent, settKjennerIkkeIdent] = useState<boolean>(
-    stringHarVerdiOgErIkkeTom(forelder.navn?.verdi) &&
-      !stringHarVerdiOgErIkkeTom(forelder.ident?.verdi)
-  );
-
-  const [erGyldigFødselsdato, settErGyldigFødselsdato] = useState<boolean>(true);
-
-  const { boddSammenFør, flyttetFra, fødselsdato, ident } = forelder;
-
-  const harForelderFraPdl =
-    stringHarVerdiOgErIkkeTom(barn?.medforelder?.verdi?.navn) ||
-    barn?.medforelder?.verdi?.harAdressesperre === true;
-
-  const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barnISøknad, barn);
-
-  const typeBarn = finnTypeBarnForMedForelder(barn, forelderIdenterMedBarn);
-
-  const [barnHarSammeForelder, settBarnHarSammeForelder] = useState<boolean | undefined>(
-    typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON ? true : undefined
-  );
-
-  const leggTilForelder = () => {
-    oppdaterBarnMedNyForelderInformasjon(
-      { ...barn, forelder: forelder },
-      typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
+    const intl = useLokalIntlContext();
+    const { søknad, barnISøknad, forelderIdenterMedBarn, oppdaterBarnMedNyForelderInformasjon } = useBarnasBosted();
+    const [forelder, settForelder] = useState<IForelder>(
+        barn.forelder
+            ? {
+                  ...barn.forelder,
+                  kanIkkeOppgiAnnenForelderFar: {
+                      label: hentTekst('barnasbosted.kanikkeoppgiforelder', intl),
+                      verdi: barn.forelder.kanIkkeOppgiAnnenForelderFar?.verdi || false,
+                  },
+              }
+            : {
+                  id: hentUid(),
+              }
     );
 
-    const nyIndex = aktivIndex + 1;
-    settAktivIndex(nyIndex);
-    scrollTilLagtTilBarn();
-  };
+    const [kjennerIkkeIdent, settKjennerIkkeIdent] = useState<boolean>(
+        stringHarVerdiOgErIkkeTom(forelder.navn?.verdi) && !stringHarVerdiOgErIkkeTom(forelder.ident?.verdi)
+    );
 
-  const erBarnMedISøknad = (barn: IBarn): boolean => {
-    return !erBarnetilsynSøknad(søknad) || barn.skalHaBarnepass?.verdi === true;
-  };
+    const [erGyldigFødselsdato, settErGyldigFødselsdato] = useState<boolean>(true);
 
-  const finnesBarnISøknadMedRegistrertAnnenForelder = barnISøknad.some(
-    (b) => erBarnMedISøknad(b) && b.medforelder?.verdi?.ident && b.medforelder?.verdi?.navn
-  );
+    const { boddSammenFør, flyttetFra, fødselsdato, ident } = forelder;
 
-  const visAnnenForelderRedigering = skalAnnenForelderRedigeres(
-    barn,
-    førsteBarnTilHverForelder,
-    barnHarSammeForelder,
-    forelder,
-    finnesBarnISøknadMedRegistrertAnnenForelder
-  );
+    const harForelderFraPdl =
+        stringHarVerdiOgErIkkeTom(barn?.medforelder?.verdi?.navn) ||
+        barn?.medforelder?.verdi?.harAdressesperre === true;
 
-  const visBorAnnenForelderINorge =
-    skalBorAnnenForelderINorgeVises(
-      barn,
-      typeBarn,
-      barnHarSammeForelder,
-      forelder,
-      ident,
-      fødselsdato,
-      kjennerIkkeIdent
-    ) && erGyldigFødselsdato;
+    const førsteBarnTilHverForelder = finnFørsteBarnTilHverForelder(barnISøknad, barn);
 
-  const skalFylleUtHarBoddSammenFør = harValgtBorISammeHus(forelder) && utfyltBorINorge(forelder);
+    const typeBarn = finnTypeBarnForMedForelder(barn, forelderIdenterMedBarn);
 
-  const skalViseAnnenForelderKnapperForGjenbruk =
-    barn.erFraForrigeSøknad &&
-    finnesBarnISøknadMedRegistrertAnnenForelder &&
-    !barn.medforelder?.verdi &&
-    !erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl);
+    const [barnHarSammeForelder, settBarnHarSammeForelder] = useState<boolean | undefined>(
+        typeBarn === TypeBarn.BARN_MED_KOPIERT_FORELDERINFORMASJON ? true : undefined
+    );
 
-  const skalViseAnnenForelderKnapperForNyttBarnEllerFørstegangssøknad =
-    barn.erFraForrigeSøknad !== true &&
-    finnesBarnISøknadMedRegistrertAnnenForelder &&
-    !barn.medforelder?.verdi;
+    const leggTilForelder = () => {
+        oppdaterBarnMedNyForelderInformasjon(
+            { ...barn, forelder: forelder },
+            typeBarn === TypeBarn.BARN_MED_OPPRINNELIG_FORELDERINFORMASJON
+        );
 
-  const skalViseAnnenForelderKnapper =
-    skalViseAnnenForelderKnapperForGjenbruk ||
-    skalViseAnnenForelderKnapperForNyttBarnEllerFørstegangssøknad;
+        const nyIndex = aktivIndex + 1;
+        settAktivIndex(nyIndex);
+        scrollTilLagtTilBarn();
+    };
 
-  return (
-    <div className="barnas-bosted">
-      <VStack gap={'space-64'}>
-        <BarneHeader barn={barn} />
+    const erBarnMedISøknad = (barn: IBarn): boolean => {
+        return !erBarnetilsynSøknad(søknad) || barn.skalHaBarnepass?.verdi === true;
+    };
 
-        {!barn.harSammeAdresse.verdi && (
-          <SkalBarnetBoHosSøker barn={barn} forelder={forelder} settForelder={settForelder} />
-        )}
+    const finnesBarnISøknadMedRegistrertAnnenForelder = barnISøknad.some(
+        b => erBarnMedISøknad(b) && b.medforelder?.verdi?.ident && b.medforelder?.verdi?.navn
+    );
 
-        {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
-          <VStack gap={'space-48'}>
-            <Heading size="small" level="4">
-              {førsteBokstavStor(
-                hentBarnNavnEllerBarnet(barn, 'barnasbosted.element.barnet', intl)
-              )}
-              {hentTekst('barnasbosted.element.andreforelder', intl)}
-            </Heading>
-            {skalViseAnnenForelderKnapper && (
-              <AnnenForelderKnapper
-                barn={barn}
-                forelder={forelder}
-                førsteBarnTilHverForelder={førsteBarnTilHverForelder}
-                settBarnHarSammeForelder={settBarnHarSammeForelder}
-                settForelder={settForelder}
-                typeBarn={typeBarn}
-              />
-            )}
+    const visAnnenForelderRedigering = skalAnnenForelderRedigeres(
+        barn,
+        førsteBarnTilHverForelder,
+        barnHarSammeForelder,
+        forelder,
+        finnesBarnISøknadMedRegistrertAnnenForelder
+    );
 
-            {visAnnenForelderRedigering && (
-              <OmAndreForelder
-                settForelder={settForelder}
-                forelder={forelder}
-                kjennerIkkeIdent={kjennerIkkeIdent}
-                settKjennerIkkeIdent={settKjennerIkkeIdent}
-                settErGyldigFødselsdato={settErGyldigFødselsdato}
-              />
-            )}
+    const visBorAnnenForelderINorge =
+        skalBorAnnenForelderINorgeVises(
+            barn,
+            typeBarn,
+            barnHarSammeForelder,
+            forelder,
+            ident,
+            fødselsdato,
+            kjennerIkkeIdent
+        ) && erGyldigFødselsdato;
 
-            {barn.medforelder?.verdi && (
-              <>
-                <Label as="p">{hentTekst('person.navn', intl)}</Label>
-                <BodyShort>
-                  {barn.medforelder.verdi.navn
-                    ? barn.medforelder.verdi.navn
-                    : `${hentTekst('barnekort.medforelder.hemmelig', intl)}, ${
-                        barn.medforelder.verdi.alder
-                      }`}
-                </BodyShort>
-              </>
-            )}
+    const skalFylleUtHarBoddSammenFør = harValgtBorISammeHus(forelder) && utfyltBorINorge(forelder);
 
-            {barnHarSammeForelder && (
-              <Alert variant={'info'} inline style={{ marginTop: '1rem' }}>
-                {hentTekst('barnasbosted.medforelder.gjenbrukt', intl)}
-              </Alert>
-            )}
-          </VStack>
-        )}
+    const skalViseAnnenForelderKnapperForGjenbruk =
+        barn.erFraForrigeSøknad &&
+        finnesBarnISøknadMedRegistrertAnnenForelder &&
+        !barn.medforelder?.verdi &&
+        !erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl);
 
-        {visBorAnnenForelderINorge && (
-          <BorForelderINorge barn={barn} forelder={forelder} settForelder={settForelder} />
-        )}
+    const skalViseAnnenForelderKnapperForNyttBarnEllerFørstegangssøknad =
+        barn.erFraForrigeSøknad !== true && finnesBarnISøknadMedRegistrertAnnenForelder && !barn.medforelder?.verdi;
 
-        {(visBostedOgSamværSeksjon(forelder, visBorAnnenForelderINorge) ||
-          barnHarSammeForelder) && (
-          <BostedOgSamvær settForelder={settForelder} forelder={forelder} barn={barn} />
-        )}
+    const skalViseAnnenForelderKnapper =
+        skalViseAnnenForelderKnapperForGjenbruk || skalViseAnnenForelderKnapperForNyttBarnEllerFørstegangssøknad;
 
-        {!barnHarSammeForelder && visSpørsmålHvisIkkeSammeForelder(forelder) && (
-          <>
-            {utfyltBorINorge(forelder) && (
-              <BorAnnenForelderISammeHus
-                forelder={forelder}
-                settForelder={settForelder}
-                barn={barn}
-              />
-            )}
+    return (
+        <div className="barnas-bosted">
+            <VStack gap={'space-64'}>
+                <BarneHeader barn={barn} />
 
-            {skalFylleUtHarBoddSammenFør && (
-              <BoddSammenFør forelder={forelder} barn={barn} settForelder={settForelder} />
-            )}
+                {!barn.harSammeAdresse.verdi && (
+                    <SkalBarnetBoHosSøker barn={barn} forelder={forelder} settForelder={settForelder} />
+                )}
 
-            {((skalFylleUtHarBoddSammenFør && boddSammenFør?.verdi === false) ||
-              (skalFylleUtHarBoddSammenFør && erGyldigDato(flyttetFra?.verdi))) && (
-              <HvorMyeSammen forelder={forelder} barn={barn} settForelder={settForelder} />
-            )}
-          </>
-        )}
+                {(barn.harSammeAdresse?.verdi || harValgtSvar(forelder.skalBarnetBoHosSøker?.verdi)) && (
+                    <VStack gap={'space-48'}>
+                        <Heading size="small" level="4">
+                            {førsteBokstavStor(hentBarnNavnEllerBarnet(barn, 'barnasbosted.element.barnet', intl))}
+                            {hentTekst('barnasbosted.element.andreforelder', intl)}
+                        </Heading>
+                        {skalViseAnnenForelderKnapper && (
+                            <AnnenForelderKnapper
+                                barn={barn}
+                                forelder={forelder}
+                                førsteBarnTilHverForelder={førsteBarnTilHverForelder}
+                                settBarnHarSammeForelder={settBarnHarSammeForelder}
+                                settForelder={settForelder}
+                                typeBarn={typeBarn}
+                            />
+                        )}
 
-        {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) &&
-          erGyldigFødselsdato && (
-            <div>
-              <Button
-                variant="secondary"
-                onClick={leggTilForelder}
-                data-testid={'leggTilForelderKnapp'}
-              >
-                {hentTekst('knapp.neste', intl)}
-              </Button>
-            </div>
-          )}
-      </VStack>
-    </div>
-  );
+                        {visAnnenForelderRedigering && (
+                            <OmAndreForelder
+                                settForelder={settForelder}
+                                forelder={forelder}
+                                kjennerIkkeIdent={kjennerIkkeIdent}
+                                settKjennerIkkeIdent={settKjennerIkkeIdent}
+                                settErGyldigFødselsdato={settErGyldigFødselsdato}
+                            />
+                        )}
+
+                        {barn.medforelder?.verdi && (
+                            <>
+                                <Label as="p">{hentTekst('person.navn', intl)}</Label>
+                                <BodyShort>
+                                    {barn.medforelder.verdi.navn
+                                        ? barn.medforelder.verdi.navn
+                                        : `${hentTekst('barnekort.medforelder.hemmelig', intl)}, ${
+                                              barn.medforelder.verdi.alder
+                                          }`}
+                                </BodyShort>
+                            </>
+                        )}
+
+                        {barnHarSammeForelder && (
+                            <Alert variant={'info'} inline style={{ marginTop: '1rem' }}>
+                                {hentTekst('barnasbosted.medforelder.gjenbrukt', intl)}
+                            </Alert>
+                        )}
+                    </VStack>
+                )}
+
+                {visBorAnnenForelderINorge && (
+                    <BorForelderINorge barn={barn} forelder={forelder} settForelder={settForelder} />
+                )}
+
+                {(visBostedOgSamværSeksjon(forelder, visBorAnnenForelderINorge) || barnHarSammeForelder) && (
+                    <BostedOgSamvær settForelder={settForelder} forelder={forelder} barn={barn} />
+                )}
+
+                {!barnHarSammeForelder && visSpørsmålHvisIkkeSammeForelder(forelder) && (
+                    <>
+                        {utfyltBorINorge(forelder) && (
+                            <BorAnnenForelderISammeHus forelder={forelder} settForelder={settForelder} barn={barn} />
+                        )}
+
+                        {skalFylleUtHarBoddSammenFør && (
+                            <BoddSammenFør forelder={forelder} barn={barn} settForelder={settForelder} />
+                        )}
+
+                        {((skalFylleUtHarBoddSammenFør && boddSammenFør?.verdi === false) ||
+                            (skalFylleUtHarBoddSammenFør && erGyldigDato(flyttetFra?.verdi))) && (
+                            <HvorMyeSammen forelder={forelder} barn={barn} settForelder={settForelder} />
+                        )}
+                    </>
+                )}
+
+                {erForelderUtfylt(barn.harSammeAdresse, forelder, harForelderFraPdl) && erGyldigFødselsdato && (
+                    <div>
+                        <Button variant="secondary" onClick={leggTilForelder} data-testid={'leggTilForelderKnapp'}>
+                            {hentTekst('knapp.neste', intl)}
+                        </Button>
+                    </div>
+                )}
+            </VStack>
+        </div>
+    );
 };

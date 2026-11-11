@@ -1,276 +1,276 @@
-import { useEffect, useRef, useState } from 'react';
 import createUseContext from 'constate';
+import { useEffect, useRef, useState } from 'react';
+import { useLokalIntlContext } from '../../context/LokalIntlContext';
+import { useSpråkContext } from '../../context/SpråkContext';
+import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
+import Environment from '../../Environment';
+import {
+    hentDokumentasjonTilFlersvarSpørsmål,
+    oppdaterDokumentasjonTilEtSvarSpørsmål,
+    oppdaterDokumentasjonTilEtSvarSpørsmålForBarn,
+} from '../../helpers/steg/dokumentasjon';
+import type { LocaleType, LokalIntlShape } from '../../language/typer';
 import tomPerson from '../../mock/initialState.json';
+import type { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
 import { EArbeidssituasjon } from '../../models/steg/aktivitet/aktivitet';
+import type { IBarn } from '../../models/steg/barn';
 import { EBosituasjon } from '../../models/steg/bosituasjon';
 import { ESituasjon } from '../../models/steg/dinsituasjon/meromsituasjon';
-import { ISpørsmål, ISvar } from '../../models/felles/spørsmålogsvar';
-import { SøknadOvergangsstønad } from './models/søknad';
-import {
-  hentDokumentasjonTilFlersvarSpørsmål,
-  oppdaterDokumentasjonTilEtSvarSpørsmål,
-  oppdaterDokumentasjonTilEtSvarSpørsmålForBarn,
-} from '../../helpers/steg/dokumentasjon';
-import {
-  hentMellomlagretSøknadFraDokument,
-  mellomlagreSøknadTilDokument,
-  nullstillMellomlagretSøknadTilDokument,
-} from '../../utils/søknad';
-import { MellomlagretSøknadOvergangsstønad } from './models/mellomlagretSøknad';
-import Environment from '../../Environment';
+import type { IPerson } from '../../models/søknad/person';
 import { MellomlagredeStønadstyper } from '../../models/søknad/stønadstyper';
-import { IBarn } from '../../models/steg/barn';
 import { oppdaterBarneliste, oppdaterBarnIBarneliste } from '../../utils/barn';
-import { IPerson } from '../../models/søknad/person';
-import { gjelderNoeAvDetteDeg } from '../felles/steg/6-meromsituasjon/SituasjonConfig';
-import { hvaErDinArbeidssituasjonSpm } from '../felles/steg/5-aktivitet/AktivitetConfig';
-import { useSpråkContext } from '../../context/SpråkContext';
-import { LocaleType, LokalIntlShape } from '../../language/typer';
-import { useLokalIntlContext } from '../../context/LokalIntlContext';
 import { dagensDato, formatIsoDate } from '../../utils/dato';
-import { useTidligereVedtak } from '../../context/TidligereVedtakContext';
+import {
+    hentMellomlagretSøknadFraDokument,
+    mellomlagreSøknadTilDokument,
+    nullstillMellomlagretSøknadTilDokument,
+} from '../../utils/søknad';
+import { hvaErDinArbeidssituasjonSpm } from '../felles/steg/5-aktivitet/AktivitetConfig';
+import { gjelderNoeAvDetteDeg } from '../felles/steg/6-meromsituasjon/SituasjonConfig';
+import type { MellomlagretSøknadOvergangsstønad } from './models/mellomlagretSøknad';
+import type { SøknadOvergangsstønad } from './models/søknad';
 
 // -----------  CONTEXT  -----------
 const initialState = (intl: LokalIntlShape): SøknadOvergangsstønad => {
-  return {
-    person: tomPerson,
-    sivilstatus: {},
-    medlemskap: {},
-    bosituasjon: {
-      delerBoligMedAndreVoksne: {
-        spørsmålid: EBosituasjon.delerBoligMedAndreVoksne,
-        svarid: '',
-        label: '',
-        verdi: '',
-      },
-    },
-    aktivitet: {
-      hvaErDinArbeidssituasjon: {
-        spørsmålid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
-        svarid: [],
-        label: '',
-        verdi: [],
-        alternativer: hvaErDinArbeidssituasjonSpm(intl).svaralternativer.map(
-          (svaralternativ) => svaralternativ.svar_tekst
-        ),
-      },
-    },
-    merOmDinSituasjon: {
-      gjelderDetteDeg: {
-        spørsmålid: ESituasjon.gjelderDetteDeg,
-        svarid: [],
-        label: '',
-        verdi: [],
-        alternativer: gjelderNoeAvDetteDeg(intl).svaralternativer.map(
-          (svaralternativ) => svaralternativ.svar_tekst
-        ),
-      },
-    },
-    dokumentasjonsbehov: [],
-    harBekreftet: false,
-    datoPåbegyntSøknad: formatIsoDate(dagensDato),
-    locale: '',
-  };
+    return {
+        person: tomPerson,
+        sivilstatus: {},
+        medlemskap: {},
+        bosituasjon: {
+            delerBoligMedAndreVoksne: {
+                spørsmålid: EBosituasjon.delerBoligMedAndreVoksne,
+                svarid: '',
+                label: '',
+                verdi: '',
+            },
+        },
+        aktivitet: {
+            hvaErDinArbeidssituasjon: {
+                spørsmålid: EArbeidssituasjon.hvaErDinArbeidssituasjon,
+                svarid: [],
+                label: '',
+                verdi: [],
+                alternativer: hvaErDinArbeidssituasjonSpm(intl).svaralternativer.map(
+                    svaralternativ => svaralternativ.svar_tekst
+                ),
+            },
+        },
+        merOmDinSituasjon: {
+            gjelderDetteDeg: {
+                spørsmålid: ESituasjon.gjelderDetteDeg,
+                svarid: [],
+                label: '',
+                verdi: [],
+                alternativer: gjelderNoeAvDetteDeg(intl).svaralternativer.map(
+                    svaralternativ => svaralternativ.svar_tekst
+                ),
+            },
+        },
+        dokumentasjonsbehov: [],
+        harBekreftet: false,
+        datoPåbegyntSøknad: formatIsoDate(dagensDato),
+        locale: '',
+    };
 };
 
 const [OvergangsstønadSøknadProvider, useOvergangsstønadSøknad] = createUseContext(() => {
-  OvergangsstønadSøknadProvider.displayName = 'OVERGANGSSTØNAD_PROVIDER';
-  const intl = useLokalIntlContext();
-  const [locale, setLocale] = useSpråkContext();
-  const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
+    OvergangsstønadSøknadProvider.displayName = 'OVERGANGSSTØNAD_PROVIDER';
+    const intl = useLokalIntlContext();
+    const [locale, setLocale] = useSpråkContext();
+    const [søknad, settSøknad] = useState<SøknadOvergangsstønad>(initialState(intl));
 
-  const { harTidligereOvergangsstønadStatus } = useTidligereVedtak();
+    const { harTidligereOvergangsstønadStatus } = useTidligereVedtak();
 
-  const harIkkeTidligereVedtak = harTidligereOvergangsstønadStatus !== 'JA';
-  const skalBrukeRegelendringer2026 = harIkkeTidligereVedtak;
+    const harIkkeTidligereVedtak = harTidligereOvergangsstønadStatus !== 'JA';
+    const skalBrukeRegelendringer2026 = harIkkeTidligereVedtak;
 
-  const aktivStønadstype = skalBrukeRegelendringer2026
-    ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
-    : MellomlagredeStønadstyper.overgangsstønad;
+    const aktivStønadstype = skalBrukeRegelendringer2026
+        ? MellomlagredeStønadstyper.overgangsstønadRegelendring2026
+        : MellomlagredeStønadstyper.overgangsstønad;
 
-  const aktivModellVersjon = skalBrukeRegelendringer2026
-    ? Environment().modellVersjon.overgangsstønadRegelendring2026
-    : Environment().modellVersjon.overgangsstønad;
+    const aktivModellVersjon = skalBrukeRegelendringer2026
+        ? Environment().modellVersjon.overgangsstønadRegelendring2026
+        : Environment().modellVersjon.overgangsstønad;
 
-  const [mellomlagretOvergangsstønad, settMellomlagretOvergangsstønad] =
-    useState<MellomlagretSøknadOvergangsstønad>();
+    const [mellomlagretOvergangsstønad, settMellomlagretOvergangsstønad] =
+        useState<MellomlagretSøknadOvergangsstønad>();
 
-  const prevAktivStønadstypeRef = useRef<MellomlagredeStønadstyper | null>(null);
+    const prevAktivStønadstypeRef = useRef<MellomlagredeStønadstyper | null>(null);
 
-  useEffect(() => {
-    const forrige = prevAktivStønadstypeRef.current;
-    prevAktivStønadstypeRef.current = aktivStønadstype;
+    useEffect(() => {
+        const forrige = prevAktivStønadstypeRef.current;
+        prevAktivStønadstypeRef.current = aktivStønadstype;
 
-    if (forrige !== null && forrige !== aktivStønadstype) {
-      hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(aktivStønadstype)
-        .then((mellomlagretVersjon) => {
-          if (mellomlagretVersjon) {
-            settMellomlagretOvergangsstønad(mellomlagretVersjon);
-          }
-        })
-        .catch(() => {});
-    }
-  }, [aktivStønadstype]);
+        if (forrige !== null && forrige !== aktivStønadstype) {
+            hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(aktivStønadstype)
+                .then(mellomlagretVersjon => {
+                    if (mellomlagretVersjon) {
+                        settMellomlagretOvergangsstønad(mellomlagretVersjon);
+                    }
+                })
+                .catch(() => {});
+        }
+    }, [aktivStønadstype]);
 
-  useEffect(() => {
-    if (mellomlagretOvergangsstønad?.locale && mellomlagretOvergangsstønad?.locale !== locale) {
-      setLocale(mellomlagretOvergangsstønad.locale as LocaleType);
-    }
-  }, [mellomlagretOvergangsstønad, setLocale]);
+    useEffect(() => {
+        if (mellomlagretOvergangsstønad?.locale && mellomlagretOvergangsstønad?.locale !== locale) {
+            setLocale(mellomlagretOvergangsstønad.locale as LocaleType);
+        }
+    }, [mellomlagretOvergangsstønad, setLocale]);
 
-  const hentMellomlagretOvergangsstønad = (): Promise<void> => {
-    return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(
-      aktivStønadstype
-    ).then((mellomlagretVersjon?: MellomlagretSøknadOvergangsstønad) => {
-      if (mellomlagretVersjon) {
-        settMellomlagretOvergangsstønad(mellomlagretVersjon);
-      }
-    });
-  };
-
-  const brukMellomlagretOvergangsstønad = () => {
-    if (mellomlagretOvergangsstønad) {
-      settSøknad(mellomlagretOvergangsstønad.søknad);
-    }
-  };
-
-  const mellomlagreOvergangsstønad2 = (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => {
-    const utfyltSøknad = {
-      søknad: oppdatertSøknad,
-      modellVersjon: aktivModellVersjon,
-      gjeldendeSteg: steg,
-      locale: locale,
+    const hentMellomlagretOvergangsstønad = (): Promise<void> => {
+        return hentMellomlagretSøknadFraDokument<MellomlagretSøknadOvergangsstønad>(aktivStønadstype).then(
+            (mellomlagretVersjon?: MellomlagretSøknadOvergangsstønad) => {
+                if (mellomlagretVersjon) {
+                    settMellomlagretOvergangsstønad(mellomlagretVersjon);
+                }
+            }
+        );
     };
-    mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
-    settMellomlagretOvergangsstønad(utfyltSøknad);
-  };
 
-  const mellomlagreOvergangsstønad = (steg: string) => {
-    const utfyltSøknad = {
-      søknad: søknad,
-      modellVersjon: aktivModellVersjon,
-      gjeldendeSteg: steg,
-      locale: locale,
+    const brukMellomlagretOvergangsstønad = () => {
+        if (mellomlagretOvergangsstønad) {
+            settSøknad(mellomlagretOvergangsstønad.søknad);
+        }
     };
-    mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
-    settMellomlagretOvergangsstønad(utfyltSøknad);
-  };
 
-  const nullstillMellomlagretOvergangsstønad = (): Promise<string> => {
-    return nullstillMellomlagretSøknadTilDokument(aktivStønadstype);
-  };
+    const mellomlagreOvergangsstønad2 = (steg: string, oppdatertSøknad: SøknadOvergangsstønad) => {
+        const utfyltSøknad = {
+            søknad: oppdatertSøknad,
+            modellVersjon: aktivModellVersjon,
+            gjeldendeSteg: steg,
+            locale: locale,
+        };
+        mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
+        settMellomlagretOvergangsstønad(utfyltSøknad);
+    };
 
-  const nullstillSøknadOvergangsstønad = (person: IPerson, barnMedLabels: IBarn[]) => {
-    settSøknad({
-      ...initialState(intl),
-      person: { ...person, barn: barnMedLabels },
-    });
-    settMellomlagretOvergangsstønad(undefined);
-  };
+    const mellomlagreOvergangsstønad = (steg: string) => {
+        const utfyltSøknad = {
+            søknad: søknad,
+            modellVersjon: aktivModellVersjon,
+            gjeldendeSteg: steg,
+            locale: locale,
+        };
+        mellomlagreSøknadTilDokument(utfyltSøknad, aktivStønadstype);
+        settMellomlagretOvergangsstønad(utfyltSøknad);
+    };
 
-  const settDokumentasjonsbehovForBarn = (
-    spørsmål: ISpørsmål,
-    valgtSvar: ISvar,
-    barneid: string,
-    barnepassid?: string
-  ) => {
-    let endretDokumentasjonsbehov = søknad.dokumentasjonsbehov;
-    if (spørsmål.flersvar) {
-      console.error('Ikke implementert');
-    } else {
-      endretDokumentasjonsbehov = oppdaterDokumentasjonTilEtSvarSpørsmålForBarn(
-        søknad.dokumentasjonsbehov,
-        spørsmål,
-        valgtSvar,
-        intl,
-        barneid,
-        barnepassid
-      );
-    }
+    const nullstillMellomlagretOvergangsstønad = (): Promise<string> => {
+        return nullstillMellomlagretSøknadTilDokument(aktivStønadstype);
+    };
 
-    settSøknad((prevSoknad) => {
-      return {
-        ...prevSoknad,
-        dokumentasjonsbehov: endretDokumentasjonsbehov,
-      };
-    });
-  };
+    const nullstillSøknadOvergangsstønad = (person: IPerson, barnMedLabels: IBarn[]) => {
+        settSøknad({
+            ...initialState(intl),
+            person: { ...person, barn: barnMedLabels },
+        });
+        settMellomlagretOvergangsstønad(undefined);
+    };
 
-  const settDokumentasjonsbehov = (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => {
-    let endretDokumentasjonsbehov = søknad.dokumentasjonsbehov;
+    const settDokumentasjonsbehovForBarn = (
+        spørsmål: ISpørsmål,
+        valgtSvar: ISvar,
+        barneid: string,
+        barnepassid?: string
+    ) => {
+        let endretDokumentasjonsbehov = søknad.dokumentasjonsbehov;
+        if (spørsmål.flersvar) {
+            console.error('Ikke implementert');
+        } else {
+            endretDokumentasjonsbehov = oppdaterDokumentasjonTilEtSvarSpørsmålForBarn(
+                søknad.dokumentasjonsbehov,
+                spørsmål,
+                valgtSvar,
+                intl,
+                barneid,
+                barnepassid
+            );
+        }
 
-    if (spørsmål.flersvar) {
-      endretDokumentasjonsbehov = hentDokumentasjonTilFlersvarSpørsmål(
-        erHuketAv,
-        søknad.dokumentasjonsbehov,
-        valgtSvar,
-        intl
-      );
-    } else {
-      endretDokumentasjonsbehov = oppdaterDokumentasjonTilEtSvarSpørsmål(
-        søknad.dokumentasjonsbehov,
-        spørsmål,
-        valgtSvar,
-        intl
-      );
-    }
+        settSøknad(prevSoknad => {
+            return {
+                ...prevSoknad,
+                dokumentasjonsbehov: endretDokumentasjonsbehov,
+            };
+        });
+    };
 
-    settSøknad((prevSoknad) => {
-      return {
-        ...prevSoknad,
-        dokumentasjonsbehov: endretDokumentasjonsbehov,
-      };
-    });
-  };
+    const settDokumentasjonsbehov = (spørsmål: ISpørsmål, valgtSvar: ISvar, erHuketAv?: boolean) => {
+        let endretDokumentasjonsbehov = søknad.dokumentasjonsbehov;
 
-  const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
-    settSøknad((prevSøknad) => ({
-      ...prevSøknad,
-      person: {
-        ...prevSøknad.person,
-        barn: oppdaterBarnIBarneliste(prevSøknad.person.barn, oppdatertBarn),
-      },
-    }));
-  };
+        if (spørsmål.flersvar) {
+            endretDokumentasjonsbehov = hentDokumentasjonTilFlersvarSpørsmål(
+                erHuketAv,
+                søknad.dokumentasjonsbehov,
+                valgtSvar,
+                intl
+            );
+        } else {
+            endretDokumentasjonsbehov = oppdaterDokumentasjonTilEtSvarSpørsmål(
+                søknad.dokumentasjonsbehov,
+                spørsmål,
+                valgtSvar,
+                intl
+            );
+        }
 
-  const oppdaterFlereBarnISøknaden = (oppdaterteBarn: IBarn[]) => {
-    settSøknad((prevSøknad) => ({
-      ...prevSøknad,
-      person: {
-        ...prevSøknad.person,
-        barn: oppdaterBarneliste(prevSøknad.person.barn, oppdaterteBarn),
-      },
-    }));
-  };
+        settSøknad(prevSoknad => {
+            return {
+                ...prevSoknad,
+                dokumentasjonsbehov: endretDokumentasjonsbehov,
+            };
+        });
+    };
 
-  const fjernBarnFraSøknad = (id: string) => {
-    settSøknad((prevSoknad: SøknadOvergangsstønad) => {
-      const nyBarneListe = prevSoknad.person.barn.filter((b: IBarn) => b.id !== id);
-      return {
-        ...prevSoknad,
-        person: { ...søknad.person, barn: nyBarneListe },
-      };
-    });
-  };
+    const oppdaterBarnISøknaden = (oppdatertBarn: IBarn) => {
+        settSøknad(prevSøknad => ({
+            ...prevSøknad,
+            person: {
+                ...prevSøknad.person,
+                barn: oppdaterBarnIBarneliste(prevSøknad.person.barn, oppdatertBarn),
+            },
+        }));
+    };
 
-  return {
-    søknad,
-    settSøknad,
-    skalBrukeRegelendringer2026,
-    settDokumentasjonsbehov,
-    settDokumentasjonsbehovForBarn,
-    mellomlagretOvergangsstønad,
-    aktivModellVersjon,
-    hentMellomlagretOvergangsstønad,
-    mellomlagreOvergangsstønad,
-    mellomlagreOvergangsstønad2,
-    brukMellomlagretOvergangsstønad,
-    nullstillMellomlagretOvergangsstønad,
-    oppdaterBarnISøknaden,
-    oppdaterFlereBarnISøknaden,
-    nullstillSøknadOvergangsstønad,
-    fjernBarnFraSøknad,
-  };
+    const oppdaterFlereBarnISøknaden = (oppdaterteBarn: IBarn[]) => {
+        settSøknad(prevSøknad => ({
+            ...prevSøknad,
+            person: {
+                ...prevSøknad.person,
+                barn: oppdaterBarneliste(prevSøknad.person.barn, oppdaterteBarn),
+            },
+        }));
+    };
+
+    const fjernBarnFraSøknad = (id: string) => {
+        settSøknad((prevSoknad: SøknadOvergangsstønad) => {
+            const nyBarneListe = prevSoknad.person.barn.filter((b: IBarn) => b.id !== id);
+            return {
+                ...prevSoknad,
+                person: { ...søknad.person, barn: nyBarneListe },
+            };
+        });
+    };
+
+    return {
+        søknad,
+        settSøknad,
+        skalBrukeRegelendringer2026,
+        settDokumentasjonsbehov,
+        settDokumentasjonsbehovForBarn,
+        mellomlagretOvergangsstønad,
+        aktivModellVersjon,
+        hentMellomlagretOvergangsstønad,
+        mellomlagreOvergangsstønad,
+        mellomlagreOvergangsstønad2,
+        brukMellomlagretOvergangsstønad,
+        nullstillMellomlagretOvergangsstønad,
+        oppdaterBarnISøknaden,
+        oppdaterFlereBarnISøknaden,
+        nullstillSøknadOvergangsstønad,
+        fjernBarnFraSøknad,
+    };
 });
 
 export { OvergangsstønadSøknadProvider, useOvergangsstønadSøknad };

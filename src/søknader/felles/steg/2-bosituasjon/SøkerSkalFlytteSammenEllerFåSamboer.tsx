@@ -1,113 +1,110 @@
-import React, { FC } from 'react';
+import { VStack } from '@navikt/ds-react';
+import React, { type FC } from 'react';
+import { Datovelger } from '../../../../components/dato/Datovelger';
+import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
 import JaNeiSpørsmål from '../../../../components/spørsmål/JaNeiSpørsmål';
-import { skalSøkerGifteSegMedSamboer } from './BosituasjonConfig';
-import { OmSamboerenDin } from './OmSamboerenDin';
-import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { EBosituasjon, ESøkerDelerBolig, IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
+import type { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
+import { EBosituasjon, ESøkerDelerBolig, type IBosituasjon } from '../../../../models/steg/bosituasjon';
 import { harValgtSvar, hentBooleanFraValgtSvar } from '../../../../utils/spørsmålogsvar';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { Datovelger } from '../../../../components/dato/Datovelger';
-import { erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid } from '../../../../helpers/steg/bosituasjon';
+import { skalSøkerGifteSegMedSamboer } from './BosituasjonConfig';
 import { useBosituasjon } from './BosituasjonContext';
-import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
-import { VStack } from '@navikt/ds-react';
+import { OmSamboerenDin } from './OmSamboerenDin';
 
 export const SøkerSkalFlytteSammenEllerFåSamboer: FC = () => {
-  const intl = useLokalIntlContext();
+    const intl = useLokalIntlContext();
 
-  const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();
-  const { delerBoligMedAndreVoksne, skalGifteSegEllerBliSamboer, datoSkalGifteSegEllerBliSamboer } =
-    bosituasjon;
+    const { bosituasjon, settBosituasjon, settDokumentasjonsbehov } = useBosituasjon();
+    const { delerBoligMedAndreVoksne, skalGifteSegEllerBliSamboer, datoSkalGifteSegEllerBliSamboer } = bosituasjon;
 
-  const spørsmål: ISpørsmål = skalSøkerGifteSegMedSamboer(intl);
+    const spørsmål: ISpørsmål = skalSøkerGifteSegMedSamboer(intl);
 
-  const settSøkerSkalGifteSegEllerBliSamboer = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
-    const nullstilltBosituasjon: IBosituasjon = {
-      delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
-      skalGifteSegEllerBliSamboer: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: hentTekst(spørsmål.tekstid, intl),
-        verdi: svar,
-      },
+    const settSøkerSkalGifteSegEllerBliSamboer = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+        const svar: boolean = hentBooleanFraValgtSvar(valgtSvar);
+        const nullstilltBosituasjon: IBosituasjon = {
+            delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+            skalGifteSegEllerBliSamboer: {
+                spørsmålid: spørsmål.søknadid,
+                svarid: valgtSvar.id,
+                label: hentTekst(spørsmål.tekstid, intl),
+                verdi: svar,
+            },
+        };
+
+        if (!svar) {
+            delete bosituasjon.datoSkalGifteSegEllerBliSamboer;
+            delete bosituasjon.vordendeSamboerEktefelle;
+        }
+
+        harValgtSvar(svar) &&
+        bosituasjon.delerBoligMedAndreVoksne.svarid === ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse
+            ? settBosituasjon({
+                  ...bosituasjon,
+                  delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
+                  skalGifteSegEllerBliSamboer: {
+                      spørsmålid: spørsmål.søknadid,
+                      svarid: valgtSvar.id,
+                      label: hentTekst(spørsmål.tekstid, intl),
+                      verdi: svar,
+                  },
+              })
+            : settBosituasjon(nullstilltBosituasjon);
+
+        settDokumentasjonsbehov(spørsmål, valgtSvar);
     };
 
-    if (!svar) {
-      delete bosituasjon.datoSkalGifteSegEllerBliSamboer;
-      delete bosituasjon.vordendeSamboerEktefelle;
-    }
+    const settDatoSøkerSkalGifteSegEllerBliSamboer = (dato: string, label: string) => {
+        settBosituasjon({
+            ...bosituasjon,
+            datoSkalGifteSegEllerBliSamboer: {
+                label: label,
+                verdi: dato,
+            },
+        });
+    };
 
-    harValgtSvar(svar) &&
-    bosituasjon.delerBoligMedAndreVoksne.svarid ===
-      ESøkerDelerBolig.tidligereSamboerFortsattRegistrertPåAdresse
-      ? settBosituasjon({
-          ...bosituasjon,
-          delerBoligMedAndreVoksne: delerBoligMedAndreVoksne,
-          skalGifteSegEllerBliSamboer: {
-            spørsmålid: spørsmål.søknadid,
-            svarid: valgtSvar.id,
-            label: hentTekst(spørsmål.tekstid, intl),
-            verdi: svar,
-          },
-        })
-      : settBosituasjon(nullstilltBosituasjon);
+    const datovelgerTekst = hentTekst('datovelger.nårSkalDetteSkje', intl);
 
-    settDokumentasjonsbehov(spørsmål, valgtSvar);
-  };
+    const erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid =
+        erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(datoSkalGifteSegEllerBliSamboer);
+    const visDatoSkalGifteSegEllerBliSamboer = skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi;
 
-  const settDatoSøkerSkalGifteSegEllerBliSamboer = (dato: string, label: string) => {
-    settBosituasjon({
-      ...bosituasjon,
-      datoSkalGifteSegEllerBliSamboer: {
-        label: label,
-        verdi: dato,
-      },
-    });
-  };
+    return (
+        <VStack gap={'space-24'}>
+            <JaNeiSpørsmål
+                spørsmål={spørsmål}
+                onChange={settSøkerSkalGifteSegEllerBliSamboer}
+                valgtSvar={skalGifteSegEllerBliSamboer?.verdi}
+            />
 
-  const datovelgerTekst = hentTekst('datovelger.nårSkalDetteSkje', intl);
+            <VStack gap={'space-24'} align={'start'}>
+                {visDatoSkalGifteSegEllerBliSamboer && (
+                    <Datovelger
+                        valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
+                        tekstid={'datovelger.nårSkalDetteSkje'}
+                        gyldigeDatoer={GyldigeDatoer.Fremtidige}
+                        settDato={e => {
+                            settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
+                        }}
+                    />
+                )}
 
-  const erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid =
-    erDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid(datoSkalGifteSegEllerBliSamboer);
-  const visDatoSkalGifteSegEllerBliSamboer =
-    skalGifteSegEllerBliSamboer && skalGifteSegEllerBliSamboer.verdi;
-
-  return (
-    <VStack gap={'space-24'}>
-      <JaNeiSpørsmål
-        spørsmål={spørsmål}
-        onChange={settSøkerSkalGifteSegEllerBliSamboer}
-        valgtSvar={skalGifteSegEllerBliSamboer?.verdi}
-      />
-
-      <VStack gap={'space-24'} align={'start'}>
-        {visDatoSkalGifteSegEllerBliSamboer && (
-          <Datovelger
-            valgtDato={datoSkalGifteSegEllerBliSamboer?.verdi}
-            tekstid={'datovelger.nårSkalDetteSkje'}
-            gyldigeDatoer={GyldigeDatoer.Fremtidige}
-            settDato={(e) => {
-              settDatoSøkerSkalGifteSegEllerBliSamboer(e, datovelgerTekst);
-            }}
-          />
-        )}
-
-        {erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid && (
-          <OmSamboerenDin
-            tittel={'bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed'}
-            erIdentEllerFødselsdatoObligatorisk={true}
-            samboerDetaljerType={EBosituasjon.vordendeSamboerEktefelle}
-            testIderTextFieldMedBredde={'bosituasjon-skal-gifte-seg-navn'}
-            testIderIdentEllerFødselsdatoGruppe={[
-              'bosituasjon-skal-gifte-seg-fødselsnummer',
-              'bosituasjon-skal-gifte-seg-checkbox',
-              'bosituasjon-skal-gifte-seg-fødselsdato',
-            ]}
-          />
-        )}
-      </VStack>
-    </VStack>
-  );
+                {erSattDatoSkalGifteSegEllerBliSamboerFremEllerTilbakeITid && (
+                    <OmSamboerenDin
+                        tittel={'bosituasjon.tittel.hvemSkalSøkerGifteEllerBliSamboerMed'}
+                        erIdentEllerFødselsdatoObligatorisk={true}
+                        samboerDetaljerType={EBosituasjon.vordendeSamboerEktefelle}
+                        testIderTextFieldMedBredde={'bosituasjon-skal-gifte-seg-navn'}
+                        testIderIdentEllerFødselsdatoGruppe={[
+                            'bosituasjon-skal-gifte-seg-fødselsnummer',
+                            'bosituasjon-skal-gifte-seg-checkbox',
+                            'bosituasjon-skal-gifte-seg-fødselsdato',
+                        ]}
+                    />
+                )}
+            </VStack>
+        </VStack>
+    );
 };

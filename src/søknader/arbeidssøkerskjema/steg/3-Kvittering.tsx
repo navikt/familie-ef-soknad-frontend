@@ -1,42 +1,38 @@
-import React from 'react';
-import Side from '../side/Side';
+import { Alert, BodyShort, Link, VStack } from '@navikt/ds-react';
+import type React from 'react';
+import Feilside from '../../../components/feil/Feilside';
+import { useLokalIntlContext } from '../../../context/LokalIntlContext';
 import { dagensDato, formatDateHour } from '../../../utils/dato';
 import { hentHTMLTekst, hentTekst } from '../../../utils/teksthåndtering';
 import { useSkjema } from '../SkjemaContext';
-import Feilside from '../../../components/feil/Feilside';
-import { useLokalIntlContext } from '../../../context/LokalIntlContext';
-import { Alert, BodyShort, Link, VStack } from '@navikt/ds-react';
+import Side from '../side/Side';
 
 export const Kvittering: React.FC = () => {
-  const intl = useLokalIntlContext();
-  const { skjema } = useSkjema();
+    const intl = useLokalIntlContext();
+    const { skjema } = useSkjema();
 
-  const mottattAlert: string =
-    hentTekst('skjema.alert.mottatt', intl) +
-    ` ${formatDateHour(skjema?.innsendingsdato ? skjema.innsendingsdato : dagensDato)} `;
+    const mottattAlert: string =
+        hentTekst('skjema.alert.mottatt', intl) +
+        ` ${formatDateHour(skjema?.innsendingsdato ? skjema.innsendingsdato : dagensDato)} `;
 
-  return skjema?.innsendingsdato ? (
-    <Side
-      tittel={hentTekst('skjema.takk', intl)}
-      skalViseKnapper={false}
-      skalViseStegindikator={false}
-    >
-      <VStack gap={'space-48'}>
-        <Alert size="small" variant="success">
-          {mottattAlert}
-        </Alert>
-        <BodyShort>{hentHTMLTekst('skjema.beskrivelse', intl)}</BodyShort>
+    return skjema?.innsendingsdato ? (
+        <Side tittel={hentTekst('skjema.takk', intl)} skalViseKnapper={false} skalViseStegindikator={false}>
+            <VStack gap={'space-48'}>
+                <Alert size="small" variant="success">
+                    {mottattAlert}
+                </Alert>
+                <BodyShort>{hentHTMLTekst('skjema.beskrivelse', intl)}</BodyShort>
 
-        <BodyShort>{hentHTMLTekst('arbeidssøker.tekst.tillegstønad', intl)}</BodyShort>
-        <Link href={'https://www.nav.no/tilleggsstonader-enslig'}>
-          <BodyShort>{hentTekst('arbeidssøker.lenke.tilleggstønad', intl)}</BodyShort>
-        </Link>
-        <Link href={'https://arbeidssokerregistrering.nav.no/'}>
-          {hentTekst('arbeidssøker.knapp.tilleggstønad', intl)}
-        </Link>
-      </VStack>
-    </Side>
-  ) : (
-    <Feilside />
-  );
+                <BodyShort>{hentHTMLTekst('arbeidssøker.tekst.tillegstønad', intl)}</BodyShort>
+                <Link href={'https://www.nav.no/tilleggsstonader-enslig'}>
+                    <BodyShort>{hentTekst('arbeidssøker.lenke.tilleggstønad', intl)}</BodyShort>
+                </Link>
+                <Link href={'https://arbeidssokerregistrering.nav.no/'}>
+                    {hentTekst('arbeidssøker.knapp.tilleggstønad', intl)}
+                </Link>
+            </VStack>
+        </Side>
+    ) : (
+        <Feilside />
+    );
 };

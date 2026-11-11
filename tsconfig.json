@@ -1,23 +1,23 @@
 {
-  "compilerOptions": {
-    "types": ["vitest/globals", "@testing-library/jest-dom", "node", "vite/client"],
-    "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext", "esnext.intl", "es2017.intl", "es2018.intl"],
-    "outDir": "build",
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"],
-  "exclude": ["**/*.test.ts", "src/test/**", "scripts"]
+    "compilerOptions": {
+        "types": ["vitest/globals", "@testing-library/jest-dom", "node", "vite/client"],
+        "target": "es6",
+        "lib": ["dom", "dom.iterable", "esnext", "esnext.intl", "es2017.intl", "es2018.intl"],
+        "outDir": "build",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": ["src"],
+    "exclude": ["**/*.test.ts", "src/test/**", "scripts"]
 }

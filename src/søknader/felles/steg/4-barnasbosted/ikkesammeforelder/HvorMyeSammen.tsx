@@ -1,76 +1,75 @@
-import { IForelder } from '../../../../../models/steg/forelder';
-import React, { FC } from 'react';
-import { hvorMyeSammen } from '../ForeldreConfig';
-import { hentTekst } from '../../../../../utils/teksthåndtering';
-import { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
-import { EHvorMyeSammen } from '../../../../../models/steg/barnasbosted';
-import { IBarn } from '../../../../../models/steg/barn';
-import MultiSvarSpørsmålMedNavn from '../../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
-import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
-import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
 import { Textarea } from '@navikt/ds-react';
+import React, { type FC } from 'react';
+import MultiSvarSpørsmålMedNavn from '../../../../../components/spørsmål/MultiSvarSpørsmålMedNavn';
+import { useLokalIntlContext } from '../../../../../context/LokalIntlContext';
+import type { ISpørsmål, ISvar } from '../../../../../models/felles/spørsmålogsvar';
+import type { IBarn } from '../../../../../models/steg/barn';
+import { EHvorMyeSammen } from '../../../../../models/steg/barnasbosted';
+import type { IForelder } from '../../../../../models/steg/forelder';
+import { hentBarnNavnEllerBarnet } from '../../../../../utils/barn';
+import { hentTekst } from '../../../../../utils/teksthåndtering';
+import { hvorMyeSammen } from '../ForeldreConfig';
 
 interface Props {
-  forelder: IForelder;
-  barn: IBarn;
-  settForelder: (verdi: IForelder) => void;
+    forelder: IForelder;
+    barn: IBarn;
+    settForelder: (verdi: IForelder) => void;
 }
 export const HvorMyeSammen: FC<Props> = ({ forelder, barn, settForelder }) => {
-  const intl = useLokalIntlContext();
+    const intl = useLokalIntlContext();
 
-  const hvorMyeSammenConfig = hvorMyeSammen(intl, barn);
-  const settHvorMyeSammen = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
-    const nyForelder = {
-      ...forelder,
-      [hvorMyeSammenConfig.søknadid]: {
-        spørsmålid: spørsmål.søknadid,
-        svarid: valgtSvar.id,
-        label: hentTekst('barnasbosted.spm.hvorMyeSammen', intl),
-        verdi: valgtSvar.svar_tekst,
-      },
+    const hvorMyeSammenConfig = hvorMyeSammen(intl, barn);
+    const settHvorMyeSammen = (spørsmål: ISpørsmål, valgtSvar: ISvar) => {
+        const nyForelder = {
+            ...forelder,
+            [hvorMyeSammenConfig.søknadid]: {
+                spørsmålid: spørsmål.søknadid,
+                svarid: valgtSvar.id,
+                label: hentTekst('barnasbosted.spm.hvorMyeSammen', intl),
+                verdi: valgtSvar.svar_tekst,
+            },
+        };
+
+        if (
+            (valgtSvar.id === EHvorMyeSammen.kunNårLeveres || valgtSvar.id === EHvorMyeSammen.møtesIkke) &&
+            nyForelder.beskrivSamværUtenBarn?.verdi
+        ) {
+            delete nyForelder.beskrivSamværUtenBarn;
+        }
+
+        settForelder(nyForelder);
     };
 
-    if (
-      (valgtSvar.id === EHvorMyeSammen.kunNårLeveres ||
-        valgtSvar.id === EHvorMyeSammen.møtesIkke) &&
-      nyForelder.beskrivSamværUtenBarn?.verdi
-    ) {
-      delete nyForelder.beskrivSamværUtenBarn;
-    }
-
-    settForelder(nyForelder);
-  };
-
-  const settBeskrivSamværUtenBarn = (beskrivelse: string) => {
-    settForelder({
-      ...forelder,
-      beskrivSamværUtenBarn: {
-        label: hentTekst('barnasbosted.spm.beskrivSamværUtenBarn', intl),
-        verdi: beskrivelse,
-      },
-    });
-  };
-  return (
-    <>
-      <MultiSvarSpørsmålMedNavn
-        key={hvorMyeSammenConfig.søknadid}
-        spørsmål={hvorMyeSammenConfig}
-        spørsmålTekst={hentBarnNavnEllerBarnet(barn, hvorMyeSammenConfig.tekstid, intl)}
-        valgtSvar={forelder.hvorMyeSammen?.verdi}
-        settSpørsmålOgSvar={(spørsmål, svar) => settHvorMyeSammen(spørsmål, svar)}
-      />
-      {forelder.hvorMyeSammen?.svarid === EHvorMyeSammen.møtesUtenom && (
-        <Textarea
-          autoComplete={'off'}
-          value={
-            forelder.beskrivSamværUtenBarn && forelder.beskrivSamværUtenBarn.verdi
-              ? forelder.beskrivSamværUtenBarn.verdi
-              : ''
-          }
-          onChange={(e) => settBeskrivSamværUtenBarn(e.target.value)}
-          label={hentBarnNavnEllerBarnet(barn, 'barnasbosted.spm.beskrivSamværUtenBarn', intl)}
-        />
-      )}
-    </>
-  );
+    const settBeskrivSamværUtenBarn = (beskrivelse: string) => {
+        settForelder({
+            ...forelder,
+            beskrivSamværUtenBarn: {
+                label: hentTekst('barnasbosted.spm.beskrivSamværUtenBarn', intl),
+                verdi: beskrivelse,
+            },
+        });
+    };
+    return (
+        <>
+            <MultiSvarSpørsmålMedNavn
+                key={hvorMyeSammenConfig.søknadid}
+                spørsmål={hvorMyeSammenConfig}
+                spørsmålTekst={hentBarnNavnEllerBarnet(barn, hvorMyeSammenConfig.tekstid, intl)}
+                valgtSvar={forelder.hvorMyeSammen?.verdi}
+                settSpørsmålOgSvar={(spørsmål, svar) => settHvorMyeSammen(spørsmål, svar)}
+            />
+            {forelder.hvorMyeSammen?.svarid === EHvorMyeSammen.møtesUtenom && (
+                <Textarea
+                    autoComplete={'off'}
+                    value={
+                        forelder.beskrivSamværUtenBarn && forelder.beskrivSamværUtenBarn.verdi
+                            ? forelder.beskrivSamværUtenBarn.verdi
+                            : ''
+                    }
+                    onChange={e => settBeskrivSamværUtenBarn(e.target.value)}
+                    label={hentBarnNavnEllerBarnet(barn, 'barnasbosted.spm.beskrivSamværUtenBarn', intl)}
+                />
+            )}
+        </>
+    );
 };

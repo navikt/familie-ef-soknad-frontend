@@ -1,140 +1,121 @@
+import { type Screen, waitFor, within } from '@testing-library/dom';
+import type { UserEvent } from '@testing-library/user-event';
+import { expect } from 'vitest';
+import BarnetilsynApp from '../søknader/barnetilsyn/BarnetilsynApp';
+import { OvergangsstønadApp } from '../søknader/overgangsstønad/OvergangsstønadApp';
+import SkolepengerApp from '../søknader/skolepenger/SkolepengerApp';
 import { render } from './render';
 import { TestContainer } from './TestContainer';
-import { OvergangsstønadApp } from '../søknader/overgangsstønad/OvergangsstønadApp';
-import { Screen, waitFor, within } from '@testing-library/dom';
-import { expect } from 'vitest';
-import { UserEvent } from '@testing-library/user-event';
-import BarnetilsynApp from '../søknader/barnetilsyn/BarnetilsynApp';
-import SkolepengerApp from '../søknader/skolepenger/SkolepengerApp';
 
 export const navigerTilStegOvergangsstønad = async () => {
-  const { screen, user } = render(
-    <TestContainer>
-      <OvergangsstønadApp />
-    </TestContainer>
-  );
+    const { screen, user } = render(
+        <TestContainer>
+            <OvergangsstønadApp />
+        </TestContainer>
+    );
 
-  await waitFor(() => {
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-        name: 'Søknad om overgangsstønad',
-      })
-    ).toBeInTheDocument();
-  });
+    await waitFor(() => {
+        expect(
+            screen.getByRole('heading', {
+                level: 1,
+                name: 'Søknad om overgangsstønad',
+            })
+        ).toBeInTheDocument();
+    });
 
-  await user.click(
-    screen.getByRole('button', {
-      name: 'Fortsett på søknaden',
-    })
-  );
+    await user.click(
+        screen.getByRole('button', {
+            name: 'Fortsett på søknaden',
+        })
+    );
 
-  return { screen, user };
+    return { screen, user };
 };
 
 export const navigerTilStegBarnetilsyn = async () => {
-  const { screen, user } = render(
-    <TestContainer>
-      <BarnetilsynApp />
-    </TestContainer>
-  );
+    const { screen, user } = render(
+        <TestContainer>
+            <BarnetilsynApp />
+        </TestContainer>
+    );
 
-  await waitFor(() => {
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-        name: 'Søknad om barnetilsyn',
-      })
-    ).toBeInTheDocument();
-  });
+    await waitFor(() => {
+        expect(
+            screen.getByRole('heading', {
+                level: 1,
+                name: 'Søknad om barnetilsyn',
+            })
+        ).toBeInTheDocument();
+    });
 
-  await user.click(
-    screen.getByRole('button', {
-      name: 'Fortsett på søknaden',
-    })
-  );
+    await user.click(
+        screen.getByRole('button', {
+            name: 'Fortsett på søknaden',
+        })
+    );
 
-  return { screen, user };
+    return { screen, user };
 };
 
 export const navigerTilStegSkolepenger = async () => {
-  const { screen, user } = render(
-    <TestContainer>
-      <SkolepengerApp />
-    </TestContainer>
-  );
+    const { screen, user } = render(
+        <TestContainer>
+            <SkolepengerApp />
+        </TestContainer>
+    );
 
-  await waitFor(() => {
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-        name: 'Søknad om stønad til skolepenger',
-      })
-    ).toBeInTheDocument();
-  });
+    await waitFor(() => {
+        expect(
+            screen.getByRole('heading', {
+                level: 1,
+                name: 'Søknad om stønad til skolepenger',
+            })
+        ).toBeInTheDocument();
+    });
 
-  await user.click(
-    screen.getByRole('button', {
-      name: 'Fortsett på søknaden',
-    })
-  );
+    await user.click(
+        screen.getByRole('button', {
+            name: 'Fortsett på søknaden',
+        })
+    );
 
-  return { screen, user };
+    return { screen, user };
 };
 
 export const klikkRadioknapp = async (
-  spørsmålstekst: string,
-  valgtAlternativ: string,
-  screen: Screen,
-  user: UserEvent
+    spørsmålstekst: string,
+    valgtAlternativ: string,
+    screen: Screen,
+    user: UserEvent
 ) => {
-  const radioGroup = screen.getByRole('radiogroup', { name: spørsmålstekst });
-  const radio = within(radioGroup).getByRole('radio', { name: valgtAlternativ });
-  await user.click(radio);
+    const radioGroup = screen.getByRole('radiogroup', { name: spørsmålstekst });
+    const radio = within(radioGroup).getByRole('radio', { name: valgtAlternativ });
+    await user.click(radio);
 };
 
 export const klikkCheckbox = async (valgtAlternativ: string, screen: Screen, user: UserEvent) => {
-  await user.click(screen.getByRole('checkbox', { name: valgtAlternativ }));
+    await user.click(screen.getByRole('checkbox', { name: valgtAlternativ }));
 };
 
 export const klikkButton = async (knappTekst: string, screen: Screen, user: UserEvent) => {
-  await user.click(screen.getByRole('button', { name: knappTekst }));
+    await user.click(screen.getByRole('button', { name: knappTekst }));
 };
 
-export const klikkButtonIListe = async (
-  name: string,
-  index: number,
-  screen: Screen,
-  user: UserEvent
-) => {
-  await user.click(screen.getAllByRole('button', { name: name })[index]);
+export const klikkButtonIListe = async (name: string, index: number, screen: Screen, user: UserEvent) => {
+    await user.click(screen.getAllByRole('button', { name: name })[index]);
 };
 
 export const klikkKomponentMedId = async (id: string, screen: Screen, user: UserEvent) => {
-  await user.click(screen.getByTestId(id));
+    await user.click(screen.getByTestId(id));
 };
 
-export const skrivFritekst = async (
-  spørsmålstekst: string,
-  fritekst: string,
-  screen: Screen,
-  user: UserEvent
-) => {
-  await user.type(screen.getByRole('textbox', { name: spørsmålstekst }), fritekst);
+export const skrivFritekst = async (spørsmålstekst: string, fritekst: string, screen: Screen, user: UserEvent) => {
+    await user.type(screen.getByRole('textbox', { name: spørsmålstekst }), fritekst);
 };
 
-export const skrivFritekstTilKomponentMedId = async (
-  id: string,
-  fritekst: string,
-  screen: Screen,
-  user: UserEvent
-) => {
-  await user.type(screen.getByTestId(id), fritekst);
+export const skrivFritekstTilKomponentMedId = async (id: string, fritekst: string, screen: Screen, user: UserEvent) => {
+    await user.type(screen.getByTestId(id), fritekst);
 };
 
-export const velgAlternativCombobox = async (
-  name: string,
-  value: string,
-  screen: Screen,
-  user: UserEvent
-) => await user.selectOptions(screen.getByRole('combobox', { name: name }), value);
+export const velgAlternativCombobox = async (name: string, value: string, screen: Screen, user: UserEvent) =>
+    await user.selectOptions(screen.getByRole('combobox', { name: name }), value);

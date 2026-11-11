@@ -1,135 +1,112 @@
 import { differenceInMonths } from 'date-fns';
-import { IBarn } from '../../../../models/steg/barn';
-import {
-  dagensDato,
-  erEnMånedTilbakeITid,
-  erPeriodeGyldig,
-  strengTilDato,
-} from '../../../../utils/dato';
-import { BarnepassOrdning, ETypeBarnepassOrdning } from '../../models/barnepass';
+import type { IBarn } from '../../../../models/steg/barn';
 import { ESøkerFraBestemtMåned } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
+import type { IDatoFelt, ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
 import { erStrengGyldigTall } from '../../../../utils/autentiseringogvalidering/feltvalidering';
-import { IDatoFelt, ISpørsmålBooleanFelt } from '../../../../models/søknad/søknadsfelter';
+import { dagensDato, erEnMånedTilbakeITid, erPeriodeGyldig, strengTilDato } from '../../../../utils/dato';
+import { harValgtSvar } from '../../../../utils/spørsmålogsvar';
+import { type BarnepassOrdning, ETypeBarnepassOrdning } from '../../models/barnepass';
 
 export const harBarnAvsluttetFjerdeKlasse = (fødselsdato: string): boolean => {
-  const juniEllerFør = dagensDato.getMonth() < 6;
-  const fødselsår: number = strengTilDato(fødselsdato).getFullYear();
-  const gjeldendeÅr: number = dagensDato.getFullYear();
+    const juniEllerFør = dagensDato.getMonth() < 6;
+    const fødselsår: number = strengTilDato(fødselsdato).getFullYear();
+    const gjeldendeÅr: number = dagensDato.getFullYear();
 
-  if (juniEllerFør) {
-    return fødselsår + 11 <= gjeldendeÅr;
-  } else {
-    return fødselsår + 10 <= gjeldendeÅr;
-  }
+    if (juniEllerFør) {
+        return fødselsår + 11 <= gjeldendeÅr;
+    } else {
+        return fødselsår + 10 <= gjeldendeÅr;
+    }
 };
 
 export const erBarnMinstFjortenMåneder = (fødselsdato: string): boolean => {
-  return differenceInMonths(dagensDato, strengTilDato(fødselsdato)) >= 14;
+    return differenceInMonths(dagensDato, strengTilDato(fødselsdato)) >= 14;
 };
 
-export const skalViseÅrsakBarnepass = (
-  barn: IBarn,
-  skalBrukeRegelendringer2026: boolean
-): boolean => {
-  if (skalBrukeRegelendringer2026) {
-    return erBarnMinstFjortenMåneder(barn.fødselsdato.verdi);
-  }
-  return harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi);
+export const skalViseÅrsakBarnepass = (barn: IBarn, skalBrukeRegelendringer2026: boolean): boolean => {
+    if (skalBrukeRegelendringer2026) {
+        return erBarnMinstFjortenMåneder(barn.fødselsdato.verdi);
+    }
+    return harBarnAvsluttetFjerdeKlasse(barn.fødselsdato.verdi);
 };
 
-export const erÅrsakBarnepassSpmBesvart = (
-  barn: IBarn,
-  skalBrukeRegelendringer2026: boolean
-): boolean => {
-  const skalVise = skalViseÅrsakBarnepass(barn, skalBrukeRegelendringer2026);
-  return !skalVise || barn.barnepass?.årsakBarnepass?.verdi !== undefined;
+export const erÅrsakBarnepassSpmBesvart = (barn: IBarn, skalBrukeRegelendringer2026: boolean): boolean => {
+    const skalVise = skalViseÅrsakBarnepass(barn, skalBrukeRegelendringer2026);
+    return !skalVise || barn.barnepass?.årsakBarnepass?.verdi !== undefined;
 };
 
 export const erBarnepassOrdningerUtfylt = (barnepassordninger: BarnepassOrdning[]): boolean => {
-  const erBarnepassOrdningUtfylt = (barnepassordning: BarnepassOrdning) => {
-    const { hvaSlagsBarnepassOrdning, navn, periode, belop } = barnepassordning;
-    return (
-      hvaSlagsBarnepassOrdning?.verdi &&
-      harValgtSvar(navn?.verdi) &&
-      erPeriodeGyldig(periode) &&
-      erStrengGyldigTall(belop?.verdi)
-    );
-  };
+    const erBarnepassOrdningUtfylt = (barnepassordning: BarnepassOrdning) => {
+        const { hvaSlagsBarnepassOrdning, navn, periode, belop } = barnepassordning;
+        return (
+            hvaSlagsBarnepassOrdning?.verdi &&
+            harValgtSvar(navn?.verdi) &&
+            erPeriodeGyldig(periode) &&
+            erStrengGyldigTall(belop?.verdi)
+        );
+    };
 
-  return barnepassordninger.every((barnepassordning) => erBarnepassOrdningUtfylt(barnepassordning));
+    return barnepassordninger.every(barnepassordning => erBarnepassOrdningUtfylt(barnepassordning));
 };
 
 export const erBarnepassStegFerdigUtfylt = (
-  barnSomSkalHaBarnepass: IBarn[],
-  søknadsdato: IDatoFelt | undefined,
-  søkerFraBestemtMåned: ISpørsmålBooleanFelt | undefined
+    barnSomSkalHaBarnepass: IBarn[],
+    søknadsdato: IDatoFelt | undefined,
+    søkerFraBestemtMåned: ISpørsmålBooleanFelt | undefined
 ): boolean => {
-  const erSpørsmålSøkerFraBestemtMånedBesvart =
-    (søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.ja &&
-      søknadsdato?.verdi !== undefined) ||
-    søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.neiNavKanVurdere;
-  const erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart =
-    erBarnepassForAlleBarnUtfylt(barnSomSkalHaBarnepass);
-  return erSpørsmålSøkerFraBestemtMånedBesvart && erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart;
+    const erSpørsmålSøkerFraBestemtMånedBesvart =
+        (søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.ja && søknadsdato?.verdi !== undefined) ||
+        søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.neiNavKanVurdere;
+    const erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart = erBarnepassForAlleBarnUtfylt(barnSomSkalHaBarnepass);
+    return erSpørsmålSøkerFraBestemtMånedBesvart && erSpørsmålForAlleBarnSomSkalHaBarnepassBesvart;
 };
 
 export const erBarnepassForAlleBarnUtfylt = (barn: IBarn[]) => {
-  return barn.every(
-    (barn) =>
-      barn?.barnepass?.barnepassordninger &&
-      erBarnepassOrdningerUtfylt(barn?.barnepass?.barnepassordninger)
-  );
+    return barn.every(
+        barn => barn?.barnepass?.barnepassordninger && erBarnepassOrdningerUtfylt(barn?.barnepass?.barnepassordninger)
+    );
 };
 
-export const erSpørsmålSeksjonForBarnFerdigUtfylt = (
-  barn: IBarn,
-  skalBrukeRegelendringer2026: boolean
-) => {
-  const barnepass = barn.barnepass;
-  return (
-    erÅrsakBarnepassSpmBesvart(barn, skalBrukeRegelendringer2026) &&
-    barnepass?.barnepassordninger &&
-    erBarnepassOrdningerUtfylt(barnepass?.barnepassordninger)
-  );
+export const erSpørsmålSeksjonForBarnFerdigUtfylt = (barn: IBarn, skalBrukeRegelendringer2026: boolean) => {
+    const barnepass = barn.barnepass;
+    return (
+        erÅrsakBarnepassSpmBesvart(barn, skalBrukeRegelendringer2026) &&
+        barnepass?.barnepassordninger &&
+        erBarnepassOrdningerUtfylt(barnepass?.barnepassordninger)
+    );
 };
 
 export const erBarnepassForBarnFørNåværendeUtfylt = (
-  barn: IBarn,
-  barnSomSkalHaBarnepass: IBarn[],
-  skalBrukeRegelendringer2026: boolean
+    barn: IBarn,
+    barnSomSkalHaBarnepass: IBarn[],
+    skalBrukeRegelendringer2026: boolean
 ): boolean => {
-  const barnIndex: number = barnSomSkalHaBarnepass.indexOf(barn);
+    const barnIndex: number = barnSomSkalHaBarnepass.indexOf(barn);
 
-  return barnSomSkalHaBarnepass
-    .filter((barn, index) => index < barnIndex)
-    .every((barn) => erSpørsmålSeksjonForBarnFerdigUtfylt(barn, skalBrukeRegelendringer2026));
+    return barnSomSkalHaBarnepass
+        .filter((barn, index) => index < barnIndex)
+        .every(barn => erSpørsmålSeksjonForBarnFerdigUtfylt(barn, skalBrukeRegelendringer2026));
 };
 
 const harBarnMedBarbehageOgLignende = (barn: IBarn[]): boolean => {
-  return barn.some((b: IBarn) => {
-    return b.barnepass?.barnepassordninger.some((bpassordninger) => {
-      return (
-        bpassordninger.hvaSlagsBarnepassOrdning?.svarid ===
-        ETypeBarnepassOrdning.barnehageOgLiknende
-      );
+    return barn.some((b: IBarn) => {
+        return b.barnepass?.barnepassordninger.some(bpassordninger => {
+            return bpassordninger.hvaSlagsBarnepassOrdning?.svarid === ETypeBarnepassOrdning.barnehageOgLiknende;
+        });
     });
-  });
 };
 
 export const skalDokumentereTidligereFakturaer = (
-  barnSomSkalHaBarnepass: IBarn[],
-  søkerFraBestemtMåned?: ISpørsmålBooleanFelt,
-  søknadsdato?: IDatoFelt
+    barnSomSkalHaBarnepass: IBarn[],
+    søkerFraBestemtMåned?: ISpørsmålBooleanFelt,
+    søknadsdato?: IDatoFelt
 ): boolean => {
-  const harValgtBHGellerSFO = harBarnMedBarbehageOgLignende(barnSomSkalHaBarnepass);
+    const harValgtBHGellerSFO = harBarnMedBarbehageOgLignende(barnSomSkalHaBarnepass);
 
-  const harSøktMinstEnMånedTilbakeITid: boolean =
-    søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.ja &&
-    søknadsdato?.verdi !== undefined &&
-    erEnMånedTilbakeITid(søknadsdato.verdi);
+    const harSøktMinstEnMånedTilbakeITid: boolean =
+        søkerFraBestemtMåned?.svarid === ESøkerFraBestemtMåned.ja &&
+        søknadsdato?.verdi !== undefined &&
+        erEnMånedTilbakeITid(søknadsdato.verdi);
 
-  return (
-    harSøktMinstEnMånedTilbakeITid && harValgtBHGellerSFO && søkerFraBestemtMåned?.verdi === true
-  );
+    return harSøktMinstEnMånedTilbakeITid && harValgtBHGellerSFO && søkerFraBestemtMåned?.verdi === true;
 };

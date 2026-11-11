@@ -1,52 +1,47 @@
-import React from 'react';
-import { VisLabelOgSvar } from '../../../../utils/visning';
+import { VStack } from '@navikt/ds-react';
+import type React from 'react';
+import { useNavigate } from 'react-router';
 import endre from '../../../../assets/endre.svg';
 import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
-import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
-import { useNavigate } from 'react-router';
-import { VStack } from '@navikt/ds-react';
+import type { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import type { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
+import { VisLabelOgSvar } from '../../../../utils/visning';
 
 interface Props {
-  dinSituasjon: IDinSituasjon;
-  endreInformasjonPath?: string;
-  barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
-  tittel: string;
+    dinSituasjon: IDinSituasjon;
+    endreInformasjonPath?: string;
+    barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
+    tittel: string;
 }
 
 const OppsummeringDinSituasjon: React.FC<Props> = ({
-  dinSituasjon,
-  endreInformasjonPath,
-  barnMedsærligeTilsynsbehov,
+    dinSituasjon,
+    endreInformasjonPath,
+    barnMedsærligeTilsynsbehov,
 }) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const { gjelderDetteDeg, ...rest } = dinSituasjon;
+    const { gjelderDetteDeg, ...rest } = dinSituasjon;
 
-  const barnMedsærligeTilsynsbehovlabelOgSvar = barnMedsærligeTilsynsbehov.reduce(
-    (acc, val, idx) => {
-      acc[`barnMedsærligeTilsynsbehov${idx}`] = val;
-      return acc;
-    },
-    {} as any
-  );
+    const barnMedsærligeTilsynsbehovlabelOgSvar = barnMedsærligeTilsynsbehov.reduce((acc, val, idx) => {
+        acc[`barnMedsærligeTilsynsbehov${idx}`] = val;
+        return acc;
+    }, {} as any);
 
-  return (
-    <VStack>
-      {VisLabelOgSvar({
-        gjelderDetteDeg,
-        ...barnMedsærligeTilsynsbehovlabelOgSvar,
-        ...rest,
-      })}
-      <LenkeMedIkon
-        onClick={() =>
-          navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })
-        }
-        tekst_id="barnasbosted.knapp.endre"
-        ikon={endre}
-      />
-    </VStack>
-  );
+    return (
+        <VStack>
+            {VisLabelOgSvar({
+                gjelderDetteDeg,
+                ...barnMedsærligeTilsynsbehovlabelOgSvar,
+                ...rest,
+            })}
+            <LenkeMedIkon
+                onClick={() => navigate({ pathname: endreInformasjonPath }, { state: { kommerFraOppsummering: true } })}
+                tekst_id="barnasbosted.knapp.endre"
+                ikon={endre}
+            />
+        </VStack>
+    );
 };
 
 export default OppsummeringDinSituasjon;

@@ -1,101 +1,101 @@
 .skjema > .side {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(50px, auto));
-  grid-template-rows: repeat(6, auto);
-  grid-template-areas:
-    'stegindikator stegindikator stegindikator'
-    'tittel tittel tittel'
-    'innhold innhold innhold'
-    '. uu-tekst .'
-    'knapper knapper knapper';
+    display: grid;
+    grid-template-columns: repeat(3, minmax(50px, auto));
+    grid-template-rows: repeat(6, auto);
+    grid-template-areas:
+        "stegindikator stegindikator stegindikator"
+        "tittel tittel tittel"
+        "innhold innhold innhold"
+        ". uu-tekst ."
+        "knapper knapper knapper";
 }
 .skjema > .side .stegindikator {
-  grid-area: stegindikator;
-  margin: 1rem 0 1rem;
+    grid-area: stegindikator;
+    margin: 1rem 0 1rem;
 }
 .skjema > .side .aksel-heading {
-  grid-area: tittel;
-  justify-self: center;
-  padding-bottom: 2rem;
+    grid-area: tittel;
+    justify-self: center;
+    padding-bottom: 2rem;
 }
 
 .side {
-  margin: auto;
-  width: 792px;
-  padding-bottom: 75px;
+    margin: auto;
+    width: 792px;
+    padding-bottom: 75px;
 }
 @media all and (max-width: 959px) {
-  .side {
-    width: 100%;
-  }
+    .side {
+        width: 100%;
+    }
 }
 @media all and (max-width: 420px) {
-  .side {
-    width: 100%;
-  }
+    .side {
+        width: 100%;
+    }
 }
 .side__innhold {
-  grid-area: innhold;
+    grid-area: innhold;
 }
 .side__uu-tekst {
-  justify-self: center;
-  grid-area: uu-tekst;
+    justify-self: center;
+    grid-area: uu-tekst;
 }
 .side__knapper {
-  padding: 2rem;
-  grid-area: knapper;
-  display: flex;
-  justify-self: center;
-  flex-direction: column;
+    padding: 2rem;
+    grid-area: knapper;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
 }
 .side__knapper .avbryt {
-  margin-top: 1rem;
+    margin-top: 1rem;
 }
 .side .treKnapper {
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  grid-template-rows: repeat(2, min-content);
-  grid-template-areas:
-    'tilbake neste'
-    'avbryt avbryt';
-  column-gap: 1rem;
-  justify-self: center;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: repeat(2, min-content);
+    grid-template-areas:
+        "tilbake neste"
+        "avbryt avbryt";
+    column-gap: 1rem;
+    justify-self: center;
 }
 .side .treKnapper .hideButton {
-  display: none;
+    display: none;
 }
 .side .treKnapper .tilbake {
-  grid-area: tilbake;
+    grid-area: tilbake;
 }
 .side .treKnapper .neste {
-  grid-area: neste;
+    grid-area: neste;
 }
 .side .treKnapper .avbryt {
-  grid-area: avbryt;
-  justify-self: center;
-  margin-top: 0.5rem;
+    grid-area: avbryt;
+    justify-self: center;
+    margin-top: 0.5rem;
 }
 .side .tilbake-til-oppsummering {
-  margin: 0 auto;
-  display: block;
-  margin-top: 2rem;
-  max-width: 588px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 2rem;
+    max-width: 588px;
 }
 .side .aksel-button.kvittering {
-  padding-top: 0;
-  padding-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 .innholdscontainer {
-  padding: 2rem 0;
-  margin: 0 auto;
-  max-width: 588px;
+    padding: 2rem 0;
+    margin: 0 auto;
+    max-width: 588px;
 }
 .innholdscontainer .typo-systemtittel:first-child {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 @media all and (max-width: 420px) {
-  .innholdscontainer {
-    padding: 0;
-  }
+    .innholdscontainer {
+        padding: 0;
+    }
 }

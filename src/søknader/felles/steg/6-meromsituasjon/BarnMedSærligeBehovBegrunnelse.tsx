@@ -1,68 +1,68 @@
-import React, { ChangeEvent } from 'react';
-import { IBarn } from '../../../../models/steg/barn';
+import React, { type ChangeEvent } from 'react';
+import type { IBarn } from '../../../../models/steg/barn';
 import { hentBarnetsNavnEllerBeskrivelse } from '../../../../utils/barn';
 import { useOvergangsstønadSøknad } from '../../../overgangsstønad/OvergangsstønadContext';
 import './BarnMedSærligeBehovBegrunnelse.css';
-import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
 import { Label, Textarea, VStack } from '@navikt/ds-react';
-import { hentTekstMedEnVariabel, storeForbokstaver } from '../../../../utils/teksthåndtering';
 import { LesMerTekst } from '../../../../components/lesmertekst/LesMerTekst';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import { hentTekstMedEnVariabel, storeForbokstaver } from '../../../../utils/teksthåndtering';
 
 const MAX_LENGDE_BEGRUNDELSE = 1500;
 
 export const BarnMedSærligeBehovBegrunnelse = () => {
-  const intl = useLokalIntlContext();
-  const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
-  const barnMedSærligeBehov = søknad.person.barn.filter((barn: IBarn) => barn.særligeTilsynsbehov);
+    const intl = useLokalIntlContext();
+    const { søknad, oppdaterBarnISøknaden } = useOvergangsstønadSøknad();
+    const barnMedSærligeBehov = søknad.person.barn.filter((barn: IBarn) => barn.særligeTilsynsbehov);
 
-  const settBarnSærligBehovBegrunnelse = (barnMedSærligeBehovBegrunnelse: IBarn) => {
-    return (event: ChangeEvent<HTMLTextAreaElement>) => {
-      const indeksBarnSomErHuket = søknad.person.barn.findIndex(
-        (barn: IBarn) => barn.id === barnMedSærligeBehovBegrunnelse.id
-      );
-      const barnMedSærligeBehov: IBarn = søknad.person.barn[indeksBarnSomErHuket];
-      const oppdatertBarn: IBarn = {
-        ...barnMedSærligeBehov,
-        særligeTilsynsbehov: {
-          ...barnMedSærligeBehov.særligeTilsynsbehov!,
-          verdi: event.target.value,
-        },
-      };
-      oppdaterBarnISøknaden(oppdatertBarn);
+    const settBarnSærligBehovBegrunnelse = (barnMedSærligeBehovBegrunnelse: IBarn) => {
+        return (event: ChangeEvent<HTMLTextAreaElement>) => {
+            const indeksBarnSomErHuket = søknad.person.barn.findIndex(
+                (barn: IBarn) => barn.id === barnMedSærligeBehovBegrunnelse.id
+            );
+            const barnMedSærligeBehov: IBarn = søknad.person.barn[indeksBarnSomErHuket];
+            const oppdatertBarn: IBarn = {
+                ...barnMedSærligeBehov,
+                særligeTilsynsbehov: {
+                    ...barnMedSærligeBehov.særligeTilsynsbehov!,
+                    verdi: event.target.value,
+                },
+            };
+            oppdaterBarnISøknaden(oppdatertBarn);
+        };
     };
-  };
 
-  return (
-    <>
-      {barnMedSærligeBehov.map((barn: IBarn) => {
-        const onChange = settBarnSærligBehovBegrunnelse(barn);
-        const barnetsNavn = hentBarnetsNavnEllerBeskrivelse(barn, intl);
-        const navn = barn.navn.verdi ? storeForbokstaver(barnetsNavn) : barnetsNavn;
-        const omBarnetsTilsynsbehovLabel = hentTekstMedEnVariabel(
-          'dinSituasjon.alert.harBarnMedSærligeBehov.tittel',
-          intl,
-          navn
-        );
-        return (
-          <VStack key={barn.id}>
-            <Label className="blokk-xs" as={'label'}>
-              {omBarnetsTilsynsbehovLabel}
-            </Label>
-            <LesMerTekst
-              åpneTekstid={''}
-              innholdTekstid={'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse'}
-            ></LesMerTekst>
-            <Textarea
-              autoComplete={'off'}
-              onChange={onChange}
-              label={omBarnetsTilsynsbehovLabel}
-              hideLabel={true}
-              value={barn.særligeTilsynsbehov!.verdi}
-              maxLength={MAX_LENGDE_BEGRUNDELSE}
-            />
-          </VStack>
-        );
-      })}
-    </>
-  );
+    return (
+        <>
+            {barnMedSærligeBehov.map((barn: IBarn) => {
+                const onChange = settBarnSærligBehovBegrunnelse(barn);
+                const barnetsNavn = hentBarnetsNavnEllerBeskrivelse(barn, intl);
+                const navn = barn.navn.verdi ? storeForbokstaver(barnetsNavn) : barnetsNavn;
+                const omBarnetsTilsynsbehovLabel = hentTekstMedEnVariabel(
+                    'dinSituasjon.alert.harBarnMedSærligeBehov.tittel',
+                    intl,
+                    navn
+                );
+                return (
+                    <VStack key={barn.id}>
+                        <Label className="blokk-xs" as={'label'}>
+                            {omBarnetsTilsynsbehovLabel}
+                        </Label>
+                        <LesMerTekst
+                            åpneTekstid={''}
+                            innholdTekstid={'dinSituasjon.alert.harBarnMedSærligeBehov.beskrivelse'}
+                        ></LesMerTekst>
+                        <Textarea
+                            autoComplete={'off'}
+                            onChange={onChange}
+                            label={omBarnetsTilsynsbehovLabel}
+                            hideLabel={true}
+                            value={barn.særligeTilsynsbehov!.verdi}
+                            maxLength={MAX_LENGDE_BEGRUNDELSE}
+                        />
+                    </VStack>
+                );
+            })}
+        </>
+    );
 };

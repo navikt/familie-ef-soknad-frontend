@@ -1,84 +1,82 @@
-import React from 'react';
+import { VStack } from '@navikt/ds-react';
+import type React from 'react';
+import { useNavigate } from 'react-router';
 import endre from '../../../../assets/endre.svg';
 import { LenkeMedIkon } from '../../../../components/knapper/LenkeMedIkon';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import {
-  VisLabelOgSvar,
-  visLabelOgVerdiForSpørsmålFelt,
-  visLabelOgVerdiForSpørsmålListeFelt,
-  visListeAvLabelOgSvar,
-} from '../../../../utils/visning';
-import { useNavigate } from 'react-router';
-import { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
+import type { IAktivitet } from '../../../../models/steg/aktivitet/aktivitet';
+import type { IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import type { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
 import { hentTekst } from '../../../../utils/teksthåndtering';
-import { ITekstFelt } from '../../../../models/søknad/søknadsfelter';
-import { VStack } from '@navikt/ds-react';
+import {
+    VisLabelOgSvar,
+    visLabelOgVerdiForSpørsmålFelt,
+    visLabelOgVerdiForSpørsmålListeFelt,
+    visListeAvLabelOgSvar,
+} from '../../../../utils/visning';
 import styles from './OppsummeringSituasjon.module.css';
 
 interface Props {
-  dinSituasjon: IDinSituasjon;
-  aktivitet: IAktivitet;
-  endreInformasjonPath?: string;
-  barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
+    dinSituasjon: IDinSituasjon;
+    aktivitet: IAktivitet;
+    endreInformasjonPath?: string;
+    barnMedsærligeTilsynsbehov: (ITekstFelt | undefined)[];
 }
 
 export const OppsummeringSituasjon: React.FC<Props> = ({
-  dinSituasjon,
-  aktivitet,
-  endreInformasjonPath,
-  barnMedsærligeTilsynsbehov,
+    dinSituasjon,
+    aktivitet,
+    endreInformasjonPath,
+    barnMedsærligeTilsynsbehov,
 }) => {
-  const navigate = useNavigate();
-  const intl = useLokalIntlContext();
+    const navigate = useNavigate();
+    const intl = useLokalIntlContext();
 
-  const barnMedsærligeTilsynsbehovlabelOgSvar = barnMedsærligeTilsynsbehov.reduce(
-    (acc, val, idx) => {
-      acc[`barnMedsærligeTilsynsbehov${idx}`] = val;
-      return acc;
-    },
-    {} as Record<string, ITekstFelt | undefined>
-  );
+    const barnMedsærligeTilsynsbehovlabelOgSvar = barnMedsærligeTilsynsbehov.reduce(
+        (acc, val, idx) => {
+            acc[`barnMedsærligeTilsynsbehov${idx}`] = val;
+            return acc;
+        },
+        {} as Record<string, ITekstFelt | undefined>
+    );
 
-  return (
-    <div className={styles.oppsummeringMedUndertitler}>
-      <VStack gap={'space-16'}>
-        {dinSituasjon.hvaSituasjon &&
-          visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.hvaSituasjon)}
+    return (
+        <div className={styles.oppsummeringMedUndertitler}>
+            <VStack gap={'space-16'}>
+                {dinSituasjon.hvaSituasjon && visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.hvaSituasjon)}
 
-        {Object.keys(barnMedsærligeTilsynsbehovlabelOgSvar).length > 0 &&
-          VisLabelOgSvar(barnMedsærligeTilsynsbehovlabelOgSvar)}
+                {Object.keys(barnMedsærligeTilsynsbehovlabelOgSvar).length > 0 &&
+                    VisLabelOgSvar(barnMedsærligeTilsynsbehovlabelOgSvar)}
 
-        {dinSituasjon.inntekter && visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.inntekter)}
+                {dinSituasjon.inntekter && visLabelOgVerdiForSpørsmålListeFelt(dinSituasjon.inntekter)}
 
-        {aktivitet.firmaer &&
-          visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}
+                {aktivitet.firmaer && visListeAvLabelOgSvar(aktivitet.firmaer, hentTekst('firmaer.tittel', intl))}
 
-        {dinSituasjon.sagtOppEllerRedusertStilling &&
-          visLabelOgVerdiForSpørsmålFelt(dinSituasjon.sagtOppEllerRedusertStilling, intl)}
+                {dinSituasjon.sagtOppEllerRedusertStilling &&
+                    visLabelOgVerdiForSpørsmålFelt(dinSituasjon.sagtOppEllerRedusertStilling, intl)}
 
-        {dinSituasjon.begrunnelseSagtOppEllerRedusertStilling &&
-          VisLabelOgSvar({ begrunnelse: dinSituasjon.begrunnelseSagtOppEllerRedusertStilling })}
+                {dinSituasjon.begrunnelseSagtOppEllerRedusertStilling &&
+                    VisLabelOgSvar({ begrunnelse: dinSituasjon.begrunnelseSagtOppEllerRedusertStilling })}
 
-        {dinSituasjon.datoSagtOppEllerRedusertStilling &&
-          VisLabelOgSvar({ dato: dinSituasjon.datoSagtOppEllerRedusertStilling })}
+                {dinSituasjon.datoSagtOppEllerRedusertStilling &&
+                    VisLabelOgSvar({ dato: dinSituasjon.datoSagtOppEllerRedusertStilling })}
 
-        {dinSituasjon.søkerFraBestemtMåned &&
-          visLabelOgVerdiForSpørsmålFelt(dinSituasjon.søkerFraBestemtMåned, intl)}
+                {dinSituasjon.søkerFraBestemtMåned &&
+                    visLabelOgVerdiForSpørsmålFelt(dinSituasjon.søkerFraBestemtMåned, intl)}
 
-        {dinSituasjon.søknadsdato && VisLabelOgSvar({ søknadsdato: dinSituasjon.søknadsdato })}
+                {dinSituasjon.søknadsdato && VisLabelOgSvar({ søknadsdato: dinSituasjon.søknadsdato })}
 
-        <LenkeMedIkon
-          onClick={() =>
-            navigate(
-              { pathname: endreInformasjonPath },
-              { state: { kommerFraOppsummering: true }, replace: true }
-            )
-          }
-          tekst_id="barnasbosted.knapp.endre"
-          ikon={endre}
-        />
-      </VStack>
-    </div>
-  );
+                <LenkeMedIkon
+                    onClick={() =>
+                        navigate(
+                            { pathname: endreInformasjonPath },
+                            { state: { kommerFraOppsummering: true }, replace: true }
+                        )
+                    }
+                    tekst_id="barnasbosted.knapp.endre"
+                    ikon={endre}
+                />
+            </VStack>
+        </div>
+    );
 };

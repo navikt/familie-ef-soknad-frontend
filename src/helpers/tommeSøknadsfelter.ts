@@ -1,41 +1,36 @@
-import {
-  ISpørsmålFelt,
-  ISpørsmålListeFelt,
-  ITekstFelt,
-  ITekstListeFelt,
-} from '../models/søknad/søknadsfelter';
-import { IPeriode } from '../models/felles/periode';
+import type { IPeriode } from '../models/felles/periode';
+import type { ISpørsmålFelt, ISpørsmålListeFelt, ITekstFelt, ITekstListeFelt } from '../models/søknad/søknadsfelter';
 
 export const tomPeriode: IPeriode = {
-  label: '',
-  fra: {
     label: '',
-    verdi: '',
-  },
-  til: { label: '', verdi: '' },
+    fra: {
+        label: '',
+        verdi: '',
+    },
+    til: { label: '', verdi: '' },
 };
 
 export const nyttSpørsmålFelt: ISpørsmålFelt = {
-  spørsmålid: '',
-  svarid: '',
-  label: '',
-  verdi: '',
+    spørsmålid: '',
+    svarid: '',
+    label: '',
+    verdi: '',
 };
 
 export const nyttSpørsmålListeFelt: ISpørsmålListeFelt = {
-  spørsmålid: '',
-  svarid: [],
-  label: '',
-  verdi: [],
-  alternativer: [],
+    spørsmålid: '',
+    svarid: [],
+    label: '',
+    verdi: [],
+    alternativer: [],
 };
 
 export const nyttTekstFelt: ITekstFelt = {
-  label: '',
-  verdi: '',
+    label: '',
+    verdi: '',
 };
 
 export const nyttTekstListeFelt: ITekstListeFelt = {
-  label: '',
-  verdi: [],
+    label: '',
+    verdi: [],
 };

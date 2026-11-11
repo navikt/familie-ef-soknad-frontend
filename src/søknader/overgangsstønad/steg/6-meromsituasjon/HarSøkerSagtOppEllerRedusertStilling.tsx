@@ -1,160 +1,142 @@
-import React from 'react';
-import {
-  ESagtOppEllerRedusertStilling,
-  IDinSituasjon,
-} from '../../../../models/steg/dinsituasjon/meromsituasjon';
-import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
-import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
-import { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
-import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
-import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
-import { isAfter, isBefore, subMonths } from 'date-fns';
-import { dagensDato, strengTilDato } from '../../../../utils/dato';
-import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 import { Alert, Textarea, VStack } from '@navikt/ds-react';
+import { isAfter, isBefore, subMonths } from 'date-fns';
+import type React from 'react';
+import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
 import { Datovelger } from '../../../../components/dato/Datovelger';
 import { GyldigeDatoer } from '../../../../components/dato/GyldigeDatoer';
-import { AlertStripeDokumentasjon } from '../../../../components/AlertstripeDokumentasjon';
+import MultiSvarSpørsmål from '../../../../components/spørsmål/MultiSvarSpørsmål';
+import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import type { ISpørsmål, ISvar } from '../../../../models/felles/spørsmålogsvar';
+import { ESagtOppEllerRedusertStilling, type IDinSituasjon } from '../../../../models/steg/dinsituasjon/meromsituasjon';
+import { dagensDato, strengTilDato } from '../../../../utils/dato';
+import { hentHTMLTekst, hentTekst } from '../../../../utils/teksthåndtering';
+import { SagtOppEllerRedusertStillingSpm } from '../../../felles/steg/6-meromsituasjon/SituasjonConfig';
+import { useOvergangsstønadSøknad } from '../../OvergangsstønadContext';
 
 interface Props {
-  dinSituasjon: IDinSituasjon;
-  settDinSituasjon: (dinSituasjon: IDinSituasjon) => void;
+    dinSituasjon: IDinSituasjon;
+    settDinSituasjon: (dinSituasjon: IDinSituasjon) => void;
 }
 
-export const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({
-  dinSituasjon,
-  settDinSituasjon,
-}) => {
-  const intl = useLokalIntlContext();
-  const { settDokumentasjonsbehov } = useOvergangsstønadSøknad();
-  const {
-    datoSagtOppEllerRedusertStilling,
-    begrunnelseSagtOppEllerRedusertStilling,
-    sagtOppEllerRedusertStilling,
-  } = dinSituasjon;
+export const HarSøkerSagtOppEllerRedusertStilling: React.FC<Props> = ({ dinSituasjon, settDinSituasjon }) => {
+    const intl = useLokalIntlContext();
+    const { settDokumentasjonsbehov } = useOvergangsstønadSøknad();
+    const { datoSagtOppEllerRedusertStilling, begrunnelseSagtOppEllerRedusertStilling, sagtOppEllerRedusertStilling } =
+        dinSituasjon;
 
-  const settSagtOppEllerRedusertStilling = (spørsmål: ISpørsmål, svar: ISvar) => {
-    const valgtSvar = {
-      spørsmålid: spørsmål.søknadid,
-      svarid: svar.id,
-      label: hentTekst(spørsmål.tekstid, intl),
-      verdi: svar.svar_tekst,
+    const settSagtOppEllerRedusertStilling = (spørsmål: ISpørsmål, svar: ISvar) => {
+        const valgtSvar = {
+            spørsmålid: spørsmål.søknadid,
+            svarid: svar.id,
+            label: hentTekst(spørsmål.tekstid, intl),
+            verdi: svar.svar_tekst,
+        };
+        if (valgtSvarNei && (datoSagtOppEllerRedusertStilling || begrunnelseSagtOppEllerRedusertStilling)) {
+            const endretSituasjon = dinSituasjon;
+            delete endretSituasjon.datoSagtOppEllerRedusertStilling;
+            delete endretSituasjon.begrunnelseSagtOppEllerRedusertStilling;
+            settDinSituasjon({
+                ...endretSituasjon,
+                sagtOppEllerRedusertStilling: valgtSvar,
+            });
+        } else {
+            settDinSituasjon({
+                ...dinSituasjon,
+                sagtOppEllerRedusertStilling: valgtSvar,
+            });
+        }
+        settDokumentasjonsbehov(spørsmål, svar);
     };
-    if (
-      valgtSvarNei &&
-      (datoSagtOppEllerRedusertStilling || begrunnelseSagtOppEllerRedusertStilling)
-    ) {
-      const endretSituasjon = dinSituasjon;
-      delete endretSituasjon.datoSagtOppEllerRedusertStilling;
-      delete endretSituasjon.begrunnelseSagtOppEllerRedusertStilling;
-      settDinSituasjon({
-        ...endretSituasjon,
-        sagtOppEllerRedusertStilling: valgtSvar,
-      });
-    } else {
-      settDinSituasjon({
-        ...dinSituasjon,
-        sagtOppEllerRedusertStilling: valgtSvar,
-      });
-    }
-    settDokumentasjonsbehov(spørsmål, svar);
-  };
 
-  const settBegrunnelse = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    settDinSituasjon({
-      ...dinSituasjon,
-      begrunnelseSagtOppEllerRedusertStilling: {
-        label: begrunnelseLabel,
-        verdi: e.currentTarget.value,
-      },
-    });
-  };
+    const settBegrunnelse = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        settDinSituasjon({
+            ...dinSituasjon,
+            begrunnelseSagtOppEllerRedusertStilling: {
+                label: begrunnelseLabel,
+                verdi: e.currentTarget.value,
+            },
+        });
+    };
 
-  const settDato = (dato: string): void => {
-    settDinSituasjon({
-      ...dinSituasjon,
-      datoSagtOppEllerRedusertStilling: {
-        label: hentTekst(datovelgerLabelId, intl),
-        verdi: dato,
-      },
-    });
-  };
+    const settDato = (dato: string): void => {
+        settDinSituasjon({
+            ...dinSituasjon,
+            datoSagtOppEllerRedusertStilling: {
+                label: hentTekst(datovelgerLabelId, intl),
+                verdi: dato,
+            },
+        });
+    };
 
-  const valgtDatoMindreEnn6mndSiden = (valgtDato: Date) => {
-    const seksMndSidenDato = subMonths(dagensDato, 6);
-    return isAfter(valgtDato, seksMndSidenDato) && isBefore(valgtDato, dagensDato);
-  };
+    const valgtDatoMindreEnn6mndSiden = (valgtDato: Date) => {
+        const seksMndSidenDato = subMonths(dagensDato, 6);
+        return isAfter(valgtDato, seksMndSidenDato) && isBefore(valgtDato, dagensDato);
+    };
 
-  const erSagtOppEllerRedusertStillingValgt = (valgtSvar: ESagtOppEllerRedusertStilling) => {
-    const tekstid: string = 'dinSituasjon.svar.' + valgtSvar;
-    const svarTekst: string = hentTekst(tekstid, intl);
-    return sagtOppEllerRedusertStilling?.verdi === svarTekst;
-  };
+    const erSagtOppEllerRedusertStillingValgt = (valgtSvar: ESagtOppEllerRedusertStilling) => {
+        const tekstid: string = 'dinSituasjon.svar.' + valgtSvar;
+        const svarTekst: string = hentTekst(tekstid, intl);
+        return sagtOppEllerRedusertStilling?.verdi === svarTekst;
+    };
 
-  const harSagtOpp = erSagtOppEllerRedusertStillingValgt(ESagtOppEllerRedusertStilling.sagtOpp);
-  const harRedusertStilling = erSagtOppEllerRedusertStillingValgt(
-    ESagtOppEllerRedusertStilling.redusertStilling
-  );
-  const valgtSvarNei = hentTekst('svar.nei', intl);
+    const harSagtOpp = erSagtOppEllerRedusertStillingValgt(ESagtOppEllerRedusertStilling.sagtOpp);
+    const harRedusertStilling = erSagtOppEllerRedusertStillingValgt(ESagtOppEllerRedusertStilling.redusertStilling);
+    const valgtSvarNei = hentTekst('svar.nei', intl);
 
-  const erValgtDatoMindreEnn6mndSiden =
-    datoSagtOppEllerRedusertStilling &&
-    valgtDatoMindreEnn6mndSiden(strengTilDato(datoSagtOppEllerRedusertStilling.verdi));
+    const erValgtDatoMindreEnn6mndSiden =
+        datoSagtOppEllerRedusertStilling &&
+        valgtDatoMindreEnn6mndSiden(strengTilDato(datoSagtOppEllerRedusertStilling.verdi));
 
-  const alertLabelId = harSagtOpp
-    ? 'dinSituasjon.alert.sagtOpp'
-    : 'dinSituasjon.alert.redusertStilling';
+    const alertLabelId = harSagtOpp ? 'dinSituasjon.alert.sagtOpp' : 'dinSituasjon.alert.redusertStilling';
 
-  const begrunnelseLabel = harSagtOpp
-    ? hentTekst('dinSituasjon.fritekst.sagtOpp', intl)
-    : hentTekst('dinSituasjon.fritekst.redusertStilling', intl);
+    const begrunnelseLabel = harSagtOpp
+        ? hentTekst('dinSituasjon.fritekst.sagtOpp', intl)
+        : hentTekst('dinSituasjon.fritekst.redusertStilling', intl);
 
-  const datovelgerLabelId = harSagtOpp
-    ? 'sagtOppEllerRedusertStilling.datovelger.sagtOpp'
-    : 'sagtOppEllerRedusertStilling.datovelger.redusertStilling';
+    const datovelgerLabelId = harSagtOpp
+        ? 'sagtOppEllerRedusertStilling.datovelger.sagtOpp'
+        : 'sagtOppEllerRedusertStilling.datovelger.redusertStilling';
 
-  const valgtDatoMindreEnn6mndSidenAlertId = harSagtOpp
-    ? 'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp'
-    : 'dinSituasjon.datovelger-alert.redusertStilling';
+    const valgtDatoMindreEnn6mndSidenAlertId = harSagtOpp
+        ? 'sagtOppEllerRedusertStilling.datovelger-alert.sagtOpp'
+        : 'dinSituasjon.datovelger-alert.redusertStilling';
 
-  return (
-    <VStack gap={'space-24'}>
-      <MultiSvarSpørsmål
-        spørsmål={SagtOppEllerRedusertStillingSpm(intl)}
-        settSpørsmålOgSvar={settSagtOppEllerRedusertStilling}
-        valgtSvar={sagtOppEllerRedusertStilling?.verdi}
-      />
-      {(harSagtOpp || harRedusertStilling) && (
-        <VStack gap={'space-32'}>
-          <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
-          <Textarea
-            autoComplete={'off'}
-            label={begrunnelseLabel}
-            value={
-              begrunnelseSagtOppEllerRedusertStilling
-                ? begrunnelseSagtOppEllerRedusertStilling.verdi
-                : ''
-            }
-            maxLength={1000}
-            onChange={(e) => settBegrunnelse(e)}
-          />
-          {begrunnelseSagtOppEllerRedusertStilling && (
-            <VStack gap={'space-8'}>
-              <Datovelger
-                valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
-                tekstid={datovelgerLabelId}
-                gyldigeDatoer={GyldigeDatoer.Tidligere}
-                settDato={settDato}
-              />
-              {erValgtDatoMindreEnn6mndSiden && (
-                <Alert size="small" variant="info" inline>
-                  {hentTekst(valgtDatoMindreEnn6mndSidenAlertId, intl)}
-                </Alert>
-              )}
-            </VStack>
-          )}
+    return (
+        <VStack gap={'space-24'}>
+            <MultiSvarSpørsmål
+                spørsmål={SagtOppEllerRedusertStillingSpm(intl)}
+                settSpørsmålOgSvar={settSagtOppEllerRedusertStilling}
+                valgtSvar={sagtOppEllerRedusertStilling?.verdi}
+            />
+            {(harSagtOpp || harRedusertStilling) && (
+                <VStack gap={'space-32'}>
+                    <AlertStripeDokumentasjon>{hentHTMLTekst(alertLabelId, intl)}</AlertStripeDokumentasjon>
+                    <Textarea
+                        autoComplete={'off'}
+                        label={begrunnelseLabel}
+                        value={
+                            begrunnelseSagtOppEllerRedusertStilling ? begrunnelseSagtOppEllerRedusertStilling.verdi : ''
+                        }
+                        maxLength={1000}
+                        onChange={e => settBegrunnelse(e)}
+                    />
+                    {begrunnelseSagtOppEllerRedusertStilling && (
+                        <VStack gap={'space-8'}>
+                            <Datovelger
+                                valgtDato={datoSagtOppEllerRedusertStilling?.verdi}
+                                tekstid={datovelgerLabelId}
+                                gyldigeDatoer={GyldigeDatoer.Tidligere}
+                                settDato={settDato}
+                            />
+                            {erValgtDatoMindreEnn6mndSiden && (
+                                <Alert size="small" variant="info" inline>
+                                    {hentTekst(valgtDatoMindreEnn6mndSidenAlertId, intl)}
+                                </Alert>
+                            )}
+                        </VStack>
+                    )}
+                </VStack>
+            )}
         </VStack>
-      )}
-    </VStack>
-  );
+    );
 };

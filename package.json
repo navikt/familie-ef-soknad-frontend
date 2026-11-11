@@ -1,85 +1,85 @@
 {
-  "name": "familie-ef-soknad",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_DEV_API=true ENV=localhost node server/build/server-lokal.js",
-    "build": "npm run lint && npm run build:prod",
-    "build:prod": "tsc --noEmit & vite build",
-    "start": "npm run build:dev-server && npm run set-node-options NODE_ENV=development ENV=localhost node server/build/server-lokal.js",
-    "start:mock": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_MOCK_LOKALT=true ENV=localhost node server/build/server-lokal.js",
-    "test": "vitest run",
-    "vitest": "vitest",
-    "lint": "tsc --project ./tsconfig.json --noEmit && biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
-    "dev:hent-tokens": "npx tsx scripts/hent-dev-token.ts",
-    "build:dev-server": "cd server && tsc --build --verbose && cd ..",
-    "postinstall": "cd server && npm ci && cd ..",
-    "set-node-options": "NODE_OPTIONS='--import=./server/build/register.js --es-module-specifier-resolution=node'"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "dependencies": {
-    "@grafana/faro-web-tracing": "^2.11.0",
-    "@nais/apm": "^0.6.3",
-    "@navikt/ds-css": "^8.14.0",
-    "@navikt/ds-react": "^8.14.0",
-    "@navikt/ds-tokens": "^8.14.0",
-    "@navikt/fnrvalidator": "^2.2.1",
-    "@navikt/nav-dekoratoren-moduler": "^4.5.0",
-    "axios": "^1.18.1",
-    "constate": "^4.0.0",
-    "date-fns": "^4.4.0",
-    "express-rate-limit": "^8.5.2",
-    "iso-datestring-validator": "^2.2.2",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-dropzone": "^15.0.0",
-    "react-router": "^7.18.1",
-    "use-debounce": "^10.1.1",
-    "yup": "^1.7.1"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.6.6",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^25.9.4",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.3",
-    "autoprefixer": "^10.5.2",
-    "http-proxy-middleware": "^4.2.0",
-    "husky": "^9.1.7",
-    "jsdom": "^25.0.1",
-    "npm": "^11.18.0",
-    "playwright": "^1.61.1",
-    "postcss": "^8.5.16",
-    "tsx": "^4.23.0",
-    "typescript": "^6.0.3",
-    "vite": "^8.1.3",
-    "vitest": "^4.1.9"
-  },
-  "overrides": {
-    "constate": {
-      "react": "$react"
+    "name": "familie-ef-soknad",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_DEV_API=true ENV=localhost node server/build/server-lokal.js",
+        "build": "npm run lint && npm run build:prod",
+        "build:prod": "tsc --noEmit & vite build",
+        "start": "npm run build:dev-server && npm run set-node-options NODE_ENV=development ENV=localhost node server/build/server-lokal.js",
+        "start:mock": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_MOCK_LOKALT=true ENV=localhost node server/build/server-lokal.js",
+        "test": "vitest run",
+        "vitest": "vitest",
+        "lint": "tsc --project ./tsconfig.json --noEmit && biome check .",
+        "lint:fix": "biome check --write .",
+        "format": "biome format --write .",
+        "dev:hent-tokens": "npx tsx scripts/hent-dev-token.ts",
+        "build:dev-server": "cd server && tsc --build --verbose && cd ..",
+        "postinstall": "cd server && npm ci && cd ..",
+        "set-node-options": "NODE_OPTIONS='--import=./server/build/register.js --es-module-specifier-resolution=node'"
     },
-    "react-day-picker": {
-      "react": "$react"
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "dependencies": {
+        "@grafana/faro-web-tracing": "^2.11.0",
+        "@nais/apm": "^0.6.3",
+        "@navikt/ds-css": "^8.14.0",
+        "@navikt/ds-react": "^8.14.0",
+        "@navikt/ds-tokens": "^8.14.0",
+        "@navikt/fnrvalidator": "^2.2.1",
+        "@navikt/nav-dekoratoren-moduler": "^4.5.0",
+        "axios": "^1.18.1",
+        "constate": "^4.0.0",
+        "date-fns": "^4.4.0",
+        "express-rate-limit": "^8.5.2",
+        "iso-datestring-validator": "^2.2.2",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
+        "react-dropzone": "^15.0.0",
+        "react-router": "^7.18.1",
+        "use-debounce": "^10.1.1",
+        "yup": "^1.7.1"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.6.6",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
+        "@types/node": "^25.9.4",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^6.0.3",
+        "autoprefixer": "^10.5.2",
+        "http-proxy-middleware": "^4.2.0",
+        "husky": "^9.1.7",
+        "jsdom": "^25.0.1",
+        "npm": "^11.18.0",
+        "playwright": "^1.61.1",
+        "postcss": "^8.5.16",
+        "tsx": "^4.23.0",
+        "typescript": "^6.0.3",
+        "vite": "^8.1.3",
+        "vitest": "^4.1.9"
+    },
+    "overrides": {
+        "constate": {
+            "react": "$react"
+        },
+        "react-day-picker": {
+            "react": "$react"
+        }
     }
-  }
 }

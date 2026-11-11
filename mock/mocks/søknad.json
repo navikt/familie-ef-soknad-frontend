@@ -1,9 +1,9 @@
 {
-  "bosituasjon": {
-    "søkerDelerBoligMedAndreVoksne": {
-      "nøkkel": "",
-      "label": "",
-      "verdi": ""
+    "bosituasjon": {
+        "søkerDelerBoligMedAndreVoksne": {
+            "nøkkel": "",
+            "label": "",
+            "verdi": ""
+        }
     }
-  }
 }

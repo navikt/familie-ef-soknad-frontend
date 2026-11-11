@@ -1,97 +1,97 @@
 .forside {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
 }
 .forside .ie-feil {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 .forside > div,
 .forside h1 {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 .forside .header {
-  width: 100%;
-  height: 250px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-areas:
-    '.'
-    'veileder'
-    'veileder'
-    'veileder';
+    width: 100%;
+    height: 250px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas:
+        "."
+        "veileder"
+        "veileder"
+        "veileder";
 }
 .forside .header .banner {
-  height: 199px;
-  background-color: #c1b6d1;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 3;
+    height: 199px;
+    background-color: #c1b6d1;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
 }
 .forside .header .nav-veileder {
-  grid-area: veileder;
+    grid-area: veileder;
 }
 .forside .header .nav-veileder__snakkeboble {
-  grid-area: snakkeboble;
+    grid-area: snakkeboble;
 }
 .forside .header .nav-veileder > .nav-veileder__frame {
-  background: #c1b6d0;
+    background: #c1b6d0;
 }
 .forside .header .nav-veileder > .nav-veileder__frame svg {
-  width: 100px;
-  height: 100px;
+    width: 100px;
+    height: 100px;
 }
 .forside .forside__innhold {
-  margin: auto;
-  width: 792px;
+    margin: auto;
+    width: 792px;
 }
 @media all and (max-width: 959px) {
-  .forside .forside__innhold {
-    width: 100%;
-  }
+    .forside .forside__innhold {
+        width: 100%;
+    }
 }
 @media all and (max-width: 420px) {
-  .forside .forside__innhold {
-    width: 100%;
-  }
+    .forside .forside__innhold {
+        width: 100%;
+    }
 }
 .forside .forside__innhold .veileder {
-  margin-bottom: 4rem;
-  display: block;
+    margin-bottom: 4rem;
+    display: block;
 }
 .forside .forside__innhold .nav-veileder __snakkeboblePil {
-  height: 0;
+    height: 0;
 }
 .forside .forside__innhold .seksjon .aksel-label {
-  font-size: 20px;
+    font-size: 20px;
 }
 .forside .forside__innhold .seksjon .aksel-body-short {
-  line-height: 26px;
+    line-height: 26px;
 }
 .forside .forside__innhold .seksjon .alertstripe__ikon {
-  display: none;
+    display: none;
 }
 .forside .forside__innhold .seksjon .skjemaelement__label {
-  font-size: 18px;
+    font-size: 18px;
 }
 .forside .forside__innhold .seksjon .lenke-tekst :hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 .forside .forside__innhold .seksjon .lenke-tekst a {
-  color: #0067c5;
-  text-decoration: underline;
-  font-size: 18px;
-  line-height: 26px;
+    color: #0067c5;
+    text-decoration: underline;
+    font-size: 18px;
+    line-height: 26px;
 }
 .forside .forside__innhold .bekreftCheckboksPanel {
-  background-color: #ffe9cc;
+    background-color: #ffe9cc;
 }
 .forside .forside__innhold .alertstripe__tekst {
-  padding-left: 1rem;
+    padding-left: 1rem;
 }
 .forside .forside__panel {
-  padding: 2rem;
+    padding: 2rem;
 }

@@ -1,16 +1,16 @@
-import React from 'react';
+import type React from 'react';
 import { Navigate } from 'react-router';
 import { useSkjema } from '../SkjemaContext';
 import { RoutesArbeidssokerskjema } from './routesArbeidssokerskjema';
 
 interface Props {
-  children: React.ReactElement;
+    children: React.ReactElement;
 }
 
 const RedirectArbeidssoker: React.FC<Props> = ({ children }) => {
-  const { skjema } = useSkjema();
+    const { skjema } = useSkjema();
 
-  return !skjema.harBekreftet ? <Navigate to={RoutesArbeidssokerskjema[0].path} /> : children;
+    return !skjema.harBekreftet ? <Navigate to={RoutesArbeidssokerskjema[0].path} /> : children;
 };
 
 export default RedirectArbeidssoker;

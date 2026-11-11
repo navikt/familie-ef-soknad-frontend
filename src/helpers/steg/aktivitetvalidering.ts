@@ -1,164 +1,142 @@
-import { EStilling, IArbeidsgiver } from '../../models/steg/aktivitet/arbeidsgiver';
-import { EAktivitet, IAksjeselskap, IAktivitet } from '../../models/steg/aktivitet/aktivitet';
-import { harValgtSvar } from '../../utils/spørsmålogsvar';
-import { UnderUtdanning, Utdanning } from '../../models/steg/aktivitet/utdanning';
-import { IFirma } from '../../models/steg/aktivitet/firma';
-import { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
-import {
-  erDatoGyldigOgInnenforBegrensning,
-  erPeriodeGyldigOgInnenforBegrensning,
-} from '../../utils/gyldigeDatoerUtils';
-
 import { GyldigeDatoer } from '../../components/dato/GyldigeDatoer';
+import { EAktivitet, type IAksjeselskap, type IAktivitet } from '../../models/steg/aktivitet/aktivitet';
+import { EStilling, type IArbeidsgiver } from '../../models/steg/aktivitet/arbeidsgiver';
+import type { IFirma } from '../../models/steg/aktivitet/firma';
+import type { UnderUtdanning, Utdanning } from '../../models/steg/aktivitet/utdanning';
+import type { DetaljertUtdanning } from '../../søknader/skolepenger/models/detaljertUtdanning';
+import {
+    erDatoGyldigOgInnenforBegrensning,
+    erPeriodeGyldigOgInnenforBegrensning,
+} from '../../utils/gyldigeDatoerUtils';
+import { harValgtSvar } from '../../utils/spørsmålogsvar';
 
 export const erSisteArbeidsgiverFerdigUtfylt = (arbeidsforhold: IArbeidsgiver[]) => {
-  return arbeidsforhold?.every((arbeidsgiver) =>
-    arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
-      ? arbeidsgiver.harSluttDato?.verdi === false ||
-        (arbeidsgiver?.sluttdato?.verdi &&
-          erDatoGyldigOgInnenforBegrensning(
-            arbeidsgiver?.sluttdato?.verdi,
-            GyldigeDatoer.Fremtidige
-          ))
-      : arbeidsgiver.ansettelsesforhold?.verdi
-  );
+    return arbeidsforhold?.every(arbeidsgiver =>
+        arbeidsgiver.ansettelsesforhold?.svarid === EStilling.midlertidig
+            ? arbeidsgiver.harSluttDato?.verdi === false ||
+              (arbeidsgiver?.sluttdato?.verdi &&
+                  erDatoGyldigOgInnenforBegrensning(arbeidsgiver?.sluttdato?.verdi, GyldigeDatoer.Fremtidige))
+            : arbeidsgiver.ansettelsesforhold?.verdi
+    );
 };
 
 export const erSisteFirmaUtfylt = (firmaer: IFirma[]) => {
-  return firmaer?.every((firma) => {
-    return (
-      firma?.etableringsdato?.verdi &&
-      erDatoGyldigOgInnenforBegrensning(firma?.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
-      firma.arbeidsuke?.verdi &&
-      firma.overskudd?.verdi
-    );
-  });
+    return firmaer?.every(firma => {
+        return (
+            firma?.etableringsdato?.verdi &&
+            erDatoGyldigOgInnenforBegrensning(firma?.etableringsdato?.verdi, GyldigeDatoer.Tidligere) &&
+            firma.arbeidsuke?.verdi &&
+            firma.overskudd?.verdi
+        );
+    });
 };
 
-export const erAksjeselskapFerdigUtfylt = (
-  egetAS: IAksjeselskap[],
-  inkludertArbeidsmengde: boolean
-) => {
-  return inkludertArbeidsmengde
-    ? egetAS?.every((aksjeselskap) => aksjeselskap.arbeidsmengde?.verdi)
-    : egetAS?.every((aksjeselskap) => aksjeselskap.navn?.verdi);
+export const erAksjeselskapFerdigUtfylt = (egetAS: IAksjeselskap[], inkludertArbeidsmengde: boolean) => {
+    return inkludertArbeidsmengde
+        ? egetAS?.every(aksjeselskap => aksjeselskap.arbeidsmengde?.verdi)
+        : egetAS?.every(aksjeselskap => aksjeselskap.navn?.verdi);
 };
 
 export const erTidligereUtdanningFerdigUtfylt = (tidligereUtdanning: Utdanning[]): boolean => {
-  return tidligereUtdanning.every(
-    (utdanning) =>
-      utdanning.linjeKursGrad?.verdi !== '' &&
-      utdanning?.periode &&
-      erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
-  );
+    return tidligereUtdanning.every(
+        utdanning =>
+            utdanning.linjeKursGrad?.verdi !== '' &&
+            utdanning?.periode &&
+            erPeriodeGyldigOgInnenforBegrensning(utdanning?.periode, GyldigeDatoer.Alle)
+    );
 };
 
 export const erUnderUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning): boolean => {
-  if (!harValgtSvar(underUtdanning.heltidEllerDeltid?.verdi)) {
-    return false;
-  }
+    if (!harValgtSvar(underUtdanning.heltidEllerDeltid?.verdi)) {
+        return false;
+    }
 
-  if (underUtdanning.heltidEllerDeltid?.verdi === 'Deltid') {
-    return erDeltidUtdanningOgSkalStudereUnderHundreProsent(underUtdanning);
-  } else {
-    return harValgtSvar(underUtdanning?.målMedUtdanning?.verdi);
-  }
+    if (underUtdanning.heltidEllerDeltid?.verdi === 'Deltid') {
+        return erDeltidUtdanningOgSkalStudereUnderHundreProsent(underUtdanning);
+    } else {
+        return harValgtSvar(underUtdanning?.målMedUtdanning?.verdi);
+    }
 };
 
-export const erDetaljertUtdanningFerdigUtfylt = (
-  detaljertUtdanning: DetaljertUtdanning
-): boolean => {
-  return (
-    harValgtSvar(detaljertUtdanning.semesteravgift?.verdi) ||
-    harValgtSvar(detaljertUtdanning.studieavgift?.verdi) ||
-    harValgtSvar(detaljertUtdanning.eksamensgebyr?.verdi)
-  );
+export const erDetaljertUtdanningFerdigUtfylt = (detaljertUtdanning: DetaljertUtdanning): boolean => {
+    return (
+        harValgtSvar(detaljertUtdanning.semesteravgift?.verdi) ||
+        harValgtSvar(detaljertUtdanning.studieavgift?.verdi) ||
+        harValgtSvar(detaljertUtdanning.eksamensgebyr?.verdi)
+    );
 };
 
-export const erDeltidUtdanningOgSkalStudereUnderHundreProsent = (
-  detaljertUtdanning: DetaljertUtdanning
-): boolean => {
-  return (
-    detaljertUtdanning.heltidEllerDeltid?.verdi === 'Deltid' &&
-    Number(detaljertUtdanning.arbeidsmengde?.verdi) < 100 &&
-    harValgtSvar(detaljertUtdanning?.målMedUtdanning?.verdi)
-  );
+export const erDeltidUtdanningOgSkalStudereUnderHundreProsent = (detaljertUtdanning: DetaljertUtdanning): boolean => {
+    return (
+        detaljertUtdanning.heltidEllerDeltid?.verdi === 'Deltid' &&
+        Number(detaljertUtdanning.arbeidsmengde?.verdi) < 100 &&
+        harValgtSvar(detaljertUtdanning?.målMedUtdanning?.verdi)
+    );
 };
 
-export const erAllUtdanningFerdigUtfyltForSkolepenger = (
-  underUtdanning: DetaljertUtdanning
-): boolean => {
-  if (!erDetaljertUtdanningFerdigUtfylt(underUtdanning)) return false;
+export const erAllUtdanningFerdigUtfyltForSkolepenger = (underUtdanning: DetaljertUtdanning): boolean => {
+    if (!erDetaljertUtdanningFerdigUtfylt(underUtdanning)) return false;
 
-  return erAllUtdanningFerdigUtfylt(underUtdanning);
+    return erAllUtdanningFerdigUtfylt(underUtdanning);
 };
 
 export const erAllUtdanningFerdigUtfylt = (underUtdanning: UnderUtdanning) => {
-  if (underUtdanning?.harTattUtdanningEtterGrunnskolen?.verdi === false) {
-    return underUtdanning && erUnderUtdanningFerdigUtfylt(underUtdanning);
-  } else {
-    const tidligereUtdanning = underUtdanning?.tidligereUtdanning;
-    return (
-      tidligereUtdanning !== undefined &&
-      erUnderUtdanningFerdigUtfylt(underUtdanning) &&
-      erTidligereUtdanningFerdigUtfylt(tidligereUtdanning)
-    );
-  }
+    if (underUtdanning?.harTattUtdanningEtterGrunnskolen?.verdi === false) {
+        return underUtdanning && erUnderUtdanningFerdigUtfylt(underUtdanning);
+    } else {
+        const tidligereUtdanning = underUtdanning?.tidligereUtdanning;
+        return (
+            tidligereUtdanning !== undefined &&
+            erUnderUtdanningFerdigUtfylt(underUtdanning) &&
+            erTidligereUtdanningFerdigUtfylt(tidligereUtdanning)
+        );
+    }
 };
 
 export const erAktivitetSeksjonFerdigUtfylt = (
-  svarid: string,
-  arbeidssituasjon: IAktivitet,
-  inkludertArbeidsmengde: boolean = true
+    svarid: string,
+    arbeidssituasjon: IAktivitet,
+    inkludertArbeidsmengde: boolean = true
 ): boolean => {
-  const {
-    arbeidsforhold,
-    firmaer,
-    egetAS,
-    etablererEgenVirksomhet,
-    arbeidssøker,
-    underUtdanning,
-    datoOppstartJobb,
-  } = arbeidssituasjon;
+    const { arbeidsforhold, firmaer, egetAS, etablererEgenVirksomhet, arbeidssøker, underUtdanning, datoOppstartJobb } =
+        arbeidssituasjon;
 
-  switch (svarid) {
-    case EAktivitet.erHjemmeMedBarnUnderEttÅr:
-      return true;
+    switch (svarid) {
+        case EAktivitet.erHjemmeMedBarnUnderEttÅr:
+            return true;
 
-    case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
-      return arbeidsforhold !== undefined && erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold);
+        case EAktivitet.erArbeidstakerOgEllerLønnsmottakerFrilanser:
+            return arbeidsforhold !== undefined && erSisteArbeidsgiverFerdigUtfylt(arbeidsforhold);
 
-    case EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser:
-      return firmaer !== undefined && erSisteFirmaUtfylt(firmaer);
+        case EAktivitet.erSelvstendigNæringsdriveneEllerFrilanser:
+            return firmaer !== undefined && erSisteFirmaUtfylt(firmaer);
 
-    case EAktivitet.erAnsattIEgetAS:
-      return egetAS !== undefined && erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde);
+        case EAktivitet.erAnsattIEgetAS:
+            return egetAS !== undefined && erAksjeselskapFerdigUtfylt(egetAS, inkludertArbeidsmengde);
 
-    case EAktivitet.etablererEgenVirksomhet:
-      return (
-        etablererEgenVirksomhet !== undefined &&
-        etablererEgenVirksomhet !== null &&
-        harValgtSvar(etablererEgenVirksomhet.verdi)
-      );
+        case EAktivitet.etablererEgenVirksomhet:
+            return (
+                etablererEgenVirksomhet !== undefined &&
+                etablererEgenVirksomhet !== null &&
+                harValgtSvar(etablererEgenVirksomhet.verdi)
+            );
 
-    case EAktivitet.erArbeidssøker:
-      return (
-        arbeidssøker !== undefined && harValgtSvar(arbeidssøker.ønskerSøker50ProsentStilling?.verdi)
-      );
+        case EAktivitet.erArbeidssøker:
+            return arbeidssøker !== undefined && harValgtSvar(arbeidssøker.ønskerSøker50ProsentStilling?.verdi);
 
-    case EAktivitet.tarUtdanning:
-      return underUtdanning !== undefined && erAllUtdanningFerdigUtfylt(underUtdanning);
+        case EAktivitet.tarUtdanning:
+            return underUtdanning !== undefined && erAllUtdanningFerdigUtfylt(underUtdanning);
 
-    case EAktivitet.harFåttJobbTilbud:
-      return (
-        datoOppstartJobb !== undefined &&
-        erDatoGyldigOgInnenforBegrensning(datoOppstartJobb.verdi, GyldigeDatoer.Fremtidige)
-      );
+        case EAktivitet.harFåttJobbTilbud:
+            return (
+                datoOppstartJobb !== undefined &&
+                erDatoGyldigOgInnenforBegrensning(datoOppstartJobb.verdi, GyldigeDatoer.Fremtidige)
+            );
 
-    case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:
-      return true;
+        case EAktivitet.erHverkenIArbeidUtdanningEllerArbeidssøker:
+            return true;
 
-    default:
-      return false;
-  }
+        default:
+            return false;
+    }
 };

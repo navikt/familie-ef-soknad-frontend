@@ -1,8 +1,8 @@
-import { SøknadOvergangsstønad } from './søknad';
+import type { SøknadOvergangsstønad } from './søknad';
 
 export interface MellomlagretSøknadOvergangsstønad {
-  søknad: SøknadOvergangsstønad;
-  modellVersjon: number;
-  gjeldendeSteg: string;
-  locale: string;
+    søknad: SøknadOvergangsstønad;
+    modellVersjon: number;
+    gjeldendeSteg: string;
+    locale: string;
 }

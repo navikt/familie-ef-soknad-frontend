@@ -1,7 +1,9 @@
-import express from 'express';
 import dotenv from 'dotenv';
+import express from 'express';
 import mockPerson from './mocks/mockPerson.json' assert { type: 'json' };
+
 import mockToggles from './mocks/mockToggles.json' assert { type: 'json' };
+
 import bodyParser from 'body-parser';
 
 dotenv.config();
@@ -12,7 +14,7 @@ const port = 8092;
 app.use(bodyParser.json({}));
 app.use(bodyParser.urlencoded());
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.send('Test');
 });
 
@@ -35,7 +37,7 @@ app.post('/api/soknad', (req, res) => {
   });
 });
 
-let mellomlager = {};
+const mellomlager = {};
 
 app.get('/api/soknad/:stonadstype', (req, res) => {
   const stonadstype = req.params.stonadstype;

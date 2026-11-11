@@ -1,93 +1,82 @@
-import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { hentTekst } from '../../../../utils/teksthåndtering';
+import { BodyShort, VStack } from '@navikt/ds-react';
+import React, { type RefObject, useEffect, useRef, useState } from 'react';
+import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 import { useLokalIntlContext } from '../../../../context/LokalIntlContext';
+import type { IBarn } from '../../../../models/steg/barn';
+import { antallBarnMedForeldreUtfylt, hentIndexFørsteBarnSomIkkeErUtfylt } from '../../../../utils/barn';
+import { hentTekst } from '../../../../utils/teksthåndtering';
+import { useBarnasBosted } from './BarnasBostedContext';
 import { BarnetsBostedLagtTil } from './BarnetsBostedLagtTil';
 import { BarnetsBostedRedigerbar } from './BarnetsBostedRedigerbar';
-import { IBarn } from '../../../../models/steg/barn';
-import {
-  antallBarnMedForeldreUtfylt,
-  hentIndexFørsteBarnSomIkkeErUtfylt,
-} from '../../../../utils/barn';
-import { BodyShort, VStack } from '@navikt/ds-react';
-import { useBarnasBosted } from './BarnasBostedContext';
-import { BarneHeader } from '../../../../components/barneheader/BarneHeader';
 
 const scrollTilRef = (ref: RefObject<HTMLDivElement | null>) => {
-  if (!ref || !ref.current) return;
-  window.scrollTo({ top: ref.current!.offsetTop, left: 0, behavior: 'smooth' });
+    if (!ref || !ref.current) return;
+    window.scrollTo({ top: ref.current!.offsetTop, left: 0, behavior: 'smooth' });
 };
 
 export const BarnasBostedInnhold: React.FC = () => {
-  const intl = useLokalIntlContext();
-  const {
-    barnISøknad,
-    sisteBarnUtfylt,
-    settSisteBarnUtfylt,
-    barnMedLevendeMedforelderEllerUndefined,
-  } = useBarnasBosted();
+    const intl = useLokalIntlContext();
+    const { barnISøknad, sisteBarnUtfylt, settSisteBarnUtfylt, barnMedLevendeMedforelderEllerUndefined } =
+        useBarnasBosted();
 
-  const barnMedDødMedforelder = barnISøknad.filter((barn: IBarn) => {
-    return barn.medforelder?.verdi?.død === true;
-  });
+    const barnMedDødMedforelder = barnISøknad.filter((barn: IBarn) => {
+        return barn.medforelder?.verdi?.død === true;
+    });
 
-  const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(
-    barnMedLevendeMedforelderEllerUndefined
-  );
+    const antallBarnMedForeldre = antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined);
 
-  const [aktivIndex, settAktivIndex] = useState<number>(
-    hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelderEllerUndefined)
-  );
-
-  const lagtTilBarn = useRef(null);
-  const scrollTilLagtTilBarn = () => {
-    setTimeout(() => scrollTilRef(lagtTilBarn), 120);
-  };
-
-  useEffect(() => {
-    settSisteBarnUtfylt(
-      antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined) ===
-        barnMedLevendeMedforelderEllerUndefined.length
+    const [aktivIndex, settAktivIndex] = useState<number>(
+        hentIndexFørsteBarnSomIkkeErUtfylt(barnMedLevendeMedforelderEllerUndefined)
     );
-  }, [barnISøknad]);
 
-  return (
-    <>
-      {barnMedLevendeMedforelderEllerUndefined.map((barn: IBarn, index: number) => {
-        if (index === aktivIndex) {
-          return (
-            <BarnetsBostedRedigerbar
-              barn={barn}
-              settAktivIndex={settAktivIndex}
-              aktivIndex={aktivIndex}
-              key={index}
-              scrollTilLagtTilBarn={scrollTilLagtTilBarn}
-            />
-          );
-        } else {
-          return (
-            <React.Fragment key={barn.id}>
-              {index + 1 === antallBarnMedForeldre && (
-                <div ref={lagtTilBarn} key={barn.id + '-ref'} />
-              )}
-              <BarnetsBostedLagtTil
-                barn={barn}
-                settAktivIndex={settAktivIndex}
-                index={index}
-                key={barn.id}
-              />
-            </React.Fragment>
-          );
-        }
-      })}
-      {sisteBarnUtfylt &&
-        barnMedDødMedforelder.map((barn: IBarn) => (
-          <VStack key={barn.id} gap={'space-64'}>
-            <BarneHeader barn={barn} />
-            <BodyShort style={{ textAlign: 'center', marginTop: '2rem' }}>
-              {hentTekst('barnasbosted.kanGåVidere', intl)}
-            </BodyShort>
-          </VStack>
-        ))}
-    </>
-  );
+    const lagtTilBarn = useRef(null);
+    const scrollTilLagtTilBarn = () => {
+        setTimeout(() => scrollTilRef(lagtTilBarn), 120);
+    };
+
+    useEffect(() => {
+        settSisteBarnUtfylt(
+            antallBarnMedForeldreUtfylt(barnMedLevendeMedforelderEllerUndefined) ===
+                barnMedLevendeMedforelderEllerUndefined.length
+        );
+    }, [barnISøknad]);
+
+    return (
+        <>
+            {barnMedLevendeMedforelderEllerUndefined.map((barn: IBarn, index: number) => {
+                if (index === aktivIndex) {
+                    return (
+                        <BarnetsBostedRedigerbar
+                            barn={barn}
+                            settAktivIndex={settAktivIndex}
+                            aktivIndex={aktivIndex}
+                            key={index}
+                            scrollTilLagtTilBarn={scrollTilLagtTilBarn}
+                        />
+                    );
+                } else {
+                    return (
+                        <React.Fragment key={barn.id}>
+                            {index + 1 === antallBarnMedForeldre && <div ref={lagtTilBarn} key={barn.id + '-ref'} />}
+                            <BarnetsBostedLagtTil
+                                barn={barn}
+                                settAktivIndex={settAktivIndex}
+                                index={index}
+                                key={barn.id}
+                            />
+                        </React.Fragment>
+                    );
+                }
+            })}
+            {sisteBarnUtfylt &&
+                barnMedDødMedforelder.map((barn: IBarn) => (
+                    <VStack key={barn.id} gap={'space-64'}>
+                        <BarneHeader barn={barn} />
+                        <BodyShort style={{ textAlign: 'center', marginTop: '2rem' }}>
+                            {hentTekst('barnasbosted.kanGåVidere', intl)}
+                        </BodyShort>
+                    </VStack>
+                ))}
+        </>
+    );
 };
