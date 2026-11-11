@@ -47,12 +47,15 @@ I appen har vi tekstinnhold på norsk bokmål, engelsk og nynorsk.
 Det skrives ut 3 ulike tekstbolker i "Utdata"-fanen under kodesnutten. Denne skal kopieres og limes inn i tilhørende "tekster_xx.json" fil. Husk å kjøre reformat (optn + cmd + l")
 
 
-## Sett opp Prettier lokalt on save (IntelliJ)
+## Formatering og linting med Biome
 
-1. I IntelliJ, åpne settings. Finn prettier. Ligger under Languages and Frameworks -> Javascript -> Prettier.
-2. Sjekk av bokser for: 'On reformat code' og 'On save'
+Prosjektet bruker [Biome](https://biomejs.dev/) til formatering, linting og organisering av importer.
 
-Test om Prettier fungerer ved å gå inn i en tilfeldig tsx-fil, lag et par nye linjer, og `Ctrl`+ `S`. Hvis koden reformatteres (fjerner alle utenom en av de tomme linjene), så er Prettier på plass lokalt! :sparkles:
+Kjør `npm run lint` for TypeScript-sjekk og Biome-sjekk, `npm run lint:fix` for automatiske rettelser,
+eller `npm run format` for kun formatering. Bygg kjører også `npm run lint`.
+
+For formatering ved lagring i IntelliJ, installer Biome-pluginen og bruk prosjektets `biome.json`.
+Slå av eventuell eksisterende Prettier-integrasjon.
 
 ## Kode generert av GitHub Copilot
 

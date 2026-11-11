@@ -11,16 +11,13 @@
     "start:mock": "npm run build:dev-server && npm run set-node-options NODE_ENV=development BRUK_MOCK_LOKALT=true ENV=localhost node server/build/server-lokal.js",
     "test": "vitest run",
     "vitest": "vitest",
-    "lint": "tsc --project ./tsconfig.json --noEmit && eslint './src/**/*.{js,ts,tsx}'",
+    "lint": "tsc --project ./tsconfig.json --noEmit && biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
     "dev:hent-tokens": "npx tsx scripts/hent-dev-token.ts",
     "build:dev-server": "cd server && tsc --build --verbose && cd ..",
     "postinstall": "cd server && npm ci && cd ..",
     "set-node-options": "NODE_OPTIONS='--import=./server/build/register.js --es-module-specifier-resolution=node'"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
   },
   "browserslist": {
     "production": [
@@ -36,13 +33,13 @@
     ]
   },
   "dependencies": {
+    "@grafana/faro-web-tracing": "^2.11.0",
+    "@nais/apm": "^0.6.3",
     "@navikt/ds-css": "^8.14.0",
     "@navikt/ds-react": "^8.14.0",
     "@navikt/ds-tokens": "^8.14.0",
     "@navikt/fnrvalidator": "^2.2.1",
     "@navikt/nav-dekoratoren-moduler": "^4.5.0",
-    "@nais/apm": "^0.6.3",
-    "@grafana/faro-web-tracing": "^2.11.0",
     "axios": "^1.18.1",
     "constate": "^4.0.0",
     "date-fns": "^4.4.0",
@@ -56,6 +53,7 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -65,23 +63,14 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "autoprefixer": "^10.5.2",
-    "eslint": "^9.39.5",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-prettier": "^5.5.6",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "6.1.1",
     "http-proxy-middleware": "^4.2.0",
     "husky": "^9.1.7",
     "jsdom": "^25.0.1",
     "npm": "^11.18.0",
     "playwright": "^1.61.1",
     "postcss": "^8.5.16",
-    "prettier": "^3.9.4",
-    "pretty-quick": "^4.2.2",
     "tsx": "^4.23.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.1",
     "vite": "^8.1.3",
     "vitest": "^4.1.9"
   },

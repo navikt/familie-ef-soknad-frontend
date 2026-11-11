@@ -28,7 +28,7 @@ export const HvilkeBarnHarSærligeBehov: React.FC = () => {
       const oppdatertBarn = leggTilSærligeBehov(barnMedSærligeBehov, intl);
       oppdaterBarnISøknaden(oppdatertBarn);
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // biome-ignore lint/correctness/noUnusedVariables: Remove særligeTilsynsbehov from the updated child.
       const { særligeTilsynsbehov, ...barn } = barnMedSærligeBehov;
       oppdaterBarnISøknaden(barn);
     }

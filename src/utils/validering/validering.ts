@@ -1,8 +1,7 @@
 import { array, object, string } from 'yup';
 import { dnr as dnrValidator, fnr as fnrValidator } from '@navikt/fnrvalidator';
 
-// eslint-disable-next-line
-const datoRegex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
+const datoRegex = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
 
 export enum ManglendeFelter {
   BOSITUASJONEN_DIN = 'BOSITUASJONEN_DIN',

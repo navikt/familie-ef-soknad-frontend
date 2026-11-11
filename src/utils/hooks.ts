@@ -35,7 +35,7 @@ export const useLeggTilSærligeBehovHvisHarEttBarMedSærligeBehov = (
         oppdaterBarnISoknaden(oppdatertBarn);
       }
       if (barn.særligeTilsynsbehov && !harSvartJaPåAtHarBarnMedSærligeBehov) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // biome-ignore lint/correctness/noUnusedVariables: Remove særligeTilsynsbehov from the updated child.
         const { særligeTilsynsbehov, ...rest } = barn;
         oppdaterBarnISoknaden(rest);
       }
