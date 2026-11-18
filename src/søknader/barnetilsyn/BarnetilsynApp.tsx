@@ -76,7 +76,6 @@ const BarnetilsynApp = () => {
       return (
         <>
           <title>{hentTekst('banner.tittel.barnetilsyn', intl)}</title>
-
           <SøknadsdialogBarnetilsyn />
         </>
       );
