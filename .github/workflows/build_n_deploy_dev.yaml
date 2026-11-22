@@ -34,7 +34,7 @@ jobs:
           npm ci
           npm run build
       - name: Push docker image to GAR and sign image
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v1
         id: docker-build-push
         with:
           team: teamfamilie
